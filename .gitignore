@@ -1,10 +1,23 @@
-*.mo
-*.pot
+
+*desktop.ini
+
+/nbproject
+/.idea
+
 
  *(copy)*
 *.old.*
 
+
+*.mo
+*.pot
+
+
+
+
+
 /.htaccess
+
 
 /index.php
 /cache
@@ -14,5 +27,3 @@
 /userdata
 
 
-/nbproject
-/.idea
