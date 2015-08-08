@@ -66,7 +66,7 @@ function getZ(x,y){
 	var n=0;
 
     //n+=Math.pow(Math.pow(x,3)+Math.pow(y,3),(1/2));
-    n+=Math.pow(Math.pow(x/2,3)+Math.pow(y,3),(1/1.41));
+    n+=Math.pow(Math.pow(x,2)+Math.pow(y,3),(1/1.4));
 
 	//n+=Math.pow(Math.pow(x,2)+Math.pow(y,3),(1/2.3));
 
@@ -318,11 +318,11 @@ function getMap(startX,startY,size){
 var terrains=[	
 	[ 0 , -1 , '000000'] ,  //temnota
 	[ 1 , 11 , '5299F9'] ,  //moře
-	[11 , 17 , '337EFA'] ,  //řeka
-	[ 4 , 19 , 'F9F98D'] ,  //písek
-	[ 7 , 20 , 'DCDCAC'] ,  //sůl
+	[11 , 20 , '337EFA'] ,  //řeka
+	[ 4 , 22 , 'F9F98D'] ,  //písek
+	//[ 7 , 22 , 'DCDCAC'] ,  //sůl
 	[ 9 , 22 , '51F311'] ,  //tráva(toxic)
-	[12 , 24 , '8ABC02'] ,  //tráva(jaro)
+	[12 , 25 , '8ABC02'] ,  //tráva(jaro)
 	[ 8 , 29 , '2A7302'] ,  //tráva(normal)
 	[13 , 30 , '8A9002'] ,  //tráva(pozim)
 	[10 , 35 , '535805'] ,  //les

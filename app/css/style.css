@@ -7,10 +7,18 @@ body, html {
     margin: 0;
     font-family: 'Roboto', sans-serif;
 }
-
 html {
-    background: url("../img/map.png") no-repeat center center fixed;
-    background-size: cover;
+    overflow: hidden;
+}
+
+body {
+    width:100vw;
+    height:100vh;
+
+    background-color: #000011;//#FFFFFF;
+    margin: 0px;
+
+
 }
 
 .left {
@@ -36,6 +44,7 @@ iframe {
 /* MENU --------------------------------------------------------------------------------------------------------------*/
 
 .menu {
+    z-index:5000;
     position: fixed;
     top: 0;
     left: 0;
@@ -204,6 +213,7 @@ iframe {
 /* SIDEBAR -----------------------------------------------------------------------------------------------------------*/
 
 .sidebar {
+    z-index:4000;
     position: fixed;
     top: 60px;
     left: 0;
@@ -246,6 +256,7 @@ iframe {
 .js-popup-action-close {}
 
 .popup-action {
+
     display: none;
     position: absolute;
     top: 0;
@@ -324,7 +335,7 @@ iframe {
 
 .overlay {
     display: none;
-    z-index: 5;
+    z-index: 6000;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -341,7 +352,7 @@ iframe {
 
 .popup-story {
     display: none;
-    z-index: 10;
+    z-index: 7000;
     position: fixed;
     top: 80px;
     bottom: 20px;
@@ -404,7 +415,7 @@ iframe {
 
 .popup-notification {
     display: none;
-    z-index: 3;
+    z-index: 4000;
     position: fixed;
     top: 65px;
     right: 15px;
