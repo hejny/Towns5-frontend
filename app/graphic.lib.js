@@ -11,11 +11,16 @@ var map_rotation=0;//Math.random()*360;
 var map_slope=30;
 
 
-var map_x=(Math.random()-0.5)*10000;
-var map_y=map_x+(Math.random()-0.5)*2000;
+//var map_x=(Math.random()-0.5)*10000;
+//var map_y=map_x+(Math.random()-0.5)*2000;
 
-//var map_x=0;
-//var map_y=0;
+//var map_x=30311400;
+//var map_y=30311400;
+
+//var map_x=-40311400;
+//var map_y=-40311400;
+
+var map_x=0;var map_y=0;
 
 
 //----
@@ -329,14 +334,14 @@ function drawMap(){
                     var height = Math.ceil(width  * size /* map_zoom_m*/);
 
 
-                    screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 - 160*size) * map_zoom_m;
-                    screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 - 160*size) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
+                    screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
+                    screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
 
 
 
 
                     screen_x += (canvas_width / 2);
-                    screen_y += (canvas_height / 2);
+                    screen_y += (canvas_height / 2)-(height/2);
 
 
                     if(screen_x>-(width/2) && screen_y>-(height/2) && screen_x<canvas_width && screen_y<canvas_height+(160*size)){
@@ -380,9 +385,9 @@ function drawMap(){
 
 
                             if(terrain==9){
-                                var size=Math.sin(Math.pow(world_x*world_y,(1/1.5))/10)/6+1;
+                                var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/6+1;
                             }else{
-                                var size=Math.sin(Math.pow(world_x*world_y,(1/2))/10)/2+1.62;
+                                var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1.62;
                              }
 
 
@@ -397,13 +402,13 @@ function drawMap(){
                             object_yc+=Math.sin((Math.pow(world_x,4)+Math.pow(world_y,1))/10)/1.41;
 
 
-                            object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 - 160*size) * map_zoom_m;
-                            object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 - 160*size) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
+                            object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
+                            object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
 
 
 
                             object_screen_x += (canvas_width / 2)  + (width/2)  - (object_width/2);
-                            object_screen_y += (canvas_height / 2) + (height/2) - (object_height)+(object_width/2)/*-40+object_deep*/;
+                            object_screen_y += (canvas_height / 2) - (object_height)+(object_width/2)/*-40+object_deep*/;
 
 
                             map_bg_ctx.drawImage(

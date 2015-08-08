@@ -2,21 +2,56 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Prototyp</title>
-        <link rel="stylesheet" href="css/style.css" />
+        <title>Towns</title>
+        <link rel="stylesheet" href="app/css/style.css" />
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
-        <script src="js/jquery-1.11.3.min.js"></script>
 
-        <script src="js/script.js"></script>
+
+        <script src="app/lib/jquery-1.11.3.js"></script>
+        <script src="app/lib/jquery-ui.js"></script>
+
+        <script src="app/lib/touch-punch.js"></script>
+        <script src="app/lib/mousewheel.js"></script>
+        <script src="app/lib/hammer.min.js"></script>
+        <!--<script src="lib/jquery.hammer.js"></script>-->
+
+
+        <script src="app/map.lib.js"></script>
+        <!--<script src="app/model.lib.js" ></script>-->
+        <script src="app/graphic.lib.js"></script>
+        <script src="app/events.js"></script>
+
+
+        <script src="app/js/script.js"></script>
+
+
     </head>
     <body>
 
     <!--<iframe src="https://towns.cz/onlymap" width="100%" height="100%" frameborder="0"></iframe>-->
 
-        <nav class="menu">
+
+    <div style="position:absolute;width: 100vw;height: 100vh;z-index:3000;/*border: 2px dashed #FF0000;*/" id="map_drag">
+    </div>
+
+
+    <div style="position:absolute;width: 100vw;height: 100vh;font-size:2em;text-align:center;z-index:2000;" >
+        <div style="position: relative;top: 50%;transform: translateY(-50%);" id="loadbar"></div>
+    </div>
+
+
+    <canvas id="map_bg" width="100" height="100" style="position:absolute;top:0px;left:0px;z-index:1000;"></canvas>
+
+
+
+
+
+
+
+    <nav class="menu">
             <div class="menu-logo">
-                <img src="img/logo1.png" alt="Towns.cz logo"/>
+                <img src="media/image/icon/logo1.png" alt="Towns.cz logo"/>
             </div>
 
             <ul class="menu-list menu-list-left">
@@ -78,25 +113,31 @@
                     </ul>
                 </li>
 
-                <li class="menu-list-item" style="margin-left: 15px; margin-top: 17px; margin-right: 5px;"><img src="img/resources.png" alt=""/></li> <!-- todo: -->
+                <!-- @todo
+                <li class="menu-list-item" style="margin-left: 15px; margin-top: 17px; margin-right: 5px;"><img src="media/image/icon/resources.png" alt=""/></li>
+                -->
+
+
             </ul>
 
             <ul class="menu-list menu-list-right">
                 <li class="menu-list-item menu-list-item-registration"><a class="js-popup-story-open" href="#">Dokončit registraci</a></li>
-                <li class="menu-list-item menu-list-item-icon js-popup-notification-open"><img src="img/notification.png" alt="notification"/></li>
-                <li class="menu-list-item menu-list-item-icon"><img src="img/gear.png" alt="sound"/></li>
-                <li class="menu-list-item menu-list-item-icon"><img src="img/fullscreen.png" alt="fullscreen"/></li>
+                <li class="menu-list-item menu-list-item-icon js-popup-notification-open"><img src="media/image/icon/notification.png" alt="notification"/></li>
+                <li class="menu-list-item menu-list-item-icon"><img src="media/image/icon/gear.png" alt="sound"/></li>
+                <li class="menu-list-item menu-list-item-icon"><img src="media/image/icon/fullscreen.png" alt="fullscreen"/></li>
             </ul>
 
             <div class="cleaner"></div>
         </nav>
 
+
+
+
         <aside class="sidebar">
 
-            <?php for($i = 1; $i < 50; $i++): ?>
 
             <div class="action-wrapper">
-                <div class="action js-popup-action-open"><?= $i ?></div>
+                <div class="action js-popup-action-open">0</div>
 
                 <div class="popup-action">
                     <div class="arrow"></div>
@@ -109,8 +150,29 @@
                 </div>
             </div>
 
-            <?php endfor ?>
+
+
         </aside>
+
+        <script>
+
+
+            $(function(){
+                var sideTemplate=$('.sidebar').html();
+                var sideHtml='';
+
+                //alert(sideTemplate);
+
+                for(i=0;i<50;i++)
+                    sideHtml+=sideTemplate;
+
+                $('.sidebar').html(sideHtml);
+            });
+
+
+
+        </script>
+
 
         <div class="overlay"></div>
 
@@ -124,7 +186,7 @@
                 <p>&nbsp;<img src="https://towns.cz/tmp/world2/imgresizewurl/162/120/289315.jpg" alt="" width="100%"></p>
                 <p>Než stačili celý ostrov zničit, objevil se kolem nich Rudý les, jako kdyby vystoupil z mlhy. Najednou je obklopila nepředstavitelná síla a tato síla byla dobrá, protože oba bratři byli opět obyčejní, nemohli nic ovládat ani nic užitečného vyrábět. Jejich moc byla pryč. V tu chvíli pravil les: „Zmizte odtud, prašiví červi. Nikdy se tu neukazujte!“ Šlahouny ostružiníku začaly šlehat všude kolem nich a několikrát bratry zasáhly. Bratři se svíjeli v nepředstavitelných bolestech, ale povedlo se jim z lesa odejít, každý zmizel na opačné světové straně. Netrvalo dlouho a získali si své příznivce, kteří realizovali jejich vize a stvořili tak věčný boj mezi Magií a Technologií.</p>
                 <p>Avšak nikomu tento ostrov nepatří, patří jen Rudému lesu. Toho si byli ostrované vědomi, a tak po několika letech o Rudý les bojovali v dalším krutém boji. Byli tací, kteří se drželi stranou, stavěli, budovali a žili šťastně – ale těch bylo málo. Když obě strany zjistily, že se Rudý les nedá ovládnout, rozhodly se ho společnými silami zničit. Proč zrovna strach dokáže donutit ke spolupráci? Proč ne láska? Rudý les znal jejich motivy i jejich zkažená srdce a opět se změnil v prázdnou poušť. Nenávist mezi příznivci Magie a Technologie neustala, ale získala jiné rozměry, o kterých není vhodné se zmiňovat. Když se vítr uklidnil, Rudý les se opět objevil.</p>
-            </div>
+            </div>;
             <div class="close js-popup-story-close"></div>
         </div>
 

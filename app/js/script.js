@@ -1,9 +1,15 @@
 /**
  * Created by matusko on 6/28/15.
+ * Updated by ph
+ *
  */
 
-// popup action
-$(document).ready(function(){
+
+$(function(){
+
+    //==================================================================================================================popup action
+
+
 
     // kliknutie na .js-popup-action-open trigger...
     $(".js-popup-action-open").on("click", function(){
@@ -22,10 +28,10 @@ $(document).ready(function(){
     $(".js-popup-action-close").on("click", function(){
         $(".action-wrapper").removeClass("active");
     });
-});
 
-// popup story
-$(document).ready(function(){
+    //==================================================================================================================popup story
+
+
 
     // kliknutie na js-popup-story-open trigger zobrazí overlay a popup-story
     $(".js-popup-story-open").on("click", function(){
@@ -44,10 +50,12 @@ $(document).ready(function(){
         $(".overlay").hide();
         $(".popup-story").hide();
     });
-});
 
-// popup notification
-$(document).ready(function(){
+
+    //==================================================================================================================popup notification
+
+
+
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
     $(".js-popup-notification-open").on("click", function(event){
         event.stopPropagation();
@@ -63,10 +71,14 @@ $(document).ready(function(){
     $(document).on("click", function(){
         $(".popup-notification").hide();
     });
-});
 
-// esc keyup
-$(document).ready(function(){
+
+
+    //==================================================================================================================esc keyup
+
+
+
+
     // ak sa klikne tlačítkom esc ...
     $(document).keyup(function(e) {
 
@@ -85,4 +97,31 @@ $(document).ready(function(){
             $(".popup-notification").hide();
         }
     });
+
+
+
+
+
+    //==================================================================================================================schovani sidebar
+
+
+    $("#map_drag").click(function (e) {
+
+        $('.sidebar').hide();
+        //var pos   = $(this).offset();
+
+        //canvas_mouse_x = e.clientX;//-pos.left;
+        //canvas_mouse_y = e.clientY;//-pos.top;
+
+
+    });
+
+
+
+
+    //==================================================================================================================
+
+
+
 });
+
