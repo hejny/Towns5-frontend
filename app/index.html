@@ -3,8 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <title>Towns</title>
-        <link rel="stylesheet" href="app/css/style.css" />
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+        <link rel="icon" href="favicon.ico">
+
+
+        <link rel="stylesheet" type="text/css" href="app/css/style.css" />
+
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext" >
+        <link rel="stylesheet" type="text/css" href="app/css/font-awesome-4.4.0/css/font-awesome.css" >
 
 
 
@@ -52,6 +58,8 @@
     <nav class="menu">
             <div class="menu-logo">
                 <img src="media/image/icon/logo1.png" alt="Towns.cz logo"/>
+
+
             </div>
 
             <ul class="menu-list menu-list-left">
@@ -122,9 +130,15 @@
 
             <ul class="menu-list menu-list-right">
                 <li class="menu-list-item menu-list-item-registration"><a class="js-popup-story-open" href="#">Dokončit registraci</a></li>
-                <li class="menu-list-item menu-list-item-icon js-popup-notification-open"><img src="media/image/icon/notification.png" alt="notification"/></li>
-                <li class="menu-list-item menu-list-item-icon"><img src="media/image/icon/gear.png" alt="sound"/></li>
-                <li class="menu-list-item menu-list-item-icon"><img src="media/image/icon/fullscreen.png" alt="fullscreen"/></li>
+
+
+
+                <li class="menu-list-item menu-list-item-icon js-popup-notification-open"><i class="fa fa-flag fa-lg"></i></li>
+                <li class="menu-list-item menu-list-item-icon"><i class="fa fa-cogs fa-lg"></i></li>
+                <li class="menu-list-item menu-list-item-icon"><i class="fa fa-arrows-alt fa-lg"></i></li>
+
+
+
             </ul>
 
             <div class="cleaner"></div>
@@ -137,7 +151,7 @@
 
 
             <div class="action-wrapper">
-                <div class="action js-popup-action-open">0</div>
+                <div class="action js-popup-action-open">%i</div>
 
                 <div class="popup-action">
                     <div class="arrow"></div>
@@ -154,24 +168,6 @@
 
         </aside>
 
-        <script>
-
-
-            $(function(){
-                var sideTemplate=$('.sidebar').html();
-                var sideHtml='';
-
-                //alert(sideTemplate);
-
-                for(i=0;i<50;i++)
-                    sideHtml+=sideTemplate;
-
-                $('.sidebar').html(sideHtml);
-            });
-
-
-
-        </script>
 
 
         <div class="overlay"></div>

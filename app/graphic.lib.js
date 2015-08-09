@@ -8,11 +8,12 @@ var map_loaded=false;
 
 var map_zoom=-3;
 var map_rotation=0;//Math.random()*360;
-var map_slope=30;
+var map_slope=27;
 
 
-//var map_x=(Math.random()-0.5)*10000;
-//var map_y=map_x+(Math.random()-0.5)*2000;
+var map_x=(Math.random()-0.5)*1000000;
+//var map_y=(Math.random()-0.5)*1000000;
+var map_y=map_x+(Math.random()-0.5)*200000;
 
 //var map_x=30311400;
 //var map_y=30311400;
@@ -20,7 +21,7 @@ var map_slope=30;
 //var map_x=-40311400;
 //var map_y=-40311400;
 
-var map_x=0;var map_y=0;
+//var map_x=0;var map_y=0;
 
 
 //----
@@ -536,7 +537,7 @@ function updateMap(ms){
 
     }
 
-    console.log(ms);
+    //console.log(ms);
 
 
     //if(!map_loaded)return
@@ -607,7 +608,7 @@ function updateMap(ms){
 
 
         if(map_size<4)map_size=4;
-        if(map_size>120)map_size=120;//160;
+        if(map_size>160)map_size=160;//160;
 
         //console.log(map_size);
 

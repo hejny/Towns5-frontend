@@ -144,13 +144,25 @@ var controls={
 
 $( document ).ready(function() {
 
+    //------------------------------------------------------------
+
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+
+    //------------------------------------------------------------
+
 
     $(document).keydown(function (e) {
 
         //e.preDefault();
 
         //console.log(e.which);
-        $('html').scrollLeft(0);
+        //$('html').scrollLeft(0);
+        //$('html').scrollTop(0);
 
 
         if ($.inArray(e.which, keys) == -1) {
@@ -212,22 +224,25 @@ $( document ).ready(function() {
 
             if ($.inArray('down', keys_) != -1) {
 
-                map_x_delta = Math.sin(map_rotation / 180 * pi) * 50;
-                map_y_delta = Math.cos(map_rotation / 180 * pi) * 50;
+                //map_x_delta = Math.sin(map_rotation / 180 * pi) * 50;
+                //map_y_delta = Math.cos(map_rotation / 180 * pi) * 50;
+                mapMove(0,-30);
 
 
             }
 
 
             if ($.inArray('left', keys_) != -1) {
-                map_rotation_delta = 45;
-                updateMap();
+                //map_rotation_delta = 45;
+                //updateMap();
+                mapMove(30,0);
             }
 
 
             if ($.inArray('right', keys_) != -1) {
-                map_rotation_delta = -45;
-                updateMap();
+                //map_rotation_delta = -45;
+                //updateMap();
+                mapMove(-30,0);
             }
 
 
@@ -342,16 +357,24 @@ $( document ).ready(function() {
     });
 
 
+
+//=======================================================================================================================schovani sidebar
+
+
+    $("#map_drag").click(function (e) {
+
+        //$('.sidebar').hide();
+
+        $('.sidebar').stop(true,true);
+        $('.sidebar').animate({left:-60}, 200);
+
+
+    });
+
+
+
+
+
 //======================================================================================================================
-
-
-    /*
-
-
-     var map_clicked_x=0;
-     var map_clicked_y=0;
-
-
-     $('#map_drag').click(function()*/
 
 });
