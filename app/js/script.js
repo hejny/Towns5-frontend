@@ -9,6 +9,22 @@ $(function(){
 
     //==================================================================================================================popup action
 
+    // [PH] -> [Matusko]  Přepsal jsem PHP skript na JS
+
+
+    var sideTemplate=$('.sidebar').html();
+    var sideHtml='';
+
+    //alert(sideTemplate);
+
+    for(i=0;i<50;i++){
+
+        sideHtml+=sideTemplate.split('%i').join(i);
+    }
+
+
+    $('.sidebar').html(sideHtml);
+
 
 
     // kliknutie na .js-popup-action-open trigger...
@@ -99,22 +115,6 @@ $(function(){
     });
 
 
-
-
-
-    //==================================================================================================================schovani sidebar
-
-
-    $("#map_drag").click(function (e) {
-
-        $('.sidebar').hide();
-        //var pos   = $(this).offset();
-
-        //canvas_mouse_x = e.clientX;//-pos.left;
-        //canvas_mouse_y = e.clientY;//-pos.top;
-
-
-    });
 
 
 
