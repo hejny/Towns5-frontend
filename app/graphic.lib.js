@@ -12,8 +12,8 @@ var map_slope=27;
 
 
 var map_x=(Math.random()-0.5)*1000000;
-//var map_y=(Math.random()-0.5)*1000000;
-var map_y=map_x+(Math.random()-0.5)*200000;
+var map_y=(Math.random()-0.5)*1000000;
+//var map_y=map_x+(Math.random()-0.5)*200000;
 
 //var map_x=30311400;
 //var map_y=30311400;
@@ -347,7 +347,7 @@ function drawMap(){
 
                     if(screen_x>-(width/2) && screen_y>-(height/2) && screen_x<canvas_width && screen_y<canvas_height+(160*size)){
 
-                        var seed = numberOfPrimes(world_x * world_y - 1, seedCount - 1) % seedCount;
+                        var seed = Math.abs(world_x * world_y - 1) % seedCount;
 
 
 
@@ -357,6 +357,7 @@ function drawMap(){
                         }
 
 
+                        //console.log(seed);
                         map_bg_ctx.drawImage(
                             all_images_bg[terrain][seed],
                             screen_x,
@@ -378,103 +379,68 @@ function drawMap(){
                         //----------------------------------------------------------------------------------------------Virtuální objekty
                         if((terrain==9 /*&& map_data[y+1][x]!=4 && map_data[y-1][x]!=4 && map_data[y][x+1]!=4 && map_data[y][x-1]!=4*/ ) || terrain==4) {
 
-
-
-                            var object_seed=(Math.pow(world_x,2)+Math.pow(world_y,2))%(terrain==9?treeCount:rockCount);
-
-                            var object=(terrain==9?all_images_tree[object_seed]:all_images_rock[object_seed]);
-
-
+                            var block_object=false;
                             if(terrain==9){
-                                var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/6+1;
-                            }else{
-                                var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1.62;
-                             }
+
+                                if(y>0)
+                                    if(map_bg_data[y-1][x]==4)block_object=true;
+                                if(y<map_size-1)
+                                    if(map_bg_data[y+1][x]==4)block_object=true;
+                                if(x>0)
+                                    if(map_bg_data[y][x-1]==4)block_object=true;
+                                if(x<map_size-1)
+                                    if(map_bg_data[y][x+1]==4)block_object=true;
+
+                            }
+
+                            if(!block_object){
 
 
-                            var object_width=object.width*(width/100)*size;
-                            var object_height=object.height*(width/100)*size;
+                                var object_seed=(Math.pow(world_x,2)+Math.pow(world_y,2))%(terrain==9?treeCount:rockCount);
+
+                                var object=(terrain==9?all_images_tree[object_seed]:all_images_rock[object_seed]);
 
 
-                            object_xc=xc;
-                            object_yc=yc;
-
-                            object_xc+=Math.sin((Math.pow(world_x,2)+Math.pow(world_y,2))/10)/1.41;
-                            object_yc+=Math.sin((Math.pow(world_x,4)+Math.pow(world_y,1))/10)/1.41;
-
-
-                            object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-                            object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
+                                if(terrain==9){
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/6+1;
+                                }else{
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1.62;
+                                }
 
 
-
-                            object_screen_x += (canvas_width / 2)  + (width/2)  - (object_width/2);
-                            object_screen_y += (canvas_height / 2) - (object_height)+(object_width/2)/*-40+object_deep*/;
-
-
-                            map_bg_ctx.drawImage(
-                                object,
-
-                                object_screen_x,
-                                object_screen_y,
-
-                                /*screen_x+(width/2)-(object_width/2),
-                                screen_y+(height/2)-(object_height)+(object_width/4),*/
-
-                                object_width,
-                                object_height);
+                                var object_width=object.width*(width/100)*size;
+                                var object_height=object.height*(width/100)*size;
 
 
-                        }
-                        //----------------------------------------------------------------------------------------------
-                        if(terrain==4){
+                                object_xc=xc;
+                                object_yc=yc;
+
+                                object_xc+=Math.sin((Math.pow(world_x,2)+Math.pow(world_y,2))/10)/1.41;
+                                object_yc+=Math.sin((Math.pow(world_x,4)+Math.pow(world_y,1))/10)/1.41;
 
 
-
-                            /*for(var i=0;i<2000;i++){
-
-                                xx=(s*100)+(x*s);
-                                yy=(s*330)+(y*s*0.5);
-
-                                dist2=Math.sqrt(Math.pow(x-cx,2)+Math.pow(y-cy,2));
-
-                                a=(127-lvl);
-                                if(a<1)a=1;if(a>127)a=127;
-
-
-                                tmpcolor=  imagecolorallocatealpha(img, round(gr/32)*32, round(gr/32)*32, round(gr/32)*32,a);
-
-                                imagefilledellipse(img, xx+posuvx, yy+posuvy-lvl, rx, ry+(lvl/5), tmpcolor);
-                                imagefilledellipse(img2, xx+posuvx+(lvl*Math.sqrt(2)*0.4)+4, yy+posuvy+(lvl*Math.sqrt(2)*0.1), rx, ry+(lvl/5), shade);
+                                object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
 
 
 
-                                imagecolordeallocate(img, tmpcolor);
+                                object_screen_x += (canvas_width / 2)  + (width/2)  - (object_width/2);
+                                object_screen_y += (canvas_height / 2) - (object_height)+(object_width/2)/*-40+object_deep*/;
 
-                                px=x;py=y;
-                                x+=rand(-1,1);
-                                y+=rand(-1,1);
-                                gr+=(rand(-1,1)+2*(-x+px))/2;
 
-                                dist1=Math.sqrt(Math.pow(x-cx,2)+Math.pow(y-cy,2));
+                                map_bg_ctx.drawImage(
+                                    object,
 
-                                distq=dist1-dist2;
+                                    object_screen_x,
+                                    object_screen_y,
 
-                                tmp=Math.abs(x-px)*rand(0,10)*-ceil(distq)+vv;
-                                if(tmp>maxk)tmp=maxk;if(tmp<-maxk)tmp=-maxk;
-                                lvl+=tmp;
-                                rx+=rand(-1,1);
-                                ry+=rand(-1,1);
+                                    /*screen_x+(width/2)-(object_width/2),
+                                     screen_y+(height/2)-(object_height)+(object_width/4),*/
 
-                                bounds=80;
-                                if(dist1>bounds){x=px;y=py;}
+                                    object_width,
+                                    object_height);
 
-                                if(gr<30)gr=30;if(gr>130)gr=130;
-                                if(lvl<-5)lvl=-5;if(lvl>200)lvl=200;
-                                if(rx<2)rx=2;if(rx>11)rx=11;
-                                if(ry<2)ry=2;if(ry>11)ry=11;
-
-                            }*/
+                            }
 
                         }
                         //----------------------------------------------------------------------------------------------
