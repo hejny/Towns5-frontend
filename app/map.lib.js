@@ -3,49 +3,17 @@
 var mapdata=[];
 
 
-
-/*function addGraph(periode,amplitude,rotation,startX,startY){
-
-	if(rotation==false)rotation=Math.random()*31415;
-
-	mapdata.push([periode,amplitude,rotation,startX,startY]);
-
-}*/
-
-
-function numberOfPrimes(n,limit){
-
-    n=Math.floor(n);
-
-    var count=0;//false;
-
-    var i=2;
-    while (n != 1 && limit>0){
-        limit--;
-
-        if((n % i) == 0) {
-
-            n = n / i;
-
-            count++;
-
-        }else{
-            i++;
-        }
-
-    }
-
-
-    return(count);
-
-
-}
+var maxlevel=130;
+//var maxlevel=180*;
 
 
 
 
 
 
+/*
+@return integer
+*/
 function getZ(x,y){
 
 	//var z=(x/y)*50;
@@ -56,41 +24,19 @@ function getZ(x,y){
 	}
 
 
-	//var z=false;
-
-	//return((x+y)%5);	
-
-	//var n=x*x*y*y;
-	//var n=Math.pow(Math.pow(x,n)+Math.pow(y,n),(1/(n-1)));//*x+y*y;
 
 	var n=0;
 
-    //n+=Math.pow(Math.pow(x,3)+Math.pow(y,3),(1/2));
-    n+=Math.pow(Math.pow(x,2)+Math.pow(y,3),(1/1.4));
 
-	//n+=Math.pow(Math.pow(x,2)+Math.pow(y,3),(1/2.3));
+    n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
 
+    n+=Math.round(Math.pow(Math.pow(x+y,2)+Math.pow(x,2),(1/1.6))/16)%2;
 
-	//n+=Math.pow(Math.pow(x,4)+Math.pow(y,4),(1/5));
+    //n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1)/4)%3;
 
-	//n=Math.round(n)/2;
+	return(n);
 
-
-    var z=numberOfPrimes(n,4);
-
-	//z=z*20;
-
-	//z=Math.random()*z;
-
-	/*if(z)
-		z=100;
-	else
-		z=0;*/
-
-	//z=Math.round(z);
-	//if(z>100)z=100;
-	//if(z<0)z=0;
-	return(z);		
+	//return(Math.round(n*10));
 }
 
 
@@ -175,9 +121,6 @@ function getPrimeMap(startX,startY,size){
 function roundMap(map){
 
 
-    var maxlevel=180;//180;
-
-
 	var map_=[];
 
 	for(var y=0;y<map.length;y++){
@@ -187,13 +130,15 @@ function roundMap(map){
 		}
 	}
 
+
 	for(var y=0;y<map.length;y++){
 		for(var x=0;x<map.length;x++){
 
 			var z=map[y][x]*1;
+            var z_=Math.floor(z);
 
-			for(var y_=y-z;y_<y+z;y_++){
-				for(var x_=x-z;x_<x+z;x_++){
+			for(var y_=y-z_;y_<y+z_;y_++){
+				for(var x_=x-z_;x_<x+z_;x_++){
 
 					if(x_<0)break;
 					if(y_<0)break;
@@ -202,6 +147,8 @@ function roundMap(map){
 
 					//if(Math.pow(x-x_,2)+Math.pow(y-y_,2)<z*z)break;
 					//console.log(y_);
+
+
 
 
 					map_[y_][x_]+=Math.round(100*z/maxlevel)/100;//Math.sqrt(Math.pow(x-x_,2)+Math.pow(y-y_,2));
@@ -241,9 +188,9 @@ function statMap(map){
 
 function terrainMap(map){
 
-	
+	//console.log(map);
 	//var maxlevel=statMap(map);
-	//document.write(maxlevel);
+	//alert(statMap(map));
 
     var map_bg=[];
 
@@ -280,6 +227,11 @@ function terrainMap(map){
 
 
 function getMap(startX,startY,size){
+
+
+	//console.log('getMap');
+
+	//if(map==[])return[[],[]];
 	var bounds=4;
 
 	map=getPrimeMap(startX-bounds,startY-bounds,size+(2*bounds));
@@ -318,16 +270,20 @@ function getMap(startX,startY,size){
 var terrains=[	
 	[ 0 , -1 , '000000'] ,  //temnota
 	[ 1 , 11 , '5299F9'] ,  //moře
-	[11 , 20 , '337EFA'] ,  //řeka
-	[ 4 , 22 , 'F9F98D'] ,  //písek
+	[11 , 24 , '337EFA'] ,  //řeka
+	[ 4 , 26 , 'F9F98D'] ,  //písek
 	//[ 7 , 22 , 'DCDCAC'] ,  //sůl
-	[ 9 , 22 , '51F311'] ,  //tráva(toxic)
-	[12 , 25 , '8ABC02'] ,  //tráva(jaro)
-	[ 8 , 29 , '2A7302'] ,  //tráva(normal)
-	[13 , 30 , '8A9002'] ,  //tráva(pozim)
-	[10 , 35 , '535805'] ,  //les
-	[ 5 , 37 , '878787'] ,  //kamení
-	[10 , 40 , '535805'] ,  //les
+	[ 9 , 26 , '51F311'] ,  //tráva(toxic)
+	[12 , 29 , '8ABC02'] ,  //tráva(jaro)
+	[ 8 , 30 , '2A7302'] ,  //tráva(normal)
+    [10 , 33 , '535805'] ,  //les
+	[13 , 36 , '8A9002'] ,  //tráva(pozim)
+	[ 5 , 37 , '878787']   //kamení
+
+
+
+
+	/*[10 , 40 , '535805'] ,  //les
 	[ 6 , 41 , '5A2F00'] ,  //hlína
 	[ 2 , 42 , '545454'] ,  //dlažba
 	[ 5 , 70 , '878787'] ,  //kamení
@@ -335,7 +291,7 @@ var terrains=[
 	[ 5 , 93 , '878787'] ,  //kamení
 	[ 2 , 96 , '545454'] ,  //dlažba
     [ 5 , 1000 , '878787'] ,  //kamení
-	//[ 0 , 100 , '000000'] ,  //temnota
+	//[ 0 , 100 , '000000'] ,  //temnota*/
 
 
 ];
