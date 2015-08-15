@@ -350,8 +350,8 @@ $( document ).ready(function() {
 
         //var pos   = $(this).offset();
 
-        canvas_mouse_x = e.clientX;//-pos.left;
-        canvas_mouse_y = e.clientY;//-pos.top;
+        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
 
 
     });
@@ -365,8 +365,16 @@ $( document ).ready(function() {
 
         //$('.sidebar').hide();
 
-        $('.sidebar').stop(true,true);
-        $('.sidebar').animate({left:-60}, 200);
+        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+        map_selected_uids=[];
+        map_selecting=true;
+
+        //alert('click');
+
+        drawMap();
+        updateValues();
+        objectMenu();
 
 
     });
