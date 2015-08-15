@@ -450,7 +450,7 @@ function drawMap(){
                                 }
 
                                 object_screen_x += (width/2)  - (object_width/2);
-                                object_screen_y += -(object_height)+(object_width/2)/*-40+object_deep*/;
+                                object_screen_y += -(object_height)+(object_width/4)+(height/4);
 
 
                                 if($.inArray(object_id,map_selected_uids)!=-1){
