@@ -40,6 +40,8 @@ var canvas_mouse_x = 0;
 var canvas_mouse_y = 0;
 var map_mouse_x = 0;
 var map_mouse_y = 0;
+var map_selecting = false;
+var map_selected_uids = [];
 
 terrainCount=13;
 
@@ -208,6 +210,34 @@ loadMap();
 //----------------------------------------------------------------------------------------------------------------------
 
 
+function drawEllipse(ctx, x, y, w, h) {
+    var kappa = .5522848,
+        ox = (w / 2) * kappa, // control point offset horizontal
+        oy = (h / 2) * kappa, // control point offset vertical
+        xe = x + w,           // x-end
+        ye = y + h,           // y-end
+        xm = x + w / 2,       // x-middle
+        ym = y + h / 2;       // y-middle
+
+    ctx.beginPath();
+    ctx.moveTo(x, ym);
+    ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
+    ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
+    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
+    ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
+    ctx.closePath(); // not used correctly, see comments (use to close off open path)
+    ctx.stroke();
+    ctx.fill();
+}
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+
+
+
 function drawMap(){
     //alert('drawMap');
     //console.log('drawMap');
@@ -254,7 +284,7 @@ function drawMap(){
 
 
 
-
+    for(var phase=1;phase<=2;phase++)
     for(var view_y=Math.floor(-map_size/2);view_y<Math.ceil(map_size/2);view_y+=1){
 
 
@@ -268,25 +298,19 @@ function drawMap(){
 
 
 
-            //var x=Math.round(0.4*50 - 0.4*50);
-            //var y=Math.round(0.4*50 + 0.4*50);
-
-
-            //console.log(map_rotation_cos);
-            //console.log(x,y);
-
             if(x>=0 && y>=0 && x<map_size && y<map_size /*Math.pow(x-(map_size/2),2)+Math.pow(y-(map_size/2),2)<=Math.pow(map_size/2,2)*/) {
 
-                //console.log(x,y);
 
-                /*var x=view_y;
-                 var y=view_y;*/
 
 
                 var terrain = map_bg_data[y][x] - 1/*Teren 0 je temnota*/;
-                //var terrain = 9;
+
+
+
 
                 if (terrain != -1) {
+
+
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
                     var yc = y - map_y + Math.round(map_y) - (map_size - 1) / 2;
 
@@ -326,8 +350,6 @@ function drawMap(){
 
                     var z = (Math.pow(map_z_data[y][x], (1 / 12))-0.85) * -6000;
 
-                    //z += 8000;
-                    //z+=canvas_height-(map_size*160);
 
                     var size=(Math.sin((world_x*world_y)/10)/4)+1;
 
@@ -347,36 +369,22 @@ function drawMap(){
 
                     if(screen_x>-(width/2) && screen_y>-(height/2) && screen_x<canvas_width && screen_y<canvas_height+(160*size)){
 
-                        var seed = Math.abs(world_x * world_y - 1) % seedCount;
+                        //----------------------------------------------------------------------------------------------
 
 
-
-                        if(Math.pow(screen_x-canvas_mouse_x,2)+Math.pow(screen_y-canvas_mouse_y,2)<10){
-                            map_mouse_x=world_x;
-                            map_mouse_y=world_y;
-                        }
-
-
-                        //console.log(seed);
-                        map_bg_ctx.drawImage(
-                            all_images_bg[terrain][seed],
-                            screen_x,
-                            screen_y,
-                            width,
-                            height);
-
-
-                        /*console.log(
-                            all_images_bg[terrain][seed],
-                            screen_x,
-                            screen_y,
-                            width,
-                            height);
-                        return;*/
-
-
+                        if(phase==1){
+                            var seed = Math.abs(world_x * world_y - 1) % seedCount;
+                            map_bg_ctx.drawImage(
+                                all_images_bg[terrain][seed],
+                                screen_x,
+                                screen_y,
+                                width,
+                                height);
+                        }else
 
                         //----------------------------------------------------------------------------------------------Virtuální objekty
+
+                        if(phase==2)
                         if((terrain==9 /*&& map_data[y+1][x]!=4 && map_data[y-1][x]!=4 && map_data[y][x+1]!=4 && map_data[y][x-1]!=4*/ ) || terrain==4) {
 
                             var block_object=false;
@@ -399,6 +407,8 @@ function drawMap(){
                                 var object_seed=(Math.pow(world_x,2)+Math.pow(world_y,2))%(terrain==9?treeCount:rockCount);
 
                                 var object=(terrain==9?all_images_tree[object_seed]:all_images_rock[object_seed]);
+
+                                var object_id=(terrain==9?'t':'r')+world_x+'x'+world_y+'y';
 
 
                                 if(terrain==9){
@@ -424,21 +434,52 @@ function drawMap(){
 
 
 
-                                object_screen_x += (canvas_width / 2)  + (width/2)  - (object_width/2);
-                                object_screen_y += (canvas_height / 2) - (object_height)+(object_width/2)/*-40+object_deep*/;
+                                object_screen_x += (canvas_width / 2);
+                                object_screen_y += (canvas_height / 2);
 
+
+                                if(map_selecting)
+                                if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
+
+                                    map_selecting=false;
+
+                                    map_mouse_x=world_x;
+                                    map_mouse_y=world_y;
+                                    //alert(object_id);
+                                    map_selected_uids=[object_id];
+                                }
+
+                                object_screen_x += (width/2)  - (object_width/2);
+                                object_screen_y += -(object_height)+(object_width/2)/*-40+object_deep*/;
+
+
+                                if($.inArray(object_id,map_selected_uids)!=-1){
+
+                                    //alert('selected'+object_id);
+
+                                    map_bg_ctx.strokeStyle = 'rgba(0,0,0,0.8)';
+                                    map_bg_ctx.fillStyle = 'rgba(50,50,50,0.4)';
+                                    map_bg_ctx.lineWidth = 3;
+
+                                    drawEllipse(
+                                        map_bg_ctx,
+                                        object_screen_x,
+                                        object_screen_y+object_height-(object_width/map_slope_m),
+                                        object_width,
+                                        object_width/map_slope_m);
+
+
+                                }
 
                                 map_bg_ctx.drawImage(
                                     object,
-
                                     object_screen_x,
                                     object_screen_y,
-
-                                    /*screen_x+(width/2)-(object_width/2),
-                                     screen_y+(height/2)-(object_height)+(object_width/4),*/
-
                                     object_width,
                                     object_height);
+
+
+
 
                             }
 
@@ -620,22 +661,7 @@ function updateMap(ms){
 
     //----------------
 
-    $('#fps').html(fps);
-
-    $('#size_water').html(size_water);
-    $('#size_spring').html(size_spring);
-
-    $('#canvas_mouse').html(canvas_mouse_x+','+canvas_mouse_y);
-    $('#map_mouse').html(map_mouse_x+','+map_mouse_y);
-
-
-    $('#map_levels').html(fps);
-    $('#map_zoom').html(map_zoom);
-    $('#map_rotation').html(map_rotation);
-    $('#map_slope').html(map_slope);
-    $('#map_x').html(map_x);
-    $('#map_y').html(map_y);
-    $('#map_size').html(map_size);
+    updateValues();
 
     //----------------
 
@@ -703,7 +729,30 @@ var map_bg_ctx =false;
 
 });
 
+//----------------------------------------------------------------------------------------------------------------------
 
+
+function updateValues(){
+
+    $('#fps').html(fps);
+
+    $('#size_water').html(size_water);
+    $('#size_spring').html(size_spring);
+
+    $('#canvas_mouse').html(canvas_mouse_x+','+canvas_mouse_y);
+    $('#map_mouse').html(map_mouse_x+','+map_mouse_y);
+
+
+    $('#map_levels').html(fps);
+    $('#map_zoom').html(map_zoom);
+    $('#map_rotation').html(map_rotation);
+    $('#map_slope').html(map_slope);
+    $('#map_x').html(map_x);
+    $('#map_y').html(map_y);
+    $('#map_size').html(map_size);
+
+
+}
 
 
 //----------------------------------------------------------------------------------------------------------------------

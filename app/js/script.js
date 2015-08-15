@@ -5,30 +5,13 @@
  */
 
 
-$(function(){
+function uiScript(){
 
     //==================================================================================================================popup action
 
-    // [PH] -> [Matusko]  Přepsal jsem PHP skript na JS
-
-
-    var sideTemplate=$('.sidebar').html();
-    var sideHtml='';
-
-    //alert(sideTemplate);
-
-    for(i=0;i<50;i++){
-
-        sideHtml+=sideTemplate.split('%i').join(i);
-    }
-
-
-    $('.sidebar').html(sideHtml);
-
-
-
     // kliknutie na .js-popup-action-open trigger...
     $(".js-popup-action-open").on("click", function(){
+
         // ... pri kliknutí na práve otvorenú ponuku akcie odoberie .action-wrapper-u triedu .active
         if ($(this).parent(".action-wrapper").hasClass("active")){
             $(".action-wrapper").removeClass("active");
@@ -123,5 +106,8 @@ $(function(){
 
 
 
-});
+};
 
+
+
+$(function(){uiScript();});
