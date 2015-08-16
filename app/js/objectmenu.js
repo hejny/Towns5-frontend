@@ -5,7 +5,7 @@ var objectmenu_template;
 
 $(function() {
 
-    objectmenu_template = $('#objectmenu').html();
+    objectmenu_template = $('#objectmenu-inner').html();
 
 
 });
@@ -38,7 +38,11 @@ function objectMenu(){
         }
 
 
-        $('#objectmenu').html(objectmenu);
+        for(i=0;i<5;i++)
+            objectmenu+='<br>';
+
+
+        $('#objectmenu-inner').html(objectmenu);
 
         uiScript();
 
