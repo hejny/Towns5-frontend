@@ -23,14 +23,14 @@
         <!--<script src="lib/jquery.hammer.js"></script>-->
 
 
-        <script src="app/map.lib.js"></script>
-        <!--<script src="app/model.lib.js" ></script>-->
-        <script src="app/graphic.js"></script>
-        <script src="app/events.js"></script>
-        <script src="app/objectmenu.js"></script>
+        <script src="app/js/map.lib.js"></script>
+        <!--<script src="app/js/model.lib.js" ></script>-->
+        <script src="app/js/graphic.js"></script>
+        <script src="app/js/events.js"></script>
+        <script src="app/js/objectmenu.js"></script>
 
 
-        <script src="app/js/script.js"></script>
+        <script src="app/js/ui.js"></script>
 
 
     </head>
@@ -53,7 +53,7 @@
 
 
 
-        <div style="display:block;position:absolute;right:0px;top:65px;color:#ffffff;z-index:1500;">
+        <div id="debuginfo" style="display:none;position:absolute;right:0px;top:65px;color:#ffffff;z-index:1500;">
 
 
 
@@ -152,6 +152,7 @@
             </table>
 
         </div>
+
 
     <!--end of mapy-->
 
@@ -254,6 +255,7 @@
 
 
         <aside id="objectmenu">
+            <div id="objectmenu-inner">
 
 
             <div class="action-wrapper">
@@ -269,7 +271,7 @@
             </div>
 
 
-
+                <div>
         </aside>
 
 
