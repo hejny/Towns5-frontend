@@ -53,8 +53,8 @@ $( window ).resize(function() {
     $('#map_bg').css('left',-canvas_width/3);
     $('#map_bg').css('top',-canvas_height/3);
 
-    //map_bg_ctx.fillStyle = "#000000";
-    //map_bg_ctx.fillRect( 0 , 0 ,canvas_width , canvas_height );
+    //map_ctx.fillStyle = "#000000";
+    //map_ctx.fillRect( 0 , 0 ,canvas_width , canvas_height );
     //$('#map_bg').css('left',0);
     //$('#map_bg').css('top',0);
 
