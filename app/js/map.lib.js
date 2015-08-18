@@ -162,7 +162,7 @@ function roundMap(map){
 
 }
 
-function statMap(map){
+/*function statMap(map){
 
 	var maxi=1;
 	var stat=[];
@@ -183,7 +183,7 @@ function statMap(map){
 	//console.log(stat);
 	return(maxi);
 
-}
+}*/
 
 
 function terrainMap(map){
@@ -270,12 +270,13 @@ function getMap(startX,startY,size){
 var terrains=[	
 	[ 0 , -1 , '000000'] ,  //temnota
 	[ 1 , 11 , '5299F9'] ,  //moře
-	[11 , 24 , '337EFA'] ,  //řeka
+	//[ 1 , 999 , '5299F9'] ,  //moře
+	[11 , 22 , '337EFA'] ,  //řeka
 	[ 4 , 26 , 'F9F98D'] ,  //písek
 	//[ 7 , 22 , 'DCDCAC'] ,  //sůl
 	[ 9 , 26 , '51F311'] ,  //tráva(toxic)
 	[12 , 29 , '8ABC02'] ,  //tráva(jaro)
-	[ 8 , 30 , '2A7302'] ,  //tráva(normal)
+	[ 8 , 31 , '2A7302'] ,  //tráva(normal)
     [10 , 33 , '535805'] ,  //les
 	[13 , 36 , '8A9002'] ,  //tráva(pozim)
 	[ 5 , 37 , '878787']   //kamení
