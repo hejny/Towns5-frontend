@@ -205,9 +205,17 @@ function loadMap() {
 
     delete map_xy_data;
 
-    townsApiAsync(['list'],function(response){
+    townsApiAsync(
 
-        var map_data_=response;
+        [
+            ['list','id,x,y,type,res'],
+            ['box('+(map_x+10)+','+(map_y+10)+','+(map_x+10)+','+(map_y+10)+')'],
+            'y,x'
+        ]
+
+        ,function(response){
+
+        var map_data_=response['objects'];
         map_data=[];
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
@@ -446,11 +454,11 @@ function drawMap(){
                                 object_screen_y += -(object_height)+(object_width/4)+(height/4);
 
 
-                                /*if($.inArray(object_uid,map_selected_uids)!=-1){
+                                if($.inArray(object_uid,map_selected_uids)!=-1){
 
                                     //alert('selected'+object_uid);
 
-                                    map_ctx.strokeStyle = 'rgba(0,0,0,0.8)';
+                                    /*map_ctx.strokeStyle = 'rgba(0,0,0,0.8)';
                                     map_ctx.fillStyle = 'rgba(50,50,50,0.4)';
                                     map_ctx.lineWidth = 3;
 
@@ -459,10 +467,17 @@ function drawMap(){
                                         object_screen_x,
                                         object_screen_y+object_height-(object_width/map_slope_m),
                                         object_width,
-                                        object_width/map_slope_m);
+                                        object_width/map_slope_m);*/
+                                    map_draw.push([
+                                        'ellipse',
+                                        ['rgba(50,50,50,0.4)','rgba(0,0,0,0.8)',3],
+                                        object_screen_x,
+                                        object_screen_y+object_height-(object_width/map_slope_m),
+                                        object_width,
+                                        object_width/map_slope_m
+                                    ]);
 
-
-                                }*/
+                                }
 
 
                                 map_draw.push([
@@ -597,8 +612,27 @@ function drawMap(){
 
             drawModel(map_ctx,map_draw[i][1],map_zoom_m,map_draw[i][2],map_draw[i][3]);
 
-        }
+        }else
+        if(map_draw[i][0]=='ellipse'){
 
+
+
+            map_ctx.fillStyle =     map_draw[i][1][0];
+            map_ctx.strokeStyle =   map_draw[i][1][1];
+            map_ctx.lineWidth =     map_draw[i][1][2];
+
+
+            drawEllipse(
+
+                map_ctx,
+                map_draw[i][2],
+                map_draw[i][3],
+                map_draw[i][5],
+                map_draw[i][6]
+
+            );
+
+        }
 
     }
 
