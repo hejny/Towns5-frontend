@@ -13,25 +13,63 @@ function townsApiAsync(query,callback){
 function townsApi(query){
 
 
-    return([
 
-        {
-            uid: 'b1',
-            x: map_x,
-            y: map_y,
-            type: 'building',
-            res:model
-        },{
-            uid: map_x+'x'+map_y+'y',
-            x: map_x,
-            y: map_y,
-            type: 'terrain',
-            terrain:4,
-            level:1
+
+    //output=json - Nìkteré funkce napø ad nebo model vrací pøímo obrázek. Pokud je v GET parametrech output=json je místo toho vrácen json s klíèem url na daný obrázek.
+    var url='http://towns.cz/api?token='+/*urlencode($this->token).*/'&locale='+/*urlencode($this->locale).*/'&output=json';
+
+    //----------------------Následující escapování se dá udìlat výraznì elegantnìji, tohle by ale mìlo fungovat i ve starších verzích PHP
+    var querystring='';
+    var separator='';
+    var i,l;
+    for(i=0,l=query.length;i<l;i++){
+
+        if(query[i] instanceof Array){
+
+            for(ii=0,ll=query[i].length;ii<ll;ii++){
+
+                query[i][ii]=query[i][ii].split('\\').join('\\\\');
+                query[i][ii]=query[i][ii].split(',').join('\\,');
+            }
+
+            query[i]=query[i].join(',');
+
         }
 
-    ]);
+        query[i]=query[i].split('\\').join('\\\\');
+        query[i]=query[i].split(',').join('\\,');
 
+        querystring+=separator+query[i];
+        var separator=',';
+    }
+    //----------------------
 
+    r(querystring);
 
+    //----------------------
 }
+
+
+
+
+
+
+/*
+ return([
+
+ {
+ uid: 'b1',
+ x: map_x,
+ y: map_y,
+ type: 'building',
+ res:model
+ },{
+ uid: map_x+'x'+map_y+'y',
+ x: map_x,
+ y: map_y,
+ type: 'terrain',
+ terrain:4,
+ level:1
+ }
+
+ ]);*/
