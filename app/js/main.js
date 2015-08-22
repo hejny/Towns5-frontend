@@ -69,7 +69,7 @@ if(pathname_new!='')pathname_new='/'+pathname_new;
 
 var location_new=baseurl+pathname_new+query_new;
 
-r(location_new);
+//r(location_new);
 
 
 
