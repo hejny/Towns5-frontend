@@ -6,7 +6,7 @@
     var color, colors, i, i2, i3, plus, points, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
     slope_m = Math.abs(Math.sin(slope / 180 * pi));
     slope_n = Math.abs(Math.cos(slope / 180 * pi)) * 1.4;
-    s = s * 1.6;
+    s = s * 1.2;
     slnko = 10;
     res = res.split('::').join(':1,1,1:');
     tmp = res.split(':');
