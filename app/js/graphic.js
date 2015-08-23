@@ -211,13 +211,13 @@ function loadMap() {
 
     delete map_xy_data;
 
-    var tmp=Math.round(map_size/2)-1;
+    var tmp=Math.round(map_size/2)-2;
 
     townsApi(
         [
             'list',
             'id,x,y,type,res',
-            ['box('+(map_x-tmp)+','+(map_y-tmp)+','+(map_x+tmp)+','+(map_y+tmp)+')'],
+            ['radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
             'y,x'
         ]
 
@@ -457,7 +457,7 @@ function drawMap(){
                                 if(terrain==9){
                                     var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/10+0.8;
                                 }else{
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1;
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+0.8;
                                 }
 
 
