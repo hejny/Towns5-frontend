@@ -25,7 +25,7 @@ var map_x=30;var map_y=40;
 var map_rotation=45;
 
 
-var max_map_size=50;
+var max_map_size=100;
 //----
 
 var map_zoom_delta=0;
@@ -237,8 +237,8 @@ function loadMap() {
 
             if(map_data_[i].type=='terrain'){
 
-                var x=Math.ceil(map_data_[i].x-map_x+map_size/2);
-                var y=Math.ceil(map_data_[i].y-map_y+map_size/2);
+                var x=Math.floor(map_data_[i].x-map_x+map_size/2);
+                var y=Math.floor(map_data_[i].y-map_y+map_size/2);
 
 
                 if(
@@ -262,9 +262,8 @@ function loadMap() {
 
                     //terrain=terrain-1;
 
-                    if(terrain<1)terrain=2;
-
-                    map_bg_data[y][x]=terrain;
+                    if(terrain>0)
+                        map_bg_data[y][x]=terrain;
 
 
 
@@ -275,7 +274,7 @@ function loadMap() {
                 if(typeof(map_data_[i].level)!='undefined'){
                     map_z_data[y][x]=map_data_[i].level;
                 }else{
-                    map_z_data[y][x]=0.1;
+                    //map_z_data[y][x]=0.1;
                 }
 
 
@@ -355,8 +354,8 @@ function drawMap(){
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
                     var yc = y - map_y + Math.round(map_y) - (map_size - 1) / 2;
 
-                    var world_x = x + Math.round(map_x) - Math.round(map_size/2);
-                    var world_y = y + Math.round(map_y) - Math.round(map_size/2);
+                    var world_x = x + Math.floor(map_x) - Math.floor(map_size/2);
+                    var world_y = y + Math.floor(map_y) - Math.floor(map_size/2);
 
 
                     if (terrain == 0 || terrain == 10){
@@ -455,9 +454,9 @@ function drawMap(){
 
 
                                 if(terrain==9){
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/10+0.8;
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/10+0.6;
                                 }else{
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+0.8;
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/5+0.8;
                                 }
 
 
@@ -527,7 +526,7 @@ function drawMap(){
                                     object,
                                     object_screen_x,
                                     object_screen_y,
-                                    object_screen_y+object_height-Math.floor(object_width/4)+(terrain==9?180:33),
+                                    object_screen_y+object_height-Math.floor(object_width/4)+(terrain==9?120:120),
                                     object_width,
                                     object_height
 
@@ -577,12 +576,12 @@ function drawMap(){
                 var object_uid=map_data[i].uid;
 
 
-                object_xc=map_data[i].x-map_x;
-                object_yc=map_data[i].y-map_y;
+                object_xc=map_data[i].x-Math.floor(map_x);
+                object_yc=map_data[i].y-Math.floor(map_y);
 
 
                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
+                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m ;
 
 
                 object_screen_x += (canvas_width / 2);
@@ -606,7 +605,7 @@ function drawMap(){
                     map_data[i].res,
                     object_screen_x,
                     object_screen_y,
-                    object_screen_y+object_height-Math.floor(object_width/4)+90
+                    object_screen_y+200
                 ]);
 
 
