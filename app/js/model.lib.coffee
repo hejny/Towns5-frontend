@@ -1,6 +1,9 @@
 
 window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
 
+  #rot+=40;
+  #r(res)
+
   slope_m=Math.abs(Math.sin(slope/180*pi))
   slope_n=Math.abs(Math.cos(slope/180*pi))*1.4
 
@@ -15,8 +18,15 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
   rot = parseInt(rot) + 45 + parseInt(tmp[3])
   if typeof colors == 'undefined'
     return
+
+
+  #r(points)
+  #r(polygons)
+
   ###---------------------------Rozklad barev###
   colors = colors.split(',')
+
+  #r(colors)
   #---------------------------Rozklad bodů
   points = points.split('][')
   i = 0
@@ -69,7 +79,9 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
   while polygons[i]
     polygons[i] = polygons[i].split(',')
     polygons[i][polygons[i].length] = colors[i]
+    polygons[i].color=colors[i]
     i++
+
   ###---------------------------Seřazení bodů###
 
   polygons.sort (a,b) ->
@@ -114,7 +126,7 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
     while polygons[i2][i3]
       if typeof points[polygons[i2][i3] - 1] != 'undefined'
 
-        z = points[polygons[i2][i3] - 1][2]
+        z = Math.abs(points[polygons[i2][i3] - 1][2]);
 
         x = points[polygons[i2][i3] - 1][0]+z/1.5
         y = points[polygons[i2][i3] - 1][1]-z/1.5/2
@@ -167,6 +179,12 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
         x = points[polygons[i2][i3] - 1][0]
         y = points[polygons[i2][i3] - 1][1]
         z = points[polygons[i2][i3] - 1][2]
+
+
+        #if x==-1 && y==-1 && z==0
+
+
+
         xx = 100 + x * 1 - (y * 1)
         yy = 279 + x * slope_m + y * slope_m - (z * slope_n)
 
@@ -177,20 +195,22 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
         tmppoints[i] = s * yy
         i++
       i3++
-    if !tmppoints[4]
+    ###if !tmppoints[4]
       tmppoints[0] = 0
       tmppoints[1] = 0
       tmppoints[2] = 0
       tmppoints[3] = 0
       tmppoints[4] = 0
-      tmppoints[5] = 0
+      tmppoints[5] = 0###
 
     #color = polygons[i2][polygons[i2].length -
 
-    color = colors[i2];
+    #r(i2)
+    color = polygons[i2].color;
 
-    #r(color);
-    color=hexToRgb(color);
+    #r(color)
+    color=hexToRgb('#'+color);
+    #r(color)
 
     ###----------------------Vystínování polygonu - sklon polygonu###
 
@@ -221,11 +241,17 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
 
     ###----------------------Vystínování polygonu - propočítání barvy###
 
+    #r(color.r);
+
     color.r=color.r+plus
     color.g=color.g+plus
     color.b=color.b+plus
 
     ###------------------------Vystínování polygonu - nastavení barvy###
+
+    #r(plus)
+    #r(color.r);
+
 
 
     if color.r > 255
@@ -240,7 +266,13 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
       color.b = 255
     if color.b < 0
       color.b = 0
+
+
     ctx.fillStyle = 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + ')'
+
+    #r('rgb(' + color.r + ', ' + color.g + ', ' + color.b + ')');
+    #r(ctx.fillStyle);
+    #r('---');
 
     ###------------------------Vykreslení bodů###
 
@@ -260,12 +292,23 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
 
 
 hexToRgb = (hex) ->
+
+  if !hex?
+    hex='000000'
+
+  #hex=hex.toUpperCase();
+
   # Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
   hex = hex.replace(shorthandRegex, (m, r, g, b) ->
     r + r + g + g + b + b
   )
   result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+
+  #r(result)
+  #r(result[1]);
+  #r(parseInt(result[1], 16));
+
   if result
     r: parseInt(result[1], 16)
     g: parseInt(result[2], 16)

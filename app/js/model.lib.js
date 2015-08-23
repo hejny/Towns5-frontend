@@ -80,6 +80,7 @@
     while (polygons[i]) {
       polygons[i] = polygons[i].split(',');
       polygons[i][polygons[i].length] = colors[i];
+      polygons[i].color = colors[i];
       i++;
     }
 
@@ -126,7 +127,7 @@
       i3 = 0;
       while (polygons[i2][i3]) {
         if (typeof points[polygons[i2][i3] - 1] !== 'undefined') {
-          z = points[polygons[i2][i3] - 1][2];
+          z = Math.abs(points[polygons[i2][i3] - 1][2]);
           x = points[polygons[i2][i3] - 1][0] + z / 1.5;
           y = points[polygons[i2][i3] - 1][1] - z / 1.5 / 2;
           xx = 100 + x * 1 - (y * 1);
@@ -185,16 +186,17 @@
         }
         i3++;
       }
-      if (!tmppoints[4]) {
-        tmppoints[0] = 0;
-        tmppoints[1] = 0;
-        tmppoints[2] = 0;
-        tmppoints[3] = 0;
-        tmppoints[4] = 0;
-        tmppoints[5] = 0;
-      }
-      color = colors[i2];
-      color = hexToRgb(color);
+
+      /*if !tmppoints[4]
+        tmppoints[0] = 0
+        tmppoints[1] = 0
+        tmppoints[2] = 0
+        tmppoints[3] = 0
+        tmppoints[4] = 0
+        tmppoints[5] = 0
+       */
+      color = polygons[i2].color;
+      color = hexToRgb('#' + color);
 
       /*----------------------Vystínování polygonu - sklon polygonu */
       if ((points[polygons[i2][0] - 1] != null) && (points[polygons[i2][2] - 1] != null)) {
@@ -261,6 +263,9 @@
 
   hexToRgb = function(hex) {
     var result, shorthandRegex;
+    if (hex == null) {
+      hex = '000000';
+    }
     shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
       return r + r + g + g + b + b;
