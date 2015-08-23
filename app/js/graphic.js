@@ -21,9 +21,11 @@ var map_y=(Math.random()-0.5)*1000000;
 //var map_x=-40311400;
 //var map_y=-40311400;
 
-//var map_x=0;var map_y=0;
+var map_x=50;var map_y=50;
+var map_rotation=-45;
 
 
+var max_map_size=40;
 //----
 
 var map_zoom_delta=0;
@@ -112,6 +114,7 @@ gr=1.62;
 
 
 function imageLoad(){
+    //r('imageLoad');
 
     all_images_loaded++;
 
@@ -124,6 +127,7 @@ function imageLoad(){
 
 
     if(all_images_loaded === all_images_count) {
+
         map_loaded=true;
         updateMap();
         $('#loadbar').remove();
@@ -173,6 +177,7 @@ for (var seed = 0; seed < treeCount; seed++) {
 
 
 }
+//r(all_images_tree);
 //----------------------------------------------------------------Rock
 
 var all_images_rock=[];
@@ -195,6 +200,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 
 function loadMap() {
+    //r('loadMap');
 
     var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
 
@@ -205,39 +211,68 @@ function loadMap() {
 
     delete map_xy_data;
 
-    townsApiAsync(
+    var tmp=Math.round(map_size/2)-1;
 
+    townsApi(
         [
-            ['list','id,x,y,type,res'],
-            ['box('+(map_x+10)+','+(map_y+10)+','+(map_x+10)+','+(map_y+10)+')'],
+            'list',
+            'id,x,y,type,res',
+            ['box('+(map_x-tmp)+','+(map_y-tmp)+','+(map_x+tmp)+','+(map_y+tmp)+')'],
             'y,x'
         ]
 
         ,function(response){
 
         var map_data_=response['objects'];
+
+        //r(map_data_);
+
         map_data=[];
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
 
-        for(var i=0;i<map_data_.length;i++){
+            //r(map_size);
+
+        for(var i= 0, l=map_data_.length;i<l;i++){
 
             if(map_data_[i].type=='terrain'){
 
-                var x=Math.ceil(map_data_[i].x-map_x+map_bg_data.length/2);
-                var y=Math.ceil(map_data_[i].y-map_y+map_bg_data.length/2);
+                var x=Math.ceil(map_data_[i].x-map_x+map_size/2);
+                var y=Math.ceil(map_data_[i].y-map_y+map_size/2);
+
+
+                if(
+                x<0 ||
+                y<0 ||
+                x>=map_size ||
+                x>=map_size
+
+                )r(x+','+y);
+
 
                 //r(map_data_[i].x+'-'+map_x+'+'+map_size/2));
                 //r(x+','+y);
 
                 //r(map_data_[i].terrain);
 
+                if(typeof(map_data_[i].res)!='undefined'){
 
-                map_bg_data[y][x]=map_data_[i].terrain;
-                map_z_data[y][x]=map_data_[i].level;//todo jen pokud existuje
+                    var terrain=map_data_[i].res;
+                    terrain=terrain.substr(1);
+                    terrain=terrain-1;
 
-                //r(map_z_data[y][x]);
+                    if(terrain>-1)
+                        map_bg_data[y][x]=terrain;
 
+
+
+                }
+
+                if(typeof(map_data_[i].level)!='undefined'){
+                    map_z_data[y][x]=map_data_[i].level;
+                }else{
+                    map_z_data[y][x]=0.1;
+                }
 
 
             }else{
@@ -246,6 +281,9 @@ function loadMap() {
 
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        $('#map_bg').css('left',-canvas_width/3);
+        $('#map_bg').css('top',-canvas_height/3);
 
         drawMap();
 
@@ -564,7 +602,7 @@ function drawMap(){
                     map_data[i].res,
                     object_screen_x,
                     object_screen_y,
-                    object_screen_y+object_height-Math.floor(object_width/4)+100
+                    object_screen_y+object_height-Math.floor(object_width/4)+90
                 ]);
 
 
@@ -610,7 +648,7 @@ function drawMap(){
         }else
         if(map_draw[i][0]=='res'){
 
-            drawModel(map_ctx,map_draw[i][1],map_zoom_m,map_draw[i][2],map_draw[i][3]);
+            drawModel(map_ctx,map_draw[i][1],map_zoom_m,map_draw[i][2],map_draw[i][3],-map_rotation,map_slope);
 
         }else
         if(map_draw[i][0]=='ellipse'){
@@ -648,7 +686,7 @@ function drawMap(){
 
 
 function updateMap(ms){
-
+    //r('updateMap');
 
     if(typeof ms=='undefined'){
 
@@ -742,7 +780,7 @@ function updateMap(ms){
 
 
         if(map_size<4)map_size=4;
-        if(map_size>160)map_size=160;//160;
+        if(map_size>max_map_size)map_size=max_map_size;
 
         //console.log(map_size);
 
@@ -790,10 +828,6 @@ function updateMap(ms){
 
     updateValues();
 
-    //----------------
-
-    $('#map_bg').css('left',-canvas_width/3);
-    $('#map_bg').css('top',-canvas_height/3);
 
     //----------------
 
