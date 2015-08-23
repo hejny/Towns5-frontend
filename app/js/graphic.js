@@ -6,7 +6,7 @@ var map_loaded=false;
 //----
 
 
-var map_zoom=-3;
+var map_zoom=-2.5;
 var map_rotation=Math.random()*360;
 var map_slope=27;
 
@@ -21,11 +21,11 @@ var map_y=(Math.random()-0.5)*1000000;
 //var map_x=-40311400;
 //var map_y=-40311400;
 
-var map_x=50;var map_y=50;
-var map_rotation=-45;
+var map_x=30;var map_y=40;
+var map_rotation=45;
 
 
-var max_map_size=40;
+var max_map_size=50;
 //----
 
 var map_zoom_delta=0;
@@ -258,11 +258,15 @@ function loadMap() {
                 if(typeof(map_data_[i].res)!='undefined'){
 
                     var terrain=map_data_[i].res;
-                    terrain=terrain.substr(1);
-                    terrain=terrain-1;
+                    terrain=parseInt(terrain.substr(1));
 
-                    if(terrain>-1)
-                        map_bg_data[y][x]=terrain;
+                    //terrain=terrain-1;
+
+                    if(terrain<1)terrain=2;
+
+                    map_bg_data[y][x]=terrain;
+
+
 
 
 
@@ -451,9 +455,9 @@ function drawMap(){
 
 
                                 if(terrain==9){
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/6+1;
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/10+0.8;
                                 }else{
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1.62;
+                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/2+1;
                                 }
 
 
@@ -523,7 +527,7 @@ function drawMap(){
                                     object,
                                     object_screen_x,
                                     object_screen_y,
-                                    object_screen_y+object_height-Math.floor(object_width/4)+(terrain==9?100:33),
+                                    object_screen_y+object_height-Math.floor(object_width/4)+(terrain==9?180:33),
                                     object_width,
                                     object_height
 
