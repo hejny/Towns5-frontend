@@ -10,7 +10,7 @@ function townsApi(query,callback){
     //output=json - Některé funkce např ad nebo model vrací přímo obrázek. Pokud je v GET parametrech output=json je místo toho vrácen json s klíčem url na daný obrázek.
 
     var url='https://towns.cz/api?token='+/*urlencode($this->token).*/'&locale='+/*urlencode($this->locale).*/'&output=jsonp';
-    //var url='http://localhost';
+    //var url='http://towns.local/api/fakeserver.php';
 
     //----------------------Následující escapování se dá udělat výrazně elegantněji, tohle by ale mělo fungovat i ve starších verzích PHP
     var separator='';
@@ -75,13 +75,13 @@ function townsApi(query,callback){
  return([
 
  {
- uid: 'b1',
+ id: 'b1',
  x: map_x,
  y: map_y,
  type: 'building',
  res:model
  },{
- uid: map_x+'x'+map_y+'y',
+ id: map_x+'x'+map_y+'y',
  x: map_x,
  y: map_y,
  type: 'terrain',

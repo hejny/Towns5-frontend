@@ -14,6 +14,7 @@
 
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext" >
         <link rel="stylesheet" type="text/css" href="app/css/font-awesome-4.4.0/css/font-awesome.css" >
+        <link rel="stylesheet" type="text/css" href="app/css/font-awesome-animation.css" >
 
 
 
@@ -43,24 +44,28 @@
     </head>
     <body>
 
+    <div id="loading">
+        <i class="fa fa-spinner faa-spin animated"></i>
+    </div>
+
     <!--start of map-->
 
 
-        <div style="position:absolute;width: 100vw;height: 100vh;z-index:3000;/*border: 2px dashed #FF0000;*/" id="map_drag">
+
+        <div id="map_drag"></div>
+
+
+        <div id="loadbar_outer">
+            <div id="loadbar"></div>
         </div>
 
 
-        <div style="position:absolute;width: 100vw;height: 100vh;font-size:2em;text-align:center;z-index:2000;" >
-            <div style="position: relative;top: 50%;transform: translateY(-50%);" id="loadbar"></div>
-        </div>
-
-
-        <canvas id="map_bg" width="100" height="100" style="position:absolute;top:0px;left:0px;z-index:1000;"></canvas>
+        <canvas id="map_bg" width="100" height="100"></canvas>
 
 
 
 
-        <div id="debuginfo" style="display:none;position:absolute;right:0px;top:65px;color:#ffffff;z-index:1500;">
+        <div id="debuginfo">
 
 
 
@@ -243,13 +248,13 @@
             </ul>
 
             <ul class="menu-list menu-list-right">
-                <li class="menu-list-item menu-list-item-registration"><a class="js-popup-story-open" href="#">Dokončit registraci</a></li>
+                <li class="menu-list-item menu-list-item-registration"><a class="js-popup-window-open" href="#">Dokončit registraci</a></li>
 
 
 
-                <li class="menu-list-item menu-list-item-icon js-popup-notification-open"><i class="fa fa-flag fa-lg"></i></li>
-                <li class="menu-list-item menu-list-item-icon"><i class="fa fa-cogs fa-lg"></i></li>
-                <li class="menu-list-item menu-list-item-icon"><i class="fa fa-arrows-alt fa-lg"></i></li>
+                <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover"><i class="fa fa-flag fa-lg faa-shake"></i></li>
+                <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i class="fa fa-wrench fa-lg faa-wrench"></i></li>
+                <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>
 
 
 
@@ -258,15 +263,12 @@
             <div class="cleaner"></div>
         </nav>
 
-
-
-
         <aside id="objectmenu">
             <div id="objectmenu-inner">
 
 
             <div class="action-wrapper">
-                <div class="action js-popup-action-open">%i</div>
+                <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;">%i</div>
 
                 <div class="popup-action">
                     <div class="arrow"></div>
@@ -285,7 +287,7 @@
 
         <div class="overlay"></div>
 
-        <div class="popup-story">
+        <div class="popup-window">
             <div class="header">Príbeh</div>
             <div class="content">
                 <h1>Aneb o původu Magie a Technologie</h1>
@@ -296,7 +298,7 @@
                 <p>Než stačili celý ostrov zničit, objevil se kolem nich Rudý les, jako kdyby vystoupil z mlhy. Najednou je obklopila nepředstavitelná síla a tato síla byla dobrá, protože oba bratři byli opět obyčejní, nemohli nic ovládat ani nic užitečného vyrábět. Jejich moc byla pryč. V tu chvíli pravil les: „Zmizte odtud, prašiví červi. Nikdy se tu neukazujte!“ Šlahouny ostružiníku začaly šlehat všude kolem nich a několikrát bratry zasáhly. Bratři se svíjeli v nepředstavitelných bolestech, ale povedlo se jim z lesa odejít, každý zmizel na opačné světové straně. Netrvalo dlouho a získali si své příznivce, kteří realizovali jejich vize a stvořili tak věčný boj mezi Magií a Technologií.</p>
                 <p>Avšak nikomu tento ostrov nepatří, patří jen Rudému lesu. Toho si byli ostrované vědomi, a tak po několika letech o Rudý les bojovali v dalším krutém boji. Byli tací, kteří se drželi stranou, stavěli, budovali a žili šťastně – ale těch bylo málo. Když obě strany zjistily, že se Rudý les nedá ovládnout, rozhodly se ho společnými silami zničit. Proč zrovna strach dokáže donutit ke spolupráci? Proč ne láska? Rudý les znal jejich motivy i jejich zkažená srdce a opět se změnil v prázdnou poušť. Nenávist mezi příznivci Magie a Technologie neustala, ale získala jiné rozměry, o kterých není vhodné se zmiňovat. Když se vítr uklidnil, Rudý les se opět objevil.</p>
             </div>;
-            <div class="close js-popup-story-close"></div>
+            <div class="close js-popup-window-close"></div>
         </div>
 
         <div class="popup-notification">

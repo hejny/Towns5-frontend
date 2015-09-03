@@ -3,7 +3,7 @@
   var hexToRgb, rgbToHex;
 
   window.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
-    var color, colors, i, i2, i3, plus, points, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
+    var color, colors, i, i2, i3, j, len, plus, points, polygon, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
     slope_m = Math.abs(Math.sin(slope / 180 * pi));
     slope_n = Math.abs(Math.cos(slope / 180 * pi)) * 1.4;
     s = s * 1.2;
@@ -77,11 +77,11 @@
     /*---------------------------Rozklad polygonů */
     polygons = polygons.split(';');
     i = 0;
-    while (polygons[i]) {
-      polygons[i] = polygons[i].split(',');
-      polygons[i][polygons[i].length] = colors[i];
-      polygons[i].color = colors[i];
-      i++;
+    for (i = j = 0, len = polygons.length; j < len; i = ++j) {
+      polygon = polygons[i];
+      polygon = polygon.split(',');
+      polygon.color = colors[i];
+      polygons[i] = polygon;
     }
 
     /*---------------------------Seřazení bodů */
@@ -130,10 +130,10 @@
           z = Math.abs(points[polygons[i2][i3] - 1][2]);
           x = points[polygons[i2][i3] - 1][0] + z / 1.5;
           y = points[polygons[i2][i3] - 1][1] - z / 1.5 / 2;
-          xx = 100 + x * 1 - (y * 1);
-          yy = 279 + x * slope_m + y * slope_m;
-          xxx = 100 + x * 1 - (y * 1);
-          yyy = 279 + x * slope_m + y * slope_m;
+          xx = x * 1 - (y * 1);
+          yy = x * slope_m + y * slope_m;
+          xxx = x * 1 - (y * 1);
+          yyy = x * slope_m + y * slope_m;
           tmppoints[i] = s * xx;
           i++;
           tmppoints[i] = s * yy;
@@ -175,10 +175,10 @@
           x = points[polygons[i2][i3] - 1][0];
           y = points[polygons[i2][i3] - 1][1];
           z = points[polygons[i2][i3] - 1][2];
-          xx = 100 + x * 1 - (y * 1);
-          yy = 279 + x * slope_m + y * slope_m - (z * slope_n);
-          xxx = 100 + x * 1 - (y * 1);
-          yyy = 279 + x * slope_m + y * slope_m - (z * slope_n);
+          xx = x * 1 - (y * 1);
+          yy = x * slope_m + y * slope_m - (z * slope_n);
+          xxx = x * 1 - (y * 1);
+          yyy = x * slope_m + y * slope_m - (z * slope_n);
           tmppoints[i] = s * xx;
           i++;
           tmppoints[i] = s * yy;

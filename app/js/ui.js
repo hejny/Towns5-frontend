@@ -32,22 +32,22 @@ function uiScript(){
 
 
 
-    // kliknutie na js-popup-story-open trigger zobrazí overlay a popup-story
-    $(".js-popup-story-open").on("click", function(){
+    // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
+    $(".js-popup-window-open").on("click", function(){
         $(".overlay").show();
-        $(".popup-story").show();
+        $(".popup-window").show();
     });
 
-    // kliknutie na overlay schová overlay a popup-story
+    // kliknutie na overlay schová overlay a popup-window
     $(".overlay").on("click", function(){
         $(this).hide();
-        $(".popup-story").hide();
+        $(".popup-window").hide();
     });
 
-    // kliknutie na js-popup-story-close trigger schová overlay a popup-story
-    $(".js-popup-story-close").on("click", function(){
+    // kliknutie na js-popup-window-close trigger schová overlay a popup-window
+    $(".js-popup-window-close").on("click", function(){
         $(".overlay").hide();
-        $(".popup-story").hide();
+        $(".popup-window").hide();
     });
 
 
@@ -89,8 +89,8 @@ function uiScript(){
             // ... schovaj overlay
             $(".overlay").hide();
 
-            // schovaj popup-story
-            $(".popup-story").hide();
+            // schovaj popup-window
+            $(".popup-window").hide();
 
             // schovaj popup-notification
             $(".popup-notification").hide();

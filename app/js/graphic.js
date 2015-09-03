@@ -43,7 +43,7 @@ var canvas_mouse_y = 0;
 var map_mouse_x = 0;
 var map_mouse_y = 0;
 var map_selecting = false;
-var map_selected_uids = [];
+var map_selected_ids = [];
 
 terrainCount=13;
 
@@ -213,80 +213,87 @@ function loadMap() {
 
     var tmp=Math.round(map_size/2)-2;
 
+    /*map_data=[];
+    drawMap();
+    return;*/
+
+
     townsApi(
         [
             'list',
-            'id,x,y,type,res',
-            ['radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
+            'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
+            //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
+            ['radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')','type!=\'terrain\''],
             'y,x'
         ]
 
         ,function(response){
 
-        var map_data_=response['objects'];
 
-        //r(map_data_);
+            //r(response);
 
-        map_data=[];
+            var map_data_=response['objects'];
 
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
+            //r(map_data_);
 
-            //r(map_size);
+            map_data=[];
 
-        for(var i= 0, l=map_data_.length;i<l;i++){
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
 
-            if(map_data_[i].type=='terrain'){
+                //r(map_size);
 
-                var x=Math.floor(map_data_[i].x-map_x+map_size/2);
-                var y=Math.floor(map_data_[i].y-map_y+map_size/2);
+            for(var i= 0, l=map_data_.length;i<l;i++){
 
+                if(map_data_[i].type=='terrain'){
 
-                if(
-                x<0 ||
-                y<0 ||
-                x>=map_size ||
-                x>=map_size
-
-                )r(x+','+y);
+                    var x=Math.floor(map_data_[i].x-map_x+map_size/2);
+                    var y=Math.floor(map_data_[i].y-map_y+map_size/2);
 
 
-                //r(map_data_[i].x+'-'+map_x+'+'+map_size/2));
-                //r(x+','+y);
+                    if(
+                    x<0 ||
+                    y<0 ||
+                    x>=map_size ||
+                    y>=map_size
 
-                //r(map_data_[i].terrain);
+                    ){
+                        //r(x+','+y);
+                    }else{
 
-                if(typeof(map_data_[i].res)!='undefined'){
+                        if(typeof(map_data_[i].res)!='undefined'){
 
-                    var terrain=map_data_[i].res;
-                    terrain=parseInt(terrain.substr(1));
+                            var terrain=map_data_[i].res;
+                            terrain=parseInt(terrain.substr(1));
 
-                    //terrain=terrain-1;
+                            //terrain=terrain-1;
 
-                    if(terrain>0)
-                        map_bg_data[y][x]=terrain;
-
+                            if(terrain>0)
+                                map_bg_data[y][x]=terrain;
 
 
 
 
-                }
 
-                if(typeof(map_data_[i].level)!='undefined'){
-                    map_z_data[y][x]=map_data_[i].level;
+                        }
+
+                        if(typeof(map_data_[i].level)!='undefined'){
+                            map_z_data[y][x]=map_data_[i].level;
+                        }else{
+                            //map_z_data[y][x]=0.1;
+                        }
+
+
+                    }
+
+
                 }else{
-                    //map_z_data[y][x]=0.1;
+                    map_data.push(map_data_[i]);
                 }
-
-
-            }else{
-                map_data.push(map_data_[i]);
-            }
 
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-        $('#map_bg').css('left',-canvas_width/3);
-        $('#map_bg').css('top',-canvas_height/3);
+
 
         drawMap();
 
@@ -313,7 +320,7 @@ function drawEllipse(ctx, x, y, w, h) {
     ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
     ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
     ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-    ctx.closePath(); // not used correctly, see comments (use to close off open path)
+    ctx.closePath(); // todo not used correctly, see comments (use to close off open path)
     ctx.stroke();
     ctx.fill();
 }
@@ -327,6 +334,15 @@ function drawEllipse(ctx, x, y, w, h) {
 
 
 function drawMap(){
+
+
+    r('drawMap');
+
+
+    //----------------Move canvas
+
+    $('#map_bg').css('left',-canvas_width/3);
+    $('#map_bg').css('top',-canvas_height/3);
 
     //----------------Prepare objects
 
@@ -354,8 +370,8 @@ function drawMap(){
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
                     var yc = y - map_y + Math.round(map_y) - (map_size - 1) / 2;
 
-                    var world_x = x + Math.floor(map_x) - Math.floor(map_size/2);
-                    var world_y = y + Math.floor(map_y) - Math.floor(map_size/2);
+                    var world_x = x + Math.round(map_x) - Math.round(map_size/2);
+                    var world_y = y + Math.round(map_y) - Math.round(map_size/2);
 
 
                     if (terrain == 0 || terrain == 10){
@@ -450,7 +466,7 @@ function drawMap(){
 
                                 var object=(terrain==9?all_images_tree[object_seed]:all_images_rock[object_seed]);
 
-                                var object_uid=(terrain==9?'t':'r')+world_x+'x'+world_y+'y';
+                                var object_id=(terrain==9?'t':'r')+world_x+'x'+world_y+'y';
 
 
                                 if(terrain==9){
@@ -480,6 +496,7 @@ function drawMap(){
                                 object_screen_y += (canvas_height / 2);
 
 
+/*
                                 if(map_selecting)
                                 if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
 
@@ -487,38 +504,33 @@ function drawMap(){
 
                                     map_mouse_x=world_x;
                                     map_mouse_y=world_y;
-                                    //alert(object_uid);
-                                    map_selected_uids=[object_uid];
+                                    //alert(object_id);
+                                    map_selected_ids=[object_id];
                                 }
+*/
 
                                 object_screen_x += (width/2)  - (object_width/2);
                                 object_screen_y += -(object_height)+(object_width/4)+(height/4);
 
 
-                                if($.inArray(object_uid,map_selected_uids)!=-1){
+/*
+                                if($.inArray(object_id,map_selected_ids)!=-1){
 
-                                    //alert('selected'+object_uid);
+                                    alert('selected'+object_id);
 
-                                    /*map_ctx.strokeStyle = 'rgba(0,0,0,0.8)';
-                                    map_ctx.fillStyle = 'rgba(50,50,50,0.4)';
-                                    map_ctx.lineWidth = 3;
-
-                                    drawEllipse(
-                                        map_ctx,
-                                        object_screen_x,
-                                        object_screen_y+object_height-(object_width/map_slope_m),
-                                        object_width,
-                                        object_width/map_slope_m);*/
                                     map_draw.push([
                                         'ellipse',
                                         ['rgba(50,50,50,0.4)','rgba(0,0,0,0.8)',3],
                                         object_screen_x,
                                         object_screen_y+object_height-(object_width/map_slope_m),
+                                        999999,
                                         object_width,
                                         object_width/map_slope_m
+
                                     ]);
 
                                 }
+*/
 
 
                                 map_draw.push([
@@ -553,13 +565,14 @@ function drawMap(){
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
+    var selecting_distance_pow=20;
+    selecting_distance_pow=selecting_distance_pow*selecting_distance_pow;
+
+    var object=all_images_rock[0];
     for(var i=0;i<map_data.length;i++){
 
         //-----------------------------------------
 
-                var object_seed=(Math.pow(world_x,2)+Math.pow(world_y,2))%(terrain==9?treeCount:rockCount);
-
-                var object=all_images_rock[0];
 
                 /*
                  map_bg = document.getElementById("map_bg");
@@ -573,7 +586,7 @@ function drawMap(){
                 drawModel(object_ctx,map_data[i].res);*/
 
 
-                var object_uid=map_data[i].uid;
+                var object_id=map_data[i].id;
 
 
                 object_xc=map_data[i].x-Math.floor(map_x);
@@ -587,21 +600,59 @@ function drawMap(){
                 object_screen_x += (canvas_width / 2);
                 object_screen_y += (canvas_height / 2);
 
+                if(map_selecting)
 
-                /*if(map_selecting)
-                    if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
+                    var distance=Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2);
+
+                    if(distance<selecting_distance_pow){
+
+                        selecting_distance_pow=distance;
 
                         map_selecting=false;
 
-                        map_mouse_x=world_x;
-                        map_mouse_y=world_y;
-                        //alert(object_uid);
-                        map_selected_uids=[object_uid];
-                    }*/
+                        map_mouse_x=object_xc;
+                        map_mouse_y=object_yc;
+
+                        //------------------------------------------
+                        if(map_data[i].type=='building') {
+                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                            map_selected_ids=[object_id];
 
 
+                            var ellipse_width = 100;
+
+                            map_draw.push([
+                                'ellipse',
+                                ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
+                                object_screen_x - (ellipse_width / 2),
+                                object_screen_y - (ellipse_width / map_slope_m / 2),
+                                object_screen_y+199,
+                                ellipse_width,
+                                ellipse_width / map_slope_m
+
+                            ]);
+                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        }else
+                        if(map_data[i].type=='story'){
+                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                            var res=map_data[i].res;
+                            res=res.substr(5);
+
+                            $(".popup-window .header").html(map_data[i]._name);
+                            $(".popup-window .content").html(res);
+
+
+                            $(".overlay").show();
+                            $(".popup-window").show();
+                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        }
+                        //------------------------------------------
+                 }
+
+                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 map_draw.push([
-                    'res',
+                    map_data[i].type,
                     map_data[i].res,
                     object_screen_x,
                     object_screen_y,
@@ -649,13 +700,14 @@ function drawMap(){
                 map_draw[i][6]
             );
         }else
-        if(map_draw[i][0]=='res'){
+        if(map_draw[i][0]=='building'){
 
             drawModel(map_ctx,map_draw[i][1],map_zoom_m,map_draw[i][2],map_draw[i][3],-map_rotation,map_slope);
 
         }else
         if(map_draw[i][0]=='ellipse'){
 
+            r(map_draw[i]);
 
 
             map_ctx.fillStyle =     map_draw[i][1][0];
@@ -673,6 +725,37 @@ function drawMap(){
 
             );
 
+        }else
+        if(map_draw[i][0]=='story'){
+
+
+
+            var res=map_draw[i][1];
+            res=res.substr(5);
+
+            //r(res);
+
+            var ellipse_width=Math.pow(res.length,1/3)*2;
+
+
+
+
+            //r('storka');
+            map_ctx.fillStyle =     '#110011';
+            //map_ctx.fillStyle =     'rgba(0,0,0,0)';
+            map_ctx.strokeStyle =   'rgba(70,20,200,0.5)';
+            map_ctx.lineWidth =     20;
+
+
+            drawEllipse(
+
+                map_ctx,
+                map_draw[i][2]-(ellipse_width/2),
+                map_draw[i][3]-(ellipse_width/2),
+                ellipse_width,
+                ellipse_width
+
+            );
         }
 
     }
