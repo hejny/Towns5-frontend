@@ -76,12 +76,13 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
   ###---------------------------Rozklad polygonů###
   polygons = polygons.split(';')
   i = 0
-  while polygons[i]
-    polygons[i] = polygons[i].split(',')
-    polygons[i][polygons[i].length] = colors[i]
-    polygons[i].color=colors[i]
-    i++
+  #for var i=0,l=polygons.length;i<l;i++
+  for polygon,i in polygons
+    polygon = polygon.split(',')
+    polygon.color=colors[i]
+    polygons[i]=polygon
 
+  #r(polygons);
   ###---------------------------Seřazení bodů###
 
   polygons.sort (a,b) ->
@@ -131,11 +132,11 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
         x = points[polygons[i2][i3] - 1][0]+z/1.5
         y = points[polygons[i2][i3] - 1][1]-z/1.5/2
 
-        xx = 100 + x * 1 - (y * 1)
-        yy = 279 + x * slope_m + y * slope_m
+        xx = x * 1 - (y * 1)
+        yy = x * slope_m + y * slope_m
 
-        xxx = 100 + x * 1 - (y * 1)
-        yyy = 279 + x * slope_m + y * slope_m
+        xxx = x * 1 - (y * 1)
+        yyy = x * slope_m + y * slope_m
         tmppoints[i] = s * xx
         i++
         tmppoints[i] = s * yy
@@ -185,11 +186,11 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
 
 
 
-        xx = 100 + x * 1 - (y * 1)
-        yy = 279 + x * slope_m + y * slope_m - (z * slope_n)
+        xx = x * 1 - (y * 1)
+        yy = x * slope_m + y * slope_m - (z * slope_n)
 
-        xxx = 100 + x * 1 - (y * 1)
-        yyy = 279 + x * slope_m + y * slope_m - (z * slope_n)
+        xxx = x * 1 - (y * 1)
+        yyy = x * slope_m + y * slope_m - (z * slope_n)
         tmppoints[i] = s * xx
         i++
         tmppoints[i] = s * yy

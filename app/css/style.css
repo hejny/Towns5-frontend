@@ -33,13 +33,70 @@ body {
     clear: both;
 }
 
-iframe {
+/*iframe {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+}*/
+
+#loading{
+    position:absolute;
+    display:none;
+    z-index:10000;
+    top:100px;
+    left:100px;
+    font-size: 22px;
+
 }
+
+
+#map_drag{
+    position:absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index:3000;
+    /*border: 2px dashed #FF0000;*/
+}
+
+#loadbar_outer{
+    position:absolute;
+    width: 100vw;
+    height: 100vh;
+    font-size:2em;
+    text-align:center;
+    z-index:2000;
+}
+
+
+#loadbar{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+#map_bg {
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:1000;
+
+}
+
+
+
+#debuginfo {
+    display:none;
+    position:absolute;
+    right:0px;
+    top:65px;
+    color:#ffffff;
+    z-index:1500;
+}
+
+
 
 /* MENU --------------------------------------------------------------------------------------------------------------*/
 
@@ -243,9 +300,14 @@ iframe {
     width: 50px;
     height: 50px;
     border-radius: 3px;
+
     background-color: blueviolet;
     box-shadow: black 0 0 3px 0;
     cursor: pointer;
+
+
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .action-wrapper:nth-child(even) .action {
@@ -357,10 +419,10 @@ iframe {
 
 /* POPUP STORY -------------------------------------------------------------------------------------------------------*/
 
-.js-popup-story-open,
-.js-popup-story-close {}
+.js-popup-window-open,
+.js-popup-window-close {}
 
-.popup-story {
+.popup-window {
     display: none;
     z-index: 7000;
     position: fixed;
@@ -376,7 +438,7 @@ iframe {
     overflow: hidden;
 }
 
-.popup-story .header {
+.popup-window .header {
     position: absolute;
     top: 0;
     left: 0;
@@ -396,7 +458,7 @@ iframe {
     border-bottom: 1px solid #bababa;
 }
 
-.popup-story .content {
+.popup-window .content {
     position: absolute;
     top: 40px;
     bottom: 0;
@@ -408,7 +470,7 @@ iframe {
     background-color: white;
 }
 
-.popup-story .close {
+.popup-window .close {
     position: absolute;
     top: 10px;
     right: 10px;

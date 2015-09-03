@@ -360,21 +360,46 @@ $( document ).ready(function() {
 
 //=======================================================================================================================schovani sidebar
 
+    var clickingTimeout;
 
     $("#map_drag").click(function (e) {
 
-        //$('.sidebar').hide();
 
-        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
-        map_selected_uids=[];
-        map_selecting=true;
+        //r(e);
+        $('#loading').css('top',e.clientY);
+        $('#loading').css('left',e.clientX);
+        //$('#loading').css('display','block');
+        $('#loading').show();
 
         //alert('click');
 
-        drawMap();
-        updateValues();
-        objectMenu();
+
+        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+
+
+        clearTimeout(clickingTimeout);
+        clickingTimeout=setTimeout(function(){
+
+            var map_selected_ids_prev=map_selected_ids;
+            map_selecting=true;
+
+            //alert('click');
+
+
+            drawMap();
+            updateValues();
+            objectMenu();
+
+            //Pokud nedoslo k zadne zmene, oznaceny objekt se odznaci
+            if(map_selected_ids==map_selected_ids_prev){
+                map_selected_ids=[];
+            }
+
+            $('#loading').hide();
+
+
+        },100);
 
 
     });
