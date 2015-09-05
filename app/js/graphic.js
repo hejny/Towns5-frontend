@@ -240,15 +240,15 @@ function loadMap() {
         ]
 
 
-        ,function(response){
+        ,function(res){
 
-            map_data=response[0]['objects'];
+            map_data=res[0]['objects'];
 
 
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
             /*
-            var map_data_terrain=response[1]['objects'];
+            var map_data_terrain=res[1]['objects'];
             for(var i= 0, l=map_data_terrain.length;i<l;i++){
 
                 var x=Math.floor(map_data_terrain[i].x-map_x+map_size/2);

@@ -33,24 +33,31 @@
         <script src="app/js/graphic.js"></script>
         <script src="app/js/events.js"></script>
         <script src="app/js/objectmenu.js"></script>
-
-
         <script src="app/js/ui.js"></script>
 
 
         <script src="app/js/townsapi.lib.js"></script>
 
 
+        <script src="app/coffeehtml/debug.js"></script>
+        <script src="app/coffeehtml/loginform.js"></script>
+
+
+        <script src="app/js/functions/login.js"></script>
+
+
+
     </head>
     <body>
+
 
     <div id="loading">
         <i class="fa fa-spinner faa-spin animated"></i>
     </div>
 
+
+
     <!--start of map-->
-
-
 
         <div id="map_drag"></div>
 
@@ -59,111 +66,7 @@
             <div id="loadbar"></div>
         </div>
 
-
         <canvas id="map_bg" width="100" height="100"></canvas>
-
-
-
-
-        <div id="debuginfo">
-
-
-
-            <table>
-
-                <tr>
-                    <td>
-                        fps:
-                    </td>
-                    <td id="fps">
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>
-                        canvas_mouse:
-                    </td>
-                    <td id="canvas_mouse">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        map_mouse:
-                    </td>
-                    <td id="map_mouse">
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>
-                        size_water:
-                    </td>
-                    <td id="size_water">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        size_spring:
-                    </td>
-                    <td id="size_spring">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        zoom:
-                    </td>
-                    <td id="map_zoom">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        rotation:
-                    </td>
-                    <td id="map_rotation">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        slope:
-                    </td>
-                    <td id="map_slope">
-                    </td>
-                </tr>
-
-
-                <tr>
-                    <td>
-                        x:
-                    </td>
-                    <td id="map_x">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        y:
-                    </td>
-                    <td id="map_y">
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        size:
-                    </td>
-                    <td id="map_size" >
-                    </td>
-                </tr>
-            </table>
-
-        </div>
 
 
     <!--end of mapy-->
@@ -248,7 +151,9 @@
             </ul>
 
             <ul class="menu-list menu-list-right">
-                <li class="menu-list-item menu-list-item-registration"><a class="js-popup-window-open" href="#">Dokončit registraci</a></li>
+                <li class="menu-list-item menu-list-item-registration">
+                    <a class="js-popup-window-open" header="Prihlasit se" content="login_form_html" href="#">Dokončit registraci</a>
+                </li>
 
 
 
@@ -262,6 +167,11 @@
 
             <div class="cleaner"></div>
         </nav>
+
+
+
+
+
 
         <!--[PH] Nevím jak jinak donutit css aby brala v úvahu background-size: cover;-->
         <aside id="objectmenu">
@@ -288,8 +198,7 @@
 
         <div class="popup-window">
             <div class="header"></div>
-            <div class="content">
-            </div>
+            <div class="content"></div>
 
 
             <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>

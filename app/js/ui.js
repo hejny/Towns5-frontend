@@ -34,6 +34,14 @@ function uiScript(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $(".js-popup-window-open").on("click", function(){
         $(".overlay").show();
+
+        //r($(this).attr('content'));
+        //r(window[$(this).attr('content')]);
+
+        $(".popup-window .header").html($(this).attr('header'));
+        $(".popup-window .content").html(window[$(this).attr('content')]);
+
+
         $(".popup-window").show();
     });
 
