@@ -140,6 +140,7 @@ var controls={
 
 };
 
+var moving=false;
 
 
 $( document ).ready(function() {
@@ -209,69 +210,38 @@ $( document ).ready(function() {
             }
 
 
-
             if ($.inArray('up', keys_) != -1) {
-
-                //map_x -= Math.sin(map_rotation / 180 * pi) * 30 / 180;
-                //map_y -= Math.cos(map_rotation / 180 * pi) * 30 / 180;
-
                 mapMove(0,30);
-
-                //updateMap();
-
+                moving=true;
             }
 
 
             if ($.inArray('down', keys_) != -1) {
-
-                //map_x_delta = Math.sin(map_rotation / 180 * pi) * 50;
-                //map_y_delta = Math.cos(map_rotation / 180 * pi) * 50;
                 mapMove(0,-30);
-
-
+                moving=true;
             }
 
-
             if ($.inArray('left', keys_) != -1) {
-                //map_rotation_delta = 45;
-                //updateMap();
                 mapMove(30,0);
+                moving=true;
             }
 
 
             if ($.inArray('right', keys_) != -1) {
-                //map_rotation_delta = -45;
-                //updateMap();
                 mapMove(-30,0);
+                moving=true;
             }
 
 
-            /*if ($.inArray('slopeup', keys_) != -1) {
-                map_slope_delta = 90;
-            }
-
-
-            if ($.inArray('slopedown', keys_) != -1) {
-                map_slope_delta = -90;
-            }
-
-            if ($.inArray('perspectiveup', keys_) != -1) {
-                map_perspective_delta = 0.01;
-            }
-
-
-            if ($.inArray('perspectivedown', keys_) != -1) {
-                map_perspective_delta = -0.01;
-            }
-
-            if ($.inArray('sizeup', keys_) != -1) {
-                map_size_delta = 2;
-            }
-
-
-            if ($.inArray('sizedown', keys_) != -1) {
-                map_size_delta = -2;
-            }*/
+            if(moving===true)
+                if ($.inArray('up', keys_) == -1)
+                if ($.inArray('down', keys_) == -1)
+                if ($.inArray('left', keys_) == -1)
+                if ($.inArray('right', keys_) == -1){
+                    moving=false;
+                    alert('stop moving by keys');
+                    updateMap();
+                }
 
 
         }
@@ -334,7 +304,7 @@ $( document ).ready(function() {
             last_offset = current_offset;
 
 
-            mapMove(deltaX,deltaY,true);
+            mapMove(deltaX,deltaY);
 
 
         }

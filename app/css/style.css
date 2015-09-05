@@ -327,8 +327,9 @@ body {
 .js-popup-action-open,
 .js-popup-action-close {}
 
-.popup-action {
+#popup-action {
 
+    z-index: 7000;
     display: none;
     position: absolute;
     top: 0;
@@ -336,11 +337,8 @@ body {
     width: 310px;
 }
 
-.action-wrapper.active .popup-action {
-    display: block; /* todo: nespraviť to radšej cez javascript ??? */
-}
 
-.popup-action .arrow {
+#popup-action .arrow {
     float: left;
     margin-top: 20px;
     width: 0;
@@ -351,7 +349,7 @@ body {
     border-right: 10px solid rgba(255, 255, 255,0.85);
 }
 
-.popup-action .content {
+#popup-action .content {
     float: left;
     /*background-color: black;*/
     /*background-color: rgba(0,0,0,0.85);*/
@@ -364,20 +362,20 @@ body {
 }
 
 
-.popup-action .content h2,
-.popup-action .content p,
-.popup-action .content button {
+#popup-action .content h2,
+#popup-action .content p,
+#popup-action .content button {
     padding: 10px;
     margin: 0;
 }
 
-.popup-action .content h2 {
+#popup-action .content h2 {
     font-size: 20px;
     height: 20px;
     line-height: 20px;
 }
 
-.popup-action .content button {
+#popup-action .content button {
     border: none;
     display: block;
     padding: 0 10px;
@@ -392,15 +390,14 @@ body {
 
 }
 
-.popup-action .close {
+#popup-action .close {
     position: absolute;
     top: 10px;
     right: 10px;
     height: 20px;
     width: 20px;
     cursor: pointer;
-    /*background: url("../img/close-white.png") no-repeat center center /contain;*/
-    background: url("../img/close-black.png") no-repeat center center /contain;
+
 }
 
 /* OVERLAY -----------------------------------------------------------------------------------------------------------*/
@@ -477,7 +474,6 @@ body {
     height: 20px;
     width: 20px;
     cursor: pointer;
-    background: url("../img/close-black.png") no-repeat center center /contain;
 }
 
 /* POPUP NOTIFICATION ------------------------------------------------------------------------------------------------*/
