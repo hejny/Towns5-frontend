@@ -27,7 +27,8 @@ var baseurl='http://towns.local';
 
 var env_template=[
     'debug',
-    'onlymap'
+    'onlymap',
+    'new'
 
 ];
 
