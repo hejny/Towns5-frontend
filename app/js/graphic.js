@@ -198,6 +198,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 //======================================================================================================================loadMap
 
+var map_request_holder;
 
 function loadMap() {
     //r('loadMap');
@@ -217,80 +218,79 @@ function loadMap() {
     drawMap();
     return;*/
 
+    if(typeof map_request_holder!=='undefined')
+        map_request_holder.abort();
 
-    townsApi(
+    map_request_holder=townsApiMulti(
         [
-            'list',
-            'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
-            //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
-            ['radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')','type!=\'terrain\''],
-            'y,x'
+            [
+                'list',
+                'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
+                //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
+                ['type!=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
+                'y,x'
+            ]/*,
+            [
+                'list',
+                'x,y,res',
+                ['type=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
+                'y,x'
+            ]*/
+
         ]
+
 
         ,function(response){
 
+            map_data=response[0]['objects'];
 
-            //r(response);
 
-            var map_data_=response['objects'];
-
-            //r(map_data_);
-
-            map_data=[];
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
+            /*
+            var map_data_terrain=response[1]['objects'];
+            for(var i= 0, l=map_data_terrain.length;i<l;i++){
 
-                //r(map_size);
-
-            for(var i= 0, l=map_data_.length;i<l;i++){
-
-                if(map_data_[i].type=='terrain'){
-
-                    var x=Math.floor(map_data_[i].x-map_x+map_size/2);
-                    var y=Math.floor(map_data_[i].y-map_y+map_size/2);
+                var x=Math.floor(map_data_terrain[i].x-map_x+map_size/2);
+                var y=Math.floor(map_data_terrain[i].y-map_y+map_size/2);
 
 
-                    if(
-                    x<0 ||
-                    y<0 ||
-                    x>=map_size ||
-                    y>=map_size
+                if(
+                x<0 ||
+                y<0 ||
+                x>=map_size ||
+                y>=map_size
 
-                    ){
-                        //r(x+','+y);
-                    }else{
+                ){
+                    //r(x+','+y);
+                }else{
 
-                        if(typeof(map_data_[i].res)!='undefined'){
+                    if(typeof(map_data_terrain[i].res)!='undefined'){
 
-                            var terrain=map_data_[i].res;
-                            terrain=parseInt(terrain.substr(1));
+                        var terrain=map_data_terrain[i].res;
+                        terrain=parseInt(terrain.substr(1));
 
-                            //terrain=terrain-1;
+                        //terrain=terrain-1;
 
-                            if(terrain>0)
-                                map_bg_data[y][x]=terrain;
+                        if(terrain>0)
+                            map_bg_data[y][x]=terrain;
 
 
 
-
-
-                        }
-
-                        if(typeof(map_data_[i].level)!='undefined'){
-                            map_z_data[y][x]=map_data_[i].level;
-                        }else{
-                            //map_z_data[y][x]=0.1;
-                        }
 
 
                     }
 
+                    if(typeof(map_data_terrain[i].level)!='undefined'){
+                        map_z_data[y][x]=map_data_terrain[i].level;
+                    }else{
+                        //map_z_data[y][x]=0.1;
+                    }
 
-                }else{
-                    map_data.push(map_data_[i]);
+
                 }
 
-        }
+        }*/
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
@@ -538,7 +538,7 @@ function drawMap(){
                                     object,
                                     object_screen_x,
                                     object_screen_y,
-                                    object_screen_y+object_height-Math.floor(object_width/4)+(terrain==9?120:120),
+                                    object_screen_y+object_height-Math.floor(object_width/4)+120,
                                     object_width,
                                     object_height
 
@@ -627,7 +627,7 @@ function drawMap(){
                                 ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
                                 object_screen_x - (ellipse_width / 2),
                                 object_screen_y - (ellipse_width / map_slope_m / 2),
-                                object_screen_y+199,
+                                object_screen_y+120-1,
                                 ellipse_width,
                                 ellipse_width / map_slope_m
 
@@ -651,13 +651,13 @@ function drawMap(){
                  }
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                map_draw.push([
-                    map_data[i].type,
-                    map_data[i].res,
-                    object_screen_x,
-                    object_screen_y,
-                    object_screen_y+200
-                ]);
+        map_draw.push([
+            map_data[i].type,
+            map_data[i].res,
+            object_screen_x,
+            object_screen_y,
+            ((map_data[i].type=='story')?9999:object_screen_y+120)
+        ]);
 
 
         //-----------------------------------------
@@ -1005,7 +1005,7 @@ function updateValues(){
 //----------------------------------------------------------------------------------------------------------------------
 
 
-function mapMove(deltaX,deltaY,noUpdate) {
+function mapMove(deltaX,deltaY) {
 
     //----------------
 
@@ -1041,17 +1041,6 @@ function mapMove(deltaX,deltaY,noUpdate) {
     $('#map_bg').css('left', map_bg_x);
     $('#map_bg').css('top', map_bg_y);
 
-
-
-        ///console.log(Math.pow(map_bg_x,2)+Math.pow(map_bg_y/2,2),(Math.pow(screen_x,2)+Math.pow(screen_y/2,2))/2    );
-
-        if(!noUpdate)
-        if(Math.pow(map_bg_x+canvas_width/3,2)+Math.pow(map_bg_y+canvas_width/3/2,2)>(Math.pow(screen_x,2)+Math.pow(screen_y/2,2))/32){
-
-            //alert(Math.pow(map_bg_x,2)+Math.pow(map_bg_y/2,2));
-            updateMap();
-
-    }
 
     //----------------
 }

@@ -9,23 +9,22 @@ function uiScript(){
 
     //==================================================================================================================popup action
 
+    // [PH] Celé jsem to udělal pomocí jednoho popup-action , který js po kliknutí naplní umístí a zobrazí
     // kliknutie na .js-popup-action-open trigger...
     $(".js-popup-action-open").on("click", function(){
 
-        // ... pri kliknutí na práve otvorenú ponuku akcie odoberie .action-wrapper-u triedu .active
-        if ($(this).parent(".action-wrapper").hasClass("active")){
-            $(".action-wrapper").removeClass("active");
+        var content=$(this).offset();
+        $('#popup-action').css('top',content.top);
+        $('#popup-action .content').html($(this).attr('content'));
+        $('#popup-action').show();
 
-        // ... pri kliknutí na neotvorenú ponuku akcie odstráni všetkým .action-wrapper prípadnú triedu .active, a pridá ju len tomu, na ktorý sme klikli
-        } else {
-            $(".action-wrapper").removeClass("active");
-            $(this).parent(".action-wrapper").addClass("active");
-        }
     });
 
-    // kliknutie na .js-popup-action-close trigger odoberie všetkým .action-wrapper triedu .active
+
     $(".js-popup-action-close").on("click", function(){
-        $(".action-wrapper").removeClass("active");
+
+        $('#popup-action').hide();
+
     });
 
     //==================================================================================================================popup story
