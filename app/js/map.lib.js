@@ -29,71 +29,16 @@ function getZ(x,y){
 
 
     n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
-
     n+=Math.round(Math.pow(Math.pow(x+y,2)+Math.pow(x,2),(1/1.6))/16)%2;
 
-    //n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1)/4)%3;
+    //n+=Math.round(Math.pow(Math.pow(x,3)+Math.pow(y,3),(1/3)))%4;
+	//n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
 
 	return(n);
 
-	//return(Math.round(n*10));
 }
 
 
-
-/*function getZ(x,y){
-
-	var itt=20;
-
-    var c1=2;
-    var c2=2;
-
-
-	x=(x/50)-1;
-	y=(y/50)-1;
-
-    var px=x;
-    var py=y;
-
-    for(var i=0;i<itt;i++) {
-
-		var distance=Math.sqrt(x*x+y*y);
-
-		if(distance!=0)
-			var rotation=Math.acos(x/distance);
-		else
-			var rotation=0;
-
-		if(y<0)rotation=(2*Math.PI)-rotation;
-
-		rotation=rotation*c1;
-		distance=Math.pow(distance,c2);
-
-
-		x=Math.cos(rotation)*distance;
-		y=Math.sin(rotation)*distance;
-
-		//echo("(z1,z2)[rr,fi]<br/>");
-
-		x=x+px;
-		y=y+px;
-
-		if(x*x+y*y>=4) {
-        	return(0);
-      	}
-
-
-
-    }
-    
-	if(distance>100)distance=100;
-
-	var z=100-distance;
-
-	//z=(z/2);
-
-	
-}*/
 
 
 function getPrimeMap(startX,startY,size){

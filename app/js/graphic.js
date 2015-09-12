@@ -6,7 +6,7 @@ var map_loaded=false;
 //----
 
 
-var map_zoom=-2.5;
+var map_zoom=-3.5;
 var map_rotation=Math.random()*360;
 var map_slope=27;
 
@@ -21,11 +21,11 @@ var map_y=(Math.random()-0.5)*1000000;
 //var map_x=-40311400;
 //var map_y=-40311400;
 
-var map_x=30;var map_y=40;
+//var map_x=0;var map_y=0;
 var map_rotation=45;
 
 
-var max_map_size=100;
+var max_map_size=180;
 //----
 
 var map_zoom_delta=0;
@@ -45,8 +45,15 @@ var map_mouse_y = 0;
 var map_selecting = false;
 var map_selected_ids = [];
 
-terrainCount=13;
+var terrainCount=13;
 
+//----------------Změny kumulované uživatelem na mapě
+
+var map_changes=[];//x,y,terrain,z
+
+var mapChangesOptimize = function(){
+    //todo
+};
 
 
 //----------------
@@ -144,53 +151,71 @@ var all_images_count=terrainCount*seedCount+treeCount+rockCount;
 var all_images_loaded=0;
 
 
-//----------------------------------------------------------------Podklad
+
+
+
+//----------------------------------------------------------------------------------------------------------------------Frames
+
+
+var fps=0;
+var time=0;
+
+var map_bg =false;
+var map_ctx =false;
 
 var all_images_bg=[];
-for(var terrain=0;terrain<terrainCount;terrain++) {
+var all_images_tree=[];
+var all_images_rock=[];
+
+$(function() {
+
+    map_bg = document.getElementById("map_bg");
+    map_ctx = map_bg.getContext("2d");
 
 
-    all_images_bg[terrain] = [];
-    for (var seed = 0; seed < seedCount; seed++) {
+    //----------------------------------------------------------------Podklad
 
 
-        all_images_bg[terrain][seed] = new Image();
-        all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=120';
+    for(var terrain=0;terrain<terrainCount;terrain++) {
+        all_images_bg[terrain] = [];
+        for (var seed = 0; seed < seedCount; seed++) {
 
-        all_images_bg[terrain][seed].onload = imageLoad;
+
+            all_images_bg[terrain][seed] = new Image();
+            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=120';
+
+            all_images_bg[terrain][seed].onload = imageLoad;
+
+
+        }
+    }
+
+    //----------------------------------------------------------------Tree
+    for (var seed = 0; seed < treeCount; seed++) {
+
+
+        all_images_tree[seed] = new Image();
+        all_images_tree[seed].src = 'app/graphic/treerock.php?type=tree&seed=' + seed + '&width=100';
+        //all_images_tree[seed].src = 'ui/image/tree/' + seed + '.png';
+
+        all_images_tree[seed].onload = imageLoad;
 
 
     }
-}
-
-//----------------------------------------------------------------Tree
-
-var all_images_tree=[];
-for (var seed = 0; seed < treeCount; seed++) {
+    //r(all_images_tree);
+    //----------------------------------------------------------------Rock
+    for (var seed = 0; seed < rockCount; seed++) {
 
 
-    all_images_tree[seed] = new Image();
-    all_images_tree[seed].src = 'app/graphic/treerock.php?type=tree&seed=' + seed + '&width=100';
-    //all_images_tree[seed].src = 'ui/image/tree/' + seed + '.png';
+        all_images_rock[seed] = new Image();
+        all_images_rock[seed].src = 'app/graphic/treerock.php?type=rock&seed=' + seed + '&width=133';
 
-    all_images_tree[seed].onload = imageLoad;
-
-
-}
-//r(all_images_tree);
-//----------------------------------------------------------------Rock
-
-var all_images_rock=[];
-for (var seed = 0; seed < rockCount; seed++) {
+        all_images_rock[seed].onload = imageLoad;
 
 
-    all_images_rock[seed] = new Image();
-    all_images_rock[seed].src = 'app/graphic/treerock.php?type=rock&seed=' + seed + '&width=133';
+    }
 
-    all_images_rock[seed].onload = imageLoad;
-
-
-}
+});
 
 
 
@@ -201,7 +226,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 var map_request_holder;
 
 function loadMap() {
-    //r('loadMap');
+    r('loadMap');
 
     var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
 
@@ -242,7 +267,12 @@ function loadMap() {
 
         ,function(res){
 
-            map_data=res[0]['objects'];
+
+
+            if(res.length>0)
+                map_data=res[0]['objects'];
+            else
+                map_data=[];
 
 
 
@@ -293,8 +323,32 @@ function loadMap() {
         }*/
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+            //todo optimize
+
+            //r(map_changes);
 
 
+        for(var i= 0,l=map_changes.length;i<l;i++){
+
+            var x=map_changes[i][0],
+                y=map_changes[i][1],
+                terrain=map_changes[i][2],
+                z=map_changes[i][3];
+
+            if(
+                x<0 ||
+                y<0 ||
+                x>=map_size ||
+                y>=map_size
+
+            ){}else{
+                map_bg_data[y][x]=terrain;
+                map_z_data[y][x]=z;
+            }
+
+        }
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         drawMap();
 
     });
@@ -335,7 +389,8 @@ function drawEllipse(ctx, x, y, w, h) {
 
 function drawMap(){
 
-
+    //r(map_ctx);
+    if(map_ctx==false)return;
     r('drawMap');
 
 
@@ -350,6 +405,10 @@ function drawMap(){
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Virtual objects
+
+    var selecting_distance_pow=2000*map_zoom_m;
+    selecting_distance_pow=selecting_distance_pow*selecting_distance_pow;
+
 
     for(var y=0;y<map_size;y++){
         for(var x=0;x<map_size;x++){
@@ -403,7 +462,7 @@ function drawMap(){
 
 
 
-
+                    //r(map_z_data[y][x]);
                     var z = (Math.pow(map_z_data[y][x], (1 / 12))-0.85) * -6000;
 
 
@@ -413,14 +472,65 @@ function drawMap(){
                     var height = Math.ceil(width  * size /* map_zoom_m*/);
 
 
-                    screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
-                    screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
-
-
+                    var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
+                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
 
 
                     screen_x += (canvas_width / 2);
                     screen_y += (canvas_height / 2)-(height/2);
+
+
+                    //------------------------------------------
+                    if(map_selecting) {
+
+                        var distance = Math.pow(screen_x - canvas_mouse_x, 2) + Math.pow((screen_y - canvas_mouse_y)*map_slope_m, 2);
+
+
+                        if (distance < selecting_distance_pow) {
+
+                            //selecting_distance_pow = distance;
+                            //map_selecting = false;
+
+                            map_mouse_x = object_xc;
+                            map_mouse_y = object_yc;
+
+                            //r(y+','+x+' t'+terrain_change);
+
+                            if(terrain_change!==false){
+
+
+                                map_bg_data[y][x]=terrain_change;
+                                map_changes.push([x,y,terrain_change,map_z_data[y][x]]);
+
+                                //++++++++++++++++++ begin duplicate
+                                var terrain = map_bg_data[y][x] - 1;
+                                //++++++++++++++++++ end of duplicate
+
+                            }
+
+                            if(level_change!==false){
+
+
+                                map_z_data[y][x]+=level_change*Math.cos(distance/selecting_distance_pow*3.14/2);
+                                map_changes.push([x,y,map_bg_data[y][x],map_z_data[y][x]]);
+
+                                //++++++++++++++++++ begin duplicate
+                                var z = (Math.pow(map_z_data[y][x], (1 / 12))-0.85) * -6000;
+
+                                var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
+                                var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
+
+                                screen_x += (canvas_width / 2);
+                                screen_y += (canvas_height / 2)-(height/2);
+                                //++++++++++++++++++ end of duplicate
+
+                            }
+
+
+                        }
+                    }
+                    //------------------------------------------
+
 
 
                     if(screen_x>-(width/2) && screen_y>-(height/2) && screen_x<canvas_width && screen_y<canvas_height+(160*size)){
@@ -431,6 +541,7 @@ function drawMap(){
 
                         //-----
 
+                        //r(terrain);
                         map_draw.push([
                             'image',
                             all_images_bg[terrain][seed],
@@ -440,6 +551,9 @@ function drawMap(){
                             width,
                             height
                         ]);
+
+
+
 
                         //----------------------------------------------------------------------------------------------Virtuální objekty
 
@@ -600,24 +714,24 @@ function drawMap(){
                 object_screen_x += (canvas_width / 2);
                 object_screen_y += (canvas_height / 2);
 
-                if(map_selecting)
+                if(map_selecting) {
 
-                    var distance=Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2);
+                    var distance = Math.pow(object_screen_x - canvas_mouse_x, 2) + Math.pow(object_screen_y - canvas_mouse_y, 2);
 
-                    if(distance<selecting_distance_pow){
+                    if (distance < selecting_distance_pow) {
 
-                        selecting_distance_pow=distance;
+                        selecting_distance_pow = distance;
 
-                        map_selecting=false;
+                        map_selecting = false;
 
-                        map_mouse_x=object_xc;
-                        map_mouse_y=object_yc;
+                        map_mouse_x = object_xc;
+                        map_mouse_y = object_yc;
 
                         //------------------------------------------
-                        if(map_data[i].type=='building') {
+                        if (map_data[i].type == 'building') {
                             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-                            map_selected_ids=[object_id];
+                            map_selected_ids = [object_id];
 
 
                             var ellipse_width = 100;
@@ -627,28 +741,24 @@ function drawMap(){
                                 ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
                                 object_screen_x - (ellipse_width / 2),
                                 object_screen_y - (ellipse_width / map_slope_m / 2),
-                                object_screen_y+120-1,
+                                object_screen_y + 120 - 1,
                                 ellipse_width,
                                 ellipse_width / map_slope_m
 
                             ]);
                             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                        }else
-                        if(map_data[i].type=='story'){
+                        } else if (map_data[i].type == 'story') {
                             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                            var res=map_data[i].res;
-                            res=res.substr(5);
+                            var res = map_data[i].res;
+                            res = res.substr(5);
 
-                            $(".popup-window .header").html(map_data[i]._name);
-                            $(".popup-window .content").html(res);
+                            window_open(map_data[i]._name, res);
 
-
-                            $(".overlay").show();
-                            $(".popup-window").show();
                             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                         }
                         //------------------------------------------
-                 }
+                    }
+                }
 
                 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
@@ -924,58 +1034,6 @@ function updateMap(ms){
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------Frames
-
-
-var fps=0;
-var time=0;
-
-var map_bg =false;
-var map_ctx =false;
-
-    $( document ).ready(function() {
-
-    map_bg = document.getElementById("map_bg");
-    map_ctx = map_bg.getContext("2d");
-
-
-
-    /*setInterval(function() {
-
-            //--------------------------------FPS
-
-
-            var timeLast=time;
-            tmp = new Date();
-            time = (new Date()).getTime();
-            delete tmp;
-
-            if(timeLast==0){
-                var ms=0;
-                fps=0;
-            }else{
-                var ms=time-timeLast;
-                fps=Math.round(100000/ms)/100;
-
-            }
-            //--------------------------------Actions
-
-            //Brutal//updateMap(ms);
-
-            updateMap(ms);
-
-            //--------------------------------
-
-    },500);*/
-
-        //setTimeout(function() {
-           // fps=1;
-           // updateMap();
-        //},1000);
-
-
-});
-
 //----------------------------------------------------------------------------------------------------------------------
 
 
@@ -1044,7 +1102,6 @@ function mapMove(deltaX,deltaY) {
 
     //----------------
 }
-
 
 
 

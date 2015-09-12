@@ -4,6 +4,9 @@
 
 window.login_form_html='
 
+
+<div id="login-error" class="hidden"></div>
+
  <form onsubmit="loginFormSubmit();return false;">
 
 Jméno: <input type="text" id="username"><br>

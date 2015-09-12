@@ -24,19 +24,27 @@
         <script src="app/lib/touch-punch.js"></script>
         <script src="app/lib/mousewheel.js"></script>
         <script src="app/lib/hammer.min.js"></script>
-        <!--<script src="lib/jquery.hammer.js"></script>-->
 
 
         <script src="app/js/main.js"></script>
+        <script src="app/js/lang.lib.js"></script>
+        <script src="app/locale/cs.js"></script>
+
+
+        <!--<script src="app/js/townsapi.lib.js"></script>-->
+        <script src="app/js/townsapi.fake.lib.js"></script>
+
+
         <script src="app/js/map.lib.js"></script>
         <script src="app/js/model.lib.js" ></script>
         <script src="app/js/graphic.js"></script>
         <script src="app/js/events.js"></script>
-        <script src="app/js/objectmenu.js"></script>
+        <!--<script src="app/js/objectmenu.js"></script>-->
+        <script src="app/js/terrainmenu.js"></script>
         <script src="app/js/ui.js"></script>
 
 
-        <script src="app/js/townsapi.lib.js"></script>
+
 
 
         <script src="app/coffeehtml/debug.js"></script>
@@ -85,63 +93,40 @@
             </div>
 
             <ul class="menu-list menu-list-left">
+
+
                 <li class="menu-list-item">
-                    <a href="#">tvorba</a>
+                    <a href="#">Příroda</a>
 
                     <ul class="menu-dlist">
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
+                        <li class="menu-dlist-item"><a href="#" onclick="objectMenuTerrainChange();">Typy</a></li>
+                        <li class="menu-dlist-item"><a href="#" onclick="objectMenuLevelChange();">Výška</a></li>
                     </ul>
                 </li>
+
                 <li class="menu-list-item">
-                    <a href="#">zprávy</a>
+                    <a href="#">Příběhy</a>
 
                     <ul class="menu-dlist">
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
                     </ul>
                 </li>
+
                 <li class="menu-list-item">
-                    <a href="#">mapa</a>
+                    <a href="#">Zprávy</a>
 
                     <ul class="menu-dlist">
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
                     </ul>
                 </li>
+
+
                 <li class="menu-list-item">
-                    <a href="#">hráč</a>
+                    <a href="#">Mapa</a>
 
                     <ul class="menu-dlist">
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
                     </ul>
                 </li>
-                <li class="menu-list-item">
-                    <a href="#">dristy</a>
 
-                    <ul class="menu-dlist">
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                        <li class="menu-dlist-item"><a href="#">Link</a></li>
-                    </ul>
-                </li>
+
 
                 <!-- @todo
                 <li class="menu-list-item" style="margin-left: 15px; margin-top: 17px; margin-right: 5px;"><img src="media/image/icon/resources.png" alt=""/></li>
@@ -178,7 +163,7 @@
             <div id="objectmenu-inner">
                 <div class="action-wrapper">
 
-                    <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" content="%content"></div>
+                    <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" content="%content" onclick="%action"></div>
                 </div>
             <div>
 

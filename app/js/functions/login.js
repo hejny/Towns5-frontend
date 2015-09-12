@@ -5,9 +5,24 @@
 
 function loginFormSubmit(){
 
+    $('#login-error').removeClass();
+    $('#login-error').addClass('info');
+    $('#login-error').html('<i class="fa fa-spinner faa-spin animated"></i> Loading');
+
     //alert(1);
     var username=$('#username').val();
     var password=$('#password').val();
+
+
+
+    if(username==''){
+        $('#login-error').removeClass();
+        $('#login-error').addClass('error');
+        $('#login-error').text('!Username');
+    }
+
+
+
 
     townsApi(
         [
@@ -22,7 +37,16 @@ function loginFormSubmit(){
             r(res);
 
             if(typeof res.error !== 'undefined'){
-                alert(res.error);
+
+                $('#login-error').removeClass();
+                $('#login-error').addClass('error');
+                $('#login-error').text(res.error);
+
+            }else{
+
+
+                window_close();
+
             }
 
 
