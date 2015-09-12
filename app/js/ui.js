@@ -4,6 +4,29 @@
  *
  */
 
+function window_open(header,content){
+
+    $(".popup-window .header").html(header);
+    $(".popup-window .content").html(content);
+
+    $(".overlay").show();
+    $(".popup-window").show();
+
+    window_opened=true;
+
+}
+
+
+function window_close(){
+
+    $(".overlay").hide();
+    $(".popup-window").hide();
+
+    window_opened=false;
+}
+
+//--------------------------------------------------------------------------------
+
 
 function uiScript(){
 
@@ -13,10 +36,16 @@ function uiScript(){
     // kliknutie na .js-popup-action-open trigger...
     $(".js-popup-action-open").on("click", function(){
 
-        var content=$(this).offset();
-        $('#popup-action').css('top',content.top);
-        $('#popup-action .content').html($(this).attr('content'));
-        $('#popup-action').show();
+        var content=$(this).attr('content');
+
+        if(content!='') {
+            var content=$(this).offset();
+            $('#popup-action').css('top',content.top);
+            $('#popup-action .content').html(content);
+            $('#popup-action').show();
+        }else{
+            $('#popup-action').hide();
+        }
 
     });
 
@@ -33,28 +62,19 @@ function uiScript(){
 
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $(".js-popup-window-open").on("click", function(){
-        $(".overlay").show();
 
-        //r($(this).attr('content'));
-        //r(window[$(this).attr('content')]);
+        window_open($(this).attr('header'),window[$(this).attr('content')]);
 
-        $(".popup-window .header").html($(this).attr('header'));
-        $(".popup-window .content").html(window[$(this).attr('content')]);
-
-
-        $(".popup-window").show();
     });
 
     // kliknutie na overlay schová overlay a popup-window
     $(".overlay").on("click", function(){
-        $(this).hide();
-        $(".popup-window").hide();
+        window_close()
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
     $(".js-popup-window-close").on("click", function(){
-        $(".overlay").hide();
-        $(".popup-window").hide();
+        window_close()
     });
 
 

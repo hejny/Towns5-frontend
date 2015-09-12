@@ -21,6 +21,30 @@ body {
 
 }
 
+
+.error {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+
+.success {
+    color: #0055cc;
+    font-weight: bold;
+}
+
+.info {
+    color: #999999;
+    font-weight: bold;
+}
+
+
+
+.hide {
+    display: none;
+}
+
+
 .left {
     float: left;
 }

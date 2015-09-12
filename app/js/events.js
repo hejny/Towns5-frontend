@@ -117,7 +117,7 @@ $( document ).ready(function() {
 //======================================================================================================================
 
 
-
+var window_opened=false;
 
 var keys=[];
 
@@ -189,6 +189,8 @@ $( document ).ready(function() {
 
     setInterval(
         function () {
+
+            if(window_opened)return;
 
             //console.log(keys);
 
