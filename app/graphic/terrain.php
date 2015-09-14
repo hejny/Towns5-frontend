@@ -80,7 +80,7 @@ if(false){
 
 
 
-$cachefile=files\cacheFile(array($ease,$seed,$terrain,$size),'png','terrain');
+$cachefile=files\cacheFile(array(1,$ease,$seed,$terrain,$size),'png','terrain');
 if(!file_exists($cachefile)) {
     //_________________________________________
 
@@ -88,7 +88,7 @@ if(!file_exists($cachefile)) {
 
 
     $maxx = imagesx($source) - (t_size * border);
-    $maxy = imagesy($source) - (t_size * border);
+    $maxy = imagesy($source) - (t_size * 2 * border);
 
     //die($maxx.','.$maxy);
 
@@ -99,8 +99,8 @@ if(!file_exists($cachefile)) {
     //die($xt.','.$yt);
 
 
-    $terrain = imagecreatetruecolor(t_size * border, t_size * border / 2);
-    $terrain2 = imagecreatetruecolor(t_size * border, t_size * border);
+    $terrain = imagecreatetruecolor(t_size * border, t_size * border /* 2*/);
+    $terrain2 = imagecreatetruecolor(t_size * border, t_size * 2 * border);
 
     //----------------------------------------------------------------
 
@@ -110,7 +110,7 @@ if(!file_exists($cachefile)) {
     imagefill($terrain, 0, 0, $alpha);
 
 
-    imagecopy($terrain2, $source, 0, 0, $xt, $yt, t_size * border, t_size * border);
+    imagecopy($terrain2, $source, 0, 0, $xt, $yt, t_size * border, t_size * 2 * border);
 
 
     //----------------------------------------------------------------
@@ -135,7 +135,7 @@ if(!file_exists($cachefile)) {
         $radiusy = rand(t_brdca, t_brdcb);
 
 
-        $rgb = imagecolorat($terrain2, round($xtmp), round($ytmp));
+        $rgb = imagecolorat($terrain2, round($xtmp), round($ytmp*2));
         $r = ($rgb >> 16) & 0xFF;
         $g = ($rgb >> 8) & 0xFF;
         $b = $rgb & 0xFF;
@@ -144,7 +144,7 @@ if(!file_exists($cachefile)) {
         if ($a > 127) $a = 127;
         $alpha = imagecolorallocatealpha($terrain, $r, $g, $b, $a);
         //imagesetpixel($terrain,$xtmp,$ytmp,$alpha);
-        imagefilledellipse($terrain, $xtmp, $ytmp / 2, $radiusx, $radiusy / t_brdcr, $alpha);
+        imagefilledellipse($terrain, $xtmp, $ytmp /* 2*/, $radiusx, $radiusy / t_brdcr, $alpha);
         //imagefilledellipse($terrain,$xtmp,$ytmp,$radiusx,$radiusy,$alpha);
 
     }

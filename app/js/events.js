@@ -2,6 +2,11 @@
 
 //======================================================================================================================first size
 
+var selecting_distance_canvas;
+var selecting_distance_canvas_ctx;
+
+//-------------------------
+
 var canvas_width;
 var canvas_height;
 
@@ -272,6 +277,10 @@ $( document ).ready(function() {
 
 //======================================================================================================================
 
+    window.terrainChanging=false;
+
+    var paintingTimeout;
+
     var first_offset = false;
     var last_offset = false;
     var current_offset = false;
@@ -281,6 +290,7 @@ $( document ).ready(function() {
 
         'scroll': false,
         'start': function () {
+
             first_offset = $(this).offset();
             last_offset = first_offset;
 
@@ -295,7 +305,7 @@ $( document ).ready(function() {
 
 
         },
-        'drag': function () {
+        'drag': function (e) {
 
             current_offset = $(this).offset();
 
@@ -306,7 +316,21 @@ $( document ).ready(function() {
             last_offset = current_offset;
 
 
-            mapMove(deltaX,deltaY);
+            //r(terrainChanging);
+            if(terrainChanging==false){//todo podivat se na tohle?
+                mapMove(deltaX,deltaY);
+            }else{
+
+                canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+                canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+
+                clearTimeout(paintingTimeout);
+                paintingTimeout=setTimeout(function() {
+                    drawMap();
+                },100);
+
+            }
+
 
 
         }
@@ -314,18 +338,74 @@ $( document ).ready(function() {
 
     });
 
-
 //======================================================================================================================
 
+    selecting_distance_canvas = document.getElementById("selecting-distance");
+    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext("2d");
 
-    $("#map_drag").mousemove(function (e) {
 
-        //var pos   = $(this).offset();
+    window.updateSelectingDistance= function() {
+
+        var width=selecting_distance * map_zoom_m*2;
+        var height=selecting_distance * map_zoom_m;
+        var border=3;
+
+        $('#selecting-distance').attr('width',width+2*border);
+        $('#selecting-distance').attr('height',height+2*border);
+
+
+
+        selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,width+border , height+border );
+
+        selecting_distance_canvas_ctx.fillStyle = 'transparent';
+        selecting_distance_canvas_ctx.strokeStyle = '#0098ff';
+        selecting_distance_canvas_ctx.lineWidth = border;
+        drawEllipse(selecting_distance_canvas_ctx, border, border, width,height);
+
+
+    };
+
+    //----------------------
+
+    var mouseMove=function (e) {//todo mimo on DOM ready tam pouze prirazeni
+
+
 
         canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
         canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
 
 
+        if(terrainChanging) {
+            //todo schovat mys
+
+            var width = $('#selecting-distance').css('width');
+            width = parseInt(width);
+
+            $('#selecting-distance').css('left', e.clientX - (width / 2));
+            $('#selecting-distance').css('top', e.clientY - (width / 4));
+        }
+
+    };
+
+
+    $("#map_drag").mousemove(mouseMove);
+    $("#selecting-distance").mousemove(mouseMove);
+
+
+    //----------------------------------------
+
+    $('#selecting-distance-plus').click(function(){
+        selecting_distance+=100;
+        updateSelectingDistance();
+    });
+
+    $('#selecting-distance-minus').click(function(){
+        selecting_distance-=100;
+        updateSelectingDistance();
+    });
+
+    $('#selecting-distance-close').click(function(){
+        terrainChangeStop();
     });
 
 
@@ -334,50 +414,52 @@ $( document ).ready(function() {
 
     var clickingTimeout;
 
-    $("#map_drag").click(function (e) {
+    var mouseClick=function (e) {
 
 
         //r(e);
-        $('#loading').css('top',e.clientY);
-        $('#loading').css('left',e.clientX);
+        $('#loading').css('top', e.clientY);
+        $('#loading').css('left', e.clientX);
         //$('#loading').css('display','block');
         $('#loading').show();
 
         //alert('click');
 
 
-        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+        canvas_mouse_x = e.clientX + (canvas_width / 3);//-pos.left;
+        canvas_mouse_y = e.clientY + (canvas_height / 3);//-pos.top;
 
 
         clearTimeout(clickingTimeout);
-        clickingTimeout=setTimeout(function(){
+        clickingTimeout = setTimeout(function () {
 
-            var map_selected_ids_prev=map_selected_ids;
-            map_selecting=true;
+            var map_selected_ids_prev = map_selected_ids;
+            map_selecting = true;
 
             //alert('click');
 
 
             drawMap();
             updateValues();
-            objectMenu();
+
 
             //Pokud nedoslo k zadne zmene, oznaceny objekt se odznaci
-            if(map_selected_ids==map_selected_ids_prev){
-                map_selected_ids=[];
+            if (map_selected_ids == map_selected_ids_prev) {
+                map_selected_ids = [];
             }
 
             $('#loading').hide();
 
-
-        },100);
-
-
-    });
+            if(!map_selecting)
+                objectMenu();
 
 
+        }, 100);
+    }
 
+
+    $("#map_drag").click(mouseClick);
+    $("#selecting-distance").click(mouseClick);
 
 
 //======================================================================================================================

@@ -11,21 +11,28 @@ var map_rotation=Math.random()*360;
 var map_slope=27;
 
 
-var map_x=(Math.random()-0.5)*1000000;
-var map_y=(Math.random()-0.5)*1000000;
-//var map_y=map_x+(Math.random()-0.5)*200000;
+if(parseInt(localStorage.getItem('map_x')) != NaN && parseInt(localStorage.getItem('map_y')) != NaN){
 
-//var map_x=30311400;
-//var map_y=30311400;
+    var map_x=localStorage.getItem('map_x');
+    var map_y=localStorage.getItem('map_y');
 
-//var map_x=-40311400;
-//var map_y=-40311400;
+}else{
 
-//var map_x=0;var map_y=0;
+    var map_x=(Math.random()-0.5)*1000000;
+    var map_y=(Math.random()-0.5)*1000000;
+
+}
+
+
+
+
 var map_rotation=45;
 
 
 var max_map_size=180;
+
+var selecting_distance=1000;
+
 //----
 
 var map_zoom_delta=0;
@@ -49,11 +56,26 @@ var terrainCount=13;
 
 //----------------Změny kumulované uživatelem na mapě
 
-var map_changes=[];//x,y,terrain,z
+if($.inArray('new',env)!=-1)
+localStorage.setItem('map_changes','[]');
 
-var mapChangesOptimize = function(){
-    //todo
-};
+
+var map_changes=localStorage.getItem('map_changes');
+
+map_changes=JSON.parse(map_changes);//todo try
+
+
+/*try(){
+    map_changes=JSON.parse(map_changes);
+}catch {
+
+    map_changes=[];
+
+ if(!map_changes)
+ map_changes=[];//x,y,terrain,z
+}*/
+
+
 
 
 //----------------
@@ -335,6 +357,9 @@ function loadMap() {
                 terrain=map_changes[i][2],
                 z=map_changes[i][3];
 
+            x=Math.floor(x-map_x+map_size/2);
+            y=Math.floor(y-map_y+map_size/2);
+
             if(
                 x<0 ||
                 y<0 ||
@@ -387,40 +412,37 @@ function drawEllipse(ctx, x, y, w, h) {
 
 
 
-function drawMap(){
+function drawMap() {
 
     //r(map_ctx);
-    if(map_ctx==false)return;
+    if (map_ctx == false)return;
     r('drawMap');
 
 
     //----------------Move canvas
 
-    $('#map_bg').css('left',-canvas_width/3);
-    $('#map_bg').css('top',-canvas_height/3);
+    $('#map_bg').css('left', -canvas_width / 3);
+    $('#map_bg').css('top', -canvas_height / 3);
 
     //----------------Prepare objects
 
-    var map_draw=[];
+    var map_draw = [];
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Virtual objects
 
-    var selecting_distance_pow=2000*map_zoom_m;
-    selecting_distance_pow=selecting_distance_pow*selecting_distance_pow;
+    var selecting_distance_pow = selecting_distance * map_zoom_m;
+    selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
 
-    for(var y=0;y<map_size;y++){
-        for(var x=0;x<map_size;x++){
+    for (var y = 0; y < map_size; y++) {
+        for (var x = 0; x < map_size; x++) {
 
 
-
-            if(x>=0 && y>=0 && x<map_size && y<map_size /*Math.pow(x-(map_size/2),2)+Math.pow(y-(map_size/2),2)<=Math.pow(map_size/2,2)*/) {
+            if (x >= 0 && y >= 0 && x < map_size && y < map_size /*Math.pow(x-(map_size/2),2)+Math.pow(y-(map_size/2),2)<=Math.pow(map_size/2,2)*/) {
 
 
                 var terrain = map_bg_data[y][x] - 1/*Teren 0 je temnota*/;
-
-
 
 
                 if (terrain != -1) {
@@ -429,47 +451,42 @@ function drawMap(){
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
                     var yc = y - map_y + Math.round(map_y) - (map_size - 1) / 2;
 
-                    var world_x = x + Math.round(map_x) - Math.round(map_size/2);
-                    var world_y = y + Math.round(map_y) - Math.round(map_size/2);
+                    var world_x = x + Math.round(map_x) - Math.round(map_size / 2);
+                    var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
 
 
-                    if (terrain == 0 || terrain == 10){
+                    if (terrain == 0 || terrain == 10) {
 
                         map_z_data[y][x] = 0.1;
-                        var size=size_water;
+                        var size = size_water;
 
                     }
-                    else
-                    if(terrain == 8 || terrain == 11){//Jaro
-                        var size=size_spring;
+                    else if (terrain == 8 || terrain == 11) {//Jaro
+                        var size = size_spring;
                     }
-                    else
-                    if(terrain == 12 || terrain == 3 || terrain == 7){//Leto
-                        var size=size_summer;
+                    else if (terrain == 12 || terrain == 3 || terrain == 7) {//Leto
+                        var size = size_summer;
                     }
-                    else
-                    if(/*terrain == 9 ||*/ terrain == 5){//Podzim
-                        var size=size_autumn;
+                    else if (/*terrain == 9 ||*/ terrain == 5) {//Podzim
+                        var size = size_autumn;
                     }
-                    else
-                    if(terrain == 2 || terrain == 6){//Zima
-                        var size=size_winter;
+                    else if (terrain == 2 || terrain == 6) {//Zima
+                        var size = size_winter;
                     }
-                    else{
-                        size=1
+                    else {
+                        size = 1
 
                     }
-
 
 
                     //r(map_z_data[y][x]);
-                    var z = (Math.pow(map_z_data[y][x], (1 / 12))-0.85) * -6000;
+                    var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
 
 
-                    var size=(Math.sin((world_x*world_y)/10)/4)+1;
+                    var size = (Math.sin((world_x * world_y) / 10) / 4) + 1;
 
                     var width = Math.ceil(160 * size * 3 * map_zoom_m);
-                    var height = Math.ceil(width  * size /* map_zoom_m*/);
+                    var height = Math.ceil(width * size /* map_zoom_m*/);
 
 
                     var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
@@ -477,13 +494,13 @@ function drawMap(){
 
 
                     screen_x += (canvas_width / 2);
-                    screen_y += (canvas_height / 2)-(height/2);
+                    screen_y += (canvas_height / 2) - (height / 2);
 
 
                     //------------------------------------------
-                    if(map_selecting) {
+                    if (map_selecting && terrainChanging) {
 
-                        var distance = Math.pow(screen_x - canvas_mouse_x, 2) + Math.pow((screen_y - canvas_mouse_y)*map_slope_m, 2);
+                        var distance = Math.pow(screen_x + (width / 2) - canvas_mouse_x, 2) + Math.pow((screen_y + (height / 4) - canvas_mouse_y) * map_slope_m, 2);
 
 
                         if (distance < selecting_distance_pow) {
@@ -496,11 +513,11 @@ function drawMap(){
 
                             //r(y+','+x+' t'+terrain_change);
 
-                            if(terrain_change!==false){
+                            if (terrain_change !== false) {
 
 
-                                map_bg_data[y][x]=terrain_change;
-                                map_changes.push([x,y,terrain_change,map_z_data[y][x]]);
+                                map_bg_data[y][x] = terrain_change;
+                                map_changes.push([world_x, world_y, terrain_change, map_z_data[y][x]]);
 
                                 //++++++++++++++++++ begin duplicate
                                 var terrain = map_bg_data[y][x] - 1;
@@ -508,20 +525,20 @@ function drawMap(){
 
                             }
 
-                            if(level_change!==false){
+                            if (level_change !== false) {
 
 
-                                map_z_data[y][x]+=level_change*Math.cos(distance/selecting_distance_pow*3.14/2);
-                                map_changes.push([x,y,map_bg_data[y][x],map_z_data[y][x]]);
+                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * 3.14 / 2);
+                                map_changes.push([world_x, world_y, map_bg_data[y][x], map_z_data[y][x]]);
 
                                 //++++++++++++++++++ begin duplicate
-                                var z = (Math.pow(map_z_data[y][x], (1 / 12))-0.85) * -6000;
+                                var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
 
                                 var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
                                 var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
 
                                 screen_x += (canvas_width / 2);
-                                screen_y += (canvas_height / 2)-(height/2);
+                                screen_y += (canvas_height / 2) - (height / 2);
                                 //++++++++++++++++++ end of duplicate
 
                             }
@@ -532,8 +549,7 @@ function drawMap(){
                     //------------------------------------------
 
 
-
-                    if(screen_x>-(width/2) && screen_y>-(height/2) && screen_x<canvas_width && screen_y<canvas_height+(160*size)){
+                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (160 * size)) {
 
                         //----------------------------------------------------------------------------------------------
 
@@ -547,104 +563,101 @@ function drawMap(){
                             all_images_bg[terrain][seed],
                             screen_x,
                             screen_y,
-                            screen_y+height-Math.floor(width/4),
+                            screen_y + height - Math.floor(width / 4),
                             width,
                             height
                         ]);
 
 
-
-
                         //----------------------------------------------------------------------------------------------Virtuální objekty
 
-                        if((terrain==9 /*&& map_data[y+1][x]!=4 && map_data[y-1][x]!=4 && map_data[y][x+1]!=4 && map_data[y][x-1]!=4*/ ) || terrain==4) {
+                        if ((terrain == 9 /*&& map_data[y+1][x]!=4 && map_data[y-1][x]!=4 && map_data[y][x+1]!=4 && map_data[y][x-1]!=4*/ ) || terrain == 4) {
 
-                            var block_object=false;
-                            if(terrain==9){
+                            var block_object = false;
+                            if (terrain == 9) {
 
-                                if(y>0)
-                                    if(map_bg_data[y-1][x]==4)block_object=true;
-                                if(y<map_size-1)
-                                    if(map_bg_data[y+1][x]==4)block_object=true;
-                                if(x>0)
-                                    if(map_bg_data[y][x-1]==4)block_object=true;
-                                if(x<map_size-1)
-                                    if(map_bg_data[y][x+1]==4)block_object=true;
+                                if (y > 0)
+                                    if (map_bg_data[y - 1][x] == 4)block_object = true;
+                                if (y < map_size - 1)
+                                    if (map_bg_data[y + 1][x] == 4)block_object = true;
+                                if (x > 0)
+                                    if (map_bg_data[y][x - 1] == 4)block_object = true;
+                                if (x < map_size - 1)
+                                    if (map_bg_data[y][x + 1] == 4)block_object = true;
 
                             }
 
-                            if(!block_object){
+                            if (!block_object) {
 
 
-                                var object_seed=(Math.pow(world_x,2)+Math.pow(world_y,2))%(terrain==9?treeCount:rockCount);
+                                var object_seed = (Math.pow(world_x, 2) + Math.pow(world_y, 2)) % (terrain == 9 ? treeCount : rockCount);
 
-                                var object=(terrain==9?all_images_tree[object_seed]:all_images_rock[object_seed]);
+                                var object = (terrain == 9 ? all_images_tree[object_seed] : all_images_rock[object_seed]);
 
-                                var object_id=(terrain==9?'t':'r')+world_x+'x'+world_y+'y';
+                                var object_id = (terrain == 9 ? 't' : 'r') + world_x + 'x' + world_y + 'y';
 
 
-                                if(terrain==9){
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/1.5))/10)/10+0.6;
-                                }else{
-                                    var size=Math.sin(Math.pow(Math.abs(world_x*world_y),(1/2))/10)/5+0.8;
+                                if (terrain == 9) {
+                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) / 10 + 0.6;
+                                } else {
+                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2)) / 10) / 5 + 0.8;
                                 }
 
 
-                                var object_width=object.width*(width/100)*size;
-                                var object_height=object.height*(width/100)*size;
+                                var object_width = object.width * (width / 100) * size;
+                                var object_height = object.height * (width / 100) * size;
 
 
-                                object_xc=xc;
-                                object_yc=yc;
+                                object_xc = xc;
+                                object_yc = yc;
 
-                                object_xc+=Math.sin((Math.pow(world_x,2)+Math.pow(world_y,2))/10)/1.41;
-                                object_yc+=Math.sin((Math.pow(world_x,4)+Math.pow(world_y,1))/10)/1.41;
+                                object_xc += Math.sin((Math.pow(world_x, 2) + Math.pow(world_y, 2)) / 10) / 1.41;
+                                object_yc += Math.sin((Math.pow(world_x, 4) + Math.pow(world_y, 1)) / 10) / 1.41;
 
 
                                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z-300) / map_slope_n * map_zoom_m;
-
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z - 300) / map_slope_n * map_zoom_m;
 
 
                                 object_screen_x += (canvas_width / 2);
                                 object_screen_y += (canvas_height / 2);
 
 
-/*
-                                if(map_selecting)
-                                if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
+                                /*
+                                 if(map_selecting)
+                                 if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
 
-                                    map_selecting=false;
+                                 map_selecting=false;
 
-                                    map_mouse_x=world_x;
-                                    map_mouse_y=world_y;
-                                    //alert(object_id);
-                                    map_selected_ids=[object_id];
-                                }
-*/
+                                 map_mouse_x=world_x;
+                                 map_mouse_y=world_y;
+                                 //alert(object_id);
+                                 map_selected_ids=[object_id];
+                                 }
+                                 */
 
-                                object_screen_x += (width/2)  - (object_width/2);
-                                object_screen_y += -(object_height)+(object_width/4)+(height/4);
+                                object_screen_x += (width / 2) - (object_width / 2);
+                                object_screen_y += -(object_height) + (object_width / 4) + (height / 4);
 
 
-/*
-                                if($.inArray(object_id,map_selected_ids)!=-1){
+                                /*
+                                 if($.inArray(object_id,map_selected_ids)!=-1){
 
-                                    alert('selected'+object_id);
+                                 alert('selected'+object_id);
 
-                                    map_draw.push([
-                                        'ellipse',
-                                        ['rgba(50,50,50,0.4)','rgba(0,0,0,0.8)',3],
-                                        object_screen_x,
-                                        object_screen_y+object_height-(object_width/map_slope_m),
-                                        999999,
-                                        object_width,
-                                        object_width/map_slope_m
+                                 map_draw.push([
+                                 'ellipse',
+                                 ['rgba(50,50,50,0.4)','rgba(0,0,0,0.8)',3],
+                                 object_screen_x,
+                                 object_screen_y+object_height-(object_width/map_slope_m),
+                                 999999,
+                                 object_width,
+                                 object_width/map_slope_m
 
-                                    ]);
+                                 ]);
 
-                                }
-*/
+                                 }
+                                 */
 
 
                                 map_draw.push([
@@ -652,7 +665,7 @@ function drawMap(){
                                     object,
                                     object_screen_x,
                                     object_screen_y,
-                                    object_screen_y+object_height-Math.floor(object_width/4)+120,
+                                    object_screen_y + object_height - Math.floor(object_width / 4) + 120,
                                     object_width,
                                     object_height
 
@@ -665,10 +678,6 @@ function drawMap(){
                         //----------------------------------------------------------------------------------------------
 
 
-
-
-
-
                     }
 
 
@@ -679,94 +688,94 @@ function drawMap(){
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
-    var selecting_distance_pow=20;
-    selecting_distance_pow=selecting_distance_pow*selecting_distance_pow;
+    var selecting_distance_pow = 20;
+    selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    var object=all_images_rock[0];
-    for(var i=0;i<map_data.length;i++){
+    var object = all_images_rock[0];
+    for (var i = 0; i < map_data.length; i++) {
 
         //-----------------------------------------
 
 
-                /*
-                 map_bg = document.getElementById("map_bg");
-                 map_ctx = map_bg.getContext("2d");*/
+        /*
+         map_bg = document.getElementById("map_bg");
+         map_ctx = map_bg.getContext("2d");*/
 
-                /*var object=document.createElement("canvas");
-                object.width=550;
-                object.height=350;
-                object_ctx = object.getContext("2d");
+        /*var object=document.createElement("canvas");
+         object.width=550;
+         object.height=350;
+         object_ctx = object.getContext("2d");
 
-                drawModel(object_ctx,map_data[i].res);*/
-
-
-                var object_id=map_data[i].id;
+         drawModel(object_ctx,map_data[i].res);*/
 
 
-                object_xc=map_data[i].x-Math.floor(map_x);
-                object_yc=map_data[i].y-Math.floor(map_y);
+        var object_id = map_data[i].id;
 
 
-                object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m ;
+        object_xc = map_data[i].x - Math.floor(map_x);
+        object_yc = map_data[i].y - Math.floor(map_y);
 
 
-                object_screen_x += (canvas_width / 2);
-                object_screen_y += (canvas_height / 2);
-
-                if(map_selecting) {
-
-                    var distance = Math.pow(object_screen_x - canvas_mouse_x, 2) + Math.pow(object_screen_y - canvas_mouse_y, 2);
-
-                    if (distance < selecting_distance_pow) {
-
-                        selecting_distance_pow = distance;
-
-                        map_selecting = false;
-
-                        map_mouse_x = object_xc;
-                        map_mouse_y = object_yc;
-
-                        //------------------------------------------
-                        if (map_data[i].type == 'building') {
-                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-                            map_selected_ids = [object_id];
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m;
 
 
-                            var ellipse_width = 100;
+        object_screen_x += (canvas_width / 2);
+        object_screen_y += (canvas_height / 2);
 
-                            map_draw.push([
-                                'ellipse',
-                                ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
-                                object_screen_x - (ellipse_width / 2),
-                                object_screen_y - (ellipse_width / map_slope_m / 2),
-                                object_screen_y + 120 - 1,
-                                ellipse_width,
-                                ellipse_width / map_slope_m
+        if (map_selecting && !terrainChanging) {
 
-                            ]);
-                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                        } else if (map_data[i].type == 'story') {
-                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                            var res = map_data[i].res;
-                            res = res.substr(5);
+            var distance = Math.pow(object_screen_x - canvas_mouse_x, 2) + Math.pow(object_screen_y - canvas_mouse_y, 2);
 
-                            window_open(map_data[i]._name, res);
+            if (distance < selecting_distance_pow) {
 
-                            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                        }
-                        //------------------------------------------
-                    }
+                selecting_distance_pow = distance;
+
+                map_selecting = false;
+
+                map_mouse_x = object_xc;
+                map_mouse_y = object_yc;
+
+                //------------------------------------------
+                if (map_data[i].type == 'building') {
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+                    map_selected_ids = [object_id];
+
+
+                    var ellipse_width = 100;
+
+                    map_draw.push([
+                        'ellipse',
+                        ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
+                        object_screen_x - (ellipse_width / 2),
+                        object_screen_y - (ellipse_width / map_slope_m / 2),
+                        object_screen_y + 120 - 1,
+                        ellipse_width,
+                        ellipse_width / map_slope_m
+
+                    ]);
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                } else if (map_data[i].type == 'story') {
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    var res = map_data[i].res;
+                    res = res.substr(5);
+
+                    window_open(map_data[i]._name, res);
+
+                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                 }
+                //------------------------------------------
+            }
+        }
 
-                //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             map_data[i].type,
             map_data[i].res,
             object_screen_x,
             object_screen_y,
-            ((map_data[i].type=='story')?9999:object_screen_y+120)
+            ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120)
         ]);
 
 
@@ -777,15 +786,14 @@ function drawMap(){
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
 
     //map_draw;
-    map_draw.sort(function(a,b){
+    map_draw.sort(function (a, b) {
 
-        if(a[4]>b[4]){
-            return(1);
-        }else
-        if(a[4]<b[4]){
-            return(-1);
-        }else{
-            return(0);
+        if (a[4] > b[4]) {
+            return (1);
+        } else if (a[4] < b[4]) {
+            return (-1);
+        } else {
+            return (0);
         }
 
     });
@@ -793,13 +801,13 @@ function drawMap(){
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
     //----------------Clear canvas
 
-    map_ctx.clearRect ( 0 , 0 ,canvas_width , canvas_height );
+    map_ctx.clearRect(0, 0, canvas_width, canvas_height);
 
     //----------------Drawing... :)
 
-    for(var i=0;i<map_draw.length;i++){
+    for (var i = 0; i < map_draw.length; i++) {
 
-        if(map_draw[i][0]=='image'){
+        if (map_draw[i][0] == 'image') {
 
             map_ctx.drawImage(
                 map_draw[i][1],
@@ -809,62 +817,52 @@ function drawMap(){
                 map_draw[i][5],
                 map_draw[i][6]
             );
-        }else
-        if(map_draw[i][0]=='building'){
+        } else if (map_draw[i][0] == 'building') {
 
-            drawModel(map_ctx,map_draw[i][1],map_zoom_m,map_draw[i][2],map_draw[i][3],-map_rotation,map_slope);
+            drawModel(map_ctx, map_draw[i][1], map_zoom_m, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
-        }else
-        if(map_draw[i][0]=='ellipse'){
+        } else if (map_draw[i][0] == 'ellipse') {
 
             r(map_draw[i]);
 
 
-            map_ctx.fillStyle =     map_draw[i][1][0];
-            map_ctx.strokeStyle =   map_draw[i][1][1];
-            map_ctx.lineWidth =     map_draw[i][1][2];
+            map_ctx.fillStyle = map_draw[i][1][0];
+            map_ctx.strokeStyle = map_draw[i][1][1];
+            map_ctx.lineWidth = map_draw[i][1][2];
 
 
             drawEllipse(
-
                 map_ctx,
                 map_draw[i][2],
                 map_draw[i][3],
                 map_draw[i][5],
                 map_draw[i][6]
-
             );
 
-        }else
-        if(map_draw[i][0]=='story'){
+        } else if (map_draw[i][0] == 'story') {
 
 
-
-            var res=map_draw[i][1];
-            res=res.substr(5);
+            var res = map_draw[i][1];
+            res = res.substr(5);
 
             //r(res);
 
-            var ellipse_width=Math.pow(res.length,1/3)*2;
-
-
+            var ellipse_width = Math.pow(res.length, 1 / 3) * 2;
 
 
             //r('storka');
-            map_ctx.fillStyle =     '#110011';
+            map_ctx.fillStyle = '#110011';
             //map_ctx.fillStyle =     'rgba(0,0,0,0)';
-            map_ctx.strokeStyle =   'rgba(70,20,200,0.5)';
-            map_ctx.lineWidth =     20;
+            map_ctx.strokeStyle = 'rgba(70,20,200,0.5)';
+            map_ctx.lineWidth = 20;
 
 
             drawEllipse(
-
                 map_ctx,
-                map_draw[i][2]-(ellipse_width/2),
-                map_draw[i][3]-(ellipse_width/2),
+                map_draw[i][2] - (ellipse_width / 2),
+                map_draw[i][3] - (ellipse_width / 2),
                 ellipse_width,
                 ellipse_width
-
             );
         }
 
@@ -872,6 +870,49 @@ function drawMap(){
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    if(map_selecting && terrainChanging){
+
+        map_changes.sort(function (a, b) {
+
+            if (a[0] > b[0]) {
+                return (1);
+            } else if (a[0] < b[0]) {
+                return (-1);
+            } else {
+
+                if (a[1] > b[1]) {
+                    return (1);
+                } else if (a[1] < b[1]) {
+                    return (-1);
+                } else {
+                    return (0);
+                }
+
+            }
+
+        });
+
+        var map_changes_new=[];
+        var a=false,b=false;
+        for (var i = 0, l = map_changes.length; i < l; i++){
+
+            if(a==map_changes[i][0] && b==map_changes[i][1]){}else{
+                map_changes_new.push(map_changes[i]);
+            }
+
+            a=map_changes[i][0];
+            b=map_changes[i][1];
+        }
+
+        map_changes=map_changes_new.splice(0);
+        delete map_changes_new;
+
+        //r(map_changes);
+        localStorage.setItem('map_changes',JSON.stringify(map_changes));
+    }
+
+
 }
 
 
@@ -951,6 +992,7 @@ function updateMap(ms){
 
     if(map_zoom_delta || !map_zoom_m){
         map_zoom_m=Math.pow(2,map_zoom);
+        updateSelectingDistance();
     }
 
     if(map_rotation_delta || !map_rotation_r) {
@@ -968,6 +1010,10 @@ function updateMap(ms){
 
 
     if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || !map_size){
+
+
+        localStorage.setItem('map_x',map_x);
+        localStorage.setItem('map_y',map_y);
 
 
         map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/160/*1.4*/))/map_zoom_m;
@@ -1101,6 +1147,7 @@ function mapMove(deltaX,deltaY) {
 
 
     //----------------
+
 }
 
 
