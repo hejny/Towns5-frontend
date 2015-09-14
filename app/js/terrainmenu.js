@@ -10,7 +10,31 @@ $(function() {
 
 });
 
+
 //======================================================================================================================objectMenuTerrainChange
+
+$('#selecting-distance-ctl').hide();
+
+function terrainChangeStart(terrain,level){
+
+    terrain_change=terrain;
+    level_change=level;
+    terrainChanging=true;
+    //todo motiv terenu
+    $('#selecting-distance-ctl').show();
+    $('#selecting-distance').show();
+}
+
+function terrainChangeStop(){
+    terrainChanging=false;
+    $('#selecting-distance-ctl').hide();
+    $('#selecting-distance').hide();
+}
+
+
+
+//----------------------------------------------------
+
 
 var terrain_change=false;
 
@@ -32,7 +56,7 @@ function objectMenuTerrainChange(){
                 '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
                 '<button>Postaviť drist!</button>';*/
             var content='';
-            var action='terrain_change='+(terrain)+';level_change=false;';
+            var action='terrainChangeStart('+(terrain)+',false);';
 
 
             objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content)).split('%action').join(htmlEncode(action));
@@ -80,7 +104,7 @@ function objectMenuLevelChange(){
          '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
          '<button>Postaviť drist!</button>';*/
         var content='';
-        var action='level_change='+(level)+';terrain_change=false;';
+        var action='terrainChangeStart(false,'+(level)+');';
 
 
         objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content)).split('%action').join(htmlEncode(action));
