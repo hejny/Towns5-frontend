@@ -10,7 +10,7 @@ var selecting_distance_canvas_ctx;
 var canvas_width;
 var canvas_height;
 
-$( document ).ready(function() {//@todo sjednotit
+$(function() {
 
     $('#map_bg').attr('width',$(document).width()*3);
     $('#map_bg').attr('height',$(document).height()*3);
@@ -24,7 +24,7 @@ $( document ).ready(function() {//@todo sjednotit
 
 
 
-$( window ).resize(function() {
+$( window ).resize(debounce(function() {
 
 
     /*if(screen.width == window.innerWidth){
@@ -52,34 +52,17 @@ $( window ).resize(function() {
     canvas_width=map_bg.width;
     canvas_height=map_bg.height;
 
-    //alert(canvas_width/3+','+canvas_height/3);
-
 
     $('#map_bg').css('left',-canvas_width/3);
     $('#map_bg').css('top',-canvas_height/3);
 
-    //map_ctx.fillStyle = "#000000";
-    //map_ctx.fillRect( 0 , 0 ,canvas_width , canvas_height );
-    //$('#map_bg').css('left',0);
-    //$('#map_bg').css('top',0);
-
-    drawMap();
-});
-
-//document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
-//document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+    drawMap();//todo limit
+},500));
 
 
 //======================================================================================================================
 
-/*
-$('#map_drag').hammer().bind("pinch", function(ev){
-
-    alert('aaa');
-
-});*/
-
-$( document ).ready(function() {
+$(function() {
 
 
     var myel = document.getElementById('map_drag');
@@ -97,7 +80,7 @@ $( document ).ready(function() {
     mc.add([pinch, rotate]);
 
 
-    mc.on("pinch rotate", function (ev) {
+    mc.on("pinch rotate", debounce(function (ev) {
 
         ev.preventDefault();
 
@@ -115,7 +98,7 @@ $( document ).ready(function() {
         //myElement.textContent += ev.type +" ";
         //alert('aaa');
 
-    });
+    },200));
 
 });
 
@@ -148,7 +131,7 @@ var controls={
 var moving=false;
 
 
-$( document ).ready(function() {
+$(function() {
 
     //------------------------------------------------------------
 
@@ -246,7 +229,7 @@ $( document ).ready(function() {
                 if ($.inArray('left', keys_) == -1)
                 if ($.inArray('right', keys_) == -1){
                     moving=false;
-                    alert('stop moving by keys');
+                    //alert('stop moving by keys');
                     updateMap();
                 }
 
@@ -286,7 +269,7 @@ $( document ).ready(function() {
     var current_offset = false;
 
 
-    $('#map_drag').draggable({
+    $('#map_drag').draggable({//todo dragging via trigger
 
         'scroll': false,
         'start': function () {
@@ -365,9 +348,10 @@ $( document ).ready(function() {
 
     };
 
+
     //----------------------
 
-    var mouseMove=function (e) {//todo mimo on DOM ready tam pouze prirazeni
+    var mouseMove=function (e) {
 
 
 
@@ -376,7 +360,6 @@ $( document ).ready(function() {
 
 
         if(terrainChanging) {
-            //todo schovat mys
 
             var width = $('#selecting-distance').css('width');
             width = parseInt(width);

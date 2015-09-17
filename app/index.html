@@ -24,6 +24,7 @@
         <script src="app/lib/touch-punch.js"></script>
         <script src="app/lib/mousewheel.js"></script>
         <script src="app/lib/hammer.min.js"></script>
+        <script src="app/lib/fullscreen.min.js"></script>
 
 
         <script src="app/js/main.js"></script>
@@ -144,15 +145,16 @@
             </ul>
 
             <ul class="menu-list menu-list-right">
-                <li class="menu-list-item menu-list-item-registration">
-                    <a class="js-popup-window-open" header="Prihlasit se" content="login_form_html" href="#">Dokončit registraci</a>
-                </li>
 
+
+                <!--<li class="menu-list-item menu-list-item-registration">
+                    <a class="js-popup-window-open" header="Prihlasit se" content="login_form_html" href="#">Dokončit registraci</a>
+                </li>-->
 
 
                 <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover"><i class="fa fa-flag fa-lg faa-shake"></i></li>
                 <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i class="fa fa-wrench fa-lg faa-wrench"></i></li>
-                <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>
+                <li class="menu-list-item menu-list-item-icon faa-parent animated-hover" onclick="$(document).fullScreen(!$(document).fullScreen());"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>
 
 
 

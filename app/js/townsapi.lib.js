@@ -8,7 +8,7 @@
 
 var token;
 
-if(!localStorage.getItem('townsToken') || $.inArray('new',env)!=-1) {
+if(!localStorage.getItem('townsToken')) {
 
     //--------------Generate token
     token = '';
