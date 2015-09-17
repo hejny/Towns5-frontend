@@ -13,14 +13,18 @@ $(function() {
 
 //======================================================================================================================objectMenuTerrainChange
 
-$('#selecting-distance-ctl').hide();
-
 function terrainChangeStart(terrain,level){
 
     terrain_change=terrain;
     level_change=level;
     terrainChanging=true;
-    //todo motiv terenu
+
+    if(terrain_change){
+        $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrain_change)+'.png\')');
+        $('#selecting-distance-ctl').css('background-size','cover');
+    }
+
+
     $('#selecting-distance-ctl').show();
     $('#selecting-distance').show();
 }
@@ -29,8 +33,13 @@ function terrainChangeStop(){
     terrainChanging=false;
     $('#selecting-distance-ctl').hide();
     $('#selecting-distance').hide();
+    $(".active").removeClass("active");
 }
 
+
+$(function(){
+    terrainChangeStop()
+});
 
 
 //----------------------------------------------------

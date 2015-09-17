@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "loginform.js",
+  "sourceRoot": "",
+  "sources": [
+    "loginform.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAIA;EAAA,MAAM,CAAC,eAAP,GAAuB;AAAvB"
+}

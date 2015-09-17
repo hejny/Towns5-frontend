@@ -56,11 +56,10 @@ var terrainCount=13;
 
 //----------------Změny kumulované uživatelem na mapě
 
-if($.inArray('new',env)!=-1)
-localStorage.setItem('map_changes','[]');
-
 
 var map_changes=localStorage.getItem('map_changes');
+
+if(!map_changes || map_changes=='')map_changes='[]';
 
 map_changes=JSON.parse(map_changes);//todo try
 

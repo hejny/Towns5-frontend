@@ -17,9 +17,23 @@ body {
 
     background-color: #eeeeff;
     margin: 0px;
+/*
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    user-select: none;*/
 
 
 }
+
+
+
+/*
+input, textarea {
+    -moz-user-select: text;
+}
+*/
+
 
 
 .error {
@@ -115,14 +129,18 @@ body {
 
     position:absolute;
     z-index: 3500;
+    cursor: none;
 }
 
 
 #selecting-distance-ctl{
-    user-select: none; /*todo noselect*/
     position:absolute;
-    top:100px;
-    left:100px;
+    top:70px;
+    left:70px;
+    padding: 4px;
+    /*border: 2px solid #0098ff;*/
+    box-shadow: #000000 0 0 3px 0;
+    border-radius: 3px;
     z-index: 3600;
 }
 
@@ -130,16 +148,18 @@ body {
 
     border: none;
     display: inline-block;
-    margin: 5px;
+    margin: 2px;
     padding: 10px;
     font-weight: 600;
     font-size: 21px;
+    border: 2px solid rgba(50,50,50,0.5);
     border-radius: 3px;
     width: 26px;
     height: 26px;
+    text-shadow: #000011;
     text-align: center;
     vertical-align: middle;
-    background-color: #0098ff;
+    background-color: rgba(0,0,0,0.5);
     color: white;
     cursor: pointer;
 
@@ -357,8 +377,9 @@ body {
 
 .action {
     margin: 5px;
-    width: 50px;
-    height: 50px;
+    width: 48px;
+    height: 48px;
+    border: 2px solid transparent;
     border-radius: 3px;
 
     background-color: blueviolet;
@@ -378,7 +399,9 @@ body {
     box-shadow: #0098ff 0 0 3px 0;
 }
 
-.action-wrapper.active .action {
+/*.action-wrapper.active .action {*/
+.active {
+    border: 2px solid #0098ff;
     box-shadow: #0098ff 0 0 3px 0; /* todo: nedať .active radšej na .action ??? */
 }
 
