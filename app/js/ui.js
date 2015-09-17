@@ -30,6 +30,17 @@ function window_close(){
 
 function uiScript(){
 
+    $(document).on("contextmenu", function (event) { event.preventDefault(); });
+
+    $('body').disableSelection();
+
+/*    $('#selecting-distance').disableSelection();
+    $('.menu').disableSelection();
+    $('.menu-list-item').disableSelection();
+    $('.menu-dlist-item').disableSelection();
+    $('#objectmenu').disableSelection();
+    $('.close').disableSelection();*/
+
     //==================================================================================================================popup action
 
     // [PH] Celé jsem to udělal pomocí jednoho popup-action , který js po kliknutí naplní umístí a zobrazí
@@ -46,6 +57,11 @@ function uiScript(){
         }else{
             $('#popup-action').hide();
         }
+
+
+        //r(this);
+        $(".active").removeClass("active");
+        $(this).addClass("active");
 
     });
 
