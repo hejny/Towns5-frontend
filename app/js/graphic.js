@@ -6,7 +6,7 @@ var map_loaded=false;
 //----
 
 
-var map_zoom=-3.5;
+var map_zoom=-3;
 var map_rotation=Math.random()*360;
 var map_slope=27;
 
@@ -23,6 +23,8 @@ if(parseInt(localStorage.getItem('map_x')) != NaN && parseInt(localStorage.getIt
 
 }
 
+var map_x=0;
+var map_y=0;
 
 
 
@@ -199,7 +201,7 @@ $(function() {
 
     for(var terrain=0;terrain<terrainCount;terrain++) {
         all_images_bg[terrain] = [];
-        for (var seed = 0; seed < seedCount; seed++) {
+        for (var seed = -1; seed < seedCount; seed++) {
 
 
             all_images_bg[terrain][seed] = new Image();
@@ -275,13 +277,13 @@ function loadMap() {
                 //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
                 ['type!=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
                 'y,x'
-            ]/*,
+            ],
             [
                 'list',
                 'x,y,res',
                 ['type=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
                 'y,x'
-            ]*/
+            ]
 
         ]
 
@@ -298,8 +300,8 @@ function loadMap() {
 
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
-            /*
-            var map_data_terrain=res[1]['objects'];
+
+            /*var map_data_terrain=res[1]['objects'];
             for(var i= 0, l=map_data_terrain.length;i<l;i++){
 
                 var x=Math.floor(map_data_terrain[i].x-map_x+map_size/2);
@@ -454,7 +456,7 @@ function drawMap() {
                     var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
 
 
-                    if (terrain == 0 || terrain == 10) {
+                    if (terrain == 0 || terrain == 10) {// todo odstranit
 
                         map_z_data[y][x] = 0.1;
                         var size = size_water;
@@ -486,6 +488,9 @@ function drawMap() {
 
                     var width = Math.ceil(160 * size * 3 * map_zoom_m);
                     var height = Math.ceil(width * size /* map_zoom_m*/);
+
+                    height_z=height*(1+map_z_data[y][x]);
+
 
 
                     var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
@@ -551,20 +556,27 @@ function drawMap() {
                     if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (160 * size)) {
 
                         //----------------------------------------------------------------------------------------------
+                        
+                        if(width<height_z/2) {
+                            seed = -1;
+                        }else{
+                            var seed = Math.abs(world_x * world_y - 1) % seedCount;
+                        }
 
-                        var seed = Math.abs(world_x * world_y - 1) % seedCount;
 
                         //-----
 
-                        //r(terrain);
+                        //r(z);
+
+
                         map_draw.push([
-                            'image',
+                            'terrain',
                             all_images_bg[terrain][seed],
                             screen_x,
                             screen_y,
                             screen_y + height - Math.floor(width / 4),
                             width,
-                            height
+                            height_z
                         ]);
 
 
@@ -802,11 +814,25 @@ function drawMap() {
 
     map_ctx.clearRect(0, 0, canvas_width, canvas_height);
 
+    map_ctx.fillStyle = '#000000';
+    map_ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    map_ctx.lineWidth = 0;
+
+
+    map_width=160*map_size*map_zoom_m;
+    map_width=map_width-100;
+    map_height=map_width/map_slope_m;
+
+    drawEllipse(map_ctx,(canvas_width-map_width)/2,(canvas_height-map_height)/2,map_width,map_height);
+
     //----------------Drawing... :)
+
+    //lastY=0;
 
     for (var i = 0; i < map_draw.length; i++) {
 
         if (map_draw[i][0] == 'image') {
+
 
             map_ctx.drawImage(
                 map_draw[i][1],
@@ -816,6 +842,41 @@ function drawMap() {
                 map_draw[i][5],
                 map_draw[i][6]
             );
+
+
+
+
+        } else if (map_draw[i][0] == 'terrain') {
+
+
+            map_ctx.drawImage(
+                map_draw[i][1],
+                map_draw[i][2],
+                map_draw[i][3],
+                //[4] is order used in sorting
+                map_draw[i][5],
+                map_draw[i][6]
+            );
+
+            /*if(map_draw[i][5]<map_draw[i][6]){
+                //lastY=map_draw[i][3];
+
+
+                var width=map_draw[i][5]*5;
+                var height=map_draw[i][6]*5;
+
+                var startx=map_draw[i][2]+(width/2);
+                var starty=map_draw[i][3]+(height/2);
+
+                var gradient = map_ctx.createRadialGradient(startx,starty,width/2,startx,starty,0);
+                gradient.addColorStop(0,"transparent");
+                gradient.addColorStop(1,"red");
+                map_ctx.fillStyle=gradient;
+                map_ctx.fillRect(map_draw[i][2],map_draw[i][3],width,height);
+                //map_ctx.fillRect(map_draw[i][2],map_draw[i][3],map_draw[i][5],map_draw[i][6]);
+            }*/
+
+
         } else if (map_draw[i][0] == 'building') {
 
             drawModel(map_ctx, map_draw[i][1], map_zoom_m, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
@@ -872,6 +933,8 @@ function drawMap() {
 
     if(map_selecting && terrainChanging){
 
+
+       /* //todo opravit priority
         map_changes.sort(function (a, b) {
 
             if (a[0] > b[0]) {
@@ -894,7 +957,7 @@ function drawMap() {
 
         var map_changes_new=[];
         var a=false,b=false;
-        for (var i = 0, l = map_changes.length; i < l; i++){
+        for (var i = map_changes.length-1; i >= 0; i--){
 
             if(a==map_changes[i][0] && b==map_changes[i][1]){}else{
                 map_changes_new.push(map_changes[i]);
@@ -906,7 +969,7 @@ function drawMap() {
 
         map_changes=map_changes_new.splice(0);
         delete map_changes_new;
-
+*/
         //r(map_changes);
         localStorage.setItem('map_changes',JSON.stringify(map_changes));
     }
