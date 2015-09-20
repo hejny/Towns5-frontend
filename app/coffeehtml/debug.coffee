@@ -32,13 +32,6 @@ document.write='
                 </tr>
 
 
-                <tr>
-                    <td>
-                        size_water:
-                    </td>
-                    <td id="size_water">
-                    </td>
-                </tr>
 
                 <tr>
                     <td>

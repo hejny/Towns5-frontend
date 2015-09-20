@@ -3,11 +3,9 @@
 var mapdata=[];
 
 
-var maxlevel=130;
+//var maxlevel=130;
 //var maxlevel=180*;
-
-
-
+//var maxlevel=400;
 
 
 
@@ -63,24 +61,30 @@ function getPrimeMap(startX,startY,size){
 
 
 
-function roundMap(map){
-
+function roundMap(map,z_/*change*/){
 
 	var map_=[];
 
 	for(var y=0;y<map.length;y++){
 		map_[y]=[];
 		for(var x=0;x<map.length;x++){
-			map_[y][x]=0;
+			map_[y][x]=1;
 		}
 	}
 
+   /* r(map_[100][100]);
+    r(map_[100]);
+    r(map_);*/
 
-	for(var y=0;y<map.length;y++){
+
+    //return;
+
+	for(var y=0;y<map.length;y++){/*todo optimize*/
 		for(var x=0;x<map.length;x++){
 
 			var z=map[y][x]*1;
-            var z_=Math.floor(z);
+            //r(z);
+            //var z_=Math.floor(z);
 
 			for(var y_=y-z_;y_<y+z_;y_++){
 				for(var x_=x-z_;x_<x+z_;x_++){
@@ -94,18 +98,34 @@ function roundMap(map){
 					//console.log(y_);
 
 
-
-
-					map_[y_][x_]+=Math.round(100*z/maxlevel)/100;//Math.sqrt(Math.pow(x-x_,2)+Math.pow(y-y_,2));
+                    map_[y_][x_]+=z;
+					//map_[y_][x_]+=Math.round(100*z/maxlevel)/100;//Math.sqrt(Math.pow(x-x_,2)+Math.pow(y-y_,2));
 				}
 			}
+
+            //r(map_[y][x]);
 			
 			
 		}
 	}
+
+
+
 	return(map_);
 
 }
+
+
+function boundMap(map,min,max){
+
+    for(var y=0;y<map.length;y++){
+        for(var x=0;x<map.length;x++){
+            map[y][x]=Math.round((map[y][x]-min)/(max-min)*100)/100;
+        }
+    }
+    return(map);
+}
+
 
 /*function statMap(map){
 
@@ -143,9 +163,7 @@ function terrainMap(map){
         map_bg[y]=[];
 		for(var x=0;x<map.length;x++){
 
-			var level=map[y][x];
-			level=Math.round(level*100);
-
+			var level=map[y][x]*100;
 
 			var terrain=0;
 
@@ -180,7 +198,10 @@ function getMap(startX,startY,size){
 	var bounds=4;
 
 	map=getPrimeMap(startX-bounds,startY-bounds,size+(2*bounds));
-	map=roundMap(map);
+	map=roundMap(map,bounds);
+	map=boundMap(map,80,120);
+
+
 	
 	var map_z=[];
 
@@ -214,17 +235,18 @@ function getMap(startX,startY,size){
 
 var terrains=[	
 	[ 0 , -1 , '000000'] ,  //temnota
-	[ 1 , 11 , '5299F9'] ,  //moře
+	[ 1 , 0 , '5299F9'] ,  //moře
+	[ 1 , 20 , '5299F9'] ,  //moře
 	//[ 1 , 999 , '5299F9'] ,  //moře
-	[11 , 22 , '337EFA'] ,  //řeka
+	[11 , 23 , '337EFA'] ,  //řeka
 	[ 4 , 26 , 'F9F98D'] ,  //písek
 	//[ 7 , 22 , 'DCDCAC'] ,  //sůl
-	[ 9 , 26 , '51F311'] ,  //tráva(toxic)
-	[12 , 29 , '8ABC02'] ,  //tráva(jaro)
-	[ 8 , 31 , '2A7302'] ,  //tráva(normal)
-    [10 , 33 , '535805'] ,  //les
-	[13 , 36 , '8A9002'] ,  //tráva(pozim)
-	[ 5 , 37 , '878787']   //kamení
+	[ 9 , 30 , '51F311'] ,  //tráva(toxic)
+	[12 , 34 , '8ABC02'] ,  //tráva(jaro)
+	[ 8 , 53 , '2A7302'] ,  //tráva(normal)
+    [10 , 60 , '535805'] ,  //les
+	[13 , 70 , '8A9002'] ,  //tráva(pozim)
+	[ 5 , 100 , '878787']   //kamení
 
 
 

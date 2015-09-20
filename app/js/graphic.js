@@ -23,8 +23,8 @@ if(parseInt(localStorage.getItem('map_x')) != NaN && parseInt(localStorage.getIt
 
 }
 
-var map_x=0;
-var map_y=0;
+/*var map_x=0;
+var map_y=0;*/
 
 
 
@@ -104,12 +104,6 @@ var map_zoom_m;
 var map_data;
 var map_z_data;
 var map_bg_data;
-
-var size_water;
-var size_spring;
-var size_summer;
-var size_autumn;
-var size_winter;
 
 var map_rotation_r;
 var map_rotation_sin;
@@ -446,6 +440,9 @@ function drawMap() {
                 var terrain = map_bg_data[y][x] - 1/*Teren 0 je temnota*/;
 
 
+                //r(map_z_data[y][x]);
+
+
                 if (terrain != -1) {
 
 
@@ -456,32 +453,9 @@ function drawMap() {
                     var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
 
 
-                    if (terrain == 0 || terrain == 10) {// todo odstranit
 
-                        map_z_data[y][x] = 0.1;
-                        var size = size_water;
-
-                    }
-                    else if (terrain == 8 || terrain == 11) {//Jaro
-                        var size = size_spring;
-                    }
-                    else if (terrain == 12 || terrain == 3 || terrain == 7) {//Leto
-                        var size = size_summer;
-                    }
-                    else if (/*terrain == 9 ||*/ terrain == 5) {//Podzim
-                        var size = size_autumn;
-                    }
-                    else if (terrain == 2 || terrain == 6) {//Zima
-                        var size = size_winter;
-                    }
-                    else {
-                        size = 1
-
-                    }
-
-
-                    //r(map_z_data[y][x]);
                     var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
+                    //r(map_z_data[y][x]);
 
 
                     var size = (Math.sin((world_x * world_y) / 10) / 4) + 1;
@@ -533,6 +507,10 @@ function drawMap() {
 
 
                                 map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * 3.14 / 2);
+                                if(map_z_data[y][x]<0)map_z_data[y][x]=0;
+                                if(map_z_data[y][x]>2)map_z_data[y][x]=2;
+
+
                                 map_changes.push([world_x, world_y, map_bg_data[y][x], map_z_data[y][x]]);
 
                                 //++++++++++++++++++ begin duplicate
@@ -556,7 +534,7 @@ function drawMap() {
                     if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (160 * size)) {
 
                         //----------------------------------------------------------------------------------------------
-                        
+
                         if(width<height_z/2) {
                             seed = -1;
                         }else{
@@ -1107,29 +1085,6 @@ function updateMap(ms){
 
     //----------------
 
-
-    /*size_water = (Math.sin(time / 1000) + 1) / 1 + 2;
-
-    size_spring = (Math.sin(time/10000+(pi*(0/4)))+1)/3+1;
-    size_summer = (Math.sin(time/10000+(pi*(1/4)))+1)/3+1;
-    size_autumn = (Math.sin(time/10000+(pi*(2/4)))+1)/3+1;
-    size_winter = (Math.sin(time/10000+(pi*(3/4)))+1)/3+1;
-
-
-    size_water=Math.round(size_water*1000)/1000;
-    size_spring=Math.round(size_spring*100)/100;
-    size_summer=Math.round(size_summer*100)/100;
-    size_autumn=Math.round(size_autumn*100)/100;
-    size_winter=Math.round(size_winter*100)/100;*/
-
-    size_water=1.6;
-    size_spring=1;
-    size_summer=1;
-    size_autumn=1;
-    size_winter=1;
-
-    //----------------
-
     updateValues();
 
 
@@ -1148,9 +1103,6 @@ function updateMap(ms){
 function updateValues(){
 
     $('#fps').html(fps);
-
-    $('#size_water').html(size_water);
-    $('#size_spring').html(size_spring);
 
     $('#canvas_mouse').html(canvas_mouse_x+','+canvas_mouse_y);
     $('#map_mouse').html(map_mouse_x+','+map_mouse_y);
