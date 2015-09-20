@@ -62,7 +62,7 @@ $( window ).resize(debounce(function() {
 
 //======================================================================================================================
 
-$(function() {
+/*$(function() {
 
 
     var myel = document.getElementById('map_drag');
@@ -84,10 +84,6 @@ $(function() {
 
         ev.preventDefault();
 
-        //console.log(ev);
-
-        //ev.scale;
-
 
         map_rotation_delta += ev.rotation;//e.deltaY *2;
 
@@ -95,12 +91,11 @@ $(function() {
 
         updateMap();
 
-        //myElement.textContent += ev.type +" ";
-        //alert('aaa');
+
 
     },200));
 
-});
+});*/
 
 //======================================================================================================================
 
@@ -234,6 +229,10 @@ $(function() {
                 }
 
 
+
+
+
+
         }
         , 100
     );
@@ -241,28 +240,44 @@ $(function() {
 
 //======================================================================================================================
 
-    $('#map_drag').mousewheel(function (e) {
+    mouseWheel=function (e) {
 
         //e.preDefault();
 
-        if(e.deltaY>0){
-            map_zoom_delta = 0.4;//e.deltaY *2;
+        if(!terrainChanging){
+
+            /*if(e.deltaY>0){
+                map_zoom_delta = 0.4;//e.deltaY *2;
+            }else{
+                map_zoom_delta = -0.4;//e.deltaY *2;
+            }*/
+
         }else{
-            map_zoom_delta = -0.4;//e.deltaY *2;
+
+            if(e.deltaY>0){
+                selecting_distance+=100;
+            }else{
+                selecting_distance-=100;
+            }
+            updateSelectingDistance();
+
         }
+
 
 
         updateMap();
 
 
-    });
+    };
+
+
+    $("#map_drag").mousewheel(mouseWheel);
+    $("#selecting-distance").mousewheel(mouseWheel);
 
 
 //======================================================================================================================
 
     window.terrainChanging=false;
-
-    var paintingTimeout;
 
     var first_offset = false;
     var last_offset = false;
@@ -298,22 +313,7 @@ $(function() {
 
             last_offset = current_offset;
 
-
-            //r(terrainChanging);
-            if(terrainChanging==false){//todo podivat se na tohle?
-                mapMove(deltaX,deltaY);
-            }else{
-
-                canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-                canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
-
-                clearTimeout(paintingTimeout);
-                paintingTimeout=setTimeout(function() {
-                    drawMap();
-                },100);
-
-            }
-
+            mapMove(deltaX,deltaY);
 
 
         }
@@ -328,6 +328,11 @@ $(function() {
 
 
     window.updateSelectingDistance= function() {
+
+        if(selecting_distance<100)selecting_distance=100;
+        if(selecting_distance>10000)selecting_distance=10000;
+
+
 
         var width=selecting_distance * map_zoom_m*2;
         var height=selecting_distance * map_zoom_m;
@@ -351,8 +356,84 @@ $(function() {
 
     //----------------------
 
-    var mouseMove=function (e) {
+    var BorderMoveRegion=100;
+    var BorderMoveSpeed=30;
+    var BorderMoveDelay=600;
 
+    var BorderMoveQ=false;
+    var BorderMoveY=0;
+    var BorderMoveX=0;
+    var BorderMoveDelay_=BorderMoveDelay;
+
+
+    setInterval(
+        function () {
+
+            if (window_opened)return;
+
+
+            if(BorderMoveX!=0 || BorderMoveY!=0){
+
+                BorderMoveDelay_-=100;
+
+                //r(BorderMoveDelay_);
+                if(BorderMoveDelay_<0){
+                    mapMove(BorderMoveX,BorderMoveY);
+                    BorderMoveQ=true;
+                }
+
+
+            }
+
+
+        },100);//todo fps
+
+
+    $(window).mouseleave(function() {// cursor has left the window
+        BorderMoveX=0;BorderMoveY=0;
+    })
+
+    $('body').mouseleave(function() {// cursor has left the IE window
+        BorderMoveX=0;BorderMoveY=0;
+    })
+
+
+    var mouseMove=function (e) {
+        //r('mouseMove');
+
+
+
+        if(e.clientX<BorderMoveRegion){
+            BorderMoveX=BorderMoveSpeed;
+        }else
+        if(e.clientX>(canvas_width/3)-BorderMoveRegion){
+            BorderMoveX=-BorderMoveSpeed;
+        }else{
+            BorderMoveX=0;
+
+        }
+
+
+        if(e.clientY<BorderMoveRegion){
+            BorderMoveY=BorderMoveSpeed;
+        }else
+        if(e.clientY>(canvas_height/3)-BorderMoveRegion){
+            BorderMoveY=-BorderMoveSpeed;
+        }else{
+            BorderMoveY=0;
+        }
+
+
+        if(BorderMoveX==0 && BorderMoveY==0 && BorderMoveQ){
+            BorderMoveQ=false;
+            BorderMoveDelay_=BorderMoveDelay;
+            updateMap();
+        }
+
+        /*if(BorderMoveQ==false){
+            BorderMoveX=0;
+            BorderMoveY=0;
+        }*/
 
 
         canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
@@ -395,18 +476,32 @@ $(function() {
 
 //=======================================================================================================================schovani sidebar
 
+
+/*
+    var paintingTimeout;
+    canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+    canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+
+    clearTimeout(paintingTimeout);
+    paintingTimeout=setTimeout(function() {
+        drawMap();
+    },100);
+*/
+
+
+
+
     var clickingTimeout;
+    //var clickingInterval;
 
     var mouseClick=function (e) {
-
+        r('mouseDown');
 
         //r(e);
         $('#loading').css('top', e.clientY);
         $('#loading').css('left', e.clientX);
         //$('#loading').css('display','block');
         $('#loading').show();
-
-        //alert('click');
 
 
         canvas_mouse_x = e.clientX + (canvas_width / 3);//-pos.left;
@@ -437,12 +532,39 @@ $(function() {
                 objectMenu();
 
 
-        }, 100);
-    }
+            drawMap();
+
+
+            map_selecting = false;
+
+
+            /*clickingInterval = setInterval(function () {
+                //r('clickingInterval');
+                //canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
+                //canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
+                drawMap();
+            },300);*/
+
+
+
+
+            }, 100);
+    };
 
 
     $("#map_drag").click(mouseClick);
     $("#selecting-distance").click(mouseClick);
+
+
+    //----------------------
+
+    /*var mouseUp=function (e) {
+        r('mouseUp');
+        clearInterval(clickingInterval);
+    };
+
+    $("#map_drag").mouseup(mouseUp);
+    $("#selecting-distance").mouseup(mouseUp);*/
 
 
 //======================================================================================================================
