@@ -55,10 +55,6 @@ function objectMenuTerrainChange(){
 
         for(var terrain=1;terrain<14;terrain++){
 
-            //object_data.func[key]
-            // todo funkce
-
-            //r(l('terrain','t'+terrain));
 
             var icon='media/image/terrain/t'+(terrain)+'.png';
 
@@ -103,10 +99,6 @@ function objectMenuLevelChange(){
 
     for(var level=-1;level<=1;level+=0.5){
 
-        //object_data.func[key]
-        // todo funkce
-
-        //r(l('terrain','t'+terrain));
 
         var icon='media/image/terrain/f_create_terrain.png';
 

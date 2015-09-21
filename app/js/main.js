@@ -110,5 +110,8 @@ if($.inArray('restart',env)!=-1)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+window.onbeforeunload = function() {
+    return "Bye now!";
+    //@todo Onunload
+};
 
-//@todo Onunload
