@@ -65,18 +65,12 @@ if(!map_changes || map_changes=='')map_changes='[]';
 
 map_changes=JSON.parse(map_changes);//todo try
 
-
-/*try(){
+try {
     map_changes=JSON.parse(map_changes);
-}catch {
-
+}
+catch(err) {
     map_changes=[];
-
- if(!map_changes)
- map_changes=[];//x,y,terrain,z
-}*/
-
-
+}
 
 
 //----------------
@@ -339,10 +333,6 @@ function loadMap() {
 
         }*/
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-            //todo optimize
-
-            //r(map_changes);
 
 
         for(var i= 0,l=map_changes.length;i<l;i++){

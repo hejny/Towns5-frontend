@@ -47,8 +47,6 @@ function objectMenu(){
 
         for(var key in object_data.func){
 
-            //object_data.func[key]
-            // todo funkce
 
             icon='media/image/icon/f_'+(object_data.func[key].class)+'.png';
             content='<h2>'+key+id+'</h2>' +

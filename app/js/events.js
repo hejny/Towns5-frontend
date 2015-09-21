@@ -56,7 +56,7 @@ $( window ).resize(debounce(function() {
     $('#map_bg').css('left',-canvas_width/3);
     $('#map_bg').css('top',-canvas_height/3);
 
-    drawMap();//todo limit
+    drawMap();
 },500));
 
 
@@ -284,7 +284,7 @@ $(function() {
     var current_offset = false;
 
 
-    $('#map_drag').draggable({//todo dragging via trigger
+    $('#map_drag').draggable({
 
         'scroll': false,
         'start': function () {

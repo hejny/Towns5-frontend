@@ -3,7 +3,7 @@
   var hexToRgb, rgbToHex;
 
   window.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
-    var color, colors, i, i2, i3, j, len, plus, points, polygon, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
+    var color, colors, i, i2, i3, j, l, len, plus, points, polygon, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
     slope_m = Math.abs(Math.sin(slope / 180 * pi));
     slope_n = Math.abs(Math.cos(slope / 180 * pi)) * 1.4;
     s = s * 1.2;
@@ -121,7 +121,8 @@
 
     /*------------------------------------------------------------------------------------------------------------stin */
     i2 = 0;
-    while (polygons.length > i2) {
+    l = polygons.length;
+    while (l > i2) {
       tmppoints = [];
       i = 0;
       i3 = 0;
@@ -166,7 +167,8 @@
 
     /*---------------------------------------------------------------------------------------------Vykreslení polygonů */
     i2 = 0;
-    while (polygons.length > i2) {
+    l = polygons.length;
+    while (l > i2) {
       tmppoints = [];
       i = 0;
       i3 = 0;

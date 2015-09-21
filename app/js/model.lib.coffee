@@ -120,7 +120,8 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
   ###------------------------------------------------------------------------------------------------------------stin###
 
   i2 = 0
-  while polygons.length > i2 #todo eff
+  l=polygons.length
+  while l > i2
     tmppoints = []
     i = 0
     i3 = 0
@@ -170,7 +171,8 @@ window.drawModel = (ctx, res, s, x_begin, y_begin, rot, slope) ->
   ###---------------------------------------------------------------------------------------------Vykreslení polygonů###
 
   i2 = 0
-  while polygons.length > i2 #todo eff
+  l=polygons.length
+  while l > i2
     tmppoints = []
     i = 0
     i3 = 0
