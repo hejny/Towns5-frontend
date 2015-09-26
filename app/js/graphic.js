@@ -144,7 +144,7 @@ function imageLoad(){
 
 
 
-    if(all_images_loaded === all_images_count) {
+    if(all_images_loaded >= all_images_count) {
 
         map_loaded=true;
         updateMap();
@@ -334,6 +334,7 @@ function loadMap() {
         }*/
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        //r(map_changes);
 
         for(var i= 0,l=map_changes.length;i<l;i++){
 
@@ -342,8 +343,12 @@ function loadMap() {
                 terrain=map_changes[i][2],
                 z=map_changes[i][3];
 
-            x=Math.floor(x-map_x+map_size/2);
-            y=Math.floor(y-map_y+map_size/2);
+            //r(x,y,map_x,map_y);
+
+            x=x-Math.round(map_x)+Math.floor(map_size/2);
+            y=y-Math.round(map_y)+Math.floor(map_size/2);
+
+            //r(x,y);
 
             if(
                 x<0 ||

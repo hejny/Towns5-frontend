@@ -3,7 +3,10 @@
 //======================================================================================================================
 
 
-function r(r){console.log(r);}
+function r(){
+    for(var i= 0,l=arguments.length;i<l;i++)
+        console.log(arguments[i]);
+}
 
 
 function htmlEncode(value){
@@ -110,8 +113,8 @@ if($.inArray('restart',env)!=-1)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-window.onbeforeunload = function() {
+/*window.onbeforeunload = function() {
     return "Bye now!";
     //@todo Onunload
-};
+};*/
 

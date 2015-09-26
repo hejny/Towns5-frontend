@@ -184,6 +184,11 @@
 
         // Unset the flag to allow other widgets to inherit the touch event
         touchHandled = false;
+
+
+        BorderMoveQ=false;//todo Funguje to?
+
+
     };
 
     /**
