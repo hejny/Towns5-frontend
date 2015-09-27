@@ -143,3 +143,15 @@ function townsApiMulti(querys,callback){
     return(request);
 }
 
+//======================================================================================================================
+
+
+townsApi(
+    [
+        'list',
+        'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
+        //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
+        'unique',
+        'id'
+    ]
+    ,function(json){r(json);});
