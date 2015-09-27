@@ -1,10 +1,10 @@
 
-function townsApi(query,callback){
+function FaketownsApi(query,callback){
     callback({});
     return;
 }
 
-function townsApiMulti(querys,callback){
+function FaketownsApiMulti(querys,callback){
     callback([]);
     return;
 }

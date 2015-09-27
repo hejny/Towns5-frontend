@@ -34,7 +34,7 @@
         <script src="app/locale/cs.js"></script>
 
 
-        <!--<script src="app/js/townsapi.lib.js"></script>-->
+        <script src="app/js/townsapi.lib.js"></script>
         <script src="app/js/townsapi.fake.lib.js"></script>
 
 
@@ -42,8 +42,9 @@
         <script src="app/js/model.lib.js" ></script>
         <script src="app/js/graphic.js"></script>
         <script src="app/js/events.js"></script>
-        <script src="app/js/objectmenu.js"></script>
+        <script src="app/js/objectmenu.js"></script><!--todo soubory podle funkci-->
         <script src="app/js/terrainmenu.js"></script>
+        <script src="app/js/uniquemenu.js"></script>
         <script src="app/js/ui.js"></script>
 
 
@@ -111,6 +112,14 @@
                     <ul class="menu-dlist">
                         <li class="menu-dlist-item"><a href="#" onclick="objectMenuTerrainChange();">Typy</a></li>
                         <li class="menu-dlist-item"><a href="#" onclick="objectMenuLevelChange();">Výška</a></li>
+                    </ul>
+                </li>
+
+                <li class="menu-list-item">
+                    <a href="#">Budovy</a>
+
+                    <ul class="menu-dlist">
+                        <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');">Zakladni</a></li>
                     </ul>
                 </li>
 

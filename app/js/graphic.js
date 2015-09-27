@@ -229,9 +229,9 @@ $(function() {
 });
 
 
-
-
-
+//======================================================================================================================
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+//XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 //======================================================================================================================loadMap
 
 var map_request_holder;
@@ -257,7 +257,7 @@ function loadMap() {
     if(typeof map_request_holder!=='undefined')
         map_request_holder.abort();
 
-    map_request_holder=townsApiMulti(
+    map_request_holder=FaketownsApiMulti(
         [
             [
                 'list',

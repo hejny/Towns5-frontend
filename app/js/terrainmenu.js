@@ -137,8 +137,10 @@ function objectMenuLevelChange(){
 
 
 
+/*
 $(function(){
 
     objectMenuTerrainChange();
 
 });
+*/
