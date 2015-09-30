@@ -1,5 +1,26 @@
 
 
+var uniqueobjects;
+
+townsApi(
+    [
+        'list',
+        'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
+        //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
+        'unique',
+        'id'
+    ]
+    ,function(json){
+
+            uniqueobjects=json['objects'];
+
+
+
+        });
+
+
+
+
 //======================================================================================================================objectMenuLevelChange
 
 
@@ -7,7 +28,7 @@ function objectMenuUnique(){
 
     var objectmenu='';
 
-    for(var level=-1;level<=1;level+=0.5){
+    for(var i= 0,l=uniqueobjects.length;i<l;i){
 
 
         var icon='media/image/terrain/f_create_terrain.png';
