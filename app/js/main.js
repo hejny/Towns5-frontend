@@ -4,8 +4,20 @@
 
 
 function r(){
-    for(var i= 0,l=arguments.length;i<l;i++)
-        console.log(arguments[i]);
+
+
+    if(arguments.length==1){
+
+        console.log(arguments[0]);
+
+    }else{
+
+        var arg=[];
+        for(var i= 0,l=arguments.length;i<l;i++){
+            arg.push(arguments[i]);
+        }
+        console.log(arg);
+    }
 }
 
 

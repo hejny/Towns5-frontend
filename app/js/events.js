@@ -278,6 +278,8 @@ $(function() {
 //======================================================================================================================
 
     window.terrainChanging=false;
+    window.building=false;
+    window.selecting_offset={x: 0,y: 0};
 
     var first_offset = false;
     var last_offset = false;
@@ -327,7 +329,7 @@ $(function() {
     selecting_distance_canvas_ctx = selecting_distance_canvas.getContext("2d");
 
 
-    window.updateSelectingDistance= function() {
+    window.updateSelectingDistance= function() {//todo all as this
 
         if(selecting_distance<100)selecting_distance=100;
         if(selecting_distance>10000)selecting_distance=10000;
@@ -341,6 +343,8 @@ $(function() {
         $('#selecting-distance').attr('width',width+2*border);
         $('#selecting-distance').attr('height',height+2*border);
 
+        selecting_offset.x=width/2-border;
+        selecting_offset.y=height/2-border;
 
 
         selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,width+border , height+border );
@@ -440,13 +444,11 @@ $(function() {
         canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
 
 
-        if(terrainChanging) {
+        if(terrainChanging || building) {
 
-            var width = $('#selecting-distance').css('width');
-            width = parseInt(width);
 
-            $('#selecting-distance').css('left', e.clientX - (width / 2));
-            $('#selecting-distance').css('top', e.clientY - (width / 4));
+            $('#selecting-distance').css('left', e.clientX - selecting_offset['x']);
+            $('#selecting-distance').css('top', e.clientY - selecting_offset['y']);
         }
 
     };
@@ -511,10 +513,30 @@ $(function() {
         clearTimeout(clickingTimeout);
         clickingTimeout = setTimeout(function () {
 
+            if(building!==false){
+
+                $('#loading').hide();
+
+
+                var tmp=jQuery.extend({}, building);
+
+                tmp.x=map_x;
+                tmp.y=map_y;
+
+                map_object_changes.push(tmp);
+
+                loadMap();
+
+                mapSpecialCursorStop();
+
+                return;
+
+            }
+
+
+
             var map_selected_ids_prev = map_selected_ids;
             map_selecting = true;
-
-            //alert('click');
 
 
             drawMap();

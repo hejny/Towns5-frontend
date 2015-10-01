@@ -26,6 +26,7 @@ if(parseInt(localStorage.getItem('map_x')) != NaN && parseInt(localStorage.getIt
 /*var map_x=0;
 var map_y=0;*/
 
+var map_model_size=2;
 
 
 var map_rotation=45;
@@ -56,20 +57,32 @@ var map_selected_ids = [];
 
 var terrainCount=13;
 
+//----------------Změny kumulované uživatelem na objektech (budovy, pribehy,...)
+
+
+var map_object_changes=localStorage.getItem('map_object_changes');
+
+if(!map_object_changes || map_object_changes=='')map_object_changes='[]';
+
+try {
+    map_object_changes=JSON.parse(map_object_changes);
+}
+catch(err) {
+    map_object_changes=[];
+}
+
 //----------------Změny kumulované uživatelem na mapě
 
 
-var map_changes=localStorage.getItem('map_changes');
+var map_terrain_changes=localStorage.getItem('map_terrain_changes');
 
-if(!map_changes || map_changes=='')map_changes='[]';
-
-map_changes=JSON.parse(map_changes);//todo try
+if(!map_terrain_changes || map_terrain_changes=='')map_terrain_changes='[]';
 
 try {
-    map_changes=JSON.parse(map_changes);
+    map_terrain_changes=JSON.parse(map_terrain_changes);
 }
 catch(err) {
-    map_changes=[];
+    map_terrain_changes=[];
 }
 
 
@@ -279,17 +292,19 @@ function loadMap() {
         ,function(res){
 
 
-
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Objects
             if(res.length>0)
                 map_data=res[0]['objects'];
             else
                 map_data=[];
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
+            map_data=map_data.concat(map_object_changes);
 
-
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material terrains - add to map_z_data and map_bg_data, remove from map_data
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Terrains
 
             /*var map_data_terrain=res[1]['objects'];
+
             for(var i= 0, l=map_data_terrain.length;i<l;i++){
 
                 var x=Math.floor(map_data_terrain[i].x-map_x+map_size/2);
@@ -331,40 +346,41 @@ function loadMap() {
 
                 }
 
-        }*/
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            }*/
 
-        //r(map_changes);
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Terrains
 
-        for(var i= 0,l=map_changes.length;i<l;i++){
+            //r(map_terrain_changes);
 
-            var x=map_changes[i][0],
-                y=map_changes[i][1],
-                terrain=map_changes[i][2],
-                z=map_changes[i][3];
+            for(var i= 0,l=map_terrain_changes.length;i<l;i++){
 
-            //r(x,y,map_x,map_y);
+                var x=map_terrain_changes[i][0],
+                    y=map_terrain_changes[i][1],
+                    terrain=map_terrain_changes[i][2],
+                    z=map_terrain_changes[i][3];
 
-            x=x-Math.round(map_x)+Math.floor(map_size/2);
-            y=y-Math.round(map_y)+Math.floor(map_size/2);
+                //r(x,y,map_x,map_y);
 
-            //r(x,y);
+                x=x-Math.round(map_x)+Math.floor(map_size/2);
+                y=y-Math.round(map_y)+Math.floor(map_size/2);
 
-            if(
-                x<0 ||
-                y<0 ||
-                x>=map_size ||
-                y>=map_size
+                //r(x,y);
 
-            ){}else{
-                map_bg_data[y][x]=terrain;
-                map_z_data[y][x]=z;
+                if(
+                    x<0 ||
+                    y<0 ||
+                    x>=map_size ||
+                    y>=map_size
+
+                ){}else{
+                    map_bg_data[y][x]=terrain;
+                    map_z_data[y][x]=z;
+                }
+
             }
 
-        }
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        drawMap();
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            drawMap();
 
     });
 
@@ -490,7 +506,7 @@ function drawMap() {
 
 
                                 map_bg_data[y][x] = terrain_change;
-                                map_changes.push([world_x, world_y, terrain_change, map_z_data[y][x]]);
+                                map_terrain_changes.push([world_x, world_y, terrain_change, map_z_data[y][x]]);
 
                                 //++++++++++++++++++ begin duplicate
                                 var terrain = map_bg_data[y][x] - 1;
@@ -506,7 +522,7 @@ function drawMap() {
                                 if(map_z_data[y][x]>2)map_z_data[y][x]=2;
 
 
-                                map_changes.push([world_x, world_y, map_bg_data[y][x], map_z_data[y][x]]);
+                                map_terrain_changes.push([world_x, world_y, map_bg_data[y][x], map_z_data[y][x]]);
 
                                 //++++++++++++++++++ begin duplicate
                                 var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
@@ -852,7 +868,7 @@ function drawMap() {
 
         } else if (map_draw[i][0] == 'building') {
 
-            drawModel(map_ctx, map_draw[i][1], map_zoom_m, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            drawModel(map_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         } else if (map_draw[i][0] == 'ellipse') {
 
@@ -908,7 +924,7 @@ function drawMap() {
 
 
        /* //todo opravit priority
-        map_changes.sort(function (a, b) {
+        map_terrain_changes.sort(function (a, b) {
 
             if (a[0] > b[0]) {
                 return (1);
@@ -928,23 +944,23 @@ function drawMap() {
 
         });
 
-        var map_changes_new=[];
+        var map_terrain_changes_new=[];
         var a=false,b=false;
-        for (var i = map_changes.length-1; i >= 0; i--){
+        for (var i = map_terrain_changes.length-1; i >= 0; i--){
 
-            if(a==map_changes[i][0] && b==map_changes[i][1]){}else{
-                map_changes_new.push(map_changes[i]);
+            if(a==map_terrain_changes[i][0] && b==map_terrain_changes[i][1]){}else{
+                map_terrain_changes_new.push(map_terrain_changes[i]);
             }
 
-            a=map_changes[i][0];
-            b=map_changes[i][1];
+            a=map_terrain_changes[i][0];
+            b=map_terrain_changes[i][1];
         }
 
-        map_changes=map_changes_new.splice(0);
-        delete map_changes_new;
+        map_terrain_changes=map_terrain_changes_new.splice(0);
+        delete map_terrain_changes_new;
 */
-        //r(map_changes);
-        localStorage.setItem('map_changes',JSON.stringify(map_changes));
+        //r(map_terrain_changes);
+        localStorage.setItem('map_terrain_changes',JSON.stringify(map_terrain_changes));
     }
 
 

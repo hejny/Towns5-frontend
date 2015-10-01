@@ -4,6 +4,8 @@
 
 function drawModel(ctx,res,s,x_begin,y_begin,rot) {
 
+    r('aaa');
+
     s=s*1.6;
     slnko=1;
 
@@ -16,6 +18,7 @@ function drawModel(ctx,res,s,x_begin,y_begin,rot) {
     polygons=tmp[1];
     colors=tmp[2];
     rot=parseInt(rot)+45+parseInt(tmp[3]);
+
 
 
     if(typeof(colors)=='undefined')return;
@@ -35,6 +38,10 @@ function drawModel(ctx,res,s,x_begin,y_begin,rot) {
         i++;
     }
 
+    //---------------------------
+    r(points);
+    r(polygons);
+    r(colors);
 
     //---------------------------Rotace
 
