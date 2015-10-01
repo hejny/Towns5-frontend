@@ -15,6 +15,10 @@ $(function() {
 
 function terrainChangeStart(terrain,level){
 
+    mapSpecialCursorStop();
+
+    updateSelectingDistance();
+
     terrain_change=terrain;
     level_change=level;
     terrainChanging=true;
@@ -38,9 +42,6 @@ function terrainChangeStop(){
 }
 
 
-$(function(){
-    terrainChangeStop();
-});
 
 
 //----------------------------------------------------

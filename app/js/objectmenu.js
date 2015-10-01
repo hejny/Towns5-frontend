@@ -12,8 +12,23 @@ $(function() {
 
 //======================================================================================================================
 
+
+function mapSpecialCursorStop(){
+    buildingStop();
+    terrainChangeStop();
+}
+
+
+
+$(function(){
+    mapSpecialCursorStop();
+});
+
+
+
+
 function objectMenu(){
-    r('objectMenu');
+    //r('objectMenu');
 
 
     $('#objectmenu').stop(true,true);
