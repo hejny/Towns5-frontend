@@ -1,22 +1,35 @@
 
 
-var uniqueobjects;
+var unique_objects=localStorage.getItem('unique_objects');
 
-townsApi(
-    [
-        'list',
-        'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
-        //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
-        'unique',
-        'id'
-    ]
-    ,function(json){
+if(unique_objects!==null) {
 
-            uniqueobjects=json['objects'];
-            //uniqueobjects=[{res:'[50,50,NaN][17,15,15][89,6,36][11,89,0][75,98,0]:;2,3,5,4:00CCFF,00CCFF'}];
+    unique_objects=JSON.parse(unique_objects);
+
+    setTimeout(function(){
+        objectMenuUnique();
+    },1500);
+
+
+}else{
+
+    r('loading unique_objects from TownsAPI');
+    townsApi(
+        [
+            'list',
+            'id,x,y,type,res,_name,icon,func,permalink,func,group,own,superown,fp,fs',
+            //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
+            'unique',
+            'id'
+        ]
+        ,function(json){
+
+            unique_objects=json['objects'];
+            //unique_objects=[{res:'[50,50,NaN][17,15,15][89,6,36][11,89,0][75,98,0]:;2,3,5,4:00CCFF,00CCFF'}];
 
             setTimeout(function(){
 
+                localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
                 objectMenuUnique();
 
             },100)
@@ -25,6 +38,11 @@ townsApi(
 
 
         });
+
+}
+
+
+
 
 
 //======================================================================================================================objectMenuLevelChange
@@ -63,18 +81,18 @@ function buildingStop(){
 
 //----------------------------------------------------
 
-function objectMenuUnique(){
+function objectMenuUnique(group){
 
     var objectmenu='';
 
-    for(var i= 0,l=uniqueobjects.length;i<l;i++){
+    for(var i= 0,l=unique_objects.length;i<l;i++){
 
 
-        var icon='media/image/terrain/f_create_terrain.png';
+        var icon=unique_objects[0].icon;
 
 
-        var content='';
-        var action='buildingStart(uniqueobjects['+(i)+']);';
+        var content='ahoj ahoj';
+        var action='buildingStart(unique_objects['+(i)+']);';
 
 
         objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content)).split('%action').join(htmlEncode(action));
