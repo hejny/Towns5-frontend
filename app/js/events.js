@@ -526,12 +526,13 @@ $(function() {
                 var map_click_x=(e.clientX-(canvas_width / 3/2));
                 var map_click_y=(e.clientY-(canvas_height / 3/2));
 
-                r(map_click_x,map_click_y,map_zoom_m,map_slope_m);
+                //r(map_click_x,map_click_y,map_zoom_m,map_slope_m);
 
-                map_rotation_rmap_rotation_r=map_click_x/180/map_zoom_m;
-                map_click_y=map_click_y/180/map_zoom_m/map_slope_m;
+                map_click_x=map_click_x/180/map_zoom_m;
+                map_click_y=map_click_y/180/map_zoom_m*map_slope_m;
 
 
+                //r(map_click_x,map_click_y);
 
                 var map_click_dist=Math.pow(Math.pow(map_click_x,2)+Math.pow(map_click_y,2),(1/2));
                 var map_click_rot=Math.acos(map_click_x/map_click_dist);
@@ -539,12 +540,14 @@ $(function() {
                     map_click_rot=2*3.1415 - map_click_rot;//todo v celem projektu udelat pi a golden ratio jako konstantu
                 }
 
+                //r(map_click_dist,map_click_rot,map_rotation_r);
 
                 map_click_rot=map_click_rot-map_rotation_r;
+                //map_click_rot=map_click_rot-2*map_rotation_r;
 
 
-                map_rotation_r=Math.cos(map_click_rot)*map_click_dist;
-                map_rotation_r=Math.sin(map_click_rot)*map_click_dist;
+                map_click_x=Math.cos(map_click_rot)*map_click_dist;
+                map_click_y=Math.sin(map_click_rot)*map_click_dist;
 
 
                 //r(map_click_x,map_click_y);
@@ -553,7 +556,7 @@ $(function() {
                 map_click_x+=map_x;
                 map_click_y+=map_y;
 
-                r(map_click_x,map_click_y);
+                //r(map_click_x,map_click_y);
 
                 //-----
 
@@ -564,7 +567,7 @@ $(function() {
 
                 loadMap();
 
-                mapSpecialCursorStop();
+                //mapSpecialCursorStop();
 
                 return;
 
