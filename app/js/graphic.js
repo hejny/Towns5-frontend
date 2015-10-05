@@ -127,7 +127,7 @@ var map_slope_n;
 //----------------Konstanty
 
 
-pi=3.1415
+pi=3.14159265359;
 gr=1.62;
 
 
@@ -517,7 +517,7 @@ function drawMap() {
                             if (level_change !== false) {
 
 
-                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * 3.14 / 2);
+                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * pi / 2);
                                 if(map_z_data[y][x]<0)map_z_data[y][x]=0;
                                 if(map_z_data[y][x]>2)map_z_data[y][x]=2;
 
@@ -712,9 +712,8 @@ function drawMap() {
         var object_id = map_data[i].id;
 
 
-        object_xc = map_data[i].x - Math.floor(map_x);
-        object_yc = map_data[i].y - Math.floor(map_y);
-
+        object_xc = map_data[i].x - map_x;
+        object_yc = map_data[i].y - map_y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m;
@@ -1131,7 +1130,7 @@ function updateValues(){
 }
 
 
-//----------------------------------------------------------------------------------------------------------------------
+//======================================================================================================================
 
 
 function mapMove(deltaX,deltaY) {
@@ -1170,10 +1169,55 @@ function mapMove(deltaX,deltaY) {
     $('#map_bg').css('left', map_bg_x);
     $('#map_bg').css('top', map_bg_y);
 
+}
 
-    //----------------
+//======================================================================================================================
+
+function mouseCenterPos2MapPos(map_click_x,map_click_y) {
+
+
+    //r(map_click_x,map_click_y,map_zoom_m,map_slope_m);
+
+    var brainfuck=1.12;
+
+    map_click_x=map_click_x/180/map_zoom_m*brainfuck;
+    map_click_y=map_click_y/180/map_zoom_m*map_slope_m*brainfuck;
+
+
+    //r(map_click_x,map_click_y);
+
+    var map_click_dist=Math.pow(Math.pow(map_click_x,2)+Math.pow(map_click_y,2),(1/2));
+    var map_click_rot=Math.acos(map_click_x/map_click_dist);
+    if(map_click_y<0){
+        map_click_rot=2*pi - map_click_rot;//todo v celem projektu udelat pi a golden ratio jako konstantu
+    }
+
+
+    //r(map_click_dist,map_click_rot,map_rotation_r);
+
+    map_click_rot=map_click_rot-map_rotation_r;
+    //map_click_rot=map_click_rot-2*map_rotation_r;
+
+
+    map_click_x=Math.cos(map_click_rot)*map_click_dist;
+    map_click_y=Math.sin(map_click_rot)*map_click_dist;
+
+
+    //r(map_click_x,map_click_y);
+
+
+    map_click_x+=map_x;
+    map_click_y+=map_y;
+
+    //r(map_click_x,map_click_y);
+
+    return({x:map_click_x,y:map_click_y});
+
 
 }
+
+
+
 
 
 

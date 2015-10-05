@@ -13,7 +13,7 @@
 *.pot
 
 
-
+npm-debug.log
 
 
 /.htaccess
@@ -25,4 +25,8 @@
 /admin
 /userdata
 
+
+
+app-dist/*
+documentation/*
 

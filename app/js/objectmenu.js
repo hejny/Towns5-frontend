@@ -1,30 +1,8 @@
-// [PH] -> [Matusko]  Přepsal jsem PHP skript na JS
 
-var objectmenu_template;
-
-
-$(function() {
-
-    objectmenu_template = $('#objectmenu-inner').html();
-
-
-});
-
-//======================================================================================================================
-
-
-function mapSpecialCursorStop(){
-    buildingStop();
-    terrainChangeStop();
-}
 
 
 
-$(function(){
-    mapSpecialCursorStop();
-});
-
-
+//======================================================================================================================
 
 
 function objectMenu(){

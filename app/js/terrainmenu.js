@@ -1,15 +1,3 @@
-// [PH] -> [Matusko]  Přepsal jsem PHP skript na JS
-
-var objectmenu_template;
-
-
-$(function() {
-
-    objectmenu_template = $('#objectmenu-inner').html();
-
-
-});
-
 
 //======================================================================================================================objectMenuTerrainChange
 
@@ -23,13 +11,18 @@ function terrainChangeStart(terrain,level){
     level_change=level;
     terrainChanging=true;
 
-    if(terrain_change){
-        $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrain_change)+'.png\')');
-        $('#selecting-distance-ctl').css('background-size','cover');
-    }
+    //if(terrain_change){
+    $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrain_change)+'.png\')');
+    $('#selecting-distance-ctl').css('background-size','cover');
+    //}
 
 
     $('#selecting-distance-ctl').show();
+    $('#selecting-distance-left').hide();
+    $('#selecting-distance-right').hide();
+
+
+
     $('#selecting-distance').show();
 }
 

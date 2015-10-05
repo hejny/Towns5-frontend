@@ -58,9 +58,14 @@
         <script src="app/js/functions/login.js"></script>
 
 
+        <script async src='/browser-sync/browser-sync-client.2.9.8.js'></script>
 
     </head>
     <body>
+
+
+
+
 
 
     <div id="loading">
@@ -90,7 +95,10 @@
     <div id="selecting-distance-ctl">
         <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
         <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
+        <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
+        <div id="selecting-distance-right" class="mini-button"><i class="fa fa-angle-double-right"></i></i></div>
         <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
+
     </div>
 
 
@@ -183,7 +191,7 @@
             <div id="objectmenu-inner">
                 <div class="action-wrapper">
 
-                    <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" content="%content" onclick="%action"></div>
+                    <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" title="%title" content="%content" onclick="%action"></div>
                 </div>
             <div>
 

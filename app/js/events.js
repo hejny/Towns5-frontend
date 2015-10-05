@@ -244,15 +244,7 @@ $(function() {
 
         //e.preDefault();
 
-        if(!terrainChanging){
-
-            /*if(e.deltaY>0){
-                map_zoom_delta = 0.4;//e.deltaY *2;
-            }else{
-                map_zoom_delta = -0.4;//e.deltaY *2;
-            }*/
-
-        }else{
+        if(terrainChanging!=false){
 
             if(e.deltaY>0){
                 selecting_distance+=100;
@@ -260,6 +252,27 @@ $(function() {
                 selecting_distance-=100;
             }
             updateSelectingDistance();
+
+
+        }else
+        if(building!=false){
+
+            if(e.deltaY>0){
+                building.rot+=10;
+            }else{
+                building.rot-=10;
+            }
+            buildingUpdate();
+
+        }else
+        {
+
+            /*if(e.deltaY>0){
+             map_zoom_delta = 0.4;//e.deltaY *2;
+             }else{
+             map_zoom_delta = -0.4;//e.deltaY *2;
+             }*/
+
 
         }
 
@@ -458,23 +471,6 @@ $(function() {
     $("#selecting-distance").mousemove(mouseMove);
 
 
-    //----------------------------------------
-
-    $('#selecting-distance-plus').click(function(){
-        selecting_distance+=100;
-        updateSelectingDistance();
-    });
-
-    $('#selecting-distance-minus').click(function(){
-        selecting_distance-=100;
-        updateSelectingDistance();
-    });
-
-    $('#selecting-distance-close').click(function(){
-        terrainChangeStop();
-    });
-
-
 
 //=======================================================================================================================schovani sidebar
 
@@ -521,47 +517,21 @@ $(function() {
                 var tmp=jQuery.extend({}, building);
 
 
+                tmp.res+=':'+tmp.rot+':'+building.size;
+                delete tmp.rot;
+
                 //------
 
                 var map_click_x=(e.clientX-(canvas_width / 3/2));
                 var map_click_y=(e.clientY-(canvas_height / 3/2));
 
-                //r(map_click_x,map_click_y,map_zoom_m,map_slope_m);
-
-                map_click_x=map_click_x/180/map_zoom_m;
-                map_click_y=map_click_y/180/map_zoom_m*map_slope_m;
-
-
                 //r(map_click_x,map_click_y);
-
-                var map_click_dist=Math.pow(Math.pow(map_click_x,2)+Math.pow(map_click_y,2),(1/2));
-                var map_click_rot=Math.acos(map_click_x/map_click_dist);
-                if(map_click_y<0){
-                    map_click_rot=2*3.1415 - map_click_rot;//todo v celem projektu udelat pi a golden ratio jako konstantu
-                }
-
-                //r(map_click_dist,map_click_rot,map_rotation_r);
-
-                map_click_rot=map_click_rot-map_rotation_r;
-                //map_click_rot=map_click_rot-2*map_rotation_r;
-
-
-                map_click_x=Math.cos(map_click_rot)*map_click_dist;
-                map_click_y=Math.sin(map_click_rot)*map_click_dist;
-
-
-                //r(map_click_x,map_click_y);
-
-
-                map_click_x+=map_x;
-                map_click_y+=map_y;
-
-                //r(map_click_x,map_click_y);
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                 //-----
 
-                tmp.x=map_click_x;
-                tmp.y=map_click_y;
+                tmp.x=mapPos.x;
+                tmp.y=mapPos.y;
 
                 map_object_changes.push(tmp);
 
