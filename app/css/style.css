@@ -135,7 +135,7 @@ input, textarea {
     top:70px;
     left:70px;
     padding: 4px;
-    /*border: 2px solid #0098ff;*/
+    background-color: #999999;
     box-shadow: #000000 0 0 3px 0;
     border-radius: 3px;
     z-index: 3600;
@@ -393,7 +393,7 @@ input, textarea {
 }
 
 .action:hover {
-    box-shadow: #0098ff 0 0 3px 0;
+    box-shadow: #999999 0 0 3px 0;
 }
 
 /*.action-wrapper.active .action {*/
@@ -439,6 +439,7 @@ input, textarea {
     color: black;
     border-radius: 3px;
     width: 300px;
+    height: 200px;
 }
 
 

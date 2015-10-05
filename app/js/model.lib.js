@@ -15,11 +15,15 @@ window.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     colors = tmp[2];
 
     if (typeof tmp[3] == 'undefined')tmp[3] = 0;
+    if (typeof tmp[4] == 'undefined')tmp[4] = 1;
 
     rot = parseInt(rot) + 45 + parseInt(tmp[3]);
     if (typeof colors === 'undefined') {
         return;
     }
+
+    s=s*tmp[4];
+
 
     /*---------------------------Rozklad barev */
     colors = colors.split(',');
@@ -299,4 +303,26 @@ window.rgbToHex = function(r, g, b) {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 };
 
+
+
+//======================================================================================================================
+
+
+
+window.createIcon = function(res,size){
+
+
+
+    var canvas = document.createElement("canvas");
+    canvas.height=size;
+    canvas.width = size;
+    var context = canvas.getContext('2d');
+
+    drawModel(context, res, 0.2, size/2, size*(2/5), 10, 35);
+
+
+    return(canvas.toDataURL());
+
+
+}
 
