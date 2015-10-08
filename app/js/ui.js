@@ -14,6 +14,8 @@ window.window_open = function(header,content){
 
     window_opened=true;
 
+
+
 };
 
 
