@@ -11,10 +11,10 @@ var map_rotation=Math.random()*360;
 var map_slope=27;
 
 
-if(parseInt(localStorage.getItem('map_x')) != NaN && parseInt(localStorage.getItem('map_y')) != NaN){
+if((localStorage.getItem('map_x')/1) != NaN && (localStorage.getItem('map_y')/1) != NaN){
 
-    var map_x=localStorage.getItem('map_x');
-    var map_y=localStorage.getItem('map_y');
+    var map_x=localStorage.getItem('map_x')/1;
+    var map_y=localStorage.getItem('map_y')/1;
 
 }else{
 
@@ -250,7 +250,8 @@ $(function() {
 var map_request_holder;
 
 function loadMap() {
-    r('loadMap');
+    r('loadMap',map_x,map_size);
+
 
     var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
 

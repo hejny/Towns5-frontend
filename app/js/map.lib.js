@@ -34,6 +34,7 @@ function getZ(x,y){
 
 function getPrimeMap(startX,startY,size){
 
+    //r(size,startY,startX);
 	var map=[];
 
 	for(var y=startY;y<=startY+size;y++){
@@ -47,6 +48,8 @@ function getPrimeMap(startX,startY,size){
 
 		}
 	}
+
+    //r(map);
 	return(map);
 
 }
@@ -175,9 +178,9 @@ function getMap(startX,startY,size){
 
 	var bounds=4;
 
-	map=getPrimeMap(startX-bounds,startY-bounds,size+(2*bounds));
-	map=roundMap(map,bounds);
-	map=boundMap(map,80,120);
+	map=getPrimeMap(startX-bounds,startY-bounds,size+(2*bounds));//r(map);
+	map=roundMap(map,bounds);//r(map);
+	map=boundMap(map,80,120);//r(map);
 
 
 	
@@ -189,6 +192,8 @@ function getMap(startX,startY,size){
 
             if(Math.pow(x-(size/2),2)+Math.pow(y-(size/2),2)<=Math.pow(size/2,2)){
 
+
+				//r(map,y+bounds);
                 map_z[y][x]=map[y+bounds][x+bounds+2/*@todo proc*/];
 
             }else{
