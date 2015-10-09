@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "projects.js",
+  "sourceRoot": "",
+  "sources": [
+    "projects.coffee"
+  ],
+  "names": [],
+  "mappings": ";AACA;EAAA,MAAM,CAAC,aAAP,GAAqB;AAArB"
+}

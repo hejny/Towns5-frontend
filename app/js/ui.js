@@ -12,9 +12,14 @@ window.window_open = function(header,content){
     $(".overlay").show();
     $(".popup-window").show();
 
+
+    $(".popup-window .content").mousedown(function(){
+
+        $('body').enableSelection();
+    });
+    $('body').enableSelection();
+
     window_opened=true;
-
-
 
 };
 
@@ -23,6 +28,8 @@ window.window_close = function(){
 
     $(".overlay").hide();
     $(".popup-window").hide();
+
+    $('body').disableSelection();
 
     window_opened=false;
 };
@@ -109,7 +116,7 @@ window.uiScript = function(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $(".js-popup-window-open").on("click", function(){
 
-        window_open($(this).attr('header'),window[$(this).attr('content')]);
+        window_open($(this).attr('header'),window[$(this).attr('content')]);//todo lepe oznacit window html
 
     });
 
@@ -244,6 +251,9 @@ $(function(){
 
     mapSpecialCursorStop();
     uiScript();
+
+
+    window_open('Towns 5',window['projects_html']);
 
 
 });

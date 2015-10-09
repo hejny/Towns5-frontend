@@ -33,19 +33,35 @@ input, textarea {
 
 
 .error {
-    color: #FF0000;
-    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #FF0000;
 }
 
 
 .success {
-    color: #0055cc;
-    font-weight: bold;
+    color: #FFFFFF;
+    background-color:  #228855;
 }
 
 .info {
-    color: #999999;
+    color: #FFFFFF;
+    background-color: #444488;
+}
+
+.loading {/*todo jak tohle nazyvat*/
+    color: #FFFFFF;
+    background-color: #444444;
+}
+
+.error, .success, .info, .loading {/*todo chlivek?*/
+
+    display: block;
+    width: 100%;
+    padding: 6px;
+
     font-weight: bold;
+
+
 }
 
 
@@ -126,7 +142,7 @@ input, textarea {
     position:absolute;
     z-index: 3500;
     cursor: none;
-    border: 2px solid rgba(100,100,100,0.5);
+    /*border: 2px solid rgba(100,100,100,0.5);*/
 }
 
 
