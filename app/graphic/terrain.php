@@ -11,6 +11,9 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING );
 ini_set("register_globals","off");
 ini_set("display_errors","on");
 
+
+ini_set('memory_limit', '300M');
+
 //----------------------------------------------------------------------------------------------------------------------
 
 define("gr",1.62);
@@ -84,15 +87,29 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])) {
 
     $source = imagecreatefrompng($file);
 
-    $fileshape="../../media/image/terrain/shape/$terrain.png";
-    if(file_exists($fileshape)){
+    $fileshape_png="../../media/image/terrain/shape/$terrain.png";
+    $fileshape_jpg="../../media/image/terrain/shape/$terrain.jpg";
 
-        $shape = imagecreatefrompng($fileshape);
+    if($png=file_exists($fileshape_png) or $jpg=file_exists($fileshape_jpg)){
+
+        if($png)
+            $shape = imagecreatefrompng($fileshape_png);
+        else
+            $shape = imagecreatefromjpeg($fileshape_jpg);
 
         $degrees=rand(0,360);
 
         $white = imagecolorallocate($shape,255, 255, 255);
         $shape = imagerotate($shape, $degrees,$white);
+
+
+        /*$color = imagecolorat($shape, 5, 5);
+        $r = ($color >> 16) & 0xFF;
+        $g = ($color >> 8) & 0xFF;
+        $b = $color & 0xFF;
+        echo($r.','.$g.','.$b);
+        exit;*/
+
 
         /*header('Content-Type: image/png');
         imagepng($shape);
@@ -100,7 +117,6 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])) {
 
 
     }else{
-
         $shape=false;
     }
 
@@ -185,11 +201,11 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])) {
 
         if($shape){
 
-            $alpha = imagecolorat($shape, round($xtmp/$sourceSize*imagesx($shape)), round($ytmp/$sourceSize*imagesy($shape)));
+            $color = imagecolorat($shape, round($xtmp/$sourceSize*imagesx($shape)), round($ytmp/$sourceSize*imagesy($shape)));
             $a=0;
-            $a += ($alpha >> 16) & 0xFF;
-            $a += ($alpha >> 8) & 0xFF;
-            $a += $alpha & 0xFF;
+            $a += ($color >> 16) & 0xFF;
+            $a += ($color >> 8) & 0xFF;
+            $a += $color & 0xFF;
 
             $a=$a/3/255;
             //$a=1-$a;
