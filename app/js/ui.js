@@ -252,8 +252,7 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-
-    window_open('Towns 5',window['projects_html']);
+    //window_open('Towns 5',window['projects_html']);
 
 
 });
