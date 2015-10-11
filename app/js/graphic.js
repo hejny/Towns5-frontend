@@ -71,6 +71,10 @@ catch(err) {
     map_object_changes=[];
 }
 
+
+map_object_changes_buffer=[];//krokové změny
+
+
 //----------------Změny kumulované uživatelem na mapě
 
 
@@ -127,7 +131,6 @@ var map_slope_n;
 //----------------Konstanty
 
 
-pi=3.14159265359;
 gr=1.62;
 
 
@@ -186,6 +189,8 @@ var time=0;
 
 var map_bg =false;
 var map_ctx =false;
+var map_buffer =false;
+var map_buffer_ctx =false;
 
 var all_images_bg=[];
 var all_images_tree=[];
@@ -196,6 +201,10 @@ $(function() {
     map_bg = document.getElementById("map_bg");
     map_ctx = map_bg.getContext("2d");
 
+    map_buffer = document.getElementById("map_buffer");
+    map_buffer_ctx = map_buffer.getContext("2d");
+
+    //r(map_buffer_ctx);
 
     //----------------------------------------------------------------Podklad
 
@@ -206,7 +215,7 @@ $(function() {
 
 
             all_images_bg[terrain][seed] = new Image();
-            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=120';
+            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=250';
 
             all_images_bg[terrain][seed].onload = imageLoad;
 
@@ -250,7 +259,7 @@ $(function() {
 var map_request_holder;
 
 function loadMap() {
-    r('loadMap',map_x,map_size);
+    r('loadMap');
 
 
     var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
@@ -301,6 +310,7 @@ function loadMap() {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
             map_data=map_data.concat(map_object_changes);
+            map_data=map_data.concat(map_object_changes_buffer);
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Terrains
 
@@ -518,7 +528,7 @@ function drawMap() {
                             if (level_change !== false) {
 
 
-                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * pi / 2);
+                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * Math.PI / 2);
                                 if(map_z_data[y][x]<0)map_z_data[y][x]=0;
                                 if(map_z_data[y][x]>2)map_z_data[y][x]=2;
 
@@ -1048,15 +1058,15 @@ function updateMap(ms){
 
     if(map_rotation_delta || !map_rotation_r) {
 
-        map_rotation_r = map_rotation / 180 * pi;
+        map_rotation_r = map_rotation / 180 * Math.PI;
         map_rotation_sin = Math.sin(map_rotation_r);
         map_rotation_cos = Math.cos(map_rotation_r);
         map_rotation_sin_minus = Math.sin(-map_rotation_r);
     }
 
     if(map_slope_delta || !map_slope_m){
-        map_slope_m=Math.abs(1/Math.sin(map_slope/180*pi));
-        map_slope_n=Math.abs(1/Math.cos(map_slope/180*pi));
+        map_slope_m=Math.abs(1/Math.sin(map_slope/180*Math.PI));
+        map_slope_n=Math.abs(1/Math.cos(map_slope/180*Math.PI));
     }
 
 
@@ -1108,6 +1118,7 @@ function updateMap(ms){
 }
 
 
+
 //----------------------------------------------------------------------------------------------------------------------
 
 
@@ -1138,12 +1149,12 @@ function mapMove(deltaX,deltaY) {
 
     //----------------
 
-    var x_delta = -Math.sin(map_rotation / 180 * pi) * deltaY / 180 / map_zoom_m*map_slope_m;
-    var y_delta = -Math.cos(map_rotation / 180 * pi) * deltaY / 180 / map_zoom_m*map_slope_m;
+    var x_delta = -Math.sin(map_rotation / 180 * Math.PI) * deltaY / 180 / map_zoom_m*map_slope_m;
+    var y_delta = -Math.cos(map_rotation / 180 * Math.PI) * deltaY / 180 / map_zoom_m*map_slope_m;
 
 
-    x_delta += -Math.cos(map_rotation / 180 * pi) * deltaX / 180 / map_zoom_m;
-    y_delta += Math.sin(map_rotation / 180 * pi) * deltaX / 180 / map_zoom_m;
+    x_delta += -Math.cos(map_rotation / 180 * Math.PI) * deltaX / 180 / map_zoom_m;
+    y_delta += Math.sin(map_rotation / 180 * Math.PI) * deltaX / 180 / map_zoom_m;
 
     x_delta = x_delta*1.133;
     y_delta = y_delta*1.133;
@@ -1185,37 +1196,137 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
     map_click_y=map_click_y/180/map_zoom_m*map_slope_m*brainfuck;
 
 
-    //r(map_click_x,map_click_y);
-
     var map_click_dist=Math.pow(Math.pow(map_click_x,2)+Math.pow(map_click_y,2),(1/2));
-    var map_click_rot=Math.acos(map_click_x/map_click_dist);
+
+
+    //********OLD
+    /*var map_click_rot=Math.acos(map_click_x/map_click_dist);
     if(map_click_y<0){
-        map_click_rot=2*pi - map_click_rot;//todo v celem projektu udelat pi a golden ratio jako konstantu
-    }
+        map_click_rot=2*Math.PI - map_click_rot;
+    }*/
+    //********NEW
+    var map_click_rot=Math.atan2(map_click_y,map_click_x);//todo why reverse order
 
 
-    //r(map_click_dist,map_click_rot,map_rotation_r);
 
     map_click_rot=map_click_rot-map_rotation_r;
-    //map_click_rot=map_click_rot-2*map_rotation_r;
 
 
     map_click_x=Math.cos(map_click_rot)*map_click_dist;
     map_click_y=Math.sin(map_click_rot)*map_click_dist;
 
 
-    //r(map_click_x,map_click_y);
-
-
     map_click_x+=map_x;
     map_click_y+=map_y;
-
-    //r(map_click_x,map_click_y);
 
     return({x:map_click_x,y:map_click_y});
 
 
 }
+//======================================================================================================================bufferDraw
+
+function bufferDrawStart(){
+
+
+
+
+    $('#map_buffer').css('position','absolute');
+    $('#map_buffer').css('top','0px');
+    $('#map_buffer').css('left','0px');
+
+    map_buffer.width=canvas_width/3;
+    map_buffer.height=canvas_height/3;
+
+    $('#map_buffer').css('z-index',$('#map_bg').css('z-index')-(-1));
+
+
+}
+
+
+//------------------------------------
+function bufferDrawEnd(){
+
+
+    map_buffer_ctx.clearRect(0, 0, canvas_width/3, canvas_height/3);
+}
+
+//------------------------------------
+
+function bufferDraw(){
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
+
+    var map_draw=[];
+    for (var i = 0; i < map_object_changes_buffer.length; i++) {
+
+        //-----------------------------------------
+
+
+        var object_id = map_object_changes_buffer[i].id;
+
+
+        object_xc = map_object_changes_buffer[i].x - map_x;
+        object_yc = map_object_changes_buffer[i].y - map_y;
+
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m;
+
+
+        object_screen_x += (canvas_width /3 / 2);
+        object_screen_y += (canvas_height /3 / 2);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        map_draw.push([
+            map_object_changes_buffer[i].type,
+            map_object_changes_buffer[i].res,
+            object_screen_x,
+            object_screen_y,
+            ((map_object_changes_buffer[i].type == 'story') ? 9999 : object_screen_y + 120)
+        ]);
+
+
+        //-----------------------------------------
+
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
+
+    map_draw.sort(function (a, b) {
+
+        if (a[4] > b[4]) {
+            return (1);
+        } else if (a[4] < b[4]) {
+            return (-1);
+        } else {
+            return (0);
+        }
+
+    });
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
+
+    //----------------Clear canvas
+
+    map_buffer_ctx.clearRect(0, 0, canvas_width/3, canvas_height/3);
+
+    //----------------Drawing... :)
+
+    //lastY=0;
+
+    for (var i = 0; i < map_draw.length; i++) {
+
+        if (map_draw[i][0] == 'building') {
+
+            drawModel(map_buffer_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+
+        }
+
+    }
+
+}
+
+//======================================================================================================================
 
 
 

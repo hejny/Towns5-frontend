@@ -29,6 +29,7 @@
         <script src="app/lib/fullscreen.min.js"></script>
 
 
+        <script src="app/js/func.lib.js"></script>
         <script src="app/js/main.js"></script>
         <script src="app/js/lang.lib.js"></script>
         <script src="app/locale/cs.js"></script>
@@ -84,6 +85,7 @@
             <div id="loadbar"></div>
         </div>
 
+        <canvas id="map_buffer" width="100" height="100"></canvas>
         <canvas id="map_bg" width="100" height="100"></canvas>
 
 
@@ -129,6 +131,7 @@
 
                     <ul class="menu-dlist">
                         <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');">Zakladni</a></li>
+                        <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');">Hradby</a></li>
                     </ul>
                 </li>
 

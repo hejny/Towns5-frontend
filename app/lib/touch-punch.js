@@ -8,6 +8,9 @@
  *  jquery.ui.widget.js
  *  jquery.ui.mouse.js
  */
+
+touchScreen=false;
+
 (function ($) {
 
     // Detect touch support
@@ -186,7 +189,8 @@
         touchHandled = false;
 
 
-        BorderMoveQ=false;//todo Funguje to?
+        //BorderMoveQ=false;//todo Funguje to?
+        touchScreen=true;
 
 
     };

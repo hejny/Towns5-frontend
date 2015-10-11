@@ -82,7 +82,7 @@ if(false){
 
 
 $cachefile=files\cacheFile(array(1,$ease,$seed,$terrain,$size),'png','terrain');
-if(!file_exists($cachefile) or isset($_GET['notmp'])) {
+if(!file_exists($cachefile) or isset($_GET['notmp'])/* or 1*/) {
     //_________________________________________
 
     $source = imagecreatefrompng($file);
@@ -97,8 +97,8 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])) {
         else
             $shape = imagecreatefromjpeg($fileshape_jpg);
 
-        $degrees=rand(0,360);
 
+        $degrees=rand(0,360);
         $white = imagecolorallocate($shape,255, 255, 255);
         $shape = imagerotate($shape, $degrees,$white);
 
