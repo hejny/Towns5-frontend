@@ -386,6 +386,8 @@ $(function() {
     setInterval(
         function () {
 
+            //if (buildingByDraggingStartX === false)return; todo opravdu?
+            if (touchScreen)return; //todo Funguje to?
             if (window_opened)return;
 
 
@@ -531,11 +533,8 @@ $(function() {
 
 //======================================================================================================================Building By Dragging
 
-    var buildingByDragging=false,
-        buildingByDraggingLastX=false,
-        buildingByDraggingLastY=false;
-
-        //buildingByDraggingLastRot=false;//todo sjednotit nazyvani uhlu v rad a deg
+    var buildingByDraggingPath=false;
+        //todo sjednotit nazyvani uhlu v rad a deg
 
     //----------------------------------------------------------------------------------mouseMove
 
@@ -546,7 +545,7 @@ $(function() {
         //if (buildingByDragging === false)r('buildingByDragging === false');
 
         if (building === false)return;
-        if (buildingByDragging === false)return;
+        if (buildingByDraggingPath === false)return;
 
         //-------------------Convert mouse positions to map positions
 
@@ -555,57 +554,53 @@ $(function() {
 
         var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-        //-------------------Detect minimal distance
+        //-------------------
 
-        if(buildingByDraggingLastX==false){
-
-            buildingByDragging.push([mapPos.x,mapPos.y]);//todo Odstranit duplicitu
-            buildingByDraggingLastX=mapPos.x;
-            buildingByDraggingLastY=mapPos.y;
-
-        }else
+        if(buildingByDraggingPath.length>0){
 
 
-        var dist=Math.pow(Math.pow(mapPos.x-buildingByDraggingLastX,2)+Math.pow(mapPos.y-buildingByDraggingLastY,2),(1/2));
-
-        if(dist>map_model_size*building.size){
+            if(false){
 
 
-
-            if([0,4,10].indexOf(map_bg_data[Math.round(mapPos.y-map_y)+Math.floor(map_size/2)][Math.round(mapPos.x-map_x)+Math.floor(map_size/2)])==-1){
-
-
-                dist=map_model_size*building.size;
-
-                var rotRad=Math.atan2(mapPos.y-buildingByDraggingLastY,mapPos.x-buildingByDraggingLastX);
-                var rotDeg=Math.round(rad2deg(rotRad));
-
-
-                //rotDeg=Math.round(rotDeg/360*45)*360/45;
-                //rotRad=deg2rad(rotDeg);
+                if(buildingByDraggingPath.length>1) {
+                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0],
+                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
+                }else{
+                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0],
+                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
+                }
 
 
-                mapPos.x=buildingByDraggingLastX+Math.cos(rotRad)*dist;
-                mapPos.y=buildingByDraggingLastY+Math.sin(rotRad)*dist;
+                var dist=xy2dist(lastX-mapPos.x,lastY-mapPos.y);
+                //r(dist,(building.size * map_model_size));
 
 
-                buildingByDragging.push([mapPos.x,mapPos.y]);
-                buildingByDraggingLastX=mapPos.x;
-                buildingByDraggingLastY=mapPos.y;
+                if(dist>(building.size * map_model_size)){
+
+                    //r('newpoint');
+                    buildingByDraggingPath.push([mapPos.x,mapPos.y]);
+
+                }else{
+
+                    //r('aacpoint');
+                    buildingByDraggingPath[buildingByDraggingPath.length-1]=([mapPos.x,mapPos.y]);
+
+                }
+
+            }else{
+
+                buildingByDraggingPath[1]=[mapPos.x,mapPos.y];
 
             }
 
 
+        }else{
+
+
+            //r('startpoint');
+            buildingByDraggingPath=[[mapPos.x,mapPos.y]];
 
         }
-
-
-
-
-        //-------------------
-
-        //r(buildingByDragging);
-
 
     };
 
@@ -619,13 +614,10 @@ $(function() {
 
         if (building == false)return;
 
-        buildingByDragging=[];
-        buildingByDraggingLastX=false;
-        buildingByDraggingLastY=false;
-
-        //r(buildingByDragging);
+        buildingByDraggingPath=[];
         mouseMove(e);
 
+        bufferDrawStart();
         requestAnimationFrame(buildingLoop);
 
 
@@ -635,89 +627,95 @@ $(function() {
     $("#map_drag").mousedown(mouseDown);
     $("#selecting-distance").mousedown(mouseDown);
 
-    //----------------------------------------------------------------------------------mouseUp
+    //----------------------------------------------------------------------------------BuildingLoop
 
     var buildingLoop=function (e) {
 
         if (building == false)return;
-        if (buildingByDragging === false)return;
+        if (buildingByDraggingPath === false)return;
 
         //------------------------------------------------------
 
         map_object_changes_buffer=[];
 
-        var lastRot;
 
-        for(var i= 0,l=buildingByDragging.length;i<l;i++){
-
-
-            var tmp=jQuery.extend({}, building);
+        //r(buildingByDraggingPath);
+        for(var ii=1,ll=buildingByDraggingPath.length;ii<ll;ii++) {
 
 
-            if(l<2){
-                var rot=tmp.rot;
+            var buildingByDraggingStartX = buildingByDraggingPath[ii-1][0];
+            var buildingByDraggingStartY = buildingByDraggingPath[ii-1][1];
 
-            }else{
-                if(i==0) {
-                    var mx=buildingByDragging[i+1][0]-buildingByDragging[i][0];
-                    var my=buildingByDragging[i+1][1]-buildingByDragging[i][1];
-                }else if(i==l-1){
-                    var mx=buildingByDragging[i][0]-buildingByDragging[i-1][0];
-                    var my=buildingByDragging[i][1]-buildingByDragging[i-1][1];
-                }else{
-                    var mx=buildingByDragging[i+1][0]-buildingByDragging[i-1][0];
-                    var my=buildingByDragging[i+1][1]-buildingByDragging[i-1][1];
 
-                    //if(Math.pow(mx,2)+Math.pow(my,2)<Math.pow(4,2)){
+            var buildingByDraggingEndX = buildingByDraggingPath[ii][0];
+            var buildingByDraggingEndY = buildingByDraggingPath[ii][1];
 
-                        tmp.res=tmp.res_path;
+            //r(buildingByDraggingPath);
 
-                    //}
+
+            var distance = xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+            var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
+            if (rot < 0)rot = rot + 360;
+
+
+            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size)); i <= l; i++) {
+
+
+                //r(i,l);
+
+                var tmp = jQuery.extend({}, building);
+
+
+                if (l < 2 && ll<2) {
+                    var rot = tmp.rot;
+
+                } else {
+
+                    tmp.rot = rot;
+
+                    if (ii==1 && i == 0) {
+                        tmp.res = tmp.res_node;
+                    } else if (ii==ll-1 && i == l) {
+                        tmp.res = tmp.res_node;
+                    } else {
+                        tmp.res = tmp.res_path;
+                    }
 
 
                 }
-                var rot=Math.round(Math.atan2(mx,my)* (180 / Math.PI));
-                if(rot<0)rot=rot+360;
 
 
-                if(angleDiff(rot,lastRot)>60){
-                    tmp.res=tmp.res_node;
-                }
-
-                lastRot=rot;
+                tmp.x = buildingByDraggingStartX + (buildingByDraggingEndX - buildingByDraggingStartX) * (i / l);
+                tmp.y = buildingByDraggingStartY + (buildingByDraggingEndY - buildingByDraggingStartY) * (i / l);
 
 
+                /*if([0,4,10].indexOf(map_bg_data[Math.round(tmp.y)+Math.floor(map_size/2)][Math.round(tmp.x)+Math.floor(map_size/2)])!=-1){
+                 tmp.res=tmp.res_node;
+                 }*/
+
+
+                tmp.res = modelRotSize(tmp.res, rot, building.size);
+
+
+                delete tmp.rot;
+                delete tmp.res_path;
+
+                //------
+
+                map_object_changes_buffer.push(tmp);
 
             }
-
-
-
-
-            tmp.x=buildingByDragging[i][0];
-            tmp.y=buildingByDragging[i][1];
-
-            tmp.res=modelRotSize(tmp.res,rot,building.size);
-
-
-            delete tmp.rot;
-            delete tmp.res_path;
-
-            //------
-
-
-            map_object_changes_buffer.push(tmp);
-
         }
 
         //------------------------------------------------------
 
-        loadMap();
+        bufferDraw();
 
         setTimeout(function(){
 
             requestAnimationFrame(buildingLoop);
 
-        },400);
+        },10);
 
 
     };
@@ -727,14 +725,19 @@ $(function() {
     var mouseUp=function (e) {
 
         if (building == false)return;
-        if (buildingByDragging === false)return;
+        if (buildingByDraggingPath === false)return;
+
+        buildingLoop();
 
         map_object_changes=map_object_changes.concat(map_object_changes_buffer);
         map_object_changes_buffer=[];
 
 
-        buildingByDragging=false;
+        buildingByDraggingPath=false;
+
+
         loadMap();
+        bufferDrawEnd();
 
     };
 
