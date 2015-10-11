@@ -472,27 +472,15 @@ $(function() {
 
 
 
-//=======================================================================================================================schovani sidebar
-
-
-/*
-    var paintingTimeout;
-    canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-    canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
-
-    clearTimeout(paintingTimeout);
-    paintingTimeout=setTimeout(function() {
-        drawMap();
-    },100);
-*/
-
-
-
+//=======================================================================================================================Klikani
 
     var clickingTimeout;
-    //var clickingInterval;
+
 
     var mouseClick=function (e) {
+
+        if (building !== false)return;
+
         r('mouseDown');
 
         //r(e);
@@ -509,42 +497,6 @@ $(function() {
         clearTimeout(clickingTimeout);
         clickingTimeout = setTimeout(function () {
 
-            if(building!==false){
-
-                $('#loading').hide();
-
-
-                var tmp=jQuery.extend({}, building);
-
-
-                tmp.res+=':'+tmp.rot+':'+building.size;
-                delete tmp.rot;
-
-                //------
-
-                var map_click_x=(e.clientX-(canvas_width / 3/2));
-                var map_click_y=(e.clientY-(canvas_height / 3/2));
-
-                //r(map_click_x,map_click_y);
-                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
-
-                //-----
-
-                tmp.x=mapPos.x;
-                tmp.y=mapPos.y;
-
-                map_object_changes.push(tmp);
-
-                loadMap();
-
-                //mapSpecialCursorStop();
-
-                return;
-
-            }
-
-
-
             var map_selected_ids_prev = map_selected_ids;
             map_selecting = true;
 
@@ -560,7 +512,7 @@ $(function() {
 
             $('#loading').hide();
 
-            if(!map_selecting)
+            if (!map_selecting)
                 objectMenu();
 
 
@@ -569,18 +521,7 @@ $(function() {
 
             map_selecting = false;
 
-
-            /*clickingInterval = setInterval(function () {
-                //r('clickingInterval');
-                //canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-                //canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
-                drawMap();
-            },300);*/
-
-
-
-
-            }, 100);
+        }, 100);
     };
 
 
@@ -588,17 +529,220 @@ $(function() {
     $("#selecting-distance").click(mouseClick);
 
 
-    //----------------------
+//======================================================================================================================Building By Dragging
 
-    /*var mouseUp=function (e) {
-        r('mouseUp');
-        clearInterval(clickingInterval);
+    var buildingByDragging=false,
+        buildingByDraggingLastX=false,
+        buildingByDraggingLastY=false;
+
+        //buildingByDraggingLastRot=false;//todo sjednotit nazyvani uhlu v rad a deg
+
+    //----------------------------------------------------------------------------------mouseMove
+
+    var mouseMove=function (e) {
+
+        //r('mouseMove',building,buildingByDragging);
+        //if (building === false)r('building === false');
+        //if (buildingByDragging === false)r('buildingByDragging === false');
+
+        if (building === false)return;
+        if (buildingByDragging === false)return;
+
+        //-------------------Convert mouse positions to map positions
+
+        var map_click_x=(e.clientX-(canvas_width / 3/2));
+        var map_click_y=(e.clientY-(canvas_height / 3/2));
+
+        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+        //-------------------Detect minimal distance
+
+        if(buildingByDraggingLastX==false){
+
+            buildingByDragging.push([mapPos.x,mapPos.y]);//todo Odstranit duplicitu
+            buildingByDraggingLastX=mapPos.x;
+            buildingByDraggingLastY=mapPos.y;
+
+        }else
+
+
+        var dist=Math.pow(Math.pow(mapPos.x-buildingByDraggingLastX,2)+Math.pow(mapPos.y-buildingByDraggingLastY,2),(1/2));
+
+        if(dist>map_model_size*building.size){
+
+
+
+            if([0,4,10].indexOf(map_bg_data[Math.round(mapPos.y-map_y)+Math.floor(map_size/2)][Math.round(mapPos.x-map_x)+Math.floor(map_size/2)])==-1){
+
+
+                dist=map_model_size*building.size;
+
+                var rotRad=Math.atan2(mapPos.y-buildingByDraggingLastY,mapPos.x-buildingByDraggingLastX);
+                var rotDeg=Math.round(rad2deg(rotRad));
+
+
+                //rotDeg=Math.round(rotDeg/360*45)*360/45;
+                //rotRad=deg2rad(rotDeg);
+
+
+                mapPos.x=buildingByDraggingLastX+Math.cos(rotRad)*dist;
+                mapPos.y=buildingByDraggingLastY+Math.sin(rotRad)*dist;
+
+
+                buildingByDragging.push([mapPos.x,mapPos.y]);
+                buildingByDraggingLastX=mapPos.x;
+                buildingByDraggingLastY=mapPos.y;
+
+            }
+
+
+
+        }
+
+
+
+
+        //-------------------
+
+        //r(buildingByDragging);
+
+
     };
 
+
+    $("#map_drag").mousemove(mouseMove);
+    $("#selecting-distance").mousemove(mouseMove);
+
+    //----------------------------------------------------------------------------------mouseDown
+
+    var mouseDown=function (e) {
+
+        if (building == false)return;
+
+        buildingByDragging=[];
+        buildingByDraggingLastX=false;
+        buildingByDraggingLastY=false;
+
+        //r(buildingByDragging);
+        mouseMove(e);
+
+        requestAnimationFrame(buildingLoop);
+
+
+    };
+
+
+    $("#map_drag").mousedown(mouseDown);
+    $("#selecting-distance").mousedown(mouseDown);
+
+    //----------------------------------------------------------------------------------mouseUp
+
+    var buildingLoop=function (e) {
+
+        if (building == false)return;
+        if (buildingByDragging === false)return;
+
+        //------------------------------------------------------
+
+        map_object_changes_buffer=[];
+
+        var lastRot;
+
+        for(var i= 0,l=buildingByDragging.length;i<l;i++){
+
+
+            var tmp=jQuery.extend({}, building);
+
+
+            if(l<2){
+                var rot=tmp.rot;
+
+            }else{
+                if(i==0) {
+                    var mx=buildingByDragging[i+1][0]-buildingByDragging[i][0];
+                    var my=buildingByDragging[i+1][1]-buildingByDragging[i][1];
+                }else if(i==l-1){
+                    var mx=buildingByDragging[i][0]-buildingByDragging[i-1][0];
+                    var my=buildingByDragging[i][1]-buildingByDragging[i-1][1];
+                }else{
+                    var mx=buildingByDragging[i+1][0]-buildingByDragging[i-1][0];
+                    var my=buildingByDragging[i+1][1]-buildingByDragging[i-1][1];
+
+                    //if(Math.pow(mx,2)+Math.pow(my,2)<Math.pow(4,2)){
+
+                        tmp.res=tmp.res_path;
+
+                    //}
+
+
+                }
+                var rot=Math.round(Math.atan2(mx,my)* (180 / Math.PI));
+                if(rot<0)rot=rot+360;
+
+
+                if(angleDiff(rot,lastRot)>60){
+                    tmp.res=tmp.res_node;
+                }
+
+                lastRot=rot;
+
+
+
+            }
+
+
+
+
+            tmp.x=buildingByDragging[i][0];
+            tmp.y=buildingByDragging[i][1];
+
+            tmp.res=modelRotSize(tmp.res,rot,building.size);
+
+
+            delete tmp.rot;
+            delete tmp.res_path;
+
+            //------
+
+
+            map_object_changes_buffer.push(tmp);
+
+        }
+
+        //------------------------------------------------------
+
+        loadMap();
+
+        setTimeout(function(){
+
+            requestAnimationFrame(buildingLoop);
+
+        },400);
+
+
+    };
+
+    //----------------------------------------------------------------------------------mouseUp
+
+    var mouseUp=function (e) {
+
+        if (building == false)return;
+        if (buildingByDragging === false)return;
+
+        map_object_changes=map_object_changes.concat(map_object_changes_buffer);
+        map_object_changes_buffer=[];
+
+
+        buildingByDragging=false;
+        loadMap();
+
+    };
+
+
     $("#map_drag").mouseup(mouseUp);
-    $("#selecting-distance").mouseup(mouseUp);*/
+    $("#selecting-distance").mouseup(mouseUp);
 
-
+    //----------------------------------------------------------------------------------
 //======================================================================================================================
 
 });
