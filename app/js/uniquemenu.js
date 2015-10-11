@@ -12,10 +12,6 @@ if(unique_objects!==null && false) {
 
     unique_objects=JSON.parse(unique_objects);
 
-    setTimeout(function(){
-        objectMenuUnique('main');
-    },1500);
-
 
 }else{
 
@@ -32,12 +28,37 @@ if(unique_objects!==null && false) {
 
             unique_objects=json['objects'];
 
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++Parse //todo nakonec presunout do API
             for(var i= 0,l=unique_objects.length;i<l;i++){
 
 
-                unique_objects[i].icon=createIcon(unique_objects[i].res,50);
+                //r(unique_objects[i]._name,i);
+
+                if(typeof unique_objects[i].res!='undefined'){
+
+
+                    if(unique_objects[i].res.substring(0,1)=='{'){
+
+                        var ress=unique_objects[i].res.substring(1,unique_objects[i].res.length-2).split('}{');
+
+                        //unique_objects[i].res=[];
+                        unique_objects[i].res=unique_objects[11].res;
+                        unique_objects[i].res_path=ress[3];
+                        unique_objects[i].res_node=unique_objects[i].res
+
+                        //r(unique_objects[i]._name,unique_objects[i].res);
+
+                    }
+
+
+                    unique_objects[i].icon=createIcon(unique_objects[i].res,50);
+
+
+                }
 
             }
+            //+++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -47,7 +68,7 @@ if(unique_objects!==null && false) {
             setTimeout(function(){
 
                 localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
-                objectMenuUnique('main');
+                objectMenuUnique('wall');
 
             },100)
 
@@ -66,10 +87,12 @@ if(unique_objects!==null && false) {
 
 function buildingStart(object){
 
+
     building=object;
     building.rot=0;
     building.size=1;
     selecting_offset={x: 150,y: 250};
+
 
 
     $('#selecting-distance').attr('height',300);//todo Jaká by měla být velikost - rozmyslet?
@@ -99,7 +122,10 @@ function buildingStart(object){
 function buildingUpdate(object){
 
     selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,300 , 300 );
-    drawModel(selecting_distance_canvas_ctx,building.res+':'+(building.rot-map_rotation)+':'+building.size,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],0,map_slope);
+
+
+    drawModel(selecting_distance_canvas_ctx,modelRotSize(building.res,(building.rot-map_rotation),building.size),map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],0,map_slope);
+
 
 }
 

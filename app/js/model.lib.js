@@ -4,8 +4,8 @@ window.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     var color, colors, i, i2, i3, j, l, len, plus, points, polygon, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
 
     //todo kontrola vstupnich parametru
-    slope_m = Math.abs(Math.sin(slope / 180 * pi));
-    slope_n = Math.abs(Math.cos(slope / 180 * pi)) * 1.4;
+    slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
+    slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
     s = s * 1.2;
     slnko = 10;
     res = res.split('::').join(':1,1,1:');
@@ -324,5 +324,25 @@ window.createIcon = function(res,size){
     return(canvas.toDataURL());
 
 
+}
+
+//======================================================================================================================
+
+
+
+window.modelRotSize = function(res,rot,size){
+
+    //r(res);
+
+    res=res.split(':');
+
+    if (typeof res[3] == 'undefined')res[3] = 0;
+    if (typeof res[4] == 'undefined')res[4] = 1;
+
+    res[3]=res[3]+rot;
+    res[4]=res[4]*size;
+
+    res=res.join(':');
+    return(res);
 }
 
