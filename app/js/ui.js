@@ -39,6 +39,7 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
+    if($.inArray('debug',env)==-1)
     $(document).on("contextmenu", function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
