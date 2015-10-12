@@ -57,46 +57,6 @@ var map_selected_ids = [];
 
 var terrainCount=13;
 
-//----------------Změny kumulované uživatelem na objektech (budovy, pribehy,...)
-
-
-var map_object_changes=localStorage.getItem('map_object_changes');
-
-if(!map_object_changes || map_object_changes=='')map_object_changes='[]';
-
-try {
-    map_object_changes=JSON.parse(map_object_changes);
-}
-catch(err) {
-    map_object_changes=[];
-}
-
-
-map_object_changes_buffer=[];//krokové změny
-
-
-//----------------Změny kumulované uživatelem na mapě
-
-
-var map_terrain_changes=localStorage.getItem('map_terrain_changes');
-
-if(!map_terrain_changes || map_terrain_changes=='')map_terrain_changes='[]';
-
-try {
-    map_terrain_changes=JSON.parse(map_terrain_changes);
-}
-catch(err) {
-    map_terrain_changes=[];
-}
-
-
-//----------------
-/*
-seedCount=1;
-//----
-
-treeCount=1;
-rockCount=1;*/
 
 //----------------
 
@@ -818,11 +778,11 @@ function drawMap() {
     map_ctx.lineWidth = 0;
 
 
+    /* todo ? Promyslet zda podparvovat cernou elipsou
     map_width=160*map_size*map_zoom_m;
     map_width=map_width-100;
     map_height=map_width/map_slope_m;
-
-    drawEllipse(map_ctx,(canvas_width-map_width)/2,(canvas_height-map_height)/2,map_width,map_height);
+    drawEllipse(map_ctx,(canvas_width-map_width)/2,(canvas_height-map_height)/2,map_width,map_height);*/
 
     //----------------Drawing... :)
 
@@ -933,6 +893,7 @@ function drawMap() {
     if(map_selecting && terrainChanging){
 
 
+        //todo presunout do terrain.js
        /* //todo opravit priority
         map_terrain_changes.sort(function (a, b) {
 

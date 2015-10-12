@@ -524,7 +524,7 @@ $(function() {
                 delete tmp.rot;
                 delete tmp.size;
 
-                map_object_changes.push(tmp);
+                create(tmp);
 
 
                 loadMap();
@@ -772,7 +772,7 @@ $(function() {
 
         buildingLoop();
 
-        map_object_changes=map_object_changes.concat(map_object_changes_buffer);
+        createMulti(map_object_changes_buffer);
         map_object_changes_buffer=[];
 
 

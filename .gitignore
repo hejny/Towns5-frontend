@@ -26,6 +26,9 @@ npm-debug.log
 /userdata
 
 
+/app/test/*
+
+
 
 app-dist/*
 documentation/*
