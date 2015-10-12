@@ -257,5 +257,3 @@ readfile($cachefile);
 
 
 
-
-?>
