@@ -26,5 +26,3 @@ function imgresizew($img,$width) {
 
 
 
-
-?>

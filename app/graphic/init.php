@@ -8,5 +8,3 @@ ini_set("register_globals","off");
 ini_set("display_errors","on");
 
 
-
-?>

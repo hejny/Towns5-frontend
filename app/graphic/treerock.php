@@ -38,5 +38,3 @@ header('Content-Type: image/png');
 readfile($cachefile);
 
 
-
-?>

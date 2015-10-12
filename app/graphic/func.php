@@ -843,4 +843,4 @@ require(root.core."/func_components.php");
 require(root.core."/func_api.php");
 //require(root.core."/func_map.php");
 //r(astream($str));
-?>
+
