@@ -2,4 +2,3 @@
 
 readfile('app/index.html');
 
-?>
