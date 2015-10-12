@@ -474,14 +474,15 @@ $(function() {
 
 
 
-//=======================================================================================================================Klikani
+//=======================================================================================================================Klikani - oznaceni + obycejne staveni
 
     var clickingTimeout;
 
 
     var mouseClick=function (e) {
 
-        if (building !== false)return;
+        if (building !== false)
+            if (typeof building.res_path!=='undefined')return;
 
         r('mouseDown');
 
@@ -498,6 +499,44 @@ $(function() {
 
         clearTimeout(clickingTimeout);
         clickingTimeout = setTimeout(function () {
+
+            //-----------------------------------------------------------------Building
+            if(building!==false){
+
+                $('#loading').hide();
+
+
+                var tmp=jQuery.extend({}, building);
+
+
+                var map_click_x=(e.clientX-(canvas_width / 3/2));
+                var map_click_y=(e.clientY-(canvas_height / 3/2));
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+
+                tmp.x=mapPos.x;
+                tmp.y=mapPos.y;
+
+
+                tmp.res = modelRotSize(tmp.res, tmp.rot, tmp.size);
+
+
+                delete tmp.rot;
+                delete tmp.size;
+
+                map_object_changes.push(tmp);
+
+
+                loadMap();
+
+                //mapSpecialCursorStop();
+
+                return;
+
+            }
+            //-----------------------------------------------------------------
+
+
 
             var map_selected_ids_prev = map_selected_ids;
             map_selecting = true;
@@ -545,6 +584,7 @@ $(function() {
         //if (buildingByDragging === false)r('buildingByDragging === false');
 
         if (building === false)return;
+        if (typeof building.res_path==='undefined')return;
         if (buildingByDraggingPath === false)return;
 
         //-------------------Convert mouse positions to map positions
@@ -613,11 +653,13 @@ $(function() {
     var mouseDown=function (e) {
 
         if (building == false)return;
+        if (typeof building.res_path==='undefined')return;
 
         buildingByDraggingPath=[];
         mouseMove(e);
 
         bufferDrawStart();
+        $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStart
         requestAnimationFrame(buildingLoop);
 
 
@@ -725,6 +767,7 @@ $(function() {
     var mouseUp=function (e) {
 
         if (building == false)return;
+        if (typeof building.res_path==='undefined')return;
         if (buildingByDraggingPath === false)return;
 
         buildingLoop();
@@ -737,6 +780,7 @@ $(function() {
 
 
         loadMap();
+        $('#selecting-distance').show();
         bufferDrawEnd();
 
     };
