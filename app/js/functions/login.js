@@ -2,7 +2,7 @@
  * Created by Pavel on 05.09.2015.
  */
 
-
+//todo udelat funkci login jako login(username,password)
 function loginFormSubmit(){
 
     $('#login-error').removeClass();

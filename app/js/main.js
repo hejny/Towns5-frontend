@@ -68,8 +68,28 @@ var location_new=baseurl+pathname_new+query_new;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ENV RESTART
 
 
-if($.inArray('restart',env)!=-1)
+if($.inArray('restart',env)!=-1){
+
     localStorage.clear();
+
+    //-----------------------------------------------Calc LS size
+    /*localStorage.setItem("DATA", "m");
+    for(i=0 ; i<40 ; i++) {
+        var data = localStorage.getItem("DATA");
+        try {
+            localStorage.setItem("DATA", data + data);
+        } catch(e) {
+            console.log("LIMIT REACHED: (" + i + ")");
+            console.log(e);
+            break;
+        }
+    }
+    localStorage.removeItem("DATA");*/
+    //-----------------------------------------------
+
+
+}
+
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

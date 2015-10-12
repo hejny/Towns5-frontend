@@ -1,5 +1,15 @@
 
 
+/*   ██████╗ ██████╗  █████╗ ██╗    ██╗
+     ██╔══██╗██╔══██╗██╔══██╗██║    ██║
+     ██║  ██║██████╔╝███████║██║ █╗ ██║
+     ██║  ██║██╔══██╗██╔══██║██║███╗██║
+     ██████╔╝██║  ██║██║  ██║╚███╔███╔╝
+     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝*/
+//██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+
+
+
 window.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     var color, colors, i, i2, i3, j, l, len, plus, points, polygon, polygons, slnko, slope_m, slope_n, tmp, tmppoints, uhel, vzdalenost, x, x1, x2, xx, xxx, y, y1, y2, yy, yyy, z;
 
@@ -330,6 +340,21 @@ window.createIcon = function(res,size){
 
 
 
+
+
+
+/*   ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
+     ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+     █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
+     ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
+     ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
+     ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝*/
+//██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+
+//todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
+//todo [ph] upravit vsechny todo
+
+//======================================================================================================
 window.modelRotSize = function(res,rot,size){
 
     //r(res);
@@ -346,3 +371,357 @@ window.modelRotSize = function(res,rot,size){
     return(res);
 }
 
+
+//======================================================================================================model2array
+
+//todo [PH] vsechny funkce bud (function abc(){}...) NEBO (window.abc =) NEBO (this.abc=) - rozhodnout se
+//todo Zacit delat jsdoc
+this.model2array = function(res){
+    if(res.substr(0,1)=='['){
+
+        array={};
+
+        res=str_replace("::",":1,1,1:",res);
+        tmp=explode(":",res);
+
+
+        points=tmp[0];
+        polygons=tmp[1];
+        colors=/*explode(",",)*/tmp[2];
+        array['rot']=tmp[3];
+        if(array['rot'])array['rot']=0;
+        //---------------------------colors
+        colors=explode(",",colors);
+        array['colors']=colors;
+        //---------------------------rozklad bodu
+        points=points.substr(1,points.length-2);
+        points=explode("]",points);
+        i=-1;
+        for (var tmpVal in points) {
+            tmp = points[tmpVal];
+            i=i+1;
+            points[i]=str_replace("[","",points[i]);
+            points[i]=explode(",",points[i]);
+        }
+
+        array['points']=points;
+        //---------------------------polygons
+        polygons=explode(';',polygons);
+        i=-1;
+        for (var tmpVal in polygons) {
+            tmp = polygons[tmpVal];
+            i=i+1;
+            polygons[i]=explode(",",polygons[i]);
+            if(polygons[i].length==0){polygons[i][0]=1;polygons[i][1]=1;polygons[i][2]=1;}
+            polygons[i][count(polygons[i])]=colors[i];
+
+        }
+
+        array['polygons']=polygons;
+        //---------------------------
+        return(array);
+    }else{
+        return(false);
+    }
+}
+//======================================================================================================array2model
+this.array2model = function(array){
+    res='';
+    //---------------------------points
+    for (var pointVal in array) {
+        point = array[pointVal];
+
+        x=round(point[0]*100)/100;
+        y=round(point[1]*100)/100;
+        z=round(point[2]*100)/100;
+        res+= '['+x+','+y+','+z+']';;
+    }
+    //---------------------------polygons
+    i=0;
+    while(array['polygons'][i]){
+        array['polygons'][i]=implode(',',array['polygons'][i]);
+        i++;
+    }
+    array['polygons']=implode(';',array['polygons']);
+    res+= ':'+array['polygons'];
+    //---------------------------colors
+    array['colors']=implode(',',array['colors']);
+    res+= ':'+array['colors'];
+    //---------------------------rot
+    res+= ':'+array['rot'];
+    //---------------------------
+    res=str_replace(',;',';',res);
+    res=str_replace(',:',':',res);
+    return(res);
+}
+//======================================================================================================array2parray
+this.array2parray = function(array){
+    //$array=model2array($res);
+    //r($array);
+    parray={};
+    parray['rot']=array['rot'];
+    i=0;
+    for (var polygonVal in array) {
+        polygon = array[polygonVal];
+        parray['polygons'][i]['color']=array['colors'][i];
+        ii=0;
+        for (var pointVal in polygon) {
+            point = polygon[pointVal];
+            parray['polygons'][i]['points'][ii]=array['points'][point-1];
+            ii++;
+        }
+        i++;
+    }
+    return(parray);
+}
+//======================================================================================================parray2array
+this.parray2array = function(parray){
+    array={};
+
+    array['points']=[[-1,-1,0]];//$pi=1;
+    array['polygons']={};
+    array['colors']={};
+    array['rot']=parray['rot'];
+
+    for (var polygonVal in parray) {
+        polygon = parray[polygonVal];
+        array['colors'].push(polygon['color']);
+
+        i=0;
+        while(polygon['points'][i]){
+            array['points'].push(polygon['points'][i]);
+            polygon['points'][i]=count(array['points']);
+            i++;
+        }
+        array['polygons'].push(polygon['points']);
+
+    }
+
+    return(array);
+    //$res=array2model($array);
+    //return($res);
+}
+//======================================================================================================model2model
+this.model2model = function(res1,res2,simple){
+    if(typeof simple=='undefined')simple=false
+
+    array1=model2array(res1);
+    array2=model2array(res2);
+    array={};
+    //---------------------------
+    if(array1){
+        array=array2;
+    }else if(array2){
+        array=array1;
+    }else if(simple){
+        parray1=array2parray(array1);
+        parray2=array2parray(array2);
+        parray={};
+
+        for (var polygonVal in parray1) {
+            polygon = parray1[polygonVal];
+            parray['polygons'].push(polygon);
+        }
+        for (var polygonVal in parray2) {
+            polygon = parray2[polygonVal];
+            parray['polygons'].push(polygon);
+        }
+
+        parray['rot']=parray1['rot'];
+
+
+        array=parray2array(parray);
+
+    }else if(strpos(res1,'[-4,-4,')!==false){
+        //------------------------------------------------------------------SpojenÃ­ modelÅ¯ s joinlevel
+        joinlevel=res1.substr2('[-4,-4,',']');
+        joinlevel=joinlevel-1+1;
+
+        parray1=array2parray(array1);
+        parray2=array2parray(array2);
+        parray={};
+
+        //-----------------
+        for (var polygonVal in parray1) {
+            polygon = parray1[polygonVal];
+            //if($polygon['points'][1][2]<100){
+            i=0;
+            while(polygon['points'][i]){
+                //if($polygon['points'][$i][2]>$level)$polygon['points'][$i][2]=$level;
+                i++;
+            }
+
+            parray['polygons'].push(polygon);
+            //}
+        }
+        for (var polygonVal in parray2) {
+            polygon = parray2[polygonVal];
+            //if($polygon['points'][1][2]>$level){
+            i=0;
+            while(polygon['points'][i]){
+                //if($polygon['points'][$i][2]>$level)$polygon['points'][$i][2]=$level;
+                polygon['points'][i][2]+=joinlevel;
+                i++;
+            }
+            parray['polygons'].push(polygon);
+            //}
+        }
+        parray['rot']=parray1['rot'];
+
+
+        array=parray2array(parray);
+
+
+        //------------------------------------------------------------------
+    }else if(array1['points']==array2['points'] && array1['polygons']==array2['polygons'] && array1['colors']==array2['colors']){
+        //------------------------------------------------------------------SpojenÃ­ stejnÃ½ch modelÅ¯
+        //e(1);
+        array=array2;
+        k=pow(2,(1/3));
+        i=0;
+        while(array['points'][i]){
+            var x=array['points'][i][0];
+            var y=array['points'][i][1];
+            var z=array['points'][i][2];
+            //------
+            x=x-50;y=y-50;
+            x=x*k;
+            y=y*k;
+            z=z*k;
+            x=x+50;y=y+50;
+            //------
+            array['points'][i]=[x,y,z];
+            i++;
+        }
+        //------------------------------------------------------------------
+    }else{
+        //------------------------------------------------------------------SpojenÃ­ jinÃ½ch modelÅ¯
+        parray1=array2parray(array1);
+        parray2=array2parray(array2);
+        parray=[];
+
+
+        //-----------------
+        maxx=50;maxy=50;minx=50;miny=50;
+        for (var polygonVal in parray1) {
+            polygon = parray1[polygonVal];
+            for (var pointVal in polygon) {
+                point = polygon[pointVal];
+                if(point[0]>maxx)maxx=point[0];
+                if(point[1]>maxy)maxy=point[1];
+                if(point[0]<minx)minx=point[0];
+                if(point[1]<miny)miny=point[1];
+            }
+        }
+        range1=(maxx-minx)*(maxy-miny);
+
+        //-----------------
+        maxx=50;maxy=50;minx=50;miny=50;
+        for (var polygonVal in parray2) {
+            polygon = parray2[polygonVal];
+            for (var pointVal in polygon) {
+                point = polygon[pointVal];
+                if(point[0]>maxx)maxx=point[0];
+                if(point[1]>maxy)maxy=point[1];
+                if(point[0]<minx)minx=point[0];
+                if(point[1]<miny)miny=point[1];
+            }
+        }
+        range2=(maxx-minx)*(maxy-miny);
+        //-----------------
+        //e("$range1~$range2");
+        if(range2>range1){
+            tmp=parray1;
+            parray1=parray2;
+            parray2=tmp;
+        }
+
+        //-----------------
+        maxz1=0;
+        for (var polygonVal in parray1) {
+            polygon = parray1[polygonVal];
+            for (var pointVal in polygon) {
+                point = polygon[pointVal];
+                if(point[2]>maxz1)maxz1=point[2];
+            }
+        }
+        //-----------------
+        maxz2=0;
+        for (var polygonVal in parray2) {
+            polygon = parray2[polygonVal];
+            for (var pointVal in polygon) {
+                point = polygon[pointVal];
+                if(point[2]>maxz2)maxz2=point[2];
+            }
+        }
+        level=maxz1-maxz2;
+        //-----------------
+        for (var polygonVal in parray1) {
+            polygon = parray1[polygonVal];
+            //if($polygon['points'][1][2]<100){
+            i=0;
+            while(polygon['points'][i]){
+                if(polygon['points'][i][2]>level)polygon['points'][i][2]=level;
+                i++;
+            }
+
+            parray['polygons'].push(polygon);
+            //}
+        }
+        for (var polygonVal in parray2) {
+            polygon = parray2[polygonVal];
+            //if($polygon['points'][1][2]>$level){
+            i=0;
+            while(polygon['points'][i]){
+                //if($polygon['points'][$i][2]>$level)$polygon['points'][$i][2]=$level;
+                polygon['points'][i][2]+=level;
+                i++;
+            }
+            parray['polygons'].push(polygon);
+            //}
+        }
+        parray['rot']=parray1['rot'];
+
+
+        array=parray2array(parray);
+        //------------------------------------------------------------------
+    }
+
+
+    //---------------------------
+    res=array2model(array);
+    return(res);
+}
+
+
+//======================================================================================================model_postavene
+this.model_postavene = function(res,postavene){
+    array=model2array(res);
+    points=array['points'];
+
+    i=-1;
+    for (var iiVal in points) {
+        ii = points[iiVal];
+        i=i+1;
+        x=points[i][0];
+        y=points[i][1];
+        z=points[i][2];
+        //-------------------------
+        //$x=$x+rand(-$postavene/10,$postavene/10);
+        //$y=$y+rand(-$postavene/10,$postavene/10);
+        z=z-(((points[i-1][2]+points[i-2][2])*postavene)/50);
+        t=21;
+        if(x<0-t){x=0-t;}if(x>100+t){x=100+t;}
+        if(y<0-t){y=0-t;}if(y>100+t){y=100+t;}
+        if(z<0){z=0;}if(z>250){z=250;}
+        //-------------------------
+        points[i][0]=x;
+        points[i][1]=y;
+        points[i][2]=z;
+        //---
+    }
+
+    array['points']=points;
+    res=array2model(array);
+    return(res);
+}

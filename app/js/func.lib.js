@@ -65,3 +65,35 @@ function deg2rad(degrees){
 function xy2dist(a,b){
     return(Math.sqrt(Math.pow(a,2)+Math.pow(b,2)));
 }
+
+
+//======================================================================================================================PHP like functions
+
+//todo Refector to native JS
+
+function explode(delimiter,str){
+    return(str.split(delimiter));
+}
+
+
+function implode(delimiter,str){
+    return(str.join(delimiter));
+}
+
+
+function str_replace(from,to,str){
+    return(str.split(from).join(to));
+}
+
+function count(str){
+    return(str.length);
+}
+
+function substr(str,start,len) {
+    return (str.substr(start,len));
+}
+
+
+function round(num) {
+    return (Math.round(num));
+}
