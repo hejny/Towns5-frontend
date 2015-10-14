@@ -4,6 +4,7 @@
 function terrainChangeStart(terrain,level){
 
     mapSpecialCursorStop();
+    mapSpecialCursorStart();
 
     updateSelectingDistance();
 
