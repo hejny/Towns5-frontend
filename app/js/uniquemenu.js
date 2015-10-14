@@ -87,6 +87,7 @@ if(unique_objects!==null && false) {
 
 function buildingStart(object){
 
+    mapSpecialCursorStart();
 
     building=object;
     building.rot=0;
