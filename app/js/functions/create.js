@@ -28,9 +28,9 @@ function create(object,nosave){
     y=y-Math.round(map_y)+Math.floor(map_size/2);
 
 
-    if([1/*,5*/,11].indexOf(map_bg_data[y][x])!==-1){
+    /*if([1/!*,5*!/,11].indexOf(map_bg_data[y][x])!==-1){
         return(false);
-    }
+    }*/
 
 
 

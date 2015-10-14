@@ -236,11 +236,19 @@ window.uiScript = function(){
 
 //======================================================================================================================
 
+window.mapSpecialCursorStart = function(){
+    $('#map_drag').draggable('disable');
+};
+
+//----------
+
 window.mapSpecialCursorStop = function(){
+    $('#map_drag').draggable('enable');
     buildingStop();
     terrainChangeStop();
 };
 
+//----------------------------------------------------------
 
 window.objectmenu_template='';
 
