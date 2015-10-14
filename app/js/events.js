@@ -387,7 +387,9 @@ $(function() {
         function () {
 
             //if (buildingByDraggingStartX === false)return; todo opravdu?
-            if (touchScreen)return; //todo Funguje to?
+
+            //r(touchScreen);
+            //if (touchScreen)return; //todo Funguje to?
             if (window_opened)return;
 
 

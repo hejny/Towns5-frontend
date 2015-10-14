@@ -9,6 +9,7 @@
  *  jquery.ui.mouse.js
  */
 
+//r('touch-punch');
 touchScreen=false;
 
 (function ($) {
@@ -32,6 +33,11 @@ touchScreen=false;
      * @param {String} simulatedType The corresponding mouse event
      */
     function simulateMouseEvent (event, simulatedType) {
+
+
+        r('hovno');
+        //BorderMoveQ=false;//todo Funguje to?
+        touchScreen=true;
 
 
         // Ignore multi-touch events
@@ -188,9 +194,6 @@ touchScreen=false;
         // Unset the flag to allow other widgets to inherit the touch event
         touchHandled = false;
 
-
-        //BorderMoveQ=false;//todo Funguje to?
-        touchScreen=true;
 
 
     };
