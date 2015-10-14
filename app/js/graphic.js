@@ -23,6 +23,8 @@ if((localStorage.getItem('map_x')/1) != NaN && (localStorage.getItem('map_y')/1)
 
 }
 
+r(map_x,map_y);
+
 /*var map_x=0;
 var map_y=0;*/
 
@@ -175,7 +177,7 @@ $(function() {
 
 
             all_images_bg[terrain][seed] = new Image();
-            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=250';
+            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=160';
 
             all_images_bg[terrain][seed].onload = imageLoad;
 
@@ -437,10 +439,12 @@ function drawMap() {
 
 
                     var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
+                    //var z=0;
                     //r(map_z_data[y][x]);
 
 
-                    var size = (Math.sin((world_x * world_y) / 10) / 4) + 1;
+                    //var size = (Math.sin((world_x * world_y) / 10) / 4) + 1.25;
+                    var size=1;
 
                     var width = Math.ceil(160 * size * 3 * map_zoom_m);
                     var height = Math.ceil(width * size /* map_zoom_m*/);
