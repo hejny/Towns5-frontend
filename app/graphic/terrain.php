@@ -82,7 +82,7 @@ if(false){
 
 
 $cachefile=files\cacheFile(array(1,$ease,$seed,$terrain,$size),'png','terrain');
-if(!file_exists($cachefile) or isset($_GET['notmp'])/* or 1*/) {
+if(!file_exists($cachefile) or isset($_GET['notmp'])/** or 1/**/) {
     //_________________________________________
 
     $source = imagecreatefrompng($file);
@@ -98,9 +98,22 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])/* or 1*/) {
             $shape = imagecreatefromjpeg($fileshape_jpg);
 
 
-        $degrees=rand(0,360);
         $white = imagecolorallocate($shape,255, 255, 255);
-        $shape = imagerotate($shape, $degrees,$white);
+        $transparent = imagecolorallocatealpha($shape,255, 255, 255,127);
+
+
+        //imagecolortransparent($shape,$white);
+
+
+        $shapeA = imagerotate($shape, rand(0,360),$white);
+        $shapeB = imagerotate($shape, rand(0,360),$white);
+
+        //$shape = imagecreate(imagesx($shape),imagesy($shape));//todo [PH] lepe
+
+        imagealphablending($shape,true);
+
+        imagecopyresized($shape,$shapeB,0,imagesy($shape)*(1/3),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shape),imagesy($shape));
+        imagecopyresized($shape,$shapeA,0,imagesy($shape)*(0/2),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shape),imagesy($shape));
 
 
         /*$color = imagecolorat($shape, 5, 5);
@@ -109,6 +122,7 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])/* or 1*/) {
         $b = $color & 0xFF;
         echo($r.','.$g.','.$b);
         exit;*/
+
 
 
         /*header('Content-Type: image/png');
