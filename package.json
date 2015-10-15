@@ -2,16 +2,28 @@
   "name": "towns",
   "version": "5.0.0",
   "description": "Browser Game",
+  "author": "Pavol Hejný",
+  "contributors": [
+    {
+      "name": "Stefan Kecskes",
+      "email": "info@skey.sk"
+    }
+  ],
+  "license": "MIT",
   "main": "index.php",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://phejny@bitbucket.org/towns/towns5.git"
   },
-  "author": "Pavol Hejný",
-  "license": "Copy",
+  "bugs": {
+    "url": "https://trello.com/townsgame"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependecies": {
+
+  },
   "devDependencies": {
     "browser-sync": "~2.9.8",
     "gulp-uglify": "~1.4.1",
@@ -19,5 +31,6 @@
     "gulp-minify-html": "~1.0.4",
     "gulp-concat": "~2.6.0",
     "gulp-jsdoc": "~0.1.5"
-  }
+  },
+  "preferGlobal": false
 }
