@@ -59,6 +59,8 @@ Nové Towns 5:
 	├── [media]/
 	│   ├── [image]/            <- Všechny obrázky
     │   └── [sound]/            <- Všechny zvuky
+	├── [node_modules]/         <- knižnice stiahnuté cez npm
+    │   └── [...]/              <- každá knižnica vo vlastnom adresári
 	├── favicon.ico             <- Ikonka
 	├── gulpfile.js             <- zoznam úloh pre gulp compiler
 	├── index.php               <- Inicializační soubor
@@ -69,8 +71,38 @@ Nové Towns 5:
 
 ## Požadavky
 
+- Počítač
 
+* * *
 
+## Inštalácia
+
+1. Nainštaluj si node.js a npm(node package manager)
+
+	sudo apt-get install nodejs npm
+	
+2. Nainštaluj si gulp cez npm (možeš aj globálne)  
+
+	sudo apt-get install --global gulp
+
+3. Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
+
+	npm install
+	
+4. Spusť gulp, nech vykoná úlohy v gulpfile.json
+
+	gulp
+	
+alebo 
+	
+	gulp --production
+	
+* * *	
+	
+## Testovanie
+
+//todo: implementovat aspoň unit testing a behaviour testing. (TDD) + automatické testovanie po každom commite.
+	
 * * *
 
 ## Autoři
