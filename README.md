@@ -18,7 +18,7 @@ Systém je rozdělený na několik částí:
 
 Staré Towns 4:
 
-	[towns4]/              <- root adresár
+	[towns4]/                   <- root adresár
 	├── [app]/
 	│   ├── Soubory Administrace
 	│   ├── Editory
@@ -35,9 +35,9 @@ Staré Towns 4:
 	│   ├── předgenerované soubory. Sem se ukládají předgenerované obrázky budov, mapy, místa možné registrace…    
 	│   ├── Pokud se tato složka smaže nic se nestane, jen je systém bude chvíli pomalejší, neý se soubory stihnou znovu vytvořit.
 	│   └── Kvůli rychlosti doporučuju tuto složku dát na SSD disk. (v Linuxu např. pomocí symlinku)
-	├── index.php          <- Inicializační soubor
-	├── favicon.ico        <- Ikonka
-	└── .htaccess          <- Konfigurační soubor pro Apache
+	├── index.php               <- Inicializační soubor
+	├── favicon.ico             <- Ikonka
+	└── .htaccess               <- Konfigurační soubor pro Apache
 
 
 Nové Towns 5:
@@ -46,7 +46,7 @@ Nové Towns 5:
 	[towns5]/                   <- root adresár
 	├── [api]/
 	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
-	│   └── Budúci Node.js api server
+	│   └──                     <- Budúci Node.js api
 	├── [app]/
 	│	├── [lib]/
 	│	│   ├── [cofeehtml]/    <- coffeescripty
@@ -57,13 +57,13 @@ Nové Towns 5:
 	│	│   ├── [locale]/       <- jazykové lokalizácie
 	│	│   └── index.html      <- samotné towns HTML
 	├── [media]/
-	│   ├── [image]/ <- Všechny obrázky
-    │   └── [sound]/ <- Všechny zvuky
-	├── favicon.ico        <- Ikonka
-	├── gulpfile.js        <- zoznam úloh pre gulp compiler
-	├── index.php          <- Inicializační soubor
-	├── package.json       <- zoznam potrebných npm balíkov
-	└── README.md          <- pár múdrých slov
+	│   ├── [image]/            <- Všechny obrázky
+    │   └── [sound]/            <- Všechny zvuky
+	├── favicon.ico             <- Ikonka
+	├── gulpfile.js             <- zoznam úloh pre gulp compiler
+	├── index.php               <- Inicializační soubor
+	├── package.json            <- zoznam potrebných npm balíkov
+	└── README.md               <- pár múdrých slov
 
 * * *
 
