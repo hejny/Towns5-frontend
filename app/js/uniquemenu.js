@@ -68,7 +68,7 @@ if(unique_objects!==null && false) {
             setTimeout(function(){
 
                 localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
-                objectMenuUnique('wall');
+                //objectMenuUnique('wall');
 
             },100)
 
