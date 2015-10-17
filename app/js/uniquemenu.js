@@ -8,7 +8,7 @@
 
 var unique_objects=localStorage.getItem('unique_objects');
 
-if(unique_objects!==null && false) {
+if(unique_objects!==null) {
 
     unique_objects=JSON.parse(unique_objects);
 
@@ -68,9 +68,9 @@ if(unique_objects!==null && false) {
             setTimeout(function(){
 
                 localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
-                objectMenuUnique('wall');
+                //objectMenuUnique('wall');
 
-            },100)
+            },100);
 
 
 

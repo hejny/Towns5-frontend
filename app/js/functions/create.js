@@ -67,7 +67,7 @@ function create(object,nosave){
 
         });
 
-        if(1){
+        if(0){
 
             delete map_object_changes[distances[0].i];
             map_object_changes[distances[0].i]=object;

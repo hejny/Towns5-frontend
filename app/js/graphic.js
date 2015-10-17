@@ -270,7 +270,7 @@ function loadMap() {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
             map_data=map_data.concat(map_object_changes);
-            map_data=map_data.concat(map_object_changes_buffer);
+            //map_data=map_data.concat(map_object_changes_buffer);
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Terrains
 

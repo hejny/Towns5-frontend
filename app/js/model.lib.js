@@ -424,6 +424,9 @@ this.model2array = function(res){
         return(false);
     }
 }
+
+r(model2array(unique_objects[5].res));
+
 //======================================================================================================array2model
 this.array2model = function(array){
     res='';
