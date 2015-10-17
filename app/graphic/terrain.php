@@ -98,30 +98,50 @@ if(!file_exists($cachefile) or isset($_GET['notmp'])/** or 1/**/) {
             $shape = imagecreatefromjpeg($fileshape_jpg);
 
 
-        $white = imagecolorallocate($shape,255, 255, 255);
         $transparent = imagecolorallocatealpha($shape,255, 255, 255,127);
+        /*$white = imagecolorallocate($shape,255, 255, 255);
+        $black = imagecolorallocate($shape,0, 0, 0);
 
+        imagealphablending($shape,false);
 
-        //imagecolortransparent($shape,$white);
+        for($y=1;$y<imagesy($shape);$y++){
+            for($x=1;$x<imagesx($shape);$x++){
 
+                $color = imagecolorat($shape, $x, $y);
+                $r = ($color >> 16) & 0xFF;
+                $g = ($color >> 8) & 0xFF;
+                $b = $color & 0xFF;
 
-        $shapeA = imagerotate($shape, rand(0,360),$white);
-        $shapeB = imagerotate($shape, rand(0,360),$white);
+                if($r+$b+$b>255+255+255-30){
+                    imagesetpixel($shape, $x, $y, $transparent);
+                }
+            }
+
+        }
+
+        imagesavealpha($shape,true);
+        header('Content-Type: image/png');
+        imagepng($shape);
+        exit;*/
+
+        //echo($r.','.$g.','.$b);
+        //exit;
+
+        $shapeA = imagerotate($shape, rand(0,360),$transparent);
+        $shapeB = imagerotate($shape, rand(0,360),$transparent);
+
+        //imagecolortransparent($shapeA,$white);
+        //imagecolortransparent($shapeB,$white);
 
         //$shape = imagecreate(imagesx($shape),imagesy($shape));//todo [PH] lepe
 
         imagealphablending($shape,true);
 
-        imagecopyresized($shape,$shapeB,0,imagesy($shape)*(1/3),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shape),imagesy($shape));
-        imagecopyresized($shape,$shapeA,0,imagesy($shape)*(0/2),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shape),imagesy($shape));
+        imagecopyresized($shape,$shapeB,0,imagesy($shape)*(1/3),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shapeB),imagesy($shapeB));
+        imagecopyresized($shape,$shapeA,0,imagesy($shape)*(0/2),0,0,imagesx($shape),imagesy($shape)*(2/3),imagesx($shapeA),imagesy($shapeA));
 
 
-        /*$color = imagecolorat($shape, 5, 5);
-        $r = ($color >> 16) & 0xFF;
-        $g = ($color >> 8) & 0xFF;
-        $b = $color & 0xFF;
-        echo($r.','.$g.','.$b);
-        exit;*/
+        /**/
 
 
 
