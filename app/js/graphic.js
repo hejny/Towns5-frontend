@@ -127,6 +127,12 @@ function imageLoad(){
         map_loaded=true;
         updateMap();
         $('#loadbar').remove();
+
+        var map_object_changes_=map_object_changes;
+        setTimeout(function(){
+            loadMap();
+        },500);
+
     }
 
 }
@@ -749,7 +755,7 @@ function drawMap() {
             map_data[i].res,
             object_screen_x,
             object_screen_y,
-            ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120)
+            ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120+10*map_model_size)
         ]);
 
 

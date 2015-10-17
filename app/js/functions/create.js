@@ -4,6 +4,14 @@
 
 var map_object_changes=localStorage.getItem('map_object_changes');
 
+/*var map_object_changes_=map_object_changes;
+setTimeout(function(){
+    window_open('',map_object_changes_);
+},2000);*/
+
+
+
+
 if(!map_object_changes || map_object_changes=='')map_object_changes='[]';
 
 try {
@@ -12,6 +20,8 @@ try {
 catch(err) {
     map_object_changes=[];
 }
+
+
 
 
 map_object_changes_buffer=[];//krokové změny
@@ -87,6 +97,7 @@ function create(object,nosave){
 
     //---------------------------------------Save objects to local storage
     if(!nosave){
+
         r('saving objects');
         localStorage.setItem('map_object_changes',JSON.stringify(map_object_changes));
 
