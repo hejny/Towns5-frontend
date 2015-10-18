@@ -1,20 +1,59 @@
-# TOWNS 5
-
- Verze Towns 5
+# Towns 5
 
 * * *
 
-## Kontakt
+## Organizace vývoje
 
-**Organizace vývoje:** https://trello.com/townsgame
-
-**Mail:** ph@towns.cz
+ Na stránce https://trello.com/townsgame jsou projekty které v ránci Towns řešíme. Káždá tabule začínacící na / nebo ./ je 1 projekt. Projekt začínající na ./ je aktuální projekt začínající s / budoucí. V každém projektu je několik základních informací o projektu v podobě speciálních tagů ("text: ..." = popis projektu, "startx 2.2016" = měsíc/rok kdy je plánováno s projektem začít, "start 4.2015" kdy projekt začal , "author: MP" = autor podílející se na projektu (může jich být více) , "private" = nebude se zobrazovat veřejně , "inbox" = pod tuto kartu budou padat nápady z webu) tyto informace se automaticky exportují na veřejnou stránku projektů na http://projects.towns.cz/ . Pod každým projektem je kromě základních tagů sloupec s nápady, co bychom mohli dělat, vybrané nápady na kterých se má pracovat, aktuální práce a co je hotovo a čeká na otestování.
 
 * * *
 
-## Štruktúra
+## Autoři
 
-Systém je rozdělený na několik částí: 
+**[PH] Pavol Hejný:** https://www.facebook.com/hejny
+
+**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
+
+**[SK] Stefan Kecskes:** https://www.skey.uk
+
+**Přemysl Černý:** https://www.facebook.com/longhorn86
+
+**[DH] David Hrůša:** https://www.facebook.com/dhrusa
+
+
+
+* * *
+
+## Struktura
+
+
+Nové Towns 5:
+
+
+	[towns5]/                   <- root adresár
+	├── [api]/
+	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
+	│   └──                     <- Budúci Node.js api - do té doby budeme využívat Towns4 API
+	├── [app]/
+	│	├── [lib]/
+	│	│   ├── [cofeehtml]/    <- coffeescripty
+	│	│   ├── [css]/
+	│	│   ├── [graphic]/      <- obrázky generované cez PHP
+	│	│   ├── [js]/           <- naše javascripty (nie knižnice)
+	│	│   ├── [lib]/          <- js knižnice (nie naše scripty) (některé ale náma upravené)
+	│	│   ├── [locale]/       <- jazykové lokalizácie
+	│	│   └── index.html      <- samotné towns HTML
+	├── [media]/
+	│   ├── [image]/            <- Všechny obrázky
+    │   └── [sound]/            <- Všechny zvuky
+	├── [node_modules]/         <- knižnice stiahnuté cez npm
+    │   └── [...]/              <- každá knižnica vo vlastnom adresári
+	├── favicon.ico             <- Ikonka
+	├── gulpfile.js             <- zoznam úloh pre gulp compiler
+	├── index.php               <- Inicializační soubor
+	├── package.json            <- zoznam potrebných npm balíkov
+	└── README.md               <- pár múdrých slov
+	
 
 Staré Towns 4:
 
@@ -40,42 +79,16 @@ Staré Towns 4:
 	└── .htaccess               <- Konfigurační soubor pro Apache
 
 
-Nové Towns 5:
-
-
-	[towns5]/                   <- root adresár
-	├── [api]/
-	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
-	│   └──                     <- Budúci Node.js api
-	├── [app]/
-	│	├── [lib]/
-	│	│   ├── [cofeehtml]/    <- coffeescripty
-	│	│   ├── [css]/
-	│	│   ├── [graphic]/      <- obrázky generované cez PHP
-	│	│   ├── [js]/           <- naše javascripty (nie knižnice)
-	│	│   ├── [lib]/          <- js knižnice (nie naše scripty)
-	│	│   ├── [locale]/       <- jazykové lokalizácie
-	│	│   └── index.html      <- samotné towns HTML
-	├── [media]/
-	│   ├── [image]/            <- Všechny obrázky
-    │   └── [sound]/            <- Všechny zvuky
-	├── [node_modules]/         <- knižnice stiahnuté cez npm
-    │   └── [...]/              <- každá knižnica vo vlastnom adresári
-	├── favicon.ico             <- Ikonka
-	├── gulpfile.js             <- zoznam úloh pre gulp compiler
-	├── index.php               <- Inicializační soubor
-	├── package.json            <- zoznam potrebných npm balíkov
-	└── README.md               <- pár múdrých slov
-
-* * *
-
-## Požadavky
-
-- Počítač
-
 * * *
 
 ## Inštalácia
+
+
+Potřeba vytvořit vlastní local doménu pro projekt např. towns.local
+
+    Linux: http://tecadmin.net/create-virtual-hosts-in-apache-on-ubuntu/
+    Windows: http://ccm.net/faq/8485-configuring-apache-and-windows-to-create-a-virtual-host
+    
 
 Nainštaluj si node.js a npm(node package manager)
 
@@ -99,36 +112,18 @@ Spusť gulp, nech vykoná úlohy v gulpfile.json
 
 //todo: implementovat aspoň unit testing a behaviour testing. (TDD) + automatické testovanie po každom commite.
 	
-* * *
-
-## Autoři
-
-**[PH] Pavol Hejný:** https://www.facebook.com/hejny
-
-**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
-
-**[DH] David Hrůša:** https://www.facebook.com/dhrusa
-
-**Přemysl Černý:** https://www.facebook.com/longhorn86
-
-**[SK] Stefan Kecskes:** https://www.skey.uk
-
-Další se připište!
 
 * * *
-### Struktura Databáze
 
-Je definovaná v core/create.sql. V Towns4Admin je automatický nástroj pro její aktualizaci. Tzn. strukturu změníte v souboru a podle něj bude automaticky přetvořena tabulka v databázi.
-
-* * *
-### Commity
+## Commity
 
 Každý commit by měl mít označení projektu + autora např.: [WorldLayer][PH] Změny v minimenu
 
 
 * * *
-### Soubory
+
+## Soubory
 
 Všechny soubory + databáze je v UTF-8 a jako oddělovač řádků používat \n
 
-Psát poznámky a dokumentovat pomocí PhpDocumentator
+Psát poznámky a dokumentovat pomocí JSDoc a PhpDocumentator
