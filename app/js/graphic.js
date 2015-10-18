@@ -28,7 +28,18 @@ r(map_x,map_y);
 /*var map_x=0;
 var map_y=0;*/
 
-var map_model_size=2;
+var map_model_size=2,
+
+
+    map_tree_size=1,
+    map_tree_size_diff=0.2,
+    map_tree_size_zip=10,
+
+
+    map_rock_size=0.8,
+    map_rock_size_diff=0.2
+    map_rock_size_zip=5;
+
 
 
 var map_rotation=45;
@@ -65,7 +76,7 @@ var terrainCount=13;
 seedCount=6;
 //----
 
-treeCount=6;
+treeCount=10;
 rockCount=6;
 
 //----------------Odvozene hodnoty
@@ -168,6 +179,8 @@ $(function() {
 
     map_bg = document.getElementById("map_bg");
     map_ctx = map_bg.getContext("2d");
+
+    r('Loaded canvas context');
 
     map_buffer = document.getElementById("map_buffer");
     map_buffer_ctx = map_buffer.getContext("2d");
@@ -443,7 +456,6 @@ function drawMap() {
                     var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
 
 
-
                     var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
                     //var z=0;
                     //r(map_z_data[y][x]);
@@ -578,10 +590,15 @@ function drawMap() {
                                 var object_id = (terrain == 9 ? 't' : 'r') + world_x + 'x' + world_y + 'y';
 
 
-                                if (terrain == 9) {
+                                /*if (terrain == 9) {
                                     var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) / 10 + 0.6;
                                 } else {
                                     var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2)) / 10) / 5 + 0.8;
+                                }*/
+                                if (terrain == 9) {
+                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) * map_tree_size_diff + map_tree_size;
+                                } else {
+                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2)) / 10) * map_rock_size_diff + map_rock_size;
                                 }
 
 
@@ -592,8 +609,8 @@ function drawMap() {
                                 object_xc = xc;
                                 object_yc = yc;
 
-                                object_xc += Math.sin((Math.pow(world_x, 2) + Math.pow(world_y, 2)) / 10) / 1.41;
-                                object_yc += Math.sin((Math.pow(world_x, 4) + Math.pow(world_y, 1)) / 10) / 1.41;
+                                object_xc += Math.sin((world_x+world_y) / 100) / 1.41;
+                                object_yc += Math.sin((world_x-world_y) / 100) / 1.41;
 
 
                                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
@@ -646,7 +663,7 @@ function drawMap() {
                                     object,
                                     object_screen_x,
                                     object_screen_y,
-                                    object_screen_y + object_height - Math.floor(object_width / 4) + 120,
+                                    object_screen_y + object_height - Math.floor(object_width / 4) + 120 + (terrain == 9?map_tree_size_zip:map_rock_size_zip),
                                     object_width,
                                     object_height
 
@@ -798,19 +815,24 @@ function drawMap() {
 
     //lastY=0;
 
+    //r(map_ctx);
+
     for (var i = 0; i < map_draw.length; i++) {
 
         if (map_draw[i][0] == 'image') {
 
-
-            map_ctx.drawImage(
-                map_draw[i][1],
-                map_draw[i][2],
-                map_draw[i][3],
-                //[4] is order used in sorting
-                map_draw[i][5],
-                map_draw[i][6]
-            );
+            try{
+                map_ctx.drawImage(
+                    map_draw[i][1],
+                    map_draw[i][2],
+                    map_draw[i][3],
+                    //[4] is order used in sorting
+                    map_draw[i][5],
+                    map_draw[i][6]
+                );
+            }catch(err){
+                r('Could not load',map_draw[i][1]);
+            }
 
 
 

@@ -19,7 +19,7 @@ $file='../../media/image/'.$type.'/'.$seed.'.png';
 //--------------------------------------------------------------------------------------
 
 $cachefile=files\cacheFile(array($seed,$width),'png',$type);
-if(!file_exists($cachefile)) {
+if(!file_exists($cachefile) /** or 1/**/) {
     //_________________________________________
 
     $src = imagecreatefrompng($file);
