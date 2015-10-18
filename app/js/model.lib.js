@@ -425,7 +425,7 @@ this.model2array = function(res){
     }
 }
 
-r(model2array(unique_objects[5].res));
+
 
 //======================================================================================================array2model
 this.array2model = function(array){
