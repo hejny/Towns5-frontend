@@ -12,9 +12,72 @@
 <body>
 
 
+<canvas id="a" width="300" height="300"></canvas>
+<canvas id="b" width="300" height="300"></canvas>
+<canvas id="c" width="300" height="300"></canvas>
+<style>
+    canvas{
+        border: 2px solid #000000;
+    }
+    
+</style>
+
+
 <script>
 
-    r(model2array(unique_objects[5].res));
+    /*res=unique_objects[5].res;
+    r(res);
+
+    res=model2array(res);
+    r(res);
+
+    res=array2model(res);
+    r(res);*/
+
+
+    //--------------------------------------------
+
+    res=unique_objects[5].res+':42';
+    r('model:');
+    r(res);
+
+    res=model2array(res);
+    r('array:');
+    r(res);
+
+    res=array2parray(res);
+    r('parray:');
+    r(res);
+
+    res=parray2array(res);
+    r('(X) array:');
+    r(res);
+
+    /*res=array2model(res);
+    r('model:');
+    r(res);*/
+
+
+    //--------------------------------------------
+    /*r('-------------------------------');
+
+    res1=unique_objects[5].res;
+    res2=unique_objects[9].res;
+    r(res1);
+    r(res2);
+    res3=model2model(res1,res2);
+    r(res3);
+    
+    
+    ctx1=document.getElementById('a').getContext('2d');
+    ctx2=document.getElementById('b').getContext('2d');
+    ctx3=document.getElementById('c').getContext('2d');
+
+
+    drawModel(ctx1, res1, 0.6, 150, 150, 10, 30);
+    drawModel(ctx2, res2, 0.6, 150, 150, 10, 30);
+    drawModel(ctx3, res3, 0.6, 150, 150, 10, 30);*/
+
 
 
 </script>

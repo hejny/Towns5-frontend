@@ -389,7 +389,7 @@ this.model2array = function(res){
         polygons=tmp[1];
         colors=/*explode(",",)*/tmp[2];
         array['rot']=tmp[3];
-        if(array['rot'])array['rot']=0;
+        if(typeof array['rot']=='undefined')array['rot']=0;
         //---------------------------colors
         colors=explode(",",colors);
         array['colors']=colors;
@@ -431,18 +431,18 @@ this.model2array = function(res){
 this.array2model = function(array){
     res='';
     //---------------------------points
-    for (var pointVal in array) {
-        point = array[pointVal];
+    for (var key in array['points']) {
 
-        x=round(point[0]*100)/100;
-        y=round(point[1]*100)/100;
-        z=round(point[2]*100)/100;
+
+        x=round(array['points'][key][0]*100)/100;
+        y=round(array['points'][key][1]*100)/100;
+        z=round(array['points'][key][2]*100)/100;
         res+= '['+x+','+y+','+z+']';;
     }
     //---------------------------polygons
     i=0;
     while(array['polygons'][i]){
-        array['polygons'][i]=implode(',',array['polygons'][i]);
+        array['polygons'][i]=implode(',',array['polygons'][i].slice(0,-1));
         i++;
     }
     array['polygons']=implode(';',array['polygons']);
@@ -451,21 +451,26 @@ this.array2model = function(array){
     array['colors']=implode(',',array['colors']);
     res+= ':'+array['colors'];
     //---------------------------rot
+    if(typeof array['rot']=='undefined')
+        array['rot']=0;
     res+= ':'+array['rot'];
     //---------------------------
     res=str_replace(',;',';',res);
-    res=str_replace(',:',':',res);
     return(res);
 }
 //======================================================================================================array2parray
 this.array2parray = function(array){
     //$array=model2array($res);
-    //r($array);
     parray={};
     parray['rot']=array['rot'];
-    i=0;
-    for (var polygonVal in array) {
-        polygon = array[polygonVal];
+    parray['polygons']=[];//todo PH ??? difference between [] and {}
+    var i=0;
+    for (var polygonVal in array['polygons']) {
+        polygon = array['polygons'][polygonVal];
+
+        parray['polygons'][i]={};
+        parray['polygons'][i]['points']=[];
+
         parray['polygons'][i]['color']=array['colors'][i];
         ii=0;
         for (var pointVal in polygon) {
@@ -479,24 +484,31 @@ this.array2parray = function(array){
 }
 //======================================================================================================parray2array
 this.parray2array = function(parray){
+
     array={};
 
     array['points']=[[-1,-1,0]];//$pi=1;
-    array['polygons']={};
-    array['colors']={};
+    array['polygons']=[];
+    array['colors']=[];
     array['rot']=parray['rot'];
 
-    for (var polygonVal in parray) {
-        polygon = parray[polygonVal];
+    //r(parray);
+
+    for (var polygonVal in parray['polygons']) {
+        var polygon = parray['polygons'][polygonVal];
+        r(polygon);
+
         array['colors'].push(polygon['color']);
 
+
+
         i=0;
-        while(polygon['points'][i]){
-            array['points'].push(polygon['points'][i]);
-            polygon['points'][i]=count(array['points']);
+        while(polygon[i]){
+            array['points'].push(polygon[i]);
+            polygon[i]=count(array['points']);
             i++;
         }
-        array['polygons'].push(polygon['points']);
+        array['polygons'].push(polygon);
 
     }
 
@@ -506,17 +518,25 @@ this.parray2array = function(parray){
 }
 //======================================================================================================model2model
 this.model2model = function(res1,res2,simple){
-    if(typeof simple=='undefined')simple=false
+    if(typeof simple=='undefined')simple=false;
 
     array1=model2array(res1);
     array2=model2array(res2);
     array={};
     //---------------------------
-    if(array1){
+    if(array1==false){
+        //------------------------------------------------------------------Model 1 neexistuje => vysledek je model 2
+        r('model2model: Model 1 neexistuje => vysledek je model 2');
         array=array2;
-    }else if(array2){
+        //------------------------------------------------------------------
+    }else if(array2==false){
+        //------------------------------------------------------------------Model 2 neexistuje => vysledek je model 1
+        r('model2model: Model 2 neexistuje => vysledek je model 1');
         array=array1;
+        //------------------------------------------------------------------
     }else if(simple){
+        //------------------------------------------------------------------Jednoduche smichani modelu
+        r('model2model: Jednoduche smichani modelu');
         parray1=array2parray(array1);
         parray2=array2parray(array2);
         parray={};
@@ -535,9 +555,11 @@ this.model2model = function(res1,res2,simple){
 
         array=parray2array(parray);
 
+        //------------------------------------------------------------------
     }else if(strpos(res1,'[-4,-4,')!==false){
-        //------------------------------------------------------------------SpojenÃ­ modelÅ¯ s joinlevel
-        joinlevel=res1.substr2('[-4,-4,',']');
+        //------------------------------------------------------------------Spojeni modelu s joinlevel
+        r('model2model: Spojeni modelu s joinlevel');
+        joinlevel=substr2(res1,'[-4,-4,',']');
         joinlevel=joinlevel-1+1;
 
         parray1=array2parray(array1);
@@ -577,7 +599,8 @@ this.model2model = function(res1,res2,simple){
 
         //------------------------------------------------------------------
     }else if(array1['points']==array2['points'] && array1['polygons']==array2['polygons'] && array1['colors']==array2['colors']){
-        //------------------------------------------------------------------SpojenÃ­ stejnÃ½ch modelÅ¯
+        //------------------------------------------------------------------Spojeni stejnych modelu
+        r('model2model: Spojeni stejnych modelu');
         //e(1);
         array=array2;
         k=pow(2,(1/3));
@@ -598,16 +621,18 @@ this.model2model = function(res1,res2,simple){
         }
         //------------------------------------------------------------------
     }else{
-        //------------------------------------------------------------------SpojenÃ­ jinÃ½ch modelÅ¯
+        //------------------------------------------------------------------Spojeni jinych modelu
+        r('model2model: Spojeni jinych modelu');
+
         parray1=array2parray(array1);
         parray2=array2parray(array2);
-        parray=[];
+        parray={polygons:[]};
 
 
         //-----------------
         maxx=50;maxy=50;minx=50;miny=50;
-        for (var polygonVal in parray1) {
-            polygon = parray1[polygonVal];
+        for (var polygonVal in parray1['polygons']) {
+            polygon = parray1['polygons'][polygonVal];
             for (var pointVal in polygon) {
                 point = polygon[pointVal];
                 if(point[0]>maxx)maxx=point[0];
@@ -620,8 +645,8 @@ this.model2model = function(res1,res2,simple){
 
         //-----------------
         maxx=50;maxy=50;minx=50;miny=50;
-        for (var polygonVal in parray2) {
-            polygon = parray2[polygonVal];
+        for (var polygonVal in parray2['polygons']) {
+            polygon = parray2['polygons'][polygonVal];
             for (var pointVal in polygon) {
                 point = polygon[pointVal];
                 if(point[0]>maxx)maxx=point[0];
@@ -641,8 +666,8 @@ this.model2model = function(res1,res2,simple){
 
         //-----------------
         maxz1=0;
-        for (var polygonVal in parray1) {
-            polygon = parray1[polygonVal];
+        for (var polygonVal in parray1['polygons']) {
+            polygon = parray1['polygons'][polygonVal];
             for (var pointVal in polygon) {
                 point = polygon[pointVal];
                 if(point[2]>maxz1)maxz1=point[2];
@@ -650,8 +675,8 @@ this.model2model = function(res1,res2,simple){
         }
         //-----------------
         maxz2=0;
-        for (var polygonVal in parray2) {
-            polygon = parray2[polygonVal];
+        for (var polygonVal in parray2['polygons']) {
+            polygon = parray2['polygons'][polygonVal];
             for (var pointVal in polygon) {
                 point = polygon[pointVal];
                 if(point[2]>maxz2)maxz2=point[2];
@@ -659,8 +684,9 @@ this.model2model = function(res1,res2,simple){
         }
         level=maxz1-maxz2;
         //-----------------
-        for (var polygonVal in parray1) {
-            polygon = parray1[polygonVal];
+        r(parray1);
+        for (var polygonVal in parray1['polygons']) {
+            polygon = parray1['polygons'][polygonVal];
             //if($polygon['points'][1][2]<100){
             i=0;
             while(polygon['points'][i]){
@@ -671,8 +697,8 @@ this.model2model = function(res1,res2,simple){
             parray['polygons'].push(polygon);
             //}
         }
-        for (var polygonVal in parray2) {
-            polygon = parray2[polygonVal];
+        for (var polygonVal in parray2['polygons']) {
+            polygon = parray2['polygons'][polygonVal];
             //if($polygon['points'][1][2]>$level){
             i=0;
             while(polygon['points'][i]){
