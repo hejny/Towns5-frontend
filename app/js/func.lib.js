@@ -69,7 +69,7 @@ function xy2dist(a,b){
 
 //======================================================================================================================PHP like functions
 
-//todo Refector to native JS
+//todo ??Refector to native JS
 
 function explode(delimiter,str){
     return(str.split(delimiter));
@@ -89,11 +89,70 @@ function count(str){
     return(str.length);
 }
 
+function strlen(str) {
+    return(str.length);
+}
+
 function substr(str,start,len) {
     return (str.substr(start,len));
 }
 
+function strpos(haystack,needle) {
+
+    var pos=haystack.indexOf(needle);
+    if(pos==-1)pos=false;
+
+    return (pos);
+}
 
 function round(num) {
     return (Math.round(num));
+}
+
+
+//----------------------------------------------------------From Towns4 converted from php to js
+
+
+function substr2(input,a,b,i,change,startstop){
+
+    if(typeof i=='undefined')i=0;
+    if(typeof change=='undefined')change=false;
+    if(typeof startstop=='undefined')startstop=true;
+
+
+    if(!startstop){
+        start=strlen(a);
+        stop=strlen(b);
+    }else{
+        start=0;
+        stop=0;
+    }
+
+    string=input;
+    aa=strlen(a);
+    p=0;
+    for(ii=0;ii<i;ii++){pp=strpos(string,a)+1;p=p+pp;string=substr(string,pp);}
+
+    a=strpos(string,a);
+    if(a!==false){
+        string=substr(string,a+aa);
+        b=strpos(string,b);
+
+        string=substr(string,0,b);
+
+        if(change!=false){
+
+            inner=substr(input,a+aa+p,b);
+            input=substr_replace(input,change,a+aa+p-start,b+stop+start);//b-a-aa
+
+        }//průser v akcentu
+
+        input=str_replace("[]",inner,input);
+
+        if(change)return(input);
+        return(string);
+    }else{
+        if(change)return(input);
+        return(false);
+    }
 }
