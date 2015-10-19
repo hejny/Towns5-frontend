@@ -389,7 +389,7 @@ this.model2array = function(res){
         polygons=tmp[1];
         colors=/*explode(",",)*/tmp[2];
         array['rot']=tmp[3];
-        if(typeof array['rot']=='undefined')array['rot']=0;
+        if(typeof array['rot']=='undefined')array['rot']=0;else array['rot']-=0;
         //---------------------------colors
         colors=explode(",",colors);
         array['colors']=colors;
@@ -411,9 +411,16 @@ this.model2array = function(res){
         for (var tmpVal in polygons) {
             tmp = polygons[tmpVal];
             i=i+1;
-            polygons[i]=explode(",",polygons[i]);
-            if(polygons[i].length==0){polygons[i][0]=1;polygons[i][1]=1;polygons[i][2]=1;}
-            polygons[i][count(polygons[i])]=colors[i];
+
+            if(polygons[i]!='' && polygons[i]!='NaN'){
+                polygons[i]=explode(",",polygons[i]);
+            }else{
+                polygons[i]=[];
+            }
+
+
+
+            //WTF?//polygons[i][count(polygons[i])]=colors[i];
 
         }
 
@@ -433,6 +440,7 @@ this.array2model = function(array){
     //---------------------------points
     for (var key in array['points']) {
 
+        r(key);
 
         x=round(array['points'][key][0]*100)/100;
         y=round(array['points'][key][1]*100)/100;
@@ -442,7 +450,7 @@ this.array2model = function(array){
     //---------------------------polygons
     i=0;
     while(array['polygons'][i]){
-        array['polygons'][i]=implode(',',array['polygons'][i].slice(0,-1));
+        array['polygons'][i]=implode(',',array['polygons'][i]/*.slice(0,-1)*/);
         i++;
     }
     array['polygons']=implode(';',array['polygons']);
@@ -472,7 +480,7 @@ this.array2parray = function(array){
         parray['polygons'][i]['points']=[];
 
         parray['polygons'][i]['color']=array['colors'][i];
-        ii=0;
+        var ii=0;
         for (var pointVal in polygon) {
             point = polygon[pointVal];
             parray['polygons'][i]['points'][ii]=array['points'][point-1];
@@ -496,19 +504,22 @@ this.parray2array = function(parray){
 
     for (var polygonVal in parray['polygons']) {
         var polygon = parray['polygons'][polygonVal];
-        r(polygon);
+
+        var newpolygon=[];
+        //r(polygon);
 
         array['colors'].push(polygon['color']);
 
 
-
-        i=0;
-        while(polygon[i]){
-            array['points'].push(polygon[i]);
-            polygon[i]=count(array['points']);
+        //r('--------');
+        //r(polygon);
+        for(var i=0,l=polygon['points'].length;i<l;i++){
+            array['points'].push(polygon['points'][i]);
+            //r(polygon['points'][i]);
+            newpolygon[i]=count(array['points']);
             i++;
         }
-        array['polygons'].push(polygon);
+        array['polygons'].push(newpolygon);
 
     }
 
