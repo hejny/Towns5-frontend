@@ -66,6 +66,56 @@ function xy2dist(a,b){
     return(Math.sqrt(Math.pow(a,2)+Math.pow(b,2)));
 }
 
+//======================================================================================================================
+
+//todo nahradit vsechny takovahle zjistovani touhle funkci
+//todo jsdoc
+//todo test TDD
+function isNot(val){
+
+
+    if(typeof(val)==='undefined')return true;
+
+    if(val===false)return true;
+
+    if(val===NaN)return true;
+    if(val===0)return true;
+
+    if(val==='')return true;
+
+    if(val===[])return true;
+    if(val==={})return true;
+
+    if(typeof(val)==='object')if(val.length===0)return true;
+
+
+    return false;
+
+}
+
+//----------------------------------------------------------
+
+//todo vymyslet jak ???? pripadne odstranit
+function isNotType(val){
+
+
+    if(typeof(val)==='undefined')return 'undefined';
+
+    if(val===false)return 'false';
+
+    if(val===NaN)return 'NaN';
+    if(val===0)return '0';
+
+    if(val==='')return "''";
+
+    if(val===[])return '[]';
+    if(val==={})return '{}';
+
+    if(typeof(val)==='object')if(val.length===0)return 'length=0';
+
+    return 'Var is defined.';
+
+}
 
 //======================================================================================================================PHP like functions
 

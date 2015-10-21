@@ -25,7 +25,7 @@ if(!localStorage.getItem('townsToken')) {
 }
 
 //r(token);
-var townsApiUrl='https://towns.cz/api?token='+token+'&locale=&output=jsonp';
+var townsApiUrl='https://towns.cz/world2/api?token='+token+'&locale=&output=jsonp';
 //var url='http://towns.local/api/fakeserver.php';
 
 //======================================================================================================================

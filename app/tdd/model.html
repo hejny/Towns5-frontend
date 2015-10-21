@@ -42,8 +42,9 @@
 
 
     //--------------------------------------------
-
+    /**
     res=unique_objects[5].res+':42';
+    //res='[-1,-1,-1][32,19,0][19,72,34][67,63,0][80,23,36]:;;2,3,4;2,4,5:00CC00,00CC00,00CC00,00CCFF,,,:140';
 
     drawModel(ctx1, res, 0.6, 150, 150, 10, 30);
 
@@ -51,30 +52,35 @@
     r('model:');
     r(res);
 
+    r('array:');
     res=model2array(res);
-    r('array:');
     r(res);
 
-    res=array2parray(res);
+    r('array (purge):');
+    res=arrayPurge(res);
+    r(res);
+
     r('parray:');
+    res=array2parray(res);
     r(res);
 
-    res=parray2array(res);
     r('array:');
+    res=parray2array(res);
     r(res);
 
-    res=array2model(res);
     r('model:');
+    res=array2model(res);
     r(res);
 
-    drawModel(ctx2, res, 0.6, 150, 150, 10, 30);
+    drawModel(ctx2, res, 0.6, 150, 150, 10, 30);/**/
 
 
     //--------------------------------------------
-    /*r('-------------------------------');
+    /*r('-------------------------------');*/
+    /**/
 
-    res1=unique_objects[5].res;
-    res2=unique_objects[10].res;
+    res1=unique_objects[3].res;
+    res2=unique_objects[5].res;
     r(res1);
     r(res2);
     res3=model2model(res1,res2);
@@ -84,9 +90,11 @@
 
 
 
-    drawModel(ctx1, res1, 0.6, 150, 150, 10, 30);
-    drawModel(ctx2, res2, 0.6, 150, 150, 10, 30);
-    drawModel(ctx3, res3, 0.6, 150, 150, 10, 30);/**/
+    drawModel(ctx1, res1, 0.4, 150, 150, -40, 30);
+    drawModel(ctx2, res2, 0.4, 150, 150, -40, 30);
+    drawModel(ctx3, res3, 0.4, 150, 150, -40, 30);
+
+    /**/
 
 
 

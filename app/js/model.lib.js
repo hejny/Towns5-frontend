@@ -376,6 +376,7 @@ window.modelRotSize = function(res,rot,size){
 
 //todo [PH] vsechny funkce bud (function abc(){}...) NEBO (window.abc =) NEBO (this.abc=) - rozhodnout se
 //todo Zacit delat jsdoc
+//todo doplnit var u tehdle funkci pred vnitrnimi promennymi
 this.model2array = function(res){
     if(res.substr(0,1)=='['){
 
@@ -391,40 +392,56 @@ this.model2array = function(res){
         array['rot']=tmp[3];
         if(typeof array['rot']=='undefined')array['rot']=0;else array['rot']-=0;
         //---------------------------colors
-        colors=explode(",",colors);
+        colors=explode(',',colors);
+        //for (var i=0,l=colors.length;i<l;i++)colors[i]=i;
+
         array['colors']=colors;
         //---------------------------rozklad bodu
         points=points.substr(1,points.length-2);
         points=explode("]",points);
-        i=-1;
-        for (var tmpVal in points) {
-            tmp = points[tmpVal];
-            i=i+1;
+
+        for (var i= 0,l=points.length;i<l;i++) {
+
             points[i]=str_replace("[","",points[i]);
             points[i]=explode(",",points[i]);
+
+            for (var ii= 0,ll=points[i].length;ii<ll;ii++)
+                points[i][ii]-=0;
+
         }
 
         array['points']=points;
         //---------------------------polygons
         polygons=explode(';',polygons);
-        i=-1;
-        for (var tmpVal in polygons) {
-            tmp = polygons[tmpVal];
-            i=i+1;
 
-            if(polygons[i]!='' && polygons[i]!='NaN'){
+
+        //r(polygons);
+
+        for (var i=0,l=polygons.length;i<l;i++) {
+
+
+            if(!isNot(polygons[i])){
+
+                //r('spliting polygon',polygons,i);
                 polygons[i]=explode(",",polygons[i]);
+
+                for (var ii= 0,ll=polygons[i].length;ii<ll;ii++)
+                    polygons[i][ii]-=0;
+
             }else{
+
+                //r('empty polygon',polygons,i,isNotType(polygons[i]));
                 polygons[i]=[];
+
             }
 
 
-
-            //WTF?//polygons[i][count(polygons[i])]=colors[i];
-
         }
 
+        //r(polygons);
+
         array['polygons']=polygons;
+
         //---------------------------
         return(array);
     }else{
@@ -438,14 +455,15 @@ this.model2array = function(res){
 this.array2model = function(array){
     res='';
     //---------------------------points
-    for (var key in array['points']) {
 
-        r(key);
+    for (var i=0,l=array['points'].length;i<l;i++) {
 
-        x=round(array['points'][key][0]*100)/100;
-        y=round(array['points'][key][1]*100)/100;
-        z=round(array['points'][key][2]*100)/100;
-        res+= '['+x+','+y+','+z+']';;
+        //r(i);
+
+        x=round(array['points'][i][0]*100)/100;
+        y=round(array['points'][i][1]*100)/100;
+        z=round(array['points'][i][2]*100)/100;
+        res+= '['+x+','+y+','+z+']';
     }
     //---------------------------polygons
     i=0;
@@ -466,6 +484,41 @@ this.array2model = function(array){
     res=str_replace(',;',';',res);
     return(res);
 }
+
+//======================================================================================================arrayPurge
+
+this.arrayPurge = function(array) {
+
+    //r(array.colors);
+
+    for (var i = Math.max(array.polygons.length,array.colors.length)-1; i>-1 ; i--) {
+
+
+
+        if (isNot(array.polygons[i]) || isNot(array.colors[i])) {
+
+            //r('deleting',i,isNot(array.polygons[i]),isNot(array.colors[i]),array.polygons[i],array.colors[i]);
+
+            array.polygons.splice(i, 1);
+            array.colors.splice(i, 1);
+
+        }else{
+
+            //r('keeping',i,isNot(array.polygons[i]),isNot(array.colors[i]),array.polygons[i],array.colors[i]);
+
+        }
+
+
+    }
+
+    return(array);
+
+}
+
+//======================================================================================================arraySnap
+
+//todo Array Snap
+
 //======================================================================================================array2parray
 this.array2parray = function(array){
     //$array=model2array($res);
@@ -495,7 +548,7 @@ this.parray2array = function(parray){
 
     array={};
 
-    array['points']=[[-1,-1,0]];//$pi=1;
+    array['points']=[];
     array['polygons']=[];
     array['colors']=[];
     array['rot']=parray['rot'];
@@ -505,21 +558,27 @@ this.parray2array = function(parray){
     for (var polygonVal in parray['polygons']) {
         var polygon = parray['polygons'][polygonVal];
 
-        var newpolygon=[];
-        //r(polygon);
+        if(!isNot(polygon['points'][0])){//todo ?? nemelo by [undefined] take vracet ze je to isNot
 
-        array['colors'].push(polygon['color']);
+            var newpolygon=[];
+            //r(polygon);
+
+            array['colors'].push(polygon['color']);
 
 
-        //r('--------');
-        //r(polygon);
-        for(var i=0,l=polygon['points'].length;i<l;i++){
-            array['points'].push(polygon['points'][i]);
-            //r(polygon['points'][i]);
-            newpolygon[i]=count(array['points']);
-            i++;
+            //r('--------');
+
+            for(var i=0,l=polygon['points'].length;i<l;i++){
+
+                //r('newpoint');
+                array['points'].push(polygon['points'][i]);
+                //r(polygon['points'][i]);
+                newpolygon[i]=count(array['points']);
+
+            }
+            array['polygons'].push(newpolygon);
+
         }
-        array['polygons'].push(newpolygon);
 
     }
 
@@ -695,7 +754,11 @@ this.model2model = function(res1,res2,simple){
         }
         level=maxz1-maxz2;
         //-----------------
+
         r(parray1);
+        r(parray2);
+
+
         for (var polygonVal in parray1['polygons']) {
             polygon = parray1['polygons'][polygonVal];
             //if($polygon['points'][1][2]<100){
