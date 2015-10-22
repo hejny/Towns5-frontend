@@ -1,5 +1,4 @@
 
-
 /*   ██████╗ ██████╗  █████╗ ██╗    ██╗
      ██╔══██╗██╔══██╗██╔══██╗██║    ██║
      ██║  ██║██████╔╝███████║██║ █╗ ██║
@@ -344,11 +343,11 @@ window.createIcon = function(res,size){
 
 
 /*   ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
-     ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
-     █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
-     ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
-     ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
-     ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝*/
+ ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+ █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
+ ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
+ ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
+ ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝*/
 //██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 
 //todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
@@ -605,7 +604,7 @@ this.model2model = function(res1,res2,simple){
         array=array1;
         //------------------------------------------------------------------
     }else if(simple){
-        //------------------------------------------------------------------Jednoduche smichani modelu
+        //------------------------------------------------------------------Jednoduche smichani modelu  //todo zprovoznit
         r('model2model: Jednoduche smichani modelu');
         parray1=array2parray(array1);
         parray2=array2parray(array2);
@@ -629,51 +628,59 @@ this.model2model = function(res1,res2,simple){
     }else if(strpos(res1,'[-4,-4,')!==false){
         //------------------------------------------------------------------Spojeni modelu s joinlevel
         r('model2model: Spojeni modelu s joinlevel');
-        joinlevel=substr2(res1,'[-4,-4,',']');
-        joinlevel=joinlevel-1+1;
+        joinlevel=parseInt(substr2(res1,'[-4,-4,',']'));//todo stejny prevod string na int v celem projektu
+        joinlevel2=parseInt(substr2(res2,'[-4,-4,',']'));
+
+        r(joinlevel,joinlevel2);
+        if(isNaN(joinlevel2)){//todo funguje isnot na NaN apod?
+            joinlevel2=joinlevel;//todo provest analyzu celeho druheho modelu
+        }
 
         parray1=array2parray(array1);
         parray2=array2parray(array2);
-        parray={};
+
+        parray2=deepCopy(parray2);
+        parray={polygons:[]};//todo var v tomhle souboru
+
+
 
         //-----------------
-        for (var polygonVal in parray1) {
-            polygon = parray1[polygonVal];
-            //if($polygon['points'][1][2]<100){
-            i=0;
-            while(polygon['points'][i]){
-                //if($polygon['points'][$i][2]>$level)$polygon['points'][$i][2]=$level;
-                i++;
-            }
 
-            parray['polygons'].push(polygon);
-            //}
-        }
-        for (var polygonVal in parray2) {
-            polygon = parray2[polygonVal];
-            //if($polygon['points'][1][2]>$level){
-            i=0;
-            while(polygon['points'][i]){
+        r(parray2);
+        for (var polygonVal in parray2['polygons']) {//todo co pouzivat v projektu??? for (var polygonVal in nebo for (var i=0,l=... , Co je lepsi????
+            polygon = parray2['polygons'][polygonVal];
+
+
+            if(!isNot(polygon['points']))
+            for(var i in polygon['points']){
                 //if($polygon['points'][$i][2]>$level)$polygon['points'][$i][2]=$level;
                 polygon['points'][i][2]+=joinlevel;
-                i++;
+
             }
-            parray['polygons'].push(polygon);
-            //}
+
         }
+        //-----------------
+
+        parray['polygons']=(parray1['polygons']).concat(parray2['polygons'])
+
+        //-----------------
+
         parray['rot']=parray1['rot'];
 
-
+        //-----------------
         array=parray2array(parray);
+
+        r([-4,-4,joinlevel+joinlevel2]);//todo odstaranit tyhle reporty
+        array['points'].push([-4,-4,joinlevel+joinlevel2]);
 
 
         //------------------------------------------------------------------
-    }else if(array1['points']==array2['points'] && array1['polygons']==array2['polygons'] && array1['colors']==array2['colors']){
+    }else if(/*array1['points']==array2['points'] && array1['polygons']==array2['polygons'] && array1['colors']==array2['colors']*/res1==res2){
         //------------------------------------------------------------------Spojeni stejnych modelu
         r('model2model: Spojeni stejnych modelu');
         //e(1);
         array=array2;
-        k=pow(2,(1/3));
+        k=Math.pow(2,(1/3));
         i=0;
         while(array['points'][i]){
             var x=array['points'][i][0];
@@ -691,7 +698,7 @@ this.model2model = function(res1,res2,simple){
         }
         //------------------------------------------------------------------
     }else{
-        //------------------------------------------------------------------Spojeni jinych modelu
+        //------------------------------------------------------------------Spojeni jinych modelu //todo zprovoznit
         r('model2model: Spojeni jinych modelu');
 
         parray1=array2parray(array1);

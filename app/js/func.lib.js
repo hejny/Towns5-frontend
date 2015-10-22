@@ -117,6 +117,19 @@ function isNotType(val){
 
 }
 
+//----------------------------------------------------------
+
+function deepCopy(oldObject){
+
+    // Shallow copy
+    //var newObject = jQuery.extend({}, oldObject);
+
+    // Deep copy
+    var newObject = jQuery.extend(true, {}, oldObject);
+
+    return(newObject);
+}
+
 //======================================================================================================================PHP like functions
 
 //todo ??Refector to native JS
@@ -166,43 +179,62 @@ function round(num) {
 function substr2(input,a,b,i,change,startstop){
 
     if(typeof i=='undefined')i=0;
-    if(typeof change=='undefined')change=false;
+    if(typeof change=='undefined')change=false;//todo [PH] zprovoznit change
     if(typeof startstop=='undefined')startstop=true;
 
 
-    if(!startstop){
-        start=strlen(a);
-        stop=strlen(b);
+    /*if(!startstop){
+        var start=strlen(a);
+        var stop=strlen(b);
     }else{
-        start=0;
-        stop=0;
+        var start=0;
+        var stop=0;
+    }*/
+
+    //--------------------------------------
+
+    var string=input;
+    var aLen=strlen(a);
+
+    //--------------------------------------Posun o prislusny pocet vyskytu dany v i
+    var p=0;
+    for(var ii=0;ii<i;ii++){
+        var pp=strpos(string,a)+1;
+        p=p+pp;
+        string=substr(string,pp);
     }
 
-    string=input;
-    aa=strlen(a);
-    p=0;
-    for(ii=0;ii<i;ii++){pp=strpos(string,a)+1;p=p+pp;string=substr(string,pp);}
 
-    a=strpos(string,a);
-    if(a!==false){
-        string=substr(string,a+aa);
-        b=strpos(string,b);
+    //--------------------------------------Pozice zacatku
 
-        string=substr(string,0,b);
+    var aPos=strpos(string,a);
 
-        if(change!=false){
+    //--------------------------------------
 
-            inner=substr(input,a+aa+p,b);
-            input=substr_replace(input,change,a+aa+p-start,b+stop+start);//b-a-aa
 
-        }//průser v akcentu
+    if(aPos!==false){
+        //--------------------------------------
+        string=substr(string,aPos+aLen);//Oriznuti stringu na 'hledane)blablabla'
+        var bPos=strpos(string,b);
 
-        input=str_replace("[]",inner,input);
+        string=substr(string,0,bPos);//Oriznuti stringu na 'hledane'
 
-        if(change)return(input);
+        /*if(change!=false){
+
+            inner=substr(input,aPos+aLen+p,bPos);
+            input=substr_replace(input,change,aPos+aLen+p-start,bbPos+stop+start);//b-a-aa
+            ???input=str_replace("[]",inner,input);
+        }//průser v akcentu*/
+
+
+
+        //if(change)return(input);
         return(string);
+        //--------------------------------------
     }else{
-        if(change)return(input);
-        return(false);
+        //--------------------------------------
+        //if(change)return(input);//Nic se (uz) nenahradilo
+        return(false);//Nic (uz) nebylo nalezeno
+        //--------------------------------------
     }
 }
