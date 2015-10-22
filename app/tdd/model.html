@@ -2,7 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>TDD Model</title>
+
+    <script src="/app/lib/jquery-1.11.3.js"></script>
+    <script src="/app/lib/jquery-ui.js"></script>
+
     <script src="../js/func.lib.js"></script>
 
 
@@ -79,8 +83,10 @@
     /*r('-------------------------------');*/
     /**/
 
-    res1=unique_objects[3].res;
-    res2=unique_objects[5].res;
+    //res1=unique_objects[5].res;
+    res1='[-4,-4,70][32,19,0][19,72,34][67,63,0][80,23,36]:;;2,3,4;2,4,5:00CC00,00CC00,00CC00,00CCFF,,,:340';
+    res2=unique_objects[13].res;
+    //res2=unique_objects[5].res;
     r(res1);
     r(res2);
     res3=model2model(res1,res2);
