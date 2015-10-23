@@ -744,7 +744,7 @@ $(function() {
 
 
                 delete tmp.rot;
-                delete tmp.res_path;
+                //delete tmp.res_path;
 
                 //------
 
