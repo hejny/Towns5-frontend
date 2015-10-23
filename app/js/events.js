@@ -262,6 +262,10 @@ $(function() {
             }else{
                 building.rot-=10;
             }
+
+            //r(building.rot);
+
+
             buildingUpdate();
 
         }else
@@ -704,7 +708,7 @@ $(function() {
             if (rot < 0)rot = rot + 360;
 
 
-            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size)); i <= l; i++) {
+            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size / 1.11 )); i <= l; i++) {
 
 
                 //r(i,l);
