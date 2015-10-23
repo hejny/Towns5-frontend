@@ -84,7 +84,17 @@ function create(object,nosave){
         }else{
 
 
+            if(!isNot(map_object_changes[distances[0].i].res_node)) {
+                map_object_changes[distances[0].i].res=map_object_changes[distances[0].i].res_node;
+            }
+
+            if(!isNot(object.res_node)) {
+                object.res=object.res_node;
+            }
+
             map_object_changes[distances[0].i].res=model2model(map_object_changes[distances[0].i].res,object.res);
+
+
 
 
         }
