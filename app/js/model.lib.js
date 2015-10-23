@@ -12,15 +12,28 @@
 this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     //todo delat kontrolu vstupnich parametru u funkci???
 
+
     var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
     var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
     var slnko = 50;
 
-    res=modelRotSize(res,rot,s);
-    var res=model2array(res,rot,s);
+    res=modelRotSize(res,rot-45,s);
+    var res=model2array(res);
 
+    if(!res)return;
+
+
+    var res=arrayCompileRotSize(res);
+
+    //------------------------Prirazeni barev k polygonum pred serazenim
+
+    for(var i= 0,l=res['polygons'].length;i<l;i++){
+
+        res['polygons'][i]['color']=res['colors'][i];
+    }
 
     //------------------------Seřazení bodů
+
     res['polygons'].sort(function (a, b) {
         var sum,cnt;
 
@@ -31,15 +44,19 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
             sum = 0;
             cnt = 0;
-            for (var i in polygons[polygon][i]) {
+            for (var i in polygons[polygon]) {
 
-                    sum +=    res['points'][polygons[polygon][i]][0] * slope_m
-                            + res['points'][polygons[polygon][i]][1] * slope_m
-                            + res['points'][polygons[polygon][i]][2] * slope_n;
-                    cnt++;
+                    if(i!='color' && !isNot(res['points'][polygons[polygon][i]])) {
+
+                        sum += res['points'][polygons[polygon][i]][0] * slope_m
+                            +  res['points'][polygons[polygon][i]][1] * slope_m
+                            +  res['points'][polygons[polygon][i]][2] * slope_n;
+                        cnt++;
+                    }
 
             }
-            zindex[polygon] = sum / (l+1);
+            //r(sum,cnt);
+            zindex[polygon] = sum / cnt;
 
         }
 
@@ -53,6 +70,7 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
             return 0;
         }
     });
+
 
     //==========================================================================================stín
 
@@ -68,8 +86,8 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
             if (typeof res['points'][res['polygons'][i2][i3]] !== 'undefined') {
 
                 var z = Math.abs(res['points'][res['polygons'][i2][i3]][2]);
-                var x =          res['points'][res['polygons'][i2][i3]][0] + z / 1.5;
-                var y =          res['points'][res['polygons'][i2][i3]][1] - z / 1.5 / 2;
+                var x =          res['points'][res['polygons'][i2][i3]][0]-50 + z / 1.5;
+                var y =          res['points'][res['polygons'][i2][i3]][1]-50 - z / 1.5 / 2;
 
 
                 var xx = x * 1 - (y * 1);
@@ -91,7 +109,7 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
             for (var i = 0, l = tmppoints.length; i < l; i++) {
 
-                ctx.lineTo(tmppoints[i].x*s + x_begin, tmppoints[i].y*s + y_begin);
+                ctx.lineTo(tmppoints[i].x + x_begin, tmppoints[i].y + y_begin);
 
             }
             ctx.closePath();
@@ -109,17 +127,18 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
         for (var i3 = 0, l3 = res['polygons'][i2].length; i3 < l3; i3++) {
             if (!isNot(res['points'][res['polygons'][i2][i3]])) {
 
-                x = res['points'][res['polygons'][i2][i3]][0];
-                y = res['points'][res['polygons'][i2][i3]][1];
+                x = res['points'][res['polygons'][i2][i3]][0]-50;
+                y = res['points'][res['polygons'][i2][i3]][1]-50;
                 z = res['points'][res['polygons'][i2][i3]][2];
                 xx = x * 1 - (y * 1);
                 yy = x * slope_m + y * slope_m - (z * slope_n);
+
 
                 tmppoints.push({x: xx, y: yy});
             }
         }
 
-        var color = res['colors'][i2];
+        var color = res['polygons'][i2]['color'];
         color = hexToRgb('#' + color);
 
         //------------------------Vystínování podle sklonu polygonu
@@ -180,7 +199,7 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
             for (var i = 0, l = tmppoints.length; i < l; i++) {
 
-                ctx.lineTo(tmppoints[i].x*s + x_begin, tmppoints[i].y*s + y_begin);
+                ctx.lineTo(tmppoints[i].x + x_begin, tmppoints[i].y + y_begin);
 
             }
 
@@ -240,7 +259,7 @@ this.createIcon = function(res,size){
     canvas.width = size;
     var context = canvas.getContext('2d');
 
-    drawModel(context, res, 0.2, size/2, size*(2/5), 10, 35);
+    drawModel(context, res, 0.3, size/2, size*(4/5), 10, 35);
 
     return(canvas.toDataURL());
 
@@ -260,20 +279,18 @@ this.createIcon = function(res,size){
 //██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 
 //todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
-//todo [ph] upravit vsechny todo
 
 //======================================================================================================
 window.modelRotSize = function(res,rot,size){
-
-    //r(res);
 
     res=res.split(':');
 
     if (typeof res[3] == 'undefined')res[3] = 0;
     if (typeof res[4] == 'undefined')res[4] = 1;
 
-    res[3]=res[3]+rot;
-    res[4]=res[4]*size;
+
+    res[3]=parseFloat(res[3])+rot;
+    res[4]=parseFloat(res[4])*size;
 
     res=res.join(':');
     return(res);
@@ -374,8 +391,7 @@ this.array2model = function(array){
 
     //---------------------------polygons
 
-    i=0;
-    while(array['polygons'][i]){//todo change to for
+    for(var i in array['polygons']){
 
 
         for (var ii=0,ll=array['polygons'][i].length;ii<ll;ii++) {
@@ -383,7 +399,7 @@ this.array2model = function(array){
         }
 
         array['polygons'][i]=implode(',',array['polygons'][i]/*.slice(0,-1)*/);
-        i++;
+
     }
     array['polygons']=implode(';',array['polygons']);
     res+= ':'+array['polygons'];
@@ -444,24 +460,29 @@ this.arrayCompileRotSize = function(array) {
 
         //-----
 
-        var distDeg = xy2distDeg(x-50,y-50);
+        if(!(x==-4 && y==-4)){
 
-        //r(distDeg);
+            var distDeg = xy2distDeg(x - 50, y - 50);
 
-        distDeg['dist']=distDeg['dist']*array['size'];
-        distDeg['deg']-=array['rot'];
+            //r(distDeg);
 
-        //r(distDeg);
+            distDeg['dist'] = distDeg['dist'] * array['size'];
+            distDeg['deg'] -= array['rot'];
 
-        var xy = distDeg2xy(distDeg['dist'],distDeg['deg']);
+            //r(distDeg);
 
-        //r(xy);
+            var xy = distDeg2xy(distDeg['dist'], distDeg['deg']);
 
-        x = Math.round(xy['x']+50);
-        y = Math.round(xy['y']+50);
+            //r(xy);
 
-        array['points'][i][0] = x;
-        array['points'][i][1] = y;
+            x = Math.round(xy['x'] + 50);
+            y = Math.round(xy['y'] + 50);
+
+            array['points'][i][0] = x;
+            array['points'][i][1] = y;
+
+        }
+
         array['points'][i][2] = z*array['size'];
 
     }
@@ -514,7 +535,7 @@ this.parray2array = function(parray){
     for (var polygonVal in parray['polygons']) {
         var polygon = parray['polygons'][polygonVal];
 
-        if(!isNot(polygon['points'][0])){//todo ?? nemelo by [undefined] take vracet ze je to isNot
+        if(!isNot(polygon['points'][0])){
 
             var newpolygon=[];
 
@@ -548,7 +569,7 @@ this.emptyParray = function(){
 //======================================================================================================parray2array
 this.modelJoinlevel = function(res){
 
-    var joinlevel=parseInt(substr2(res,'[-4,-4,',']'));//todo stejny prevod string na int v celem projektu
+    var joinlevel=parseInt(substr2(res,'[-4,-4,',']'));
 
 
     if(isNaN(joinlevel)){
@@ -584,8 +605,6 @@ this.model2model = function(res1,res2,simple){
     var array1=model2array(res1),
         array2=model2array(res2);
 
-    array1=arrayCompileRotSize(array1);
-    array2=arrayCompileRotSize(array2);
 
     var array={};
     //---------------------------
@@ -603,6 +622,9 @@ this.model2model = function(res1,res2,simple){
         //------------------------------------------------------------------Jednoduche smichani modelu
         //r('model2model: Jednoduche smichani modelu');
 
+        array1=arrayCompileRotSize(array1);
+        array2=arrayCompileRotSize(array2);
+
         var parray1=array2parray(array1),
             parray2=array2parray(array2),
             parray=emptyParray();
@@ -619,6 +641,9 @@ this.model2model = function(res1,res2,simple){
     }else{
         //------------------------------------------------------------------Spojeni modelu s joinlevel
         //r('model2model: Spojeni modelu s joinlevel');
+
+        array1=arrayCompileRotSize(array1);
+        array2=arrayCompileRotSize(array2);
 
         var joinlevel1=modelJoinlevel(res1),
             joinlevel2=modelJoinlevel(res2);

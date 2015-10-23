@@ -9,9 +9,9 @@ function r(){
 
         var arg=[];
         for(var i= 0,l=arguments.length;i<l;i++){
-            arg.push(arguments[i]);
+            arg.push(deepCopy(arguments[i]));
         }
-        console.log(arg);
+        console.log(deepCopy(arg));
     }
 }
 
@@ -93,6 +93,9 @@ function distDeg2xy(dist,deg){
 
 //======================================================================================================================
 
+//todo stejny prevod string na int v celem projektu
+//todo vyhledat v projektu, kde by se to dalo pouzit a nahradit
+
 function toFloat(value,defval){
 
     if(typeof(value)==='undefined')return(defval);
@@ -107,6 +110,7 @@ function toFloat(value,defval){
 }
 
 //----------------------------------------------------------
+
 
 function toInt(value,defval){
 
@@ -128,6 +132,7 @@ function toInt(value,defval){
 //todo jsdoc
 //todo test TDD
 //todo funguje isnot na NaN apod?
+//todo ?? nemelo by [undefined] take vracet ze je to isNot
 function isNot(val){
 
 
@@ -178,13 +183,20 @@ function isNotType(val){
 
 function deepCopy(oldObject){
 
-    // Shallow copy
-    //var newObject = jQuery.extend({}, oldObject);
+    //todo je to spravne?
+    if (typeof oldObject=='object') {
+        // Shallow copy
+        //var newObject = jQuery.extend({}, oldObject);
 
-    // Deep copy
-    var newObject = jQuery.extend(true, {}, oldObject);
+        // Deep copy
+        var newObject = jQuery.extend(true, {}, oldObject);
 
-    return(newObject);
+            return(newObject);
+    }else{
+        return(oldObject);
+
+    }
+
 }
 
 //======================================================================================================================PHP like functions
