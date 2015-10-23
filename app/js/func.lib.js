@@ -62,15 +62,72 @@ function deg2rad(degrees){
     return(degrees * (Math.PI/180));
 }
 
-function xy2dist(a,b){
-    return(Math.sqrt(Math.pow(a,2)+Math.pow(b,2)));
+function xy2dist(x,y){
+    return(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
+}
+
+
+function xy2distDeg(x,y){
+
+    var output={};
+
+    output['dist'] = xy2dist(x,y);
+    output['deg'] = rad2deg(Math.atan2(y,x));
+
+    return(output);
+
+}
+
+function distDeg2xy(dist,deg){
+
+    var rad=deg2rad(deg);
+
+    var output={};
+
+    output['x'] = Math.cos(rad)*dist;
+    output['y'] = Math.sin(rad)*dist;
+
+    return(output);
+
 }
 
 //======================================================================================================================
 
+function toFloat(value,defval){
+
+    if(typeof(value)==='undefined')return(defval);
+
+    value=parseFloat(value);
+    if(value===NaN){
+        return(defval);
+    }else{
+        return(value);
+    }
+
+}
+
+//----------------------------------------------------------
+
+function toInt(value,defval){
+
+    if(typeof(value)==='undefined')return(defval);
+
+    value=parseInt(value);
+    if(value===NaN){
+        return(defval);
+    }else{
+        return(value);
+    }
+
+}
+
+//----------------------------------------------------------
+
+
 //todo nahradit vsechny takovahle zjistovani touhle funkci
 //todo jsdoc
 //todo test TDD
+//todo funguje isnot na NaN apod?
 function isNot(val){
 
 
