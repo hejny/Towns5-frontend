@@ -698,6 +698,8 @@ $(function() {
 
 
             var distance = xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+
+            //todo pouzit funkci xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 
