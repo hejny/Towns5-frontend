@@ -262,6 +262,10 @@ $(function() {
             }else{
                 building.rot-=10;
             }
+
+            //r(building.rot);
+
+
             buildingUpdate();
 
         }else
@@ -698,11 +702,13 @@ $(function() {
 
 
             var distance = xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+
+            //todo pouzit funkci xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 
 
-            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size)); i <= l; i++) {
+            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size / 1.11 )); i <= l; i++) {
 
 
                 //r(i,l);
@@ -742,7 +748,7 @@ $(function() {
 
 
                 delete tmp.rot;
-                delete tmp.res_path;
+                //delete tmp.res_path;
 
                 //------
 
