@@ -34,7 +34,7 @@ Nové Towns 5:
 	├── [api]/
 	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
 	│   └──                     <- Budúci Node.js api - do té doby budeme využívat Towns4 API
-	├── [app]/
+	├── [app]/                  <- Vyvojove prostredie
 	│	├── [lib]/
 	│	│   ├── [cofeehtml]/    <- coffeescripty
 	│	│   ├── [css]/
@@ -43,6 +43,7 @@ Nové Towns 5:
 	│	│   ├── [lib]/          <- js knižnice (nie naše scripty) (některé ale náma upravené)
 	│	│   ├── [locale]/       <- jazykové lokalizácie
 	│	│   └── index.html      <- samotné towns HTML
+	├── [public]/               <- Produkčné súbory vygenerované gulpom     
 	├── [media]/
 	│   ├── [image]/            <- Všechny obrázky
     │   └── [sound]/            <- Všechny zvuky
@@ -84,32 +85,46 @@ Staré Towns 4:
 ## Inštalácia
 
 
-Potřeba vytvořit vlastní local doménu pro projekt např. towns.local
+1. Potřeba vytvořit vlastní local doménu pro projekt např. towns.local
 
     Linux: http://tecadmin.net/create-virtual-hosts-in-apache-on-ubuntu/
     Windows: http://ccm.net/faq/8485-configuring-apache-and-windows-to-create-a-virtual-host
     
 
-Nainštaluj si node.js a npm(node package manager)
+2. Nainštaluj si node.js a npm(node package manager)
 
 	sudo apt-get install nodejs npm
 	
-Nainštaluj si gulp cez npm (možeš aj globálne)  
+3. Nainštaluj si gulp cez npm (možeš aj globálne)  
 
 	sudo apt-get install --global gulp
 
-Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
+4. Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
 
 	npm install
-	
-Spusť gulp, nech vykoná úlohy v gulpfile.json
 
+5. Spusť gulp, nech vykoná úlohy v gulpfile.json. Gulp ma primárne za úlohu pripraviť všetky súbory pre build. Momentálne sú nastavené dve prostredia.
+
+- pre prípravu developerského prostredia
+
+	gulp default
+	// alebo len
 	gulp
+
+- Pre prípravu produkčného buildu spusť
+
+	gulp public
+	
+Produkčný build bude v adresári `/public`
 	
 * * *	
 	
 ## Testovanie
 
+Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižniciach)
+
+	gulp lint
+	
 //todo: implementovat aspoň unit testing a behaviour testing. (TDD) + automatické testovanie po každom commite.
 	
 
