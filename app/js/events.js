@@ -233,8 +233,8 @@ $(function() {
 
 
 
-        }
-        , 100
+        },
+        100
     );
 
 
@@ -244,7 +244,7 @@ $(function() {
 
         //e.preDefault();
 
-        if(terrainChanging!=false){
+        if(terrainChanging!==false){
 
             if(e.deltaY>0){
                 selecting_distance+=100;
@@ -255,7 +255,7 @@ $(function() {
 
 
         }else
-        if(building!=false){
+        if(building!==false){
 
             if(e.deltaY>0){
                 building.rot+=10;
@@ -397,7 +397,7 @@ $(function() {
             if (window_opened)return;
 
 
-            if(BorderMoveX!=0 || BorderMoveY!=0){
+            if(BorderMoveX!==0 || BorderMoveY!==0){
 
                 BorderMoveDelay_-=100;
 
@@ -416,11 +416,11 @@ $(function() {
 
     $(window).mouseleave(function() {// cursor has left the window
         BorderMoveX=0;BorderMoveY=0;
-    })
+    });
 
     $('body').mouseleave(function() {// cursor has left the IE window
         BorderMoveX=0;BorderMoveY=0;
-    })
+    });
 
 
     var mouseMove=function (e) {
@@ -717,7 +717,7 @@ $(function() {
 
 
                 if (l < 2 && ll<2) {
-                    var rot = tmp.rot;
+                    rot = tmp.rot;
 
                 } else {
 

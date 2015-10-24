@@ -27,8 +27,5 @@ npm-debug.log
 
 /app/test/*
 
-
-
-app-dist/*
-documentation/*
-
+app-dist
+documentation
