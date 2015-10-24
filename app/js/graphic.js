@@ -36,9 +36,14 @@ var map_model_size=2,
     map_tree_size_zip=10,
 
 
-    map_rock_size=0.8,
+   /* map_rock_size=0.8,
     map_rock_size_diff=0.2
-    map_rock_size_zip=5;
+    map_rock_size_zip=5;*/
+
+
+ map_rock_size=1.2,
+ map_rock_size_diff=0.1,
+ map_rock_size_zip=-5;
 
 
 
@@ -73,11 +78,13 @@ var terrainCount=13;
 
 //----------------
 
-seedCount=6;
+var seedCount=4;
 //----
 
-treeCount=10;
-rockCount=6;
+var treeCount=10;
+var rockCount=6;
+var rockCountDark=4;
+var rockMaxDark=50;
 
 //----------------Odvozene hodnoty
 
@@ -153,7 +160,7 @@ function imageLoad(){
 
 
 
-var all_images_count=terrainCount*seedCount+treeCount+rockCount;
+var all_images_count=terrainCount*seedCount+treeCount+rockCount*rockCountDark;
 var all_images_loaded=0;
 
 
@@ -220,12 +227,15 @@ $(function() {
     //----------------------------------------------------------------Rock
     for (var seed = 0; seed < rockCount; seed++) {
 
+        all_images_rock[seed] = [];
 
-        all_images_rock[seed] = new Image();
-        all_images_rock[seed].src = 'app/graphic/treerock.php?type=rock&seed=' + seed + '&width=133';
+        for (var dark = 0; dark < rockCountDark; dark++) {
 
-        all_images_rock[seed].onload = imageLoad;
+            all_images_rock[seed][dark] = new Image();
+            all_images_rock[seed][dark].src = 'app/graphic/treerock.php?type=rock&seed=' + seed + '&width=133&dark=' + Math.round(dark/rockCountDark*rockMaxDark);
 
+            all_images_rock[seed][dark].onload = imageLoad;
+        }
 
     }
 
@@ -583,23 +593,24 @@ function drawMap() {
                             if (!block_object) {
 
 
-                                var object_seed = (Math.pow(world_x, 2) + Math.pow(world_y, 2)) % (terrain == 9 ? treeCount : rockCount);
-
-                                var object = (terrain == 9 ? all_images_tree[object_seed] : all_images_rock[object_seed]);
-
-                                var object_id = (terrain == 9 ? 't' : 'r') + world_x + 'x' + world_y + 'y';
-
-
-                                /*if (terrain == 9) {
-                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) / 10 + 0.6;
-                                } else {
-                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2)) / 10) / 5 + 0.8;
-                                }*/
                                 if (terrain == 9) {
                                     var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) * map_tree_size_diff + map_tree_size;
                                 } else {
-                                    var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2)) / 10) * map_rock_size_diff + map_rock_size;
+
+                                    //var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2.5)) / 10) * map_rock_size_diff + map_rock_size;
+
+                                    var object_size_seed=Math.floor(Math.pow(Math.pow(world_x,2)+Math.pow(world_y,2), 1.1))%rockCountDark;
+
+                                    var size = (1-(object_size_seed/rockCountDark)) * map_rock_size_diff + map_rock_size;
+
                                 }
+
+                                var object_seed = (Math.pow(world_x, 2) + Math.pow(world_y, 2)) % (terrain == 9 ? treeCount : rockCount);
+
+                                var object = (terrain == 9 ? all_images_tree[object_seed] : all_images_rock[object_seed][object_size_seed]);
+
+                                var object_id = (terrain == 9 ? 't' : 'r') + world_x + 'x' + world_y + 'y';
+
 
 
                                 var object_width = object.width * (width / 100) * size;
@@ -689,7 +700,7 @@ function drawMap() {
     var selecting_distance_pow = 20;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    var object = all_images_rock[0];
+    var object = all_images_rock[0][0];
     for (var i = 0; i < map_data.length; i++) {
 
         //-----------------------------------------
