@@ -11,7 +11,7 @@ function createDir($dir){
 
     if(!file_exists($dir)){
         mkdir($dir);
-        chmod(0777);
+        chmod($dir,0777);
 
     }
 
