@@ -12,6 +12,8 @@ var canvas_height;
 
 $(function() {
 
+    //alert($(document).width()+','+$(document).height());
+
     $('#map_bg').attr('width',$(document).width()*3);
     $('#map_bg').attr('height',$(document).height()*3);
 
@@ -19,6 +21,17 @@ $(function() {
     canvas_height=map_bg.height;
 
 });
+
+
+
+/*setInterval(function(){
+
+    $('body').scrollLeft(0);
+    $('body').scrollTop(0);
+
+},100);*/
+
+
 
 //======================================================window resize, zoom
 
