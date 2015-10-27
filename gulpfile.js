@@ -73,6 +73,8 @@ gulp.task("lint", function() {
 // Vymazanie pred buildom
 gulp.task('production-clean', function() {
     del(['public/index.html', 'public/css', 'public/js', 'public/media/image', 'public/media/sound'])
+
+    //todo [SK] opravit index.html na index.php (ten by se podle me nemel minifikovat) viz trello
 });
 
 // Starter development Buildu
