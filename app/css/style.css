@@ -182,7 +182,7 @@ input, textarea {
 
 
 #debuginfo {
-    display:none;
+    display:none;/*todo nemely by tyhle display informace byt v html souboru???*/
     position:absolute;
     right:0px;
     top:65px;
@@ -501,7 +501,6 @@ input, textarea {
 /* OVERLAY -----------------------------------------------------------------------------------------------------------*/
 
 .overlay {
-    display: none;
     z-index: 6000;
     position: fixed;
     top: 0;
@@ -518,7 +517,6 @@ input, textarea {
 .js-popup-window-close {}
 
 .popup-window {
-    display: none;
     z-index: 7000;
     position: fixed;
     top: 80px;
