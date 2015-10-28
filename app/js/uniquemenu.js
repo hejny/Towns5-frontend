@@ -83,7 +83,7 @@ if(unique_objects!==null) {
 
 
 
-//======================================================================================================================objectMenuLevelChange
+//======================================================================================================================buildingStart
 
 function buildingStart(object){
 
@@ -138,11 +138,43 @@ function buildingStop(){
     building=false;
     selecting_offset={x: 0,y: 0};
 
-
-    $('#selecting-distance').hide();
-    $(".active").removeClass("active");
 }
 
+//======================================================================================================================dismantlingStart
+
+function dismantlingStart(){
+
+    mapSpecialCursorStop();
+    mapSpecialCursorStart();
+
+    updateSelectingDistance();
+
+    dismantling=true;
+
+    $('#selecting-distance-ctl').css('background','');
+    $('#selecting-distance-ctl').css('background-size','cover');
+
+
+    $('#selecting-distance-ctl').show();
+    $('#selecting-distance-left').hide();
+    $('#selecting-distance-right').hide();
+
+
+
+    $('#selecting-distance').show();
+
+}
+
+
+//---------------------------------------------------------------dismantlingStop
+
+
+function dismantlingStop(){
+
+    dismantling=false;
+
+
+}
 
 //======================================================================================================================ObjectMenu
 

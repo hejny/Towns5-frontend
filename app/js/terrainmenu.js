@@ -28,11 +28,9 @@ function terrainChangeStart(terrain,level){
 }
 
 function terrainChangeStop(){
-    //r('terrainChangeStop');
+
     terrainChanging=false;
-    $('#selecting-distance-ctl').hide();
-    $('#selecting-distance').hide();
-    $(".active").removeClass("active");
+
 }
 
 
