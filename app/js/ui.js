@@ -236,15 +236,32 @@ window.uiScript = function(){
 
 //======================================================================================================================
 
+var specialCursor=false;
+
+//----------
+
 window.mapSpecialCursorStart = function(){
+
+    specialCursor=true;
     $('#map_drag').draggable('disable');
+
 };
 
 //----------
 
 window.mapSpecialCursorStop = function(){
+
+    specialCursor=false;
+
     $('#map_drag').draggable('enable');
+
+
+    $('#selecting-distance-ctl').hide();
+    $('#selecting-distance').hide();
+    $(".active").removeClass("active");
+
     buildingStop();
+    dismantlingStop();
     terrainChangeStop();
 };
 

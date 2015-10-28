@@ -218,6 +218,7 @@
                         <ul class="menu-dlist">
                             <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');">Zakladni</a></li>
                             <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');">Hradby</a></li>
+                            <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();">Zbourat</a></li>
                         </ul>
                     </li>
 
