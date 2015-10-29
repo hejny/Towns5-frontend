@@ -21,10 +21,16 @@ catch(err) {
     map_object_changes=[];
 }
 
+//----------------
 
+function saveMapObjectChangesToLocalStorage(){
 
+    localStorage.setItem('map_object_changes',JSON.stringify(map_object_changes));
+}
 
+//----------------
 map_object_changes_buffer=[];//krokové změny
+
 
 //======================================================================================================================
 
@@ -127,7 +133,7 @@ function create(object,nosave){
     if(!nosave){
 
         r('saving objects');
-        localStorage.setItem('map_object_changes',JSON.stringify(map_object_changes));
+        saveMapObjectChangesToLocalStorage();
 
     }else{
         //r('NO saving objects');
