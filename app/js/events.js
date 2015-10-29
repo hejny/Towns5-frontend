@@ -257,7 +257,7 @@ $(function() {
 
         //e.preDefault();
 
-        if(terrainChanging!==false){
+        if(terrainChanging!==false || dismantling!==false){
 
             if(e.deltaY>0){
                 selecting_distance+=100;
@@ -556,7 +556,7 @@ $(function() {
             //-----------------------------------------------------------------
 
 
-            //-----------------------------------------------------------------
+            //-----------------------------------------------------------------dismantling
             if(dismantling !== false){
 
 
@@ -567,13 +567,20 @@ $(function() {
 
 
                 for(var i=map_object_changes.length-1;i>=0;i--){
-                    if(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance){
+
+                    //r(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
+                    if(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance/map_field_size){
+
+                        //r('splicing '+i);
 
                         map_object_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
 
                     }
 
                 }
+
+                loadMap();
+                return;
 
             }
             //-----------------------------------------------------------------

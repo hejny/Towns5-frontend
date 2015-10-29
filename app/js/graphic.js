@@ -28,6 +28,8 @@ r(map_x,map_y);
 /*var map_x=0;
 var map_y=0;*/
 
+var map_field_size=160;
+
 var map_model_size=2,
 
 
@@ -474,15 +476,15 @@ function drawMap() {
                     //var size = (Math.sin((world_x * world_y) / 10) / 4) + 1.25;
                     var size=1;
 
-                    var width = Math.ceil(160 * size * 3 * map_zoom_m);
+                    var width = Math.ceil(map_field_size * size * 3 * map_zoom_m);
                     var height = Math.ceil(width * size /* map_zoom_m*/);
 
                     height_z=height*(1+map_z_data[y][x]);
 
 
 
-                    var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
-                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
+                    var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
+                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
 
 
                     screen_x += (canvas_width / 2);
@@ -534,8 +536,8 @@ function drawMap() {
                                 //++++++++++++++++++ begin duplicate
                                 var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
 
-                                var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * 160 ) * map_zoom_m;
-                                var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * 160 ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
+                                var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
+                                var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
 
                                 screen_x += (canvas_width / 2);
                                 screen_y += (canvas_height / 2) - (height / 2);
@@ -554,7 +556,7 @@ function drawMap() {
                     //------------------------------------------
 
 
-                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (160 * size)) {
+                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (map_field_size * size)) {
 
                         //----------------------------------------------------------------------------------------------
 
@@ -633,8 +635,8 @@ function drawMap() {
                                 object_yc += Math.sin((world_x-world_y) / 100) / 1.41;
 
 
-                                object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m + (z - 300) / map_slope_n * map_zoom_m;
+                                object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m + (z - 300) / map_slope_n * map_zoom_m;
 
 
                                 object_screen_x += (canvas_width / 2);
@@ -733,8 +735,8 @@ function drawMap() {
         object_xc = map_data[i].x - map_x;
         object_yc = map_data[i].y - map_y;
 
-        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m;
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
 
         object_screen_x += (canvas_width / 2);
@@ -826,7 +828,7 @@ function drawMap() {
 
 
     /* todo ? Promyslet zda podparvovat cernou elipsou
-    map_width=160*map_size*map_zoom_m;
+    map_width=map_field_size*map_size*map_zoom_m;
     map_width=map_width-100;
     map_height=map_width/map_slope_m;
     drawEllipse(map_ctx,(canvas_width-map_width)/2,(canvas_height-map_height)/2,map_width,map_height);*/
@@ -1090,7 +1092,7 @@ function updateMap(ms){
         localStorage.setItem('map_y',map_y);
 
 
-        map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/160/*1.4*/))/map_zoom_m;
+        map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/map_field_size/*1.4*/))/map_zoom_m;
         map_size=Math.ceil(map_size/2)*2;
 
 
@@ -1283,8 +1285,8 @@ function bufferDraw(){
         object_xc = map_object_changes_buffer[i].x - map_x;
         object_yc = map_object_changes_buffer[i].y - map_y;
 
-        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * 160 ) * map_zoom_m;
-        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * 160 ) / map_slope_m * map_zoom_m;
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
 
         object_screen_x += (canvas_width /3 / 2);
