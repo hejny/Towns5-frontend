@@ -436,16 +436,23 @@ $(function() {
     });
 
 
+    $('body').mouseup(function() {
+
+        BorderMoveX=0;BorderMoveY=0;
+
+    });
+
+
     var mouseMove=function (e) {
         //r('mouseMove');
 
 
 
         if(e.clientX<BorderMoveRegion){
-            BorderMoveX=BorderMoveSpeed;
+            BorderMoveX=BorderMoveSpeed;//r('set borders');
         }else
         if(e.clientX>(canvas_width/3)-BorderMoveRegion){
-            BorderMoveX=-BorderMoveSpeed;
+            BorderMoveX=-BorderMoveSpeed;//r('set borders');
         }else{
             BorderMoveX=0;
 
@@ -453,10 +460,10 @@ $(function() {
 
 
         if(e.clientY<BorderMoveRegion){
-            BorderMoveY=BorderMoveSpeed;
+            BorderMoveY=BorderMoveSpeed;//r('set borders');
         }else
         if(e.clientY>(canvas_height/3)-BorderMoveRegion){
-            BorderMoveY=-BorderMoveSpeed;
+            BorderMoveY=-BorderMoveSpeed;//r('set borders');
         }else{
             BorderMoveY=0;
         }
@@ -579,6 +586,7 @@ $(function() {
 
                 }
 
+                saveMapObjectChangesToLocalStorage();
                 loadMap();
                 return;
 
