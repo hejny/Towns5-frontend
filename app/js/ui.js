@@ -39,7 +39,7 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
-    if($.inArray('debug',env)==-1)
+    if(env('debug'))
     $(document).on("contextmenu", function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
@@ -180,12 +180,21 @@ window.uiScript = function(){
 
     //==================================================================================================================selecting_distance Click
 
+    $('#selecting-distance-plus').off();
+    $('#selecting-distance-minus').off();
+    $('#selecting-distance-left').off();
+    $('#selecting-distance-right').off();
+    $('#selecting-distance-close').off();
+
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
     $('#selecting-distance-plus').click(function(){
 
         if(building){
             building.size+=0.1;
             if(building.size>2.5)building.size=2.5;//todo funkce pro bounds
+
+            r(building.size);
+
             buildingUpdate();
         }else{
             selecting_distance+=100;
@@ -197,6 +206,9 @@ window.uiScript = function(){
         if(building){
             building.size-=0.1;
             if(building.size<0.5)building.size=0.5;
+
+            r(building.size);
+
             buildingUpdate();
         }else{
             selecting_distance-=100;
@@ -222,9 +234,9 @@ window.uiScript = function(){
 
     //==================================================================================================================ENV
 
-    if($.inArray('debug',env)!=-1)$("#debuginfo").show();
+    if(env('debug'))$("#debuginfo").show();
 
-    if($.inArray('onlymap',env)!=-1)$(".menu").hide();
+    if(env('onlymap'))$(".menu").hide();
 
     //==================================================================================================================
 
@@ -278,7 +290,8 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    window_open('Towns 5',window['projects_html']);
+    if(!env('nointro'))
+        window_open('Towns 5',window['projects_html']);
 
 
 });

@@ -91,7 +91,7 @@ function create(object,nosave){
 
 
 
-            if(!isNot(map_object_changes[distances[0].i].res_node)) {
+            if(is(map_object_changes[distances[0].i].res_node)) {
 
                 map_object_changes[distances[0].i].res=map_object_changes[distances[0].i].res_node;
                 //delete map_object_changes[distances[0].i].res_node;
@@ -99,7 +99,7 @@ function create(object,nosave){
 
             }
 
-            if(!isNot(object.res_node)) {
+            if(is(object.res_node)) {
 
 
                 if(map_object_changes[distances[0].i].res_node==object.res_node){
@@ -114,7 +114,14 @@ function create(object,nosave){
 
             }
 
-            map_object_changes[distances[0].i].res=model2model(map_object_changes[distances[0].i].res,object.res);
+            map_object_changes[distances[0].i].res=
+                model2model(
+                    map_object_changes[distances[0].i].res
+                    ,object.res
+                    ,false
+                    ,(object.x-map_object_changes[distances[0].i].x)*100/map_model_size
+                    ,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size
+                );
 
             delete map_object_changes[distances[0].i].res_node;
             delete map_object_changes[distances[0].i].res_path;

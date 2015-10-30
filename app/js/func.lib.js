@@ -91,6 +91,24 @@ function distDeg2xy(dist,deg){
 
 }
 
+
+
+function xyRotate(x,y,deg){
+
+    //nevyuzivat funkce xy2distDeg a distDeg2xy, abych nedelal zbytecny prevod do stupnu a spatky
+    var dist = xy2dist(x,y);
+    var rad = Math.atan2(y,x);
+
+    rad += deg2rad(deg);
+
+    var output={};
+    output['x'] = Math.cos(rad)*dist;
+    output['y'] = Math.sin(rad)*dist;
+
+    return(output);
+
+}
+
 //======================================================================================================================
 
 //todo stejny prevod string na int v celem projektu
@@ -153,6 +171,12 @@ function isNot(val){
 
     return false;
 
+}
+
+//--------------------is
+
+function is(val){
+    return(!isNot(val));
 }
 
 //----------------------------------------------------------

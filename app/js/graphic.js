@@ -144,6 +144,9 @@ function imageLoad(){
 
     if(all_images_loaded >= all_images_count) {
 
+
+        r('all graphics loaded',all_images_loaded,all_images_count);
+
         map_loaded=true;
         updateMap();
         $('#loadbar').remove();
@@ -160,9 +163,11 @@ function imageLoad(){
 
 //----------------------------------------------------------------Pocet
 
+//r(terrainCount,seedCount,treeCount,rockCount,rockCountDark);
+//r((terrainCount*seedCount),(treeCount),(rockCount*rockCountDark));
 
 
-var all_images_count=terrainCount*seedCount+treeCount+rockCount*rockCountDark;
+var all_images_count=(terrainCount*seedCount)+(treeCount)+(rockCount*rockCountDark);
 var all_images_loaded=0;
 
 
@@ -201,7 +206,7 @@ $(function() {
 
     for(var terrain=0;terrain<terrainCount;terrain++) {
         all_images_bg[terrain] = [];
-        for (var seed = -1; seed < seedCount; seed++) {
+        for (var seed = 0; seed < seedCount; seed++) {
 
 
             all_images_bg[terrain][seed] = new Image();
