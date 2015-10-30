@@ -1,0 +1,12 @@
+{
+  "develop": true,
+
+  "facebook": {
+    "app_id": 408791555870621
+  },
+
+  "google": {
+    "tracking_id": "UA-16346522-17"
+  }
+
+}

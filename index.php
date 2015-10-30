@@ -1,23 +1,9 @@
 <?php
+$config = json_decode(file_get_contents(__DIR__."/config/app.json"), true);
 
-
-$config=[
-
-    'nomin' => true,
-
-    'addhead' => '<meta property="fb:app_id" content="408791555870621" >',
-    'addbody' => "<script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-16346522-17', 'auto');
-            ga('send', 'pageview');
-
-        </script>"
-
-
-];
-
-require('app/index.php');
+// Na zaklade konfiguracie rozhodni ktoru verziu budes spustat
+if(isset($config['develop']) && $config['develop'] === true){
+    require('app/index.php');
+} else {
+    require('app-dist/index.php');
+}
