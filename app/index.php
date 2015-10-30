@@ -26,28 +26,22 @@
     http_response_code(200);
 
 
-
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title><?=htmlspecialchars($title)?></title>
         <meta name="description" content="<?=addslashes($description)?>">
-
-
-
-
-
-
+        <link rel="icon" href="/favicon.ico">
 
         <?php
-
         //--------------------------------Dodatecne hlavicky
-
-        if(isset($config['add_head'])) echo($config['add_head']);
+        if(isset($config['facebook']['app_id'])) {
+            echo '<meta property="fb:app_id" content="'.$config['facebook']['app_id'].'" >';
+        }
 
         //--------------------------------Open Graph informace
 
@@ -56,26 +50,8 @@
 
         }
 
-        //--------------------------------
-
-        ?>
-
-
-
-        <!--<meta xml:base="http://towns.local">
-        <base href="http://towns.local" target="_blank">-->
-        <!--todo base je to vubec potreba ???-->
-
-        <link rel="icon" href="/favicon.ico">
-
-
-
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <?php
-
-        if(isset($config['nomin'])/*tady je podminka zda jse o testovaci verzi*/) {
-            ?>
+        //tady je podminka zda jse o testovaci verzi
+        if(isset($config['develop'])) : ?>
 
             <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
 
@@ -133,24 +109,24 @@
             <!--<script async src='/browser-sync/browser-sync-client.2.9.8.js'></script>-->
 
 
-        <?php
-        }else{
-
-            //todo tady by mel byt odkaz na 2 minifikovane soubory towns.js a towns.css
-
-        }
-        ?>
-
-
-
+        <?php else : ?>
+            <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.css"/>
+            <script src="/app-dist/js/towns.js"></script>
+        <?php endif; ?>
 
     </head>
     <body>
 
-
-        <?php
-            if(isset($config['add_body'])) echo($config['add_body']);
-        ?>
+        <?php if (isset($config['google']['tracking_id'])) : ?>
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', '<?= $config['google']['tracking_id'] ?>', 'auto');
+            ga('send', 'pageview');
+        </script>
+        <?php endif; ?>
 
 
 

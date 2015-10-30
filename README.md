@@ -35,14 +35,16 @@ Nové Towns 5:
 	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
 	│   └──                     <- Budúci Node.js api - do té doby budeme využívat Towns4 API
 	├── [app]/                  <- Vyvojove prostredie
-	│	├── [lib]/
-	│	│   ├── [cofeehtml]/    <- coffeescripty
-	│	│   ├── [css]/
-	│	│   ├── [graphic]/      <- obrázky generované cez PHP
-	│	│   ├── [js]/           <- naše javascripty (nie knižnice)
-	│	│   ├── [lib]/          <- js knižnice (nie naše scripty) (některé ale náma upravené)
-	│	│   ├── [locale]/       <- jazykové lokalizácie
-	│	│   └── index.html      <- samotné towns HTML
+	│   ├── [cofeehtml]/        <- coffeescripty
+	│   ├── [css]/              <- naše štýly (nie css z knižníc)
+	│   ├── [graphic]/          <- obrázky generované cez PHP
+	│   ├── [js]/               <- naše javascripty (nie knižnice)
+	│   ├── [lib]/              <- js knižnice (nie naše scripty) (některé ale náma upravené) 
+	│   ├── [locale]/           <- jazykové lokalizácie
+	│   ├── [tdd]/              <- 
+	│   └── index.php           <- samotné towns HTML
+	├── [config]/               <- Konfiguračné súbory
+	│   └── app.json            <- hlavné nastavenie aplikácie
 	├── [public]/               <- Produkčné súbory vygenerované gulpom     
 	├── [media]/
 	│   ├── [image]/            <- Všechny obrázky
@@ -107,13 +109,17 @@ Staré Towns 4:
 
 - pre prípravu developerského prostredia
 
+
 	gulp default
 	// alebo len
 	gulp
 
+
 - Pre prípravu produkčného buildu spusť
 
+
 	gulp public
+
 	
 Produkčný build bude v adresári `/public`
 	
