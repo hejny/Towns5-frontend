@@ -46,7 +46,7 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
             cnt = 0;
             for (var i in polygons[polygon]) {
 
-                    if(i!='color' && !isNot(res['points'][polygons[polygon][i]])) {
+                    if(i!='color' && is(res['points'][polygons[polygon][i]])) {
 
                         sum += res['points'][polygons[polygon][i]][0] * slope_m
                             +  res['points'][polygons[polygon][i]][1] * slope_m
@@ -125,7 +125,7 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
         tmppoints = [];
         i = 0;
         for (var i3 = 0, l3 = res['polygons'][i2].length; i3 < l3; i3++) {
-            if (!isNot(res['points'][res['polygons'][i2][i3]])) {
+            if (is(res['points'][res['polygons'][i2][i3]])) {
 
                 x = res['points'][res['polygons'][i2][i3]][0]-50;
                 y = res['points'][res['polygons'][i2][i3]][1]-50;
@@ -347,7 +347,7 @@ this.model2array = function(res){
         for (var i=0,l=polygons.length;i<l;i++) {
 
 
-            if(!isNot(polygons[i])){
+            if(is(polygons[i])){
 
                 polygons[i]=explode(",",polygons[i]);
 
@@ -438,6 +438,23 @@ this.arrayPurge = function(array) {
         }
 
     }
+
+    return(array);
+
+}
+
+//======================================================================================================arrayMoveBy
+
+this.arrayMoveBy = function(array,move_x,move_y,move_z) {
+
+    for (var i=0,l=array['points'].length;i<l;i++) {
+
+        array['points'][i][0]+=move_x;
+        array['points'][i][1]+=move_y;
+        array['points'][i][2]+=move_z;
+
+    }
+
 
     return(array);
 
@@ -535,7 +552,7 @@ this.parray2array = function(parray){
     for (var polygonVal in parray['polygons']) {
         var polygon = parray['polygons'][polygonVal];
 
-        if(!isNot(polygon['points'][0])){
+        if(is(polygon['points'][0])){
 
             var newpolygon=[];
 
@@ -566,8 +583,13 @@ this.emptyParray = function(){
 }
 
 
-//======================================================================================================parray2array
-this.modelJoinlevel = function(res){
+//======================================================================================================modelJoinlevel
+this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
+
+    if(isNot(start_x))start_x=0;
+    if(isNot(start_y))start_y=0;
+    if(isNot(stop_x))stop_x=100;
+    if(isNot(stop_y))stop_y=100;
 
     var joinlevel=parseInt(substr2(res,'[-4,-4,',']'));
 
@@ -582,13 +604,24 @@ this.modelJoinlevel = function(res){
             for (var pointVal in polygon['points']) {
                 var point = polygon['points'][pointVal];
 
-                if(!isNot(point))
-                    if(point[2]>joinlevel)joinlevel=point[2];
+                if(is(point)){
+
+                    if(
+                        point[0]>start_x &&
+                        point[0]<stop_x &&
+                        point[1]>start_y &&
+                        point[1]<stop_y &&
+                        point[2]>joinlevel
+                    )joinlevel=point[2];
+
+
+                }
+
             }
         }
 
         if(joinlevel!=0){
-            joinlevel-=50;
+            joinlevel-=30;
         }
 
 
@@ -596,14 +629,78 @@ this.modelJoinlevel = function(res){
 
     return(joinlevel);
 
+
+}
+//======================================================================================================parrayBounds
+this.parrayBounds = function(parray){
+
+    start_x=0;
+    start_y=0;
+    stop_x=100;
+    stop_y=100;
+
+
+        for (var polygonVal in parray['polygons']) {
+            var polygon = parray['polygons'][polygonVal];
+            for (var pointVal in polygon['points']) {
+                var point = polygon['points'][pointVal];
+
+                if(is(point)){
+
+                    if(isNot(start_x))start_x=point[0];
+                    if(isNot(stop_x))stop_x=point[0];
+                    if(isNot(start_y))start_y=point[1];
+                    if(isNot(stop_y))stop_y=point[1];
+
+
+                    if(point[0]<start_x)start_x=point[0];
+                    if(point[0]>stop_x)stop_x=point[0];
+                    if(point[1]<start_y)start_y=point[1];
+                    if(point[1]>stop_y)stop_y=point[1];
+
+
+
+                }
+
+            }
+        }
+
+
+
+    return({
+        'start_x': start_x,
+        'start_y': start_y,
+        'stop_x': stop_x,
+        'stop_y': stop_y
+    });
+
 }
 
 //======================================================================================================model2model
-this.model2model = function(res1,res2,simple){
+this.model2model = function(res1,res2,simple,move_x,move_y){
     if(typeof simple=='undefined')simple=false;
+
 
     var array1=model2array(res1),
         array2=model2array(res2);
+
+
+    if(is(move_x) || is(move_y)){
+
+        //r(move_x,move_y);
+
+        var tmp = xyRotate(move_x,move_y,-45);//todo Jde nejekym zkusobem vytvorit v js funkci, ktera zmeni hodnotu primo a ne tak, ze je musi vratit pres nejake pomocene pole?
+
+        //r(move_x,move_y);
+
+        move_x=Math.round(tmp.x);
+        move_y=Math.round(tmp.y);
+
+        //r(move_x,move_y);
+        array2=arrayMoveBy(array2,move_x,move_y,0);
+
+    }
+
 
 
     var array={};
@@ -619,7 +716,7 @@ this.model2model = function(res1,res2,simple){
         array=array1;
         //------------------------------------------------------------------
     }else if(simple){
-        //------------------------------------------------------------------Jednoduche smichani modelu
+        //------------------------------------------------------------------Jednoduche smichani modelu bez navyseni
         //r('model2model: Jednoduche smichani modelu');
 
         array1=arrayCompileRotSize(array1);
@@ -645,21 +742,29 @@ this.model2model = function(res1,res2,simple){
         array1=arrayCompileRotSize(array1);
         array2=arrayCompileRotSize(array2);
 
-        var joinlevel1=modelJoinlevel(res1),
+        var parray1=array2parray(array1);
+            parray2=deepCopy(array2parray(array2));
+
+
+        var bounds=parrayBounds(res2);
+
+
+        var joinlevel1=modelJoinlevel(res1,bounds.start_x,bounds.start_y,bounds.stop_x,bounds.stop_y),
             joinlevel2=modelJoinlevel(res2);
 
-        parray1=array2parray(array1);
-        parray2=deepCopy(array2parray(array2));
+
 
         parray=emptyParray();
 
         //-----------------
 
+        //todo [PH] udelat pres arrayMoveBy
+
         for (var polygonVal in parray2['polygons']) {
             polygon = parray2['polygons'][polygonVal];
 
 
-            if(!isNot(polygon['points']))
+            if(is(polygon['points']))
             for(var i in polygon['points']){
 
                 polygon['points'][i][2]+=joinlevel1;
@@ -667,6 +772,7 @@ this.model2model = function(res1,res2,simple){
             }
 
         }
+
         //-----------------
 
         parray['polygons']=(parray1['polygons']).concat(parray2['polygons'])

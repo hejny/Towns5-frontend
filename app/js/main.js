@@ -7,11 +7,12 @@ var baseurl='http://towns.local';
 var env_template=[
     'debug',
     'onlymap',
-    'restart'
+    'restart',
+    'nointro'
 
 ];
 
-var env=[];
+var env_array=[];
 
 
 
@@ -21,20 +22,39 @@ query=query.split('&');
 
 
 
-
 for(var i=0;i<env_template.length;i++){
+
+    //console.log(env_template[i],$.inArray(env_template[i],query));
 
 
     if($.inArray(env_template[i],query)!=-1){
-        env.push(env_template[i]);
+
+        env_array.push(env_template[i]);
     }
 
 }
 
 
+console.log('Starting Towns 5...');
+console.log('ENV:');
+console.log(env_array);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~ENV
+
+function env(envkey) {
+
+    if($.inArray(envkey,env_array)!=-1) {
+        return(true);
+    }else {
+        return(false);
+    }
+
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 var query_new;
-query_new=env.join('&');
+query_new=env_array.join('&');
 
 
 if(query_new!='')query_new='?'+query_new;
@@ -57,18 +77,19 @@ for(var i=0;i<pathname.length;i++){
 pathname_new=pathname_new.join('/');
 
 if(pathname_new!='')pathname_new='/'+pathname_new;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 var location_new=baseurl+pathname_new+query_new;
 
-//r(location_new);
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ENV RESTART
 
 
-if($.inArray('restart',env)!=-1){
+if(env('restart')){
+
+    r('Cleaning localStorage');
 
     localStorage.clear();
 
