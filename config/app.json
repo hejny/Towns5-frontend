@@ -1,9 +1,16 @@
 {
-  "develop": true,
+  "environmnet_help": {
+    "develop": "Prostredie v ktorom sa hra vyvyja",
+    "test": "Prostredie v ktorom hru testujeme",
+    "production": "Prostredie v ktorom hra bezi na live serveri"
+  },
+  "environment": "develop",
+
 
   "facebook": {
     "app_id": 408791555870621
   },
+
 
   "google": {
     "tracking_id": "UA-16346522-17"

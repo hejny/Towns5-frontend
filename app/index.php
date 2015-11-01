@@ -51,7 +51,7 @@
         }
 
         //tady je podminka zda jse o testovaci verzi
-        if(isset($config['develop'])) : ?>
+        if(isset($config['environment']) && $config['environment'] != "production") : ?>
 
             <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
 
