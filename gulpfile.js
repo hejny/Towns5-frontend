@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    minifyHTML = require('gulp-minify-html'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     minifyCss = require('gulp-minify-css'),
@@ -8,45 +7,39 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
     jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
-    del = require('del');
+    del = require('del'),
+    config = require('./config/app.json');
 
-// HTML
-gulp.task('production-html', function () {
-    gulp.src('app/*.html')
-        .pipe(minifyHTML({
-            conditionals: true,
-            spare: true
-        }))
-        .pipe(gulp.dest('public/'));
+// Index.php pre produkcny build
+gulp.task('production-index', function () {
+    gulp.src('app/*.php')
+        .pipe(gulp.dest('app-dist/'));
 });
 
 // Scripts
 gulp.task('production-scripts', function() {
     gulp.src('app/js/*.js')
         .pipe(concat('towns.js'))
-        .pipe(gulp.dest('public/js'))
+        .pipe(gulp.dest('app-dist/js'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
+        .pipe(gulp.dest('app-dist/js'));
 
     gulp.src("app/js/*.js")
         .pipe(jsdoc('documentation/'));
-});
-
-gulp.task('development-scripts', function() {
 });
 
 // Styly
 gulp.task('production-styles', function () {
     gulp.src('app/**/*.css')
         .pipe(concat('towns.css'))
-        .pipe(gulp.dest('public/css'))
+        .pipe(gulp.dest('app-dist/css'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifyCss({compatibility: 'ie8'}))
-        .pipe(gulp.dest('public/css'));
+        .pipe(gulp.dest('app-dist/css'));
 });
 
-gulp.task('development-styles', function () {
+gulp.task('develop-styles', function () {
 });
 
 // Obrazky
@@ -54,61 +47,125 @@ gulp.task('production-images', function () {
     gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
         //.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true, multipass: true }))
-        .pipe(gulp.dest('public/media/image'));
+        .pipe(gulp.dest('app-dist/media/image'));
 });
 
 // Zvuky
 gulp.task('production-sound', function () {
     gulp.src('media/sound/*')
-        .pipe(gulp.dest('public/media/sound'));
+        .pipe(gulp.dest('app-dist/media/sound'));
 });
 
-// Lint
-gulp.task("lint", function() {
+// Lint - testpvanie
+gulp.task("lint", ['develop-scripts'], function() {
     gulp.src("app/js/*.js")
         .pipe(jshint())
         .pipe(jshint.reporter("default"));
 });
 
-// Vymazanie pred buildom
-gulp.task('production-clean', function() {
-    del(['public/index.html', 'public/css', 'public/js', 'public/media/image', 'public/media/sound'])
 
-    //todo [SK] opravit index.html na index.php (ten by se podle me nemel minifikovat) viz trello
+// Starter Buildu
+gulp.task('default', function() {
+    // Nacita sa hodnota environment z konfiguracneho suboru a spusti sa spravny build
+    if(config.environment == "develop") {
+        gulp.start("develop");
+    } else {
+        if (config.environment == "test") {
+            gulp.start("lint")
+        } else {
+            gulp.start("production")
+        }
+    }
+
 });
 
-// Starter development Buildu
-gulp.task('default', ['development-styles', 'development-scripts'], function() {
-    gulp.start('watch');
-    console.log(' ¯\\_(ツ)_/¯ Development build je hotovy, teraz uz len kontrolujem zmeny ');
+// Vycisti develop a zacni Develop Build
+gulp.task('develop', ['develop-clean'], function() {
+    gulp.start('develop-build');
 });
 
-// Starter Produkcneho Buildu
-gulp.task('public', ['production-clean'], function() {
-    gulp.start('build');
+// Vymazanie develop kniznic pred buildom
+gulp.task('develop-clean', function() {
+    del([
+        //'app/css-lib',
+        'app/js-lib/*'
+
+    ])
 });
 
-// Build
-gulp.task('build', ['production-html', 'production-scripts', 'production-styles', 'production-images', 'production-sound'], function () {
-    console.log(' ¯\\_(ツ)_/¯ Produkcny build je hotovy ');
+// Index.php pre development build
+gulp.task('develop-index', function () {
+    // ziadna uloha momentalne
+});
+
+// Priprav scripty pre develop build
+gulp.task('develop-scripts', function() {
+    gulp.src([
+        'node_modules/jquery/dist/jquery.js',
+        'node_modules/jquery-ui/jquery-ui.js',
+        'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
+        'node_modules/jquery-mousewheel/jquery.mousewheel.js',
+        'node_modules/hammerjs/hammer.js',
+        'node_modules/jquery-fullscreen/jquery-fullscreen.js'])
+        .pipe(gulp.dest('app/js-lib/'));
+});
+
+// Develop Build
+gulp.task('develop-build', [
+    'develop-index',
+    'develop-scripts',
+    //'develop-images',
+    //'develop-sound',
+    'develop-styles'
+], function () {
+    gulp.start('develop-watch');
+    console.log(' ¯\\_(ツ)_/¯ Development build je teraz hotový, už len kontrolujem zmeny ');
 });
 
 // Sledovanie zmien
-gulp.task('watch', function() {
+gulp.task('develop-watch', function() {
 
-    // Sleduj html zmeny
-    gulp.watch('app/*.{htm,html}', ['html']);
+    // Sleduj index zmeny
+    gulp.watch('app/*.{php,phtml}', ['develop-index']);
 
     // Sleduj css zmeny
-    gulp.watch('app/**/*.css', ['styles']);
+    gulp.watch('app/**/*.css', ['develop-styles']);
 
     // Sleduj js zmeny
-    gulp.watch('app/**/*.js', ['scripts']);
+    gulp.watch('app/**/*.js', ['develop-scripts']);
 
     // Sleduj zmeny obrazkov
-    gulp.watch('media/image/**/*', ['images']);
+    //gulp.watch('media/image/**/*', ['develop-images']);
 
     // Sleduj zmeny zvukov
-    gulp.watch('media/sound/*', ['sound']);
+    //gulp.watch('media/sound/*', ['develop-sound']);
 
+});
+
+// Vycisti production adresar a zacni Produkcny Build
+gulp.task('production', ['production-clean'], function() {
+    gulp.start('production-build');
+});
+
+// Vymazanie production suborov pred buildom
+gulp.task('production-clean', function() {
+    del([
+        'app-dist/index.php',
+        'app-dist/css',
+        //'app-dist/media/image',
+        //'app-dist/media/sound',
+        'app-dist/js'
+
+    ])
+});
+
+// Produkcny Build
+gulp.task('production-build', [
+    'production-index',
+    'production-scripts',
+    //'production-images',
+    //'production-sound',
+    'production-styles'
+], function () {
+    console.log(' ¯\\_(ツ)_/¯ Produkčný build je hotový ');
 });

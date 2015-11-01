@@ -61,13 +61,13 @@
             <link rel="stylesheet" type="text/css" href="/app/css/font-awesome-animation.css">
 
 
-            <script src="/app/lib/jquery-1.11.3.js"></script>
-            <script src="/app/lib/jquery-ui.js"></script>
+            <script src="/app/js-lib/jquery.js"></script>
+            <script src="/app/js-lib/jquery-ui.js"></script>
 
-            <!--<script src="/app/lib/touch-punch.js"></script>-->
-            <script src="/app/lib/mousewheel.js"></script>
-            <script src="/app/lib/hammer.min.js"></script>
-            <script src="/app/lib/fullscreen.min.js"></script>
+            <!--<script src="/app/js-lib/jquery.ui.touch-punch.js"></script>-->
+            <script src="/app/js-lib/jquery.mousewheel.js"></script>
+            <script src="/app/js-lib/hammer.js"></script>
+            <script src="/app/js-lib/jquery-fullscreen.js"></script>
 
 
             <script src="/app/js/func.lib.js"></script>
@@ -234,7 +234,7 @@
 
                     <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover"><i class="fa fa-flag fa-lg faa-shake"></i></li>
                     <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i class="fa fa-wrench fa-lg faa-wrench"></i></li>
-                    <li class="menu-list-item menu-list-item-icon faa-parent animated-hover" onclick="$(document).fullScreen(!$(document).fullScreen());"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li><!--todo tohle neni ciste reseni js by mel byt mimo html dokumentu v tomhle pripade v ui.js-->
+                    <li class="menu-list-item menu-list-item-icon faa-parent animated-hover" onclick="$(document).fullscreen().toggle();"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li><!--todo tohle neni ciste reseni js by mel byt mimo html dokumentu v tomhle pripade v ui.js-->
 
 
 

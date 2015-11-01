@@ -37,9 +37,10 @@ Nové Towns 5:
 	├── [app]/                  <- Vyvojove prostredie
 	│   ├── [cofeehtml]/        <- coffeescripty
 	│   ├── [css]/              <- naše štýly (nie css z knižníc)
+	│   ├── [css-lib]/          <- štýly z knižníc (nie naše css)	
 	│   ├── [graphic]/          <- obrázky generované cez PHP
 	│   ├── [js]/               <- naše javascripty (nie knižnice)
-	│   ├── [lib]/              <- js knižnice (nie naše scripty) (některé ale náma upravené) 
+	│   ├── [js-lib]/           <- js knižnice (nie naše scripty!!!) (některé ale náma upravené) TODO: [SK]@[PH]: o tomto musime hodit rec. 
 	│   ├── [locale]/           <- jazykové lokalizácie
 	│   ├── [tdd]/              <- 
 	│   └── index.php           <- samotné towns HTML
@@ -105,23 +106,28 @@ Staré Towns 4:
 
 	npm install
 
-5. Spusť gulp, nech vykoná úlohy v gulpfile.json. Gulp ma primárne za úlohu pripraviť všetky súbory pre build. Momentálne sú nastavené dve prostredia.
-
-- pre prípravu developerského prostredia
+5. Spusť gulp, nech vykoná úlohy v gulpfile.json. Gulp ma primárne za úlohu pripraviť všetky súbory pre build. Gulp zistí z konfiguračného súboru automaticky aký build ma vyrobiť. Spúšťa sa jednoducho:
 
 
 	gulp default
 	// alebo len
 	gulp
+ 
+ 
+ V prípade že chcete konkrétny build:
+- pre prípravu developerského prostredia
+
+
+	gulp develop
 
 
 - Pre prípravu produkčného buildu spusť
 
 
-	gulp public
+	gulp production
 
 	
-Produkčný build bude v adresári `/public`
+Produkčný build bude v adresári `/app-dist`
 	
 * * *	
 	
