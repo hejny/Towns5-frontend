@@ -1,3 +1,20 @@
+/**
+
+     ███████╗     ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
+     ██╔════╝    ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
+     █████╗      ██║     ██████╔╝█████╗  ███████║   ██║   █████╗
+     ██╔══╝      ██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██╔══╝
+     ██║         ╚██████╗██║  ██║███████╗██║  ██║   ██║   ███████╗
+     ╚═╝          ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+     © Towns.cz
+
+ * @fileOverview Building and creating objects functions
+
+ */
+
+
+//======================================================================================================================
+
 
 //----------------Změny kumulované uživatelem na objektech (budovy, pribehy,...)
 
@@ -141,6 +158,9 @@ function create(object,nosave){
 
         r('saving objects');
         saveMapObjectChangesToLocalStorage();
+
+
+        trackEvent('functions','create',object.name);
 
     }else{
         //r('NO saving objects');

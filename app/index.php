@@ -1,6 +1,21 @@
 <?php
+/**
+
+    ██╗███╗   ██╗██████╗ ███████╗██╗  ██╗
+    ██║████╗  ██║██╔══██╗██╔════╝╚██╗██╔╝
+    ██║██╔██╗ ██║██║  ██║█████╗   ╚███╔╝
+    ██║██║╚██╗██║██║  ██║██╔══╝   ██╔██╗
+    ██║██║ ╚████║██████╔╝███████╗██╔╝ ██╗
+    ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚═╝  ╚═╝
+    © Towns.cz
+
+ * @fileOverview This PHP file generates HTML skeleton for browser...
+ */
 
 
+//======================================================================================================================
+
+    //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 // TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
 $title = 'Towns';
@@ -62,17 +77,17 @@ http_response_code(200);
 
         <script src="/app/js-lib/jquery.js"></script>
         <script src="/app/js-lib/jquery-ui.js"></script>
-
-        <!--<script src="/app/js-lib/jquery.ui.touch-punch.js"></script>-->
+        
+        <script src="/app/js-lib/jquery.ui.touch-punch.js"></script>
         <script src="/app/js-lib/jquery.mousewheel.js"></script>
         <script src="/app/js-lib/hammer.js"></script>
         <script src="/app/js-lib/jquery.fullscreen.js"></script>
-
-
-        <script src="/app/js/func.lib.js"></script>
-        <script src="/app/js/main.js"></script>
-        <script src="/app/js/lang.lib.js"></script>
-        <script src="/app/locale/cs.js"></script>
+        
+            <script src="/app/js/func.lib.js"></script>
+            <script src="/app/js/log.lib.js"></script>
+            <script src="/app/js/main.js"></script>
+            <script src="/app/js/lang.lib.js"></script>
+            <script src="/app/locale/cs.js"></script>
 
 
         <script src="/app/js/townsapi.lib.js"></script>
@@ -93,13 +108,10 @@ http_response_code(200);
         <script src="/app/js/ui.js"></script>
 
 
-        <script src="app/js/localstorage.fake.js.php"></script>
 
-
-
-        <script src="/app/coffeehtml/debug.js"></script>
-        <!--<script src="app/coffeehtml/loginform.js"></script>-->
-        <script src="/app/coffeehtml/projects.js"></script>
+            <script src="/app/coffeehtml/debug.js"></script>
+            <!--<script src="app/coffeehtml/loginform.js"></script>-->
+            <script src="/app/coffeehtml/projects.js"></script>
 
 
         <script src="/app/js/functions/login.js"></script>
@@ -116,16 +128,23 @@ http_response_code(200);
 </head>
 <body>
 
-<?php if (isset($config['google']['tracking_id'])) : ?>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '<?= $config['google']['tracking_id'] ?>', 'auto');
-        ga('send', 'pageview');
-    </script>
-<?php endif; ?>
+
+
+
+        <?php if (isset($config['google']['tracking_id'])) : ?>
+            <!-- Google Analytics -->
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '<?= $config['google']['tracking_id'] ?>', 'auto');
+                ga('send', 'pageview');
+
+            </script>
+            <!-- End Google Analytics -->
+        <?php endif; ?>
 
 
 
@@ -135,38 +154,37 @@ http_response_code(200);
 
 
 
-<!--start of map-->
+        <div id="map_drag"></div>
 
-<div id="map_drag"></div>
-
-
-<div id="loadbar_outer">
-    <div id="loadbar"></div>
-</div>
-
-<canvas id="map_buffer" width="100" height="100"></canvas>
-<canvas id="map_bg" width="100" height="100"></canvas>
+        <div id="loadbar_outer">
+            <div id="loadbar"></div>
+        </div>
 
 
-<!--end of mapy-->
+
+        <canvas id="map_buffer" width="100" height="100"></canvas>
+        <canvas id="map_bg" width="100" height="100"></canvas>
 
 
-<canvas id="selecting-distance" width="100" height="50"></canvas>
+
+        <canvas id="selecting-distance" width="100" height="50"></canvas>
 
 
-<div id="selecting-distance-ctl">
-    <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
+
+        <div id="selecting-distance-ctl" style="display: none;">
+            <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
+            <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
+            <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
+            <div id="selecting-distance-right" class="mini-button"><i class="fa fa-angle-double-right"></i></i></div>
+            <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
 
 </div>
 
 
 
 
-<nav class="menu">
+
+        <nav class="menu">
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
@@ -252,26 +270,29 @@ http_response_code(200);
     <div id="objectmenu-inner">
         <div class="action-wrapper">
 
-            <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" title="%title" content="%content" onclick="%action"></div>
-            <!--todo [PH] Nevím jak jinak donutit css aby brala v úvahu background-size: cover;-->
-            <!--todo background: url('%icon') nakonec funguje, ale je v logicky spatne, sice to prebere JS ale prohlezec se jednou pokusi nacist nesmyslny obrazek-->
+                        <div class="action js-popup-action-open" template_params></div>
 
-        </div>
-        <div>
-
-</aside>
+                    </div>
+                <div>
+            </aside>
 
 
 
-<div id="popup-action">
-    <div class="arrow"></div>
-    <div class="content"></div>
-    <div class="close js-popup-action-close"><i class="fa fa-times"></i></div>
-</div>
 
 
 
-<div class="overlay" style="display: <?=addslashes($window_display)?>;"></div>
+            <div id="popup-action">
+                <div class="arrow"></div>
+                <div class="content"></div>
+                <div class="close js-popup-action-close"><i class="fa fa-times"></i></div>
+            </div>
+
+
+
+
+
+
+            <div class="overlay" style="display: <?=addslashes($window_display)?>;"></div>
 
 <div class="popup-window" style="display: <?=addslashes($window_display)?>;">
     <div class="header"><?=addslashes($window_header)?></div>
@@ -284,10 +305,12 @@ http_response_code(200);
 
 
 
-<div class="popup-notification">
-    <div class="arrow"></div>
-    <div class="header"></div>
-    <div class="content">
+
+
+            <div class="popup-notification">
+                <div class="arrow"></div>
+                <div class="header"></div>
+                <div class="content">
 
         <?=htmlspecialchars($notifications_content)?>
 
@@ -299,5 +322,8 @@ http_response_code(200);
 
 
 
-</body>
+
+    </body>
 </html>
+
+

@@ -1,4 +1,19 @@
+/**
 
+     ███╗   ███╗ ██████╗ ██████╗ ███████╗██╗
+     ████╗ ████║██╔═══██╗██╔══██╗██╔════╝██║
+     ██╔████╔██║██║   ██║██║  ██║█████╗  ██║
+     ██║╚██╔╝██║██║   ██║██║  ██║██╔══╝  ██║
+     ██║ ╚═╝ ██║╚██████╔╝██████╔╝███████╗███████╗
+     ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝╚══════╝
+     © Towns.cz
+
+ * @fileOverview 3D model rendring functions, 3D model manipulation functions
+
+ */
+
+
+//======================================================================================================================
 /*   ██████╗ ██████╗  █████╗ ██╗    ██╗
      ██╔══██╗██╔══██╗██╔══██╗██║    ██║
      ██║  ██║██████╔╝███████║██║ █╗ ██║
@@ -430,7 +445,7 @@ this.arrayPurge = function(array) {
 
     for (var i = Math.max(array.polygons.length,array.colors.length)-1; i>-1 ; i--) {
 
-        if (isNot(array.polygons[i]) || isNot(array.colors[i])) {
+        if (!is(array.polygons[i]) || !is(array.colors[i])) {
 
             array.polygons.splice(i, 1);
             array.colors.splice(i, 1);
@@ -447,6 +462,7 @@ this.arrayPurge = function(array) {
 
 this.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
+    if(is(array['points']))
     for (var i=0,l=array['points'].length;i<l;i++) {
 
         array['points'][i][0]+=move_x;
@@ -586,10 +602,10 @@ this.emptyParray = function(){
 //======================================================================================================modelJoinlevel
 this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
-    if(isNot(start_x))start_x=0;
-    if(isNot(start_y))start_y=0;
-    if(isNot(stop_x))stop_x=100;
-    if(isNot(stop_y))stop_y=100;
+    if(!is(start_x))start_x=0;
+    if(!is(start_y))start_y=0;
+    if(!is(stop_x))stop_x=100;
+    if(!is(stop_y))stop_y=100;
 
     var joinlevel=parseInt(substr2(res,'[-4,-4,',']'));
 
@@ -647,10 +663,10 @@ this.parrayBounds = function(parray){
 
                 if(is(point)){
 
-                    if(isNot(start_x))start_x=point[0];
-                    if(isNot(stop_x))stop_x=point[0];
-                    if(isNot(start_y))start_y=point[1];
-                    if(isNot(stop_y))stop_y=point[1];
+                    if(!is(start_x))start_x=point[0];
+                    if(!is(stop_x))stop_x=point[0];
+                    if(!is(start_y))start_y=point[1];
+                    if(!is(stop_y))stop_y=point[1];
 
 
                     if(point[0]<start_x)start_x=point[0];

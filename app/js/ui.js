@@ -1,8 +1,19 @@
 /**
- * Created by matusko on 6/28/15.
- * Updated by ph
- *
+
+     ██╗   ██╗██╗
+     ██║   ██║██║
+     ██║   ██║██║
+     ██║   ██║██║
+     ╚██████╔╝██║
+     ╚═════╝ ╚═╝
+     © Towns.cz
+
+ * @fileOverview User interface initialization
+
  */
+
+
+//======================================================================================================================
 
 window.window_open = function(header,content){
 
@@ -279,13 +290,15 @@ window.mapSpecialCursorStop = function(){
 
 //----------------------------------------------------------
 
-window.objectmenu_template='';
+var objectmenu_template='';
 
 
 
 $(function(){
 
-    objectmenu_template = $('#objectmenu-inner').html();
+    objectmenu_template = $('#objectmenu-inner').html()
+        .split('template_params')
+        .join('style="background: url(\'%icon\');background-size: cover;" title="%title" content="%content" onclick="%action"');
 
     mapSpecialCursorStop();
     uiScript();
