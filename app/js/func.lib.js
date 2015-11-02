@@ -1,19 +1,4 @@
-function r(){
 
-
-    if(arguments.length==1){
-
-        console.log(arguments[0]);
-
-    }else{
-
-        var arg=[];
-        for(var i= 0,l=arguments.length;i<l;i++){
-            arg.push(deepCopy(arguments[i]));
-        }
-        console.log(deepCopy(arg));
-    }
-}
 
 //======================================================================================================================
 
