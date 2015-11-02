@@ -36,16 +36,19 @@ Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižnicia
     	│       ├─> [develop-index]    	    <- html súbory
     	│       ├─> [develop-scripts]    	<- priprav js knižnice
     	│       ├─> [develop-styles]        <- priprav css knižnice
+    	│       ├─> [develop-fonts]         <- priprav súbory fontov
     	│       ├─> //[develop-images]    	<- priprav obrázky
     	│       ├─> //[develop-sound]    	<- priprav zvuky  	    	    	    	
     	│       ├─────────────────────  	<- ked skončí build spusť watch    	    	
     	│       └─> [develop-watch]    	    <- sleduj zmeny, a spusť develop build úlohy podľa potreby	
     	├─> [test]                          <- Testovanie gulpom, zatiaľ len jshint syntaxové chyby
+    	├─> [documentation]                 <- Vytvor dokumentáciu pre js scripty
     	└─> [production]                    <- production build má 2 úlohy
     	    ├─> [production-clean]          <- Vyčisti adresár pre production build
     	    └─> [production-build]          <- Vytvor production build
     	        ├─> [production-index]    	<- html súbory
     	        ├─> [production-scripts]    <- priprav js knižnice   	
     	        ├─> [production-styles]     <- priprav css knižnice
+    	        ├─> [production-fonts]      <- priprav súbory fontov
     	        ├─> //[production-images]   <- priprav obrázky
     	        └─> //[production-sound]    <- priprav zvuky
