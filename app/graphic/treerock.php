@@ -43,7 +43,7 @@ $file='../../media/image/'.$type.'/'.$seed.'.png';
 //--------------------------------------------------------------------------------------
 
 $cachefile=files\cacheFile(array($seed,$width,$dark),'png',$type);
-if(!file_exists($cachefile) /** or 1/**/) {
+if(!file_exists($cachefile) or isset($_GET['notmp']) or filesize($cachefile)<10 /** or 1/**/) {
     //_________________________________________
 
     $src = imagecreatefrompng($file);
