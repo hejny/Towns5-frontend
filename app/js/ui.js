@@ -1,8 +1,19 @@
 /**
- * Created by matusko on 6/28/15.
- * Updated by ph
- *
+
+     ██╗   ██╗██╗
+     ██║   ██║██║
+     ██║   ██║██║
+     ██║   ██║██║
+     ╚██████╔╝██║
+     ╚═════╝ ╚═╝
+     © Towns.cz
+
+ * @fileOverview User interface initialization
+
  */
+
+
+//======================================================================================================================
 
 window.window_open = function(header,content){
 
