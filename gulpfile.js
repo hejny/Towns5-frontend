@@ -24,9 +24,6 @@ gulp.task('production-scripts', function() {
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())
         .pipe(gulp.dest('app-dist/js'));
-
-    gulp.src("app/js/*.js")
-        .pipe(jsdoc('documentation/'));
 });
 
 // Styly
@@ -54,12 +51,17 @@ gulp.task('production-sound', function () {
 });
 
 // Lint - testovanie
-gulp.task("test", ['develop-scripts'], function() {
+gulp.task("test", function() {
     gulp.src("app/js/*.js")
         .pipe(jshint())
         .pipe(jshint.reporter("default"));
 });
 
+// Dokumentácia
+gulp.task("documentation", function() {
+    gulp.src("app/js/*.js")
+        .pipe(jsdoc('documentation/'));
+});
 
 // Starter Buildu
 gulp.task('default', function() {
@@ -85,8 +87,8 @@ gulp.task('develop', ['develop-clean'], function() {
 gulp.task('develop-clean', function() {
     del([
         'app/css-lib/*',
-        'app/js-lib/*'
-
+        'app/js-lib/*',
+        'app/fonts/*'
     ])
 });
 
@@ -107,8 +109,21 @@ gulp.task('develop-scripts', function() {
         .pipe(gulp.dest('app/js-lib/'));
 });
 
+// Priprav style pre develop build
 gulp.task('develop-styles', function () {
+    gulp.src([
+        'node_modules/roboto-fontface/css/roboto-fontface.css',
+        'node_modules/font-awesome/css/font-awesome.css',
+        'node_modules/font-awesome-animation/src/font-awesome-animation.css'])
+        .pipe(gulp.dest('app/css-lib/'));
+});
 
+// Priprav fonty pre develop build
+gulp.task('develop-fonts', function () {
+    gulp.src([
+        'node_modules/roboto-fontface/fonts/*',
+        'node_modules/font-awesome/fonts/*'])
+        .pipe(gulp.dest('app/fonts/'));
 });
 
 // Develop Build
@@ -117,7 +132,8 @@ gulp.task('develop-build', [
     'develop-scripts',
     //'develop-images',
     //'develop-sound',
-    'develop-styles'
+    'develop-styles',
+    'develop-fonts'
 ], function () {
     gulp.start('develop-watch');
     console.log(' ¯\\_(ツ)_/¯ Development build je teraz hotový, už len kontrolujem zmeny ');

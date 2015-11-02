@@ -38,6 +38,7 @@ Nové Towns 5:
 	│   ├── [cofeehtml]/        <- coffeescripty
 	│   ├── [css]/              <- naše štýly (nie css z knižníc)
 	│   ├── [css-lib]/          <- štýly z knižníc (nie naše css)	
+	│   ├── [fonts]/            <- fonty z knižníc (tiež cez gulp)		
 	│   ├── [graphic]/          <- obrázky generované cez PHP
 	│   ├── [js]/               <- naše javascripty (nie knižnice)
 	│   ├── [js-lib]/           <- js knižnice (nie naše scripty!!!) (některé ale náma upravené) TODO: [SK]@[PH]: o tomto musime hodit rec. 

@@ -55,9 +55,9 @@
             <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
 
             <link rel="stylesheet" type="text/css"
-                  href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,latin-ext">
-            <link rel="stylesheet" type="text/css" href="/app/css/font-awesome-4.4.0/css/font-awesome.css">
-            <link rel="stylesheet" type="text/css" href="/app/css/font-awesome-animation.css">
+                  href="/app/css-lib/roboto-fontface.css?family=Roboto:400,700&subset=latin,latin-ext">
+            <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome.css">
+            <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome-animation.css">
 
 
             <script src="/app/js-lib/jquery.js"></script>
