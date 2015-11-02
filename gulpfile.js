@@ -102,7 +102,7 @@ gulp.task('develop-index', function () {
 gulp.task('develop-scripts', function() {
     gulp.src([
         'node_modules/jquery/dist/jquery.js',
-        'node_modules/jquery-ui/jquery-ui.js',
+        'node_modules/jquery-ui-bundle/jquery-ui.js',
         'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
         'node_modules/jquery-mousewheel/jquery.mousewheel.js',
         'node_modules/hammerjs/hammer.js',
