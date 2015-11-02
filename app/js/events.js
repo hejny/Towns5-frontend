@@ -601,13 +601,20 @@ $(function() {
 
                 saveMapObjectChangesToLocalStorage();
                 loadMap();
-                return;
+
+
+                if(terrainChanging == false){
+                    return;
+                }
+
 
             }
             //-----------------------------------------------------------------
 
+            //todo [PH] ??? Maybe here should be also terrain changing
 
 
+            //-----------------------------------------------------------------
 
 
             var map_selected_ids_prev = map_selected_ids;
