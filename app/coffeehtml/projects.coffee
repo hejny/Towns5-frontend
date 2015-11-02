@@ -76,6 +76,12 @@ Připravujeme novou verzi hry.</h2>
   <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
   <a href="https://twitter.com/townsgame" target="_blank">Twitter</a>.
 
+
+  <br><br>
+  <hr>
+
+  <iframe width="750" height="563" src="https://www.youtube.com/embed/CZ2eFAwOFwU?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+
   <br><br>
   <hr>
 
