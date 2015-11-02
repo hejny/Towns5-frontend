@@ -96,35 +96,24 @@ Staré Towns 4:
 
 2. Nainštaluj si node.js a npm(node package manager)
 
+
 	sudo apt-get install nodejs npm
 	
 3. Nainštaluj si gulp cez npm (možeš aj globálne)  
+
 
 	sudo apt-get install --global gulp
 
 4. Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
 
+
 	npm install
 
-5. Spusť gulp, nech vykoná úlohy v gulpfile.json. Gulp ma primárne za úlohu pripraviť všetky súbory pre build. Gulp zistí z konfiguračného súboru automaticky aký build ma vyrobiť. Spúšťa sa jednoducho:
+
+5. Spusť gulp, nech vykoná úlohy v gulpfile.json. 
 
 
-	gulp default
-	// alebo len
 	gulp
- 
- 
- V prípade že chcete konkrétny build:
-- pre prípravu developerského prostredia
-
-
-	gulp develop
-
-
-- Pre prípravu produkčného buildu spusť
-
-
-	gulp production
 
 	
 Produkčný build bude v adresári `/app-dist`

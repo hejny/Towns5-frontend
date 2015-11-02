@@ -2,10 +2,9 @@
 
 
     //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-
+    // TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
     $title = 'Towns';
     $description = '';
-
     $meta_og = [
         'site_name' => 'Towns',
         'title' => $title,

@@ -39,10 +39,7 @@ gulp.task('production-styles', function () {
         .pipe(gulp.dest('app-dist/css'));
 });
 
-gulp.task('develop-styles', function () {
-});
-
-// Obrazky
+// Obrazky - nateraz neaktivne
 gulp.task('production-images', function () {
     gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
@@ -50,14 +47,14 @@ gulp.task('production-images', function () {
         .pipe(gulp.dest('app-dist/media/image'));
 });
 
-// Zvuky
+// Zvuky - nateraz neaktivne
 gulp.task('production-sound', function () {
     gulp.src('media/sound/*')
         .pipe(gulp.dest('app-dist/media/sound'));
 });
 
-// Lint - testpvanie
-gulp.task("lint", ['develop-scripts'], function() {
+// Lint - testovanie
+gulp.task("test", ['develop-scripts'], function() {
     gulp.src("app/js/*.js")
         .pipe(jshint())
         .pipe(jshint.reporter("default"));
@@ -71,7 +68,7 @@ gulp.task('default', function() {
         gulp.start("develop");
     } else {
         if (config.environment == "test") {
-            gulp.start("lint")
+            gulp.start("test")
         } else {
             gulp.start("production")
         }
@@ -87,7 +84,7 @@ gulp.task('develop', ['develop-clean'], function() {
 // Vymazanie develop kniznic pred buildom
 gulp.task('develop-clean', function() {
     del([
-        //'app/css-lib',
+        'app/css-lib/*',
         'app/js-lib/*'
 
     ])
@@ -108,6 +105,10 @@ gulp.task('develop-scripts', function() {
         'node_modules/hammerjs/hammer.js',
         'node_modules/jquery-fullscreen/jquery-fullscreen.js'])
         .pipe(gulp.dest('app/js-lib/'));
+});
+
+gulp.task('develop-styles', function () {
+
 });
 
 // Develop Build
