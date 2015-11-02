@@ -279,13 +279,15 @@ window.mapSpecialCursorStop = function(){
 
 //----------------------------------------------------------
 
-window.objectmenu_template='';
+var objectmenu_template='';
 
 
 
 $(function(){
 
-    objectmenu_template = $('#objectmenu-inner').html();
+    objectmenu_template = $('#objectmenu-inner').html()
+        .split('template_params')
+        .join('style="background: url(\'%icon\');background-size: cover;" title="%title" content="%content" onclick="%action"');
 
     mapSpecialCursorStop();
     uiScript();

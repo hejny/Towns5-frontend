@@ -5,6 +5,24 @@ var mapdata=[];
 //======================================================================================================================loadMap
 
 
+function iterate2D(array,callback){
+
+    //r(array);
+
+	for(var y= 0,yLen=array.length;y<yLen;y++) {
+		for (var x = 0,xLen=array[y].length; x<xLen; x++) {
+
+			callback(y,x);
+
+		}
+	}
+
+}
+
+
+//======================================================================================================================loadMap
+
+
 function getZ(x,y){
 
 	//var z=(x/y)*50;
@@ -16,11 +34,38 @@ function getZ(x,y){
 
 
 
-	var n=0;
+	var n= 0,
+        max_possible_n=0;
 
 
-    n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
-    n+=Math.round(Math.pow(Math.pow(x+y,2)+Math.pow(x,2),(1/1.6))/16)%2;
+    for(var i= 0;i<13;i++){
+
+
+        n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
+        max_possible_n+=2;
+
+        x=Math.floor(x/1.5);
+        y=Math.floor(y/1.5);
+
+        var xy = xyRotate(x,y,57);
+
+        x=xy.x;
+        y=xy.y;
+
+    }
+
+
+
+    n=n/max_possible_n;
+
+
+
+    n=n-0.5;
+    var sign=Math.sign(n);
+    n=Math.abs(n)*2;
+    n=Math.pow(n,1/3);
+    n=(n/2*sign)+0.5;
+
 
     //n+=Math.round(Math.pow(Math.pow(x,3)+Math.pow(y,3),(1/3)))%4;
 	//n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
@@ -32,7 +77,7 @@ function getZ(x,y){
 //======================================================================================================================loadMap
 
 
-function getPrimeMap(startX,startY,size){
+function getZMap(startX,startY,size){
 
     //r(size,startY,startX);
 	var map=[];
@@ -58,24 +103,29 @@ function getPrimeMap(startX,startY,size){
 
 
 
-function roundMap(map,z_/*change*/){
+function blurMap(map,blur/*change*/){
+
+    //r(blur,Math.pow(blur*2+1,2));
 
 	var map_=[];
 
 	for(var y= 0,l=map.length;y<l;y++){
 		map_[y]=[];
 		for(var x=0;x<l;x++){
-			map_[y][x]=1;
+			map_[y][x]=0;
 		}
 	}
+
+
 
 
 	for(var y=0;y<l;y++){
 		for(var x=0;x<l;x++){
 
-			var z=map[y][x]*1;
-			for(var y_=y-z_;y_<y+z_;y_++){
-				for(var x_=x-z_;x_<x+z_;x_++){
+			var z=map[y][x]/Math.pow(blur*2+1,2);//todo optimalizovat
+
+			for(var y_=y-blur;y_<=y+blur;y_++){
+				for(var x_=x-blur;x_<=x+blur;x_++){
 
 					if(x_<0)break;
 					if(y_<0)break;
@@ -95,46 +145,6 @@ function roundMap(map,z_/*change*/){
 
 }
 
-
-//======================================================================================================================loadMap
-
-
-function boundMap(map,min,max){
-
-    for(var y= 0,l=map.length;y<l;y++){
-        for(var x=0;x<l;x++){
-            map[y][x]=Math.round((map[y][x]-min)/(max-min)*100)/100;
-        }
-    }
-    return(map);
-}
-
-
-//======================================================================================================================loadMap
-
-
-/*function statMap(map){
-
-	var maxi=1;
-	var stat=[];
-
-	for(var y=0;y<map.length;y++){optimize
-		for(var x=0;x<map.length;x++){
-
-			var i=map[y][x];
-
-			if(i>maxi)maxi=i;
-
-			if(typeof stat[i]=='undefined')stat[i]=0;
-
-			stat[i]++;
-		}
-	}
-
-	//console.log(stat);
-	return(maxi);
-
-}*/
 
 //======================================================================================================================loadMap
 
@@ -174,15 +184,16 @@ function terrainMap(map){
 
 
 
-function getMap(startX,startY,size){
+function getMap(startX,startY,size,onlyRound){
 
-	var bounds=4;
+    onlyRound=cParam(onlyRound,true);
 
-	map=getPrimeMap(startX-bounds,startY-bounds,size+(2*bounds));//r(map);
-	map=roundMap(map,bounds);//r(map);
-	map=boundMap(map,80,120);//r(map);
+	var bounds=1;
 
-
+	map=getZMap(startX-bounds,startY-bounds,size+(2*bounds));
+    //r(map);
+	map=blurMap(map,bounds);//r(map);
+    //r(map);
 	
 	var map_z=[];
 
@@ -190,7 +201,7 @@ function getMap(startX,startY,size){
 		map_z[y]=[];
 		for(var x=0;x<size;x++){
 
-            if(Math.pow(x-(size/2),2)+Math.pow(y-(size/2),2)<=Math.pow(size/2,2)){
+            if(Math.pow(x-(size/2),2)+Math.pow(y-(size/2),2)<=Math.pow(size/2,2) || !onlyRound){
 
 
 				//r(map,y+bounds);
@@ -233,22 +244,23 @@ function terrainColor(terrain){
 
 var terrains=[	
 	[ 0 , -1 , '000000'] ,  //temnota
-	[ 1 , 0 , '5299F9'] ,  //moře
-	[ 1 , 20 , '5299F9'] ,  //moře
-	//[ 1 , 999 , '5299F9'] ,  //moře
-	[11 , 23 , '337EFA'] ,  //řeka
-	[ 4 , 26 , 'F9F98D'] ,  //písek
-	//[ 7 , 22 , 'DCDCAC'] ,  //sůl
-	[ 9 , 30 , '51F311'] ,  //tráva(toxic)
-	[12 , 34 , '8ABC02'] ,  //tráva(jaro)
-	[ 8 , 55 , '2A7302'] ,  //tráva(normal)
-    [10 , 60 , '535805'] ,  //les
-	[13 , 70 , '8A9002'] ,  //tráva(pozim)
-	[ 5 , 72 , '878787'],   //kamení
-    [ 6 , 100 , '5A2F00']   //hlína
-	//[ 5 , 100 , '878787']   //kamení
-
-
+    [ 5 , 5 , '878787'],   //kamení
+    [ 8 , 10 , '2A7302'] ,  //tráva(normal)
+    [ 9 , 12 , '51F311'] ,  //tráva(toxic)
+    [ 4 , 14 , 'F9F98D'] ,  //písek
+	[11 , 37 , '337EFA'] ,  //řeka
+	[ 4 , 40 , 'F9F98D'] ,  //písek
+	[ 9 , 47 , '51F311'] ,  //tráva(toxic)
+	[12 , 55 , '8ABC02'] ,  //tráva(jaro)
+    [ 8 , 57 , '2A7302'] ,  //tráva(normal)
+    [10 , 58 , '535805'] ,  //les
+	[ 8 , 62 , '2A7302'] ,  //tráva(normal)
+    [10 , 68 , '535805'] ,  //les
+	[13 , 80 , '8A9002'] ,  //tráva(pozim)
+    [ 6 , 82 , '5A2F00'] ,  //hlína
+	[ 5 , 85 , '878787'],   //kamení
+    [ 3 , 93 , 'EFF7FB'],   //sníh/led
+    [12 , 100 , '8ABC02'] ,  //tráva(jaro)
 
 
 	/*[10 , 40 , '535805'] ,  //les

@@ -64,7 +64,7 @@
             <script src="/app/lib/jquery-1.11.3.js"></script>
             <script src="/app/lib/jquery-ui.js"></script>
 
-            <!--<script src="/app/lib/touch-punch.js"></script>-->
+            <script src="/app/lib/touch-punch.js"></script>
             <script src="/app/lib/mousewheel.js"></script>
             <script src="/app/lib/hammer.min.js"></script>
             <script src="/app/lib/fullscreen.min.js"></script>
@@ -94,7 +94,7 @@
             <script src="/app/js/ui.js"></script>
 
 
-            <script src="app/js/localstorage.fake.js.php"></script>
+            <!--<script src="app/js/localstorage.fake.js.php"></script>-->
 
 
 
@@ -117,6 +117,9 @@
     </head>
     <body>
 
+
+
+
         <?php if (isset($config['google']['tracking_id'])) : ?>
         <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -136,26 +139,26 @@
 
 
 
-        <!--start of map-->
-
-            <div id="map_drag"></div>
+        <div id="map_drag"></div>
 
 
-            <div id="loadbar_outer">
-                <div id="loadbar"></div>
-            </div>
 
-            <canvas id="map_buffer" width="100" height="100"></canvas>
-            <canvas id="map_bg" width="100" height="100"></canvas>
+        <div id="loadbar_outer">
+            <div id="loadbar"></div>
+        </div>
 
 
-        <!--end of mapy-->
+
+        <canvas id="map_buffer" width="100" height="100"></canvas>
+        <canvas id="map_bg" width="100" height="100"></canvas>
+
 
 
         <canvas id="selecting-distance" width="100" height="50"></canvas>
 
 
-        <div id="selecting-distance-ctl">
+
+        <div id="selecting-distance-ctl" style="display: none;">
             <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
             <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
             <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
@@ -163,6 +166,7 @@
             <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
 
         </div>
+
 
 
 
@@ -253,14 +257,14 @@
                 <div id="objectmenu-inner">
                     <div class="action-wrapper">
 
-                        <div class="action js-popup-action-open" style="background: url('%icon');background-size: cover;" title="%title" content="%content" onclick="%action"></div>
-                        <!--todo [PH] Nevím jak jinak donutit css aby brala v úvahu background-size: cover;-->
-                        <!--todo background: url('%icon') nakonec funguje, ale je v logicky spatne, sice to prebere JS ale prohlezec se jednou pokusi nacist nesmyslny obrazek-->
+                        <div class="action js-popup-action-open" template_params></div>
 
                     </div>
                 <div>
-
             </aside>
+
+
+
 
 
 
@@ -269,6 +273,9 @@
                 <div class="content"></div>
                 <div class="close js-popup-action-close"><i class="fa fa-times"></i></div>
             </div>
+
+
+
 
 
 
@@ -281,6 +288,8 @@
 
                 <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>
             </div>
+
+
 
 
 
@@ -300,5 +309,8 @@
 
 
 
+
     </body>
 </html>
+
+

@@ -11,10 +11,10 @@ var map_rotation=Math.random()*360;
 var map_slope=27;
 
 
-if((localStorage.getItem('map_x')/1) != NaN && (localStorage.getItem('map_y')/1) != NaN){
+if(is(localStorage.getItem('map_x')) && is(localStorage.getItem('map_y'))){
 
-    var map_x=localStorage.getItem('map_x')/1;
-    var map_y=localStorage.getItem('map_y')/1;
+    var map_x=parseFloat(localStorage.getItem('map_x'));
+    var map_y=parseFloat(localStorage.getItem('map_y'));
 
 }else{
 
@@ -80,7 +80,7 @@ var terrainCount=13;
 
 //----------------
 
-var seedCount=4;
+var seedCount=5;
 //----
 
 var treeCount=10;
@@ -575,7 +575,7 @@ function drawMap() {
                         //-----
 
                         //r(z);
-
+                        //r(seed);
 
                         map_draw.push([
                             'terrain',
