@@ -142,6 +142,9 @@ function create(object,nosave){
         r('saving objects');
         saveMapObjectChangesToLocalStorage();
 
+
+        trackEvent('functions','create',object.name);
+
     }else{
         //r('NO saving objects');
     }
