@@ -1,3 +1,7 @@
+/**
+ *
+ * @fileOverview Only temporary file
+ */
 
 function FaketownsApi(query,callback){
     callback({});
