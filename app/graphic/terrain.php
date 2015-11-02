@@ -101,7 +101,7 @@ if(false){
 
 
 $cachefile=files\cacheFile(array(1,$ease,$seed,$terrain,$size),'png','terrain');
-if(!file_exists($cachefile) or isset($_GET['notmp'])/** or 1/**/) {
+if(!file_exists($cachefile) or isset($_GET['notmp']) or filesize($cachefile)<10/** or 1/**/) {
     //_________________________________________
 
     $source = imagecreatefrompng($file);
