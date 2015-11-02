@@ -1,19 +1,17 @@
-function r(){
+/**
 
+     ███████╗██╗   ██╗███╗   ██╗ ██████╗
+     ██╔════╝██║   ██║████╗  ██║██╔════╝
+     █████╗  ██║   ██║██╔██╗ ██║██║
+     ██╔══╝  ██║   ██║██║╚██╗██║██║
+     ██║     ╚██████╔╝██║ ╚████║╚██████╗
+     ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝
+     © Towns.cz
 
-    if(arguments.length==1){
+ * @fileOverview Various functions eg. Math functions, html functions, PHP-like functions
 
-        console.log(arguments[0]);
+ */
 
-    }else{
-
-        var arg=[];
-        for(var i= 0,l=arguments.length;i<l;i++){
-            arg.push(deepCopy(arguments[i]));
-        }
-        console.log(deepCopy(arg));
-    }
-}
 
 //======================================================================================================================
 
@@ -47,6 +45,15 @@ function debounce(func, wait, immediate) {
 
 //======================================================================================================================
 
+Math.sign = Math.sign || function(x) {
+        x = +x; // convert to a number
+        if (x === 0 || isNaN(x)) {
+            return x;
+        }
+        return x > 0 ? 1 : -1;
+    }
+
+//-------------------------
 
 function angleDiff(deg1,deg2){
     var a = deg1 - deg2;
@@ -54,18 +61,26 @@ function angleDiff(deg1,deg2){
     return(a);
 }
 
+//-------------------------
+
 function rad2deg(radians){
     return(radians * (180/Math.PI));
 }
+
+//-------------------------
 
 function deg2rad(degrees){
     return(degrees * (Math.PI/180));
 }
 
+//-------------------------
+
 function xy2dist(x,y){
     return(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
 }
 
+
+//-------------------------
 
 function xy2distDeg(x,y){
 
@@ -77,6 +92,8 @@ function xy2distDeg(x,y){
     return(output);
 
 }
+
+//-------------------------
 
 function distDeg2xy(dist,deg){
 
@@ -91,11 +108,11 @@ function distDeg2xy(dist,deg){
 
 }
 
-
+//-------------------------
 
 function xyRotate(x,y,deg){
 
-    //nevyuzivat funkce xy2distDeg a distDeg2xy, abych nedelal zbytecny prevod do stupnu a spatky
+    //nevyuzivam funkce xy2distDeg a distDeg2xy, abych nedelal zbytecny prevod do stupnu a spatky
     var dist = xy2dist(x,y);
     var rad = Math.atan2(y,x);
 
@@ -143,40 +160,47 @@ function toInt(value,defval){
 
 }
 
-//----------------------------------------------------------
+//----------------------------------------------------------is
 
 
 //todo nahradit vsechny takovahle zjistovani touhle funkci
 //todo jsdoc
 //todo test TDD
-//todo funguje isnot na NaN apod?
-//todo ?? nemelo by [undefined] take vracet ze je to isNot
-function isNot(val){
+//todo funguje !is na NaN apod?
+//todo ?? nemelo by [undefined] take vracet ze je to !is
+function is(val){
 
 
-    if(typeof(val)==='undefined')return true;
+    if(typeof(val)==='undefined')return false;
 
-    if(val===false)return true;
+    if(val===false)return false;
 
-    if(val===NaN)return true;
-    if(val===0)return true;
+    if(val===NaN)return false;
+    if(val===null)return false;
+    if(val===0)return false
 
-    if(val==='')return true;
+    if(val==='')return false;
 
-    if(val===[])return true;
-    if(val==={})return true;
+    if(val===[])return false;
+    if(val==={})return false;
 
-    if(typeof(val)==='object')if(val.length===0)return true;
+    if(typeof(val)==='object')if(val.length===0)return false;
 
 
-    return false;
+    return true;
 
 }
 
-//--------------------is
+//--------------------cParam
 
-function is(val){
-    return(!isNot(val));
+function cParam(value,def){
+
+    if(typeof value==='undefined'){
+        return(def);
+    }else{
+        return(value);
+    }
+
 }
 
 //----------------------------------------------------------

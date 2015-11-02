@@ -1,3 +1,17 @@
+/**
+
+     ████████╗███████╗██████╗ ██████╗  █████╗ ██╗███╗   ██╗    ███╗   ███╗███████╗███╗   ██╗██╗   ██╗
+     ╚══██╔══╝██╔════╝██╔══██╗██╔══██╗██╔══██╗██║████╗  ██║    ████╗ ████║██╔════╝████╗  ██║██║   ██║
+        ██║   █████╗  ██████╔╝██████╔╝███████║██║██╔██╗ ██║    ██╔████╔██║█████╗  ██╔██╗ ██║██║   ██║
+        ██║   ██╔══╝  ██╔══██╗██╔══██╗██╔══██║██║██║╚██╗██║    ██║╚██╔╝██║██╔══╝  ██║╚██╗██║██║   ██║
+        ██║   ███████╗██║  ██║██║  ██║██║  ██║██║██║ ╚████║    ██║ ╚═╝ ██║███████╗██║ ╚████║╚██████╔╝
+        ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝    ╚═╝     ╚═╝╚══════╝╚═╝  ╚═══╝ ╚═════╝
+     © Towns.cz
+
+ * @fileOverview Left tool menu for terrain changing
+
+ */
+
 
 //======================================================================================================================objectMenuTerrainChange
 
@@ -11,6 +25,12 @@ function terrainChangeStart(terrain,level){
     terrain_change=terrain;
     level_change=level;
     terrainChanging=true;
+
+    //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
+    if([1,11,5]/*List of terrains*/.indexOf(terrain_change)!=-1){
+        dismantling=true;
+    }
+    //----------------------------
 
     //if(terrain_change){
     $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrain_change)+'.png\')');
@@ -58,7 +78,10 @@ function objectMenuTerrainChange(){
             var action='terrainChangeStart('+(terrain)+',false);';
 
 
-            objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content)).split('%action').join(htmlEncode(action));
+            objectmenu+=objectmenu_template
+                .split('%icon').join(icon)
+                .split('%content').join(htmlEncode(content))
+                .split('%action').join(htmlEncode(action));
 
             //$(objectmenu[i]).children('div').attr('content',content);
             //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
