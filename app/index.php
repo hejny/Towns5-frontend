@@ -95,9 +95,6 @@
             <script src="/app/js/ui.js"></script>
 
 
-            <!--<script src="app/js/localstorage.fake.js.php"></script>-->
-
-
 
             <script src="/app/coffeehtml/debug.js"></script>
             <!--<script src="app/coffeehtml/loginform.js"></script>-->
