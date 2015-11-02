@@ -166,6 +166,7 @@ gulp.task('production-scripts', function() {
         'node_modules/hammerjs/hammer.js',
         'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
         'app/js/func.lib.js',
+        'app/js/log.lib.js',
         'app/js/main.js',
         'app/js/lang.lib.js',
         'app/locale/cs.js',
