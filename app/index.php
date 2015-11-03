@@ -17,23 +17,27 @@
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 // TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
-$title = 'Towns';
-$description = '';
-$meta_og = [
+
+
+$page=[];
+$page['title'] = 'Towns';
+$page['description'] = '';
+$page['meta_og'] = [
     'site_name' => 'Towns',
-    'title' => $title,
-    'description' => $description,
+    'title' => $page['title'],
+    'description' => $page['description'],
     'type' => 'game'
     //'url' =>
     //'image' =>
 ];
 
+$window=[];
+$window['display'] = 'none';
+$window['header'] = '';
+$window['content'] = '';
 
-$window_display = 'none';
-$window_header = '';
-$window_content = '';
-
-$notifications_content = '';
+$notifications=[];
+$notifications['content'] = '';
 
 
 http_response_code(200);
@@ -46,8 +50,8 @@ http_response_code(200);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?= htmlspecialchars($title) ?></title>
-    <meta name="description" content="<?= addslashes($description) ?>">
+    <title><?= htmlspecialchars($page['title']) ?></title>
+    <meta name="description" content="<?= addslashes($page['description']) ?>">
     <link rel="icon" href="/favicon.ico">
 
     <?php
@@ -58,7 +62,7 @@ http_response_code(200);
 
     //--------------------------------Open Graph informace
 
-    foreach ($meta_og as $key => $value) {
+    foreach ($page['meta_og'] as $key => $value) {
         echo('<meta property="fb:' . addslashes($key) . '" content="' . addslashes($value) . '" >');
 
     }
@@ -275,11 +279,11 @@ http_response_code(200);
 </div>
 
 
-<div class="overlay" style="display: <?= addslashes($window_display) ?>;"></div>
+<div class="overlay" style="display: <?= addslashes($window['display']) ?>;"></div>
 
-<div class="popup-window" style="display: <?= addslashes($window_display) ?>;">
-    <div class="header"><?= addslashes($window_header) ?></div>
-    <div class="content"><?= addslashes($window_content) ?></div>
+<div class="popup-window" style="display: <?= addslashes($window['display']) ?>;">
+    <div class="header"><?= addslashes($window['header']) ?></div>
+    <div class="content"><?= addslashes($window['content']) ?></div>
 
 
     <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>
@@ -291,7 +295,7 @@ http_response_code(200);
     <div class="header"></div>
     <div class="content">
 
-        <?= htmlspecialchars($notifications_content) ?>
+        <?= htmlspecialchars($notifications['content']) ?>
 
     </div>
     <div class="footer">
