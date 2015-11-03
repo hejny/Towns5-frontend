@@ -989,7 +989,7 @@ function drawMap() {
         delete map_terrain_changes_new;
 */
         //r(map_terrain_changes);
-        localStorage.setItem('map_terrain_changes',JSON.stringify(map_terrain_changes));
+        saveMapTerrainChangesToLocalStorage();
     }
 
 

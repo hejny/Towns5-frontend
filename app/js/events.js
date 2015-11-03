@@ -270,7 +270,7 @@ $(function() {
 
         //e.preDefault();
 
-        if(terrainChanging!==false || dismantling!==false){
+        if(specialCursor==true && building==false){
 
             if(e.deltaY>0){
                 selecting_distance+=100;
@@ -580,6 +580,8 @@ $(function() {
             if(dismantling !== false){
 
 
+                $('#loading').hide();
+
 
                 var map_click_x=(e.clientX-(canvas_width / 3/2));
                 var map_click_y=(e.clientY-(canvas_height / 3/2));
@@ -610,6 +612,49 @@ $(function() {
 
             }
             //-----------------------------------------------------------------
+
+
+            //-----------------------------------------------------------------terrainNeutralizing
+            if(terrainNeutralizing !== false){
+
+
+                $('#loading').hide();
+
+
+                var map_click_x=(e.clientX-(canvas_width / 3/2));
+                var map_click_y=(e.clientY-(canvas_height / 3/2));
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+                mapPos.x=(mapPos.x)+5;
+                mapPos.y=(mapPos.y)+7;
+
+
+
+                for(var i=map_terrain_changes.length-1;i>=0;i--){
+
+
+                    if(xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance/map_field_size){
+
+                        //r('splicing '+i);
+
+                        map_terrain_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
+
+                    }
+
+                }
+
+                saveMapTerrainChangesToLocalStorage();
+                loadMap();
+
+
+                return;
+
+
+            }
+            //-----------------------------------------------------------------
+
+
+
 
             //todo [PH] ??? Maybe here should be also terrain changing
 

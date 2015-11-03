@@ -12,6 +12,35 @@
 
  */
 
+//======================================================================================================================objectMenuTerrainChange
+
+function terrainNeutralizeStart(){
+
+    mapSpecialCursorStop();
+    mapSpecialCursorStart();
+
+    updateSelectingDistance();
+
+
+    terrainNeutralizing=true;
+
+
+    $('#selecting-distance-ctl').css('background','');
+
+
+    $('#selecting-distance-ctl').show();
+    $('#selecting-distance-left').hide();
+    $('#selecting-distance-right').hide();
+
+
+    $('#selecting-distance').show();
+}
+
+function terrainNeutralizeStop(){
+
+    terrainNeutralizing=false;
+
+}
 
 //======================================================================================================================objectMenuTerrainChange
 
