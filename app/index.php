@@ -198,6 +198,7 @@ http_response_code(200);
 
             <ul class="menu-dlist">
                 <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;">Typy</a></li>
+                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;">Původní stav</a></li>
             </ul>
         </li>
 
