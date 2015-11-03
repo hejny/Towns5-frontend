@@ -50,7 +50,6 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
-    if(env('debug'))
     $(document).on("contextmenu", function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
@@ -243,12 +242,6 @@ window.uiScript = function(){
     });
 
 
-    //==================================================================================================================ENV
-
-    if(env('debug'))$("#debuginfo").show();
-
-    if(env('onlymap'))$(".menu").hide();
-
     //==================================================================================================================
 
 
@@ -303,8 +296,8 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    if(!env('nointro'))
-        window_open('Towns 5',window['projects_html']);
+
+    window_open('Towns 5',window['projects_html']);
 
 
 });

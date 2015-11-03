@@ -201,17 +201,6 @@ input, textarea {
 
 
 
-#debuginfo {
-    display:none;/*todo nemely by tyhle display informace byt v html souboru???*/
-    position:absolute;
-    right:0px;
-    top:65px;
-    color:#ffffff;
-    z-index:1500;
-}
-
-
-
 /* MENU --------------------------------------------------------------------------------------------------------------*/
 
 .menu {
