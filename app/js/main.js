@@ -15,123 +15,54 @@
 
 //======================================================================================================================
 
-var baseurl='http://towns.local';
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~env
-
-var env_template=[
-    'debug',
-    'onlymap',
-    'restart',
-    'nointro'
-
-];
-
-var env_array=[];
-
-
-
-var query=location.search;
-query=query.substring(1);
-query=query.split('&');
-
-
-
-for(var i=0;i<env_template.length;i++){
-
-    //console.log(env_template[i],$.inArray(env_template[i],query));
-
-
-    if($.inArray(env_template[i],query)!=-1){
-
-        env_array.push(env_template[i]);
-    }
-
-}
-
 
 console.log('Starting Towns 5...');
-console.log('ENV:');
-console.log(env_array);
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~ENV
-
-function env(envkey) {
-
-    if($.inArray(envkey,env_array)!=-1) {
-        return(true);
-    }else {
-        return(false);
-    }
-
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-var query_new;
-query_new=env_array.join('&');
 
 
-if(query_new!='')query_new='?'+query_new;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~pathname
-
-var pathname_new=[];
-
-
-var pathname=location.pathname;
-pathname=pathname.split('/');
-
-
-for(var i=0;i<pathname.length;i++){
-    if(pathname[i]!=''){
-        //@todo parse permalink
-        pathname_new.push(pathname[i]);
-    }
-}
-
-pathname_new=pathname_new.join('/');
-
-if(pathname_new!='')pathname_new='/'+pathname_new;
-//~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-var location_new=baseurl+pathname_new+query_new;
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~location on map
 
 
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ENV RESTART
+var hash=location.hash;
+hash=hash.substring(1);
+hash=hash.split(',');
+
+var x,y;
+if(is(hash[0]) && is(hash[1])){
+
+    map_x=parseFloat(hash[0]);
+    map_y=parseFloat(hash[1]);
+
+    if(isNaN(map_x))map_x=0;
+    if(isNaN(map_y))map_y=0;
 
 
-if(env('restart')){
+}else
+if(is(localStorage.getItem('map_x')) && is(localStorage.getItem('map_y'))){
 
-    r('Cleaning localStorage');
+    var map_x=parseFloat(localStorage.getItem('map_x'));
+    var map_y=parseFloat(localStorage.getItem('map_y'));
 
-    localStorage.clear();
+}else{
 
-    //-----------------------------------------------Calc LS size
-    /*localStorage.setItem("DATA", "m");
-    for(i=0 ; i<40 ; i++) {
-        var data = localStorage.getItem("DATA");
-        try {
-            localStorage.setItem("DATA", data + data);
-        } catch(e) {
-            console.log("LIMIT REACHED: (" + i + ")");
-            console.log(e);
-            break;
-        }
-    }
-    localStorage.removeItem("DATA");*/
-    //-----------------------------------------------
-
+    var map_x=(Math.random()-0.5)*1000000;
+    var map_y=(Math.random()-0.5)*1000000;
 
 }
 
 
+r(map_x,map_y);
 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~updateMapLocationHash
 
-/*window.onbeforeunload = function() {
-    return "Bye now!";
-    //@todo Onunload
-};*/
+function updateMapLocationHash(){
+
+
+    location.hash='#'+(Math.round(map_x))+','+(Math.round(map_y));
+    localStorage.setItem('map_x',map_x);
+    localStorage.setItem('map_y',map_y);
+
+
+}
+
 

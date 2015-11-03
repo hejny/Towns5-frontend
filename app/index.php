@@ -111,7 +111,6 @@ http_response_code(200);
         <script src="/app/js/ui.js"></script>
 
 
-        <script src="/app/coffeehtml/debug.js"></script>
         <!--<script src="app/coffeehtml/loginform.js"></script>-->
         <script src="/app/coffeehtml/projects.js"></script>
 
@@ -198,8 +197,7 @@ http_response_code(200);
             <a href="#">Příroda</a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuTerrainChange();">Typy</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuLevelChange();">Výška</a></li>
+                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;">Typy</a></li>
             </ul>
         </li>
 
@@ -207,9 +205,9 @@ http_response_code(200);
             <a href="#">Budovy</a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');">Zakladni</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');">Hradby</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();">Zbourat</a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;">Zakladni</a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;">Hradby</a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;">Zbourat</a></li>
             </ul>
         </li>
 
@@ -232,6 +230,10 @@ http_response_code(200);
             <a href="#">Mapa</a>
 
             <ul class="menu-dlist">
+
+                <li class="menu-dlist-item"><a href="" onclick="localStorage.clear();location.reload();return false;">Restartovat</a></li>
+
+
             </ul>
         </li>
 

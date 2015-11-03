@@ -27,22 +27,6 @@ var map_rotation=Math.random()*360;
 var map_slope=27;
 
 
-if(is(localStorage.getItem('map_x')) && is(localStorage.getItem('map_y'))){
-
-    var map_x=parseFloat(localStorage.getItem('map_x'));
-    var map_y=parseFloat(localStorage.getItem('map_y'));
-
-}else{
-
-    var map_x=(Math.random()-0.5)*1000000;
-    var map_y=(Math.random()-0.5)*1000000;
-
-}
-
-r(map_x,map_y);
-
-/*var map_x=0;
-var map_y=0;*/
 
 var map_field_size=160;
 
@@ -274,7 +258,6 @@ var map_request_holder;
 
 function loadMap() {
     r('loadMap');
-
 
     var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
 
@@ -1109,8 +1092,7 @@ function updateMap(ms){
     if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || !map_size){
 
 
-        localStorage.setItem('map_x',map_x);
-        localStorage.setItem('map_y',map_y);
+        updateMapLocationHash();
 
 
         map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/map_field_size/*1.4*/))/map_zoom_m;

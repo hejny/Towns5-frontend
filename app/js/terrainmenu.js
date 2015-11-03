@@ -111,6 +111,8 @@ var level_change=false;
 
 function objectMenuLevelChange(){
 
+    //todo nepouzivat
+
     var objectmenu='';
 
     for(var level=-1;level<=1;level+=0.5){
