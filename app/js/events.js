@@ -590,8 +590,8 @@ $(function() {
 
                 for(var i=map_object_changes.length-1;i>=0;i--){
 
-                    //r(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
-                    if(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance/map_field_size){
+                    //r(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
+                    if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance/map_field_size){
 
                         //r('splicing '+i);
 
@@ -633,7 +633,7 @@ $(function() {
                 for(var i=map_terrain_changes.length-1;i>=0;i--){
 
 
-                    if(xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance/map_field_size){
+                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance/map_field_size){
 
                         //r('splicing '+i);
 
@@ -735,7 +735,7 @@ $(function() {
                 }
 
 
-                var dist=xy2dist(lastX-mapPos.x,lastY-mapPos.y);
+                var dist=Math.xy2dist(lastX-mapPos.x,lastY-mapPos.y);
                 //r(dist,(building.size * map_model_size));
 
 
@@ -819,9 +819,9 @@ $(function() {
             //r(buildingByDraggingPath);
 
 
-            var distance = xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+            var distance = Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
 
-            //todo pouzit funkci xy2distDeg
+            //todo pouzit funkci Math.xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 

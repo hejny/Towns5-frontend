@@ -329,8 +329,8 @@ this.model2array = function(res){
         var points=tmp[0];
         var polygons=tmp[1];
         var colors=tmp[2];
-        array['rot']=toFloat(tmp[3],0);
-        array['size']=toFloat(tmp[4],1);
+        array['rot']=Math.toFloat(tmp[3],0);
+        array['size']=Math.toFloat(tmp[4],1);
 
         //---------------------------colors
 
@@ -426,8 +426,8 @@ this.array2model = function(array){
 
     //---------------------------rot,size
 
-    array['rot']=toFloat(array['rot'],0);
-    array['size']=toFloat(array['size'],1);
+    array['rot']=Math.toFloat(array['rot'],0);
+    array['size']=Math.toFloat(array['size'],1);
 
 
     res+= ':'+array['rot']+':'+array['size'];
@@ -495,7 +495,7 @@ this.arrayCompileRotSize = function(array) {
 
         if(!(x==-4 && y==-4)){
 
-            var distDeg = xy2distDeg(x - 50, y - 50);
+            var distDeg = Math.xy2distDeg(x - 50, y - 50);
 
             //r(distDeg);
 
@@ -504,7 +504,7 @@ this.arrayCompileRotSize = function(array) {
 
             //r(distDeg);
 
-            var xy = distDeg2xy(distDeg['dist'], distDeg['deg']);
+            var xy = Math.distDeg2xy(distDeg['dist'], distDeg['deg']);
 
             //r(xy);
 
@@ -705,7 +705,7 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
         //r(move_x,move_y);
 
-        var tmp = xyRotate(move_x,move_y,-45);//todo Jde nejekym zkusobem vytvorit v js funkci, ktera zmeni hodnotu primo a ne tak, ze je musi vratit pres nejake pomocene pole?
+        var tmp = Math.xyRotate(move_x,move_y,-45);//todo Jde nejekym zkusobem vytvorit v js funkci, ktera zmeni hodnotu primo a ne tak, ze je musi vratit pres nejake pomocene pole?
 
         //r(move_x,move_y);
 
