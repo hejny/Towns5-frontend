@@ -44,7 +44,7 @@ function terrainNeutralizeStop(){
 
 //======================================================================================================================objectMenuTerrainChange
 
-function terrainChangeStart(terrain,level){
+function terrainChangeStart(terrain){
 
     mapSpecialCursorStop();
     mapSpecialCursorStart();
@@ -52,7 +52,6 @@ function terrainChangeStart(terrain,level){
     updateSelectingDistance();
 
     terrain_change=terrain;
-    level_change=level;
     terrainChanging=true;
 
     //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
@@ -133,61 +132,3 @@ function objectMenuTerrainChange(){
 
 }
 
-//======================================================================================================================objectMenuLevelChange
-
-var level_change=false;
-
-
-function objectMenuLevelChange(){
-
-    //todo nepouzivat
-
-    var objectmenu='';
-
-    for(var level=-1;level<=1;level+=0.5){
-
-
-        var icon='media/image/terrain/f_create_terrain.png';
-
-        /*content='<h2>'+l('terrain','t'+terrain)+'</h2>' +
-         '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
-         '<button>Postaviť drist!</button>';*/
-        var content='';
-        var action='terrainChangeStart(false,'+(level)+');';
-
-
-        objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content)).split('%action').join(htmlEncode(action));
-
-        //$(objectmenu[i]).children('div').attr('content',content);
-        //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
-
-
-
-    }
-
-
-    for(i=0;i<5;i++)
-        objectmenu+='<br>';
-
-
-    $('#objectmenu-inner').html(objectmenu);
-
-    $('#objectmenu').animate({left:0}, 200);
-
-    uiScript();
-
-
-}
-
-
-//======================================================================================================================objectMenuTerrainChange
-
-
-
-/*
-$(function(){
-
-    objectMenuTerrainChange();
-
-});
-*/
