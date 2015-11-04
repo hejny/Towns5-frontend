@@ -247,50 +247,7 @@ function deepCopy(oldObject){
 
 }
 
-//======================================================================================================================PHP like functions
-
-//todo ??Refector to native JS
-
-function explode(delimiter,str){
-    return(str.split(delimiter));
-}
-
-
-function implode(delimiter,str){
-    return(str.join(delimiter));
-}
-
-
-function str_replace(from,to,str){
-    return(str.split(from).join(to));
-}
-
-function count(str){
-    return(str.length);
-}
-
-function strlen(str) {
-    return(str.length);
-}
-
-function substr(str,start,len) {
-    return (str.substr(start,len));
-}
-
-function strpos(haystack,needle) {
-
-    var pos=haystack.indexOf(needle);
-    if(pos==-1)pos=false;
-
-    return (pos);
-}
-
-function round(num) {
-    return (Math.round(num));
-}
-
-
-//----------------------------------------------------------From Towns4 converted from php to js
+//======================================================================================================================From Towns4 converted from php to js
 
 
 function substr2(input,a,b,i,change,startstop){
@@ -301,8 +258,8 @@ function substr2(input,a,b,i,change,startstop){
 
 
     /*if(!startstop){
-        var start=strlen(a);
-        var stop=strlen(b);
+        var start=php.strlen(a);
+        var stop=php.strlen(b);
     }else{
         var start=0;
         var stop=0;
@@ -311,36 +268,38 @@ function substr2(input,a,b,i,change,startstop){
     //--------------------------------------
 
     var string=input;
-    var aLen=strlen(a);
+    var aLen= a.length;
 
     //--------------------------------------Posun o prislusny pocet vyskytu dany v i
     var p=0;
     for(var ii=0;ii<i;ii++){
-        var pp=strpos(string,a)+1;
+
+        var pp=string.indexOf(a)+1;
         p=p+pp;
-        string=substr(string,pp);
+        string=string.substr(pp);
+
     }
 
 
     //--------------------------------------Pozice zacatku
 
-    var aPos=strpos(string,a);
+    var aPos=a.indexOf(string);
 
     //--------------------------------------
 
 
-    if(aPos!==false){
+    if(aPos!==-1){
         //--------------------------------------
-        string=substr(string,aPos+aLen);//Oriznuti stringu na 'hledane)blablabla'
-        var bPos=strpos(string,b);
+        string=string.substr(string,aPos+aLen);//Oriznuti stringu na 'hledane)blablabla'
+        var bPos=b.indexOf(string);
 
-        string=substr(string,0,bPos);//Oriznuti stringu na 'hledane'
+        string=string.substr(string,0,bPos);//Oriznuti stringu na 'hledane'
 
         /*if(change!=false){
 
             inner=substr(input,aPos+aLen+p,bPos);
-            input=substr_replace(input,change,aPos+aLen+p-start,bbPos+stop+start);//b-a-aa
-            ???input=str_replace("[]",inner,input);
+            input=subphp.split('').join(input,change,aPos+aLen+p-start,bbPos+stop+start);//b-a-aa
+            ???input=php.split('').join("[]",inner,input);
         }//průser v akcentu*/
 
 
