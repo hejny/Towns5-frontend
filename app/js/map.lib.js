@@ -62,7 +62,7 @@ function getZ(x,y){
         x=Math.floor(x/1.5);
         y=Math.floor(y/1.5);
 
-        var xy = xyRotate(x,y,57);
+        var xy = Math.xyRotate(x,y,57);
 
         x=xy.x;
         y=xy.y;

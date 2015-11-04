@@ -1224,7 +1224,7 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
     }*/
     //********NEW
 
-    //todo pouzit funkci xy2distDeg
+    //todo pouzit funkci Math.xy2distDeg
     var map_click_rot=Math.atan2(map_click_y,map_click_x);//todo why reverse order
 
 

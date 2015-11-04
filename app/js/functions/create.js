@@ -79,7 +79,7 @@ function create(object,nosave){
 
     for (var i = 0,l=map_object_changes.length; i < l; i++){
 
-        if((distance=xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<0.7*map_model_size){
+        if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<0.7*map_model_size){
 
 
             distances.push({i: i,distance: distance});
