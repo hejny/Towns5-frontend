@@ -63,7 +63,7 @@ if(unique_objects!==null) {
                     }
 
 
-                    unique_objects[i].icon=Model.Model.createIcon(unique_objects[i].res,50);
+                    unique_objects[i].icon=Model.createIcon(unique_objects[i].res,50);
 
 
                 }
@@ -80,6 +80,7 @@ if(unique_objects!==null) {
 
                 localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
                 //objectMenuUnique('wall');
+
 
             },100);
 

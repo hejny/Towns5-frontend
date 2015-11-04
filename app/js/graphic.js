@@ -55,6 +55,7 @@ var map_rotation=45;
 var max_map_size=180;
 
 var selecting_distance=1000;
+var selecting_distance_fields=0;
 
 //----
 
@@ -72,7 +73,7 @@ var canvas_mouse_x = 0;
 var canvas_mouse_y = 0;
 var map_mouse_x = 0;
 var map_mouse_y = 0;
-var map_selecting = false;
+var map_selecting = false;//todo [PH] Where this var should be?
 var map_selected_ids = [];
 
 var terrainCount=13;
@@ -80,7 +81,7 @@ var terrainCount=13;
 
 //----------------
 
-var seedCount=5;
+var seedCount=3;
 //----
 
 var treeCount=10;
@@ -210,7 +211,7 @@ $(function() {
 
 
             all_images_bg[terrain][seed] = new Image();
-            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=160';
+            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=220';
 
             all_images_bg[terrain][seed].onload = imageLoad;
 
@@ -365,7 +366,6 @@ function loadMap() {
                 var x=map_terrain_changes[i][0],
                     y=map_terrain_changes[i][1],
                     terrain=map_terrain_changes[i][2],
-                    z=map_terrain_changes[i][3];
 
                 //r(x,y,map_x,map_y);
 
@@ -382,7 +382,6 @@ function loadMap() {
 
                 ){}else{
                     map_bg_data[y][x]=terrain;
-                    map_z_data[y][x]=z;
                 }
 
             }
@@ -472,23 +471,16 @@ function drawMap() {
                     var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
 
 
-                    var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
-                    //var z=0;
-                    //r(map_z_data[y][x]);
+                    var terrain_size=Math.cos((world_x*world_y)%100)/2/4+1;
 
 
-                    //var size = (Math.sin((world_x * world_y) / 10) / 4) + 1.25;
-                    var size=1;
-
-                    var width = Math.ceil(map_field_size * size * 3 * map_zoom_m);
-                    var height = Math.ceil(width * size /* map_zoom_m*/);
-
-                    height_z=height*(1+map_z_data[y][x]);
+                    var width = Math.ceil(map_field_size * terrain_size * 3 * map_zoom_m);
+                    var height = Math.ceil(width * terrain_size /* map_zoom_m*/);
 
 
 
                     var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
-                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
+                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m  * map_zoom_m;
 
 
                     screen_x += (canvas_width / 2);
@@ -496,67 +488,25 @@ function drawMap() {
 
 
                     //------------------------------------------
-                    if (map_selecting && terrainChanging) {
-
-                        var distance = Math.pow(screen_x + (width / 2) - canvas_mouse_x, 2) + Math.pow((screen_y + (height / 4) - canvas_mouse_y) * map_slope_m, 2);
 
 
-                        if (distance < selecting_distance_pow) {
-
-                            //selecting_distance_pow = distance;
-                            //map_selecting = false;
-
-                            map_mouse_x = object_xc;
-                            map_mouse_y = object_yc;
-
-                            //r(y+','+x+' t'+terrain_change);
-
-                            //----------------------------------------------------------Zmena typu terenu
-                            if (terrain_change !== false) {
-
-
-                                map_bg_data[y][x] = terrain_change;
-                                map_terrain_changes.push([world_x, world_y, terrain_change, map_z_data[y][x]]);
-
-                                //++++++++++++++++++ begin duplicate
-                                var terrain = map_bg_data[y][x] - 1;
-                                //++++++++++++++++++ end of duplicate
-
-                            }
-                            //----------------------------------------------------------
-
-
-
-
-                        }
-                    }
-                    //------------------------------------------
-
-
-                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (map_field_size * size)) {
+                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (map_field_size * terrain_size)) {
 
                         //----------------------------------------------------------------------------------------------
 
-                        if(width<height_z/2) {
-                            seed = -1;
-                        }else{
-                            var seed = Math.abs(world_x * world_y - 1) % seedCount;
-                        }
-
+                        var seed = Math.abs(world_x * world_y - 1) % seedCount;
 
                         //-----
 
-                        //r(z);
-                        //r(seed);
 
                         map_draw.push([
                             'terrain',
                             all_images_bg[terrain][seed],
                             screen_x,
                             screen_y,
-                            screen_y + height - Math.floor(width / 4),
+                            screen_y + height/terrain_size - Math.floor(width / 4),
                             width,
-                            height_z
+                            height
                         ]);
 
 
@@ -601,8 +551,8 @@ function drawMap() {
 
 
 
-                                var object_width = object.width * (width / 100) * size;
-                                var object_height = object.height * (width / 100) * size;
+                                var object_width = object.width * map_zoom_m * 5 *  size;
+                                var object_height = object.height * map_zoom_m * 5 * size;
 
 
                                 object_xc = xc;
@@ -613,7 +563,7 @@ function drawMap() {
 
 
                                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m + (z - 300) / map_slope_n * map_zoom_m;
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m - 300 / map_slope_n * map_zoom_m;
 
 
                                 object_screen_x += (canvas_width / 2);
@@ -719,6 +669,8 @@ function drawMap() {
         object_screen_x += (canvas_width / 2);
         object_screen_y += (canvas_height / 2);
 
+
+        //********************************************************************IN next commit will be moved to events.js by PH
         if (map_selecting && !terrainChanging) {
 
             var distance = Math.pow(object_screen_x - canvas_mouse_x, 2) + Math.pow(object_screen_y - canvas_mouse_y, 2);
@@ -764,6 +716,8 @@ function drawMap() {
                 //------------------------------------------
             }
         }
+        //********************************************************************
+
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
@@ -921,49 +875,6 @@ function drawMap() {
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    if(map_selecting && terrainChanging){
-
-
-        //todo presunout do terrain.js
-       /* //todo opravit priority
-        map_terrain_changes.sort(function (a, b) {
-
-            if (a[0] > b[0]) {
-                return (1);
-            } else if (a[0] < b[0]) {
-                return (-1);
-            } else {
-
-                if (a[1] > b[1]) {
-                    return (1);
-                } else if (a[1] < b[1]) {
-                    return (-1);
-                } else {
-                    return (0);
-                }
-
-            }
-
-        });
-
-        var map_terrain_changes_new=[];
-        var a=false,b=false;
-        for (var i = map_terrain_changes.length-1; i >= 0; i--){
-
-            if(a==map_terrain_changes[i][0] && b==map_terrain_changes[i][1]){}else{
-                map_terrain_changes_new.push(map_terrain_changes[i]);
-            }
-
-            a=map_terrain_changes[i][0];
-            b=map_terrain_changes[i][1];
-        }
-
-        map_terrain_changes=map_terrain_changes_new.splice(0);
-        delete map_terrain_changes_new;
-*/
-        //r(map_terrain_changes);
-        saveMapTerrainChangesToLocalStorage();
-    }
 
 
 }
