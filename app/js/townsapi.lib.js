@@ -15,7 +15,6 @@
 
 //======================================================================================================================token
 
-//r(env);
 
 var token;
 
@@ -78,7 +77,7 @@ function townsApiEscape(query){
 function townsApi(query,callback){
     //r('townsApi');
 
-    //output=json - Některé funkce např ad nebo model vrací přímo obrázek. Pokud je v GET parametrech output=json je místo toho vrácen json s klíčem url na daný obrázek.
+    //output=json - Některé funkce např ad nebo Model vrací přímo obrázek. Pokud je v GET parametrech output=json je místo toho vrácen json s klíčem url na daný obrázek.
 
 
 

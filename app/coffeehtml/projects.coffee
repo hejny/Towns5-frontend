@@ -80,7 +80,7 @@ Připravujeme novou verzi hry.</h2>
   <br><br>
   <hr>
 
-  <iframe width="750" height="563" src="https://www.youtube.com/embed/CZ2eFAwOFwU?rel=0&amp;showinfo=0&amp;?VQ=HD720" frameborder="0" allowfullscreen></iframe>
+  <iframe width="750" height="563" src="https://www.youtube.com/embed/CZ2eFAwOFwU?vq=hd720&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
 
   <br><br>
   <hr>

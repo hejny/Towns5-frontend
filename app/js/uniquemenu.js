@@ -63,7 +63,7 @@ if(unique_objects!==null) {
                     }
 
 
-                    unique_objects[i].icon=createIcon(unique_objects[i].res,50);
+                    unique_objects[i].icon=Model.createIcon(unique_objects[i].res,50);
 
 
                 }
@@ -80,6 +80,7 @@ if(unique_objects!==null) {
 
                 localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
                 //objectMenuUnique('wall');
+
 
             },100);
 
@@ -136,7 +137,7 @@ function buildingUpdate(object){
     selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,300 , 300 );
 
 
-    drawModel(selecting_distance_canvas_ctx,modelRotSize(building.res,(building.rot-map_rotation),building.size),map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],0,map_slope);
+    Model.draw(selecting_distance_canvas_ctx,Model.addRotSize(building.res,(building.rot-map_rotation),building.size),map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],0,map_slope);
 
 
 }
