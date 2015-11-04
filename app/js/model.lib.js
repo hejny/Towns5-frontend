@@ -322,8 +322,8 @@ this.model2array = function(res){
 
         var array={};
 
-        res=str_replace("::",":1,1,1:",res);
-        var tmp=explode(":",res);
+        res=res.split('::').join(':1,1,1:');
+        var tmp=res.split(':');
 
 
         var points=tmp[0];
@@ -334,19 +334,19 @@ this.model2array = function(res){
 
         //---------------------------colors
 
-        colors=explode(',',colors);
+        colors=colors.split(',');
 
         array['colors']=colors;
 
         //---------------------------rozklad bodu
 
         points=points.substr(1,points.length-2);
-        points=explode("]",points);
+        points=points.split("]");
 
         for (var i= 0,l=points.length;i<l;i++) {
 
-            points[i]=str_replace("[","",points[i]);
-            points[i]=explode(",",points[i]);
+            points[i]=points[i].split('[').join('');
+            points[i]=points[i].split(",");
 
             for (var ii= 0,ll=points[i].length;ii<ll;ii++)
                 points[i][ii]-=0;
@@ -357,14 +357,14 @@ this.model2array = function(res){
 
         //---------------------------polygons
 
-        polygons=explode(';',polygons);
+        polygons=polygons.split(';');
 
         for (var i=0,l=polygons.length;i<l;i++) {
 
 
             if(is(polygons[i])){
 
-                polygons[i]=explode(",",polygons[i]);
+                polygons[i]=polygons[i].split(",");
 
                 for (var ii= 0,ll=polygons[i].length;ii<ll;ii++)
                     polygons[i][ii]-=1;
@@ -398,9 +398,9 @@ this.array2model = function(array){
 
     for (var i=0,l=array['points'].length;i<l;i++) {
 
-        var x=round(array['points'][i][0]*100)/100,
-            y=round(array['points'][i][1]*100)/100,
-            z=round(array['points'][i][2]*100)/100;
+        var x=Math.round(array['points'][i][0]*100)/100,
+            y=Math.round(array['points'][i][1]*100)/100,
+            z=Math.round(array['points'][i][2]*100)/100;
         res+= '['+x+','+y+','+z+']';
     }
 
@@ -413,15 +413,15 @@ this.array2model = function(array){
             array['polygons'][i][ii]++;
         }
 
-        array['polygons'][i]=implode(',',array['polygons'][i]/*.slice(0,-1)*/);
+        array['polygons'][i]=array['polygons'][i].join(',');
 
     }
-    array['polygons']=implode(';',array['polygons']);
+    array['polygons']=array['polygons'].join(';');
     res+= ':'+array['polygons'];
 
     //---------------------------colors
 
-    array['colors']=implode(',',array['colors']);
+    array['colors']=array['colors'].join(',');
     res+= ':'+array['colors'];
 
     //---------------------------rot,size
@@ -434,7 +434,7 @@ this.array2model = function(array){
 
     //---------------------------
 
-    res=str_replace(',;',';',res);
+    res=res.split(',;').join(';');
     return(res);
 
 }
@@ -577,7 +577,7 @@ this.parray2array = function(parray){
             for(var i=0,l=polygon['points'].length;i<l;i++){
 
                 array['points'].push(polygon['points'][i]);
-                newpolygon[i]=count(array['points'])-1;
+                newpolygon[i]=array['points'].length-1;
 
             }
             array['polygons'].push(newpolygon);
