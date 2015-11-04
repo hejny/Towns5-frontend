@@ -121,7 +121,7 @@ gr=1.62;
 
 
 
-//drawModel(ctx,res);
+//Model.draw(ctx,res);
 
 
 
@@ -730,7 +730,7 @@ function drawMap() {
          object.height=350;
          object_ctx = object.getContext("2d");
 
-         drawModel(object_ctx,map_data[i].res);*/
+         Model.draw(object_ctx,map_data[i].res);*/
 
 
         var object_id = map_data[i].id;
@@ -896,7 +896,7 @@ function drawMap() {
 
         } else if (map_draw[i][0] == 'building') {
 
-            drawModel(map_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            Model.draw(map_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         } else if (map_draw[i][0] == 'ellipse') {
 
@@ -1338,7 +1338,7 @@ function bufferDraw(){
 
         if (map_draw[i][0] == 'building') {
 
-            drawModel(map_buffer_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            Model.draw(map_buffer_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         }
 

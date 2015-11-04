@@ -139,7 +139,7 @@ function create(object,nosave){
             }
 
             map_object_changes[distances[0].i].res=
-                model2model(
+                Model.model2model(
                     map_object_changes[distances[0].i].res
                     ,object.res
                     ,false

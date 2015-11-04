@@ -557,7 +557,7 @@ $(function() {
                 tmp.y=mapPos.y;
 
 
-                tmp.res = modelRotSize(tmp.res, tmp.rot, tmp.size);
+                tmp.res = Model.addRotSize(tmp.res, tmp.rot, tmp.size);
 
 
                 delete tmp.rot;
@@ -862,7 +862,7 @@ $(function() {
                  }*/
 
 
-                tmp.res = modelRotSize(tmp.res, rot, building.size);
+                tmp.res = Model.addRotSize(tmp.res, rot, building.size);
 
 
                 delete tmp.rot;
