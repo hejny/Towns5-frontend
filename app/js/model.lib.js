@@ -23,6 +23,11 @@
 //██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 //======================================================================================================================
 
+/**
+ * Convert HTML HEX Color to {r:...,g:...,b:...}
+ * @param {string} hex code of color
+ * @returns {*}
+ */
 this.hexToRgb = function(hex) {
     var result, shorthandRegex;
     if (hex == null) {
@@ -51,18 +56,38 @@ this.hexToRgb = function(hex) {
 
 //---------------------------
 
+/**
+ * Convert r,g,b to Hex HTML color
+ * @param {number} r 0-255
+ * @param {number} g 0-255
+ * @param {number} b 0-255
+ * @returns {string} Hex code of HTML color eg. #FF0000
+ */
 this.rgbToHex = function(r, g, b) {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 };
 
 //======================================================================================================================
 
+/**
+ * Object contains Towns Model manipulation functions
+ * @type {{}}
+ */
 this.Model = {};
 
 
 //------------------------------------------------------------------------------
 
-
+/**
+ * Draw model on canvas
+ * @param ctx Canvas context
+ * @param {string} res String of Towns model resource
+ * @param {number} s Size of 1 virtual px
+ * @param {number} x_begin Canvas left
+ * @param {number} y_begin Canvas top
+ * @param {number} rot 0-360 Angle in degrees
+ * @param {number} slope 0-90 Angle in degrees
+ */
 this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     //todo delat kontrolu vstupnich parametru u funkci???
 
@@ -270,7 +295,12 @@ this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 //======================================================================================================================
 
 
-
+/**
+ * Create icon of Towns model
+ * @param {string} res Towns model string
+ * @param {number} size Size of returned image
+ * @returns {string} image data in base64
+ */
 this.Model.createIcon = function(res,size){
 
     var canvas = document.createElement('canvas');
@@ -300,6 +330,14 @@ this.Model.createIcon = function(res,size){
 //todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
 
 //======================================================================================================
+
+/**
+ * Add rotation and size to model
+ * @param {string} res
+ * @param {number} rot
+ * @param {number} size
+ * @returns {string} Towns Model
+ */
 this.Model.addRotSize = function(res,rot,size){
 
     res=res.split(':');
@@ -318,9 +356,10 @@ this.Model.addRotSize = function(res,rot,size){
 
 //======================================================================================================Model.model2array
 
-//todo [PH] vsechny funkce bud (function abc(){}...) NEBO (window.abc =) NEBO (this.abc=) - rozhodnout se
-//todo Zacit delat jsdoc
-
+/**
+ * @param {string} res Towns model string
+ * @returns {*} Towns model array
+ */
 this.Model.model2array = function(res){
     if(res.substr(0,1)=='['){
 
@@ -394,6 +433,11 @@ this.Model.model2array = function(res){
 
 
 //======================================================================================================Model.array2model
+
+/**
+ * @param {*} array Towns model array
+ * @returns {string} Towns model string
+ */
 this.Model.array2model = function(array){
 
     var res='';
@@ -445,6 +489,11 @@ this.Model.array2model = function(array){
 
 //======================================================================================================Model.arrayPurge
 
+/**
+ * Removes empty polygons from Towns model array
+ * @param {*} array Towns model array
+ * @returns {*} Towns model array
+ */
 this.Model.arrayPurge = function(array) {
 
     for (var i = Math.max(array.polygons.length,array.colors.length)-1; i>-1 ; i--) {
@@ -464,6 +513,14 @@ this.Model.arrayPurge = function(array) {
 
 //======================================================================================================Model.arrayMoveBy
 
+/**
+ * Move Towns model array by x,y,z
+ * @param {*} array Towns model array
+ * @param {number} move_x
+ * @param {number} move_y
+ * @param {number} move_z
+ * @returns {*} Towns model array
+ */
 this.Model.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
     if(is(array['points']))
@@ -482,10 +539,26 @@ this.Model.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
 //======================================================================================================arraySnap
 
-//todo Array Snap
+/**
+ * Snap nearby points together
+ * @param {*} array Towns model array
+ * @param {number} distance Distance od pount snapping
+ * @returns {*} Towns model array
+ */
+this.Model.arraySnap = function(array,distance) {
+
+    //todo Create this method
+    return(array);
+
+}
 
 //======================================================================================================Model.arrayCompileRotSize
 
+/**
+ * Compile rotation and size into points
+ * @param {*} array Towns model array
+ * @returns {*} Towns model array
+ */
 this.Model.arrayCompileRotSize = function(array) {
 
 
@@ -533,6 +606,11 @@ this.Model.arrayCompileRotSize = function(array) {
 
 }
 //======================================================================================================Model.array2parray
+
+/**
+ * @param {*} arrayTowns model array
+ * @returns {*} Towns model polygons array
+ */
 this.Model.array2parray = function(array){
 
     var parray={};
@@ -558,6 +636,12 @@ this.Model.array2parray = function(array){
     return(parray);
 }
 //======================================================================================================Model.parray2array
+
+/**
+ *
+ * @param {*} parray Towns model polygons array
+ * @returns {*} Towns model array
+ */
 this.Model.parray2array = function(parray){
 
     var array={};
@@ -594,6 +678,11 @@ this.Model.parray2array = function(parray){
 }
 
 //======================================================================================================Model.emptyParray
+
+/**
+ * Generates empty Towns model polygons array
+ * @returns {{polygons: Array, res: number, size: number}} Empty Towns model polygons array
+ */
 this.Model.emptyParray = function(){
     return({
         polygons:[],
@@ -604,6 +693,16 @@ this.Model.emptyParray = function(){
 
 
 //======================================================================================================Model.modelJoinlevel
+
+/**
+ * Calculates model joinlevel - maximum Z in model
+ * @param {string} res Towns model string
+ * @param {number} start_x
+ * @param {number} start_y
+ * @param {number} stop_x
+ * @param {number} stop_y
+ * @returns {number} Join level
+ */
 this.Model.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
     if(!is(start_x))start_x=0;
@@ -652,6 +751,12 @@ this.Model.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
 }
 //======================================================================================================Model.parrayBounds
+
+/**
+ * Calculate bounds of Towns model
+ * @param parray Towns model polygons array
+ * @returns {{start_x: (number|*), start_y: (number|*), stop_x: (number|*), stop_y: (number|*)}} Bounds
+ */
 this.Model.parrayBounds = function(parray){
 
     start_x=0;
@@ -697,6 +802,16 @@ this.Model.parrayBounds = function(parray){
 }
 
 //======================================================================================================Model.model2model
+
+/**
+ * Combinate two models
+ * @param {string} res1 Towns model string
+ * @param {string} res2 Towns model string
+ * @param {boolean} simple Simple combination of models
+ * @param {number} move_x
+ * @param {number} move_y
+ * @returns {string} Towns model string
+ */
 this.Model.model2model = function(res1,res2,simple,move_x,move_y){
     if(typeof simple=='undefined')simple=false;
 
