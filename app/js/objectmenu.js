@@ -81,7 +81,7 @@ function objectMenu(){
         $('#objectmenu').animate({left:0}, 200);
     }else{
 
-        $(".action-wrapper").removeClass("active");
+        $('.action-wrapper').removeClass('active');
         $('#objectmenu').animate({left:-60}, 200);
 
     }

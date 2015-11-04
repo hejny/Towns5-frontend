@@ -156,7 +156,7 @@ $(function() {
 
     //------------------------------------------------------------
 
-    window.addEventListener("keydown", function(e) {
+    window.addEventListener('keydown', function(e) {
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
@@ -314,8 +314,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousewheel(mouseWheel);
-    $("#selecting-distance").mousewheel(mouseWheel);
+    $('#map_drag').mousewheel(mouseWheel);
+    $('#selecting-distance').mousewheel(mouseWheel);
 
 
 //======================================================================================================================
@@ -368,8 +368,8 @@ $(function() {
 
 //======================================================================================================================
 
-    selecting_distance_canvas = document.getElementById("selecting-distance");
-    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext("2d");
+    selecting_distance_canvas = document.getElementById('selecting-distance');
+    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext('2d');
 
 
     window.updateSelectingDistance= function() {//todo all as this
@@ -508,8 +508,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousemove(mouseMove);
-    $("#selecting-distance").mousemove(mouseMove);
+    $('#map_drag').mousemove(mouseMove);
+    $('#selecting-distance').mousemove(mouseMove);
 
 
 
@@ -690,8 +690,8 @@ $(function() {
     };
 
 
-    $("#map_drag").click(mouseClick);
-    $("#selecting-distance").click(mouseClick);
+    $('#map_drag').click(mouseClick);
+    $('#selecting-distance').click(mouseClick);
 
 
 //======================================================================================================================Building By Dragging
@@ -769,8 +769,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousemove(mouseMove);
-    $("#selecting-distance").mousemove(mouseMove);
+    $('#map_drag').mousemove(mouseMove);
+    $('#selecting-distance').mousemove(mouseMove);
 
     //----------------------------------------------------------------------------------mouseDown
 
@@ -790,8 +790,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousedown(mouseDown);
-    $("#selecting-distance").mousedown(mouseDown);
+    $('#map_drag').mousedown(mouseDown);
+    $('#selecting-distance').mousedown(mouseDown);
 
     //----------------------------------------------------------------------------------BuildingLoop
 
@@ -912,8 +912,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mouseup(mouseUp);
-    $("#selecting-distance").mouseup(mouseUp);
+    $('#map_drag').mouseup(mouseUp);
+    $('#selecting-distance').mouseup(mouseUp);
 
     //----------------------------------------------------------------------------------
 //======================================================================================================================
