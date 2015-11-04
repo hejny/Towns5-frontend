@@ -273,7 +273,7 @@ this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
 this.Model.createIcon = function(res,size){
 
-    var canvas = document.createElement("canvas");
+    var canvas = document.createElement('canvas');
     canvas.height=size;
     canvas.width = size;
     var context = canvas.getContext('2d');
@@ -345,12 +345,12 @@ this.Model.model2array = function(res){
         //---------------------------rozklad bodu
 
         points=points.substr(1,points.length-2);
-        points=points.split("]");
+        points=points.split(']');
 
         for (var i= 0,l=points.length;i<l;i++) {
 
             points[i]=points[i].split('[').join('');
-            points[i]=points[i].split(",");
+            points[i]=points[i].split(',');
 
             for (var ii= 0,ll=points[i].length;ii<ll;ii++)
                 points[i][ii]-=0;
@@ -368,7 +368,7 @@ this.Model.model2array = function(res){
 
             if(is(polygons[i])){
 
-                polygons[i]=polygons[i].split(",");
+                polygons[i]=polygons[i].split(',');
 
                 for (var ii= 0,ll=polygons[i].length;ii<ll;ii++)
                     polygons[i][ii]-=1;
