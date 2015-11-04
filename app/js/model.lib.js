@@ -21,10 +21,74 @@
      ██████╔╝██║  ██║██║  ██║╚███╔███╔╝
      ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝*/
 //██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+//======================================================================================================================
+
+/**
+ * Convert HTML HEX Color to {r:...,g:...,b:...}
+ * @param {string} hex code of color
+ * @returns {*}
+ */
+this.hexToRgb = function(hex) {
+    var result, shorthandRegex;
+    if (hex == null) {
+        hex = '000000';
+    }
+    shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (result) {
+        return {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        };
+    } else {
+        return {
+            r: 0,
+            g: 0,
+            b: 0
+        };
+    }
+};
 
 
+//---------------------------
 
-this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
+/**
+ * Convert r,g,b to Hex HTML color
+ * @param {number} r 0-255
+ * @param {number} g 0-255
+ * @param {number} b 0-255
+ * @returns {string} Hex code of HTML color eg. #FF0000
+ */
+this.rgbToHex = function(r, g, b) {
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+};
+
+//======================================================================================================================
+
+/**
+ * Object contains Towns Model manipulation functions
+ * @type {{}}
+ */
+this.Model = {};
+
+
+//------------------------------------------------------------------------------
+
+/**
+ * Draw model on canvas
+ * @param ctx Canvas context
+ * @param {string} res String of Towns model resource
+ * @param {number} s Size of 1 virtual px
+ * @param {number} x_begin Canvas left
+ * @param {number} y_begin Canvas top
+ * @param {number} rot 0-360 Angle in degrees
+ * @param {number} slope 0-90 Angle in degrees
+ */
+this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     //todo delat kontrolu vstupnich parametru u funkci???
 
 
@@ -32,13 +96,13 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
     var slnko = 50;
 
-    res=modelRotSize(res,rot-45,s);
-    var res=model2array(res);
+    res=Model.addRotSize(res,rot-45,s);
+    var res=Model.model2array(res);
 
     if(!res)return;
 
 
-    var res=arrayCompileRotSize(res);
+    var res=Model.arrayCompileRotSize(res);
 
     //------------------------Prirazeni barev k polygonum pred serazenim
 
@@ -225,56 +289,26 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
 
     }
-};
-
-//======================================================================================================================
-
-this.hexToRgb = function(hex) {
-    var result, shorthandRegex;
-    if (hex == null) {
-        hex = '000000';
-    }
-    shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (result) {
-        return {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        };
-    } else {
-        return {
-            r: 0,
-            g: 0,
-            b: 0
-        };
-    }
-};
-
-
-//---------------------------
-
-this.rgbToHex = function(r, g, b) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-};
-
+}
 
 
 //======================================================================================================================
 
 
+/**
+ * Create icon of Towns model
+ * @param {string} res Towns model string
+ * @param {number} size Size of returned image
+ * @returns {string} image data in base64
+ */
+this.Model.createIcon = function(res,size){
 
-this.createIcon = function(res,size){
-
-    var canvas = document.createElement("canvas");
+    var canvas = document.createElement('canvas');
     canvas.height=size;
     canvas.width = size;
     var context = canvas.getContext('2d');
 
-    drawModel(context, res, 0.3, size/2, size*(4/5), 10, 35);
+    Model.draw(context, res, 0.3, size/2, size*(4/5), 10, 35);
 
     return(canvas.toDataURL());
 
@@ -296,7 +330,15 @@ this.createIcon = function(res,size){
 //todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
 
 //======================================================================================================
-window.modelRotSize = function(res,rot,size){
+
+/**
+ * Add rotation and size to model
+ * @param {string} res
+ * @param {number} rot
+ * @param {number} size
+ * @returns {string} Towns Model
+ */
+this.Model.addRotSize = function(res,rot,size){
 
     res=res.split(':');
 
@@ -312,41 +354,42 @@ window.modelRotSize = function(res,rot,size){
 }
 
 
-//======================================================================================================model2array
+//======================================================================================================Model.model2array
 
-//todo [PH] vsechny funkce bud (function abc(){}...) NEBO (window.abc =) NEBO (this.abc=) - rozhodnout se
-//todo Zacit delat jsdoc
-
-this.model2array = function(res){
+/**
+ * @param {string} res Towns model string
+ * @returns {*} Towns model array
+ */
+this.Model.model2array = function(res){
     if(res.substr(0,1)=='['){
 
         var array={};
 
-        res=str_replace("::",":1,1,1:",res);
-        var tmp=explode(":",res);
+        res=res.split('::').join(':1,1,1:');
+        var tmp=res.split(':');
 
 
         var points=tmp[0];
         var polygons=tmp[1];
         var colors=tmp[2];
-        array['rot']=toFloat(tmp[3],0);
-        array['size']=toFloat(tmp[4],1);
+        array['rot']=Math.toFloat(tmp[3],0);
+        array['size']=Math.toFloat(tmp[4],1);
 
         //---------------------------colors
 
-        colors=explode(',',colors);
+        colors=colors.split(',');
 
         array['colors']=colors;
 
         //---------------------------rozklad bodu
 
         points=points.substr(1,points.length-2);
-        points=explode("]",points);
+        points=points.split(']');
 
         for (var i= 0,l=points.length;i<l;i++) {
 
-            points[i]=str_replace("[","",points[i]);
-            points[i]=explode(",",points[i]);
+            points[i]=points[i].split('[').join('');
+            points[i]=points[i].split(',');
 
             for (var ii= 0,ll=points[i].length;ii<ll;ii++)
                 points[i][ii]-=0;
@@ -357,14 +400,14 @@ this.model2array = function(res){
 
         //---------------------------polygons
 
-        polygons=explode(';',polygons);
+        polygons=polygons.split(';');
 
         for (var i=0,l=polygons.length;i<l;i++) {
 
 
             if(is(polygons[i])){
 
-                polygons[i]=explode(",",polygons[i]);
+                polygons[i]=polygons[i].split(',');
 
                 for (var ii= 0,ll=polygons[i].length;ii<ll;ii++)
                     polygons[i][ii]-=1;
@@ -389,8 +432,13 @@ this.model2array = function(res){
 
 
 
-//======================================================================================================array2model
-this.array2model = function(array){
+//======================================================================================================Model.array2model
+
+/**
+ * @param {*} array Towns model array
+ * @returns {string} Towns model string
+ */
+this.Model.array2model = function(array){
 
     var res='';
 
@@ -398,9 +446,9 @@ this.array2model = function(array){
 
     for (var i=0,l=array['points'].length;i<l;i++) {
 
-        var x=round(array['points'][i][0]*100)/100,
-            y=round(array['points'][i][1]*100)/100,
-            z=round(array['points'][i][2]*100)/100;
+        var x=Math.round(array['points'][i][0]*100)/100,
+            y=Math.round(array['points'][i][1]*100)/100,
+            z=Math.round(array['points'][i][2]*100)/100;
         res+= '['+x+','+y+','+z+']';
     }
 
@@ -413,35 +461,40 @@ this.array2model = function(array){
             array['polygons'][i][ii]++;
         }
 
-        array['polygons'][i]=implode(',',array['polygons'][i]/*.slice(0,-1)*/);
+        array['polygons'][i]=array['polygons'][i].join(',');
 
     }
-    array['polygons']=implode(';',array['polygons']);
+    array['polygons']=array['polygons'].join(';');
     res+= ':'+array['polygons'];
 
     //---------------------------colors
 
-    array['colors']=implode(',',array['colors']);
+    array['colors']=array['colors'].join(',');
     res+= ':'+array['colors'];
 
     //---------------------------rot,size
 
-    array['rot']=toFloat(array['rot'],0);
-    array['size']=toFloat(array['size'],1);
+    array['rot']=Math.toFloat(array['rot'],0);
+    array['size']=Math.toFloat(array['size'],1);
 
 
     res+= ':'+array['rot']+':'+array['size'];
 
     //---------------------------
 
-    res=str_replace(',;',';',res);
+    res=res.split(',;').join(';');
     return(res);
 
 }
 
-//======================================================================================================arrayPurge
+//======================================================================================================Model.arrayPurge
 
-this.arrayPurge = function(array) {
+/**
+ * Removes empty polygons from Towns model array
+ * @param {*} array Towns model array
+ * @returns {*} Towns model array
+ */
+this.Model.arrayPurge = function(array) {
 
     for (var i = Math.max(array.polygons.length,array.colors.length)-1; i>-1 ; i--) {
 
@@ -458,9 +511,17 @@ this.arrayPurge = function(array) {
 
 }
 
-//======================================================================================================arrayMoveBy
+//======================================================================================================Model.arrayMoveBy
 
-this.arrayMoveBy = function(array,move_x,move_y,move_z) {
+/**
+ * Move Towns model array by x,y,z
+ * @param {*} array Towns model array
+ * @param {number} move_x
+ * @param {number} move_y
+ * @param {number} move_z
+ * @returns {*} Towns model array
+ */
+this.Model.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
     if(is(array['points']))
     for (var i=0,l=array['points'].length;i<l;i++) {
@@ -478,11 +539,27 @@ this.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
 //======================================================================================================arraySnap
 
-//todo Array Snap
+/**
+ * Snap nearby points together
+ * @param {*} array Towns model array
+ * @param {number} distance Distance od pount snapping
+ * @returns {*} Towns model array
+ */
+this.Model.arraySnap = function(array,distance) {
 
-//======================================================================================================arrayCompileRotSize
+    //todo Create this method
+    return(array);
 
-this.arrayCompileRotSize = function(array) {
+}
+
+//======================================================================================================Model.arrayCompileRotSize
+
+/**
+ * Compile rotation and size into points
+ * @param {*} array Towns model array
+ * @returns {*} Towns model array
+ */
+this.Model.arrayCompileRotSize = function(array) {
 
 
     for (var i = 0, l = array['points'].length; i < l; i++) {
@@ -495,7 +572,7 @@ this.arrayCompileRotSize = function(array) {
 
         if(!(x==-4 && y==-4)){
 
-            var distDeg = xy2distDeg(x - 50, y - 50);
+            var distDeg = Math.xy2distDeg(x - 50, y - 50);
 
             //r(distDeg);
 
@@ -504,7 +581,7 @@ this.arrayCompileRotSize = function(array) {
 
             //r(distDeg);
 
-            var xy = distDeg2xy(distDeg['dist'], distDeg['deg']);
+            var xy = Math.distDeg2xy(distDeg['dist'], distDeg['deg']);
 
             //r(xy);
 
@@ -528,8 +605,13 @@ this.arrayCompileRotSize = function(array) {
     return(array);
 
 }
-//======================================================================================================array2parray
-this.array2parray = function(array){
+//======================================================================================================Model.array2parray
+
+/**
+ * @param {*} arrayTowns model array
+ * @returns {*} Towns model polygons array
+ */
+this.Model.array2parray = function(array){
 
     var parray={};
     parray['rot']=array['rot'];
@@ -553,8 +635,14 @@ this.array2parray = function(array){
     }
     return(parray);
 }
-//======================================================================================================parray2array
-this.parray2array = function(parray){
+//======================================================================================================Model.parray2array
+
+/**
+ *
+ * @param {*} parray Towns model polygons array
+ * @returns {*} Towns model array
+ */
+this.Model.parray2array = function(parray){
 
     var array={};
 
@@ -577,7 +665,7 @@ this.parray2array = function(parray){
             for(var i=0,l=polygon['points'].length;i<l;i++){
 
                 array['points'].push(polygon['points'][i]);
-                newpolygon[i]=count(array['points'])-1;
+                newpolygon[i]=array['points'].length-1;
 
             }
             array['polygons'].push(newpolygon);
@@ -589,8 +677,13 @@ this.parray2array = function(parray){
     return(array);
 }
 
-//======================================================================================================emptyParray
-this.emptyParray = function(){
+//======================================================================================================Model.emptyParray
+
+/**
+ * Generates empty Towns model polygons array
+ * @returns {{polygons: Array, res: number, size: number}} Empty Towns model polygons array
+ */
+this.Model.emptyParray = function(){
     return({
         polygons:[],
         res:0,
@@ -599,8 +692,18 @@ this.emptyParray = function(){
 }
 
 
-//======================================================================================================modelJoinlevel
-this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
+//======================================================================================================Model.modelJoinlevel
+
+/**
+ * Calculates model joinlevel - maximum Z in model
+ * @param {string} res Towns model string
+ * @param {number} start_x
+ * @param {number} start_y
+ * @param {number} stop_x
+ * @param {number} stop_y
+ * @returns {number} Join level
+ */
+this.Model.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
     if(!is(start_x))start_x=0;
     if(!is(start_y))start_y=0;
@@ -612,7 +715,7 @@ this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
     if(isNaN(joinlevel)){
 
-        var parray=array2parray(model2array(res));
+        var parray=Model.array2parray(Model.model2array(res));
 
         joinlevel=0;
         for (var polygonVal in parray['polygons']) {
@@ -647,8 +750,14 @@ this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
 
 }
-//======================================================================================================parrayBounds
-this.parrayBounds = function(parray){
+//======================================================================================================Model.parrayBounds
+
+/**
+ * Calculate bounds of Towns model
+ * @param parray Towns model polygons array
+ * @returns {{start_x: (number|*), start_y: (number|*), stop_x: (number|*), stop_y: (number|*)}} Bounds
+ */
+this.Model.parrayBounds = function(parray){
 
     start_x=0;
     start_y=0;
@@ -692,20 +801,30 @@ this.parrayBounds = function(parray){
 
 }
 
-//======================================================================================================model2model
-this.model2model = function(res1,res2,simple,move_x,move_y){
+//======================================================================================================Model.model2model
+
+/**
+ * Combinate two models
+ * @param {string} res1 Towns model string
+ * @param {string} res2 Towns model string
+ * @param {boolean} simple Simple combination of models
+ * @param {number} move_x
+ * @param {number} move_y
+ * @returns {string} Towns model string
+ */
+this.Model.model2model = function(res1,res2,simple,move_x,move_y){
     if(typeof simple=='undefined')simple=false;
 
 
-    var array1=model2array(res1),
-        array2=model2array(res2);
+    var array1=Model.model2array(res1),
+        array2=Model.model2array(res2);
 
 
     if(is(move_x) || is(move_y)){
 
         //r(move_x,move_y);
 
-        var tmp = xyRotate(move_x,move_y,-45);//todo Jde nejekym zkusobem vytvorit v js funkci, ktera zmeni hodnotu primo a ne tak, ze je musi vratit pres nejake pomocene pole?
+        var tmp = Math.xyRotate(move_x,move_y,-45);//todo Jde nejekym zkusobem vytvorit v js funkci, ktera zmeni hodnotu primo a ne tak, ze je musi vratit pres nejake pomocene pole?
 
         //r(move_x,move_y);
 
@@ -713,7 +832,7 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
         move_y=Math.round(tmp.y);
 
         //r(move_x,move_y);
-        array2=arrayMoveBy(array2,move_x,move_y,0);
+        array2=Model.arrayMoveBy(array2,move_x,move_y,0);
 
     }
 
@@ -722,25 +841,25 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
     var array={};
     //---------------------------
     if(array1==false){
-        //------------------------------------------------------------------Model 1 neexistuje => vysledek je model 2
-        //r('model2model: Model 1 neexistuje => vysledek je model 2');
+        //------------------------------------------------------------------Model 1 neexistuje => vysledek je Model 2
+        //r('Model.model2model: Model 1 neexistuje => vysledek je Model 2');
         array=array2;
         //------------------------------------------------------------------
     }else if(array2==false){
-        //------------------------------------------------------------------Model 2 neexistuje => vysledek je model 1
-        //r('model2model: Model 2 neexistuje => vysledek je model 1');
+        //------------------------------------------------------------------Model 2 neexistuje => vysledek je Model 1
+        //r('Model.model2model: Model 2 neexistuje => vysledek je Model 1');
         array=array1;
         //------------------------------------------------------------------
     }else if(simple){
         //------------------------------------------------------------------Jednoduche smichani modelu bez navyseni
-        //r('model2model: Jednoduche smichani modelu');
+        //r('Model.model2model: Jednoduche smichani modelu');
 
-        array1=arrayCompileRotSize(array1);
-        array2=arrayCompileRotSize(array2);
+        array1=Model.arrayCompileRotSize(array1);
+        array2=Model.arrayCompileRotSize(array2);
 
-        var parray1=array2parray(array1),
-            parray2=array2parray(array2),
-            parray=emptyParray();
+        var parray1=Model.array2parray(array1),
+            parray2=Model.array2parray(array2),
+            parray=Model.emptyParray();
 
 
         parray['polygons']=parray['polygons'].concat(parray1['polygons'])
@@ -748,33 +867,33 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
 
 
-        array=parray2array(parray);
+        array=Model.parray2array(parray);
 
         //------------------------------------------------------------------
     }else{
         //------------------------------------------------------------------Spojeni modelu s joinlevel
-        //r('model2model: Spojeni modelu s joinlevel');
+        //r('Model.model2model: Spojeni modelu s joinlevel');
 
-        array1=arrayCompileRotSize(array1);
-        array2=arrayCompileRotSize(array2);
+        array1=Model.arrayCompileRotSize(array1);
+        array2=Model.arrayCompileRotSize(array2);
 
-        var parray1=array2parray(array1);
-            parray2=deepCopy(array2parray(array2));
-
-
-        var bounds=parrayBounds(res2);
+        var parray1=Model.array2parray(array1);
+            parray2=deepCopy(Model.array2parray(array2));
 
 
-        var joinlevel1=modelJoinlevel(res1,bounds.start_x,bounds.start_y,bounds.stop_x,bounds.stop_y),
-            joinlevel2=modelJoinlevel(res2);
+        var bounds=Model.parrayBounds(res2);
+
+
+        var joinlevel1=Model.modelJoinlevel(res1,bounds.start_x,bounds.start_y,bounds.stop_x,bounds.stop_y),
+            joinlevel2=Model.modelJoinlevel(res2);
 
 
 
-        parray=emptyParray();
+        parray=Model.emptyParray();
 
         //-----------------
 
-        //todo [PH] udelat pres arrayMoveBy
+        //todo [PH] udelat pres Model.arrayMoveBy
 
         for (var polygonVal in parray2['polygons']) {
             polygon = parray2['polygons'][polygonVal];
@@ -795,7 +914,7 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
 
         //-----------------
-        array=parray2array(parray);
+        array=Model.parray2array(parray);
 
         array['points'].push([-4,-4,joinlevel1+joinlevel2]);
 
@@ -804,14 +923,14 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
     //---------------------------
 
-    return(array2model(array));
+    return(Model.array2model(array));
 }
 
 
 //======================================================================================================model_postavene todo
 /*
 this.model_postavene = function(res,postavene){
-    var array=model2array(res);
+    var array=Model.model2array(res);
     var points=array['points'];
 
     i=-1;
@@ -837,6 +956,6 @@ this.model_postavene = function(res,postavene){
     }
 
     array['points']=points;
-    res=array2model(array);
+    res=Model.array2model(array);
     return(res);
 }*/

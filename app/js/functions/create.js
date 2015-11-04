@@ -1,12 +1,12 @@
 /**
 
-     ███████╗     ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
-     ██╔════╝    ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
-     █████╗      ██║     ██████╔╝█████╗  ███████║   ██║   █████╗
-     ██╔══╝      ██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██╔══╝
-     ██║         ╚██████╗██║  ██║███████╗██║  ██║   ██║   ███████╗
-     ╚═╝          ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
-     © Towns.cz
+ ███████╗     ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
+ ██╔════╝    ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
+ █████╗      ██║     ██████╔╝█████╗  ███████║   ██║   █████╗
+ ██╔══╝      ██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██╔══╝
+ ██║         ╚██████╗██║  ██║███████╗██║  ██║   ██║   ███████╗
+ ╚═╝          ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
+ © Towns.cz
 
  * @fileOverview Building and creating objects functions
 
@@ -46,6 +46,13 @@ function saveMapObjectChangesToLocalStorage(){
 }
 
 //----------------
+
+function saveMapTerrainChangesToLocalStorage(){
+
+    localStorage.setItem('map_terrain_changes',JSON.stringify(map_terrain_changes));
+}
+
+//----------------
 map_object_changes_buffer=[];//krokové změny
 
 
@@ -72,7 +79,7 @@ function create(object,nosave){
 
     for (var i = 0,l=map_object_changes.length; i < l; i++){
 
-        if((distance=xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<0.7*map_model_size){
+        if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<0.7*map_model_size){
 
 
             distances.push({i: i,distance: distance});
@@ -132,7 +139,7 @@ function create(object,nosave){
             }
 
             map_object_changes[distances[0].i].res=
-                model2model(
+                Model.model2model(
                     map_object_changes[distances[0].i].res
                     ,object.res
                     ,false

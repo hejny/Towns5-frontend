@@ -156,7 +156,7 @@ $(function() {
 
     //------------------------------------------------------------
 
-    window.addEventListener("keydown", function(e) {
+    window.addEventListener('keydown', function(e) {
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
@@ -270,7 +270,7 @@ $(function() {
 
         //e.preDefault();
 
-        if(terrainChanging!==false || dismantling!==false){
+        if(specialCursor==true && building==false){
 
             if(e.deltaY>0){
                 selecting_distance+=100;
@@ -314,8 +314,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousewheel(mouseWheel);
-    $("#selecting-distance").mousewheel(mouseWheel);
+    $('#map_drag').mousewheel(mouseWheel);
+    $('#selecting-distance').mousewheel(mouseWheel);
 
 
 //======================================================================================================================
@@ -368,8 +368,8 @@ $(function() {
 
 //======================================================================================================================
 
-    selecting_distance_canvas = document.getElementById("selecting-distance");
-    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext("2d");
+    selecting_distance_canvas = document.getElementById('selecting-distance');
+    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext('2d');
 
 
     window.updateSelectingDistance= function() {//todo all as this
@@ -378,6 +378,7 @@ $(function() {
         if(selecting_distance>10000)selecting_distance=10000;
 
 
+        selecting_distance_fields=selecting_distance/map_field_size;
 
         var width=selecting_distance * map_zoom_m*2;
         var height=selecting_distance * map_zoom_m;
@@ -508,12 +509,12 @@ $(function() {
     };
 
 
-    $("#map_drag").mousemove(mouseMove);
-    $("#selecting-distance").mousemove(mouseMove);
+    $('#map_drag').mousemove(mouseMove);
+    $('#selecting-distance').mousemove(mouseMove);
 
 
 
-//=======================================================================================================================Klikani - oznaceni + obycejne staveni
+//=================================================================================================Klikani - oznaceni + obycejne staveni + zmeny terenu + ruseni terenu, budov
 
     var clickingTimeout;
 
@@ -557,7 +558,7 @@ $(function() {
                 tmp.y=mapPos.y;
 
 
-                tmp.res = modelRotSize(tmp.res, tmp.rot, tmp.size);
+                tmp.res = Model.addRotSize(tmp.res, tmp.rot, tmp.size);
 
 
                 delete tmp.rot;
@@ -580,6 +581,8 @@ $(function() {
             if(dismantling !== false){
 
 
+                $('#loading').hide();
+
 
                 var map_click_x=(e.clientX-(canvas_width / 3/2));
                 var map_click_y=(e.clientY-(canvas_height / 3/2));
@@ -588,8 +591,8 @@ $(function() {
 
                 for(var i=map_object_changes.length-1;i>=0;i--){
 
-                    //r(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
-                    if(xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance/map_field_size){
+                    //r(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
+                    if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance_fields){
 
                         //r('splicing '+i);
 
@@ -611,10 +614,80 @@ $(function() {
             }
             //-----------------------------------------------------------------
 
-            //todo [PH] ??? Maybe here should be also terrain changing
+
+            //-----------------------------------------------------------------terrainChanging
+            if(terrainChanging !== false){
 
 
+                $('#loading').hide();
+
+
+                var map_click_x=(e.clientX-(canvas_width / 3/2));
+                var map_click_y=(e.clientY-(canvas_height / 3/2));
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
+
+                for(var y=Math.round(mapPos.y-selecting_distance_fields);y<=Math.round(mapPos.y+selecting_distance_fields);y++){
+
+                    for(var x=Math.round(mapPos.x-selecting_distance_fields);x<=Math.round(mapPos.x+selecting_distance_fields);x++) {
+
+                        if (Math.xy2dist(x - mapPos.x, y - mapPos.y) <= selecting_distance_fields) {
+
+                            map_terrain_changes.push([x, y, terrainChanging]);
+                        }
+                    }
+                }
+
+                saveMapTerrainChangesToLocalStorage();
+                loadMap();
+
+
+                return;
+
+
+            }
             //-----------------------------------------------------------------
+
+
+            //-----------------------------------------------------------------terrainNeutralizing
+            if(terrainNeutralizing !== false){
+
+
+                $('#loading').hide();
+
+
+                var map_click_x=(e.clientX-(canvas_width / 3/2));
+                var map_click_y=(e.clientY-(canvas_height / 3/2));
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
+
+
+                for(var i=map_terrain_changes.length-1;i>=0;i--){
+
+
+                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance_fields){
+
+                        //r('splicing '+i);
+
+                        map_terrain_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
+
+                    }
+
+                }
+
+                saveMapTerrainChangesToLocalStorage();
+                loadMap();
+
+
+                return;
+
+
+            }
+            //-----------------------------------------------------------------
+
+
 
 
             var map_selected_ids_prev = map_selected_ids;
@@ -645,8 +718,8 @@ $(function() {
     };
 
 
-    $("#map_drag").click(mouseClick);
-    $("#selecting-distance").click(mouseClick);
+    $('#map_drag').click(mouseClick);
+    $('#selecting-distance').click(mouseClick);
 
 
 //======================================================================================================================Building By Dragging
@@ -690,7 +763,7 @@ $(function() {
                 }
 
 
-                var dist=xy2dist(lastX-mapPos.x,lastY-mapPos.y);
+                var dist=Math.xy2dist(lastX-mapPos.x,lastY-mapPos.y);
                 //r(dist,(building.size * map_model_size));
 
 
@@ -724,8 +797,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousemove(mouseMove);
-    $("#selecting-distance").mousemove(mouseMove);
+    $('#map_drag').mousemove(mouseMove);
+    $('#selecting-distance').mousemove(mouseMove);
 
     //----------------------------------------------------------------------------------mouseDown
 
@@ -745,8 +818,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mousedown(mouseDown);
-    $("#selecting-distance").mousedown(mouseDown);
+    $('#map_drag').mousedown(mouseDown);
+    $('#selecting-distance').mousedown(mouseDown);
 
     //----------------------------------------------------------------------------------BuildingLoop
 
@@ -774,9 +847,9 @@ $(function() {
             //r(buildingByDraggingPath);
 
 
-            var distance = xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+            var distance = Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
 
-            //todo pouzit funkci xy2distDeg
+            //todo pouzit funkci Math.xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 
@@ -817,7 +890,7 @@ $(function() {
                  }*/
 
 
-                tmp.res = modelRotSize(tmp.res, rot, building.size);
+                tmp.res = Model.addRotSize(tmp.res, rot, building.size);
 
 
                 delete tmp.rot;
@@ -867,8 +940,8 @@ $(function() {
     };
 
 
-    $("#map_drag").mouseup(mouseUp);
-    $("#selecting-distance").mouseup(mouseUp);
+    $('#map_drag').mouseup(mouseUp);
+    $('#selecting-distance').mouseup(mouseUp);
 
     //----------------------------------------------------------------------------------
 //======================================================================================================================

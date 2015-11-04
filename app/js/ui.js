@@ -17,14 +17,14 @@
 
 window.window_open = function(header,content){
 
-    $(".popup-window .header").html(header);
-    $(".popup-window .content").html(content);
+    $('.popup-window .header').html(header);
+    $('.popup-window .content').html(content);
 
-    $(".overlay").show();
-    $(".popup-window").show();
+    $('.overlay').show();
+    $('.popup-window').show();
 
 
-    $(".popup-window .content").mousedown(function(){
+    $('.popup-window .content').mousedown(function(){
 
         $('body').enableSelection();
     });
@@ -37,8 +37,8 @@ window.window_open = function(header,content){
 
 window.window_close = function(){
 
-    $(".overlay").hide();
-    $(".popup-window").hide();
+    $('.overlay').hide();
+    $('.popup-window').hide();
 
     $('body').disableSelection();
 
@@ -50,8 +50,7 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
-    if(env('debug'))
-    $(document).on("contextmenu", function (event) { event.preventDefault(); });
+    $(document).on('contextmenu', function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
 
@@ -66,7 +65,7 @@ window.uiScript = function(){
 
     // [PH] Celé jsem to udělal pomocí jednoho popup-action , který js po kliknutí naplní umístí a zobrazí
     // kliknutie na .js-popup-action-open trigger...
-    $(".js-popup-action-open").on("click", function(e){
+    $('.js-popup-action-open').on('click', function(e){
 
         e.preventDefault();
 
@@ -74,7 +73,7 @@ window.uiScript = function(){
             //---------------------------------Označení nástroje
             r('Označení nástroje');
             mapSpecialCursorStop();
-            $(".active").removeClass('active');
+            $('.active').removeClass('active');
             $(this).addClass('active');
 
             eval($(this).attr('onclick'));
@@ -105,7 +104,7 @@ window.uiScript = function(){
         }else{
             //---------------------------------Odznačení všeho
             r('Odznačení všeho');
-            $(".active").removeClass("active");
+            $('.active').removeClass('active');
             $('#popup-action').hide();
             mapSpecialCursorStop();
 
@@ -115,7 +114,7 @@ window.uiScript = function(){
     });
 
 
-    $(".js-popup-action-close").on("click", function(){
+    $('.js-popup-action-close').on('click', function(){
 
         $('#popup-action').hide();
 
@@ -126,19 +125,19 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
-    $(".js-popup-window-open").on("click", function(){
+    $('.js-popup-window-open').on('click', function(){
 
         window_open($(this).attr('header'),window[$(this).attr('content')]);//todo lepe oznacit window html
 
     });
 
     // kliknutie na overlay schová overlay a popup-window
-    $(".overlay").on("click", function(){
+    $('.overlay').on('click', function(){
         window_close()
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
-    $(".js-popup-window-close").on("click", function(){
+    $('.js-popup-window-close').on('click', function(){
         window_close()
     });
 
@@ -148,19 +147,19 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $(".js-popup-notification-open").on("click", function(event){
+    $('.js-popup-notification-open').on('click', function(event){
         event.stopPropagation();
-        $(".popup-notification").toggle();
+        $('.popup-notification').toggle();
     });
 
     // kliknutie na otvorený popup-notification neurobí nič
-    $(".popup-notification").on("click", function(event){
+    $('.popup-notification').on('click', function(event){
         event.stopPropagation();
     });
 
     // kliknutie na document schová popup-notification
-    $(document).on("click", function(){
-        $(".popup-notification").hide();
+    $(document).on('click', function(){
+        $('.popup-notification').hide();
     });
 
 
@@ -176,16 +175,16 @@ window.uiScript = function(){
         // ... a ak to tlačítko je esc (27)...
         if (e.keyCode == 27) {
             // ... schovaj action-popup
-            $(".action-wrapper").removeClass("active");
+            $('.action-wrapper').removeClass('active');
 
             // ... schovaj overlay
-            $(".overlay").hide();
+            $('.overlay').hide();
 
             // schovaj popup-window
-            $(".popup-window").hide();
+            $('.popup-window').hide();
 
             // schovaj popup-notification
-            $(".popup-notification").hide();
+            $('.popup-notification').hide();
         }
     });
 
@@ -243,12 +242,6 @@ window.uiScript = function(){
     });
 
 
-    //==================================================================================================================ENV
-
-    if(env('debug'))$("#debuginfo").show();
-
-    if(env('onlymap'))$(".menu").hide();
-
     //==================================================================================================================
 
 
@@ -281,11 +274,12 @@ window.mapSpecialCursorStop = function(){
 
     $('#selecting-distance-ctl').hide();
     $('#selecting-distance').hide();
-    $(".active").removeClass("active");
+    $('.active').removeClass('active');
 
     buildingStop();
     dismantlingStop();
     terrainChangeStop();
+    terrainNeutralizeStop();
 };
 
 //----------------------------------------------------------
@@ -303,8 +297,8 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    if(!env('nointro'))
-        window_open('Towns 5',window['projects_html']);
+
+    window_open('Towns 5',window['projects_html']);
 
 
 });
