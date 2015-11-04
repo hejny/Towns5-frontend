@@ -526,33 +526,6 @@ function drawMap() {
                             //----------------------------------------------------------
 
 
-                            //----------------------------------------------------------Zmena vysky terenu
-                            if (level_change !== false) {
-
-
-                                map_z_data[y][x] += level_change * Math.cos(distance / selecting_distance_pow * Math.PI / 2);
-                                if(map_z_data[y][x]<0)map_z_data[y][x]=0;
-                                if(map_z_data[y][x]>2)map_z_data[y][x]=2;
-
-
-                                map_terrain_changes.push([world_x, world_y, map_bg_data[y][x], map_z_data[y][x]]);
-
-                                //++++++++++++++++++ begin duplicate
-                                var z = (Math.pow(map_z_data[y][x], (1 / 12)) - 0.85) * -6000;
-
-                                var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
-                                var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m + z / map_slope_n * map_zoom_m;
-
-                                screen_x += (canvas_width / 2);
-                                screen_y += (canvas_height / 2) - (height / 2);
-                                //++++++++++++++++++ end of duplicate
-
-                            }
-                            //----------------------------------------------------------
-
-
-
-
 
 
                         }
