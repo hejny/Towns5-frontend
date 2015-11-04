@@ -378,6 +378,7 @@ $(function() {
         if(selecting_distance>10000)selecting_distance=10000;
 
 
+        selecting_distance_fields=selecting_distance/map_field_size;
 
         var width=selecting_distance * map_zoom_m*2;
         var height=selecting_distance * map_zoom_m;
@@ -513,7 +514,7 @@ $(function() {
 
 
 
-//=======================================================================================================================Klikani - oznaceni + obycejne staveni
+//=================================================================================================Klikani - oznaceni + obycejne staveni + zmeny terenu + ruseni terenu, budov
 
     var clickingTimeout;
 
@@ -591,7 +592,7 @@ $(function() {
                 for(var i=map_object_changes.length-1;i>=0;i--){
 
                     //r(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
-                    if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance/map_field_size){
+                    if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance_fields){
 
                         //r('splicing '+i);
 
@@ -614,6 +615,41 @@ $(function() {
             //-----------------------------------------------------------------
 
 
+            //-----------------------------------------------------------------terrainChanging
+            if(terrainChanging !== false){
+
+
+                $('#loading').hide();
+
+
+                var map_click_x=(e.clientX-(canvas_width / 3/2));
+                var map_click_y=(e.clientY-(canvas_height / 3/2));
+                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
+
+                for(var y=Math.round(mapPos.y-selecting_distance_fields);y<=Math.round(mapPos.y+selecting_distance_fields);y++){
+
+                    for(var x=Math.round(mapPos.x-selecting_distance_fields);x<=Math.round(mapPos.x+selecting_distance_fields);x++) {
+
+                        if (Math.xy2dist(x - mapPos.x, y - mapPos.y) <= selecting_distance_fields) {
+
+                            map_terrain_changes.push([x, y, terrainChanging]);
+                        }
+                    }
+                }
+
+                saveMapTerrainChangesToLocalStorage();
+                loadMap();
+
+
+                return;
+
+
+            }
+            //-----------------------------------------------------------------
+
+
             //-----------------------------------------------------------------terrainNeutralizing
             if(terrainNeutralizing !== false){
 
@@ -625,15 +661,13 @@ $(function() {
                 var map_click_y=(e.clientY-(canvas_height / 3/2));
                 var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-                mapPos.x=(mapPos.x)+5;
-                mapPos.y=(mapPos.y)+7;
-
+                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
 
                 for(var i=map_terrain_changes.length-1;i>=0;i--){
 
 
-                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance/map_field_size){
+                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance_fields){
 
                         //r('splicing '+i);
 
@@ -654,12 +688,6 @@ $(function() {
             //-----------------------------------------------------------------
 
 
-
-
-            //todo [PH] ??? Maybe here should be also terrain changing
-
-
-            //-----------------------------------------------------------------
 
 
             var map_selected_ids_prev = map_selected_ids;

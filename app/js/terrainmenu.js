@@ -51,17 +51,16 @@ function terrainChangeStart(terrain){
 
     updateSelectingDistance();
 
-    terrain_change=terrain;
-    terrainChanging=true;
+    terrainChanging=terrain;
 
     //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
-    if([1,11,5]/*List of terrains*/.indexOf(terrain_change)!=-1){
+    if([1,11,5]/*List of terrains*/.indexOf(terrainChanging)!=-1){
         dismantling=true;
     }
     //----------------------------
 
     //if(terrain_change){
-    $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrain_change)+'.png\')');
+    $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrainChanging)+'.png\')');
     $('#selecting-distance-ctl').css('background-size','cover');
     //}
 
@@ -86,8 +85,6 @@ function terrainChangeStop(){
 
 //----------------------------------------------------
 
-
-var terrain_change=false;
 
 
 function objectMenuTerrainChange(){
