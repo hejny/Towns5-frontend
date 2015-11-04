@@ -21,10 +21,49 @@
      ██████╔╝██║  ██║██║  ██║╚███╔███╔╝
      ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝*/
 //██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
+//======================================================================================================================
+
+this.hexToRgb = function(hex) {
+    var result, shorthandRegex;
+    if (hex == null) {
+        hex = '000000';
+    }
+    shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+        return r + r + g + g + b + b;
+    });
+    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (result) {
+        return {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        };
+    } else {
+        return {
+            r: 0,
+            g: 0,
+            b: 0
+        };
+    }
+};
 
 
+//---------------------------
 
-this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
+this.rgbToHex = function(r, g, b) {
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+};
+
+//======================================================================================================================
+
+this.Model = {};
+
+
+//------------------------------------------------------------------------------
+
+
+this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     //todo delat kontrolu vstupnich parametru u funkci???
 
 
@@ -32,13 +71,13 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
     var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
     var slnko = 50;
 
-    res=modelRotSize(res,rot-45,s);
-    var res=model2array(res);
+    res=Model.addRotSize(res,rot-45,s);
+    var res=Model.model2array(res);
 
     if(!res)return;
 
 
-    var res=arrayCompileRotSize(res);
+    var res=Model.arrayCompileRotSize(res);
 
     //------------------------Prirazeni barev k polygonum pred serazenim
 
@@ -225,56 +264,21 @@ this.drawModel = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
 
     }
-};
-
-//======================================================================================================================
-
-this.hexToRgb = function(hex) {
-    var result, shorthandRegex;
-    if (hex == null) {
-        hex = '000000';
-    }
-    shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (result) {
-        return {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        };
-    } else {
-        return {
-            r: 0,
-            g: 0,
-            b: 0
-        };
-    }
-};
-
-
-//---------------------------
-
-this.rgbToHex = function(r, g, b) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-};
-
+}
 
 
 //======================================================================================================================
 
 
 
-this.createIcon = function(res,size){
+this.Model.createIcon = function(res,size){
 
     var canvas = document.createElement("canvas");
     canvas.height=size;
     canvas.width = size;
     var context = canvas.getContext('2d');
 
-    drawModel(context, res, 0.3, size/2, size*(4/5), 10, 35);
+    Model.draw(context, res, 0.3, size/2, size*(4/5), 10, 35);
 
     return(canvas.toDataURL());
 
@@ -296,7 +300,7 @@ this.createIcon = function(res,size){
 //todo [ph] vyrobit ascii bloky http://patorjk.com/software/taag/#p=display&h=0&f=ANSI%20Shadow&t=functions%0A
 
 //======================================================================================================
-window.modelRotSize = function(res,rot,size){
+this.Model.addRotSize = function(res,rot,size){
 
     res=res.split(':');
 
@@ -312,12 +316,12 @@ window.modelRotSize = function(res,rot,size){
 }
 
 
-//======================================================================================================model2array
+//======================================================================================================Model.model2array
 
 //todo [PH] vsechny funkce bud (function abc(){}...) NEBO (window.abc =) NEBO (this.abc=) - rozhodnout se
 //todo Zacit delat jsdoc
 
-this.model2array = function(res){
+this.Model.model2array = function(res){
     if(res.substr(0,1)=='['){
 
         var array={};
@@ -389,8 +393,8 @@ this.model2array = function(res){
 
 
 
-//======================================================================================================array2model
-this.array2model = function(array){
+//======================================================================================================Model.array2model
+this.Model.array2model = function(array){
 
     var res='';
 
@@ -439,9 +443,9 @@ this.array2model = function(array){
 
 }
 
-//======================================================================================================arrayPurge
+//======================================================================================================Model.arrayPurge
 
-this.arrayPurge = function(array) {
+this.Model.arrayPurge = function(array) {
 
     for (var i = Math.max(array.polygons.length,array.colors.length)-1; i>-1 ; i--) {
 
@@ -458,9 +462,9 @@ this.arrayPurge = function(array) {
 
 }
 
-//======================================================================================================arrayMoveBy
+//======================================================================================================Model.arrayMoveBy
 
-this.arrayMoveBy = function(array,move_x,move_y,move_z) {
+this.Model.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
     if(is(array['points']))
     for (var i=0,l=array['points'].length;i<l;i++) {
@@ -480,9 +484,9 @@ this.arrayMoveBy = function(array,move_x,move_y,move_z) {
 
 //todo Array Snap
 
-//======================================================================================================arrayCompileRotSize
+//======================================================================================================Model.arrayCompileRotSize
 
-this.arrayCompileRotSize = function(array) {
+this.Model.arrayCompileRotSize = function(array) {
 
 
     for (var i = 0, l = array['points'].length; i < l; i++) {
@@ -528,8 +532,8 @@ this.arrayCompileRotSize = function(array) {
     return(array);
 
 }
-//======================================================================================================array2parray
-this.array2parray = function(array){
+//======================================================================================================Model.array2parray
+this.Model.array2parray = function(array){
 
     var parray={};
     parray['rot']=array['rot'];
@@ -553,8 +557,8 @@ this.array2parray = function(array){
     }
     return(parray);
 }
-//======================================================================================================parray2array
-this.parray2array = function(parray){
+//======================================================================================================Model.parray2array
+this.Model.parray2array = function(parray){
 
     var array={};
 
@@ -589,8 +593,8 @@ this.parray2array = function(parray){
     return(array);
 }
 
-//======================================================================================================emptyParray
-this.emptyParray = function(){
+//======================================================================================================Model.emptyParray
+this.Model.emptyParray = function(){
     return({
         polygons:[],
         res:0,
@@ -599,8 +603,8 @@ this.emptyParray = function(){
 }
 
 
-//======================================================================================================modelJoinlevel
-this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
+//======================================================================================================Model.modelJoinlevel
+this.Model.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
     if(!is(start_x))start_x=0;
     if(!is(start_y))start_y=0;
@@ -612,7 +616,7 @@ this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
     if(isNaN(joinlevel)){
 
-        var parray=array2parray(model2array(res));
+        var parray=Model.array2parray(Model.model2array(res));
 
         joinlevel=0;
         for (var polygonVal in parray['polygons']) {
@@ -647,8 +651,8 @@ this.modelJoinlevel = function(res,start_x,start_y,stop_x,stop_y){
 
 
 }
-//======================================================================================================parrayBounds
-this.parrayBounds = function(parray){
+//======================================================================================================Model.parrayBounds
+this.Model.parrayBounds = function(parray){
 
     start_x=0;
     start_y=0;
@@ -692,13 +696,13 @@ this.parrayBounds = function(parray){
 
 }
 
-//======================================================================================================model2model
-this.model2model = function(res1,res2,simple,move_x,move_y){
+//======================================================================================================Model.model2model
+this.Model.model2model = function(res1,res2,simple,move_x,move_y){
     if(typeof simple=='undefined')simple=false;
 
 
-    var array1=model2array(res1),
-        array2=model2array(res2);
+    var array1=Model.model2array(res1),
+        array2=Model.model2array(res2);
 
 
     if(is(move_x) || is(move_y)){
@@ -713,7 +717,7 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
         move_y=Math.round(tmp.y);
 
         //r(move_x,move_y);
-        array2=arrayMoveBy(array2,move_x,move_y,0);
+        array2=Model.arrayMoveBy(array2,move_x,move_y,0);
 
     }
 
@@ -722,25 +726,25 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
     var array={};
     //---------------------------
     if(array1==false){
-        //------------------------------------------------------------------Model 1 neexistuje => vysledek je model 2
-        //r('model2model: Model 1 neexistuje => vysledek je model 2');
+        //------------------------------------------------------------------Model 1 neexistuje => vysledek je Model 2
+        //r('Model.model2model: Model 1 neexistuje => vysledek je Model 2');
         array=array2;
         //------------------------------------------------------------------
     }else if(array2==false){
-        //------------------------------------------------------------------Model 2 neexistuje => vysledek je model 1
-        //r('model2model: Model 2 neexistuje => vysledek je model 1');
+        //------------------------------------------------------------------Model 2 neexistuje => vysledek je Model 1
+        //r('Model.model2model: Model 2 neexistuje => vysledek je Model 1');
         array=array1;
         //------------------------------------------------------------------
     }else if(simple){
         //------------------------------------------------------------------Jednoduche smichani modelu bez navyseni
-        //r('model2model: Jednoduche smichani modelu');
+        //r('Model.model2model: Jednoduche smichani modelu');
 
-        array1=arrayCompileRotSize(array1);
-        array2=arrayCompileRotSize(array2);
+        array1=Model.arrayCompileRotSize(array1);
+        array2=Model.arrayCompileRotSize(array2);
 
-        var parray1=array2parray(array1),
-            parray2=array2parray(array2),
-            parray=emptyParray();
+        var parray1=Model.array2parray(array1),
+            parray2=Model.array2parray(array2),
+            parray=Model.emptyParray();
 
 
         parray['polygons']=parray['polygons'].concat(parray1['polygons'])
@@ -748,33 +752,33 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
 
 
-        array=parray2array(parray);
+        array=Model.parray2array(parray);
 
         //------------------------------------------------------------------
     }else{
         //------------------------------------------------------------------Spojeni modelu s joinlevel
-        //r('model2model: Spojeni modelu s joinlevel');
+        //r('Model.model2model: Spojeni modelu s joinlevel');
 
-        array1=arrayCompileRotSize(array1);
-        array2=arrayCompileRotSize(array2);
+        array1=Model.arrayCompileRotSize(array1);
+        array2=Model.arrayCompileRotSize(array2);
 
-        var parray1=array2parray(array1);
-            parray2=deepCopy(array2parray(array2));
-
-
-        var bounds=parrayBounds(res2);
+        var parray1=Model.array2parray(array1);
+            parray2=deepCopy(Model.array2parray(array2));
 
 
-        var joinlevel1=modelJoinlevel(res1,bounds.start_x,bounds.start_y,bounds.stop_x,bounds.stop_y),
-            joinlevel2=modelJoinlevel(res2);
+        var bounds=Model.parrayBounds(res2);
+
+
+        var joinlevel1=Model.modelJoinlevel(res1,bounds.start_x,bounds.start_y,bounds.stop_x,bounds.stop_y),
+            joinlevel2=Model.modelJoinlevel(res2);
 
 
 
-        parray=emptyParray();
+        parray=Model.emptyParray();
 
         //-----------------
 
-        //todo [PH] udelat pres arrayMoveBy
+        //todo [PH] udelat pres Model.arrayMoveBy
 
         for (var polygonVal in parray2['polygons']) {
             polygon = parray2['polygons'][polygonVal];
@@ -795,7 +799,7 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
 
         //-----------------
-        array=parray2array(parray);
+        array=Model.parray2array(parray);
 
         array['points'].push([-4,-4,joinlevel1+joinlevel2]);
 
@@ -804,14 +808,14 @@ this.model2model = function(res1,res2,simple,move_x,move_y){
 
     //---------------------------
 
-    return(array2model(array));
+    return(Model.array2model(array));
 }
 
 
 //======================================================================================================model_postavene todo
 /*
 this.model_postavene = function(res,postavene){
-    var array=model2array(res);
+    var array=Model.model2array(res);
     var points=array['points'];
 
     i=-1;
@@ -837,6 +841,6 @@ this.model_postavene = function(res,postavene){
     }
 
     array['points']=points;
-    res=array2model(array);
+    res=Model.array2model(array);
     return(res);
 }*/
