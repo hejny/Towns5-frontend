@@ -86,7 +86,7 @@ var rockCount=6;
 var rockCountDark=4;
 var rockMaxDark=50;
 
-//----------------Odvozene hodnoty
+//----------------Extended values
 
 var map_size;
 
