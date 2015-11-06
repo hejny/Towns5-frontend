@@ -165,6 +165,7 @@ gulp.task('production-scripts', function() {
         'node_modules/jquery-mousewheel/jquery.mousewheel.js',
         'node_modules/hammerjs/hammer.js',
         'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
+        '/app/js/vars.js',
         'app/js/func.lib.js',
         'app/js/log.lib.js',
         'app/js/main.js',
