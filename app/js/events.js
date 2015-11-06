@@ -489,14 +489,6 @@ $(function() {
             updateMap();
         }
 
-        /*if(BorderMoveQ==false){
-            BorderMoveX=0;
-            BorderMoveY=0;
-        }*/
-
-
-        canvas_mouse_x = e.clientX+(canvas_width/3);//-pos.left;
-        canvas_mouse_y = e.clientY+(canvas_height/3);//-pos.top;
 
 
         if(specialCursor) {//todo [PH] pouzivat if(specialCursor) misto if(terrainChanging || building) a podobnych blbosti...
@@ -526,10 +518,8 @@ $(function() {
 
         r('mouseDown');
 
-        //r(e);
-        $('#loading').css('top', e.clientY);
-        $('#loading').css('left', e.clientX);
-        //$('#loading').css('display','block');
+        $('#loading').css('top', e.clientY-15);
+        $('#loading').css('left', e.clientX-10);
         $('#loading').show();
 
 
@@ -537,22 +527,22 @@ $(function() {
         canvas_mouse_y = e.clientY + (canvas_height / 3);//-pos.top;
 
 
+        var map_click_x=(e.clientX-(canvas_width / 3/2));
+        var map_click_y=(e.clientY-(canvas_height / 3/2));
+        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+
         clearTimeout(clickingTimeout);
         clickingTimeout = setTimeout(function () {
 
-            //-----------------------------------------------------------------Building
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building
             if(building!==false){
 
                 $('#loading').hide();
 
 
                 var tmp=jQuery.extend({}, building);
-
-
-                var map_click_x=(e.clientX-(canvas_width / 3/2));
-                var map_click_y=(e.clientY-(canvas_height / 3/2));
-                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
-
 
                 tmp.x=mapPos.x;
                 tmp.y=mapPos.y;
@@ -574,19 +564,14 @@ $(function() {
                 return;
 
             }
-            //-----------------------------------------------------------------
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-            //-----------------------------------------------------------------dismantling
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++dismantling
             if(dismantling !== false){
 
 
                 $('#loading').hide();
-
-
-                var map_click_x=(e.clientX-(canvas_width / 3/2));
-                var map_click_y=(e.clientY-(canvas_height / 3/2));
-                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
 
                 for(var i=map_object_changes.length-1;i>=0;i--){
@@ -612,19 +597,15 @@ $(function() {
 
 
             }
-            //-----------------------------------------------------------------
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-            //-----------------------------------------------------------------terrainChanging
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainChanging
             if(terrainChanging !== false){
 
 
                 $('#loading').hide();
 
-
-                var map_click_x=(e.clientX-(canvas_width / 3/2));
-                var map_click_y=(e.clientY-(canvas_height / 3/2));
-                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                 mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
@@ -647,19 +628,14 @@ $(function() {
 
 
             }
-            //-----------------------------------------------------------------
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
-            //-----------------------------------------------------------------terrainNeutralizing
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
             if(terrainNeutralizing !== false){
 
 
                 $('#loading').hide();
 
-
-                var map_click_x=(e.clientX-(canvas_width / 3/2));
-                var map_click_y=(e.clientY-(canvas_height / 3/2));
-                var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                 mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
@@ -685,36 +661,90 @@ $(function() {
 
 
             }
-            //-----------------------------------------------------------------
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Map selecting
 
+            //-----------------------------------------Preparing values
 
-
+            var selecting_distance_pow=Math.pow(selecting_distance,2);
             var map_selected_ids_prev = map_selected_ids;
-            map_selecting = true;
+
+            var selected_object=false;
+
+            //-----------------------------------------Searching for nearest object
+
+            map_object_changes.forEach(function(object){
+
+                var distance_pow = Math.pow(object.x - mapPos.x, 2) + Math.pow(object.y - mapPos.y, 2);
 
 
-            drawMap();
-            updateValues();
+                if (distance_pow < selecting_distance_pow) {
 
 
-            //Pokud nedoslo k zadne zmene, oznaceny objekt se odznaci
-            if (map_selected_ids == map_selected_ids_prev) {
-                map_selected_ids = [];
+                    selecting_distance_pow = distance_pow;
+
+
+
+                    selected_object=object;
+
+
+
+                }
+
+
+            });
+
+
+
+            //------------------------------------------Processing selection
+
+
+            if (selected_object.type == 'building') {
+                //~~~~~~~~~~~~~~~~~~~~
+
+                map_selected_ids=[selected_object.id];
+
+
+                if (map_selected_ids == map_selected_ids_prev) {
+                    map_selected_ids = [];
+                }
+
+
+                objectMenu();
+
+                setInterval(
+                    function(){drawMap();},IMMEDIATELY_MS
+                );
+
+
+                //~~~~~~~~~~~~~~~~~~~~
+            } else if (selected_object.type == 'story') {
+                //~~~~~~~~~~~~~~~~~~~~
+                var res = selected_object.res;
+                res = res.substr(5);
+
+                window_open(selected_object._name, res);
+
+                //~~~~~~~~~~~~~~~~~~~~
             }
+
+
+            //------------------------------------------
+
+
 
             $('#loading').hide();
 
-            if (!map_selecting)
-                objectMenu();
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-            drawMap();
 
 
-            map_selecting = false;
 
-        }, 100);
+
+        }, IMMEDIATELY_MS);
     };
 
 

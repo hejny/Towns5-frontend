@@ -15,106 +15,7 @@
 
 //======================================================================================================================
 
-//----------------
 
-var map_loaded=false;
-
-//----
-
-
-var map_zoom=-3;
-var map_rotation=Math.random()*360;
-var map_slope=27;
-
-
-
-var map_field_size=160;
-
-var map_model_size=2,
-
-
-    map_tree_size=1,
-    map_tree_size_diff=0.2,
-    map_tree_size_zip=10,
-
-
-   /* map_rock_size=0.8,
-    map_rock_size_diff=0.2
-    map_rock_size_zip=5;*/
-
-
- map_rock_size=1.2,
- map_rock_size_diff=0.1,
- map_rock_size_zip=-5;
-
-
-
-var map_rotation=45;
-
-
-var max_map_size=180;
-
-var selecting_distance=1000;
-var selecting_distance_fields=0;
-
-//----
-
-var map_zoom_delta=0;
-var map_rotation_delta=0;
-var map_slope_delta=0;
-
-var map_x_delta=0;
-var map_y_delta=0;
-var map_size_delta=0;
-
-//----------------
-
-var canvas_mouse_x = 0;
-var canvas_mouse_y = 0;
-var map_mouse_x = 0;
-var map_mouse_y = 0;
-var map_selecting = false;//todo [PH] Where this var should be?
-var map_selected_ids = [];
-
-var terrainCount=13;
-
-
-//----------------
-
-var seedCount=3;
-//----
-
-var treeCount=10;
-var rockCount=6;
-var rockCountDark=4;
-var rockMaxDark=50;
-
-//----------------Odvozene hodnoty
-
-var map_size;
-
-var map_zoom_m;
-
-var map_data;
-var map_z_data;
-var map_bg_data;
-
-var map_rotation_r;
-var map_rotation_sin;
-var map_rotation_cos;
-var map_rotation_sin_minus;
-
-var map_slope_m;
-var map_slope_n;
-
-
-
-
-
-//----------------Konstanty
-
-
-gr=1.62;
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -670,53 +571,29 @@ function drawMap() {
         object_screen_y += (canvas_height / 2);
 
 
-        //********************************************************************IN next commit will be moved to events.js by PH
-        if (map_selecting && !terrainChanging) {
 
-            var distance = Math.pow(object_screen_x - canvas_mouse_x, 2) + Math.pow(object_screen_y - canvas_mouse_y, 2);
-
-            if (distance < selecting_distance_pow) {
-
-                selecting_distance_pow = distance;
-
-                map_selecting = false;
-
-                map_mouse_x = object_xc;
-                map_mouse_y = object_yc;
-
-                //------------------------------------------
-                if (map_data[i].type == 'building') {
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-                    map_selected_ids = [object_id];
+        //----------------------------------------------Selected object?
+        if(map_selected_ids.indexOf(object_id)!=-1){
 
 
-                    var ellipse_width = 100;
+            var ellipse_width = 100;
 
-                    map_draw.push([
-                        'ellipse',
-                        ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
-                        object_screen_x - (ellipse_width / 2),
-                        object_screen_y - (ellipse_width / map_slope_m / 2),
-                        object_screen_y + 120 - 1,
-                        ellipse_width,
-                        ellipse_width / map_slope_m
+            map_draw.push([
+                'ellipse',
+                ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
+                object_screen_x - (ellipse_width / 2),
+                object_screen_y - (ellipse_width / map_slope_m / 2),
+                object_screen_y + 120 - 1,
+                ellipse_width,
+                ellipse_width / map_slope_m
 
-                    ]);
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                } else if (map_data[i].type == 'story') {
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                    var res = map_data[i].res;
-                    res = res.substr(5);
+            ]);
 
-                    window_open(map_data[i]._name, res);
 
-                    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                }
-                //------------------------------------------
-            }
         }
-        //********************************************************************
+        //----------------------------------------------
+
+
 
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -826,8 +703,6 @@ function drawMap() {
             Model.draw(map_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         } else if (map_draw[i][0] == 'ellipse') {
-
-            r(map_draw[i]);
 
 
             map_ctx.fillStyle = map_draw[i][1][0];
@@ -1008,7 +883,6 @@ function updateMap(ms){
 
     //----------------
 
-    updateValues();
 
 
     //----------------
@@ -1020,28 +894,6 @@ function updateMap(ms){
 }
 
 
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-function updateValues(){
-
-    $('#fps').html(fps);
-
-    $('#canvas_mouse').html(canvas_mouse_x+','+canvas_mouse_y);
-    $('#map_mouse').html(map_mouse_x+','+map_mouse_y);
-
-
-    $('#map_levels').html(fps);
-    $('#map_zoom').html(map_zoom);
-    $('#map_rotation').html(map_rotation);
-    $('#map_slope').html(map_slope);
-    $('#map_x').html(map_x);
-    $('#map_y').html(map_y);
-    $('#map_size').html(map_size);
-
-
-}
 
 
 //======================================================================================================================
