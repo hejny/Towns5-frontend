@@ -86,6 +86,9 @@ http_response_code(200);
         <script src="/app/js-lib/hammer.js"></script>
         <script src="/app/js-lib/jquery.fullscreen.js"></script>
 
+        <script src="/app/js/vars.js"></script>
+
+
         <script src="/app/js/func.lib.js"></script>
         <script src="/app/js/log.lib.js"></script>
         <script src="/app/js/main.js"></script>
