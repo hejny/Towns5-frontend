@@ -679,7 +679,7 @@ $(function() {
 
             //-----------------------------------------Preparing values
 
-            var selecting_distance_pow=Math.pow(selecting_distance,2);
+            var selecting_distance_pow=Math.pow(1.4/*todo constant*/,2);
             var map_selected_ids_prev = map_selected_ids;
 
             var selected_object=false;
@@ -711,7 +711,20 @@ $(function() {
 
             //------------------------------------------Processing selection
 
+            if(selected_object==false){
+                //~~~~~~~~~~~~~~~~~~~~
 
+                map_selected_ids=[];
+
+                objectMenu();
+
+                setTimeout(
+                    function(){drawMap();},IMMEDIATELY_MS
+                );
+
+                //~~~~~~~~~~~~~~~~~~~~
+
+            }else
             if (selected_object.type == 'building') {
                 //~~~~~~~~~~~~~~~~~~~~
 
@@ -725,7 +738,7 @@ $(function() {
 
                 objectMenu();
 
-                setInterval(
+                setTimeout(
                     function(){drawMap();},IMMEDIATELY_MS
                 );
 
@@ -1003,5 +1016,38 @@ $(function() {
 
     //----------------------------------------------------------------------------------
 //======================================================================================================================
+/*
+ ██████╗ ██╗ ██████╗ ██╗  ██╗████████╗     ██████╗██╗     ██╗ ██████╗██╗  ██╗
+ ██╔══██╗██║██╔════╝ ██║  ██║╚══██╔══╝    ██╔════╝██║     ██║██╔════╝██║ ██╔╝
+ ██████╔╝██║██║  ███╗███████║   ██║       ██║     ██║     ██║██║     █████╔╝
+ ██╔══██╗██║██║   ██║██╔══██║   ██║       ██║     ██║     ██║██║     ██╔═██╗
+ ██║  ██║██║╚██████╔╝██║  ██║   ██║       ╚██████╗███████╗██║╚██████╗██║  ██╗
+ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝        ╚═════╝╚══════╝╚═╝ ╚═════╝╚═╝  ╚═╝
+ */
+
+
+
+    var mouseRightClick = function(e) {
+        e.preventDefault();
+
+        r('right click on map');
+
+    };
+
+
+
+
+
+    $('#map_drag').bind("contextmenu",mouseRightClick);
+    $('#selecting-distance').bind("contextmenu",mouseRightClick);
+
+
+
+//======================================================================================================================
+
+
+
+
+
 
 });

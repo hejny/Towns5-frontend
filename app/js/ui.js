@@ -72,7 +72,7 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
-    $(document).on('contextmenu', function (event) { event.preventDefault(); });
+    //todo ??? $(document).on('contextmenu', function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
 
