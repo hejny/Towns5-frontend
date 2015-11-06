@@ -8,7 +8,7 @@
      ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝
      © Towns.cz
 
- * @fileOverview Language localization functions
+ * @fileOverview Language localization functions, Maybe only temporary file
 
  */
 

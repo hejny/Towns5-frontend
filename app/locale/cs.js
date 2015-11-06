@@ -8,7 +8,7 @@
       ╚═════╝╚══════╝    ╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝
      © Towns.cz
 
- * @fileOverview Czech language for Towns
+ * @fileOverview Czech language for Towns, Maybe only temporary file
 
  */
 
