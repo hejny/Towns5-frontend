@@ -8,7 +8,7 @@
         ╚═╝    ╚═════╝  ╚══╝╚══╝ ╚═╝  ╚═══╝╚══════╝    ╚═╝  ╚═╝╚═╝     ╚═╝
      © Towns.cz
 
- * @fileOverview Towns API Wrapper
+ * @fileOverview Towns API Wrapper, Only temporary file
 
  */
 
