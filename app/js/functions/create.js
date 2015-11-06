@@ -55,6 +55,16 @@ function saveMapTerrainChangesToLocalStorage(){
 //----------------
 map_object_changes_buffer=[];//krokové změny
 
+//======================================================================================================================
+
+
+function generateID(){
+    //todo here should we generate object IDs
+
+    return(Math.round(Math.random()*1000000000));
+
+}
+
 
 //======================================================================================================================
 
@@ -156,7 +166,10 @@ function create(object,nosave){
 
     }else{
 
+
+        object.id=generateID();
         map_object_changes.push(object);
+
     }
 
 
