@@ -1036,7 +1036,6 @@ $(function() {
         var map_click_y=(e.clientY-(canvas_height / 3/2));
         var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-
         map_selected_ids.forEach(function(id){
 
             var i = id2i(map_object_changes,id);
@@ -1044,12 +1043,13 @@ $(function() {
             if(is(map_object_changes[i].path)){
                 var position=map_object_changes[i].path.recount();
             }else{
-                var position=new position(map_object_changes[i].x,map_object_changes[i].y);
+                var position=new Position(map_object_changes[i].x,map_object_changes[i].y);
             }
+
 
             map_object_changes[i].x=position.x;
             map_object_changes[i].y=position.y;
-            map_object_changes[i].path=new Path(start,end,1);
+            map_object_changes[i].path=new Path(position,mapPos,0.1);
 
 
 
