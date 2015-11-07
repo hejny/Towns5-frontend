@@ -1047,6 +1047,12 @@ $(function() {
             }
 
 
+            var deg = Math.xy2distDeg(mapPos.x-position.x,mapPos.y-position.y).deg;
+
+            //r(map_object_changes[i].res);
+            map_object_changes[i].res=Model.addRotSize(map_object_changes[i].res,deg);
+            //r(map_object_changes[i].res);
+
             map_object_changes[i].x=position.x;
             map_object_changes[i].y=position.y;
             map_object_changes[i].path=new Path(position,mapPos,0.1);

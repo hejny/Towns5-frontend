@@ -212,23 +212,6 @@ function loadMap() {
                 map_data=[];
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
-            map_object_changes.forEach(function(object){
-
-                if(is(object.path)){
-
-                    var position = object.path.recount();
-
-                    //r(position);
-
-                    object.x=position.x;
-                    object.y=position.y;
-
-                }
-
-
-            });
-
-
             map_data=map_data.concat(map_object_changes);
             //map_data=map_data.concat(map_object_changes_buffer);
 
@@ -571,6 +554,21 @@ function drawMap() {
     var object = all_images_rock[0][0];
     for (var i = 0; i < map_data.length; i++) {
 
+
+        //-----------------------------------------
+
+         if(is(map_data[i].path)){
+
+            var position = map_data[i].path.recount();
+
+            //r(position);
+
+             map_data[i].x=position.x;
+             map_data[i].y=position.y;
+
+        }
+
+
         //-----------------------------------------
 
 
@@ -782,6 +780,19 @@ function drawMap() {
 
 
 }
+
+/*
+function drawLoop() {
+
+    setTimeout(function(){
+        requestAnimationFrame(drawLoop);
+    },1000);
+
+    drawMap();
+}
+drawLoop();
+*/
+
 
 
 //======================================================================================================================
