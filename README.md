@@ -12,13 +12,13 @@
 
 **[PH] Pavol Hejný:** https://www.facebook.com/hejny
 
-**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
-
 **[SK] Stefan Kecskes:** https://www.skey.uk
 
-**Přemysl Černý:** https://www.facebook.com/longhorn86
+**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
 
 **[DH] David Hrůša:** https://www.facebook.com/dhrusa
+
+**Přemysl Černý:** https://www.facebook.com/longhorn86
 
 
 
@@ -86,38 +86,41 @@ Staré Towns 4:
 
 * * *
 
-## Inštalácia
+## Installation
 
 
-1. Potřeba vytvořit vlastní local doménu pro projekt např. towns.local
+1. You have to create own virtual domain towns.local
 
     Linux: http://tecadmin.net/create-virtual-hosts-in-apache-on-ubuntu/
     Windows: http://ccm.net/faq/8485-configuring-apache-and-windows-to-create-a-virtual-host
     
 
-2. Nainštaluj si node.js a npm(node package manager)
+2. Install node.js & npm (node package manager)
 
 
 	sudo apt-get install nodejs npm
 	
-3. Nainštaluj si gulp cez npm (možeš aj globálne)  
+	
+	
+3. Install gulp via NPM (you can also globally)  
 
 
 	sudo apt-get install --global gulp
 
-4. Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
+
+4. You have to download and install all dependencies 
 
 
 	npm install
 
 
-5. Spusť gulp, nech vykoná úlohy v gulpfile.json. 
+5. Run gulp!
 
 
 	gulp
 
 	
-Produkčný build bude v adresári `/app-dist`
+6. Production build is in directory `/app-dist`
 	
 * * *	
 	
@@ -125,7 +128,7 @@ Produkčný build bude v adresári `/app-dist`
 
 Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižniciach)
 
-	gulp lint
+	gulp hint
 	
 //todo: implementovat aspoň unit testing a behaviour testing. (TDD) + automatické testovanie po každom commite.
 	

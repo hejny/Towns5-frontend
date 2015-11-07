@@ -43,6 +43,15 @@ $notifications['content'] = '';
 http_response_code(200);
 
 
+
+if(isset($config['environment']) && $config['environment'] != "production"){
+
+    $page['title'].=' - '.ucfirst($config['environment']).' enviroment';
+
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -70,65 +79,29 @@ http_response_code(200);
     //tady je podminka zda jse o testovaci verzi
     if (isset($config['environment']) && $config['environment'] != "production") : ?>
 
-    <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
+        <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
 
-    <link rel="stylesheet" type="text/css"
-          href="/app/css-lib/roboto-fontface.css?family=Roboto:400,700&subset=latin,latin-ext"/>
-    <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome-animation.css"/>
-
-
-        <script src="/app/js-lib/jquery.js"></script>
-        <script src="/app/js-lib/jquery-ui.js"></script>
-
-        <script src="/app/js-lib/jquery.ui.touch-punch.js"></script>
-        <script src="/app/js-lib/jquery.mousewheel.js"></script>
-        <script src="/app/js-lib/hammer.js"></script>
-        <script src="/app/js-lib/jquery.fullscreen.js"></script>
-
-        <script src="/app/js/vars.js"></script>
+        <link rel="stylesheet" type="text/css"
+              href="/app/css-lib/roboto-fontface.css?family=Roboto:400,700&subset=latin,latin-ext"/>
+        <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome.css"/>
+        <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome-animation.css"/>
 
 
-        <script src="/app/js/func.lib.js"></script>
-        <script src="/app/js/log.lib.js"></script>
-        <script src="/app/js/main.js"></script>
-        <script src="/app/js/lang.lib.js"></script>
-        <script src="/app/locale/cs.js"></script>
+        <?php
 
+        $includes = file('app/includes.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
+        foreach($includes as $include){
+            echo '          <script src="'.addslashes($include).'"></script>'."\n";
+        }
 
-        <script src="/app/js/townsapi.lib.js"></script>
-        <script src="/app/js/townsapi.fake.lib.js"></script>
-
-        <script src="/app/js/prototypes/path.js"></script>
-        <script src="/app/js/prototypes/position.js"></script>
-
-        <script src="/app/js/functions/create.js"></script>
-        <script src="/app/js/functions/terrain.js"></script>
-
-
-        <script src="/app/js/map.lib.js"></script>
-        <script src="/app/js/model.lib.js"></script>
-        <script src="/app/js/graphic.js"></script>
-        <script src="/app/js/events.js"></script>
-        <script src="/app/js/objectmenu.js"></script><!--todo soubory podle funkci-->
-        <script src="/app/js/terrainmenu.js"></script>
-        <script src="/app/js/uniquemenu.js"></script>
-        <script src="/app/js/ui.js"></script>
-
-
-        <!--<script src="app/coffeehtml/loginform.js"></script>-->
-        <script src="/app/coffeehtml/projects.js"></script>
-
-
-        <script src="/app/js/functions/login.js"></script>
-
-
-        <!--<script async src='/browser-sync/browser-sync-client.2.9.8.js'></script>-->
+        ?>
 
 
     <?php else : ?>
-    <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.css"/>
-        <script src="/app-dist/js/towns.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
+        <script src="/app-dist/js/towns.min.js" async></script>
+
     <?php endif; ?>
 
 </head>
