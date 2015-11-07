@@ -341,3 +341,47 @@ function substr2(input,a,b,i,change,startstop){
         //--------------------------------------
     }
 }
+
+//======================================================================================================================
+/*
+  █████╗ ██████╗ ██████╗  █████╗ ██╗   ██╗
+ ██╔══██╗██╔══██╗██╔══██╗██╔══██╗╚██╗ ██╔╝
+ ███████║██████╔╝██████╔╝███████║ ╚████╔╝
+ ██╔══██║██╔══██╗██╔══██╗██╔══██║  ╚██╔╝
+ ██║  ██║██║  ██║██║  ██║██║  ██║   ██║
+ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝
+ */
+
+/**
+ * Searches an item with ID in array
+ * @param {object} array Array of objects with ID
+ * @param {*} id Searched ID
+ * @returns {number} Key of object with this ID, -1 if not exist
+ */
+function id2i(array,id){
+
+    for(var i in array){
+        if(array[i].id==id)return i;
+    }
+    return -1;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
