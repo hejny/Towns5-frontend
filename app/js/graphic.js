@@ -218,8 +218,10 @@ function loadMap() {
 
                     var position = object.path.recount();
 
-                    map_object_changes[i].x=position.x;
-                    map_object_changes[i].y=position.y;
+                    //r(position);
+
+                    object.x=position.x;
+                    object.y=position.y;
 
                 }
 
@@ -1015,7 +1017,7 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
     map_click_x+=map_x;
     map_click_y+=map_y;
 
-    return({x:map_click_x,y:map_click_y});
+    return(new Position(map_click_x,map_click_y));
 
 
 }

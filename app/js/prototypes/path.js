@@ -26,7 +26,8 @@ var Path = function (start, end, speed) {
 
     this.startDate=new Date();
 
-    var ms = this.startTime.getTime();
+
+    var ms = this.startDate.getTime();
     ms+=Math.round(1000/speed);
 
     this.stopDate=new Date(ms);
@@ -43,19 +44,19 @@ Path.prototype.recount = function(){
     var stopMs=this.stopDate.getTime();
 
     var actualDate=new Date();
-    var actualMs=this.actualDate.getTime();
+    var actualMs=actualDate.getTime();
 
 
-    var progress=(stopMs-actualMs)/(stopMs-startMs);
+    var progress=(actualMs-startMs)/(stopMs-startMs);
+    if(progress>1)progress=1;
+    if(progress<0)progress=0;
+
 
     //var dist=Math.xy2dist(this.path[0].x-this.path[1].x,this.path[0].y-this.path[1].y);
 
     var xDelta=this.path[1].x-this.path[0].x;
     var yDelta=this.path[1].y-this.path[0].y;
 
-
-    var position = new Position(this.path[0].x+(xDelta*progress),this.path[0].y+(yDelta*progress));
-
-    return(position);
+    return(new Position(this.path[0].x+(xDelta*progress),this.path[0].y+(yDelta*progress)));
 
 };
