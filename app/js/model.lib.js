@@ -340,6 +340,11 @@ this.Model.createIcon = function(res,size){
  */
 this.Model.addRotSize = function(res,rot,size){
 
+    rot=cParam(rot,0);
+    size=cParam(size,1);
+
+
+
     res=res.split(':');
 
     if (typeof res[3] == 'undefined')res[3] = 0;
@@ -348,6 +353,10 @@ this.Model.addRotSize = function(res,rot,size){
 
     res[3]=parseFloat(res[3])+rot;
     res[4]=parseFloat(res[4])*size;
+
+
+    res[3]=Math.round(res[3]);
+    res[4]=Math.round(res[4]*100)/100;
 
     res=res.join(':');
     return(res);
