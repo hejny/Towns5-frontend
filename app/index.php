@@ -99,6 +99,8 @@ http_response_code(200);
         <script src="/app/js/townsapi.lib.js"></script>
         <script src="/app/js/townsapi.fake.lib.js"></script>
 
+        <script src="/app/js/prototypes/path.js"></script>
+        <script src="/app/js/prototypes/position.js"></script>
 
         <script src="/app/js/functions/create.js"></script>
         <script src="/app/js/functions/terrain.js"></script>

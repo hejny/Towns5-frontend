@@ -1030,7 +1030,35 @@ $(function() {
     var mouseRightClick = function(e) {
         e.preventDefault();
 
-        r('right click on map');
+
+
+        var map_click_x=(e.clientX-(canvas_width / 3/2));
+        var map_click_y=(e.clientY-(canvas_height / 3/2));
+        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+
+        map_selected_ids.forEach(function(id){
+
+            var i = id2i(map_object_changes,id);
+
+            if(is(map_object_changes[i].path)){
+                var position=map_object_changes[i].path.recount();
+            }else{
+                var position=new position(map_object_changes[i].x,map_object_changes[i].y);
+            }
+
+            map_object_changes[i].x=position.x;
+            map_object_changes[i].y=position.y;
+            map_object_changes[i].path=new Path(start,end,1);
+
+
+
+
+        });
+
+
+
+        r('right click on map',mapPos);
 
     };
 

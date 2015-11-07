@@ -212,6 +212,21 @@ function loadMap() {
                 map_data=[];
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
+            map_object_changes.forEach(function(object){
+
+                if(is(object.path)){
+
+                    var position = object.path.recount();
+
+                    map_object_changes[i].x=position.x;
+                    map_object_changes[i].y=position.y;
+
+                }
+
+
+            });
+
+
             map_data=map_data.concat(map_object_changes);
             //map_data=map_data.concat(map_object_changes_buffer);
 
