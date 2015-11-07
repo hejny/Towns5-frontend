@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     minifyCss = require('gulp-minify-css'),
@@ -156,9 +157,21 @@ gulp.task('production-index', function () {
         .pipe(gulp.dest('app-dist/'));
 });
 
+
+//Fill jsincludes with js files in app/includes.txt
+var jsincludes = fs.readFileSync('app/includes.txt').toString().split('\n').filter(function(filepath){
+
+    if(filepath=='')return false;
+    return true;
+
+});
+console.log(jsincludes);
+
 // Scripts - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
 gulp.task('production-scripts', function() {
-    gulp.src([
+    gulp.src(
+        jsincludes
+        /*[
         'node_modules/jquery/dist/jquery.js',
         'node_modules/jquery-ui-bundle/jquery-ui.js',
         //'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
@@ -189,10 +202,10 @@ gulp.task('production-scripts', function() {
         'app/coffeehtml/projects.js',
         'app/js/functions/login.js'
         //'browser-sync/browser-sync-client.2.9.8.js'
-    ])
+    ]*/)
         .pipe(concat('towns.js'))
         .pipe(gulp.dest('app-dist/js'))
-        .pipe(rename({suffix: '.min'}))
+        .pipe(rename({suffix: '.min'}))//todo towns.js should be deleted afrer minification
         .pipe(uglify())
         .pipe(gulp.dest('app-dist/js'));
 });
