@@ -81,10 +81,9 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 
         <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
 
-        <link rel="stylesheet" type="text/css"
-              href="/app/css-lib/roboto-fontface.css?family=Roboto:400,700&subset=latin,latin-ext"/>
-        <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome.css"/>
-        <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome-animation.css"/>
+        <link rel="stylesheet" type="text/css" href="node_modules/roboto-fontface/css/roboto-fontface.css"/>
+        <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css"/>
+        <link rel="stylesheet" type="text/css" href="node_modules/font-awesome-animation/src/font-awesome-animation.css"/>
 
 
         <?php
@@ -144,7 +143,8 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 
 
 <canvas id="map_buffer" width="100" height="100"></canvas>
-<canvas id="map_bg" width="100" height="100"></canvas>
+<canvas id="map_move" width="100" height="100"></canvas>
+<canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe rename?-->
 
 
 <canvas id="selecting-distance" width="100" height="50"></canvas>

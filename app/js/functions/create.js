@@ -52,8 +52,12 @@ function saveMapTerrainChangesToLocalStorage(){
     localStorage.setItem('map_terrain_changes',JSON.stringify(map_terrain_changes));
 }
 
+
 //----------------
-map_object_changes_buffer=[];//krokové změny
+
+
+var map_object_changes_buffer=[];//Preview eg. walls
+var map_object_changes_move=[];//Moving objects
 
 //======================================================================================================================
 

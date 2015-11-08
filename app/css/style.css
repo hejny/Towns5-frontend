@@ -155,6 +155,15 @@ input, textarea {
 
 }
 
+#map_move {
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:1001;
+
+}
+
+
 
 
 #selecting-distance{
