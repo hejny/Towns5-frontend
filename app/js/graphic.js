@@ -85,8 +85,6 @@ var map_ctx =false;
 var map_buffer =false;
 var map_buffer_ctx =false;
 
-var map_move =false;
-var map_move_ctx =false;
 
 var all_images_bg=[];
 var all_images_tree=[];
@@ -100,9 +98,6 @@ $(function() {
     map_buffer = document.getElementById('map_buffer');
     map_buffer_ctx = map_buffer.getContext('2d');
 
-    map_move = document.getElementById('map_move');
-    map_move_ctx = map_move.getContext('2d');
-    map_move_ctx = map_move.getContext('2d');
 
     //r(map_buffer_ctx);
 
@@ -879,6 +874,117 @@ function objectsDraw(ctx,objects) {
 
 
 }
+//======================================================================================================================
+/*
+  ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗███████╗    ██╗  ██╗████████╗███╗   ███╗██╗
+ ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝    ██║  ██║╚══██╔══╝████╗ ████║██║
+ ██║   ██║██████╔╝     ██║█████╗  ██║        ██║   ███████╗    ███████║   ██║   ██╔████╔██║██║
+ ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   ╚════██║    ██╔══██║   ██║   ██║╚██╔╝██║██║
+ ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║    ██║  ██║   ██║   ██║ ╚═╝ ██║███████╗
+  ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝    ╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝╚══════╝
+ */
+
+
+function objectsHTML(objects) {
+
+    //r('objectsDraw',objects.length,objects);
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
+
+    var map_draw = [];
+    for (var i = 0; i < objects.length; i++) {
+
+        //-----------------------------------------
+        if (is(objects[i].path)) {
+
+            var position = objects[i].path.recount();
+
+
+            objects[i].x = position.x;
+            objects[i].y = position.y;
+
+        }
+        //-----------------------------------------
+
+        var object_id = objects[i].id;
+
+
+        object_xc = objects[i].x - map_x;
+        object_yc = objects[i].y - map_y;
+
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+
+        object_screen_x += (canvas_width / 3 / 2);
+        object_screen_y += (canvas_height / 3 / 2);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        map_draw.push([
+            objects[i].type,
+            objects[i].res,
+            object_screen_x,
+            object_screen_y,
+            ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
+        ]);
+
+
+        //-----------------------------------------
+
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
+
+    map_draw.sort(function (a, b) {
+
+        if (a[4] > b[4]) {
+            return (1);
+        } else if (a[4] < b[4]) {
+            return (-1);
+        } else {
+            return (0);
+        }
+
+    });
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
+
+    //---------------empty
+
+    var html='';
+
+    //----------------Drawing... :)
+
+    //lastY=0;
+
+    for (var i = 0; i < map_draw.length; i++) {
+
+        if (map_draw[i][0] == 'building') {
+
+            map_draw[i][2]
+
+
+            var img = new Image(300, 300);
+            img.src = Model.createSrc(map_draw[i][1], map_zoom_m * map_model_size, 300, 300, 150, 150, -map_rotation, map_slope);
+
+            $(img).css('border','2px solid #111111');
+            $(img).css('position','absolute');
+            $(img).css('left',Math.round(map_draw[i][2]-150));
+            $(img).css('top', Math.round(map_draw[i][3]-150));
+
+            //r(img);
+            html+=img.outerHTML;
+            //Model.draw(ctx, map_draw[i][1], map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+
+        }
+
+    }
+
+    //r(html);
+
+    return(html);
+
+}
 
 //======================================================================================================================
 /*
@@ -928,7 +1034,13 @@ function move2normal(){
 //------------------------------------
 
 function moveDrawCtl(){
-    objectsDraw(map_move_ctx,map_object_changes_move);
+
+    $('#map_move').html(objectsHTML(map_object_changes_move));
+    r($('#map_move').html());
+
+
+
+
 }
 
 //---------
@@ -940,7 +1052,7 @@ function moveDrawLoop() {
         moveDrawCtl();
         requestAnimationFrame(moveDrawLoop);
 
-    },1000);
+    },50);
 
 
 }
