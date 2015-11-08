@@ -38,8 +38,6 @@ $(function() {
     $('#map_bg').attr('width',$(document).width()*3);
     $('#map_bg').attr('height',$(document).height()*3);
 
-    $('#map_move').attr('width',$(document).width()*3);
-    $('#map_move').attr('height',$(document).height()*3);
 
     canvas_width=map_bg.width;
     canvas_height=map_bg.height;
@@ -85,9 +83,6 @@ $( window ).resize(debounce(function() {
 
     $('#map_bg').attr('width',$('body').width()*3);
     $('#map_bg').attr('height',$('body').height()*3);
-
-    $('#map_move').attr('width',$(document).width()*3);
-    $('#map_move').attr('height',$(document).height()*3);
 
     canvas_width=map_bg.width;
     canvas_height=map_bg.height;

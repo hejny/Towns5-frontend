@@ -143,8 +143,9 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 
 
 <canvas id="map_buffer" width="100" height="100"></canvas>
-<canvas id="map_move" width="100" height="100"></canvas>
+<div id="map_move"></div>
 <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe rename?-->
+
 
 
 <canvas id="selecting-distance" width="100" height="50"></canvas>
