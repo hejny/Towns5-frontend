@@ -81,8 +81,12 @@ var time=0;
 
 var map_bg =false;
 var map_ctx =false;
+
 var map_buffer =false;
 var map_buffer_ctx =false;
+
+var map_move =false;
+var map_move_ctx =false;
 
 var all_images_bg=[];
 var all_images_tree=[];
@@ -93,10 +97,12 @@ $(function() {
     map_bg = document.getElementById('map_bg');
     map_ctx = map_bg.getContext('2d');
 
-    r('Loaded canvas context');
-
     map_buffer = document.getElementById('map_buffer');
     map_buffer_ctx = map_buffer.getContext('2d');
+
+    map_move = document.getElementById('map_move');
+    map_move_ctx = map_move.getContext('2d');
+    map_move_ctx = map_move.getContext('2d');
 
     //r(map_buffer_ctx);
 
@@ -343,6 +349,7 @@ function drawMap() {
     //r(map_ctx);
     if (map_ctx == false)return;
     r('drawMap');
+    //t('drawMap start');
 
 
     //----------------Move canvas
@@ -360,6 +367,7 @@ function drawMap() {
     var selecting_distance_pow = selecting_distance * map_zoom_m;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
+    //t('Terrains start');
 
     for (var y = 0; y < map_size; y++) {
         for (var x = 0; x < map_size; x++) {
@@ -546,6 +554,8 @@ function drawMap() {
 
         }
     }
+    //t('Terrains end');
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
     var selecting_distance_pow = 20;
@@ -553,23 +563,6 @@ function drawMap() {
 
     var object = all_images_rock[0][0];
     for (var i = 0; i < map_data.length; i++) {
-
-
-        //-----------------------------------------
-
-         if(is(map_data[i].path)){
-
-            var position = map_data[i].path.recount();
-
-            //r(position);
-
-             map_data[i].x=position.x;
-             map_data[i].y=position.y;
-
-        }
-
-
-        //-----------------------------------------
 
 
         /*
@@ -636,6 +629,7 @@ function drawMap() {
         //-----------------------------------------
 
     }
+    //t('Putting into array end');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
 
@@ -651,6 +645,7 @@ function drawMap() {
         }
 
     });
+    //t('Sorting end');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
     //----------------Clear canvas
@@ -661,6 +656,7 @@ function drawMap() {
     map_ctx.strokeStyle = 'rgba(0,0,0,0.5)';
     map_ctx.lineWidth = 0;
 
+    //t('ClearingRect end');
 
     /* todo ? Promyslet zda podparvovat cernou elipsou
     map_width=map_field_size*map_size*map_zoom_m;
@@ -773,26 +769,227 @@ function drawMap() {
         }
 
     }
-
+    //t('Drawing end');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+    //t('drawMap end');
 
 }
 
+
+//======================================================================================================================
 /*
-function drawLoop() {
+  ██████╗ ██████╗      ██╗███████╗ ██████╗████████╗███████╗    ██████╗ ██████╗  █████╗ ██╗    ██╗
+ ██╔═══██╗██╔══██╗     ██║██╔════╝██╔════╝╚══██╔══╝██╔════╝    ██╔══██╗██╔══██╗██╔══██╗██║    ██║
+ ██║   ██║██████╔╝     ██║█████╗  ██║        ██║   ███████╗    ██║  ██║██████╔╝███████║██║ █╗ ██║
+ ██║   ██║██╔══██╗██   ██║██╔══╝  ██║        ██║   ╚════██║    ██║  ██║██╔══██╗██╔══██║██║███╗██║
+ ╚██████╔╝██████╔╝╚█████╔╝███████╗╚██████╗   ██║   ███████║    ██████╔╝██║  ██║██║  ██║╚███╔███╔╝
+  ╚═════╝ ╚═════╝  ╚════╝ ╚══════╝ ╚═════╝   ╚═╝   ╚══════╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝
+ */
+
+
+function objectsDraw(ctx,objects) {
+
+    //r('objectsDraw',objects.length,objects);
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
+
+    var map_draw = [];
+    for (var i = 0; i < objects.length; i++) {
+
+        //-----------------------------------------
+        if (is(objects[i].path)) {
+
+            var position = objects[i].path.recount();
+
+
+            objects[i].x = position.x;
+            objects[i].y = position.y;
+
+        }
+        //-----------------------------------------
+
+        var object_id = objects[i].id;
+
+
+        object_xc = objects[i].x - map_x;
+        object_yc = objects[i].y - map_y;
+
+        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+
+
+        object_screen_x += (canvas_width / 3 / 2);
+        object_screen_y += (canvas_height / 3 / 2);
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        map_draw.push([
+            objects[i].type,
+            objects[i].res,
+            object_screen_x,
+            object_screen_y,
+            ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
+        ]);
+
+
+        //-----------------------------------------
+
+    }
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
+
+    map_draw.sort(function (a, b) {
+
+        if (a[4] > b[4]) {
+            return (1);
+        } else if (a[4] < b[4]) {
+            return (-1);
+        } else {
+            return (0);
+        }
+
+    });
+
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
+
+    //----------------Clear canvas
+
+    ctx.clearRect(0, 0, canvas_width / 3, canvas_height / 3);
+
+    //----------------Drawing... :)
+
+    //lastY=0;
+
+    for (var i = 0; i < map_draw.length; i++) {
+
+        if (map_draw[i][0] == 'building') {
+
+
+            Model.draw(ctx, map_draw[i][1], map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+
+        }
+
+    }
+
+
+
+
+
+}
+
+//======================================================================================================================
+/*
+ ███╗   ███╗ ██████╗ ██╗   ██╗███████╗     ██████╗████████╗██╗
+ ████╗ ████║██╔═══██╗██║   ██║██╔════╝    ██╔════╝╚══██╔══╝██║
+ ██╔████╔██║██║   ██║██║   ██║█████╗      ██║        ██║   ██║
+ ██║╚██╔╝██║██║   ██║╚██╗ ██╔╝██╔══╝      ██║        ██║   ██║
+ ██║ ╚═╝ ██║╚██████╔╝ ╚████╔╝ ███████╗    ╚██████╗   ██║   ███████╗
+ ╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝     ╚═════╝   ╚═╝   ╚══════╝
+ */
+
+
+function move2normal(){
+
+    //Standing object put into map_object_changes;
+    map_object_changes_move.filter(function(object){
+
+        if(!is(object.path)){
+
+            map_object_changes.push(object);
+            return false;
+
+        }else{
+            return true;
+        }
+
+    });
+
+
+    //Moving object put into map_object_changes_move;
+    map_object_changes.filter(function(object){
+
+        if(!is(object.path)){
+
+            map_object_changes_move.push(object);
+            return false;
+
+        }else{
+            return true;
+        }
+
+    });
+
+
+}
+
+//------------------------------------
+
+function moveDrawCtl(){
+    objectsDraw(map_move_ctx,map_object_changes_move);
+}
+
+//---------
+
+function moveDrawLoop() {
 
     setTimeout(function(){
-        requestAnimationFrame(drawLoop);
+
+        moveDrawCtl();
+        requestAnimationFrame(moveDrawLoop);
+
     },1000);
 
-    drawMap();
-}
-drawLoop();
-*/
 
+}
+moveDrawLoop();
+
+
+//======================================================================================================================
+/*
+ ██████╗ ██╗   ██╗███████╗███████╗███████╗██████╗      ██████╗████████╗██╗
+ ██╔══██╗██║   ██║██╔════╝██╔════╝██╔════╝██╔══██╗    ██╔════╝╚══██╔══╝██║
+ ██████╔╝██║   ██║█████╗  █████╗  █████╗  ██████╔╝    ██║        ██║   ██║
+ ██╔══██╗██║   ██║██╔══╝  ██╔══╝  ██╔══╝  ██╔══██╗    ██║        ██║   ██║
+ ██████╔╝╚██████╔╝██║     ██║     ███████╗██║  ██║    ╚██████╗   ██║   ███████╗
+ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝     ╚══════╝╚═╝  ╚═╝     ╚═════╝   ╚═╝   ╚══════╝
+ */
+
+function bufferDrawStartCtl(ctx,objects){
+
+
+
+
+    $('#map_buffer').css('position','absolute');
+    $('#map_buffer').css('top','0px');
+    $('#map_buffer').css('left','0px');
+
+    map_buffer.width=canvas_width/3;
+    map_buffer.height=canvas_height/3;
+
+    $('#map_buffer').css('z-index',$('#map_bg').css('z-index')-(-10));
+
+
+}
+
+
+//------------------------------------
+function bufferDrawEndCtl(){
+
+
+    map_buffer_ctx.clearRect(0, 0, canvas_width/3, canvas_height/3);
+}
+
+//------------------------------------
+
+function bufferDrawCtl(){
+
+    objectsDraw(map_buffer_ctx,map_object_changes_buffer);
+
+
+}
 
 
 //======================================================================================================================
@@ -802,7 +999,7 @@ drawLoop();
  ██║   ██║██████╔╝██║  ██║███████║   ██║   █████╗
  ██║   ██║██╔═══╝ ██║  ██║██╔══██║   ██║   ██╔══╝
  ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
-  ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
+ ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
  */
 
 function updateMap(ms){
@@ -1008,9 +1205,9 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
 
     //********OLD
     /*var map_click_rot=Math.acos(map_click_x/map_click_dist);
-    if(map_click_y<0){
-        map_click_rot=2*Math.PI - map_click_rot;
-    }*/
+     if(map_click_y<0){
+     map_click_rot=2*Math.PI - map_click_rot;
+     }*/
     //********NEW
 
     //todo pouzit funkci Math.xy2distDeg
@@ -1033,118 +1230,6 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
 
 }
 
-
-
-//======================================================================================================================bufferDraw
-/*
- ██████╗ ██╗   ██╗███████╗███████╗██████╗     ██████╗ ██████╗  █████╗ ██╗    ██╗
- ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗    ██╔══██╗██╔══██╗██╔══██╗██║    ██║
- ██████╔╝██║   ██║█████╗  █████╗  ██████╔╝    ██║  ██║██████╔╝███████║██║ █╗ ██║
- ██╔══██╗██║   ██║██╔══╝  ██╔══╝  ██╔══██╗    ██║  ██║██╔══██╗██╔══██║██║███╗██║
- ██████╔╝╚██████╔╝██║     ███████╗██║  ██║    ██████╔╝██║  ██║██║  ██║╚███╔███╔╝
- ╚═════╝  ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚══╝╚══╝
- */
-
-function bufferDrawStart(){
-
-
-
-
-    $('#map_buffer').css('position','absolute');
-    $('#map_buffer').css('top','0px');
-    $('#map_buffer').css('left','0px');
-
-    map_buffer.width=canvas_width/3;
-    map_buffer.height=canvas_height/3;
-
-    $('#map_buffer').css('z-index',$('#map_bg').css('z-index')-(-1));
-
-
-}
-
-
-//------------------------------------
-function bufferDrawEnd(){
-
-
-    map_buffer_ctx.clearRect(0, 0, canvas_width/3, canvas_height/3);
-}
-
-//------------------------------------
-
-function bufferDraw(){
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
-
-    var map_draw=[];
-    for (var i = 0; i < map_object_changes_buffer.length; i++) {
-
-        //-----------------------------------------
-
-
-        var object_id = map_object_changes_buffer[i].id;
-
-
-        object_xc = map_object_changes_buffer[i].x - map_x;
-        object_yc = map_object_changes_buffer[i].y - map_y;
-
-        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
-
-
-        object_screen_x += (canvas_width /3 / 2);
-        object_screen_y += (canvas_height /3 / 2);
-
-        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        map_draw.push([
-            map_object_changes_buffer[i].type,
-            map_object_changes_buffer[i].res,
-            object_screen_x,
-            object_screen_y,
-            ((map_object_changes_buffer[i].type == 'story') ? 9999 : object_screen_y + 120)
-        ]);
-
-
-        //-----------------------------------------
-
-    }
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
-
-    map_draw.sort(function (a, b) {
-
-        if (a[4] > b[4]) {
-            return (1);
-        } else if (a[4] < b[4]) {
-            return (-1);
-        } else {
-            return (0);
-        }
-
-    });
-
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw objects
-
-    //----------------Clear canvas
-
-    map_buffer_ctx.clearRect(0, 0, canvas_width/3, canvas_height/3);
-
-    //----------------Drawing... :)
-
-    //lastY=0;
-
-    for (var i = 0; i < map_draw.length; i++) {
-
-        if (map_draw[i][0] == 'building') {
-
-            Model.draw(map_buffer_ctx, map_draw[i][1], map_zoom_m*map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
-
-        }
-
-    }
-
-}
 
 //======================================================================================================================
 

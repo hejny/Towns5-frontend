@@ -38,6 +38,9 @@ $(function() {
     $('#map_bg').attr('width',$(document).width()*3);
     $('#map_bg').attr('height',$(document).height()*3);
 
+    $('#map_move').attr('width',$(document).width()*3);
+    $('#map_move').attr('height',$(document).height()*3);
+
     canvas_width=map_bg.width;
     canvas_height=map_bg.height;
 
@@ -82,6 +85,9 @@ $( window ).resize(debounce(function() {
 
     $('#map_bg').attr('width',$('body').width()*3);
     $('#map_bg').attr('height',$('body').height()*3);
+
+    $('#map_move').attr('width',$(document).width()*3);
+    $('#map_move').attr('height',$(document).height()*3);
 
     canvas_width=map_bg.width;
     canvas_height=map_bg.height;
@@ -881,8 +887,8 @@ $(function() {
         buildingByDraggingPath=[];
         mouseMove(e);
 
-        bufferDrawStart();
-        $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStart
+        bufferDrawStartCtl();
+        $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStartCtl
         requestAnimationFrame(buildingLoop);
 
 
@@ -976,7 +982,7 @@ $(function() {
 
         //------------------------------------------------------
 
-        bufferDraw();
+        bufferDrawCtl();
 
         setTimeout(function(){
 
@@ -1006,7 +1012,7 @@ $(function() {
 
         loadMap();
         $('#selecting-distance').show();
-        bufferDrawEnd();
+        bufferDrawEndCtl();
 
     };
 
@@ -1031,40 +1037,47 @@ $(function() {
         e.preventDefault();
 
 
-
         var map_click_x=(e.clientX-(canvas_width / 3/2));
         var map_click_y=(e.clientY-(canvas_height / 3/2));
         var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-        map_selected_ids.forEach(function(id){
+        r('right click on map',mapPos);
 
-            var i = id2i(map_object_changes,id);
 
-            if(is(map_object_changes[i].path)){
-                var position=map_object_changes[i].path.recount();
+        map_object_changes=map_object_changes.filter(function(object){
+
+            if(map_selected_ids.indexOf(object.id)!=-1){
+
+                if(is(object.path)){
+                    var position=object.path.recount();
+                }else{
+                    var position=new Position(object.x,object.y);
+                }
+
+
+                var deg = Math.xy2distDeg(mapPos.x-position.x,mapPos.y-position.y).deg;
+
+                object.res=Model.addRotSize(object.res,deg);
+
+                object.x=position.x;
+                object.y=position.y;
+                object.path=new Path(position,mapPos,0.1);
+
+                map_object_changes_move.push(object);
+
+
+                r('Moved to move ',object);
+                return false;
+
             }else{
-                var position=new Position(map_object_changes[i].x,map_object_changes[i].y);
+
+                return true;
+
             }
-
-
-            var deg = Math.xy2distDeg(mapPos.x-position.x,mapPos.y-position.y).deg;
-
-            //r(map_object_changes[i].res);
-            map_object_changes[i].res=Model.addRotSize(map_object_changes[i].res,deg);
-            //r(map_object_changes[i].res);
-
-            map_object_changes[i].x=position.x;
-            map_object_changes[i].y=position.y;
-            map_object_changes[i].path=new Path(position,mapPos,0.1);
-
-
-
 
         });
 
 
-
-        r('right click on map',mapPos);
 
     };
 
