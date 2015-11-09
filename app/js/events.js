@@ -1039,38 +1039,33 @@ $(function() {
         r('right click on map',mapPos);
 
 
-        map_object_changes=map_object_changes.filter(function(object){
+        map_selected_ids.forEach(function(id){
 
-            if(map_selected_ids.indexOf(object.id)!=-1){
+            var i=id2i(map_object_changes,id);
 
-                if(is(object.path)){
-                    var position=object.path.recount();
-                }else{
-                    var position=new Position(object.x,object.y);
-                }
-
-
-                var deg = Math.xy2distDeg(mapPos.x-position.x,mapPos.y-position.y).deg;
-
-                object.res=Model.addRotSize(object.res,deg);
-
-                object.x=position.x;
-                object.y=position.y;
-                object.path=new Path(position,mapPos,0.1);
-
-                map_object_changes_move.push(object);
-
-
-                r('Moved to move ',object);
-                return false;
-
+            if(is(map_object_changes[i].path)){
+                var position=map_object_changes[i].path.recount();
             }else{
-
-                return true;
-
+                var position=new Position(map_object_changes[i].x,map_object_changes[i].y);
             }
 
+
+            var deg = Math.xy2distDeg(mapPos.x-position.x,mapPos.y-position.y).deg;
+
+            map_object_changes[i].res=Model.addRotSize(map_object_changes[i].res,deg);
+
+            map_object_changes[i].x=position.x;
+            map_object_changes[i].y=position.y;
+            map_object_changes[i].path=new Path(position,mapPos,0.1);
+
+
+
         });
+
+
+        orderMoveAndNormal();
+
+        loadMap();
 
 
 

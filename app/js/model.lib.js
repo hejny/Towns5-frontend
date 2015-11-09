@@ -321,8 +321,8 @@ this.Model.createIcon = function(res,size){
 this.Model.createSrc = function(res, s, x_begin, y_begin, x_size, y_size, rot, slope){
 
     var canvas = document.createElement('canvas');
-    canvas.height=x_size;
-    canvas.width = y_size;
+    canvas.width=x_size;
+    canvas.height = y_size;
     var context = canvas.getContext('2d');
 
     Model.draw(context, res, s, x_begin, y_begin,  rot, slope);
