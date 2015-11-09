@@ -60,3 +60,36 @@ Path.prototype.recount = function(){
     return(new Position(this.path[0].x+(xDelta*progress),this.path[0].y+(yDelta*progress)));
 
 };
+
+
+//----------------------------------------------------------
+
+
+Path.prototype.inProgress = function(){
+
+    //var startMs=this.startDate.getTime();
+    var stopMs=this.stopDate.getTime();
+
+    var actualDate=new Date();
+    var actualMs=actualDate.getTime();
+
+
+    return(/*actualMs>=startMs &&*/ actualMs<stopMs);
+
+};
+
+
+//----------------------------------------------------------
+
+
+
+Path.is = function(path){
+
+
+    if(!is(path)) return false;
+    if(!is(path.inProgress)) return false;
+    if(!path.inProgress()) return false;
+
+    return true;
+
+};

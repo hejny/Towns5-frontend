@@ -19,6 +19,7 @@
 function objectMenu(){
     //r('objectMenu');
 
+    return;//todo Use objectmenu??
 
     $('#objectmenu').stop(true,true);
 
