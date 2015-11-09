@@ -955,7 +955,10 @@ function objectsHTML(objects) {
 
     //----------------Drawing... :)
 
-    //lastY=0;
+    var x_begin=50,
+        y_begin=170,
+        x_size=100,
+        y_size=200;
 
     for (var i = 0; i < map_draw.length; i++) {
 
@@ -964,13 +967,13 @@ function objectsHTML(objects) {
             map_draw[i][2]
 
 
-            var img = new Image(300, 300);
-            img.src = Model.createSrc(map_draw[i][1], map_zoom_m * map_model_size, 300, 300, 150, 150, -map_rotation, map_slope);
+            var img = new Image(x_size, y_size);
+            img.src = Model.createSrc(map_draw[i][1], map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);
 
-            $(img).css('border','2px solid #111111');
+            //$(img).css('border','2px solid #111111');
             $(img).css('position','absolute');
-            $(img).css('left',Math.round(map_draw[i][2]-150));
-            $(img).css('top', Math.round(map_draw[i][3]-150));
+            $(img).css('left',Math.round(map_draw[i][2]-x_begin));
+            $(img).css('top', Math.round(map_draw[i][3]-y_begin));
 
             //r(img);
             html+=img.outerHTML;
@@ -996,11 +999,11 @@ function objectsHTML(objects) {
  ╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝     ╚═════╝   ╚═╝   ╚══════╝
  */
 
-
-function move2normal(){
+/*todo For Ctl and other non-draw functions create new file*/
+function orderMoveAndNormal(){
 
     //Standing object put into map_object_changes;
-    map_object_changes_move.filter(function(object){
+    map_object_changes_move=map_object_changes_move.filter(function(object){
 
         if(!is(object.path)){
 
@@ -1015,9 +1018,9 @@ function move2normal(){
 
 
     //Moving object put into map_object_changes_move;
-    map_object_changes.filter(function(object){
+    map_object_changes=map_object_changes.filter(function(object){
 
-        if(!is(object.path)){
+        if(is(object.path)){
 
             map_object_changes_move.push(object);
             return false;
@@ -1036,7 +1039,7 @@ function move2normal(){
 function moveDrawCtl(){
 
     $('#map_move').html(objectsHTML(map_object_changes_move));
-    r($('#map_move').html());
+    //r($('#map_move').html());
 
 
 
