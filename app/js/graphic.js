@@ -819,6 +819,7 @@ function objectsDraw(ctx,objects) {
         object_screen_x += (canvas_width / 3 / 2);
         object_screen_y += (canvas_height / 3 / 2);
 
+
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
@@ -889,19 +890,25 @@ function objectsHTML(objects) {
 
     //r('objectsDraw',objects.length,objects);
 
+    var notMoving=false;
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
     var map_draw = [];
     for (var i = 0; i < objects.length; i++) {
 
         //-----------------------------------------
-        if (is(objects[i].path)) {
+        if (Path.is(objects[i].path)) {
 
             var position = objects[i].path.recount();
 
 
             objects[i].x = position.x;
             objects[i].y = position.y;
+
+        }else{
+
+            notMoving=true;
 
         }
         //-----------------------------------------
@@ -917,6 +924,27 @@ function objectsHTML(objects) {
 
         object_screen_x += (canvas_width / 3 / 2);
         object_screen_y += (canvas_height / 3 / 2);
+
+        //----------------------------------------------Selected object?
+        if(map_selected_ids.indexOf(object_id)!=-1){
+
+
+            var ellipse_width = 100;
+
+            map_draw.push([
+                'ellipse',
+                ['rgba(50,50,50,0.4)', 'rgba(0,0,0,0.8)', 3],
+                object_screen_x - (ellipse_width / 2),
+                object_screen_y - (ellipse_width / map_slope_m / 2),
+                object_screen_y + 120 - 1,
+                ellipse_width,
+                ellipse_width / map_slope_m
+
+            ]);
+
+
+        }
+        //----------------------------------------------
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
@@ -960,34 +988,90 @@ function objectsHTML(objects) {
         x_size=100,
         y_size=200;
 
-    for (var i = 0; i < map_draw.length; i++) {
+    map_draw.forEach(function(draw_item){
 
-        if (map_draw[i][0] == 'building') {
+        if (draw_item[0] == 'building') {
 
-            map_draw[i][2]
+            var img = new Image(x_size/*todo refactor*/, y_size);
+            img.src = Model.createSrc(draw_item[1], map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);/*todo cache SRCs*/
 
-
-            var img = new Image(x_size, y_size);
-            img.src = Model.createSrc(map_draw[i][1], map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);
-
-            //$(img).css('border','2px solid #111111');
             $(img).css('position','absolute');
-            $(img).css('left',Math.round(map_draw[i][2]-x_begin));
-            $(img).css('top', Math.round(map_draw[i][3]-y_begin));
+            $(img).addClass('moving-object');
+            $(img).css('left',Math.floor(draw_item[2]-x_begin));
+            $(img).css('top', Math.floor(draw_item[3]-y_begin));
 
-            //r(img);
+             html+=img.outerHTML;
+
+
+
+
+        }else if (draw_item[0] == 'ellipse') {
+
+
+            var width  = draw_item[5] + draw_item[1][2] * 2,
+                height = draw_item[6] + draw_item[1][2] * 2;
+
+
+            var img = new Image(width,height);
+
+
+            img.src=canvas2Src(width,height,function(ctx){
+
+
+                ctx.fillStyle = draw_item[1][0];
+                ctx.strokeStyle = draw_item[1][1];
+                ctx.lineWidth = draw_item[1][2];
+
+
+                drawEllipse(
+                    ctx,
+                    draw_item[1][2],
+                    draw_item[1][2],
+                    draw_item[5],
+                    draw_item[6]
+                );
+
+            });
+
+
+
+            $(img).css('position','absolute');
+            $(img).addClass('moving-object');
+            $(img).css('left',Math.floor(draw_item[2]));
+            $(img).css('top', Math.floor(draw_item[3]));
+
             html+=img.outerHTML;
-            //Model.draw(ctx, map_draw[i][1], map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+
 
         }
 
-    }
+    });
 
-    //r(html);
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    if(notMoving)orderMoveAndNormal();
 
     return(html);
 
 }
+
+
+
+/**todo refactor to tools*/
+function canvas2Src(width,height,manipulationFunction){
+
+    var canvas = document.createElement('canvas');
+    canvas.width=width;
+    canvas.height = height;
+    var context = canvas.getContext('2d');
+
+    manipulationFunction(context);
+
+    return(canvas.toDataURL());
+
+
+}
+
 
 //======================================================================================================================
 /*
@@ -1002,12 +1086,15 @@ function objectsHTML(objects) {
 /*todo For Ctl and other non-draw functions create new file*/
 function orderMoveAndNormal(){
 
+    var change=false;
+
     //Standing object put into map_object_changes;
     map_object_changes_move=map_object_changes_move.filter(function(object){
 
-        if(!is(object.path)){
+        if(!Path.is(object.path)){
 
             map_object_changes.push(object);
+            change=true;
             return false;
 
         }else{
@@ -1020,9 +1107,10 @@ function orderMoveAndNormal(){
     //Moving object put into map_object_changes_move;
     map_object_changes=map_object_changes.filter(function(object){
 
-        if(is(object.path)){
+        if(Path.is(object.path)){
 
             map_object_changes_move.push(object);
+            change=true;
             return false;
 
         }else{
@@ -1032,14 +1120,16 @@ function orderMoveAndNormal(){
     });
 
 
+    if(change)loadMap();
+
 }
 
 //------------------------------------
 
 function moveDrawCtl(){
 
-    $('#map_move').html(objectsHTML(map_object_changes_move));
-    //r($('#map_move').html());
+    $('#map-move').html(objectsHTML(map_object_changes_move));
+    //r($('#map-move').html());
 
 
 
@@ -1290,6 +1380,11 @@ function mapMove(deltaX,deltaY) {
 
     $('#map_bg').css('left', map_bg_x);
     $('#map_bg').css('top', map_bg_y);
+
+
+    $('.moving-object').css( 'left', '+='+deltaX );
+    $('.moving-object').css( 'top', '+='+deltaY );
+
 
 }
 

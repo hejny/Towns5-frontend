@@ -51,6 +51,24 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 }
 
 
+//------------------------------------------------Nice HTML
+
+function tidyHTML($buffer) {
+    // load our document into a DOM object
+    $dom = new DOMDocument();
+    // we want nice output
+    $dom->preserveWhiteSpace = false;
+    $dom->loadHTML($buffer);
+    $dom->formatOutput = true;
+    return($dom->saveHTML());
+}
+
+// start output buffering, using our nice
+// callback function to format the output.
+//ob_start("tidyHTML");//todo Deploy tidyHTML
+
+//------------------------------------------------
+
 
 ?>
 <!DOCTYPE html>
@@ -90,7 +108,7 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 
         $includes = file('app/includes.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
         foreach($includes as $include){
-            echo '          <script src="'.addslashes($include).'"></script>'."\n";
+            echo '<script src="'.addslashes($include).'"></script>';
         }
 
         ?>
@@ -143,7 +161,7 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 
 
 <canvas id="map_buffer" width="100" height="100"></canvas>
-<div id="map_move"></div>
+<div id="map-move"></div>
 <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe rename?-->
 
 
@@ -290,3 +308,8 @@ if(isset($config['environment']) && $config['environment'] != "production"){
 </html>
 
 
+<?php
+// this will be called implicitly, but we'll
+// call it manually to illustrate the point.
+ob_end_flush();
+?>

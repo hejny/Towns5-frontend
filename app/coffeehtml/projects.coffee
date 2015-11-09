@@ -49,7 +49,7 @@ Připravujeme novou verzi hry.</h2>
         $("#sendpress_error").hide();
         $("#sendpress_loading").show();
         $.ajax({
-            url: "http://forum.towns.cz/",
+            url: "http://blog.towns.cz/",
             type: "post",
             dataType: "json",
             data: $("#sendpress").serialize(),

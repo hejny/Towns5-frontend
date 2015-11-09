@@ -155,7 +155,7 @@ input, textarea {
 
 }
 
-#map_move {
+#map-move {/*todo all clases with Capital letter*/
     position:absolute;
     top:0px;
     left:0px;
@@ -164,6 +164,10 @@ input, textarea {
 }
 
 
+/*.moving-object {
+    border: 2px solid #111111;
+
+}*/
 
 
 #selecting-distance{

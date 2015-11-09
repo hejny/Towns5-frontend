@@ -1065,8 +1065,6 @@ $(function() {
 
         orderMoveAndNormal();
 
-        loadMap();
-
 
 
     };
