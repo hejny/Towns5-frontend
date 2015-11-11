@@ -73,7 +73,7 @@ function terrainChangeStart(terrain){
     terrainChanging=terrain;
 
     //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
-    if([1,11,5]/*List of terrains*/.indexOf(terrainChanging)!=-1){
+    if(blockedTerrains.indexOf(terrainChanging)!=-1){
         dismantling=true;
     }
     //----------------------------
