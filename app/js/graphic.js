@@ -988,9 +988,16 @@ function objectsHTML(objects) {
             objects[i].x = position.x;
             objects[i].y = position.y;
 
+
+
+            var res_moving=Model.rewriteRot(objects[i].res,objects[i].path.rotation());
+
+
+
         }else{
 
             notMoving=true;
+            var res_moving=map_object_changes[i].res;
 
         }
         //-----------------------------------------
@@ -1031,7 +1038,7 @@ function objectsHTML(objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            objects[i].res,
+            res_moving,
             object_screen_x,
             object_screen_y,
             ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
