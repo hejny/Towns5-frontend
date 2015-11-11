@@ -27,7 +27,7 @@ function iterate2D(array,callback){
 	for(var y= 0,yLen=array.length;y<yLen;y++) {
 		for (var x = 0,xLen=array[y].length; x<xLen; x++) {
 
-			callback(y,x);
+			callback(y,x);/*todo refactor to x,y*/
 
 		}
 	}

@@ -291,6 +291,26 @@ function loadMap() {
                 }
 
             }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Collisions
+
+
+            iterate2D(map_bg_data,function(y,x){
+
+                if(!is(map_collision_data[y]))map_collision_data[y]=[];
+
+
+                if([0,4,9,10].indexOf(map_bg_data[y][x])){
+
+                    map_collision_data[y][x]=true;
+
+                }else{
+
+                    map_collision_data[y][x]=true;
+
+                }
+
+
+            });
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             drawMap();

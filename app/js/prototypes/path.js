@@ -16,21 +16,146 @@
 //======================================================================================================================
 
 
-var Path = function (start, end, speed) {
+var Path = function (start, end, speed , map, map_topleft) {
+
+    r(start,end,map_topleft);
+
+    this.positions=[];
+
+    //--------------
 
 
-    this.path=[];
-    this.path.push(start);
-    this.path.push(end);
+    if(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]==false){
+
+        r('Wrong Destination');
+        return(false);
+    }
+
+    //--------------
+
+    map[Math.round(start.y)-map_topleft.y][Math.round(start.x)-map_topleft.x]=0;
 
 
-    this.startDate=new Date();
+    var finished=false;
+    for(var limit=0;limit<20 && !finished;limit++){
 
 
-    var ms = this.startDate.getTime();
-    ms+=Math.round(1000/speed);
+        iterate2D(map,function(y,x){
 
-    this.stopDate=new Date(ms);
+            if(typeof map[y][x]=='number' && map[y][x]>=0){
+
+                for(var yNext=y-1;yNext<=y+1;yNext++){
+                    for(var xNext=x-1;xNext<=x+1;xNext++){
+
+                        if(xNext!=x || yNext!=y)
+                        if(xNext>=0)
+                        if(yNext>=0)
+                        if(xNext<map_size)/*todo is it OK to use map_size???*/
+                        if(yNext<map_size)
+                        if(map[yNext][xNext]===true){
+                            map[yNext][xNext]=-(map[y][x]+Math.xy2dist(yNext-y,xNext-x));
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+
+
+        });
+
+        iterate2D(map,function(y,x){
+            if(typeof map[y][x]=='number')
+                map[y][x]=Math.abs(map[y][x]);
+        });
+
+
+        r(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]);
+        if(typeof map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]=='number'){
+            finished=true;
+        }
+
+    }
+
+    //--------------
+
+
+    var finished=false;
+    var x=Math.round(end.x)-map_topleft.x,
+        y=Math.round(end.y)-map_topleft.y;
+
+
+    for(var limit=0;limit<20 && !finished;limit++){
+
+        if(limit!==0)
+        this.positions.push(new Position(x+map_topleft.x,y+map_topleft.y));
+
+        var distance = 0,
+            xNext = false,
+            yNext = false;
+
+        for (var yTest = y - 1; yTest <= y + 1; yTest++) {
+            for (var xTest = x - 1; xTest <= x + 1; xTest++) {
+
+                if (xTest != x || yNext != y)
+                if (xTest >= 0)
+                if (yTest >= 0)
+                if (xTest < map_size)/*todo is it OK to use map_size???*/
+                if (yTest < map_size)
+                if (typeof map[yTest][xTest] == 'number') {
+
+                    if (distance < map[y][x] - map[yTest][xTest]) {
+
+                        distance = map[y][x] - map[yTest][xTest];
+                        xNext = xTest;
+                        yNext = yTest;
+
+                    }
+
+
+                }
+
+            }
+        }
+
+        x = xNext;
+        y = yNext;
+
+        if(x==Math.round(start.x)-map_topleft.x && y==Math.round(start.y)-map_topleft.y){
+            finished=true;
+        }
+
+
+    }
+
+    //--------------
+
+    this.positions.push(start);
+    this.positions.reverse();
+    this.positions.push(end);
+
+    //r(this.positions);
+
+    //------------------------------------------
+
+    this.times=[new Date()];
+    var ms = this.times[0].getTime();
+
+    for(var i=1,l=this.positions.length;i<l;i++){
+
+        var distance=Math.xy2dist(this.positions[i].x-this.positions[i-1].x,this.positions[i].y-this.positions[i-1].y);
+
+        ms+=Math.round(distance*1000/speed);
+
+        this.times.push(new Date(ms));
+
+
+
+    }
+
 
 };
 
@@ -40,24 +165,34 @@ var Path = function (start, end, speed) {
 
 Path.prototype.recount = function(){
 
-    var startMs=this.startDate.getTime();
-    var stopMs=this.stopDate.getTime();
 
     var actualDate=new Date();
     var actualMs=actualDate.getTime();
 
 
-    var progress=(actualMs-startMs)/(stopMs-startMs);
-    if(progress>1)progress=1;
-    if(progress<0)progress=0;
+    for(var i=0,l=this.times.length-1;i<l;i++){
 
 
-    //var dist=Math.xy2dist(this.path[0].x-this.path[1].x,this.path[0].y-this.path[1].y);
+        var chunkStartMs=this.times[i].getTime();
+        var chunkStopMs=this.times[i+1].getTime();
 
-    var xDelta=this.path[1].x-this.path[0].x;
-    var yDelta=this.path[1].y-this.path[0].y;
+        if(actualMs>=chunkStartMs && actualMs<chunkStopMs){
 
-    return(new Position(this.path[0].x+(xDelta*progress),this.path[0].y+(yDelta*progress)));
+            var chunkProgress=(actualMs-chunkStartMs)/(chunkStopMs-chunkStartMs);
+
+            var chunkXDelta=this.positions[i+1].x-this.positions[i].x;
+            var chunkYDelta=this.positions[i+1].y-this.positions[i].y;
+
+            return(new Position(this.positions[i].x+(chunkXDelta*chunkProgress),this.positions[i].y+(chunkYDelta*chunkProgress)));
+
+
+
+        }
+
+
+    }
+
+   return(false);
 
 };
 
@@ -67,14 +202,12 @@ Path.prototype.recount = function(){
 
 Path.prototype.inProgress = function(){
 
-    //var startMs=this.startDate.getTime();
-    var stopMs=this.stopDate.getTime();
+    var stopMs=this.times[this.times.length-1];
 
     var actualDate=new Date();
     var actualMs=actualDate.getTime();
 
-
-    return(/*actualMs>=startMs &&*/ actualMs<stopMs);
+    return(actualMs<stopMs);
 
 };
 
