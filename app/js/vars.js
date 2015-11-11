@@ -124,3 +124,15 @@ var map_rotation_sin_minus;
 var map_slope_m;
 var map_slope_n;
 
+
+
+var blockedTerrains=[1,11,5];
+
+
+
+
+
+
+
+
+

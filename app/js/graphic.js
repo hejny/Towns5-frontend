@@ -293,24 +293,86 @@ function loadMap() {
             }
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Collisions
 
+            //~~~~~~~~~~~~~Terrains
 
             iterate2D(map_bg_data,function(y,x){
 
                 if(!is(map_collision_data[y]))map_collision_data[y]=[];
 
 
-                if([0,4,9,10].indexOf(map_bg_data[y][x])){
+                if(map_bg_data[y][x]>0 && blockedTerrains.indexOf(map_bg_data[y][x])==-1){
 
                     map_collision_data[y][x]=true;
 
                 }else{
 
-                    map_collision_data[y][x]=true;
+                    map_collision_data[y][x]=false;
 
                 }
 
 
             });
+
+            //~~~~~~~~~~~~~Objects
+
+
+            map_data.forEach(function(object){
+
+                var x=Math.round(object.x)-Math.round(map_x-(map_size/2));
+                var y=Math.round(object.y)-Math.round(map_y-(map_size/2));
+
+                if(x>=0)
+                if(y>=0)
+                if(x<map_size)/*todo is it OK to use map_size???*/
+                if(y<map_size)
+                    map_collision_data[y][x]=false;
+
+
+            });
+            //~~~~~~~~~~~~~zones
+
+
+            iterate2D(map_collision_data,function(y,x){
+
+                if(map_collision_data[y][x]==false){
+
+
+                    for(var yNext=y-1;yNext<=y+1;yNext++){
+                        for(var xNext=x-1;xNext<=x+1;xNext++){
+
+
+                            if(xNext>=0)
+                            if(yNext>=0)
+                            if(xNext<map_size)/*todo is it OK to use map_size???*/
+                            if(yNext<map_size)
+                            if(xNext==x?yNext!=y:yNext==y)
+                            if(map_collision_data[yNext][xNext]==true){
+
+                                map_collision_data[yNext][xNext]=-1;
+                            }
+
+
+                        }
+                    }
+
+
+                }
+
+            });
+
+
+
+            iterate2D(map_collision_data,function(y,x){
+
+                if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
+
+            });
+
+            //~~~~~~~~~~~~~
+
+
+            //mapWindow(map_collision_data);
+
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             drawMap();

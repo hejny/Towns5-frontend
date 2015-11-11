@@ -54,6 +54,47 @@ function t(flag){
 }
 t('start timing');
 
+
+//======================================================================================================================
+
+
+function mapWindow(map){
+    size=2;
+
+
+    var src=canvas2Src(map_size*size,map_size*size,function(ctx){
+
+
+
+        iterate2D(map,function(y,x){
+
+            if(typeof map[y][x]=='number'){
+
+                var r = 255,
+                    g = map[y][x]*5,
+                    b = map[y][x]*5;
+
+            }else if(map[y][x]==true){
+                var r = 255,
+                    g = 255,
+                    b = 255;
+            }else{
+                var r = 0,
+                    g = 0,
+                    b = 0;
+            }
+
+
+            ctx.fillStyle = 'rgb('+r+','+g+','+b+')';
+            ctx.fillRect (x*size, y*size,x*size+size, y*size+size);
+        });
+
+    });
+
+    window.open(src);
+}
+
+
 //======================================================================================================================
 
 

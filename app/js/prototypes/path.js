@@ -27,9 +27,17 @@ var Path = function (start, end, speed , map, map_topleft) {
 
     if(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]==false){
 
-        r('Wrong Destination');
-        return(false);
+        throw 'Wrong Destination';
     }
+
+
+    //--------------
+
+    iterate2D(map,function(y,x){
+        if(map[y][x]!=false)
+            map[y][x]=true;
+    });
+
 
     //--------------
 
@@ -37,7 +45,7 @@ var Path = function (start, end, speed , map, map_topleft) {
 
 
     var finished=false;
-    for(var limit=0;limit<20 && !finished;limit++){
+    for(var limit=0;limit<100 && !finished;limit++){
 
 
         iterate2D(map,function(y,x){
@@ -47,14 +55,26 @@ var Path = function (start, end, speed , map, map_topleft) {
                 for(var yNext=y-1;yNext<=y+1;yNext++){
                     for(var xNext=x-1;xNext<=x+1;xNext++){
 
-                        if(xNext!=x || yNext!=y)
+                        //r(xNext-x,yNext-y,map[yNext][xNext]);
+
+                        if(map[yNext][xNext]==true || limit<2)
+                        if(xNext==x?yNext!=y:yNext==y)
+                        if(!(xNext==x && yNext==y))
                         if(xNext>=0)
                         if(yNext>=0)
                         if(xNext<map_size)/*todo is it OK to use map_size???*/
-                        if(yNext<map_size)
-                        if(map[yNext][xNext]===true){
-                            map[yNext][xNext]=-(map[y][x]+Math.xy2dist(yNext-y,xNext-x));
+                        if(yNext<map_size){
+
+                            var distance=Math.xy2dist(yNext-y,xNext-x);
+                            //r(distance,map[y][x] - Math.abs(map[yNext][xNext]),limit);
+                            if((map[yNext][xNext]==true || limit<2) /*&& map[y][x] - Math.abs(map[yNext][xNext])>distance*/ ){
+
+                                //r('OK');
+                                map[yNext][xNext]=-(map[y][x]+/*map[yNext][xNext]*/distance);
+                                //r(map[yNext][xNext],map[y][x] + map[yNext][xNext]);
+                            }
                         }
+
 
                     }
                 }
@@ -73,11 +93,19 @@ var Path = function (start, end, speed , map, map_topleft) {
         });
 
 
-        r(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]);
+        //r(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]);
         if(typeof map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]=='number'){
             finished=true;
         }
 
+    }
+
+    //--------------
+
+    //mapWindow(map);
+
+    if(!finished){
+        throw 'Cant find path';
     }
 
     //--------------
@@ -100,6 +128,9 @@ var Path = function (start, end, speed , map, map_topleft) {
         for (var yTest = y - 1; yTest <= y + 1; yTest++) {
             for (var xTest = x - 1; xTest <= x + 1; xTest++) {
 
+
+                //r(xTest-x,yTest-y);
+
                 if (xTest != x || yNext != y)
                 if (xTest >= 0)
                 if (yTest >= 0)
@@ -107,7 +138,8 @@ var Path = function (start, end, speed , map, map_topleft) {
                 if (yTest < map_size)
                 if (typeof map[yTest][xTest] == 'number') {
 
-                    if (distance < map[y][x] - map[yTest][xTest]) {
+                    //r(map[y][x] - map[yTest][xTest]);
+                    if (map[y][x] - map[yTest][xTest] >= distance) {
 
                         distance = map[y][x] - map[yTest][xTest];
                         xNext = xTest;
@@ -120,6 +152,11 @@ var Path = function (start, end, speed , map, map_topleft) {
 
             }
         }
+
+        if(xNext==false || yNext==false)r('Error in path',xNext,yNext);
+
+        //r(xNext-x,yNext-y,distance);
+        //ewrgfd;
 
         x = xNext;
         y = yNext;
