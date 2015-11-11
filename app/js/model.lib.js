@@ -379,6 +379,26 @@ this.Model.addRotSize = function(res,rot,size){
     return(res);
 }
 
+//======================================================================================================
+
+/**
+ * Rewrite rotation
+ * @param {string} res
+ * @param {number} rot
+ * @returns {string} Towns Model
+ */
+this.Model.rewriteRot = function(res,rot){
+
+    rot=cParam(rot,0);
+
+    res=res.split(':');
+
+    res[3]=Math.round(rot);
+
+    res=res.join(':');
+    return(res);
+}
+
 
 //======================================================================================================Model.model2array
 

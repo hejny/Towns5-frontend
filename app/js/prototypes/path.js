@@ -233,6 +233,40 @@ Path.prototype.recount = function(){
 
 };
 
+//----------------------------------------------------------
+
+
+Path.prototype.rotation = function(){
+
+
+    var actualDate=new Date();
+    var actualMs=actualDate.getTime();
+
+
+    for(var i=0,l=this.times.length-1;i<l;i++){
+
+
+        var chunkStartMs=this.times[i].getTime();
+        var chunkStopMs=this.times[i+1].getTime();
+
+        if(actualMs>=chunkStartMs && actualMs<chunkStopMs){
+
+            var chunkXDelta=this.positions[i+1].x-this.positions[i].x;
+            var chunkYDelta=this.positions[i+1].y-this.positions[i].y;
+
+            var chunkDistDeg = Math.xy2distDeg(chunkYDelta,chunkXDelta);
+            return(chunkDistDeg.deg+90);
+
+
+        }
+
+
+    }
+
+    return(false);
+
+};
+
 
 //----------------------------------------------------------
 
