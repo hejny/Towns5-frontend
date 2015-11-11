@@ -113,6 +113,9 @@ var map_data;
 var map_z_data;
 var map_bg_data;
 
+
+var map_collision_data=[[false]];
+
 var map_rotation_r;
 var map_rotation_sin;
 var map_rotation_cos;

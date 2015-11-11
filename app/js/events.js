@@ -1056,7 +1056,7 @@ $(function() {
 
             map_object_changes[i].x=position.x;
             map_object_changes[i].y=position.y;
-            map_object_changes[i].path=new Path(position,mapPos,0.1);
+            map_object_changes[i].path=new Path(position,mapPos,4,map_collision_data,new Position(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2))));
 
 
 
