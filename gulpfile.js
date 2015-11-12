@@ -8,9 +8,17 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
 //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
-    del = require('del'),
-    config = require('./config/app.json'),
-    includes = require('./config/includes.json');
+    del = require('del');
+
+// Configuration autoloader
+var config = [];
+fs.readdirSync("./config").forEach(function(file) {
+    if (file.match(/\.json$/) !== null) {
+        var name = file.replace('.json', '');
+        config[name] = require('./config/' + file);
+    }
+});
+console.log(config);
 
 // Lint - testovanie
 gulp.task("test", function() {
@@ -28,10 +36,10 @@ gulp.task("documentation", function() {
 // Starter Buildu
 gulp.task('default', function() {
     // Nacita sa hodnota environment z konfiguracneho suboru a spusti sa spravny build
-    if(config.environment == "develop") {
+    if(config.app.environment == "develop") {
         gulp.start("develop");
     } else {
-        if (config.environment == "test") {
+        if (config.app.environment == "test") {
             gulp.start("test")
         } else {
             gulp.start("production")
@@ -160,33 +168,33 @@ gulp.task('production-index', function () {
 
 
 var _tmp=[];
-for(i=0,l=includes['js'].length;i<l;i++){
+for(i=0,l=config.includes.js.length;i<l;i++){
 
-    if(typeof includes['js'][i] != 'string'){
+    if(typeof config.includes.js[i] != 'string'){
 
-        for(var key in includes['js'][i]){
-            if(key==/*config.environment*/'production'){
+        for(var key in config.includes.js[i]){
+            if(key==/*config.app.environment*/'production'){
 
-                _tmp.push(includes['js'][i][key]);
+                _tmp.push(config.includes.js[i][key]);
 
             }
         }
 
     }else{
-        _tmp.push(includes['js'][i]);
+        _tmp.push(config.includes.js[i]);
     }
 
 
 }
-includes['js']=_tmp;
+config.includes.js =_tmp;
 delete _tmp;
 
-//console.log(includes['js']);
+//console.log(config.includes['js']);
 
 
 // Scripts - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
 gulp.task('production-scripts', function() {
-    gulp.src(includes['js'])
+    gulp.src(config.includes.js)
         .pipe(concat('towns.js'))
         .pipe(gulp.dest('app-dist/js'))
         .pipe(rename({suffix: '.min'}))//todo towns.js should be deleted afrer minification
@@ -196,7 +204,7 @@ gulp.task('production-scripts', function() {
 
 // Styly - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
 gulp.task('production-styles', function () {
-    gulp.src(includes['css'])
+    gulp.src(config.includes.css)
         .pipe(concat('towns.css'))
         .pipe(gulp.dest('app-dist/css'))
         .pipe(rename({suffix: '.min'}))

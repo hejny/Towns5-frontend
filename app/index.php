@@ -15,7 +15,6 @@
 //======================================================================================================================
 
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 // TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
 
 
@@ -44,9 +43,9 @@ http_response_code(200);
 
 
 
-if(isset($config['environment']) && $config['environment'] != "production"){
+if(isset($config['app']['environment']) && $config['app']['environment'] != "production"){
 
-    $page['title'].=' - '.ucfirst($config['environment']).' enviroment';
+    $page['title'].=' - '.ucfirst($config['app']['environment']).' enviroment';
 
 }
 
@@ -83,8 +82,8 @@ function tidyHTML($buffer) {
 
     <?php
     //--------------------------------Dodatecne hlavicky
-    if (isset($config['facebook']['app_id'])) {
-        echo '<meta property="fb:app_id" content="' . $config['facebook']['app_id'] . '" >';
+    if (isset($config['app']['facebook']['app_id'])) {
+        echo '<meta property="fb:app_id" content="' . $config['app']['facebook']['app_id'] . '" >';
     }
 
     //--------------------------------Open Graph informace
@@ -94,24 +93,22 @@ function tidyHTML($buffer) {
 
     }
 
-    //tady je podminka zda jse o testovaci verzi
-    if (isset($config['environment']) && $config['environment'] != "production") {
+    //tady je podminka zda jde o testovaci verzi
+    if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
 
-        $includes = json_decode(file_get_contents(__DIR__ . "/../config/includes.json"), true);
-
-        foreach ($includes['css'] as $include) {
+        foreach ($config['includes']['css'] as $include) {
             echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>';
         }
 
-        foreach ($includes['js'] as $include) {
+        foreach ($config['includes']['js'] as $include) {
 
             /*print_r($include);
             echo("\n");*/
 
             if(is_array($include)){
                 foreach($include as $environment=>$file){
-                    if($environment==$config['environment']){
+                    if($environment==$config['app']['environment']){
                         echo '<script src="/' . addslashes($file) . '"></script>';
                     }
                 }
@@ -136,7 +133,7 @@ function tidyHTML($buffer) {
 <body>
 
 
-<?php if (isset($config['google']['tracking_id'])) : ?>
+<?php if (isset($config['app']['google']['tracking_id'])) : ?>
     <!-- Google Analytics -->
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -151,7 +148,7 @@ function tidyHTML($buffer) {
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', '<?= $config['google']['tracking_id'] ?>', 'auto');
+        ga('create', '<?= $config['app']['google']['tracking_id'] ?>', 'auto');
         ga('send', 'pageview');
 
     </script>
