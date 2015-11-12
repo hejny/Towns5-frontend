@@ -240,7 +240,7 @@ function tidyHTML($buffer) {
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a href="" onclick="localStorage.clear();location.reload();return false;">Restartovat</a></li>
+                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;">Restartovat</a></li>
 
 
             </ul>

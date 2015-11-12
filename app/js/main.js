@@ -38,10 +38,10 @@ if(is(hash[0]) && is(hash[1])){
 
 
 }else
-if(is(localStorage.getItem('map_x')) && is(localStorage.getItem('map_y'))){
+if(Storage.is('map_x') && Storage.is('map_y')){
 
-    var map_x=parseFloat(localStorage.getItem('map_x'));
-    var map_y=parseFloat(localStorage.getItem('map_y'));
+    var map_x=parseFloat(Storage.load('map_x'));
+    var map_y=parseFloat(Storage.load('map_y'));
 
 }else{
 
@@ -59,8 +59,8 @@ function updateMapLocationHash(){
 
 
     location.hash='#'+(Math.round(map_x))+','+(Math.round(map_y));
-    localStorage.setItem('map_x',map_x);
-    localStorage.setItem('map_y',map_y);
+    Storage.save('map_x',map_x);
+    Storage.save('map_y',map_y);
 
 
 }

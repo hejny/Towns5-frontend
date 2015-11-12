@@ -19,7 +19,7 @@
 //----------------Změny kumulované uživatelem na objektech (budovy, pribehy,...)
 
 
-var map_object_changes=localStorage.getItem('map_object_changes');
+var map_object_changes=Storage.load('map_object_changes','[]');
 
 /*var map_object_changes_=map_object_changes;
 setTimeout(function(){
@@ -27,9 +27,6 @@ setTimeout(function(){
 },2000);*/
 
 
-
-
-if(!map_object_changes || map_object_changes=='')map_object_changes='[]';
 
 try {
     map_object_changes=JSON.parse(map_object_changes);
@@ -40,16 +37,16 @@ catch(err) {
 
 //----------------
 
-function saveMapObjectChangesToLocalStorage(){
+function saveMapObjectChangesToStorage(){
 
-    localStorage.setItem('map_object_changes',JSON.stringify(map_object_changes));
+    Storage.save('map_object_changes',JSON.stringify(map_object_changes));
 }
 
 //----------------
 
-function saveMapTerrainChangesToLocalStorage(){
+function saveMapTerrainChangesToStorage(){
 
-    localStorage.setItem('map_terrain_changes',JSON.stringify(map_terrain_changes));
+    Storage.save('map_terrain_changes',JSON.stringify(map_terrain_changes));
 }
 
 
@@ -181,7 +178,7 @@ function create(object,nosave){
     if(!nosave){
 
         r('saving objects');
-        saveMapObjectChangesToLocalStorage();
+        saveMapObjectChangesToStorage();
 
 
         trackEvent('functions','create',object.name);

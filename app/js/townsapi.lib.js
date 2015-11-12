@@ -18,7 +18,7 @@
 
 var token;
 
-if(!localStorage.getItem('townsToken')) {
+if(!Storage.is('townsToken')) {
 
     //--------------Generate token
     token = '';
@@ -26,12 +26,12 @@ if(!localStorage.getItem('townsToken')) {
         token += Math.random().toString(36).substr(2);
     //--------------
 
-    localStorage.setItem('townsToken', token);
+    Storage.save('townsToken', token);
 
     r('new token');
 
 }else{
-    token=localStorage.getItem('townsToken');
+    token=Storage.load('townsToken');
 }
 
 //r(token);
