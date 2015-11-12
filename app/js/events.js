@@ -600,7 +600,7 @@ $(function() {
 
                 }
 
-                saveMapObjectChangesToLocalStorage();
+                saveMapObjectChangesToStorage();
                 loadMap();
 
 
@@ -633,7 +633,7 @@ $(function() {
                     }
                 }
 
-                saveMapTerrainChangesToLocalStorage();
+                saveMapTerrainChangesToStorage();
                 loadMap();
 
 
@@ -666,7 +666,7 @@ $(function() {
 
                 }
 
-                saveMapTerrainChangesToLocalStorage();
+                saveMapTerrainChangesToStorage();
                 loadMap();
 
 

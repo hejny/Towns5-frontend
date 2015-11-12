@@ -23,11 +23,10 @@
  ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝
  */
 
-var unique_objects=localStorage.getItem('unique_objects');
 
-if(unique_objects!==null) {
+if(Storage.is('unique_objects')) {
 
-    unique_objects=JSON.parse(unique_objects);
+    var unique_objects=JSON.parse(Storage.load('unique_objects'));
 
 
 }else{
@@ -43,7 +42,7 @@ if(unique_objects!==null) {
         ]
         ,function(json){
 
-            unique_objects=json['objects'];
+            var unique_objects=json['objects'];
 
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++Parse //todo nakonec presunout do API
@@ -84,7 +83,7 @@ if(unique_objects!==null) {
 
             setTimeout(function(){
 
-                localStorage.setItem('unique_objects',JSON.stringify(unique_objects));
+                Storage.save('unique_objects',JSON.stringify(unique_objects));
                 //objectMenuUnique('wall');
 
 
