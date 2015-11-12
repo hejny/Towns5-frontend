@@ -20,6 +20,7 @@
  * @author PH
  */
 function r(){
+    if(environment=='production')return;
 
 
     if(arguments.length==1){
@@ -41,6 +42,7 @@ function r(){
 
 var lastMs=0;
 function t(flag){
+    if(environment=='production')return;
 
     var actualDate=new Date();
     var actualMs=actualDate.getTime();
@@ -59,6 +61,8 @@ t('start timing');
 
 
 function mapWindow(map){
+    if(environment=='production')return;
+
     size=2;
 
 

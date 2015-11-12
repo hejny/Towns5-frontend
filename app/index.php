@@ -95,31 +95,42 @@ function tidyHTML($buffer) {
     }
 
     //tady je podminka zda jse o testovaci verzi
-    if (isset($config['environment']) && $config['environment'] != "production") : ?>
-
-        <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
-
-        <link rel="stylesheet" type="text/css" href="node_modules/roboto-fontface/css/roboto-fontface.css"/>
-        <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css"/>
-        <link rel="stylesheet" type="text/css" href="node_modules/font-awesome-animation/src/font-awesome-animation.css"/>
+    if (isset($config['environment']) && $config['environment'] != "production") {
 
 
-        <?php
+        $includes = json_decode(file_get_contents(__DIR__ . "/../config/includes.json"), true);
 
-        $includes = file('app/includes.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES );
-        foreach($includes as $include){
-            echo '<script src="'.addslashes($include).'"></script>';
+        foreach ($includes['css'] as $include) {
+            echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>';
         }
 
+        foreach ($includes['js'] as $include) {
+
+            /*print_r($include);
+            echo("\n");*/
+
+            if(is_array($include)){
+                foreach($include as $environment=>$file){
+                    if($environment==$config['environment']){
+                        echo '<script src="/' . addslashes($file) . '"></script>';
+                    }
+                }
+            }elseif(is_string($include)){
+
+                echo '<script src="/' . addslashes($include) . '"></script>';
+
+            }
+
+        }
+
+
+    }else{
         ?>
-
-
-    <?php else : ?>
-
-        <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
-        <script src="/app-dist/js/towns.min.js" async></script>
-
-    <?php endif; ?>
+            <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
+            <script src="/app-dist/js/towns.min.js" async></script>
+        <?php
+    }
+    ?>
 
 </head>
 <body>

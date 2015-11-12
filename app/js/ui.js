@@ -354,7 +354,7 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-
+    if(environment!='develop')
     window_open('Towns 5',window['projects_html']);
 
 

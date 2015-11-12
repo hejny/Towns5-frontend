@@ -110,7 +110,7 @@ $(function() {
 
 
             all_images_bg[terrain][seed] = new Image();
-            all_images_bg[terrain][seed].src = 'app/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=220';
+            all_images_bg[terrain][seed].src = appDir+'/graphic/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=220';
 
             all_images_bg[terrain][seed].onload = imageLoad;
 
@@ -123,7 +123,7 @@ $(function() {
 
 
         all_images_tree[seed] = new Image();
-        all_images_tree[seed].src = 'app/graphic/treerock.php?type=tree&seed=' + seed + '&width=100';
+        all_images_tree[seed].src = appDir+'/graphic/treerock.php?type=tree&seed=' + seed + '&width=100';
         //all_images_tree[seed].src = 'ui/image/tree/' + seed + '.png';
 
         all_images_tree[seed].onload = imageLoad;
@@ -139,7 +139,7 @@ $(function() {
         for (var dark = 0; dark < rockCountDark; dark++) {
 
             all_images_rock[seed][dark] = new Image();
-            all_images_rock[seed][dark].src = 'app/graphic/treerock.php?type=rock&seed=' + seed + '&width=133&dark=' + Math.round(dark/rockCountDark*rockMaxDark);
+            all_images_rock[seed][dark].src = appDir+'/graphic/treerock.php?type=rock&seed=' + seed + '&width=133&dark=' + Math.round(dark/rockCountDark*rockMaxDark);
 
             all_images_rock[seed][dark].onload = imageLoad;
         }

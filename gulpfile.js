@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
     del = require('del'),
-    config = require('./config/app.json');
+    config = require('./config/app.json'),
+    includes = require('./config/includes.json');
 
 // Lint - testovanie
 gulp.task("test", function() {
@@ -158,51 +159,34 @@ gulp.task('production-index', function () {
 });
 
 
-//Fill jsincludes with js files in app/includes.txt
-var jsincludes = fs.readFileSync('app/includes.txt').toString().split('\n').filter(function(filepath){
+var _tmp=[];
+for(i=0,l=includes['js'].length;i<l;i++){
 
-    if(filepath=='')return false;
-    return true;
+    if(typeof includes['js'][i] != 'string'){
 
-});
-console.log(jsincludes);
+        for(var key in includes['js'][i]){
+            if(key==/*config.environment*/'production'){
+
+                _tmp.push(includes['js'][i][key]);
+
+            }
+        }
+
+    }else{
+        _tmp.push(includes['js'][i]);
+    }
+
+
+}
+includes['js']=_tmp;
+delete _tmp;
+
+//console.log(includes['js']);
+
 
 // Scripts - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
 gulp.task('production-scripts', function() {
-    gulp.src(
-        jsincludes
-        /*[
-        'node_modules/jquery/dist/jquery.js',
-        'node_modules/jquery-ui-bundle/jquery-ui.js',
-        //'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
-        'node_modules/jquery-mousewheel/jquery.mousewheel.js',
-        'node_modules/hammerjs/hammer.js',
-        'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
-        '/app/js/vars.js',
-        'app/js/func.lib.js',
-        'app/js/log.lib.js',
-        'app/js/main.js',
-        'app/js/lang.lib.js',
-        'app/locale/cs.js',
-        'app/js/townsapi.lib.js',
-        'app/js/townsapi.fake.lib.js',
-        'app/js/functions/create.js',
-        'app/js/functions/terrain.js',
-        'app/js/map.lib.js',
-        'app/js/model.lib.js',
-        'app/js/graphic.js',
-        'app/js/events.js',
-        'app/js/objectmenu.js',
-        'app/js/terrainmenu.js',
-        'app/js/uniquemenu.js',
-        'app/js/ui.js',
-        //'app/js/localstorage.fake.js.php',
-        'app/coffeehtml/debug.js',
-        //'app/coffeehtml/loginform.js',
-        'app/coffeehtml/projects.js',
-        'app/js/functions/login.js'
-        //'browser-sync/browser-sync-client.2.9.8.js'
-    ]*/)
+    gulp.src(includes['js'])
         .pipe(concat('towns.js'))
         .pipe(gulp.dest('app-dist/js'))
         .pipe(rename({suffix: '.min'}))//todo towns.js should be deleted afrer minification
@@ -212,11 +196,7 @@ gulp.task('production-scripts', function() {
 
 // Styly - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
 gulp.task('production-styles', function () {
-    gulp.src([
-        'app/css/*.css',
-        'node_modules/roboto-fontface/css/roboto-fontface.css',
-        'node_modules/font-awesome/css/font-awesome.css',
-        'node_modules/font-awesome-animation/src/font-awesome-animation.css'])
+    gulp.src(includes['css'])
         .pipe(concat('towns.css'))
         .pipe(gulp.dest('app-dist/css'))
         .pipe(rename({suffix: '.min'}))
