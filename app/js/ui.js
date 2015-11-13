@@ -269,6 +269,17 @@ window.uiScript = function(){
 
 
 
+    $('.towns-window'/*todo all classes css+js should be AllFirstLetters*/).click(function(e){
+        e/*todo use e or event???*/.preventDefault();
+
+
+        var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
+        window_open($(this).attr('title'),html);
+
+    });
+
+
+    //==================================================================================================================
 };
 
 
