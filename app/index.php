@@ -244,6 +244,36 @@ function tidyHTML($buffer) {
         </li>
 
 
+        <li class="menu-list-item">
+            <a href="#">Blog</a>
+
+            <ul class="menu-dlist">
+
+                <?php
+
+                $content = file_get_contents($config['app']['blog']['rss_feed']);
+                $x = new SimpleXmlElement($content);
+
+
+                $i = -1;
+                foreach($x->channel->item as $entry) {
+                    if (++$i == 5) break;
+
+                    $entry->title=str_replace(array('Towns5','Towns'),'',$entry->title);
+                    $entry->title=trim($entry->title);
+
+                    echo '<li class="menu-dlist-item"><a class="towns-window" href="'.addslashes($entry->link).'" title="'.addslashes($entry->title).'" target="_blank">'.htmlspecialchars($entry->title).'</a></li>';
+                }
+
+
+                ?>
+
+
+            </ul>
+        </li>
+
+
+
     </ul>
 
     <ul class="menu-list menu-list-right">
