@@ -60,6 +60,18 @@ window.window_close = function(){
     window_opened=false;
 };
 
+
+window.message = function(text,type){
+
+    //todo [PH] types of message - error, notice,...?
+    //todo [PH] play sound here
+
+    $('#message_inner').text(text);
+    $('#message').show();
+    $('#message').fadeOut(MESSAGE_MS);//todo UX?
+
+};
+
 //======================================================================================================================
 /*
  ██╗   ██╗██╗███████╗ ██████╗██████╗ ██╗██████╗ ████████╗
@@ -72,6 +84,7 @@ window.window_close = function(){
 
 window.uiScript = function(){
 
+    //todo Unbind events
     //todo ??? $(document).on('contextmenu', function (event) { event.preventDefault(); });
 
     $('body').disableSelection();

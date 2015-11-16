@@ -129,6 +129,9 @@ function tidyHTML($buffer) {
     }
     ?>
 
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?=addslashes($config['app']['blog']['rss_feed'])?>">
+
+
 </head>
 <body>
 
@@ -159,6 +162,8 @@ function tidyHTML($buffer) {
 <div id="loading">
     <i class="fa fa-spinner faa-spin animated"></i>
 </div>
+
+<div id="message"><div id="message_inner"></div></div>
 
 
 <div id="map_drag"></div>
@@ -250,6 +255,8 @@ function tidyHTML($buffer) {
             <ul class="menu-dlist">
 
                 <?php
+
+                //todo cache rss feed or load it via JS on browser
 
                 $content = file_get_contents($config['app']['blog']['rss_feed']);
                 $x = new SimpleXmlElement($content);
