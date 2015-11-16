@@ -24,6 +24,7 @@
 
 
 var IMMEDIATELY_MS = 100;
+var MESSAGE_MS = 2000;
 //todo collect all constants and put it here
 
 //======================================================================================================================
@@ -131,6 +132,20 @@ var blockedTerrains=[1,11,5];
 
 var appDir = (environment=='production')?'app-dist':'app';
 
+
+var feed_url='http://blog.towns.cz/feed/';
+
+
+var authors=[//todo better
+    {
+        "nick": "PH",
+        "name": "Pavol Hejný"
+    },
+    {
+        "nick": "PH",
+        "name": "Štefan Kecskés"
+    }
+];
 
 
 
