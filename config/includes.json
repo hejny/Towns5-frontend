@@ -7,6 +7,9 @@
     "node_modules/hammerjs/hammer.js",
     "node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js",
 
+    "node_modules/ion-sound/js/ion.sound.js",
+    "app/js/sound.js",
+
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
     "app/config/vars.js",
