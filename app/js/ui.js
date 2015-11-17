@@ -32,6 +32,8 @@
 
 window.window_open = function(header,content){
 
+    //todo sounds ion.sound.play("door_bump");
+
     $('.popup-window .header').html(header);
     $('.popup-window .content').html(content);
 
@@ -52,6 +54,8 @@ window.window_open = function(header,content){
 
 window.window_close = function(){
 
+    //todo sounds ion.sound.play("door_bump");
+
     $('.overlay').hide();
     $('.popup-window').hide();
 
@@ -66,11 +70,30 @@ window.message = function(text,type){
     //todo [PH] types of message - error, notice,...?
     //todo [PH] play sound here
 
+    ion.sound.play("bell_ring");
+
     $('#message_inner').text(text);
     $('#message').show();
     $('#message').fadeOut(MESSAGE_MS);//todo UX?
 
 };
+
+
+$(function(){
+
+    if(document.cookie.indexOf('eu_cookies=1')==-1){
+        $('#eu_cookies').show();
+    }
+
+
+    $('#eu_cookies').click(function() {
+        var date = new Date();
+        date.setFullYear(date.getFullYear() + 10);
+        document.cookie = 'eu_cookies=1; path=/; expires=' + date.toGMTString();
+        $('#eu_cookies').hide();
+    });
+
+});
 
 //======================================================================================================================
 /*
@@ -162,6 +185,8 @@ window.uiScript = function(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $('.js-popup-window-open').on('click', function(){
 
+        //todo sounds ion.sound.play("door_bump");
+
         window_open($(this).attr('header'),window[$(this).attr('content')]);//todo lepe oznacit window html
 
     });
@@ -234,6 +259,8 @@ window.uiScript = function(){
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
     $('#selecting-distance-plus').click(function(){
 
+    //todo sounds ion.sound.play("door_bump");
+
         if(building){
             building.size+=0.1;
             if(building.size>2.5)building.size=2.5;//todo funkce pro bounds
@@ -248,6 +275,10 @@ window.uiScript = function(){
     });
 
     $('#selecting-distance-minus').click(function(){
+
+        //todo sounds ion.sound.play("door_bump");
+
+
         if(building){
             building.size-=0.1;
             if(building.size<0.5)building.size=0.5;
@@ -262,16 +293,19 @@ window.uiScript = function(){
     });
 
     $('#selecting-distance-left').click(function(){
+        //todo sounds ion.sound.play("door_bump");
         building.rot-=10;
         buildingUpdate();
     });
 
     $('#selecting-distance-right').click(function(){
+        //todo sounds ion.sound.play("door_bump");
         building.rot+=10;
         buildingUpdate();
     });
 
     $('#selecting-distance-close').click(function(){
+        //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
         $('#popup-action').hide();
     });

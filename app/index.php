@@ -163,7 +163,19 @@ function tidyHTML($buffer) {
     <i class="fa fa-spinner faa-spin animated"></i>
 </div>
 
+
+
 <div id="message"><div id="message_inner"></div></div>
+
+
+<!--Example of user prompt-->
+<div id="eu_cookies">
+    <div id="eu_cookies_inner">
+        Tento web využívá cookies a LocalStorage. Používáním tohoto webu s tím souhlasíte.
+        <button class="micro-button">OK</button>
+    </div>
+</div>
+
 
 
 <div id="map_drag"></div>

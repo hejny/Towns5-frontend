@@ -72,6 +72,8 @@ function generateID(){
 function create(object,nosave){
     if(typeof nosave =='undefined')nosave=false;
 
+    if(!nosave)//todo sounds ion.sound.play("door_bump");
+
     var x=Math.round(object.x);
     var y=Math.round(object.y);
 

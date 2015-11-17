@@ -266,8 +266,10 @@ $(function() {
         if(specialCursor==true && building==false){
 
             if(e.deltaY>0){
+                //todo sounds ion.sound.play("door_bump");
                 selecting_distance+=100;
             }else{
+                //todo sounds ion.sound.play("door_bump");
                 selecting_distance-=100;
             }
             updateSelectingDistance();
@@ -277,8 +279,10 @@ $(function() {
         if(building!==false){
 
             if(e.deltaY>0){
+                //todo sounds ion.sound.play("door_bump");
                 building.rot+=10;
             }else{
+                //todo sounds ion.sound.play("door_bump");
                 building.rot-=10;
             }
 
@@ -342,6 +346,8 @@ $(function() {
 
         },
         'stop': function () {
+
+            //todo sounds ion.sound.play("door_bump");
 
             $(this).css('left', first_offset.left);
             $(this).css('top', first_offset.top);
@@ -588,6 +594,7 @@ $(function() {
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++dismantling
             if(dismantling !== false){
 
+                //todo sounds ion.sound.play("door_bump");
 
                 $('#loading').hide();
 
@@ -621,6 +628,7 @@ $(function() {
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainChanging
             if(terrainChanging !== false){
 
+                //todo sounds ion.sound.play("door_bump");
 
                 $('#loading').hide();
 
@@ -651,6 +659,7 @@ $(function() {
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
             if(terrainNeutralizing !== false){
 
+                //todo sounds ion.sound.play("door_bump");
 
                 $('#loading').hide();
 
@@ -733,6 +742,8 @@ $(function() {
             }else
             if (selected_object.type == 'building') {
                 //~~~~~~~~~~~~~~~~~~~~
+
+                //todo sounds ion.sound.play("door_bump");
 
                 map_selected_ids=[selected_object.id];
 
@@ -900,6 +911,8 @@ $(function() {
 
     //----------------------------------------------------------------------------------BuildingLoop
 
+    var wall_segments,wall_segments_last;
+
     var buildingLoop=function (e) {
 
         if (building == false)return;
@@ -931,7 +944,16 @@ $(function() {
             if (rot < 0)rot = rot + 360;
 
 
-            for (var i = (ii==1?0:1), l = Math.round(distance / (building.size * map_model_size / 1.11 )); i <= l; i++) {
+            wall_segments =Math.round(distance / (building.size * map_model_size / 1.11 ))
+
+
+            if(wall_segments!=wall_segments_last){
+                wall_segments_last=wall_segments;
+                //todo sounds ion.sound.play("door_bump");
+            }
+
+
+            for (var i = (ii==1?0:1), l = wall_segments; i <= l; i++) {
 
 
                 //r(i,l);
