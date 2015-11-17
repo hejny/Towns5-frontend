@@ -19,7 +19,9 @@ npm-debug.log
 /app/js-lib/
 /app/fonts/
 
-/cache
+/cache/*
+!/cache/.gitkeep
+
 /backup
 /admin
 /userdata
