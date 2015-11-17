@@ -15,8 +15,9 @@
 
 npm-debug.log
 /node_modules/
-
-
+/app/css-lib/
+/app/js-lib/
+/app/fonts/
 
 /cache
 /backup
@@ -26,5 +27,5 @@ npm-debug.log
 
 /app/test/*
 
-app-dist
+/app-dist/
 documentation
