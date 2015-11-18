@@ -182,12 +182,30 @@ window.uiScript = function(){
 
 
 
+
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $('.js-popup-window-open').on('click', function(){
 
         //todo sounds ion.sound.play("door_bump");
 
-        window_open($(this).attr('header'),window[$(this).attr('content')]);//todo lepe oznacit window html
+        var content=$(this).attr('content');
+
+        if(is(pages[content].html)){
+            var html=pages[content].html;
+        }else{
+            throw 'wrong page';
+        }
+
+        window_open($(this).attr('header'),html);
+
+
+        if(is(pages[content].js)) {
+            setTimeout(function () {
+                pages[content].js();
+            },IMMEDIATELY_MS);
+        }
+
+
 
     });
 
@@ -413,7 +431,7 @@ $(function(){
     uiScript();
 
     if(environment!='develop')
-    window_open('Towns 5',window['projects_html']);
+    window_open('Towns 5',pages.projects.html);
 
 
 });

@@ -1,5 +1,7 @@
 
-window.projects_html='''
+pages.projects={};
+
+pages.projects.html='''
 
 
   <h2 style="text-align: center;">
