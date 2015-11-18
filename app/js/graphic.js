@@ -1145,6 +1145,8 @@ function objectsHTML(objects) {
 }
 
 
+//======================================================================================================================
+
 
 /**todo refactor to tools*/
 function canvas2Src(width,height,manipulationFunction){
@@ -1160,6 +1162,27 @@ function canvas2Src(width,height,manipulationFunction){
 
 
 }
+
+
+//======================================================================================================================
+
+
+function downloadCanvas(canvas){
+
+    r('downloadCanvas');
+    var name='mapX'+Math.round(map_x)+'Y'+Math.round(map_y);
+    var src=canvas.toDataURL();
+    //download(src,name,'image/png');
+
+
+
+    var srcWindow = window.open("", "srcWindow", "toolbar=no, scrollbars=yes, resizable=yes, top=100, left=100, width=800, height=600");
+    srcWindow.document.write('<title>'+name+'</title><img src="'+src+'" width="100%"><br><a href="'+src+'">Download</a> - <a onclick="window.prompt(\'Copy to clipboard: Ctrl+C, Enter\', \''+src+'\');">Source</a>');
+
+
+}
+
+
 
 
 //======================================================================================================================
@@ -1531,8 +1554,6 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
 
 
 //======================================================================================================================
-
-
 
 
 

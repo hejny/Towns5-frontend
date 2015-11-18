@@ -31,7 +31,8 @@
     "jquery-ui-touch-punch": "~0.2.3",
     "jquery-fullscreen-plugin": "~1.0.0",
     "roboto-fontface": "~0.4.2",
-    "ion-sound": "~3.0.6"
+    "ion-sound": "~3.0.6",
+    "epiceditor": "~0.2.0"
   },
   "devDependencies": {
     "browser-sync": "~2.9.8",

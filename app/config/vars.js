@@ -37,6 +37,9 @@ var MESSAGE_MS = 2000;
  ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝   ╚═╝
  */
 
+
+var pages={};
+
 var map_loaded=false;
 
 //----

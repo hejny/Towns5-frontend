@@ -1,8 +1,7 @@
 
-#onsubmit="alert(123);"
-# id="loginform"
+pages.loginform={};
 
-window.login_form_html='
+pages.loginform.html='
 
 
 <div id="login-error" class="hidden"></div>

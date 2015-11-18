@@ -238,6 +238,7 @@ function tidyHTML($buffer) {
             <a href="#">Příběhy</a>
 
             <ul class="menu-dlist">
+                <li class="menu-dlist-item"><a class="js-popup-window-open" header="Napsat příběh" content="storyeditor" href="#">Napsat</a></li>
             </ul>
         </li>
 
@@ -254,11 +255,13 @@ function tidyHTML($buffer) {
 
             <ul class="menu-dlist">
 
+                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;">Screenshot</a></li>
                 <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;">Restartovat</a></li>
 
 
             </ul>
         </li>
+
 
 
         <li class="menu-list-item">
@@ -295,11 +298,20 @@ function tidyHTML($buffer) {
 
     </ul>
 
+
+
+
     <ul class="menu-list menu-list-right">
+
+        <li class="menu-list-item menu-list-item-icon">
+            $100
+        </li>
+
+
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" header="Towns 5" content="projects_html" href="#">O hře</a>
+            <a class="js-popup-window-open" header="Towns 5" content="projects" href="#">O hře</a>
         </li>
 
 

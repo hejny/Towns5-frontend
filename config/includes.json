@@ -10,6 +10,8 @@
     "node_modules/ion-sound/js/ion.sound.js",
     "app/js/sound.js",
 
+    "node_modules/epiceditor/epiceditor/js/epiceditor.js",
+
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
     "app/config/vars.js",
@@ -19,6 +21,7 @@
     "app/js/func.lib.js",
     "app/js/log.lib.js",
     "app/js/main.js",
+
     "app/js/lang.lib.js",
     "app/locale/cs.js",
 
@@ -40,7 +43,8 @@
     "app/js/uniquemenu.js",
     "app/js/ui.js",
 
-    "app/coffeehtml/projects.js",
+    "app/pages/projects.js",
+    "app/pages/storyeditor.js",
 
     "app/js/functions/login.js"
   ],
@@ -49,6 +53,8 @@
 
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
-    "node_modules/font-awesome-animation/src/font-awesome-animation.css"
+    "node_modules/font-awesome-animation/src/font-awesome-animation.css",
+
+    "node_modules/markdown-editor-flavored/dist/markdown-editor.css"
   ]
 }
