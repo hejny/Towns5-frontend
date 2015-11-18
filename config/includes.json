@@ -10,7 +10,7 @@
     "node_modules/ion-sound/js/ion.sound.js",
     "app/js/sound.js",
 
-    "node_modules/epiceditor/epiceditor/js/epiceditor.js",
+    "node_modules/markdown/lib/markdown.js",
 
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
@@ -53,8 +53,7 @@
 
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
-    "node_modules/font-awesome-animation/src/font-awesome-animation.css",
+    "node_modules/font-awesome-animation/src/font-awesome-animation.css"
 
-    "node_modules/markdown-editor-flavored/dist/markdown-editor.css"
   ]
 }
