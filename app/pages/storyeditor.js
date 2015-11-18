@@ -32,7 +32,7 @@ pages.storyeditor.js = function(){
         },
         theme: {
             base: 'themes/base/epiceditor.css',
-            preview: 'themes/preview/bartik.css',
+            preview: '../../../app/other/preview-light.css',
             editor: 'themes/editor/epic-light.css'
             /*preview: '/themes/preview/preview-dark.css',
             editor: '/themes/editor/epic-dark.css'*/
