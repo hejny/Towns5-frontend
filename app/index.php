@@ -271,22 +271,26 @@ function tidyHTML($buffer) {
 
                 <?php
 
-                //todo cache rss feed or load it via JS on browser
+                try {
+                    //todo cache rss feed or load it via JS on browser
 
-                $content = file_get_contents($config['app']['blog']['rss_feed']);
-                $x = new SimpleXmlElement($content);
+                    $content = file_get_contents($config['app']['blog']['rss_feed']);
+                    $x = new SimpleXmlElement($content);
 
 
-                $i = -1;
-                foreach($x->channel->item as $entry) {
-                    if (++$i == 5) break;
+                    $i = -1;
+                    foreach ($x->channel->item as $entry) {
+                        if (++$i == 5) break;
 
-                    $entry->title=str_replace(array('Towns5','Towns'),'',$entry->title);
-                    $entry->title=trim($entry->title);
+                        $entry->title = str_replace(array('Towns5', 'Towns'), '', $entry->title);
+                        $entry->title = trim($entry->title);
 
-                    echo '<li class="menu-dlist-item"><a class="towns-window" href="'.addslashes($entry->link).'" title="'.addslashes($entry->title).'" target="_blank">'.htmlspecialchars($entry->title).'</a></li>';
+                        echo '<li class="menu-dlist-item"><a class="towns-window" href="' . addslashes($entry->link) . '" title="' . addslashes($entry->title) . '" target="_blank">' . htmlspecialchars($entry->title) . '</a></li>';
+                    }
+
+                }catch(Exception $e){
+
                 }
-
 
                 ?>
 

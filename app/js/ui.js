@@ -190,6 +190,8 @@ window.uiScript = function(){
 
         var content=$(this).attr('content');
 
+        r('Opening window '+content);
+
         if(is(pages[content].html)){
             var html=pages[content].html;
         }else{
