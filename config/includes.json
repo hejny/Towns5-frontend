@@ -41,6 +41,7 @@
     "app/js/objectmenu.js",
     "app/js/terrainmenu.js",
     "app/js/uniquemenu.js",
+    "app/js/storymenu.js",
     "app/js/ui.js",
 
     "app/pages/projects.js",
