@@ -30,12 +30,34 @@
   ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═════╝  ╚═════╝  ╚══╝╚══╝
  */
 
-window.window_open = function(header,content){
+
+//------------------------------------------------------------------window_open
+
+window.window_open = function(page){
+
 
     //todo sounds ion.sound.play("door_bump");
+    r('Opening window '+page);
 
-    $('.popup-window .header').html(header);
-    $('.popup-window .content').html(content);
+    window_open_html(pages[page].title,pages[page].html);
+
+    if(is(pages[page].js)) {
+        setTimeout(function () {
+            pages[page].js();
+        },IMMEDIATELY_MS);
+    }
+
+
+
+
+};
+
+//------------------------------------------------------------------window_open_html
+
+window.window_open_html = function(title,html){
+
+    $('.popup-window .header').text(title);
+    $('.popup-window .content').html(html);
 
     $('.overlay').show();
     $('.popup-window').show();
@@ -51,6 +73,7 @@ window.window_open = function(header,content){
 
 };
 
+//------------------------------------------------------------------window_close
 
 window.window_close = function(){
 
@@ -64,6 +87,7 @@ window.window_close = function(){
     window_opened=false;
 };
 
+//------------------------------------------------------------------message
 
 window.message = function(text,type){
 
@@ -78,6 +102,7 @@ window.message = function(text,type){
 
 };
 
+//------------------------------------------------------------------eu_cookies
 
 $(function(){
 
@@ -186,26 +211,9 @@ window.uiScript = function(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $('.js-popup-window-open').on('click', function(){
 
-        //todo sounds ion.sound.play("door_bump");
 
         var content=$(this).attr('content');
-
-        r('Opening window '+content);
-
-        if(is(pages[content].html)){
-            var html=pages[content].html;
-        }else{
-            throw 'wrong page';
-        }
-
-        window_open($(this).attr('header'),html);
-
-
-        if(is(pages[content].js)) {
-            setTimeout(function () {
-                pages[content].js();
-            },IMMEDIATELY_MS);
-        }
+        window_open(content);
 
 
 
@@ -341,7 +349,7 @@ window.uiScript = function(){
 
 
         var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
-        window_open($(this).attr('title'),html);
+        window_open_html($(this).attr('title'),html);
 
     });
 
@@ -389,6 +397,7 @@ window.mapSpecialCursorStop = function(){
     dismantlingStop();
     terrainChangeStop();
     terrainNeutralizeStop();
+    storyWriteStop();
 };
 
 //======================================================================================================================
@@ -433,7 +442,7 @@ $(function(){
     uiScript();
 
     if(environment!='develop')
-    window_open('Towns 5',pages.projects.html);
+    window_open('projects');
 
 
 });

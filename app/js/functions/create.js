@@ -85,7 +85,45 @@ function create(object,nosave){
         return(false);
     }*/
 
+    var updatedID=false;
 
+    if(object.type=='building'){updatedID=createBuilding(object);}else
+    if(object.type=='story'){updatedID=createStory(object);}else
+    {throw 'Unknown object type';}
+
+
+
+    //---------------------------------------Save objects to local storage
+    if(!nosave){
+
+        r('saving objects');
+        saveMapObjectChangesToStorage();
+
+
+        trackEvent('functions','create',object.name);
+
+    }else{
+        //r('NO saving objects');
+    }
+    //---------------------------------------
+
+    return(updatedID);
+
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+
+function createMulti(objects){
+    for (var i = 0,l=objects.length; i < l; i++)
+        create(objects[i],(i==l-1?false:true));
+
+}
+
+
+//======================================================================================================================
+
+
+function createBuilding(object){
 
     var distance,distances=[];
 
@@ -165,6 +203,8 @@ function create(object,nosave){
 
             //todo vyresit spojovani ruzne velkych budov
 
+            return(object.id);
+
         }
 
     }else{
@@ -173,31 +213,21 @@ function create(object,nosave){
         object.id=generateID();
         map_object_changes.push(object);
 
+        return(object.id);
+
     }
-
-
-    //---------------------------------------Save objects to local storage
-    if(!nosave){
-
-        r('saving objects');
-        saveMapObjectChangesToStorage();
-
-
-        trackEvent('functions','create',object.name);
-
-    }else{
-        //r('NO saving objects');
-    }
-    //---------------------------------------
-
 
 }
 
-//----------------------------------------------------------------------------------------------------------------------
+//======================================================================================================================
 
-function createMulti(objects){
-    for (var i = 0,l=objects.length; i < l; i++)
-        create(objects[i],(i==l-1?false:true));
+
+function createStory(object){
+
+    object.id=generateID();
+    map_object_changes.push(deepCopy(object));
+
+    return(object.id);
 
 }
 

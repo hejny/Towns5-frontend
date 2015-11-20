@@ -1,5 +1,5 @@
 
-pages.projects={};
+pages.projects={"title": 'Towns 5'};
 
 pages.projects.html='''
 

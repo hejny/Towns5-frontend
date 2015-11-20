@@ -238,7 +238,13 @@ function tidyHTML($buffer) {
             <a href="#">Příběhy</a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a class="js-popup-window-open" header="Napsat příběh" content="storyeditor" href="#">Napsat</a></li>
+                <li class="menu-dlist-item">
+
+                    <a href="#" onclick="objectMenuStory();return false;">Napsat příběh</a>
+                    <a class="js-popup-window-open" header="Napsat příběh" content="storyeditor" href="#">Editor</a>
+
+
+                </li>
             </ul>
         </li>
 

@@ -690,6 +690,31 @@ $(function() {
             }
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
+            if(storyWriting !== false){
+
+
+                $('#loading').hide();
+
+                storyWriting.x=mapPos.x;
+                storyWriting.y=mapPos.y;
+                var id=create(storyWriting);
+
+                map_selected_ids=[id];
+                window_open('storyeditor');
+
+                storyWriteStop();
+
+
+                loadMap();
+
+
+                return;
+
+
+            }
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Map selecting
 
             //-----------------------------------------Preparing values
@@ -739,8 +764,7 @@ $(function() {
 
                 //~~~~~~~~~~~~~~~~~~~~
 
-            }else
-            if (selected_object.type == 'building') {
+            }else{
                 //~~~~~~~~~~~~~~~~~~~~
 
                 //todo sounds ion.sound.play("door_bump");
@@ -761,14 +785,12 @@ $(function() {
 
 
                 //~~~~~~~~~~~~~~~~~~~~
-            } else if (selected_object.type == 'story') {
-                //~~~~~~~~~~~~~~~~~~~~
-                var res = selected_object.res;
-                res = res.substr(5);
+            }
 
-                window_open(selected_object._name, res);
 
-                //~~~~~~~~~~~~~~~~~~~~
+            if (selected_object.type == 'story') {
+                window_open('storyeditor');
+
             }
 
 

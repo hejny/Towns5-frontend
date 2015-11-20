@@ -1,7 +1,7 @@
 
 //todo ?? DI
 
-pages.storyeditor={};
+pages.storyeditor={"title": 'Příběh'};
 
 
 pages.storyeditor.html=[
@@ -40,16 +40,20 @@ pages.storyeditor.js = function(){
 
     });
 
-    var story_name='Nazev';
+    /*var story_name='Nazev';
     var story_content=[
             'Nadpis',
             '=========',
             '',
             'text text text',
-        ''].join('\n');
+        ''].join('\n');*/
 
-    $('#story-content').val(story_name);
-    $('#story-content').val(story_content);
+
+    var i = id2i(map_selected_ids);
+
+
+    $('#story-name').val(map_object_changes[i].name);
+    $('#story-content').val(map_object_changes[i].content.data);
 
 
     storyContentReload();
@@ -103,6 +107,16 @@ var storyContentReload = function(){
 
 
     $('#story-content-html').html(story_content_html);
-    r(story_name,story_content,story_content_html);
+    //r(story_name,story_content,story_content_html);
+
+    var i = id2i(map_selected_ids);//todo bind editor content + name with i
+
+    map_object_changes[i].name = story_name;
+    map_object_changes[i].content.data = story_content;
+
+    //todo saving to LS
+    r('saved');
 
 };
+
+

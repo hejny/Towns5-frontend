@@ -1,5 +1,5 @@
 
-pages.loginform={};
+pages.loginform={"title": 'Login'};
 
 pages.loginform.html='
 

@@ -696,7 +696,7 @@ function drawMap() {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             map_data[i].type,
-            map_data[i].res,
+            map_data[i].type=='story'?map_data[i].content:map_data[i].res/*todo refactor to design*/,
             object_screen_x,
             object_screen_y,
             ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120+10*map_model_size)
@@ -821,12 +821,11 @@ function drawMap() {
         } else if (map_draw[i][0] == 'story') {
 
 
-            var res = map_draw[i][1];
-            res = res.substr(5);
+            var content = map_draw[i][1];
 
-            //r(res);
+            r(content);
 
-            var ellipse_width = Math.pow(res.length, 1 / 3) * 2;
+            var ellipse_width = Math.pow(content.data.length, 1 / 3) * 2;
 
 
             //r('storka');
