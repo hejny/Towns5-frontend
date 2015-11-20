@@ -382,6 +382,14 @@ function loadMap() {
 }
 
 
+function loadMapAsync() {//todo search where to use this function
+
+    setTimeout(
+        function(){loadMap();},IMMEDIATELY_MS
+    );
+}
+
+
 //======================================================================================================================
 /*
  ██████╗ ██████╗  █████╗ ██╗    ██╗
@@ -670,6 +678,7 @@ function drawMap() {
 
 
         //----------------------------------------------Selected object?
+        if(map_data[i].type!='story')
         if(map_selected_ids.indexOf(object_id)!=-1){
 
 
@@ -852,6 +861,14 @@ function drawMap() {
 
     //t('drawMap end');
 
+}
+
+
+function drawMapAsync() {//todo search where to use this function
+
+    setTimeout(
+        function(){drawMapAsync();},IMMEDIATELY_MS
+    );
 }
 
 

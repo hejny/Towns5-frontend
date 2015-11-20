@@ -1,7 +1,7 @@
 
-pages.loginform={"title": 'Login'};
+pages.loginform={"header": 'Login'};
 
-pages.loginform.html='
+pages.loginform.content='
 
 
 <div id="login-error" class="hidden"></div>

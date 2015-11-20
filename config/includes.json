@@ -33,6 +33,7 @@
 
     "app/js/functions/create.js",
     "app/js/functions/terrain.js",
+    "app/js/functions/dismantle.js",
 
     "app/js/map.lib.js",
     "app/js/model.lib.js",
@@ -45,7 +46,8 @@
     "app/js/ui.js",
 
     "app/pages/projects.js",
-    "app/pages/storyeditor.js",
+    "app/pages/storyread.js",
+    "app/pages/storywrite.js",
 
     "app/js/functions/login.js"
   ],

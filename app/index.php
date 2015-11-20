@@ -241,7 +241,7 @@ function tidyHTML($buffer) {
                 <li class="menu-dlist-item">
 
                     <a href="#" onclick="objectMenuStory();return false;">Napsat příběh</a>
-                    <a class="js-popup-window-open" header="Napsat příběh" content="storyeditor" href="#">Editor</a>
+                    <a class="js-popup-window-open" header="Napsat příběh" content="storywrite" href="#">Editor</a>
 
 
                 </li>
@@ -313,15 +313,14 @@ function tidyHTML($buffer) {
 
     <ul class="menu-list menu-list-right">
 
-        <li class="menu-list-item menu-list-item-icon">
+        <!--<li class="menu-list-item menu-list-item-icon">
             $100
-        </li>
-
+        </li>-->
 
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" header="Towns 5" content="projects" href="#">O hře</a>
+            <a class="js-popup-window-open" content="projects" href="#">O hře</a><!--todo refactor atribute content to ?page-->
         </li>
 
 

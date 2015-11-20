@@ -177,6 +177,7 @@ function createBuilding(object){
             if(is(object.res_node)) {
 
 
+
                 if(map_object_changes[distances[0].i].res_node==object.res_node){
 
                     object.res='';
