@@ -18,14 +18,19 @@ pages.storyeditor.html=[
 var window_width=780;
     separator_bound=10;
     separator_snap=100;
-var separator_width;
+var separator_width,separator_border,window_padding;
 
 pages.storyeditor.js = function(){
 
-
-    $('#vertical_separator').css('left',window_width/2);
-
     separator_width=parseInt($('#vertical_separator').css('width'));
+    separator_border=parseInt($('#story-content').css('border-right'));
+    window_padding=parseInt($('.popup-window .content').css('padding'));
+
+    r(separator_width,separator_border,window_padding);
+
+    $('#vertical_separator').css('left',window_width/2+separator_width/2-window_padding);
+
+
 
 
     $('#vertical_separator').draggable({
@@ -59,6 +64,7 @@ pages.storyeditor.js = function(){
 var storyContentWidthReload = function(){
 
     var width1 = parseInt($('#vertical_separator').css('left'));
+
     if(isNaN(width1))width1=0;
 
     if(width1<separator_snap){
@@ -67,8 +73,8 @@ var storyContentWidthReload = function(){
         $('#story-content').hide();
         $('#story-content-html').show();
     }else
-    if(width1>window_width-separator_snap+separator_width+2){
-        width1=window_width-separator_bound+separator_width+2;
+    if(width1>window_width-separator_snap+separator_width){
+        width1=window_width-separator_bound+separator_width;
         $('#vertical_separator').css('left',width1);
         $('#story-content').show();
         $('#story-content-html').hide();
@@ -78,12 +84,11 @@ var storyContentWidthReload = function(){
         $('#story-content-html').show();
     }
 
+
     var width2 = window_width-width1;
 
 
-    //r(width1,width2);
-
-    $('#story-content').css('width',width1-3*separator_width);
+    $('#story-content').css('width',width1-window_padding-separator_width-2*separator_border);
     $('#story-content-html').css('width',width2);
     $('#story-content-html').css('left',width1+separator_width);
 
