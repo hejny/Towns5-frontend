@@ -1,7 +1,7 @@
 
-pages.projects={"title": 'Towns 5'};
+pages.projects={"header": 'Towns 5'};
 
-pages.projects.html='''
+pages.projects.content='''
 
 
   <h2 style="text-align: center;">

@@ -701,7 +701,7 @@ $(function() {
                 var id=create(storyWriting);
 
                 map_selected_ids=[id];
-                window_open('storyeditor');
+                window_open('storywrite');
 
                 storyWriteStop();
 
@@ -777,21 +777,30 @@ $(function() {
                 }
 
 
+
+                if (selected_object.type == 'story') {
+                    //~~~~~~~~~
+
+                    window_open('storyread');
+
+                    //~~~~~~~~~
+                }else{
+                    //~~~~~~~~~
+                    drawMapAsync();
+                    //~~~~~~~~~
+                }
+
+
+
                 objectMenu();
 
-                setTimeout(
-                    function(){drawMap();},IMMEDIATELY_MS
-                );
 
 
                 //~~~~~~~~~~~~~~~~~~~~
             }
 
 
-            if (selected_object.type == 'story') {
-                window_open('storyeditor');
 
-            }
 
 
             //------------------------------------------

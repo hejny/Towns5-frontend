@@ -33,18 +33,31 @@
 
 //------------------------------------------------------------------window_open
 
+var window_closeJS = false;//todo refactor strange name
+
 window.window_open = function(page){
 
 
     //todo sounds ion.sound.play("door_bump");
     r('Opening window '+page);
 
-    window_open_html(pages[page].title,pages[page].html);
+    var header=pages[page].header;
+    var content=pages[page].content;
 
-    if(is(pages[page].js)) {
+    if(!is(header))header='';
+    if(!is(content))content='';
+
+    window_open_content(header,content);
+
+    if(is(pages[page].openJS)) {
         setTimeout(function () {
-            pages[page].js();
+            pages[page].openJS();
         },IMMEDIATELY_MS);
+    }
+
+
+    if(is(pages[page].closeJS)) {
+        window_closeJS=pages[page].closeJS;
     }
 
 
@@ -52,12 +65,29 @@ window.window_open = function(page){
 
 };
 
+//------------------------------------------------------------------window write
+
+window.window_write_header = function(header){//todo refactor to same names
+
+    $('.popup-window .header').text(header);
+
+};
+
+//-----------------------------
+
+window.window_write_content = function(content){//todo refactor to same names
+
+    $('.popup-window .content').html(content);
+    uiScript();
+
+};
+
 //------------------------------------------------------------------window_open_html
 
-window.window_open_html = function(title,html){
+window.window_open_content = function(header,content){
 
-    $('.popup-window .header').text(title);
-    $('.popup-window .content').html(html);
+    window_write_header(header);
+    window_write_content(content);
 
     $('.overlay').show();
     $('.popup-window').show();
@@ -83,6 +113,12 @@ window.window_close = function(){
     $('.popup-window').hide();
 
     $('body').disableSelection();
+
+    if(is(window_closeJS)){
+
+        window_closeJS();
+        window_closeJS=false;
+    }
 
     window_opened=false;
 };
@@ -132,7 +168,7 @@ $(function(){
 
 window.uiScript = function(){
 
-    //todo Unbind events
+
     //todo ??? $(document).on('contextmenu', function (event) { event.preventDefault(); });
 
     $('body').disableSelection();
@@ -146,9 +182,8 @@ window.uiScript = function(){
 
     //==================================================================================================================popup action
 
-    // [PH] Celé jsem to udělal pomocí jednoho popup-action , který js po kliknutí naplní umístí a zobrazí
     // kliknutie na .js-popup-action-open trigger...
-    $('.js-popup-action-open').on('click', function(e){
+    $('.js-popup-action-open').unbind('click').on('click', function(e){
 
         e.preventDefault();
 
@@ -197,7 +232,7 @@ window.uiScript = function(){
     });
 
 
-    $('.js-popup-action-close').on('click', function(){
+    $('.js-popup-action-close').unbind('click').on('click', function(){
 
         $('#popup-action').hide();
 
@@ -209,7 +244,7 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
-    $('.js-popup-window-open').on('click', function(){
+    $('.js-popup-window-open').unbind('click').on('click', function(){
 
 
         var content=$(this).attr('content');
@@ -220,12 +255,12 @@ window.uiScript = function(){
     });
 
     // kliknutie na overlay schová overlay a popup-window
-    $('.overlay').on('click', function(){
+    $('.overlay').unbind('click').on('click', function(){
         window_close()
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
-    $('.js-popup-window-close').on('click', function(){
+    $('.js-popup-window-close').unbind('click').on('click', function(){
         window_close()
     });
 
@@ -235,18 +270,18 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-notification-open').on('click', function(event){
+    $('.js-popup-notification-open').unbind('click').on('click', function(event){
         event.stopPropagation();
         $('.popup-notification').toggle();
     });
 
     // kliknutie na otvorený popup-notification neurobí nič
-    $('.popup-notification').on('click', function(event){
+    $('.popup-notification').unbind('click').on('click', function(event){
         event.stopPropagation();
     });
 
     // kliknutie na document schová popup-notification
-    $(document).on('click', function(){
+    $(document).unbind('click').on('click', function(){
         $('.popup-notification').hide();
     });
 
@@ -258,7 +293,7 @@ window.uiScript = function(){
 
 
     // ak sa klikne tlačítkom esc ...
-    $(document).keyup(function(e) {
+    $(document).unbind('keyup').keyup(function(e) {
 
         // ... a ak to tlačítko je esc (27)...
         if (e.keyCode == 27) {
@@ -285,7 +320,7 @@ window.uiScript = function(){
     $('#selecting-distance-close').off();
 
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
-    $('#selecting-distance-plus').click(function(){
+    $('#selecting-distance-plus').unbind('click').click(function(){
 
     //todo sounds ion.sound.play("door_bump");
 
@@ -302,7 +337,7 @@ window.uiScript = function(){
         }
     });
 
-    $('#selecting-distance-minus').click(function(){
+    $('#selecting-distance-minus').unbind('click').click(function(){
 
         //todo sounds ion.sound.play("door_bump");
 
@@ -320,19 +355,19 @@ window.uiScript = function(){
         }
     });
 
-    $('#selecting-distance-left').click(function(){
+    $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.rot-=10;
         buildingUpdate();
     });
 
-    $('#selecting-distance-right').click(function(){
+    $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.rot+=10;
         buildingUpdate();
     });
 
-    $('#selecting-distance-close').click(function(){
+    $('#selecting-distance-close').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
         $('#popup-action').hide();
@@ -344,7 +379,7 @@ window.uiScript = function(){
 
 
 
-    $('.towns-window'/*todo all classes css+js should be AllFirstLetters*/).click(function(e){
+    $('.towns-window'/*todo all classes css+js should be AllFirstLetters*/).unbind('click').click(function(e){
         e/*todo use e or event???*/.preventDefault();
 
 

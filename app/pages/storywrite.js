@@ -1,10 +1,13 @@
 
+//todo header
 //todo ?? DI
 
-pages.storyeditor={"title": 'Příběh'};
+pages.storywrite={"header": 'Upravit příběh'};
 
 
-pages.storyeditor.html=[
+//======================================================================================================================
+
+pages.storywrite.content=[
     '<input type="text" id="story-name" value="" placeholder="Název příběhu">',
     //'<button id="story-save" onclick="storyContentReload();">Uložit</button>',
     '<br>',
@@ -15,12 +18,15 @@ pages.storyeditor.html=[
 ''].join('');
 
 
-var window_width=780;
+var window_width=780;//todo refactor rename and move to vars
     separator_bound=10;
     separator_snap=100;
 var separator_width,separator_border,window_padding;
 
-pages.storyeditor.js = function(){
+
+//======================================================================================================================
+
+pages.storywrite.openJS = function(){
 
     separator_width=parseInt($('#vertical_separator').css('width'));
     separator_border=parseInt($('#story-content').css('border-right'));
@@ -41,16 +47,16 @@ pages.storyeditor.js = function(){
     });
 
     /*var story_name='Nazev';
-    var story_content=[
-            'Nadpis',
-            '=========',
-            '',
-            'text text text',
-        ''].join('\n');*/
+     var story_content=[
+     'Nadpis',
+     '=========',
+     '',
+     'text text text',
+     ''].join('\n');*/
 
 
-    var i = id2i(map_selected_ids);
-
+    var i = id2i(map_object_changes,map_selected_ids[0]);
+    r(map_selected_ids,i);
 
     $('#story-name').val(map_object_changes[i].name);
     $('#story-content').val(map_object_changes[i].content.data);
@@ -63,7 +69,19 @@ pages.storyeditor.js = function(){
 
 };
 
+//======================================================================================================================
 
+pages.storywrite.closeJS = function(){
+
+    map_selected_ids=[];
+    loadMap();
+
+};
+
+
+
+
+//======================================================================================================================
 
 var storyContentWidthReload = function(){
 
@@ -99,23 +117,27 @@ var storyContentWidthReload = function(){
 };
 
 
+//======================================================================================================================
+
 var storyContentReload = function(){
 
     var story_name = $('#story-name').val();
     var story_content = $('#story-content').val();
+
     var story_content_html = markdown.toHTML(story_content);
 
 
     $('#story-content-html').html(story_content_html);
     //r(story_name,story_content,story_content_html);
 
-    var i = id2i(map_selected_ids);//todo bind editor content + name with i
+    var i = id2i(map_object_changes,map_selected_ids[0]);//todo bind editor content + name with i
 
     map_object_changes[i].name = story_name;
     map_object_changes[i].content.data = story_content;
 
-    //todo saving to LS
-    r('saved');
+
+    saveMapObjectChangesToStorage();
+    r('saved to LS');
 
 };
 
