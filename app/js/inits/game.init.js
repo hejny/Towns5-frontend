@@ -1,6 +1,8 @@
 //todo header
 
 
+/*
+
 var Resources = function(resources){
 
     this.fuel;
@@ -34,4 +36,4 @@ prices.terrain.neutralize.price=new Resources({"fuel": 50});
 prices.terrain.change.price=new Resources({"fuel": 50});
 
 
-prices.terrain.change.t5.price=new Resources({"wood": 50});
+prices.terrain.change.t5.price=new Resources({"wood": 50});*/

@@ -135,15 +135,45 @@ Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižnicia
 
 * * *
 
-## Commity
-
-Každý commit by měl mít označení projektu + autora např.: [WorldLayer][PH] Změny v minimenu
+## Konvence
 
 
-* * *
+### Commit
 
-## Soubory
+Každý commit by měl mít označení [projektu][autora] Název kartičky v Trellu / Co jsem udělal
 
-Všechny soubory + databáze je v UTF-8 a jako oddělovač řádků používat \n
+např.: [WorldLayer][PH] Refaktoring / vytvoření statického objektu Model 
+
+
+## File names
+
+**.class.js** - todo description
+
+**.action** - todo description
+
+**.tools** - todo description
+
+**.page** - todo description
+
+**.menu** - todo description
+
+**.events** - todo description
+
+**.draw** - todo description
+
+**.init** - todo description
+
+**.ctl.init** - todo description
+
+
+
+
+## Text a kódování
+
+
+Všechny soubor jsou v UTF-8 a jako oddělovač řádků používat \n
+
+
+## Dokumentace
 
 Psát poznámky a dokumentovat pomocí JSDoc a PhpDocumentator
