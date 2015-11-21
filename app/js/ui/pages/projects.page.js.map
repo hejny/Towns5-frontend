@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "projects.page.js",
+  "sourceRoot": "",
+  "sources": [
+    "projects.page.coffee"
+  ],
+  "names": [],
+  "mappings": ";AACA;EAAA,KAAK,CAAC,QAAN,GAAe;IAAC,QAAA,EAAU,SAAX;;;EAEf,KAAK,CAAC,QAAQ,CAAC,OAAf,GAAuB;AAFvB"
+}

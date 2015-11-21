@@ -13,6 +13,9 @@
  */
 
 
+//todo refactor split into static objects
+
+
 //======================================================================================================================
 
 function htmlEncode(value){
@@ -194,7 +197,7 @@ function is(val){
 
     if(val===false)return false;
 
-    if(val===NaN)return false;
+    if(typeof(val)==='number' && isNaN(val))return false;
     if(val===null)return false;
     if(val===0)return false
 

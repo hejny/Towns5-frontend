@@ -40,6 +40,17 @@ var MESSAGE_MS = 2000;
 
 var pages={};
 
+
+var selecting_distance_canvas;
+var selecting_distance_canvas_ctx;
+
+//-------------------------
+
+var canvas_width;
+var canvas_height;
+
+//------------
+
 var map_loaded=false;
 
 //----
@@ -75,7 +86,7 @@ var map_model_size=2,
 var map_rotation=45;
 
 
-var max_map_size=180;
+var max_map_size=180;//180;
 
 var selecting_distance=1000;
 var selecting_distance_fields=0;

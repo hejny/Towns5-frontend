@@ -1,5 +1,7 @@
 {
   "js": [
+
+
     "node_modules/jquery/dist/jquery.js",
     "node_modules/jquery-ui-bundle/jquery-ui.js",
 
@@ -8,48 +10,81 @@
     "node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js",
 
     "node_modules/ion-sound/js/ion.sound.js",
-    "app/js/sound.js",
-
     "node_modules/markdown/lib/markdown.js",
+
+
+
 
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
     "app/config/vars.js",
 
-    "app/js/storage.lib.js",
 
-    "app/js/func.lib.js",
-    "app/js/log.lib.js",
-    "app/js/main.js",
 
-    "app/js/lang.lib.js",
-    "app/locale/cs.js",
 
-    "app/js/townsapi.lib.js",
-    "app/js/townsapi.fake.lib.js",
+    "app/js/classes/path.class.js",
+    "app/js/classes/position.class.js",
 
-    "app/js/prototypes/path.js",
-    "app/js/prototypes/position.js",
 
-    "app/js/functions/create.js",
-    "app/js/functions/terrain.js",
-    "app/js/functions/dismantle.js",
 
-    "app/js/map.lib.js",
-    "app/js/model.lib.js",
-    "app/js/graphic.js",
-    "app/js/events.js",
-    "app/js/objectmenu.js",
-    "app/js/terrainmenu.js",
-    "app/js/uniquemenu.js",
-    "app/js/storymenu.js",
-    "app/js/ui.js",
+    "app/js/tools/func.tools.js",
+    "app/js/tools/model.tools.js",
+    "app/js/tools/canvas.tools.js",
+    "app/js/tools/log.tools.js",
+    "app/js/tools/map-func.tools.js",
+    "app/js/tools/map-load.tools.js",
+    "app/js/tools/lang.tools.js",
+    "app/js/tools/map-update.tools.js",
+    "app/js/tools/map-generate.tools.js",
+    "app/js/tools/storage.tools.js",
+    "app/js/tools/townsapi.tools.js",
+    "app/js/tools/townsapi.fake.tools.js",
+    "app/js/tools/ui.tools.js",
 
-    "app/pages/projects.js",
-    "app/pages/storyread.js",
-    "app/pages/storywrite.js",
 
-    "app/js/functions/login.js"
+
+
+    "app/js/ui/pages/projects.page.js",
+    "app/js/ui/pages/loginform.page.js",
+    "app/js/ui/pages/storyread.page.js",
+    "app/js/ui/pages/storywrite.page.js",
+    "app/js/ui/pages/projects.page.js",
+    "app/js/ui/pages/loginform.page.js",
+
+    "app/js/ui/menu/story.menu.js",
+    "app/js/ui/menu/object.menu.js",
+    "app/js/ui/menu/unique.menu.js",
+    "app/js/ui/menu/terrain.menu.js",
+
+
+
+    "app/js/ui/events/map.events.js",
+    "app/js/ui/events/ui.events.js",
+
+
+
+
+    "app/js/draw/map.draw.js",
+    "app/js/draw/model.draw.js",
+    "app/js/draw/map-objects.draw.js",
+    "app/js/draw/map-objects-html.draw.js",
+
+
+
+    "app/js/actions/create.action.js",
+    "app/js/actions/dismantle.action.js",
+    "app/js/actions/login.action.js",
+    "app/js/actions/terrain.action.js",
+
+
+    "app/js/inits/main.init.js",
+    "app/js/inits/game.init.js",
+    "app/js/inits/graphic.init.js",
+    "app/js/inits/sound.init.js",
+    "app/js/inits/map-move.ctl.init.js",
+    "app/js/inits/map-buffer.ctl.init.js"
+
+
   ],
   "css": [
     "app/css/style.css",
