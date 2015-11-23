@@ -103,13 +103,14 @@ var moving=false;
 
 $(function() {
 
+
     //------------------------------------------------------------
 
     window.addEventListener('keydown', function(e) {
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
 
-            if(!(window_opened || ['INPUT','TEXTAREA'].indexOf(document.activeElement.tagName)!=-1)){
+            if(focusOnMap()){
                 e.preventDefault();
             }
 
@@ -122,29 +123,29 @@ $(function() {
 
     $(document).keydown(function (e) {
 
-        //e.preDefault();
+        if(focusOnMap()) {
+            r('DOWN', e.which);
 
-        //console.log(e.which);
-        //$('html').scrollLeft(0);
-        //$('html').scrollTop(0);
+            if ($.inArray(e.which, keys) == -1) {
+                keys.push(e.which);
 
-
-        if ($.inArray(e.which, keys) == -1) {
-            keys.push(e.which);
-
+            }
         }
 
     });
 
     $(document).keyup(function (e) {
-        //e.preDefault();
 
-        var i = $.inArray(e.which, keys);
+        if(focusOnMap()) {
+            r('UP', e.which);
+
+            var i = $.inArray(e.which, keys);
 
 
-        if (i != -1) {
-            keys.splice(i, 1);
+            if (i != -1) {
+                keys.splice(i, 1);
 
+            }
         }
 
     });
@@ -174,6 +175,8 @@ $(function() {
 
             }
 
+
+            //r(keys_);
 
             if ($.inArray('up', keys_) != -1) {
                 mapMove(0,30);
@@ -415,6 +418,8 @@ $(function() {
 
                 //r(BorderMoveDelay_);
                 if(BorderMoveDelay_<0){
+
+                    r('border moving');
                     mapMove(BorderMoveX,BorderMoveY);
                     BorderMoveQ=true;
                 }
@@ -570,6 +575,7 @@ $(function() {
 
                 for(var i=map_object_changes.length-1;i>=0;i--){
 
+                    if(map_object_changes[i].type=='building')
                     //r(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
                     if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance_fields){
 
@@ -659,7 +665,7 @@ $(function() {
             }
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++storyWriting
             if(storyWriting !== false){
 
 
@@ -672,10 +678,11 @@ $(function() {
                 map_selected_ids=[id];
                 window_open('storywrite');
 
-                storyWriteStop();
+                mapSpecialCursorStop();
+                hideLeftMenu();
 
 
-                loadMap();
+                loadMapAsync(1000);
 
 
                 return;
@@ -1113,10 +1120,6 @@ $(function() {
 
 
 //======================================================================================================================
-
-
-
-
 
 
 });

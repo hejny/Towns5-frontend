@@ -3,22 +3,27 @@ pages.projects={"header": 'Towns 5'};
 
 pages.projects.content='''
 
+<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
+<img src="media/image/languages/cs.png" onclick="changeLanguage('cs')">
+<img src="media/image/languages/en.png" onclick="changeLanguage('en')">
+</div>
+
 
   <h2 style="text-align: center;">
 <img src="media/image/icon/logo1.png" alt="Towns.cz logo" width="100"/><br/>
-Připravujeme novou verzi hry.</h2>
+{{MESSAGES.pages.projects.new_version}}</h2>
+
+
 
 <p style="text-align: center;">
-  Svět z Towns 4 bude převeden do nové verze.
-  <br>
-  Až budeme mít hotovo můžeme ti poslat email:
+  {{MESSAGES.pages.projects.info}}
 
 </p>
 
 
-  <div class="loading" style="display: none" id="sendpress_loading">Načítání...</div>
-  <div class="success" style="display: none" id="sendpress_success">Děkujeme, až bude hra připravena pošleme ti mail.</div>
-  <div class="error" style="display: none" id="sendpress_error">Něco se nezdařilo, buď máme chybu na serveru nebo jsi zadal chybný mail, každopádně nás můžeš sledovat přes
+  <div class="loading" style="display: none" id="sendpress_loading">{{MESSAGES.ui.messages.loading}}</div>
+  <div class="success" style="display: none" id="sendpress_success">{{MESSAGES.pages.projects.subscribe_success}}</div>
+  <div class="error" style="display: none" id="sendpress_error">{{MESSAGES.pages.projects.subscribe_error}}
 
     <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
     <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
@@ -31,13 +36,13 @@ Připravujeme novou verzi hry.</h2>
     <input type="hidden" name="sendpress" value="post" />
 
       <p style="text-align: center;">
-        <b>Mail:</b>
+        <b>{{MESSAGES.form.mail}}:</b>
         <input type="text" value="@" name="sp_email"/>
 
-        <b>Tvé jméno:</b>
+        <b>{{MESSAGES.form.your_name}}:</b>
         <input type="text" value="" name="sp_firstname"/>
 
-        <input value="Odeslat" class="sendpress-submit" type="submit" id="submit" name="submit">
+        <input value="{{MESSAGES.form.send}}" class="sendpress-submit" type="submit" id="submit" name="submit">
       </p>
 
       <!--<p name="lastname">
@@ -71,14 +76,15 @@ Připravujeme novou verzi hry.</h2>
                 $("#sendpress_error").show();
               }
 
-          }});
+          }
+        });
           return false;
       });
   </script>
 
 
 <p style="text-align: center;">
-  Nebo se můžeš přihlásit k odběru novinek přes
+  {{MESSAGES.pages.projects.subscribe}}
   <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
   <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
   <a href="https://twitter.com/townsgame" target="_blank">Twitter</a>.
@@ -89,7 +95,7 @@ Připravujeme novou verzi hry.</h2>
 
 
 <p style="text-align: center;">
-  <b>Podívej se na nejnovější novinky z vývoje hry:</b>
+  <b>{{MESSAGES.pages.projects.news_from_game}}</b>
 </p>
 
 <div id="feed" class="feed"></div>
@@ -150,8 +156,8 @@ Připravujeme novou verzi hry.</h2>
   <hr>
 
 <p style="text-align: center;">
-  <b>Podívej se, na čem právě pracujeme:</b><br>
-  Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:
+  <b>{{MESSAGES.pages.projects.projects}}</b><br>
+  {{MESSAGES.pages.projects.projects_info}}
 </p>
 
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>

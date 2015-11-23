@@ -150,20 +150,40 @@ gulp.task('production-clean', function() {
 // Produkcny Build
 gulp.task('production-build', [
     'production-index',
+    'production-locale',
     'production-scripts',
     //'production-images',
     //'production-sound',
     'production-styles',
     'production-fonts',
-    'production-graphic'
+    'production-php'
 ], function () {
     console.log(' ¯\\_(ツ)_/¯ Produkčný build je hotový ');
 });
+
+
 
 // Index.php pre produkcny build
 gulp.task('production-index', function () {
     gulp.src('app/*.php')
         .pipe(gulp.dest('app-dist/'));
+
+    gulp.src('app/php/neon/*.php')//todo better solution for php subdirs
+        .pipe(gulp.dest('app-dist/php/neon/'));
+
+    gulp.src('app/php/neon/Neon/*.php')
+        .pipe(gulp.dest('app-dist/php/neon/Neon/'));
+
+
+});
+
+
+// Index.php pre produkcny build
+gulp.task('production-locale', function () {
+    gulp.src('app/locale/*.neon')
+        .pipe(gulp.dest('app-dist/locale/'));
+
+
 });
 
 
@@ -234,9 +254,9 @@ gulp.task('production-fonts', function () {
         .pipe(gulp.dest('app-dist/fonts/'));
 });
 
-// Priprav graphic pre produkčný build
-gulp.task('production-graphic', function () {
+// Priprav php pre produkčný build
+gulp.task('production-php', function () {
     gulp.src([
-        'app/graphic/*'])
-        .pipe(gulp.dest('app-dist/graphic/'));
+        'app/php/*'])
+        .pipe(gulp.dest('app-dist/php/'));
 });

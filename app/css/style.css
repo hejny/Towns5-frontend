@@ -154,6 +154,7 @@ input, textarea {
 
 .error, .success, .info, .loading {/*todo chlivek?*/
 
+    text-align: center;
     display: block;
     width: 100%;
     padding: 6px;

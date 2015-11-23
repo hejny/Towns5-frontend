@@ -455,9 +455,11 @@ function drawMap() {
 
 
 
-function drawMapAsync() {//todo search where to use this function
+function drawMapAsync(delay) {//todo search where to use this function
+
+    delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
-        function(){drawMapAsync();},IMMEDIATELY_MS
+        function(){drawMap();},delay
     );
 }

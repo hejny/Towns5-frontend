@@ -25,9 +25,8 @@ $(function(){
 
 
     $('#eu_cookies').click(function() {
-        var date = new Date();
-        date.setFullYear(date.getFullYear() + 10);
-        document.cookie = 'eu_cookies=1; path=/; expires=' + date.toGMTString();
+
+        setCookie('eu_cookies',1);
         $('#eu_cookies').hide();
     });
 
@@ -44,6 +43,8 @@ $(function(){
  */
 
 window.uiScript = function(){
+
+    r('uiScript');
 
 
     //todo ??? $(document).on('contextmenu', function (event) { event.preventDefault(); });
@@ -261,7 +262,7 @@ window.uiScript = function(){
 
 
         var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
-        window_open_html($(this).attr('title'),html);
+        window_open_content($(this).attr('title'),html);
 
     });
 
@@ -311,6 +312,38 @@ window.mapSpecialCursorStop = function(){
     terrainNeutralizeStop();
     storyWriteStop();
 };
+
+
+
+//======================================================================================================================
+/*
+ ███████╗██████╗ ███████╗ ██████╗██╗ █████╗ ██╗          ██████╗██╗   ██╗██████╗ ███████╗ ██████╗ ██████╗
+//todo ASCII
+ ╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+ */
+
+
+window.showLeftMenu = function(html){
+
+    for(i=0;i<5;i++)
+        html+='<br>';
+
+    $('#objectmenu-inner').html(html);
+    $('#objectmenu').animate({left:0}, 200);
+
+    uiScript();
+
+};
+
+//----------
+
+window.hideLeftMenu = function(){
+
+    $('.action-wrapper').removeClass('active');
+    $('#objectmenu').animate({left:-60}, 200);
+};
+
+
 
 //======================================================================================================================
 /*
