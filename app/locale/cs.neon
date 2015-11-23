@@ -1,0 +1,98 @@
+# Lokalizační soubor pro češtinu v Towns
+
+page:
+    title: Towns
+    description: Popis pro Sociální sítě a SEO
+
+ui:
+
+    buttons:
+        about_game: O hře
+        agree: Souhlasím
+
+    prompts:
+        cookies: Tento web využívá cookies a LocalStorage. Používáním tohoto webu s tím souhlasíte.
+
+    messages:
+        loading: Načítání...
+
+
+    tool_controls:
+        plus: Zvětšit
+        minus: Zmenšit
+        left: Otočit doleva
+        right: Otočit doprava
+        close: Zavřít
+
+
+
+    menu:
+        nature:
+            _name: Příroda
+            types: Typy
+            neutralize: Původní stav
+
+        buildings:
+            _name: Budovy
+            main: Zakladni
+            walls: Hradby
+            dismantle: Zbourat
+
+        stories:
+            _name: Příběhy
+            write: Napsat příběh
+
+        messages:
+            _name: Zprávy
+
+        map:
+            _name: Mapa
+            screenshot: Screenshot
+            restart: Restartovat
+
+        blog:
+            _name: Blog
+
+
+    notifications:
+        all_notifications: Všetky notifikácie
+
+
+terrains:
+    t0: Temnota
+    t1: Moře
+    t2: Dlažba
+    t3: Sníh
+    t4: Písek
+    t5: Kamení
+    t6: Hlína
+    t7: moře
+    t8: moře
+    t9: moře
+    t10: moře
+    t11: moře
+    t12: moře
+    t13: moře
+    t14: moře
+
+
+
+buildings:
+
+form:
+    mail: E-mail
+    your_name: Tvé jméno
+    send: Odeslat
+
+
+pages:
+    projects:
+        new_version: Připravujeme novou verzi hry.
+        info: "Svět z Towns 4 bude převeden do nové verze.<br>Až budeme mít hotovo můžeme ti poslat email:"
+        subscribe: Nebo se můžeš přihlásit k odběru novinek přes
+        news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
+        projects: "Podívej se, na čem právě pracujeme:"
+        projects_info: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
+
+        subscribe_success: "Děkujeme, až bude hra připravena pošleme ti mail."
+        subscribe_error: "Něco se nezdařilo, buď máme chybu na serveru nebo jsi zadal chybný mail, každopádně nás můžeš sledovat přes"

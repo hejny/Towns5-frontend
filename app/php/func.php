@@ -18,7 +18,7 @@
 
 
 
-
+//todo use path like require __DIR__ . '/neon/neon.php';
 
 require_once(root.core."/func_vals.php");
 require_once(root.core."/func_object.php");

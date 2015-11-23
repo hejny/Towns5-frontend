@@ -16,6 +16,12 @@
  */
 
 
+//------------------------------------------------------------------focusOnMap
+
+function focusOnMap(){
+    return(!(window_opened || ['INPUT','TEXTAREA'].indexOf(document.activeElement.tagName)!=-1));
+}
+
 //------------------------------------------------------------------window_open
 
 var window_closeJS = false;//todo refactor strange name
@@ -32,6 +38,24 @@ window.window_open = function(page){
 
     if(!is(header))header='';
     if(!is(content))content='';
+
+    content=content.split('{{');
+
+
+    for(var i=1,l=content.length;i<l;i++){
+
+        //r(content[i]);
+        content[i]=content[i].split('}}');
+        //r(content[i]);
+
+        eval('content[i][0]='+content[i][0]+';');
+        content[i]=content[i].join('');
+
+
+    }
+    content=content.join('');
+
+
 
     r(header,content);
 
@@ -70,7 +94,7 @@ window.window_write_content = function(content){//todo refactor to same names
 
 };
 
-//------------------------------------------------------------------window_open_html
+//------------------------------------------------------------------window_open_content
 
 window.window_open_content = function(header,content){
 

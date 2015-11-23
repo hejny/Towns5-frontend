@@ -69,21 +69,11 @@ function objectMenu(){
         }
 
 
-        for(i=0;i<5;i++)
-            objectmenu+='<br>';
+        showLeftMenu(objectmenu);
 
-
-        $('#objectmenu-inner').html(objectmenu);
-
-        uiScript();
-
-        //--------------------------------------------------
-
-        $('#objectmenu').animate({left:0}, 200);
     }else{
 
-        $('.action-wrapper').removeClass('active');
-        $('#objectmenu').animate({left:-60}, 200);
+        hideLeftMenu();
 
     }
 

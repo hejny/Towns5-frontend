@@ -33,7 +33,6 @@
     "app/js/tools/log.tools.js",
     "app/js/tools/map-func.tools.js",
     "app/js/tools/map-load.tools.js",
-    "app/js/tools/lang.tools.js",
     "app/js/tools/map-update.tools.js",
     "app/js/tools/map-generate.tools.js",
     "app/js/tools/storage.tools.js",
@@ -48,8 +47,6 @@
     "app/js/ui/pages/loginform.page.js",
     "app/js/ui/pages/storyread.page.js",
     "app/js/ui/pages/storywrite.page.js",
-    "app/js/ui/pages/projects.page.js",
-    "app/js/ui/pages/loginform.page.js",
 
     "app/js/ui/menu/story.menu.js",
     "app/js/ui/menu/object.menu.js",
@@ -78,11 +75,13 @@
 
 
     "app/js/inits/main.init.js",
+    "app/js/inits/locale.init.js",
     "app/js/inits/game.init.js",
     "app/js/inits/graphic.init.js",
     "app/js/inits/sound.init.js",
     "app/js/inits/map-move.ctl.init.js",
-    "app/js/inits/map-buffer.ctl.init.js"
+    "app/js/inits/map-buffer.ctl.init.js",
+    "app/js/inits/blogfeed.init.js"
 
 
   ],

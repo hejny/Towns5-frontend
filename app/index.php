@@ -14,15 +14,40 @@
 
 //======================================================================================================================
 
-//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-// TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
 
+
+//----------------------------------------load $LANGUAGE and $MESSAGES
+
+require __DIR__ . '/php/neon/neon.php';
+
+if(isset($_COOKIE['LANGUAGE'])) {
+    $LANGUAGE = $_COOKIE['LANGUAGE'];
+}else{
+    $LANGUAGE = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+}
+
+
+
+$file=__DIR__ ."/locale/$LANGUAGE.neon";
+if(!file_exists($file)) {
+    $LANGUAGE='cs';//todo in future default language should be english
+    $file=__DIR__ ."/locale/$LANGUAGE.neon";
+}
+$MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
+//print_r($MESSAGES);
+
+//----------------------------------------
+
+
+
+
+//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 
 $page=[];
-$page['title'] = 'Towns';
-$page['description'] = '';
+$page['title'] = $MESSAGES['page']['title'];
+$page['description'] = $MESSAGES['page']['description'];
 $page['meta_og'] = [
-    'site_name' => 'Towns',
+    'site_name' => $MESSAGES['page']['title'],
     'title' => $page['title'],
     'description' => $page['description'],
     'type' => 'game'
@@ -93,6 +118,15 @@ function tidyHTML($buffer) {
 
     }
 
+    //--------------------------------var LANGUAGE
+    ?>
+    <script>
+        var LANGUAGE='<?=$LANGUAGE?>';
+    </script>
+
+    <?php
+    //--------------------------------Includes
+
     //tady je podminka zda jde o testovaci verzi
     if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
@@ -127,7 +161,11 @@ function tidyHTML($buffer) {
             <script src="/app-dist/js/towns.min.js" async></script>
         <?php
     }
+    //--------------------------------
+
     ?>
+
+
 
     <link rel="alternate" type="application/rss+xml" title="RSS" href="<?=addslashes($config['app']['blog']['rss_feed'])?>">
 
@@ -171,8 +209,8 @@ function tidyHTML($buffer) {
 <!--Example of user prompt-->
 <div id="eu_cookies">
     <div id="eu_cookies_inner">
-        Tento web využívá cookies a LocalStorage. Používáním tohoto webu s tím souhlasíte.
-        <button class="micro-button">OK</button>
+        <?=$MESSAGES['ui']['prompts']['cookies']?>
+        <button class="micro-button"><?=$MESSAGES['ui']['buttons']['agree']?></button>
     </div>
 </div>
 
@@ -187,7 +225,7 @@ function tidyHTML($buffer) {
 
 <canvas id="map_buffer" width="100" height="100"></canvas>
 <div id="map-move"></div>
-<canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe rename?-->
+<canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
 
 
 
@@ -195,11 +233,11 @@ function tidyHTML($buffer) {
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
+    <div id="selecting-distance-plus" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['plus']?>"><i class="fa fa-plus"></i></div>
+    <div id="selecting-distance-minus" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['minus']?>"><i class="fa fa-minus"></i></div>
+    <div id="selecting-distance-left" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['left']?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['right']?>"><i class="fa fa-angle-double-right"></i></i></div>
+    <div id="selecting-distance-close" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['close']?>"><i class="fa fa-times"></i></div>
 
 </div>
 
@@ -208,7 +246,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img src="media/image/icon/logo1.png" alt="Towns.cz logo"/>
+        <img src="media/image/icon/logo1.png" alt="<?=$MESSAGES['ui']['title']?>"/>
 
     </div>
 
@@ -216,32 +254,32 @@ function tidyHTML($buffer) {
     <ul class="menu-list menu-list-left">
 
         <li class="menu-list-item">
-            <a href="#">Příroda</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['nature']['_name']?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;">Typy</a></li>
-                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;">Původní stav</a></li>
+                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;"><?=$MESSAGES['ui']['menu']['nature']['types']?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;"><?=$MESSAGES['ui']['menu']['nature']['neutralize']?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Budovy</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['buildings']['_name']?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;">Zakladni</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;">Hradby</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;">Zbourat</a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;"><?=$MESSAGES['ui']['menu']['buildings']['main']?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;"><?=$MESSAGES['ui']['menu']['buildings']['walls']?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;"><?=$MESSAGES['ui']['menu']['buildings']['dismantle']?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Příběhy</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['stories']['_name']?></a>
 
             <ul class="menu-dlist">
                 <li class="menu-dlist-item">
 
-                    <a href="#" onclick="objectMenuStory();return false;">Napsat příběh</a>
-                    <a class="js-popup-window-open" header="Napsat příběh" content="storywrite" href="#">Editor</a>
+                    <a href="#" onclick="objectMenuStory();return false;"><?=$MESSAGES['ui']['menu']['stories']['write']?></a>
+
 
 
                 </li>
@@ -249,7 +287,7 @@ function tidyHTML($buffer) {
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Zprávy</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['messages']['_name']?></a>
 
             <ul class="menu-dlist">
             </ul>
@@ -257,12 +295,12 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#">Mapa</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['map']['_name']?></a>
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;">Screenshot</a></li>
-                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;">Restartovat</a></li>
+                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;"><?=$MESSAGES['ui']['menu']['map']['screenshot']?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;"><?=$MESSAGES['ui']['menu']['map']['restart']?></a></li>
 
 
             </ul>
@@ -271,36 +309,10 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#">Blog</a>
+            <a href="#"><?=$MESSAGES['ui']['menu']['blog']['_name']?></a>
 
-            <ul class="menu-dlist">
-
-                <?php
-
-                try {
-                    //todo cache rss feed or load it via JS on browser
-
-                    $content = file_get_contents($config['app']['blog']['rss_feed']);
-                    $x = new SimpleXmlElement($content);
-
-
-                    $i = -1;
-                    foreach ($x->channel->item as $entry) {
-                        if (++$i == 5) break;
-
-                        $entry->title = str_replace(array('Towns5', 'Towns'), '', $entry->title);
-                        $entry->title = trim($entry->title);
-
-                        echo '<li class="menu-dlist-item"><a class="towns-window" href="' . addslashes($entry->link) . '" title="' . addslashes($entry->title) . '" target="_blank">' . htmlspecialchars($entry->title) . '</a></li>';
-                    }
-
-                }catch(Exception $e){
-
-                }
-
-                ?>
-
-
+            <ul class="menu-dlist" id="menu-feed">
+                <!--This content will be loaded by js-->
             </ul>
         </li>
 
@@ -320,7 +332,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="projects" href="#">O hře</a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" content="projects" href="#"><?=$MESSAGES['ui']['buttons']['about_game']?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
@@ -377,7 +389,7 @@ function tidyHTML($buffer) {
 
     </div>
     <div class="footer">
-        <a href="#">Všetky notifikácie</a>
+        <a href="#"><?=$MESSAGES['ui']['notifications']['all_notifications']?></a>
     </div>
 </div>
 

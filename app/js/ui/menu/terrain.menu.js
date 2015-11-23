@@ -133,6 +133,7 @@ function objectMenuTerrainChange(){
             objectmenu+=objectmenu_template
                 .split('%icon').join(icon)
                 .split('%content').join(htmlEncode(content))
+                .split('%title').join(htmlEncode(MESSAGES.terrains['t'+terrain]))
                 .split('%action').join(htmlEncode(action));
 
             //$(objectmenu[i]).children('div').attr('content',content);
@@ -143,15 +144,7 @@ function objectMenuTerrainChange(){
         }
 
 
-        for(i=0;i<5;i++)
-            objectmenu+='<br>';
-
-
-        $('#objectmenu-inner').html(objectmenu);
-
-        $('#objectmenu').animate({left:0}, 200);
-
-        uiScript();
+    showLeftMenu(objectmenu);
 
 
 }

@@ -18,7 +18,7 @@
 //======================================================================================================================
 
 
-
+//todo use path like require __DIR__ . '/neon/neon.php';
 require_once('files.lib.php');
 require_once('init.php');
 

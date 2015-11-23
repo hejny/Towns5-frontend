@@ -34,7 +34,6 @@ function storyWriteStart(storyType){
     mapSpecialCursorStop();
     mapSpecialCursorStart();
 
-    updateSelectingDistance();
 
     storyWriting=storyPrototypes[storyType];
 
@@ -52,6 +51,7 @@ function storyWriteStart(storyType){
 
 }
 
+//todo in doc this funcs. dont use directly only via mapSpecialCursorStop();
 function storyWriteStop(){
 
 
@@ -102,14 +102,7 @@ function objectMenuStory(){
     }
 
 
-    for(i=0;i<5;i++)
-        objectmenu+='<br>';
-
-
-    $('#objectmenu-inner').html(objectmenu);
-    $('#objectmenu').animate({left:0}, 200);
-
-    uiScript();
+    showLeftMenu(objectmenu);
 
 
 

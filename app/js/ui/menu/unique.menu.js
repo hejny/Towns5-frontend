@@ -256,14 +256,6 @@ function objectMenuUnique(group){
     }
 
 
-    for(i=0;i<5;i++)
-        objectmenu+='<br>';
-
-    $('#objectmenu-inner').html(objectmenu);
-
-    $('#objectmenu').animate({left:0}, 200);
-
-    uiScript();
-
+    showLeftMenu(objectmenu);
 
 }

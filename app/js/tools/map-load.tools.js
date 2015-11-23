@@ -235,9 +235,11 @@ function loadMap() {
 }
 
 
-function loadMapAsync() {//todo search where to use this function
+function loadMapAsync(delay) {//todo search where to use this function
+
+    delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
-        function(){loadMap();},IMMEDIATELY_MS
+        function(){loadMap();},delay
     );
 }
