@@ -87,8 +87,8 @@ form:
 
 pages:
     projects:
-        new_version: Připravujeme novou verzi hry.
-        info: "Svět z Towns 4 bude převeden do nové verze.<br>Až budeme mít hotovo můžeme ti poslat email:"
+        info: "Vytváříme kreativní hru, kde si můžeš vyrobit naprosto cokoliv od vzhledu jednotlivých budov až po celé státy a impéria, také můžeš psát příběhy a tím tvořit její historii."
+        info_sub: "Tato aplikace je pouze malá ukázka toho, co máme rozpracované.<br> Právě teď připravujeme novou verzi hry. Svět z Towns 4 bude převeden do nové verze.<br>Až budeme mít hotovo můžeme ti poslat email:"
         subscribe: Nebo se můžeš přihlásit k odběru novinek přes
         news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
         projects: "Podívej se, na čem právě pracujeme:"

@@ -6,5 +6,5 @@
     "projects.page.coffee"
   ],
   "names": [],
-  "mappings": ";AACA;EAAA,KAAK,CAAC,QAAN,GAAe;IAAC,QAAA,EAAU,SAAX;;;EAEf,KAAK,CAAC,QAAQ,CAAC,OAAf,GAAuB;AAFvB"
+  "mappings": ";AACA;EAAA,KAAK,CAAC,QAAN,GAAe;IAAC,QAAA,EAAU,SAAX;;;;AAGf;;;;;;EAMA,KAAK,CAAC,QAAQ,CAAC,OAAf,GAAuB;AATvB"
 }

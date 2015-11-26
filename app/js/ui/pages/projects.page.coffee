@@ -1,22 +1,24 @@
 
 pages.projects={"header": 'Towns 5'};
 
-pages.projects.content='''
 
-<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
+###<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
 <img src="media/image/languages/cs.png" onclick="changeLanguage('cs')">
 <img src="media/image/languages/en.png" onclick="changeLanguage('en')">
-</div>
+</div>###
 
 
-  <h2 style="text-align: center;">
+pages.projects.content='''
+
+
+  <h2 style="font-size:1.1em;text-align: center;">
 <img src="media/image/icon/logo1.png" alt="Towns.cz logo" width="100"/><br/>
-{{MESSAGES.pages.projects.new_version}}</h2>
+{{MESSAGES.pages.projects.info}}</h2>
 
 
 
 <p style="text-align: center;">
-  {{MESSAGES.pages.projects.info}}
+  {{MESSAGES.pages.projects.info_sub}}
 
 </p>
 
