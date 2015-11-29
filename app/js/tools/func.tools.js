@@ -48,6 +48,13 @@ function debounce(func, wait, immediate) {
 
 //======================================================================================================================
 
+
+function changeLanguage(LANGUAGE){
+    setCookie('LANGUAGE',LANGUAGE);
+    location.reload();
+}
+//======================================================================================================================
+
 function setCookie(cname, cvalue, exdays) {
     exdays=cParam(exdays,356*5);
 
