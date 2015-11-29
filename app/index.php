@@ -123,6 +123,7 @@ function tidyHTML($buffer) {
     <script>
         var LANGUAGE='<?=$LANGUAGE?>';
     </script>
+    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-dist')?>/php/locale.php?LANGUAGE=<?=$LANGUAGE?>"></script>
 
     <?php
     //--------------------------------Includes

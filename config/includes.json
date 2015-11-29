@@ -75,7 +75,6 @@
 
 
     "app/js/inits/main.init.js",
-    "app/js/inits/locale.init.js",
     "app/js/inits/game.init.js",
     "app/js/inits/graphic.init.js",
     "app/js/inits/sound.init.js",

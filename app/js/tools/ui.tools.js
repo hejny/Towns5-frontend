@@ -46,7 +46,9 @@ window.window_open = function(page){
 
         //r(content[i]);
         content[i]=content[i].split('}}');
-        //r(content[i]);
+
+
+        //r('eval ','content[i][0]='+content[i][0]+';');
 
         eval('content[i][0]='+content[i][0]+';');
         content[i]=content[i].join('');
