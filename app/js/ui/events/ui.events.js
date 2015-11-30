@@ -245,10 +245,16 @@ window.uiScript = function(){
         buildingUpdate();
     });
 
+    $('#selecting-distance-color').unbind('click').click(function(){
+        $('#color-ctl').toggle();
+
+    });
+
     $('#selecting-distance-close').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
         $('#popup-action').hide();
+        $('#color-ctl').hide();
     });
 
 
@@ -314,6 +320,40 @@ window.mapSpecialCursorStop = function(){
 };
 
 
+//======================================================================================================================
+/*
+ ███████╗██████╗ ███████╗ ██████╗██╗ █████╗ ██╗          ██████╗██╗   ██╗██████╗ ███████╗ ██████╗ ██████╗
+ //todo ASCII
+ ╚══════╝╚═╝     ╚══════╝ ╚═════╝╚═╝╚═╝  ╚═╝╚══════╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝
+ */
+
+
+$(function() {
+
+    $('#selecting-distance-color-box').farbtastic(maxFreq(function (color) {
+
+        r(color);
+        selected_color = color;
+        $('#selecting-distance-color').css('background-color', selected_color);
+
+        buildingUpdate();
+
+    }, 200));
+
+    /*('#selecting-distance-color-input');
+     picker.setColor(selected_color); //set initial color
+     picker.linkTo(function(){
+
+
+
+     r(selected_color);
+
+
+     $('#selecting-distance-color').css('selected_color',selected_color);
+
+
+     }); //link to callback*/
+});
 
 //======================================================================================================================
 /*

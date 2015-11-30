@@ -48,6 +48,31 @@ function debounce(func, wait, immediate) {
 
 //======================================================================================================================
 
+function maxFreq(func, maxwait) {
+    var timeout,time_started=0;
+
+    return function() {
+        var context = this, args = arguments;
+
+        var wait = maxwait - (Date.now()-time_started);
+        if(wait<1)wait=1;
+
+        var later = function() {
+            timeout = null;
+            func.apply(context, args);
+        };
+
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        time_started=Date.now();
+
+
+    };
+}
+
+
+//======================================================================================================================
+
 
 function changeLanguage(LANGUAGE){
     setCookie('LANGUAGE',LANGUAGE);

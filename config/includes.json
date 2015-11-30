@@ -27,6 +27,7 @@
 
 
 
+    "app/js/tools/farbtastic.tools.js",
     "app/js/tools/func.tools.js",
     "app/js/tools/model.tools.js",
     "app/js/tools/canvas.tools.js",
@@ -87,6 +88,8 @@
   "css": [
     "app/css/style.css",
 
+
+    "app/css/farbtastic.css",
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
     "node_modules/font-awesome-animation/src/font-awesome-animation.css"

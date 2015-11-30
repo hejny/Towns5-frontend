@@ -552,6 +552,25 @@ $(function() {
                 delete tmp.rot;
                 delete tmp.size;
 
+
+                if(tmp.group){
+
+                    tmp.res=Model.model2array(tmp.res);
+                    tmp.res=Model.arrayCompileRotSize(tmp.res);
+
+                    for(var i in tmp.res.colors){
+                        tmp.res.colors[i]=selected_color.substr(1);
+                    }
+
+
+                    tmp.res=Model.array2model(tmp.res);
+
+
+
+                }
+
+
+
                 create(tmp);
 
 
