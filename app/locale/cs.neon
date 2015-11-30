@@ -35,7 +35,8 @@ ui:
         buildings:
             _name: Budovy
             main: Zakladni
-            walls: Hradby
+            wall: Hradby
+            block: Bloky
             dismantle: Zbourat
 
         stories:

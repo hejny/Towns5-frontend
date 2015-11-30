@@ -40,13 +40,11 @@ function storyWriteStart(storyType){
     $('#map_drag').css('cursor','Crosshair');
 
 
-    $('#selecting-distance-ctl').css('background','');
-
-    $('#selecting-distance-ctl').show();
-    $('#selecting-distance-left').hide();
-    $('#selecting-distance-right').hide();
-    $('#selecting-distance-plus').hide();
-    $('#selecting-distance-minus').hide();
+    $('#selecting-distance-ctl').css('background','');//neutral background
+    $('#selecting-distance-ctl').show();//showing toolbar control
+    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    //showing buttons used by actual tool
+    $('#selecting-distance-close').show();
 
 
 }

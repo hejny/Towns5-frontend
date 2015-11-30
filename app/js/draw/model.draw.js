@@ -25,8 +25,13 @@
  * @param {number} y_begin Canvas top
  * @param {number} rot 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
+ * @param {string} force color - format #ff00ff
  */
-this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
+this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope, force_color) {
+
+
+    force_color=cParam(force_color,false);
+
     //todo delat kontrolu vstupnich parametru u funkci???
 
 
@@ -44,10 +49,20 @@ this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
 
     //------------------------Prirazeni barev k polygonum pred serazenim
 
-    for(var i= 0,l=res['polygons'].length;i<l;i++){
+    if(force_color==false){
 
-        res['polygons'][i]['color']=res['colors'][i];
+        for(var i= 0,l=res['polygons'].length;i<l;i++){
+
+            res['polygons'][i]['color']=res['colors'][i];
+        }
+
+    }else{
+
+        var color = force_color;
+        color = hexToRgb(color);
+
     }
+
 
     //------------------------Seřazení bodů
 
@@ -155,8 +170,11 @@ this.Model.draw = function(ctx, res, s, x_begin, y_begin, rot, slope) {
             }
         }
 
-        var color = res['polygons'][i2]['color'];
-        color = hexToRgb('#' + color);
+        if(force_color==false){
+            var color = res['polygons'][i2]['color'];
+            color = hexToRgb('#' + color);
+        }
+
 
         //------------------------Vystínování podle sklonu polygonu
 

@@ -84,9 +84,13 @@ function terrainChangeStart(terrain){
     //}
 
 
-    $('#selecting-distance-ctl').show();
-    $('#selecting-distance-left').hide();
-    $('#selecting-distance-right').hide();
+    $('#selecting-distance-ctl').show();//showing toolbar control
+    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    //showing buttons used by actual tool
+    $('#selecting-distance-plus').show();
+    $('#selecting-distance-minus').show();
+    $('#selecting-distance-close').show();
+
 
 
 

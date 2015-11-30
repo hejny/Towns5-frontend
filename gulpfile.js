@@ -152,7 +152,7 @@ gulp.task('production-build', [
     'production-index',
     'production-locale',
     'production-scripts',
-    //'production-images',
+    'production-images',
     //'production-sound',
     'production-styles',
     'production-fonts',
@@ -232,13 +232,14 @@ gulp.task('production-styles', function () {
         .pipe(gulp.dest('app-dist/css'));
 });
 
-// Obrazky - nateraz neaktivne
+// Obrazky - nateraz neaktivne //todo use in app
 gulp.task('production-images', function () {
     gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
         //.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true, multipass: true }))
         .pipe(gulp.dest('app-dist/media/image'));
 });
+
 
 // Zvuky - nateraz neaktivne
 gulp.task('production-sound', function () {

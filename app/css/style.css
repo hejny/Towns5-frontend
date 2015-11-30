@@ -292,6 +292,17 @@ input, textarea {
 }
 
 
+#color-ctl{
+    position:absolute;
+    top:150px;
+    left:70px;
+    /*padding: 4px;
+    background-color: #444444;
+    box-shadow: #000000 0 0 3px 0;
+    border-radius: 3px;*/
+    z-index: 3600;
+}
+
 
 /* MENU --------------------------------------------------------------------------------------------------------------*/
 

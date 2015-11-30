@@ -15,6 +15,8 @@
 //======================================================================================================================
 
 
+error_reporting(E_ALL & ~E_NOTICE);
+
 
 //----------------------------------------load $LANGUAGE and $MESSAGES
 
@@ -36,6 +38,29 @@ if(!file_exists($file)) {
 $MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
 //print_r($MESSAGES);
 
+function message($path){
+    global $MESSAGES;
+
+    $eval='$value=$MESSAGES["'.str_replace('.','"]["',$path).'"];';
+
+
+    //echo($eval);
+
+    try {
+        eval($eval);
+    }catch (Exception $err){
+
+    }
+
+
+    if(!isset($value)){
+        $value=$path;
+    }
+
+    return $value;
+
+}
+
 //----------------------------------------
 
 
@@ -44,10 +69,10 @@ $MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 
 $page=[];
-$page['title'] = $MESSAGES['page']['title'];
-$page['description'] = $MESSAGES['page']['description'];
+$page['title'] = message('page.title');
+$page['description'] = message('page.description');
 $page['meta_og'] = [
-    'site_name' => $MESSAGES['page']['title'],
+    'site_name' => message('page.title'),
     'title' => $page['title'],
     'description' => $page['description'],
     'type' => 'game'
@@ -210,8 +235,8 @@ function tidyHTML($buffer) {
 <!--Example of user prompt-->
 <div id="eu_cookies">
     <div id="eu_cookies_inner">
-        <?=$MESSAGES['ui']['prompts']['cookies']?>
-        <button class="micro-button"><?=$MESSAGES['ui']['buttons']['agree']?></button>
+        <?=message('ui.prompts.cookies')?>
+        <button class="micro-button"><?=message('ui.buttons.agree')?></button>
     </div>
 </div>
 
@@ -234,12 +259,19 @@ function tidyHTML($buffer) {
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['plus']?>"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['minus']?>"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['left']?>"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['right']?>"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-close" class="mini-button" title="<?=$MESSAGES['ui']['tool_controls']['close']?>"><i class="fa fa-times"></i></div>
+    <div id="selecting-distance-plus" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.plus')?>"><i class="fa fa-plus faa-tada"></i></div>
+    <div id="selecting-distance-minus" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.minus')?>"><i class="fa fa-minus faa-tada"></i></div>
+    <div id="selecting-distance-left" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.left')?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right faa-tada"></i></i></div>
+    <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.color')?>"><i class="fa fa-paint-brush faa-tada"></i>
+    </div>
+    <div id="selecting-distance-close" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times faa-tada"></i></div>
+</div>
 
+
+<div id="color-ctl" style="display: none;">
+
+    <div id="selecting-distance-color-box"></div>
 </div>
 
 
@@ -247,7 +279,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img src="media/image/icon/logo1.png" alt="<?=$MESSAGES['ui']['title']?>"/>
+        <img src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
 
     </div>
 
@@ -255,31 +287,32 @@ function tidyHTML($buffer) {
     <ul class="menu-list menu-list-left">
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['nature']['_name']?></a>
+            <a href="#"><?=message('ui.menu.nature._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;"><?=$MESSAGES['ui']['menu']['nature']['types']?></a></li>
-                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;"><?=$MESSAGES['ui']['menu']['nature']['neutralize']?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;"><?=message('ui.menu.nature.types')?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;"><?=message('ui.menu.nature.neutralize')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['buildings']['_name']?></a>
+            <a href="#"><?=message('ui.menu.buildings._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;"><?=$MESSAGES['ui']['menu']['buildings']['main']?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;"><?=$MESSAGES['ui']['menu']['buildings']['walls']?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;"><?=$MESSAGES['ui']['menu']['buildings']['dismantle']?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;"><?=message('ui.menu.buildings.wall')?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
+                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['stories']['_name']?></a>
+            <a href="#"><?=message('ui.menu.stories._name')?></a>
 
             <ul class="menu-dlist">
                 <li class="menu-dlist-item">
 
-                    <a href="#" onclick="objectMenuStory();return false;"><?=$MESSAGES['ui']['menu']['stories']['write']?></a>
+                    <a href="#" onclick="objectMenuStory();return false;"><?=message('ui.menu.stories.write')?></a>
 
 
 
@@ -288,7 +321,7 @@ function tidyHTML($buffer) {
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['messages']['_name']?></a>
+            <a href="#"><?=message('ui.menu.messages._name')?></a>
 
             <ul class="menu-dlist">
             </ul>
@@ -296,12 +329,12 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['map']['_name']?></a>
+            <a href="#"><?=message('ui.menu.map._name')?></a>
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;"><?=$MESSAGES['ui']['menu']['map']['screenshot']?></a></li>
-                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;"><?=$MESSAGES['ui']['menu']['map']['restart']?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;"><?=message('ui.menu.map.screenshot')?></a></li>
+                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;"><?=message('ui.menu.map.restart')?></a></li>
 
 
             </ul>
@@ -310,7 +343,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#"><?=$MESSAGES['ui']['menu']['blog']['_name']?></a>
+            <a href="#"><?=message('ui.menu.blog._name')?></a>
 
             <ul class="menu-dlist" id="menu-feed">
                 <!--This content will be loaded by js-->
@@ -333,7 +366,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="projects" href="#"><?=$MESSAGES['ui']['buttons']['about_game']?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" content="projects" href="#"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
@@ -390,7 +423,7 @@ function tidyHTML($buffer) {
 
     </div>
     <div class="footer">
-        <a href="#"><?=$MESSAGES['ui']['notifications']['all_notifications']?></a>
+        <a href="#"><?=message('ui.notifications.all_notifications')?></a>
     </div>
 </div>
 
