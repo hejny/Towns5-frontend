@@ -127,17 +127,17 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
             ];
 
-            var i=resource.points;
+            var i=resource.points.length;
             addPoints.forEach(function(point){
                 resource.points.push(point);
             });
 
             for(var poly_i in addPolygns){
                 for(var point_i in addPolygns[poly_i])
-                    addPolygns[poly_i][point_i]+=i;
+                    addPolygns[poly_i][point_i]+=i-1;
 
                 resource.polygons.push(addPolygns[poly_i]);
-                resource.color.push(particle.color);
+                resource.colors.push(particle.color);
             }
 
 
@@ -155,6 +155,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     });
 
+    r(resource);
+
     //------------------------Prirazeni barev k polygonum pred serazenim
 
     if(force_color==false){
@@ -171,10 +173,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     }
 
+    r(resource);
 
     //------------------------Seřazení bodů
 
-    res['polygons'].sort(function (a, b) {
+    resource['polygons'].sort(function (a, b) {
         var sum,cnt;
 
         var polygons=[a,b];
@@ -186,11 +189,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             cnt = 0;
             for (var i in polygons[polygon]) {
 
-                if(i!='color' && is(res['points'][polygons[polygon][i]])) {
+                if(i!='color' && is(resource['points'][polygons[polygon][i]])) {
 
-                    sum += res['points'][polygons[polygon][i]][0] * slope_m
-                    +  res['points'][polygons[polygon][i]][1] * slope_m
-                    +  res['points'][polygons[polygon][i]][2] * slope_n;
+                    sum += resource['points'][polygons[polygon][i]][0] * slope_m
+                    +  resource['points'][polygons[polygon][i]][1] * slope_m
+                    +  resource['points'][polygons[polygon][i]][2] * slope_n;
                     cnt++;
                 }
 
@@ -215,12 +218,12 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     //==========================================================================================stín
 
 
-    for (var i2 = 0, l2 = res['polygons'].length; i2 < l2; i2++) {
+    for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
 
         var tmppoints = [];
 
-        for (var i3 = 0, l3 = res['polygons'][i2].length; i3 < l3; i3++) {
+        for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
 
 
             if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
@@ -260,11 +263,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     }
 
     //==========================================================================================Vykreslení­ polygonů
-    for (var i2 = 0, l2 = res['polygons'].length; i2 < l2; i2++) {
+    for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
         tmppoints = [];
         i = 0;
-        for (var i3 = 0, l3 = res['polygons'][i2].length; i3 < l3; i3++) {
+        for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
             if (is(resource['points'][resource['polygons'][i2][i3]])) {
 
                 x = resource['points'][resource['polygons'][i2][i3]][0]-50;
