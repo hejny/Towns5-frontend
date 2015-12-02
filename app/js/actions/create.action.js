@@ -166,7 +166,7 @@ function createBuilding(object){
 
 
 
-            if(is(map_object_changes[distances[0].i].res_node)) {
+            /*if(is(map_object_changes[distances[0].i].res_node)) {
 
                 map_object_changes[distances[0].i].res=map_object_changes[distances[0].i].res_node;
                 //delete map_object_changes[distances[0].i].res_node;
@@ -174,7 +174,7 @@ function createBuilding(object){
 
             }
 
-            if(is(object.res_node)) {
+            if(object.subtype=='wall') {
 
 
 
@@ -204,7 +204,7 @@ function createBuilding(object){
 
             //todo vyresit spojovani ruzne velkych budov
 
-            return(object.id);
+            return(object.id);*/
 
         }
 
