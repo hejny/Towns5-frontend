@@ -24,12 +24,11 @@
 
     "app/js/classes/path.class.js",
     "app/js/classes/position.class.js",
-
+    "app/js/classes/model.class.js",
 
 
     "app/js/tools/farbtastic.tools.js",
     "app/js/tools/func.tools.js",
-    "app/js/tools/model.tools.js",
     "app/js/tools/canvas.tools.js",
     "app/js/tools/log.tools.js",
     "app/js/tools/map-func.tools.js",
@@ -63,7 +62,6 @@
 
 
     "app/js/draw/map.draw.js",
-    "app/js/draw/model.draw.js",
     "app/js/draw/map-objects.draw.js",
     "app/js/draw/map-objects-html.draw.js",
 
@@ -77,6 +75,7 @@
 
     "app/js/inits/main.init.js",
     "app/js/inits/game.init.js",
+    "app/js/inits/object-prototypes.init.js",
     "app/js/inits/graphic.init.js",
     "app/js/inits/sound.init.js",
     "app/js/inits/map-move.ctl.init.js",
