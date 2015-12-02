@@ -6,8 +6,8 @@ var Model = function (json){
     this.rotation=json.rotation;
     this.size=json.size;
 
-    if(is(this.rotation))this.rotation=0;
-    if(is(this.size))this.size=1;
+    if(!is(this.rotation))this.rotation=0;
+    if(!is(this.size))this.size=1;
 };
 //==================================================
 
@@ -28,9 +28,45 @@ Model.prototype.addRotationSize = function(rotation,size){
 
 Model.prototype.compileRotationSize = function(){
 
+    r('compileRotationSize',this.rotation,this.size);
     //todo
+
+
+    for(var i in this.particles){
+
+        //r(this.particles[i].position);
+        var distDeg = Math.xy2distDeg(this.particles[i].position.x,this.particles[i].position.y);
+
+        distDeg.dist=distDeg.dist*this.size;
+        distDeg.deg+=this.rotation;
+
+        //r(distDeg);
+
+        var xy = Math.distDeg2xy(distDeg.dist,distDeg.deg);
+
+        //r(xy);
+        //r(this.particles[i].position.z,this.size);
+
+        this.particles[i].rotation.xy+=this.rotation;
+
+        this.particles[i].position.x=xy.x;
+        this.particles[i].position.y=xy.y;
+        this.particles[i].position.z=this.particles[i].position.z*this.size;
+
+
+        this.particles[i].size.x=this.particles[i].size.x*this.size;
+        this.particles[i].size.y=this.particles[i].size.y*this.size;
+        this.particles[i].size.z=this.particles[i].size.z*this.size;
+
+
+
+    }
+
+
+
+
     this.rotation=0;
-    this.size=0;
+    this.size=1;
 
 };
 
@@ -40,10 +76,21 @@ Model.prototype.compileRotationSize = function(){
 
 Model.prototype.joinModel = function(model){
 
-    this.compileRotationSize();
-    model.compileRotationSize();
+    var  model_=deepCopy(model);
 
-    this.particles=this.particles.concat(model.particles);
+
+    for(var i in model_.particles){
+
+
+        model_.particles[i].position.z+=100;
+
+    }
+
+
+    this.compileRotationSize();
+    model_.compileRotationSize();
+
+    this.particles=this.particles.concat(model_.particles);
 
 };
 
@@ -77,8 +124,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
     var slnko = 50;
 
-    this.addRotationSize(rotation-45,s);
-    this.compileRotationSize();
+
+    var this_=deepCopy(this);
+
+    this_.addRotationSize(rotation,s);
+    this_.compileRotationSize();
 
     //---------------------------------------------Create empty Towns4 3DModel Array
 
@@ -91,9 +141,9 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
 
-    this.particles.forEach(function(particle){
+    this_.particles.forEach(function(particle){
 
-        r(particle);
+        //r(particle);
 
         if(particle.shape=='cube'){
 
@@ -102,20 +152,20 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             var y=particle.position.y;
             var z=particle.position.z;
 
-            var x_=Math.sin(Math.deg2rad(particle.rotation.xy))*particle.size.x;
-            var y_=Math.cos(Math.deg2rad(particle.rotation.xy))*particle.size.y;
+            var x_=Math.cos(Math.deg2rad(particle.rotation.xy))*particle.size.x;
+            var y_=Math.sin(Math.deg2rad(particle.rotation.xy))*particle.size.y;
             var z_=particle.size.z;
 
 
             var addPoints=[
                 [x+x_,y+y_,z],
-                [x-x_,y+y_,z],
+                [x-y_,y+x_,z],
                 [x-x_,y-y_,z],
-                [x+x_,y-y_,z],
+                [x+y_,y-x_,z],
                 [x+x_,y+y_,z+z_],
-                [x-x_,y+y_,z+z_],
+                [x-y_,y+x_,z+z_],
                 [x-x_,y-y_,z+z_],
-                [x+x_,y-y_,z+z_]
+                [x+y_,y-x_,z+z_]
             ];
             var addPolygns=[
                 //[1234]
@@ -155,7 +205,10 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     });
 
-    r(resource);
+    delete this_;//todo deep delete
+
+
+    //r(resource);
 
     //------------------------Prirazeni barev k polygonum pred serazenim
 
@@ -173,7 +226,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     }
 
-    r(resource);
+    //r(resource);
 
     //------------------------Seřazení bodů
 
