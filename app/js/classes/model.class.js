@@ -126,6 +126,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
 
     var this_=deepCopy(this);
+    //r(this_);
 
     this_.addRotationSize(rotation,s);
     this_.compileRotationSize();
@@ -427,7 +428,10 @@ Model.prototype.createIcon = function(size){
     canvas.width = size;
     var context = canvas.getContext('2d');
 
-    this.draw(context, 0.3, size/2, size*(4/5), 10, 35);
+    //r(context);
+    this.draw(context, 0.5, size*(1/2), size*2 , 10, 35);
+
+    //r(canvas.toDataURL());
 
     return(canvas.toDataURL());
 
