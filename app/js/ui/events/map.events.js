@@ -546,17 +546,16 @@ $(function() {
                 tmp.y=mapPos.y;
 
 
-                tmp.res = Model.addRotSize(tmp.res, tmp.rot, tmp.size);
+                tmp.design.data.addRotationSize(tmp.rot, tmp.size);
 
 
                 delete tmp.rot;
                 delete tmp.size;
 
 
-                if(tmp.group){
+                /*if(tmp.subtype==){//todo wtf
 
-                    tmp.res=Model.model2array(tmp.res);
-                    tmp.res=Model.arrayCompileRotSize(tmp.res);
+                    tmp.design.data.arrayCompileRotSize(tmp.res);
 
                     for(var i in tmp.res.colors){
                         tmp.res.colors[i]=selected_color.substr(1);
@@ -567,8 +566,7 @@ $(function() {
 
 
 
-                }
-
+                }*/
 
 
                 create(tmp);

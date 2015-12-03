@@ -299,8 +299,8 @@ function tidyHTML($buffer) {
             <a href="#"><?=message('ui.menu.buildings._name')?></a>
 
             <ul class="menu-dlist">
-<!--                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;"><?/*=message('ui.menu.buildings.main')*/?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;"><?/*=message('ui.menu.buildings.wall')*/?></a></li>-->
+                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
+                <!--<li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;"><?/*=message('ui.menu.buildings.wall')*/?></a></li>-->
                 <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
                 <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
             </ul>

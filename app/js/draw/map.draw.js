@@ -310,7 +310,7 @@ function drawMap() {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             map_data[i].type,
-            map_data[i].type == 'story' ? map_data[i].content : map_data[i].res/*todo refactor to design*/,
+            map_data[i].type == 'story' ? map_data[i].content : map_data[i].design.data,
             object_screen_x,
             object_screen_y,
             ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120 + 10 * map_model_size)
@@ -391,7 +391,7 @@ function drawMap() {
         } else if (map_draw[i][0] == 'building') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~building
 
-            Model.draw(map_ctx, map_draw[i][1], map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            map_draw[i][1].draw(map_ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         } else if (map_draw[i][0] == 'ellipse') {
 
