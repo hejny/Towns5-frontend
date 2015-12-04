@@ -286,8 +286,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
 
                 var z = Math.abs(resource['points'][resource['polygons'][i2][i3]][2]);
-                var x =          resource['points'][resource['polygons'][i2][i3]][0]-50 + z / 1.5;
-                var y =          resource['points'][resource['polygons'][i2][i3]][1]-50 - z / 1.5 / 2;
+                var x =          resource['points'][resource['polygons'][i2][i3]][0] + z / 1.5;
+                var y =          resource['points'][resource['polygons'][i2][i3]][1] - z / 1.5 / 2;
 
 
                 var xx = x * 1 - (y * 1);
@@ -327,8 +327,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
         for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
             if (is(resource['points'][resource['polygons'][i2][i3]])) {
 
-                x = resource['points'][resource['polygons'][i2][i3]][0]-50;
-                y = resource['points'][resource['polygons'][i2][i3]][1]-50;
+                x = resource['points'][resource['polygons'][i2][i3]][0];
+                y = resource['points'][resource['polygons'][i2][i3]][1];
                 z = resource['points'][resource['polygons'][i2][i3]][2];
                 xx = x * 1 - (y * 1);
                 yy = x * slope_m + y * slope_m - (z * slope_n);
@@ -432,7 +432,7 @@ Model.prototype.createIcon = function(size){
     var context = canvas.getContext('2d');
 
     //r(context);
-    this.draw(context, 0.5, size*(1/2), size*2 , 10, 35);
+    this.draw(context, 0.5, size*(1/2), size*(2/3) , 10, 35);
 
     //r(canvas.toDataURL());
 
