@@ -114,7 +114,7 @@ function createBuilding(object){
 
         });
 
-        if(1){
+        if(0){
 
             delete map_object_changes[distances[0].i];
             map_object_changes[distances[0].i]=object;
@@ -128,9 +128,9 @@ function createBuilding(object){
                 //delete map_object_changes[distances[0].i].res_node;
 
 
-            }
+            }*/
 
-            if(object.subtype=='wall') {
+            /*if(object.subtype=='wall') {
 
 
 
@@ -144,23 +144,19 @@ function createBuilding(object){
 
                 }
 
-            }
+            }*/
 
-            map_object_changes[distances[0].i].res=
-                Model.model2model(
-                    map_object_changes[distances[0].i].res
-                    ,object.res
-                    ,false
-                    ,(object.x-map_object_changes[distances[0].i].x)*100/map_model_size
-                    ,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size
+            map_object_changes[distances[0].i].design.data.joinModel(
+                    object.design.data
+                    /*,(object.x-map_object_changes[distances[0].i].x)*100/map_model_size
+                    ,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size*/
                 );
 
-            delete map_object_changes[distances[0].i].res_node;
-            delete map_object_changes[distances[0].i].res_path;
+            /*delete map_object_changes[distances[0].i].res_node;
+            delete map_object_changes[distances[0].i].res_path;*/
 
-            //todo vyresit spojovani ruzne velkych budov
 
-            return(object.id);*/
+            return(object.id);
 
         }
 
