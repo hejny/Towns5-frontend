@@ -35,14 +35,14 @@ function objectsHTML(objects) {
 
 
 
-            var res_moving=Model.rewriteRot(objects[i].res,objects[i].path.rotation());
-
+            var model_moving=deepCopyModel(objects[i].design.data);//Model.rewriteRot(objects[i].res,objects[i].path.rotation());
+            model_moving.rotation=objects[i].path.rotation();
 
 
         }else{
 
             notMoving=true;
-            var res_moving=map_object_changes[i].res;
+            var model_moving=objects[i].design.data;
 
         }
         //-----------------------------------------
@@ -83,7 +83,7 @@ function objectsHTML(objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            res_moving,
+            model_moving,
             object_screen_x,
             object_screen_y,
             ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
@@ -127,7 +127,7 @@ function objectsHTML(objects) {
         if (draw_item[0] == 'building') {
 
             var img = new Image(x_size/*todo refactor*/, y_size);
-            img.src = Model.createSrc(draw_item[1], map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);/*todo cache SRCs*/
+            img.src = draw_item[1].createSrc( map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);/*todo cache SRCs*/
 
             $(img).css('position','absolute');
             $(img).addClass('moving-object');

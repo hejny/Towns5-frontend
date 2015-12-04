@@ -31,9 +31,7 @@ Model.prototype.addRotationSize = function(rotation,size){
 
 Model.prototype.compileRotationSize = function(){
 
-    r('compileRotationSize',this.rotation,this.size);
-    //todo
-
+    //r('compileRotationSize',this.rotation,this.size);
 
     for(var i in this.particles){
 
@@ -79,13 +77,27 @@ Model.prototype.compileRotationSize = function(){
 
 Model.prototype.joinModel = function(model){
 
+
+    var tmp_z,max_z=0;
+    for(var i in this.particles){
+
+
+        tmp_z=this.particles[i].position.z+this.particles[i].size.z;
+        if(tmp_z>max_z)max_z=tmp_z;
+
+    }
+
+
+
+
+
     var  model_=deepCopyModel(model);
 
 
     for(var i in model_.particles){
 
 
-        model_.particles[i].position.z+=100;
+        model_.particles[i].position.z+=tmp_z;
 
     }
 
