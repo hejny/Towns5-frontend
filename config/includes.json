@@ -50,7 +50,7 @@
 
     "app/js/ui/menu/story.menu.js",
     "app/js/ui/menu/object.menu.js",
-    "app/js/ui/menu/unique.menu.js",
+    "app/js/ui/menu/buildings-prototypes.menu.js",
     "app/js/ui/menu/terrain.menu.js",
 
 
@@ -75,7 +75,8 @@
 
     "app/js/inits/main.init.js",
     "app/js/inits/game.init.js",
-    "app/js/inits/object-prototypes.init.js",
+    "app/js/inits/objects-prototypes.init.js",
+    "app/js/inits/objects.init.js",
     "app/js/inits/graphic.init.js",
     "app/js/inits/sound.init.js",
     "app/js/inits/map-move.ctl.init.js",

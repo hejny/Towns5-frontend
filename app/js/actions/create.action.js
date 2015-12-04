@@ -12,50 +12,6 @@
 
  */
 
-
-//======================================================================================================================
-
-
-//----------------Změny kumulované uživatelem na objektech (budovy, pribehy,...)
-
-
-var map_object_changes=Storage.load('map_object_changes','[]');
-
-/*var map_object_changes_=map_object_changes;
-setTimeout(function(){
-    window_open('',map_object_changes_);
-},2000);*/
-
-
-
-try {
-    map_object_changes=JSON.parse(map_object_changes);
-}
-catch(err) {
-    map_object_changes=[];
-}
-
-//----------------
-
-function saveMapObjectChangesToStorage(){
-
-    Storage.save('map_object_changes',JSON.stringify(map_object_changes));
-}
-
-//----------------
-
-function saveMapTerrainChangesToStorage(){
-
-    Storage.save('map_terrain_changes',JSON.stringify(map_terrain_changes));
-}
-
-
-//----------------
-
-
-var map_object_changes_buffer=[];//Preview eg. walls
-var map_object_changes_move=[];//Moving objects
-
 //======================================================================================================================
 
 
@@ -158,7 +114,7 @@ function createBuilding(object){
 
         });
 
-        if(0){
+        if(1){
 
             delete map_object_changes[distances[0].i];
             map_object_changes[distances[0].i]=object;
@@ -226,7 +182,7 @@ function createBuilding(object){
 function createStory(object){
 
     object.id=generateID();
-    map_object_changes.push(deepCopy(object));
+    map_object_changes.push(deepCopyObject(object));
 
     return(object.id);
 

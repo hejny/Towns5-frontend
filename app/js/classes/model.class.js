@@ -2,6 +2,9 @@
 
 
 var Model = function (json){
+
+    if(typeof(json)=='undefined')return false;
+
     this.particles=json.particles;
     this.rotation=json.rotation;
     this.size=json.size;
@@ -76,7 +79,7 @@ Model.prototype.compileRotationSize = function(){
 
 Model.prototype.joinModel = function(model){
 
-    var  model_=deepCopy(model);
+    var  model_=deepCopyModel(model);
 
 
     for(var i in model_.particles){
@@ -125,7 +128,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     var slnko = 50;
 
 
-    var this_=deepCopy(this);
+    var this_=deepCopyModel(this);
     //r(this_);
 
     this_.addRotationSize(rotation,s);
