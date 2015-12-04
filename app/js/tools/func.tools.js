@@ -294,23 +294,39 @@ function isNotType(val){
 
 //----------------------------------------------------------
 
-function deepCopy(oldObject){
 
-    //todo je to spravne?
-    if (typeof oldObject=='object') {
-        // Shallow copy
-        //var newObject = jQuery.extend({}, oldObject);
+function deepCopy(oldObject) {
 
-        // Deep copy
-        var newObject = jQuery.extend(true, {}, oldObject);
 
-            return(newObject);
-    }else{
-        return(oldObject);
-
-    }
+    return JSON.parse(JSON.stringify(oldObject));
 
 }
+
+
+
+function deepCopyObject(oldObject) {
+
+
+    var newObject = deepCopy(oldObject);
+
+    newObject.design.data = new Model(newObject.design.data);
+
+    return(newObject);
+
+}
+
+
+function deepCopyModel(oldObject) {
+
+
+    var newObject = deepCopy(oldObject);
+
+    newObject = new Model(newObject);
+
+    return(newObject);
+
+}
+
 
 //======================================================================================================================
 /*

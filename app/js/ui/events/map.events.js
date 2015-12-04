@@ -252,10 +252,10 @@ $(function() {
 
             if(e.deltaY>0){
                 //todo sounds ion.sound.play("door_bump");
-                building.rot+=10;
+                building.design.data.rotation+=10;
             }else{
                 //todo sounds ion.sound.play("door_bump");
-                building.rot-=10;
+                building.design.data.rotation-=10;
             }
 
             //r(building.rot);
@@ -540,17 +540,15 @@ $(function() {
                 $('#loading').hide();
 
 
-                var tmp=jQuery.extend({}, building);
+                var tmp=deepCopyObject(building);
 
                 tmp.x=mapPos.x;
                 tmp.y=mapPos.y;
 
 
-                tmp.design.data.addRotationSize(tmp.rot, tmp.size);
+                tmp.design.data.compileRotationSize();
 
 
-                delete tmp.rot;
-                delete tmp.size;
 
 
                 /*if(tmp.subtype==){//todo wtf

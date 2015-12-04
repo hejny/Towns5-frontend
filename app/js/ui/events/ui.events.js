@@ -203,10 +203,10 @@ window.uiScript = function(){
     //todo sounds ion.sound.play("door_bump");
 
         if(building){
-            building.size+=0.1;
-            if(building.size>2.5)building.size=2.5;//todo funkce pro bounds
+            building.design.data.size+=0.1;
+            if(building.design.data.size>2.5)building.design.data.size=2.5;//todo funkce pro bounds
 
-            r(building.size);
+            r(building.design.data.size);
 
             buildingUpdate();
         }else{
@@ -221,10 +221,10 @@ window.uiScript = function(){
 
 
         if(building){
-            building.size-=0.1;
-            if(building.size<0.5)building.size=0.5;
+            building.design.data.size-=0.1;
+            if(building.design.data.size<0.5)building.design.data.size=0.5;
 
-            r(building.size);
+            r(building.design.data.size);
 
             buildingUpdate();
         }else{
@@ -235,13 +235,13 @@ window.uiScript = function(){
 
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.rot-=10;
+        building.design.data.rotation-=10;
         buildingUpdate();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.rot+=10;
+        building.design.data.rotation+=10;
         buildingUpdate();
     });
 
