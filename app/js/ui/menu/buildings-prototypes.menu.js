@@ -48,11 +48,11 @@ function buildingStart(object){
     $('#selecting-distance-ctl').show();//showing toolbar control
     $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
     //showing buttons used by actual tool
-    if(object.group!='wall')$('#selecting-distance-right').show();//todo refactor group to subtype
-    if(object.group!='wall')$('#selecting-distance-left').show();
+    if(object.subtype!='wall')$('#selecting-distance-right').show();//todo refactor group to subtype
+    if(object.subtype!='wall')$('#selecting-distance-left').show();
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
-    if(object.group=='block')$('#selecting-distance-color').show();
+    if(object.subtype=='block')$('#selecting-distance-color').show();
     $('#selecting-distance-close').show();
 
 
@@ -65,10 +65,12 @@ function buildingStart(object){
 
 function buildingUpdate(object){
 
+    r('buildingUpdate');
+
     selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,300 , 300 );
 
 
-    building.design.data.draw(selecting_distance_canvas_ctx,/*Model.addRotSize(building.res,(building.rot-map_rotation),building.size),*/map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,building.group=='block'?selected_color:false);
+    building.design.data.draw(selecting_distance_canvas_ctx,/*Model.addRotSize(building.res,(building.rot-map_rotation),building.size),*/map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,building.subtype=='block'?selected_color:false);
 
 
 }
