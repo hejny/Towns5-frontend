@@ -551,20 +551,15 @@ $(function() {
 
 
 
-                /*if(tmp.subtype==){//todo wtf
+                if(tmp.subtype=='block'){
 
-                    tmp.design.data.arrayCompileRotSize(tmp.res);
-
-                    for(var i in tmp.res.colors){
-                        tmp.res.colors[i]=selected_color.substr(1);
+                    for(var i in tmp.design.data.particles){
+                        tmp.design.data.particles[i].color=selected_color;
                     }
 
 
-                    tmp.res=Model.array2model(tmp.res);
 
-
-
-                }*/
+                }
 
 
                 create(tmp);

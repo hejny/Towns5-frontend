@@ -17,9 +17,8 @@
 
 
 function objectMenu(){
-    //r('objectMenu');
+    r('objectMenu');
 
-    return;//todo Use objectmenu??
 
     $('#objectmenu').stop(true,true);
 
@@ -48,18 +47,25 @@ function objectMenu(){
         var icon,content;
 
 
-        //r(map_data[i].func);
+        objectmenu+=objectmenu_template
+            .split('%icon').join('media/image/icon/f_upgrade.png')
+            .split('%content').join(htmlEncode(content));
 
-        for(var key in object_data.func){
 
 
-            icon='media/image/icon/f_'+(object_data.func[key].class)+'.png';
+
+        for(var key in object_data.actions){
+
+
+            icon='media/image/icon/f_'+(object_data.actions[key].class)+'.png';
             content='<h2>'+key+id+'</h2>' +
                 '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
                 '<button>Postaviť drist!</button>';
 
 
-            objectmenu+=objectmenu_template.split('%icon').join(icon).split('%content').join(htmlEncode(content));
+            objectmenu+=objectmenu_template
+                .split('%icon').join(icon)
+                .split('%content').join(htmlEncode(content));
 
             //$(objectmenu[i]).children('div').attr('content',content);
             //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
