@@ -30,7 +30,7 @@ function objectMenu(){
 
 
         //r(id)
-        var object_data;
+        var object_data; //todo id2i
         for(var i=0,l=map_data.length;i<l;i++){
 
             if(map_data[i].id==id){
@@ -49,7 +49,9 @@ function objectMenu(){
 
         objectmenu+=objectmenu_template
             .split('%icon').join('media/image/icon/f_upgrade.png')
-            .split('%content').join(htmlEncode(content));
+            .split('%title').join('Duplikat')//todo message
+            .split('%content').join(htmlEncode('co co'))//todo message
+            .split('%action').join(htmlEncode('alert(123);definePrototype(object_data);'));
 
 
 
