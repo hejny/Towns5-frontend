@@ -86,7 +86,15 @@ function createBuilding(object){
 
     for (var i = 0,l=map_object_changes.length; i < l; i++){
 
-        if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<0.7*map_model_size){
+        var bothDistances=0;
+
+        bothDistances+=map_object_changes[i].design.data.range('xy');
+        bothDistances+=object.design.data.range('xy');
+
+        bothDistances=bothDistances/2/map_field_size;//todo better
+
+
+        if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<bothDistances*map_model_size){
 
 
             distances.push({i: i,distance: distance});
@@ -152,6 +160,11 @@ function createBuilding(object){
                     ,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size*/
                 );
 
+            if(map_object_changes[distances[0].i].subtype=='block'){
+                r('Converting more blocks into building');
+                map_object_changes[distances[0].i].subtype='main';
+            }
+
             /*delete map_object_changes[distances[0].i].res_node;
             delete map_object_changes[distances[0].i].res_path;*/
 
@@ -181,6 +194,32 @@ function createStory(object){
     map_object_changes.push(deepCopyObject(object));
 
     return(object.id);
+
+}
+
+
+//======================================================================================================================
+
+
+//todo where this function should be?
+function definePrototype(objectReference,forceSubtype){
+    r('definePrototype');
+    r(objectReference);
+
+    var object=deepCopyObject(objectReference);
+
+    object.id=generateID();
+    delete object.x;
+    delete object.y;
+    //delete object.;//todo all not prototype parameters
+
+    if(is(forceSubtype)){
+        object.subtype=forceSubtype;
+    }
+
+    r(object);
+    objectPrototypes.push(object);
+
 
 }
 

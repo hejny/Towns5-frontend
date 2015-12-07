@@ -14,7 +14,7 @@
 
 function objectsDraw(ctx,objects) {
 
-    //r('objectsDraw',objects.length,objects);
+    r('objectsDraw',objects.length,objects);
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
@@ -50,10 +50,10 @@ function objectsDraw(ctx,objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            objects[i].res,
+            objects[i].design.data,
             object_screen_x,
             object_screen_y,
-            ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
+             object_screen_y + 120
         ]);
 
 
@@ -91,7 +91,7 @@ function objectsDraw(ctx,objects) {
         if (map_draw[i][0] == 'building') {
 
 
-            Model.draw(ctx, map_draw[i][1], map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            map_draw[i][1].draw(ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
 
         }
 

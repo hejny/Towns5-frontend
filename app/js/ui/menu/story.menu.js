@@ -6,7 +6,7 @@
 var storyPrototypes= {
 
     "story": {
-        "type": 'story',
+        "type": 'story',//todo create subtype
         "name": 'Jmeno',
         "content": {
             "type": 'markdown',
@@ -77,7 +77,7 @@ function objectMenuStory(){
 
     var objectmenu='';
 
-    var storyTypes=['story','image'];
+    var storyTypes=['story'/*,'image'*/];
 
     for(var key in storyTypes){
 

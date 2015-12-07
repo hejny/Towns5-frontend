@@ -309,7 +309,11 @@ function deepCopyObject(oldObject) {
 
     var newObject = deepCopy(oldObject);
 
-    newObject.design.data = new Model(newObject.design.data);
+    if(is(newObject.design))
+        newObject.design.data = new Model(newObject.design.data);
+
+    if(is(newObject.path))
+        newObject.path = new Path(newObject.path);
 
     return(newObject);
 

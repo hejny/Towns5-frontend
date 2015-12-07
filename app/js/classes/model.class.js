@@ -70,6 +70,44 @@ Model.prototype.compileRotationSize = function(){
     this.size=1;
 
 };
+//==================================================
+
+
+Model.prototype.range = function(dimension){
+
+    if(dimension=='xy'){
+
+        return Math.xy2dist(this.range('x'),this.range('y')*this.size);
+
+    }
+
+
+
+    var max=false,min=false,max_,min_;
+    for(var i in this.particles){
+
+
+        min_=this.particles[i].position[dimension];
+        max_=this.particles[i].position[dimension]+this.particles[i].size[dimension];
+
+        //todo feature reverse
+
+        if(max===false)max=max_;
+        if(min===false)min=min_;
+
+
+        if(max_>max)max=max_;
+        if(min_<min)min=min_;
+
+    }
+
+
+    return(Math.abs(min-max)/*this.size*/);//todo rotation
+
+
+
+};
+
 
 
 //==================================================
@@ -78,17 +116,7 @@ Model.prototype.compileRotationSize = function(){
 Model.prototype.joinModel = function(model){
 
 
-    var tmp_z,max_z=0;
-    for(var i in this.particles){
-
-
-        tmp_z=this.particles[i].position.z+this.particles[i].size.z;
-        if(tmp_z>max_z)max_z=tmp_z;
-
-    }
-
-
-
+    var max_z=this.range('z');
 
 
     var  model_=deepCopyModel(model);
@@ -97,7 +125,7 @@ Model.prototype.joinModel = function(model){
     for(var i in model_.particles){
 
 
-        model_.particles[i].position.z+=tmp_z;
+        model_.particles[i].position.z+=max_z;
 
     }
 

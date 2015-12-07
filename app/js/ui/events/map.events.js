@@ -830,6 +830,7 @@ $(function() {
 
 
     var buildingByDraggingPath=false;
+    var buildingByDraggingRange=false;
         //todo sjednotit nazyvani uhlu v rad a deg
 
     //----------------------------------------------------------------------------------mouseMove
@@ -841,7 +842,7 @@ $(function() {
         //if (buildingByDragging === false)r('buildingByDragging === false');
 
         if (building === false)return;
-        if (typeof building.res_path==='undefined')return;
+        if (building.subtype!='wall')return;
         if (buildingByDraggingPath === false)return;
 
         //-------------------Convert mouse positions to map positions
@@ -910,7 +911,11 @@ $(function() {
     var mouseDown=function (e) {
 
         if (building == false)return;
-        if (typeof building.res_path==='undefined')return;
+        if (building.subtype!='wall')return;
+
+
+        buildingByDraggingRange = building.design.data.range('x')/map_field_size*3;//todo better
+
 
         buildingByDraggingPath=[];
         mouseMove(e);
@@ -961,7 +966,7 @@ $(function() {
             if (rot < 0)rot = rot + 360;
 
 
-            wall_segments =Math.round(distance / (building.size * map_model_size / 1.11 ))
+            wall_segments =Math.round(distance / (buildingByDraggingRange * map_model_size / 1.11 * building.design.data.size ))
 
 
             if(wall_segments!=wall_segments_last){
@@ -975,10 +980,10 @@ $(function() {
 
                 //r(i,l);
 
-                var tmp = jQuery.extend({}, building);
+                var tmp = deepCopyObject(building);
 
 
-                if (l < 2 && ll<2) {
+                /*if (l < 2 && ll<2) {
                     rot = tmp.rot;
 
                 } else {
@@ -994,7 +999,7 @@ $(function() {
                     }
 
 
-                }
+                }*/
 
 
                 tmp.x = buildingByDraggingStartX + (buildingByDraggingEndX - buildingByDraggingStartX) * (i / l);
@@ -1006,10 +1011,10 @@ $(function() {
                  }*/
 
 
-                tmp.res = Model.addRotSize(tmp.res, rot, building.size);
+                tmp.design.data.rotation=360-rot-45;
 
 
-                delete tmp.rot;
+                //delete tmp.rot;
                 //delete tmp.res_path;
 
                 //------
@@ -1037,7 +1042,7 @@ $(function() {
     var mouseUp=function (e) {
 
         if (building == false)return;
-        if (typeof building.res_path==='undefined')return;
+        if (building.subtype!='wall')return;
         if (buildingByDraggingPath === false)return;
 
         buildingLoop();

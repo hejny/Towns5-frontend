@@ -92,7 +92,7 @@ var selecting_distance=1000;
 var selecting_distance_fields=0;
 
 
-var selected_color='#cccccc'
+var selected_color='#cccccc';
 
 //----
 
