@@ -48,7 +48,7 @@ function buildingStart(object){
     $('#selecting-distance-ctl').show();//showing toolbar control
     $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
     //showing buttons used by actual tool
-    if(object.subtype!='wall')$('#selecting-distance-right').show();//todo refactor group to subtype
+    if(object.subtype!='wall')$('#selecting-distance-right').show();
     if(object.subtype!='wall')$('#selecting-distance-left').show();
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();

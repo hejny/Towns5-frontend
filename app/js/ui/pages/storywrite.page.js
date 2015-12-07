@@ -12,9 +12,9 @@ pages.storywrite.content=[
     //'<button id="story-save" onclick="storyContentReload();">Uložit</button>',
     '<br>',
 
-    '<div id="vertical_separator"></div>',
-    '<textarea id="story-content" onkeypress="storyContentReload();"></textarea>',
-    '<div id="story-content-html"></div>',
+    '<div id="vertical_separator" style="display: none;"></div>',
+    '<textarea id="story-content" onkeypress="storyContentReload();" style="display: none;"></textarea>',
+    '<div id="story-content-html" style="display: none;"></div>',
 ''].join('');
 
 
@@ -28,11 +28,11 @@ var separator_width,separator_border,window_padding;
 
 pages.storywrite.openJS = function(){
 
-    separator_width=parseInt($('#vertical_separator').css('width'));
-    separator_border=parseInt($('#story-content').css('border-right'));
-    window_padding=parseInt($('.popup-window .content').css('padding'));
+    separator_width=5;//parseInt($('#vertical_separator').css('width'));
+    separator_border=2;//parseInt($('#story-content').css('border-right'));
+    window_padding=20;//parseInt($('.popup-window .content').css('padding'));
 
-    r(separator_width,separator_border,window_padding);
+    //r('storywrite',separator_width,separator_border,window_padding,$('#vertical_separator'),$('#story-content').css('border-right'),$('.popup-window .content'));
 
     $('#vertical_separator').css('left',window_width/2+separator_width/2-window_padding);
 
@@ -109,10 +109,18 @@ var storyContentWidthReload = function(){
 
     var width2 = window_width-width1;
 
+    //r(window_padding,separator_width,separator_border);
+    //r(width1-window_padding-separator_width-2*separator_border,width2,width1+separator_width);
+
 
     $('#story-content').css('width',width1-window_padding-separator_width-2*separator_border);
     $('#story-content-html').css('width',width2);
     $('#story-content-html').css('left',width1+separator_width);
+
+
+    $('#story-content').show();
+    $('#story-content-html').show();
+    $('#story-content-html').show();
 
 };
 
