@@ -914,7 +914,7 @@ $(function() {
         if (building.subtype!='wall')return;
 
 
-        buildingByDraggingRange = building.design.data.range('x')/map_field_size*3;//todo better
+        buildingByDraggingRange = building.design.data.range('x')/100*2;//todo better
 
 
         buildingByDraggingPath=[];
