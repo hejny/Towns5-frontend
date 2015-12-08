@@ -91,7 +91,7 @@ function createBuilding(object){
         bothDistances+=map_object_changes[i].design.data.range('xy');
         bothDistances+=object.design.data.range('xy');
 
-        bothDistances=bothDistances/2/map_field_size;//todo better
+        bothDistances=bothDistances/2/100;//todo better
 
 
         if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<bothDistances*map_model_size){
@@ -154,10 +154,13 @@ function createBuilding(object){
 
             }*/
 
+            var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,45);
+
+
             map_object_changes[distances[0].i].design.data.joinModel(
-                    object.design.data
-                    /*,(object.x-map_object_changes[distances[0].i].x)*100/map_model_size
-                    ,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size*/
+                        object.design.data,
+                        xy.x,
+                        xy.y
                 );
 
             if(map_object_changes[distances[0].i].subtype=='block'){
