@@ -91,10 +91,13 @@ function objectMenuStory(){
         var action='storyWriteStart(\''+(storyTypes[key])+'\');';
 
 
-        objectmenu+=objectmenu_template
-            .split('%icon').join(icon)
-            .split('%content').join(htmlEncode(content))
-            .split('%action').join(htmlEncode(action));
+        objectmenu+=Template.get('objectmenu',{
+            icon: icon,
+            title: '',
+            content: content,
+            action: action
+        });
+
 
 
     }

@@ -158,7 +158,7 @@ function tidyHTML($buffer) {
 
 
         foreach ($config['includes']['css'] as $include) {
-            echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>';
+            echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>'."\n";
         }
 
         foreach ($config['includes']['js'] as $include) {
@@ -169,12 +169,12 @@ function tidyHTML($buffer) {
             if(is_array($include)){
                 foreach($include as $environment=>$file){
                     if($environment==$config['app']['environment']){
-                        echo '<script src="/' . addslashes($file) . '"></script>';
+                        echo '<script src="/' . addslashes($file) . '"></script>'."\n";
                     }
                 }
             }elseif(is_string($include)){
 
-                echo '<script src="/' . addslashes($include) . '"></script>';
+                echo '<script src="/' . addslashes($include) . '"></script>'."\n";
 
             }
 
@@ -279,7 +279,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
+        <img class="js-popup-window-open" content="projects" src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
 
     </div>
 
@@ -287,32 +287,32 @@ function tidyHTML($buffer) {
     <ul class="menu-list menu-list-left">
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.nature._name')?></a>
+            <a><?=message('ui.menu.nature._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;"><?=message('ui.menu.nature.types')?></a></li>
-                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;"><?=message('ui.menu.nature.neutralize')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuTerrainChange();return false;"><?=message('ui.menu.nature.types')?></a></li>
+                <li class="menu-dlist-item"><a onclick="terrainNeutralizeStart();return false;"><?=message('ui.menu.nature.neutralize')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.buildings._name')?></a>
+            <a><?=message('ui.menu.buildings._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuBuildingsPrototypes('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=message('ui.menu.buildings.wall')?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuBuildingsPrototypes('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=message('ui.menu.buildings.wall')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
+                <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.stories._name')?></a>
+            <a><?=message('ui.menu.stories._name')?></a>
 
             <ul class="menu-dlist">
                 <li class="menu-dlist-item">
 
-                    <a href="#" onclick="objectMenuStory();return false;"><?=message('ui.menu.stories.write')?></a>
+                    <a onclick="objectMenuStory();return false;"><?=message('ui.menu.stories.write')?></a>
 
 
 
@@ -321,7 +321,7 @@ function tidyHTML($buffer) {
         </li>
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.messages._name')?></a>
+            <a><?=message('ui.menu.messages._name')?></a>
 
             <ul class="menu-dlist">
             </ul>
@@ -329,12 +329,12 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.map._name')?></a>
+            <a><?=message('ui.menu.map._name')?></a>
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a href="" onclick="downloadCanvas(map_bg);return false;"><?=message('ui.menu.map.screenshot')?></a></li>
-                <li class="menu-dlist-item"><a href="" onclick="Storage.restart();location.reload();return false;"><?=message('ui.menu.map.restart')?></a></li>
+                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();return false;"><?=message('ui.menu.map.screenshot')?></a></li>
+                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();return false;"><?=message('ui.menu.map.restart')?></a></li>
 
 
             </ul>
@@ -343,7 +343,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a href="#"><?=message('ui.menu.blog._name')?></a>
+            <a><?=message('ui.menu.blog._name')?></a>
 
             <ul class="menu-dlist" id="menu-feed">
                 <!--This content will be loaded by js-->
@@ -366,7 +366,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="projects" href="#"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" content="projects"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 

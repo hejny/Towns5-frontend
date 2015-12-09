@@ -55,7 +55,7 @@ pages.storywrite.openJS = function(){
      ''].join('\n');*/
 
 
-    var i = id2i(map_object_changes,map_selected_ids[0]);
+    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);
     r(map_selected_ids,i);
 
     $('#story-name').val(map_object_changes[i].name);
@@ -74,7 +74,7 @@ pages.storywrite.openJS = function(){
 pages.storywrite.closeJS = function(){
 
     map_selected_ids=[];
-    loadMap();
+    Map.loadMap();
 
 };
 
@@ -138,7 +138,7 @@ var storyContentReload = function(){
     $('#story-content-html').html(story_content_html);
     //r(story_name,story_content,story_content_html);
 
-    var i = id2i(map_object_changes,map_selected_ids[0]);//todo bind editor content + name with i
+    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo bind editor content + name with i
 
     map_object_changes[i].name = story_name;
     map_object_changes[i].content.data = story_content;

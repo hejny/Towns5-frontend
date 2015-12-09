@@ -14,32 +14,39 @@
 
 
 
-
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
     "app/config/vars.js",
 
 
-
-
     "app/js/classes/path.class.js",
     "app/js/classes/position.class.js",
     "app/js/classes/model.class.js",
+    "app/js/classes/townsapi.class.js",
+    "app/js/classes/string.class.js",
+    "app/js/classes/canvas-context.class.js",
+    "app/js/classes/canvas.class.js",
 
 
-    "app/js/tools/farbtastic.tools.js",
-    "app/js/tools/func.tools.js",
-    "app/js/tools/canvas.tools.js",
-    "app/js/tools/log.tools.js",
-    "app/js/tools/map-func.tools.js",
-    "app/js/tools/map-load.tools.js",
-    "app/js/tools/map-update.tools.js",
-    "app/js/tools/map-generate.tools.js",
-    "app/js/tools/storage.tools.js",
-    "app/js/tools/townsapi.tools.js",
-    "app/js/tools/townsapi.fake.tools.js",
-    "app/js/tools/ui.tools.js",
 
+    "app/js/classes-static/array.class.js",
+    "app/js/classes-static/farbtastic.class.js",
+    "app/js/classes-static/log.class.js",
+    "app/js/classes-static/storage.class.js",
+    "app/js/classes-static/map-generate.class.js",
+    "app/js/classes-static/map.class.js",
+    "app/js/classes-static/map-update.class.js",
+    "app/js/classes-static/ui.class.js",
+    "app/js/classes-static/map-objects-draw.class.js",
+    "app/js/classes-static/math.class.js",
+    "app/js/classes-static/interval.class.js",
+    "app/js/classes-static/copy.class.js",
+    "app/js/classes-static/types.class.js",
+    "app/js/classes-static/cookie.class.js",
+    "app/js/classes-static/map-load.class.js",
+    "app/js/classes-static/map-draw.class.js",
+    "app/js/classes-static/template.class.js",
+    "app/js/classes-static/map-objects-html-draw.class.js",
 
 
 
@@ -61,12 +68,6 @@
 
 
 
-    "app/js/draw/map.draw.js",
-    "app/js/draw/map-objects.draw.js",
-    "app/js/draw/map-objects-html.draw.js",
-
-
-
     "app/js/actions/create.action.js",
     "app/js/actions/dismantle.action.js",
     "app/js/actions/login.action.js",
@@ -74,6 +75,7 @@
 
 
     "app/js/inits/main.init.js",
+    "app/js/inits/townsapi.init.js",
     "app/js/inits/game.init.js",
     "app/js/inits/objects-prototypes.init.js",
     "app/js/inits/objects.init.js",

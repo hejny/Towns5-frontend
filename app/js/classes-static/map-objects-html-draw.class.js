@@ -13,7 +13,7 @@
  */
 
 
-function objectsHTML(objects) {
+Map.objectsHTML = function(objects) {
 
     //r('objectsDraw',objects.length,objects);
 
@@ -149,7 +149,7 @@ function objectsHTML(objects) {
             var img = new Image(width,height);
 
 
-            img.src=canvas2Src(width,height,function(ctx){
+            img.src=createCanvasViaFunctionAndConvertToSrc(width,height,function(ctx){
 
 
                 ctx.fillStyle = draw_item[1][0];
@@ -157,8 +157,7 @@ function objectsHTML(objects) {
                 ctx.lineWidth = draw_item[1][2];
 
 
-                drawEllipse(
-                    ctx,
+                ctx.drawEllipse(
                     draw_item[1][2],
                     draw_item[1][2],
                     draw_item[5],
@@ -187,4 +186,4 @@ function objectsHTML(objects) {
 
     return(html);
 
-}
+};

@@ -28,7 +28,7 @@
 
 
 
-$( window ).resize(debounce(function() {
+$( window ).resize(Interval.debounce(function() {
 
 
     /*if(screen.width == window.innerWidth){
@@ -60,7 +60,7 @@ $( window ).resize(debounce(function() {
     $('#map_bg').css('left',-canvas_width/3);
     $('#map_bg').css('top',-canvas_height/3);
 
-    drawMap();
+    Map.drawMap();
 },500));
 
 
@@ -179,24 +179,24 @@ $(function() {
             //r(keys_);
 
             if ($.inArray('up', keys_) != -1) {
-                mapMove(0,30);
+                Map.mapMove(0,30);
                 moving=true;
             }
 
 
             if ($.inArray('down', keys_) != -1) {
-                mapMove(0,-30);
+                Map.mapMove(0,-30);
                 moving=true;
             }
 
             if ($.inArray('left', keys_) != -1) {
-                mapMove(30,0);
+                Map.mapMove(30,0);
                 moving=true;
             }
 
 
             if ($.inArray('right', keys_) != -1) {
-                mapMove(-30,0);
+                Map.mapMove(-30,0);
                 moving=true;
             }
 
@@ -208,7 +208,7 @@ $(function() {
                 if ($.inArray('right', keys_) == -1){
                     moving=false;
                     //alert('stop moving by keys');
-                    updateMap();
+                    Map.updateMap();
                 }
 
 
@@ -277,7 +277,7 @@ $(function() {
 
 
 
-        updateMap();
+        Map.updateMap();
 
 
     };
@@ -324,7 +324,7 @@ $(function() {
             $(this).css('left', first_offset.left);
             $(this).css('top', first_offset.top);
 
-            updateMap();
+            Map.updateMap();
 
 
         },
@@ -338,7 +338,7 @@ $(function() {
 
             last_offset = current_offset;
 
-            mapMove(deltaX,deltaY);
+            Map.mapMove(deltaX,deltaY);
 
 
         }
@@ -384,7 +384,7 @@ $(function() {
         selecting_distance_canvas_ctx.fillStyle = 'transparent';
         selecting_distance_canvas_ctx.strokeStyle = '#0098ff';
         selecting_distance_canvas_ctx.lineWidth = border;
-        drawEllipse(selecting_distance_canvas_ctx, border, border, width,height);
+        selecting_distance_canvas_ctx.drawEllipse( border, border, width,height);
 
 
     };
@@ -420,7 +420,7 @@ $(function() {
                 if(BorderMoveDelay_<0){
 
                     r('border moving');
-                    mapMove(BorderMoveX,BorderMoveY);
+                    Map.mapMove(BorderMoveX,BorderMoveY);
                     BorderMoveQ=true;
                 }
 
@@ -476,7 +476,7 @@ $(function() {
         if(BorderMoveX==0 && BorderMoveY==0 && BorderMoveQ){
             BorderMoveQ=false;
             BorderMoveDelay_=BorderMoveDelay;
-            updateMap();
+            Map.updateMap();
         }
 
 
@@ -527,7 +527,7 @@ $(function() {
 
         var map_click_x=(e.clientX-(canvas_width / 3/2));
         var map_click_y=(e.clientY-(canvas_height / 3/2));
-        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
 
         clearTimeout(clickingTimeout);
@@ -565,7 +565,7 @@ $(function() {
                 create(tmp);
 
 
-                loadMap();
+                Map.loadMap();
 
                 //mapSpecialCursorStop();
 
@@ -598,7 +598,7 @@ $(function() {
                 }
 
                 saveMapObjectChangesToStorage();
-                loadMap();
+                Map.loadMap();
 
 
                 if(terrainChanging == false){
@@ -632,7 +632,7 @@ $(function() {
                 }
 
                 saveMapTerrainChangesToStorage();
-                loadMap();
+                Map.loadMap();
 
 
                 return;
@@ -666,7 +666,7 @@ $(function() {
                 }
 
                 saveMapTerrainChangesToStorage();
-                loadMap();
+                Map.loadMap();
 
 
                 return;
@@ -692,7 +692,7 @@ $(function() {
                 hideLeftMenu();
 
 
-                loadMapAsync(1000);
+                Map.loadMapAsync(1000);
 
 
                 return;
@@ -745,7 +745,7 @@ $(function() {
                 objectMenu();
 
                 setTimeout(
-                    function(){drawMap();},IMMEDIATELY_MS
+                    function(){Map.drawMap();},IMMEDIATELY_MS
                 );
 
                 //~~~~~~~~~~~~~~~~~~~~
@@ -772,7 +772,7 @@ $(function() {
                     //~~~~~~~~~
                 }else{
                     //~~~~~~~~~
-                    drawMapAsync();
+                    Map.drawMapAsync();
                     //~~~~~~~~~
                 }
 
@@ -850,7 +850,7 @@ $(function() {
         var map_click_x=(e.clientX-(canvas_width / 3/2));
         var map_click_y=(e.clientY-(canvas_height / 3/2));
 
-        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         //-------------------
 
@@ -1054,7 +1054,7 @@ $(function() {
         buildingByDraggingPath=false;
 
 
-        loadMap();
+        Map.loadMap();
         $('#selecting-distance').show();
         bufferDrawEndCtl();
 
@@ -1083,14 +1083,14 @@ $(function() {
 
         var map_click_x=(e.clientX-(canvas_width / 3/2));
         var map_click_y=(e.clientY-(canvas_height / 3/2));
-        var mapPos=mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         r('right click on map',mapPos);
 
 
         map_selected_ids.forEach(function(id){
 
-            var i=id2i(map_object_changes,id);
+            var i=ArrayFunctions.id2i(map_object_changes,id);
 
             if(Path.is(map_object_changes[i].path)){
                 var position=map_object_changes[i].path.recount();

@@ -207,7 +207,7 @@ function createStory(object){
 //todo where this function should be?
 function definePrototype(objectReference,forceSubtype){
     r('definePrototype');
-    r(objectReference);
+    r(forceSubtype);
 
     var object=deepCopyObject(objectReference);
 

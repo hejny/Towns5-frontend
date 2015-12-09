@@ -10,13 +10,15 @@
  */
 
 
+//todo refactor this should not be here
 var map_request_holder;
 
-function loadMap() {
+
+Map.loadMap = function(){
     r('loadMap');
     if(isNaN(map_size))throw 'map_size is NaN';
 
-    var map_xy_data = getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
+    var map_xy_data = MapGenerator.getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
 
     //console.log(map_data);
 
@@ -27,33 +29,11 @@ function loadMap() {
 
     var tmp=Math.round(map_size/2)-2;
 
-    /*map_data=[];
-     drawMap();
-     return;*/
 
-    if(typeof map_request_holder!=='undefined')
-        map_request_holder.abort();
+    /*if(typeof map_request_holder!=='undefined')
+        map_request_holder.abort();*/
 
-    map_request_holder=FaketownsApiMulti(
-        [
-            [
-                'list',
-                'id,x,y,type,res,_name,func,permalink,func,own,superown,fp,fs',
-                //'id,name,_name,type,permalink,origin,func,group,expand,block,attack,hold,res,profile,fp,fs,fc,fr,fx,own,superown,x,y,ww,traceid,starttime,readytime,stoptime',
-                ['type!=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
-                'y,x'
-            ],
-            [
-                'list',
-                'x,y,res',
-                ['type=\'terrain\'','radius('+Math.round(map_x)+','+Math.round(map_y)+','+Math.round(tmp)+')'],
-                'y,x'
-            ]
-
-        ]
-
-
-        ,function(res){
+    map_request_holder=function(res){
 
             r('Loaded from Towns API');
 
@@ -146,7 +126,7 @@ function loadMap() {
 
             //~~~~~~~~~~~~~Terrains
 
-            iterate2D(map_bg_data,function(y,x){
+            ArrayFunctions.iterate2D(map_bg_data,function(y,x){
 
                 if(!is(map_collision_data[y]))map_collision_data[y]=[];
 
@@ -167,6 +147,8 @@ function loadMap() {
             //~~~~~~~~~~~~~Objects
 
 
+            /*r(map_collision_data);*/
+
             map_data.forEach(function(object){
 
                 var x=Math.round(object.x)-Math.round(map_x-(map_size/2));
@@ -183,7 +165,7 @@ function loadMap() {
             //~~~~~~~~~~~~~zones
 
 
-            iterate2D(map_collision_data,function(y,x){
+        ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
                 if(map_collision_data[y][x]==false){
 
@@ -213,7 +195,7 @@ function loadMap() {
 
 
 
-            iterate2D(map_collision_data,function(y,x){
+        ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
                 if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
 
@@ -228,18 +210,21 @@ function loadMap() {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             r('Executing drawMap');
-            drawMap();
+            Map.drawMap();
 
-        });
+        };
+    map_request_holder([]);
 
-}
 
 
-function loadMapAsync(delay) {//todo search where to use this function
+};
+
+
+Map.loadMapAsync = function(delay) {//todo search where to use this function
 
     delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
-        function(){loadMap();},delay
+        function(){Map.loadMap();},delay
     );
-}
+};

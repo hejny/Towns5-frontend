@@ -63,7 +63,7 @@ window.uiScript = function(){
     // kliknutie na .js-popup-action-open trigger...
     $('.js-popup-action-open').unbind('click').on('click', function(e){
 
-        e.preventDefault();
+        //e.preventDefault();
 
         if($(this).hasClass('active')==false){
             //---------------------------------Označení nástroje
@@ -72,7 +72,7 @@ window.uiScript = function(){
             $('.active').removeClass('active');
             $(this).addClass('active');
 
-            eval($(this).attr('onclick'));
+            eval($(this).attr('action'));
 
             //---------------------------------
         }else
@@ -330,7 +330,7 @@ window.mapSpecialCursorStop = function(){
 
 $(function() {
 
-    $('#selecting-distance-color-box').farbtastic(maxFreq(function (color) {
+    $('#selecting-distance-color-box').farbtastic(Interval.maxRunPerMs(function (color) {
 
         r(color);
         selected_color = color;
@@ -385,31 +385,6 @@ window.hideLeftMenu = function(){
 
 
 
-//======================================================================================================================
-/*
- ████████╗███████╗███╗   ███╗██████╗ ██╗      █████╗ ████████╗███████╗███████╗
- ╚══██╔══╝██╔════╝████╗ ████║██╔══██╗██║     ██╔══██╗╚══██╔══╝██╔════╝██╔════╝
-    ██║   █████╗  ██╔████╔██║██████╔╝██║     ███████║   ██║   █████╗  ███████╗
-    ██║   ██╔══╝  ██║╚██╔╝██║██╔═══╝ ██║     ██╔══██║   ██║   ██╔══╝  ╚════██║
-    ██║   ███████╗██║ ╚═╝ ██║██║     ███████╗██║  ██║   ██║   ███████╗███████║
-    ╚═╝   ╚══════╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝╚══════╝
- */
-
-
-var objectmenu_template='';
-
-
-
-$(function(){
-
-    //todo make templates better - maybe class
-    objectmenu_template = $('#objectmenu-inner').html()
-        .split('template_params')
-        .join('style="background: url(\'%icon\');background-size: cover;" title="%title" content="%content" onclick="%action"');//todo do content - help better
-        //todo in action use callback not string
-        //todo here should be htmlencode
-
-});
 
 
 //======================================================================================================================

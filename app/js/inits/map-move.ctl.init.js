@@ -46,7 +46,7 @@ function orderMoveAndNormal(){
     });
 
 
-    if(change)loadMap();
+    if(change)Map.loadMap();
 
 }
 
@@ -54,7 +54,7 @@ function orderMoveAndNormal(){
 
 function moveDrawCtl(){
 
-    $('#map-move').html(objectsHTML(map_object_changes_move));
+    $('#map-move').html(Map.objectsHTML(map_object_changes_move));
     //r($('#map-move').html());
 
 

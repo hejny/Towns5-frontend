@@ -12,35 +12,12 @@
 
  */
 
+var MapGenerator={};
 
 //======================================================================================================================
 
-//todo refactor - create static object
 
-var mapdata=[];
-
-//======================================================================================================================loadMap
-
-
-function iterate2D(array,callback){
-
-    //r(array);
-
-	for(var y= 0,yLen=array.length;y<yLen;y++) {
-		for (var x = 0,xLen=array[y].length; x<xLen; x++) {
-
-			callback(y,x);/*todo refactor to x,y*/
-
-		}
-	}
-
-}
-
-
-//======================================================================================================================loadMap
-
-
-function getZ(x,y){
+MapGenerator.getZ = function(x,y){
 
 	//var z=(x/y)*50;
 
@@ -89,12 +66,12 @@ function getZ(x,y){
 
 	return(n);
 
-}
+};
 
 //======================================================================================================================loadMap
 
 
-function getZMap(startX,startY,size){
+MapGenerator.getZMap = function(startX,startY,size){
 
     //r(size,startY,startX);
 	var map=[];
@@ -106,7 +83,7 @@ function getZMap(startX,startY,size){
 		for(var x=startX;x<=startX+size;x++){
 
 			//console.log(x+','+y);
-			map[y-startY][x-startX]=getZ(x,y);
+			map[y-startY][x-startX]=MapGenerator.getZ(x,y);
 
 		}
 	}
@@ -114,13 +91,13 @@ function getZMap(startX,startY,size){
     //r(map);
 	return(map);
 
-}
+};
 
 //======================================================================================================================loadMap
 
 
 
-function blurMap(map,blur/*change*/){
+MapGenerator.blurMap = function(map,blur/*change*/){
 
     //r(blur,Math.pow(blur*2+1,2));
 
@@ -160,13 +137,13 @@ function blurMap(map,blur/*change*/){
 
 	return(map_);
 
-}
+};
 
 
 //======================================================================================================================loadMap
 
 
-function terrainMap(map){
+MapGenerator.terrainMap = function(map){
 
     var map_bg=[];
 
@@ -179,10 +156,10 @@ function terrainMap(map){
 			var terrain=0;
 
 			var ti=0;
-			while(terrains[ti]){
+			while(MapGenerator.terrains[ti]){
 				
-				if(terrains[ti][1]>level){
-					terrain=terrains[ti][0];
+				if(MapGenerator.terrains[ti][1]>level){
+					terrain=MapGenerator.terrains[ti][0];
 					break;
 				}
 				ti++;
@@ -195,21 +172,21 @@ function terrainMap(map){
 
 	return(map_bg);
 
-}
+};
 
 //======================================================================================================================loadMap
 
 
 
-function getMap(startX,startY,size,onlyRound){
+MapGenerator.getMap = function(startX,startY,size,onlyRound){
 
     onlyRound=cParam(onlyRound,true);
 
 	var bounds=1;
 
-	map=getZMap(startX-bounds,startY-bounds,size+(2*bounds));
+	map=MapGenerator.getZMap(startX-bounds,startY-bounds,size+(2*bounds));
     //r(map);
-	map=blurMap(map,bounds);//r(map);
+	map=MapGenerator.blurMap(map,bounds);//r(map);
     //r(map);
 	
 	var map_z=[];
@@ -236,30 +213,33 @@ function getMap(startX,startY,size,onlyRound){
 	}
 	//delete map;
 
-	var map_bg=terrainMap(map_z);
+	var map_bg=MapGenerator.terrainMap(map_z);
 	return([map_z,map_bg]);
-}
+};
 
 
 //======================================================================================================================loadMap
 
-function terrainColor(terrain){
+MapGenerator.terrainColor = function(terrain){
 	var ti=0;
-	while(terrains[ti]){
-		if(terrains[ti][0]==terrain){
-			return('#'+terrains[ti][2]);
+	while(MapGenerator.terrains[ti]){
+		if(MapGenerator.terrains[ti][0]==terrain){
+			return('#'+MapGenerator.terrains[ti][2]);
 		}
 		ti++;
 	}
 
 
-}
+};
 
 
 //======================================================================================================================loadMap
 
 
-var terrains=[	
+
+//todo Biotopes
+
+MapGenerator.terrains=[
 	[ 0 , -1 , '000000'] ,  //temnota
     [ 5 , 5 , '878787'],   //kamení
     [ 8 , 10 , '2A7302'] ,  //tráva(normal)

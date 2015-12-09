@@ -34,10 +34,12 @@ Model.prototype.addRotationSize = function(rotation,size){
 
 Model.prototype.compileRotationSize = function(){
 
+    //r(this.particles);
     //r('compileRotationSize',this.rotation,this.size);
 
     for(var i in this.particles){
 
+        //r(i);
         //r(this.particles[i].position);
         var distDeg = Math.xy2distDeg(this.particles[i].position.x,this.particles[i].position.y);
 

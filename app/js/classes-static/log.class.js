@@ -15,6 +15,11 @@
 
 //======================================================================================================================
 
+//todo should it be Loging object with static functions?
+
+
+
+
 /**
  * Report to console. Wrapper for console.log().
  * @author PH
@@ -66,11 +71,11 @@ function mapWindow(map){
     size=2;
 
 
-    var src=canvas2Src(map_size*size,map_size*size,function(ctx){
+    var src=createCanvasViaFunctionAndConvertToSrc(map_size*size,map_size*size,function(ctx){
 
 
 
-        iterate2D(map,function(y,x){
+        ArrayFunctions.iterate2D(map,function(y,x){
 
             if(typeof map[y][x]=='number'){
 
