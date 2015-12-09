@@ -16,6 +16,9 @@
  */
 
 
+
+//todo should it be UI object with static functions?
+
 //------------------------------------------------------------------focusOnMap
 
 function focusOnMap(){

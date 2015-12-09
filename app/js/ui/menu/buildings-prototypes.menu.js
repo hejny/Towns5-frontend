@@ -159,11 +159,13 @@ function objectMenuBuildingsPrototypes(subtype){
             var action='buildingStart(objectPrototypes['+(i)+']);';
 
 
-            objectmenu+=objectmenu_template
-                .split('%icon').join(icon)
-                .split('%title').join(htmlEncode(title))
-                .split('%content').join(htmlEncode(content))
-                .split('%action').join(htmlEncode(action));
+            objectmenu+=Template.get('objectmenu',{
+                icon: icon,
+                title: title,
+                content: content,
+                action: action
+            });
+
 
             //$(objectmenu[i]).children('div').attr('content',content);
             //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');

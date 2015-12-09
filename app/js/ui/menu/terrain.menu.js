@@ -38,9 +38,13 @@ function terrainNeutralizeStart(){
     $('#selecting-distance-ctl').css('background','');
 
 
-    $('#selecting-distance-ctl').show();
-    $('#selecting-distance-left').hide();
-    $('#selecting-distance-right').hide();
+    $('#selecting-distance-ctl').show();//showing toolbar control
+    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    //showing buttons used by actual tool
+    $('#selecting-distance-plus').show();
+    $('#selecting-distance-minus').show();
+    $('#selecting-distance-close').show();
+
 
 
     $('#selecting-distance').show();
@@ -134,11 +138,14 @@ function objectMenuTerrainChange(){
             var action='terrainChangeStart('+(terrain)+',false);';
 
 
-            objectmenu+=objectmenu_template
-                .split('%icon').join(icon)
-                .split('%content').join(htmlEncode(content))
-                .split('%title').join(htmlEncode(MESSAGES.terrains['t'+terrain]))
-                .split('%action').join(htmlEncode(action));
+            objectmenu+=Template.get('objectmenu',{
+                icon: icon,
+                title: MESSAGES.terrains['t'+terrain],
+                content: content,
+                action: action
+            });
+
+
 
             //$(objectmenu[i]).children('div').attr('content',content);
             //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');

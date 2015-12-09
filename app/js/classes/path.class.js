@@ -33,7 +33,7 @@ var Path = function (start, end, speed , map, map_topleft) {
 
     //--------------
 
-    iterate2D(map,function(y,x){
+    ArrayFunctions.iterate2D(map,function(y,x){
         if(map[y][x]!=false)
             map[y][x]=true;
     });
@@ -48,7 +48,7 @@ var Path = function (start, end, speed , map, map_topleft) {
     for(var limit=0;limit<100 && !finished;limit++){
 
 
-        iterate2D(map,function(y,x){
+        ArrayFunctions.iterate2D(map,function(y,x){
 
             if(typeof map[y][x]=='number' && map[y][x]>=0){
 
@@ -87,7 +87,7 @@ var Path = function (start, end, speed , map, map_topleft) {
 
         });
 
-        iterate2D(map,function(y,x){
+        ArrayFunctions.iterate2D(map,function(y,x){
             if(typeof map[y][x]=='number')
                 map[y][x]=Math.abs(map[y][x]);
         });

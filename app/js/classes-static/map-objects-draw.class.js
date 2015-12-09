@@ -12,7 +12,7 @@
  */
 
 
-function objectsDraw(ctx,objects) {
+Map.objectsDraw = function(ctx,objects) {
 
     r('objectsDraw',objects.length,objects);
 
@@ -101,4 +101,4 @@ function objectsDraw(ctx,objects) {
 
 
 
-}
+};

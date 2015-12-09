@@ -8,25 +8,7 @@
  */
 
 
-function drawEllipse(ctx, x, y, w, h) {
-    var kappa = .5522848,
-        ox = (w / 2) * kappa, // control point offset horizontal
-        oy = (h / 2) * kappa, // control point offset vertical
-        xe = x + w,           // x-end
-        ye = y + h,           // y-end
-        xm = x + w / 2,       // x-middle
-        ym = y + h / 2;       // y-middle
 
-    ctx.beginPath();
-    ctx.moveTo(x, ym);
-    ctx.bezierCurveTo(x, ym - oy, xm - ox, y, xm, y);
-    ctx.bezierCurveTo(xm + ox, y, xe, ym - oy, xe, ym);
-    ctx.bezierCurveTo(xe, ym + oy, xm + ox, ye, xm, ye);
-    ctx.bezierCurveTo(xm - ox, ye, x, ym + oy, x, ym);
-    ctx.closePath(); // todo not used correctly, see comments (use to close off open path)
-    ctx.stroke();
-    ctx.fill();
-}
 
 
 
@@ -36,7 +18,7 @@ function drawEllipse(ctx, x, y, w, h) {
 
 
 
-function drawMap() {
+Map.drawMap = function(){
 
     //r(map_ctx);
     if (map_ctx == false)return;
@@ -401,8 +383,7 @@ function drawMap() {
             map_ctx.lineWidth = map_draw[i][1][2];
 
 
-            drawEllipse(
-                map_ctx,
+            map_ctx.drawEllipse(
                 map_draw[i][2],
                 map_draw[i][3],
                 map_draw[i][5],
@@ -428,8 +409,7 @@ function drawMap() {
             map_ctx.lineWidth = 20;
 
 
-            drawEllipse(
-                map_ctx,
+            map_ctx.drawEllipse(
                 map_draw[i][2] - (ellipse_width / 2),
                 map_draw[i][3] - (ellipse_width / 2),
                 ellipse_width,
@@ -451,15 +431,15 @@ function drawMap() {
 
     /*if(Math.random()>0.95)
         throw('aaa');*/
-}
+};
 
 
 
-function drawMapAsync(delay) {//todo search where to use this function
+Map.drawMapAsync = function(delay){//todo search where to use this function
 
     delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
-        function(){drawMap();},delay
+        function(){Map.drawMap();},delay
     );
-}
+};

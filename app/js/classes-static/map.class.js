@@ -1,3 +1,8 @@
+
+//todo headers
+
+var Map={};
+
 /*
  ███████╗██╗   ██╗███╗   ██╗ ██████╗
  ██╔════╝██║   ██║████╗  ██║██╔════╝
@@ -8,7 +13,7 @@
 
  */
 
-function mouseCenterPos2MapPos(map_click_x,map_click_y) {
+Map.mouseCenterPos2MapPos = function(map_click_x,map_click_y) {
 
 
     //r(map_click_x,map_click_y,map_zoom_m,map_slope_m);
@@ -47,4 +52,4 @@ function mouseCenterPos2MapPos(map_click_x,map_click_y) {
     return(new Position(map_click_x,map_click_y));
 
 
-}
+};

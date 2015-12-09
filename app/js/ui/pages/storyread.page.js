@@ -9,7 +9,7 @@ pages.storyread={"header": 'Příběh'};
 pages.storyread.openJS = function(){
 
 
-    var i = id2i(map_object_changes,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
+    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
     r(map_selected_ids,i);
 
 
@@ -38,7 +38,7 @@ pages.storyread.openJS = function(){
 pages.storyread.closeJS = function(){
 
     map_selected_ids=[];
-    loadMap();
+    Map.loadMap();
 
 };
 
@@ -51,7 +51,7 @@ function deleteStory(id){
     if(confirm('Opracdu smazat???')){//todo create better confirm //todo use locale
 
         dismantle(id);
-        loadMapAsync();
+        Map.loadMapAsync();
         window_close();
 
     }

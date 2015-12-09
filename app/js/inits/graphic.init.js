@@ -45,8 +45,8 @@ function imageLoad(){
         imageLoadTimeout=setTimeout(function(){
 
             r('Loaded!');
-            updateMap();
-            loadMap();
+            Map.updateMap();
+            Map.loadMap();
         },500);
 
     }

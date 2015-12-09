@@ -28,7 +28,7 @@ function objectMenu(){
 
         var id=map_selected_ids[0];
 
-        var i=id2i(map_data,id);
+        var i=ArrayFunctions.id2i(map_data,id);
 
 
         var objectmenu='';
@@ -36,18 +36,21 @@ function objectMenu(){
         var icon,content;
 
 
-        objectmenu+=objectmenu_template
-            .split('%icon').join('media/image/icon/f_upgrade.png')
-            .split('%title').join('Duplikat')//todo message
-            .split('%content').join(htmlEncode('co co'))//todo message
-            .split('%action').join(htmlEncode('definePrototype(map_data[id2i(map_data,'+id+')]);'));
 
 
-        objectmenu+=objectmenu_template
-            .split('%icon').join('media/image/icon/f_create_wall.png')
-            .split('%title').join('Duplikat')//todo message
-            .split('%content').join(htmlEncode('co co'))//todo message
-            .split('%action').join(htmlEncode('definePrototype(map_data[id2i(map_data,'+id+')],\'wall\');'));
+        objectmenu+=Template.get('objectmenu',{
+            icon: 'media/image/icon/f_upgrade.png',
+            title: 'Duplikat',
+            content: 'co co',
+            action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
+        });
+
+        objectmenu+=Template.get('objectmenu',{
+            icon: 'media/image/icon/f_create_wall.png',
+            title: 'Duplikat',
+            content: 'co co',
+            action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')],\'wall\');'
+        });
 
 
 
@@ -60,9 +63,15 @@ function objectMenu(){
                 '<button>Postaviť drist!</button>';
 
 
-            objectmenu+=objectmenu_template
-                .split('%icon').join(icon)
-                .split('%content').join(htmlEncode(content));
+
+            objectmenu+=Template.get('objectmenu',{
+                icon: icon,
+                title: '',
+                content: content,
+                action: ''
+            });
+
+
 
             //$(objectmenu[i]).children('div').attr('content',content);
             //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
