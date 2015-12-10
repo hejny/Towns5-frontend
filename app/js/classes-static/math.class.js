@@ -130,16 +130,61 @@ Math.toInt = function(value,defval){
 Math.lineCollision = function(a1x,a1y,a2x,a2y,b1x,b1y,b2x,b2y){
 
 
+
     var denominator = ((a2x - a1x) * (b2y - b1y)) - ((a2y - a1y) * (b2x - b1x));
     var numerator1 = ((a1y - b1y) * (b2x - b1x)) - ((a1x - b1x) * (b2y - b1y));
     var numerator2 = ((a1y - b1y) * (a2x - a1x)) - ((a1x - b1x) * (a2y - a1y));
 
     // Detect coincident lines (has a problem, read below)
-    if (denominator == 0) return numerator1 == 0 && numerator2 == 0;
+    if (denominator == 0){
 
-    var r = numerator1 / denominator;
-    var s = numerator2 / denominator;
+        //var collision= (numerator1 == 0 && numerator2 == 0);
+        collision=false;
 
-    return (r >= 0 && r <= 1) && (s >= 0 && s <= 1);
+    }else{
+
+        var r = numerator1 / denominator;
+        var s = numerator2 / denominator;
+
+        var collision=((r >= 0 && r <= 1) && (s >= 0 && s <= 1));
+
+    }
+
+
+
+
+    //-------------------------------Debug TDD
+
+    /*var size=50;
+    var src=createCanvasViaFunctionAndConvertToSrc(
+        size*2,size*2,function(ctx){
+
+            //ctx.strokeStyle = '#000000';
+            //ctx.strokeWidth = 2;
+
+            ctx.beginPath();
+            ctx.moveTo(a1x+size,a1y+size);
+            ctx.lineTo(a2x+size,a2y+size);
+            ctx.stroke();
+            ctx.closePath();
+
+
+            ctx.beginPath();
+            ctx.moveTo(b1x+size,b1y+size);
+            ctx.lineTo(b2x+size,b2y+size);
+            ctx.stroke();
+            ctx.closePath();
+
+        }
+
+
+    );
+    $('body').append('<img src="'+src+'" border='+(collision?2:0)+'>');*/
+
+    //-------------------------------
+
+    //console.log(collision);
+
+    return collision;
 
 };
