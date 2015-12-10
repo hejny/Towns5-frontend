@@ -146,26 +146,48 @@ Model.prototype.joinModel = function(model,move_x,move_y){
     model_.moveBy(move_x,move_y);
 
 
-    var max_z=this.range('z');
-
-
-
-    for(var i in model_.particles){//todo refactor to moveBy
-
-
-        model_.particles[i].position.z+=max_z;
-
-    }
-
-
     this.compileRotationSize();
     model_.compileRotationSize();
 
-    this.particles=this.particles.concat(model_.particles);
+
+    model_.particles.sort(function(particle1,particle2){
+
+        return(particle1.position.z-particle2.position.z);
+
+    });
+
+
+    for(var i in model_.particles){
+
+        var distances=[0];
+
+
+
+        for(var ii in this.particles){//todo maybe optimize by pre-sorting
+
+            if(ModelParticles.collision2D(model_.particles[i],this.particles[ii])){
+                distances.push(this.particles[i].position.z+this.particles[i].size.z);
+            }
+
+
+
+        }
+
+    }
+
+    //r('distances',distances);
+
+    var max_z=Math.max.apply(Math,distances);
+    //var max_z=this.range('z');
+
+    model_.moveBy(0,0,max_z);
+
+
+   this.particles=this.particles.concat(model_.particles);
+
+
 
 };
-
-
 
 
 
@@ -215,64 +237,30 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     this_.particles.forEach(function(particle){
 
-        //r(particle);
+        var addResource=ModelParticles.get3D(particle);
 
-        if(particle.shape=='cube'){
-
-
-            var x=particle.position.x;
-            var y=particle.position.y;
-            var z=particle.position.z;
-
-            var x_=Math.cos(Math.deg2rad(particle.rotation.xy))*particle.size.x;
-            var y_=Math.sin(Math.deg2rad(particle.rotation.xy))*particle.size.y;
-            var z_=particle.size.z;
+        //r(addResource);
 
 
-            var addPoints=[
-                [x+x_,y+y_,z],
-                [x-y_,y+x_,z],
-                [x-x_,y-y_,z],
-                [x+y_,y-x_,z],
-                [x+x_,y+y_,z+z_],
-                [x-y_,y+x_,z+z_],
-                [x-x_,y-y_,z+z_],
-                [x+y_,y-x_,z+z_]
-            ];
-            var addPolygns=[
-                //[1234]
-                [5,6,7,8],
-                [1,2,6,5],
-                [2,3,7,6],
-                [3,4,8,7],
-                [4,1,5,8]
+        var i=resource.points.length;
+        addResource.points.forEach(function(point){
+            resource.points.push(point);
+        });
 
-            ];
 
-            var i=resource.points.length;
-            addPoints.forEach(function(point){
-                resource.points.push(point);
-            });
+        for(var poly_i in addResource.polygons){
 
-            for(var poly_i in addPolygns){
-                for(var point_i in addPolygns[poly_i])
-                    addPolygns[poly_i][point_i]+=i-1;
-
-                resource.polygons.push(addPolygns[poly_i]);
-                resource.colors.push(particle.color);
+            for(var point_i in addResource.polygons[poly_i]){
+                addResource.polygons[poly_i][point_i]+=i-1;
             }
 
 
-
-
-
-        }else{
-
-            throw 'Unknown particle shape '+particle.shape;
+            resource.polygons.push(addResource.polygons[poly_i]);
+            resource.colors.push(particle.color);
         }
 
 
-        resource.points.push([]);
+        //resource.points.push([]);
 
 
     });
