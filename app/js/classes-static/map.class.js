@@ -53,3 +53,24 @@ Map.mouseCenterPos2MapPos = function(map_click_x,map_click_y) {
 
 
 };
+
+//======================================================================================================================
+
+Map.mapPos2MouseCenterPos = function(map_position_x,map_position_y) {//todo refactor use this function in all mapDraws
+
+
+    object_xc = map_position_x - map_x;
+    object_yc = map_position_y - map_y;
+
+    object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+    object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+
+    object_screen_x += (canvas_width / 3 / 2);
+    object_screen_y += (canvas_height / 3 / 2);
+
+
+
+    return(new Position(object_screen_x,object_screen_y));
+
+
+};

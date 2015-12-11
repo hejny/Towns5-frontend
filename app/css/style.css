@@ -291,6 +291,10 @@ input, textarea {
 
 }
 
+.mini-button:hover{
+    background-color: rgba(0,0,0,0.65);
+}
+
 
 #color-ctl{
     position:absolute;

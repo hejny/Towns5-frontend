@@ -32,12 +32,13 @@ function buildingStart(object){
 
     building=deepCopyObject(object);
 
-    selecting_offset={x: 150,y: 250};
+    selecting_size={x: 300,y: 700};
+    selecting_offset={x: 150,y: 650};
 
 
+    $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
+    $('#selecting-distance').attr('height',selecting_size.y);
 
-    $('#selecting-distance').attr('height',300);//todo Jaká by měla být velikost - rozmyslet?
-    $('#selecting-distance').attr('width',300);
     //$('#selecting-distance').css('border',2);
 
     buildingUpdate();
@@ -65,12 +66,63 @@ function buildingStart(object){
 
 function buildingUpdate(object){
 
-    r('buildingUpdate');
+    //r('buildingUpdate');
 
-    selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,300 , 300 );
+    selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,selecting_size.x , selecting_size.y );
 
 
-    building.design.data.draw(selecting_distance_canvas_ctx,/*Model.addRotSize(building.res,(building.rot-map_rotation),building.size),*/map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,building.subtype=='block'?selected_color:false);
+    var join=createNewOrJoin(building);
+    if(join===false){
+        //------------------------------------------------------------Normal building
+
+            building.design.data.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope);
+            //,building.subtype=='block'?selected_color:false
+
+        //------------------------------------------------------------
+    }else{
+        //------------------------------------------------------------Join buildings
+
+            r('buildingUpdate');
+
+
+            var tmpModel=deepCopyModel(map_object_changes[join.i].design.data);
+
+            building.design.data.compileRotationSize();
+
+            tmpModel.joinModel(
+                building.design.data,
+                join.xy.x,
+                join.xy.y
+            );
+
+            var screen_position=Map.mapPos2MouseCenterPos(map_object_changes[join.i].x,map_object_changes[join.i].y);
+
+
+            $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
+            $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
+            /*$('#selecting-distance').css('left', screen_position.x+(canvas_width / 3/2));
+            $('#selecting-distance').css('top', screen_position.y+(canvas_height / 3/2));*/
+
+
+
+            tmpModel.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope);
+
+
+        //------------------------------------------------------------
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }
