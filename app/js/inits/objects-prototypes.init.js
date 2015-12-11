@@ -80,6 +80,40 @@ objectPrototypes.push({
 
 },{
 
+    name: "Kamenná střecha",
+    type: "building",
+    subtype: "block",
+    actions: {
+        attack: {
+            strenght: 15,
+            radius: 1,
+            rounds: 1,
+            cooldown: 1,
+            retaliate: true
+        },
+        defense: {
+            strenght: 8
+        }
+    },
+    design: {
+        type: "model",
+        data: new Model({
+            particles: [
+                {
+                    shape:"pyramid",
+                    color: "#cccccc",
+                    position: {x:0,y:0,z:0},
+                    size: {x:40,y:40,z:50},
+                    rotation: {"xy":0}
+
+                }
+            ]
+        })
+
+    }
+
+},{
+
     name: "Kamenná věž",
     type: "building",
     subtype: "main",
