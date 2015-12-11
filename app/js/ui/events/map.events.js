@@ -402,6 +402,7 @@ $(function() {
     var BorderMoveDelay_=BorderMoveDelay;
 
 
+
     setInterval(
         function () {
 
@@ -486,7 +487,33 @@ $(function() {
 
             $('#selecting-distance').css('left', e.clientX - selecting_offset['x']);
             $('#selecting-distance').css('top', e.clientY - selecting_offset['y']);
+
+
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building
+            if(building!==false){
+                if(building.subtype!=='wall'){
+
+                    //r('preview');
+
+
+                    var map_click_x=(e.clientX-(canvas_width / 3/2));
+                    var map_click_y=(e.clientY-(canvas_height / 3/2));
+                    var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+
+                    building.x=mapPos.x;
+                    building.y=mapPos.y;
+
+                    buildingUpdate();
+
+                }
+            }
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
         }
+
+
+
 
     };
 
@@ -550,16 +577,11 @@ $(function() {
 
 
 
-
-                if(tmp.subtype=='block'){
-
+                /*if(tmp.subtype=='block'){
                     for(var i in tmp.design.data.particles){
                         tmp.design.data.particles[i].color=selected_color;
                     }
-
-
-
-                }
+                }*/
 
 
                 create(tmp);

@@ -259,13 +259,13 @@ function tidyHTML($buffer) {
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.plus')?>"><i class="fa fa-plus faa-tada"></i></div>
-    <div id="selecting-distance-minus" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.minus')?>"><i class="fa fa-minus faa-tada"></i></div>
-    <div id="selecting-distance-left" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.left')?>"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right faa-tada"></i></i></div>
+    <div id="selecting-distance-plus" class="mini-button" title="<?=message('ui.tool_controls.plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="selecting-distance-minus" class="mini-button" title="<?=message('ui.tool_controls.minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="selecting-distance-left" class="mini-button" title="<?=message('ui.tool_controls.left')?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="mini-button" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right"></i></i></div>
     <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.color')?>"><i class="fa fa-paint-brush faa-tada"></i>
     </div>
-    <div id="selecting-distance-close" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times faa-tada"></i></div>
+    <div id="selecting-distance-close" class="mini-button" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times"></i></div>
 </div>
 
 

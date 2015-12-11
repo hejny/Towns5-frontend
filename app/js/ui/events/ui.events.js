@@ -336,6 +336,16 @@ $(function() {
         selected_color = color;
         $('#selecting-distance-color').css('background-color', selected_color);
 
+
+        if(building.subtype=='block'){
+            for(var i in building.design.data.particles){
+                building.design.data.particles[i].color=selected_color;
+            }
+        }
+
+
+
+
         buildingUpdate();
 
     }, 200));

@@ -79,7 +79,8 @@ function createMulti(objects){
 //======================================================================================================================
 
 
-function createBuilding(object){
+function createNewOrJoin(object){
+    //todo ?? maybe use DI
 
     var distance,distances=[];
 
@@ -108,7 +109,7 @@ function createBuilding(object){
     }
 
 
-    if(distances.length>0){
+    if(distances.length>0) {
 
         distances.sort(function (a, b) {
 
@@ -122,50 +123,69 @@ function createBuilding(object){
 
         });
 
+
+
+
+        var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,45);
+
+
+        return {
+            'i': distances[0].i,
+            'xy': xy
+        };
+
+
+    }else{
+
+        return(false);
+    }
+
+
+
+    }
+
+
+
+//======================================================================================================================
+
+
+function createBuilding(object){
+
+
+    var join = createNewOrJoin(object);
+
+    if(join===false) {
+        //------------------------------------------------------------Normal building
+
+        object.id=generateID();
+        map_object_changes.push(object);
+
+        return(object.id);
+
+        //------------------------------------------------------------
+    }else{
+        //------------------------------------------------------------Join buildings
+
+
         if(0){
 
-            delete map_object_changes[distances[0].i];
-            map_object_changes[distances[0].i]=object;
+            delete map_object_changes[join.i];
+            map_object_changes[join.i]=object;
         }else{
 
 
 
-            /*if(is(map_object_changes[distances[0].i].res_node)) {
 
-                map_object_changes[distances[0].i].res=map_object_changes[distances[0].i].res_node;
-                //delete map_object_changes[distances[0].i].res_node;
-
-
-            }*/
-
-            /*if(object.subtype=='wall') {
-
-
-
-                if(map_object_changes[distances[0].i].res_node==object.res_node){
-
-                    object.res='';
-
-                }else{
-
-                    object.res=object.res_node;
-
-                }
-
-            }*/
-
-            var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,45);
-
-
-            map_object_changes[distances[0].i].design.data.joinModel(
+            map_object_changes[join.i].design.data.joinModel(
                         object.design.data,
-                        xy.x,
-                        xy.y
+                        join.xy.x,
+                        join.xy.y
                 );
 
-            if(map_object_changes[distances[0].i].subtype=='block'){
+            if(map_object_changes[join.i].subtype=='block'){
+
                 r('Converting more blocks into building');
-                map_object_changes[distances[0].i].subtype='main';
+                map_object_changes[join.i].subtype='main';
             }
 
             /*delete map_object_changes[distances[0].i].res_node;
@@ -176,13 +196,7 @@ function createBuilding(object){
 
         }
 
-    }else{
-
-
-        object.id=generateID();
-        map_object_changes.push(object);
-
-        return(object.id);
+        //------------------------------------------------------------
 
     }
 
