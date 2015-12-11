@@ -157,16 +157,17 @@ Model.prototype.joinModel = function(model,move_x,move_y){
     });
 
 
+    var distances=[0];
+
+
+
     for(var i in model_.particles){
-
-        var distances=[0];
-
 
 
         for(var ii in this.particles){//todo maybe optimize by pre-sorting
 
             if(ModelParticles.collision2D(model_.particles[i],this.particles[ii])){
-                distances.push(this.particles[i].position.z+this.particles[i].size.z);
+                distances.push(this.particles[ii].position.z+this.particles[ii].size.z);
             }
 
 
@@ -179,6 +180,8 @@ Model.prototype.joinModel = function(model,move_x,move_y){
 
     var max_z=Math.max.apply(Math,distances);
     //var max_z=this.range('z');
+
+    //r(max_z);
 
     model_.moveBy(0,0,max_z);
 

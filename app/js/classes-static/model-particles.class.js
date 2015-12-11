@@ -49,6 +49,42 @@ ModelParticles.get3D = function(particle){
             [1,2,3,4]
         ];
 
+    }else
+    if(particle.shape=='pyramid') {
+
+        var x = particle.position.x;
+        var y = particle.position.y;
+        var z = particle.position.z;
+
+        var x_ = Math.cos(Math.deg2rad(particle.rotation.xy)) * particle.size.x;
+        var y_ = Math.sin(Math.deg2rad(particle.rotation.xy)) * particle.size.y;
+        var z_ = particle.size.z;
+
+
+        resource.points = [
+            [x + x_, y + y_, z],
+            [x - y_, y + x_, z],
+            [x - x_, y - y_, z],
+            [x + y_, y - x_, z],
+
+            [x, y, z + z_],
+        ];
+
+
+        resource.polygons = [
+            //[1234]
+            [1, 2, 5],
+            [2, 3, 5],
+            [3, 4, 5],
+            [4, 1, 5]
+
+        ];
+
+
+        resource.polygons2D = [
+            [1,2,3,4]
+        ];
+
     }else{
 
         throw 'Unknown particle shape '+particle.shape;
@@ -234,7 +270,7 @@ ModelParticles.collision2D = function(particle1,particle2){
     //-------------------------------
 
     //-------------------------------Debug TDD
-    /*var size=50;
+    /**var size=50;
     var src=createCanvasViaFunctionAndConvertToSrc(
         size*2,size*2,function(ctx){
 
@@ -262,7 +298,7 @@ ModelParticles.collision2D = function(particle1,particle2){
 
 
     );
-    $('body').append('<img src="'+src+'" border='+(collision?2:0)+'>');*/
+    $('body').append('<img src="'+src+'" border='+(collision?2:0)+'>');/**/
     //-------------------------------
 
     return(collision);
