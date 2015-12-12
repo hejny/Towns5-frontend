@@ -73,15 +73,17 @@
     //building2.size=0.5;
 
     building1.draw(ctx1, 0.5, 150, 250, 0, 30);
-    building1.rotation+=20;
+    /*building1.rotation+=20;
     building1.draw(ctx2, 0.5, 150, 250, 0, 30);
     building1.rotation+=20;
     building1.draw(ctx3, 0.5, 150, 250, 0, 30);
     building1.rotation+=20;
-    building1.draw(ctx4, 0.5, 150, 250, 0, 30);
+    building1.draw(ctx4, 0.5, 150, 250, 0, 30);*/
 
-    /*building2.draw(ctx2, 0.5, 150, 250, 0, 30);
-    building1.joinModel(building2);
+    /**/
+
+    building2.draw(ctx2, 0.5, 150, 250, 0, 30);
+    building1.joinModel(building2,50,-80);
     building2.rotation+=20;
     building1.joinModel(building2);
     //building2.rotation+=20;

@@ -53,7 +53,8 @@ function buildingStart(object){
     if(object.subtype!='wall')$('#selecting-distance-left').show();
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
-    if(object.subtype=='block')$('#selecting-distance-color').show();
+    if(object.subtype=='block')$('#selecting-distance-color').show();//todo refactor not same if conditions
+    if(object.subtype=='block')$('#selecting-distance-blocks').show();
     $('#selecting-distance-close').show();
 
 

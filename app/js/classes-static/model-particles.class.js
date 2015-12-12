@@ -31,13 +31,14 @@ ModelParticles.get3D = function(particle){
         var z_ = particle.size.z;
 
 
-        r(x_,y_);
+        //r(x_,y_);
         //r(particle.shape.n);
 
 
         /**/
         resource.points=[];
         resource.polygons=[[]];
+        resource.polygons2D=[[],[]];
 
         for(var level=0;level<2;level++){
 
@@ -106,6 +107,10 @@ ModelParticles.get3D = function(particle){
                     //r(n,1,particle.shape.n,(n+1+particle.shape.n));
                     resource.polygons[0].push(n+1+particle.shape.n);
 
+                    resource.polygons2D[0].push(n+1);
+                    resource.polygons2D[1].push(n+1+particle.shape.n);
+
+
                     resource.polygons.push([
                         (n!=0?n:particle.shape.n),
                         n+1,
@@ -120,44 +125,6 @@ ModelParticles.get3D = function(particle){
         }/**/
 
 
-        //r(resource.polygons);
-        //resource.polygons2D = [resource.polygons[0]];
-
-
-        r(x_,y_);
-
-        /**resource.points = [
-            [x + x_, y + y_, z ],
-            [x - x_, y + y_, z ],
-            [x - x_, y - y_, z ],
-            [x + x_, y - y_, z ],
-
-
-            [x + x_, y + y_, z + z_],
-            [x - x_, y + y_, z + z_],
-            [x - x_, y - y_, z + z_],
-            [x + x_, y - y_, z + z_]
-
-
-            /*[x + x_, y + y_, z + z_],
-            [x - y_, y + x_, z + z_],
-            [x - x_, y - y_, z + z_],
-            [x + y_, y - x_, z + z_]*
-        ];
-
-
-        resource.polygons = [
-            [5, 6, 7, 8],
-            [1, 2, 6, 5],
-            [2, 3, 7, 6],
-            [3, 4, 8, 7],
-            [4, 1, 5, 8]
-        ];/**/
-
-
-        /*resource.polygons2D = [
-            [1,2,3,4]
-        ];*/
 
     }else{
 
@@ -172,16 +139,16 @@ ModelParticles.get3D = function(particle){
 
 
 
-ModelParticles.get2Dlines = function(particle){
+ModelParticles.get2Dlines = function(particle,base){
 
 
     var resource=this.get3D(particle);
 
     var lines=[];
 
+    var polygons2D=[resource.polygons2D[base]];
 
-
-    for(var pn in resource.polygons2D){
+    for(var pn in polygons2D){
 
         /*lines[pn]=[];
 
@@ -192,7 +159,7 @@ ModelParticles.get2Dlines = function(particle){
 
         }*/
 
-        for(var i=-1,l=resource.polygons2D[pn].length;i<l-1;i++){
+        for(var i=-1,l=polygons2D[pn].length;i<l-1;i++){
 
 
             if(i!=-1)
@@ -205,8 +172,8 @@ ModelParticles.get2Dlines = function(particle){
 
             //r(resource.polygons[pn],point1);
 
-            point1 = resource.points[resource.polygons2D[pn][point1] - 1];
-            point2 = resource.points[resource.polygons2D[pn][point2] - 1];
+            point1 = resource.points[polygons2D[pn][point1] - 1];
+            point2 = resource.points[polygons2D[pn][point2] - 1];
 
 
             lines.push(
@@ -272,8 +239,8 @@ ModelParticles.collisionLinesDetect = function(lines1,lines2){
 ModelParticles.collision2D = function(particle1,particle2){
 
 
-    var lines1 = ModelParticles.get2Dlines(particle1);
-    var lines2 = ModelParticles.get2Dlines(particle2);
+    var lines1 = ModelParticles.get2Dlines(particle1,1);
+    var lines2 = ModelParticles.get2Dlines(particle2,0);
 
     //-------------------------------Corner collision
 

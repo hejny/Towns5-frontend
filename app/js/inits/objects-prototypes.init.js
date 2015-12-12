@@ -111,7 +111,7 @@ objectPrototypes.push({
                         n:4,
                         top:{
                             size:0.5,
-                            position:{x:1,y:-5}
+                            position:{x:1,y:-2}
                         }
                     },
                     color: "#cccccc",
