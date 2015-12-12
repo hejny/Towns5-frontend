@@ -158,6 +158,13 @@ function createBuilding(object){
         //------------------------------------------------------------Normal building
 
         object.id=generateID();
+
+        if(object.subtype=='block'){
+
+            object.subtype='main';
+        }
+
+
         map_object_changes.push(object);
 
         return(object.id);
@@ -182,11 +189,9 @@ function createBuilding(object){
                         join.xy.y
                 );
 
-            if(map_object_changes[join.i].subtype=='block'){
 
-                r('Converting more blocks into building');
-                map_object_changes[join.i].subtype='main';
-            }
+            map_object_changes[join.i].subtype='main';
+
 
             /*delete map_object_changes[distances[0].i].res_node;
             delete map_object_changes[distances[0].i].res_path;*/

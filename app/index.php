@@ -265,6 +265,7 @@ function tidyHTML($buffer) {
     <div id="selecting-distance-right" class="mini-button" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right"></i></i></div>
     <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.color')?>"><i class="fa fa-paint-brush faa-tada"></i>
     </div>
+    <div id="selecting-distance-blocks" class="mini-button" title="<?=message('ui.tool_controls.blocks')?>"><i class="fa fa-cubes"></i></div>
     <div id="selecting-distance-close" class="mini-button" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times"></i></div>
 </div>
 

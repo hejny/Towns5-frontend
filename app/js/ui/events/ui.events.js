@@ -191,11 +191,8 @@ window.uiScript = function(){
 
     //==================================================================================================================selecting_distance Click
 
-    $('#selecting-distance-plus').off();
-    $('#selecting-distance-minus').off();
-    $('#selecting-distance-left').off();
-    $('#selecting-distance-right').off();
-    $('#selecting-distance-close').off();
+    $('.mini-button').off();
+
 
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
     $('#selecting-distance-plus').unbind('click').click(function(){
@@ -249,6 +246,14 @@ window.uiScript = function(){
         $('#color-ctl').toggle();
 
     });
+
+
+    $('#selecting-distance-blocks').unbind('click').click(function(){
+        //block_editing=building.id;
+        window_open('blocks');
+
+    });
+
 
     $('#selecting-distance-close').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
