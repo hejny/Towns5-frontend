@@ -11,83 +11,157 @@ ModelParticles.get3D = function(particle){
 
     var resource={};
 
-    if(particle.shape=='cube') {
+    if(particle.shape.type=='prisms') {
+
+
+
+        var angle=particle.shape.n/8*360;
+
+
 
         var x = particle.position.x;
         var y = particle.position.y;
         var z = particle.position.z;
 
-        var x_ = Math.cos(Math.deg2rad(particle.rotation.xy)) * particle.size.x;
-        var y_ = Math.sin(Math.deg2rad(particle.rotation.xy)) * particle.size.y;
+
+        var x_ = particle.size.x*Math.sqrt(2);
+        var y_ = particle.size.y*Math.sqrt(2);
+
+
         var z_ = particle.size.z;
 
 
-        resource.points = [
-            [x + x_, y + y_, z],
-            [x - y_, y + x_, z],
-            [x - x_, y - y_, z],
-            [x + y_, y - x_, z],
+        r(x_,y_);
+        //r(particle.shape.n);
+
+
+        /**/
+        resource.points=[];
+        resource.polygons=[[]];
+
+        for(var level=0;level<2;level++){
+
+
+            //---------------------------
+
+
+            if(level==0){
+                if(typeof particle.shape.bottom !== 'undefined'){
+                    var base=particle.shape.bottom;
+                }else{
+                    var base=false
+                }
+
+            }else{
+                if(typeof particle.shape.top !== 'undefined'){
+                    var base=particle.shape.top;
+                }else{
+                    var base=false
+                }
+            }
+
+
+            if(base===false){
+
+                base={
+                    size:1,
+                    position:{x:0,y:0}
+                };
+            }
+
+            if(typeof base.size === 'undefined'){
+                base.size=1;
+            }
+
+            if(typeof base.position === 'undefined'){
+                base.position={x:0,y:0};
+            }
+
+            //---------------------------
+
+
+            for(var n = 0;n<particle.shape.n;n++){
+
+
+                var DistDeg_=Math.xy2distDeg(
+                    x_*Math.cos(n/particle.shape.n*Math.PI*2)*base.size+x_*base.position.x,
+                    y_*Math.sin(n/particle.shape.n*Math.PI*2)*base.size+y_*base.position.y
+                );//todo all like DistDeg, etc...
+                DistDeg_.deg-=particle.rotation.xy;
+                var xy_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
+
+
+                resource.points.push([
+
+                    x + xy_.x,
+                    y + xy_.y,
+
+
+                    z+z_*level
+                ]);
+
+
+                if(level==0){
+
+                    //r(n,1,particle.shape.n,(n+1+particle.shape.n));
+                    resource.polygons[0].push(n+1+particle.shape.n);
+
+                    resource.polygons.push([
+                        (n!=0?n:particle.shape.n),
+                        n+1,
+                        n+1+particle.shape.n,
+                        (n!=0?n:particle.shape.n)+particle.shape.n
+
+                    ]);
+
+                }
+
+            }
+        }/**/
+
+
+        //r(resource.polygons);
+        //resource.polygons2D = [resource.polygons[0]];
+
+
+        r(x_,y_);
+
+        /**resource.points = [
+            [x + x_, y + y_, z ],
+            [x - x_, y + y_, z ],
+            [x - x_, y - y_, z ],
+            [x + x_, y - y_, z ],
+
+
             [x + x_, y + y_, z + z_],
+            [x - x_, y + y_, z + z_],
+            [x - x_, y - y_, z + z_],
+            [x + x_, y - y_, z + z_]
+
+
+            /*[x + x_, y + y_, z + z_],
             [x - y_, y + x_, z + z_],
             [x - x_, y - y_, z + z_],
-            [x + y_, y - x_, z + z_]
+            [x + y_, y - x_, z + z_]*
         ];
 
 
         resource.polygons = [
-            //[1234]
             [5, 6, 7, 8],
             [1, 2, 6, 5],
             [2, 3, 7, 6],
             [3, 4, 8, 7],
             [4, 1, 5, 8]
+        ];/**/
 
-        ];
 
-
-        resource.polygons2D = [
+        /*resource.polygons2D = [
             [1,2,3,4]
-        ];
-
-    }else
-    if(particle.shape=='pyramid') {
-
-        var x = particle.position.x;
-        var y = particle.position.y;
-        var z = particle.position.z;
-
-        var x_ = Math.cos(Math.deg2rad(particle.rotation.xy)) * particle.size.x;
-        var y_ = Math.sin(Math.deg2rad(particle.rotation.xy)) * particle.size.y;
-        var z_ = particle.size.z;
-
-
-        resource.points = [
-            [x + x_, y + y_, z],
-            [x - y_, y + x_, z],
-            [x - x_, y - y_, z],
-            [x + y_, y - x_, z],
-
-            [x, y, z + z_],
-        ];
-
-
-        resource.polygons = [
-            //[1234]
-            [1, 2, 5],
-            [2, 3, 5],
-            [3, 4, 5],
-            [4, 1, 5]
-
-        ];
-
-
-        resource.polygons2D = [
-            [1,2,3,4]
-        ];
+        ];*/
 
     }else{
 
-        throw 'Unknown particle shape '+particle.shape;
+        throw 'Unknown particle shape '+particle.shape.type;
 
     }
 
