@@ -17,6 +17,17 @@
 
 //todo nahradit vsechny takovahle zjistovani touhle funkci
 //todo jsdoc
+function defined(val){
+    if(typeof(val)==='undefined')return false;
+    return true;
+
+}
+
+//----------------------------------------------------------is
+
+
+//todo nahradit vsechny takovahle zjistovani touhle funkci
+//todo jsdoc
 //todo test TDD
 //todo funguje !is na NaN apod?
 //todo ?? nemelo by [undefined] take vracet ze je to !is

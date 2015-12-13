@@ -512,10 +512,17 @@ input, textarea {
     border: 2px solid transparent;
     border-radius: 3px;
 
-    background-color: blueviolet;
+    background-color: #111111;
     box-shadow: black 0 0 3px 0;
     cursor: pointer;
 
+
+    font-size: 50px;
+    color: #cccccc;
+    text-align: center;
+    vertical-align: middle;
+
+    overflow: hidden;
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -534,6 +541,9 @@ input, textarea {
     border: 2px solid #0098ff;
     box-shadow: #0098ff 0 0 3px 0; /* todo: nedať .active radšej na .action ??? */
 }
+
+
+
 
 /* POPUP ACTION ------------------------------------------------------------------------------------------------------*/
 

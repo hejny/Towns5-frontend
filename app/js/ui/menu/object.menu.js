@@ -38,14 +38,14 @@ function objectMenu(){
 
 
 
-        objectmenu+=Template.get('objectmenu',{
+        objectmenu+=Templates.objectMenu({
             icon: 'media/image/icon/f_upgrade.png',
             title: 'Duplikat',
             content: 'co co',
             action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
         });
 
-        objectmenu+=Template.get('objectmenu',{
+        objectmenu+=Templates.objectMenu({
             icon: 'media/image/icon/f_create_wall.png',
             title: 'Duplikat',
             content: 'co co',
@@ -64,7 +64,7 @@ function objectMenu(){
 
 
 
-            objectmenu+=Template.get('objectmenu',{
+            objectmenu+=Templates.objectMenu({
                 icon: icon,
                 title: '',
                 content: content,

@@ -91,7 +91,7 @@ function objectMenuStory(){
         var action='storyWriteStart(\''+(storyTypes[key])+'\');';
 
 
-        objectmenu+=Template.get('objectmenu',{
+        objectmenu+=Templates.objectMenu({
             icon: icon,
             title: '',
             content: content,

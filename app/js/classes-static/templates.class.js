@@ -13,45 +13,27 @@
  */
 
 
-var Template={};
+var Templates={};
 
 
-Template.get = function(templateName,vars){
 
-    var template = Template.html[templateName];
-
-    if(!is(template))throw 'Template '+templateName+' do not exist.'
+Templates.objectMenu = function(params){
 
 
-    for(var key in vars){
+    return `<div class="action-wrapper">
 
-        //r(key,vars[key]);
-        if(typeof vars[key]!='string')throw 'Var '+key+' is not string.'
+        <div class="action js-popup-action-open"`+
 
-        template=template.split('%'+key).join(vars[key].htmlEncode());
+            (defined(params.icon)?` style="background: url('`+params.icon+`');background-size: cover;"`:``)+
+            (defined(params.title)?` title="`+params.title+`"`:``)+
+            (defined(params.content)?` content="`+params.content+`"`:``)+
+            (defined(params.action)?` action="`+params.action+`"`:``)+`>`+
+            (defined(params.inner)?params.inner:``)+
 
-    }
-
-    return(template);
-
+        `</div>
+    </div>
+    `;
 };
 
 
 
-//======================================================================================================================
- //todo should be template loading here
-//todo vars should be like {{key}} not like %key
-
-
-Template.html={};
-
-$(function(){
-
-    //todo make templates better - maybe class
-    Template.html.objectmenu = $('#objectmenu-inner').html()
-        .split('template_params')
-        .join('style="background: url(\'%icon\');background-size: cover;" title="%title" content="%content" action="%action"');//todo do content - help better
-    //todo in action use callback not string
-    //todo here should be htmlencode
-
-});

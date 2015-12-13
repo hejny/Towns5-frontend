@@ -2,6 +2,7 @@
 
 //todo headers
 
+//todo ?? maybe rename to Messages or Locale.Messages???
 var Locale={};//set en, cs here
 
 

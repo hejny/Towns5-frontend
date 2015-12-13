@@ -197,7 +197,17 @@ function objectMenuBuildingsPrototypes(subtype){
 
     var objectmenu='';
 
-    r(objectPrototypes);
+
+    if(subtype=='block')
+        objectmenu+=Templates.objectMenu({
+            inner: '<i class="fa fa-plus-square-o"></i>',
+            title: title,
+            content: content,
+            action: `mapSpecialCursorStop();window_open('blocks');`
+        });
+
+
+
 
     for(var i= 0,l=objectPrototypes.length;i<l;i++){
 
@@ -212,7 +222,7 @@ function objectMenuBuildingsPrototypes(subtype){
             var action='buildingStart(objectPrototypes['+(i)+']);';
 
 
-            objectmenu+=Template.get('objectmenu',{
+            objectmenu+=Templates.objectMenu({
                 icon: icon,
                 title: title,
                 content: content,
@@ -228,6 +238,7 @@ function objectMenuBuildingsPrototypes(subtype){
 
 
     }
+
 
 
     showLeftMenu(objectmenu);

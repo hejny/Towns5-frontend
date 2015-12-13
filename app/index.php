@@ -388,11 +388,6 @@ function tidyHTML($buffer) {
 
 <aside id="objectmenu">
     <div id="objectmenu-inner">
-        <div class="action-wrapper">
-
-            <div class="action js-popup-action-open" template_params></div>
-
-        </div>
         <div>
 </aside>
 
