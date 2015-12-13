@@ -53,7 +53,7 @@ window.window_open = function(page){
 
         //r('eval ','content[i][0]='+content[i][0]+';');
 
-        eval('content[i][0]='+content[i][0]+';');
+        content[i][0]=Locale.get(content[i][0]);
         content[i]=content[i].join('');
 
 

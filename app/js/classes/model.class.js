@@ -217,7 +217,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
 
     var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
-    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4;
+    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4 ;
     var slnko = 50;
 
 
@@ -389,7 +389,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 x = resource['points'][resource['polygons'][i2][i3]][0];
                 y = resource['points'][resource['polygons'][i2][i3]][1];
                 z = resource['points'][resource['polygons'][i2][i3]][2];
-                xx = x * 1 - (y * 1);
+                xx = x - y;
                 yy = x * slope_m + y * slope_m - (z * slope_n);
 
 
