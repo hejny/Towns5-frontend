@@ -32,6 +32,7 @@
     "app/js/classes-static/array.class.js",
     "app/js/classes-static/farbtastic.class.js",
     "app/js/classes-static/log.class.js",
+    "app/js/classes-static/locale.class.js",
     "app/js/classes-static/storage.class.js",
     "app/js/classes-static/map-generate.class.js",
     "app/js/classes-static/map.class.js",

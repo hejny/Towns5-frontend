@@ -13,9 +13,16 @@ ModelParticles.get3D = function(particle){
 
     if(particle.shape.type=='prisms') {
 
+        //-------------
+        if(typeof particle.skew==='undefined'){
+            particle.skew={};
+        }
+        if(typeof particle.skew.z==='undefined'){
+            particle.skew.z={x:0,y:0};
+        }
 
 
-        var angle=particle.shape.n/8*360;
+        //-------------
 
 
 
@@ -26,9 +33,7 @@ ModelParticles.get3D = function(particle){
 
         var x_ = particle.size.x*Math.sqrt(2);
         var y_ = particle.size.y*Math.sqrt(2);
-
-
-        var z_ = particle.size.z;
+        var z_ = particle.size.z*2;
 
 
         //r(x_,y_);
@@ -63,43 +68,70 @@ ModelParticles.get3D = function(particle){
 
 
             if(base===false){
-
-                base={
-                    size:1,
-                    position:{x:0,y:0}
-                };
+                base=1
             }
 
-            if(typeof base.size === 'undefined'){
-                base.size=1;
-            }
-
-            if(typeof base.position === 'undefined'){
-                base.position={x:0,y:0};
-            }
 
             //---------------------------
 
 
             for(var n = 0;n<particle.shape.n;n++){
 
+                var x__=x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
+                    y__=y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
+                    z__=z_*level;
 
-                var DistDeg_=Math.xy2distDeg(
-                    x_*Math.cos(n/particle.shape.n*Math.PI*2)*base.size+x_*base.position.x,
-                    y_*Math.sin(n/particle.shape.n*Math.PI*2)*base.size+y_*base.position.y
-                );//todo all like DistDeg, etc...
+                //------------------ XZ Rotation
+
+                if(typeof particle.rotation.xz === 'undefined')particle.rotation.xz=0;
+
+                if(particle.rotation.xz!==0){
+
+                    var DistDeg_=Math.xy2distDeg(x__,z__);
+                    DistDeg_.deg-=particle.rotation.xz;
+                    var xz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
+
+                    x__=xz_.x;
+                    z__=xz_.y;
+
+
+                    z__+=particle.size.x/2/90*particle.rotation.xz;//todo real rotation
+                    x__-=particle.size.z/2/90*particle.rotation.xz;
+                }
+                //------------------ YZ Rotation
+
+                if(typeof particle.rotation.yz === 'undefined')particle.rotation.yz=0;
+
+                if(particle.rotation.yz!==0){
+
+                    var DistDeg_=Math.xy2distDeg(y__,z__);
+                    DistDeg_.deg-=particle.rotation.yz;
+                    var yz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
+
+                    y__=yz_.x;
+                    z__=yz_.y;
+
+
+                    z__+=particle.size.y/2/90*particle.rotation.yz;
+                    y__-=particle.size.z/2/90*particle.rotation.yz;
+                }
+
+
+                //------------------ XY Rotation
+
+                var DistDeg_=Math.xy2distDeg(x__,y__);//todo refactor all like DistDeg, etc...
                 DistDeg_.deg-=particle.rotation.xy;
                 var xy_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
 
-
-                resource.points.push([
-
-                    x + xy_.x,
-                    y + xy_.y,
+                x__=xy_.x;
+                y__=xy_.y;
 
 
-                    z+z_*level
-                ]);
+
+                //------------------
+
+                resource.points.push([x+x__,y+y__,z+z__]);
+
 
 
                 if(level==0){
