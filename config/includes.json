@@ -46,7 +46,7 @@
     "app/js/classes-static/cookie.class.js",
     "app/js/classes-static/map-load.class.js",
     "app/js/classes-static/map-draw.class.js",
-    "app/js/classes-static/template.class.js",
+    "app/js/classes-static/templates.class.js",
     "app/js/classes-static/map-objects-html-draw.class.js",
     "app/js/classes-static/model-particles.class.js",
 

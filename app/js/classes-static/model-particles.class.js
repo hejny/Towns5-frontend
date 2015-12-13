@@ -7,23 +7,44 @@ var ModelParticles = {};
 
 
 
+ModelParticles.cParams = function(particle){//todo ?? maybe rename
+
+
+    if(typeof particle.skew==='undefined'){
+        particle.skew={};
+    }
+    if(typeof particle.skew.z==='undefined'){
+        particle.skew.z={x:0,y:0};
+    }
+
+    //-------------
+
+    if(typeof particle.shape.top === 'undefined') {
+        particle.shape.top = 1;
+    }
+
+
+    if(typeof particle.shape.bottom === 'undefined') {
+        particle.shape.bottom = 1;
+    }
+
+    return(particle);
+
+};
+
+
+//======================================================================================================================
+
+
 ModelParticles.get3D = function(particle){
 
     var resource={};
 
+
+
+    particle=ModelParticles.cParams(particle);
+
     if(particle.shape.type=='prisms') {
-
-        //-------------
-        if(typeof particle.skew==='undefined'){
-            particle.skew={};
-        }
-        if(typeof particle.skew.z==='undefined'){
-            particle.skew.z={x:0,y:0};
-        }
-
-
-        //-------------
-
 
 
         var x = particle.position.x;
@@ -52,28 +73,14 @@ ModelParticles.get3D = function(particle){
 
 
             if(level==0){
-                if(typeof particle.shape.bottom !== 'undefined'){
-                    var base=particle.shape.bottom;
-                }else{
-                    var base=false
-                }
+                var base=particle.shape.bottom;
 
             }else{
-                if(typeof particle.shape.top !== 'undefined'){
-                    var base=particle.shape.top;
-                }else{
-                    var base=false
-                }
+                var base=particle.shape.top;
             }
 
 
-            if(base===false){
-                base=1
-            }
-
-
-            //---------------------------
-
+            //--------
 
             for(var n = 0;n<particle.shape.n;n++){
 

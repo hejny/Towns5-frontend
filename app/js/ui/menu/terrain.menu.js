@@ -138,9 +138,9 @@ function objectMenuTerrainChange(){
             var action='terrainChangeStart('+(terrain)+',false);';
 
 
-            objectmenu+=Template.get('objectmenu',{
+            objectmenu+=Templates.objectMenu({
                 icon: icon,
-                title: MESSAGES.terrains['t'+terrain],
+                title: Locale.get('terrains.t'+terrain),
                 content: content,
                 action: action
             });
