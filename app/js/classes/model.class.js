@@ -167,7 +167,7 @@ Model.prototype.joinModel = function(model,move_x,move_y){
         for(var ii in this.particles){//todo maybe optimize by pre-sorting
 
             if(ModelParticles.collision2D(this.particles[ii],model_.particles[i])){
-                distances.push(this.particles[ii].position.z+this.particles[ii].size.z);
+                distances.push(this.particles[ii].position.z+this.particles[ii].size.z*2);//todo better solution then only simple bugfix *2
             }
 
 

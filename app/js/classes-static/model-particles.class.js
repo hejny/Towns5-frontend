@@ -58,7 +58,7 @@ ModelParticles.get3D = function(particle){
 
         var x_ = particle.size.x*Math.sqrt(2);
         var y_ = particle.size.y*Math.sqrt(2);
-        var z_ = particle.size.z*2;
+        var z_ = particle.size.z * 2 ;//todo better solution then only simple bugfix *2
 
 
         //r(x_,y_);
