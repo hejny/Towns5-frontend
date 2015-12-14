@@ -35,8 +35,8 @@ window.window_open = function(page){
     //todo sounds ion.sound.play("door_bump");
     r('Opening window '+page);
 
-    var header=pages[page].header;
-    var content=pages[page].content;
+    var header=Pages[page].header;
+    var content=Pages[page].content;
 
 
     if(!is(header))header='';
@@ -62,19 +62,19 @@ window.window_open = function(page){
 
 
 
-    r(header,content);
+    //r(header,content);
 
     window_open_content(header,content);
 
-    if(is(pages[page].openJS)) {
+    if(is(Pages[page].openJS)) {
         setTimeout(function () {
-            pages[page].openJS();
+            Pages[page].openJS();
         },IMMEDIATELY_MS);
     }
 
 
-    if(is(pages[page].closeJS)) {
-        window_closeJS=pages[page].closeJS;
+    if(is(Pages[page].closeJS)) {
+        window_closeJS=Pages[page].closeJS;
     }
 
 

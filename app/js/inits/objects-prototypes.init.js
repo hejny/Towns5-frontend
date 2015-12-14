@@ -4,29 +4,18 @@
 //todo headers
 
 
-var objectPrototypes=[];
+var object_prototypes=[];
 
 
 
 
 
-objectPrototypes.push({
+object_prototypes.push({
 
+    id: 'x1',
     name: "Kamenný kvádr",
     type: "building",
     subtype: "block",
-    actions: {
-        attack: {
-            strenght: 15,
-            radius: 1,
-            rounds: 1,
-            cooldown: 1,
-            retaliate: true
-        },
-        defense: {
-            strenght: 8
-        }
-    },
     design: {
         type: "model",
         data: new Model({
@@ -34,11 +23,11 @@ objectPrototypes.push({
                 {
                     shape:{
                         type: 'prisms',
-                        n:7,
+                        n:4,
                     },
                     color: "#cccccc",
                     position: {x:0,y:0,z:0},
-                    size: {x:30,y:70,z:20},
+                    size: {x:40,y:40,z:40},
                     rotation: {"xy":0}
 
                 }
@@ -49,21 +38,10 @@ objectPrototypes.push({
 
 },{
 
+    id: 'x2',
     name: "Kamenný kvádr",
     type: "building",
     subtype: "block",
-    actions: {
-        attack: {
-            strenght: 15,
-            radius: 1,
-            rounds: 1,
-            cooldown: 1,
-            retaliate: true
-        },
-        defense: {
-            strenght: 8
-        }
-    },
     design: {
         type: "model",
         data: new Model({
@@ -75,8 +53,8 @@ objectPrototypes.push({
                     },
                     color: "#cccccc",
                     position: {x:0,y:0,z:0},
-                    size: {x:30,y:30,z:40},
-                    rotation: {"xy":0}
+                    size: {x:60,y:40,z:40},
+                    rotation: {"xy":0,"xz":90}
 
                 }
             ]
@@ -86,21 +64,10 @@ objectPrototypes.push({
 
 },{
 
+    id: 'x3',
     name: "Kamenná střecha",
     type: "building",
     subtype: "block",
-    actions: {
-        attack: {
-            strenght: 15,
-            radius: 1,
-            rounds: 1,
-            cooldown: 1,
-            retaliate: true
-        },
-        defense: {
-            strenght: 8
-        }
-    },
     design: {
         type: "model",
         data: new Model({
@@ -109,14 +76,11 @@ objectPrototypes.push({
                     shape:{
                         type: 'prisms',
                         n:4,
-                        top:{
-                            size:0.5,
-                            position:{x:1,y:-2}
-                        }
+                        top:0
                     },
                     color: "#cccccc",
                     position: {x:0,y:0,z:0},
-                    size: {x:40,y:40,z:180},
+                    size: {x:40,y:40,z:40},
                     rotation: {"xy":0}
 
                 }
@@ -127,6 +91,7 @@ objectPrototypes.push({
 
 },{
 
+    id: 'x4',
     name: "Kamenná věž",
     type: "building",
     subtype: "main",
@@ -174,6 +139,7 @@ objectPrototypes.push({
 
 },{
 
+    id: 'x5',
     name: "Kamenná hradba",
     type: "building",
     subtype: "wall",

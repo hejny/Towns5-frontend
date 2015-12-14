@@ -43,7 +43,7 @@
 
 <script>
 
-    building1=objectPrototypes[0];
+    building1=object_prototypes[0];
     building2=deepCopyObject(building1);
     building1.design.data.rotation=40;
 

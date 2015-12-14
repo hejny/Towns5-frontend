@@ -28,6 +28,10 @@ ModelParticles.cParams = function(particle){//todo ?? maybe rename
         particle.shape.bottom = 1;
     }
 
+
+    if(typeof particle.rotation.xz === 'undefined')particle.rotation.xz=0;
+    if(typeof particle.rotation.yz === 'undefined')particle.rotation.yz=0;
+
     return(particle);
 
 };
@@ -84,18 +88,16 @@ ModelParticles.get3D = function(particle){
 
             for(var n = 0;n<particle.shape.n;n++){
 
-                var x__=x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
-                    y__=y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
+                var x__=x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
+                    y__=y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
                     z__=z_*level;
 
                 //------------------ XZ Rotation
 
-                if(typeof particle.rotation.xz === 'undefined')particle.rotation.xz=0;
-
                 if(particle.rotation.xz!==0){
 
                     var DistDeg_=Math.xy2distDeg(x__,z__);
-                    DistDeg_.deg-=particle.rotation.xz;
+                    DistDeg_.deg+=particle.rotation.xz;
                     var xz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
 
                     x__=xz_.x;
@@ -107,12 +109,11 @@ ModelParticles.get3D = function(particle){
                 }
                 //------------------ YZ Rotation
 
-                if(typeof particle.rotation.yz === 'undefined')particle.rotation.yz=0;
 
                 if(particle.rotation.yz!==0){
 
                     var DistDeg_=Math.xy2distDeg(y__,z__);
-                    DistDeg_.deg-=particle.rotation.yz;
+                    DistDeg_.deg+=particle.rotation.yz;
                     var yz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
 
                     y__=yz_.x;
@@ -127,7 +128,7 @@ ModelParticles.get3D = function(particle){
                 //------------------ XY Rotation
 
                 var DistDeg_=Math.xy2distDeg(x__,y__);//todo refactor all like DistDeg, etc...
-                DistDeg_.deg-=particle.rotation.xy;
+                DistDeg_.deg+=particle.rotation.xy;
                 var xy_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
 
                 x__=xy_.x;

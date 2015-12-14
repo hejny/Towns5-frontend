@@ -240,7 +240,7 @@ function definePrototype(objectReference,forceSubtype){
     }
 
     r(object);
-    objectPrototypes.push(object);
+    object_prototypes.push(object);
 
 
 }

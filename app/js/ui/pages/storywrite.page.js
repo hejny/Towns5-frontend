@@ -2,12 +2,12 @@
 //todo header
 //todo ?? DI
 
-pages.storywrite={"header": 'Upravit příběh'};
+Pages.storywrite={"header": 'Upravit příběh'};
 
 
 //======================================================================================================================
 
-pages.storywrite.content=[
+Pages.storywrite.content=[
     '<input type="text" id="story-name" value="" placeholder="Název příběhu">',
     //'<button id="story-save" onclick="storyContentReload();">Uložit</button>',
     '<br>',
@@ -26,7 +26,7 @@ var separator_width,separator_border,window_padding;
 
 //======================================================================================================================
 
-pages.storywrite.openJS = function(){
+Pages.storywrite.openJS = function(){
 
     separator_width=5;//parseInt($('#vertical_separator').css('width'));
     separator_border=2;//parseInt($('#story-content').css('border-right'));
@@ -71,7 +71,7 @@ pages.storywrite.openJS = function(){
 
 //======================================================================================================================
 
-pages.storywrite.closeJS = function(){
+Pages.storywrite.closeJS = function(){
 
     map_selected_ids=[];
     Map.loadMap();

@@ -82,7 +82,7 @@
         ]
     });
     //deepCopyModel(objectPrototypes[2].design.data);
-    building2=deepCopyModel(objectPrototypes[1].design.data);
+    building2=deepCopyModel(object_prototypes[1].design.data);
 
     //console.log(building1);
     //console.log(building2);

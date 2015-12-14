@@ -1,12 +1,12 @@
 
 //todo header
 
-pages.storyread={"header": 'Příběh'};
+Pages.storyread={"header": 'Příběh'};
 
 
 //======================================================================================================================
 
-pages.storyread.openJS = function(){
+Pages.storyread.openJS = function(){
 
 
     var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
@@ -35,7 +35,7 @@ pages.storyread.openJS = function(){
 
 //======================================================================================================================
 
-pages.storyread.closeJS = function(){
+Pages.storyread.closeJS = function(){
 
     map_selected_ids=[];
     Map.loadMap();

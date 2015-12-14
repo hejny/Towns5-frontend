@@ -38,7 +38,7 @@ var MESSAGE_MS = 2000;
  */
 
 
-var pages={};
+var Pages={};
 
 
 var selecting_distance_canvas;
