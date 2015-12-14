@@ -39,7 +39,7 @@ object_prototypes.push({
 },{
 
     id: 'x2',
-    name: "Kamenný kvádr",
+    name: "Kamenná pyramida",
     type: "building",
     subtype: "block",
     design: {
@@ -53,7 +53,7 @@ object_prototypes.push({
                     },
                     color: "#cccccc",
                     position: {x:0,y:0,z:0},
-                    size: {x:60,y:40,z:40},
+                    size: {x:40,y:60,z:80},
                     rotation: {"xy":0,"xz":90}
 
                 }
@@ -162,22 +162,12 @@ object_prototypes.push({
                 {
                     shape:{
                         type: 'prisms',
-                        n:4
+                        n:17
                     },
-                    color: "#bbbbbb",
+                    color: "#874822",
                     position: {x:0,y:0,z:0},
-                    size: {x:40,y:40,z:100},
+                    size: {x:40,y:20,z:60},
                     rotation: {"xy":0}
-
-                },{
-                    shape:{
-                        type: 'prisms',
-                        n:4
-                    },
-                    color: "#999999",
-                    position: {x:0,y:0,z:100},
-                    size: {x:10,y:10,z:30},
-                    rotation: {"xy":45}
 
                 }
             ]
