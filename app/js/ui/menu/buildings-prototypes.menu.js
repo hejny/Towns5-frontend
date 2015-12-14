@@ -14,7 +14,7 @@
 
 
 
-//todo refactor all names unique to objectPrototypes
+//todo refactor all names unique to object_prototypes
 //======================================================================================================================buildingStart
 /*
  ██████╗ ██╗   ██╗██╗██╗     ██████╗ ██╗███╗   ██╗ ██████╗
@@ -208,18 +208,18 @@ function objectMenuBuildingsPrototypes(subtype){
 
 
 
+    //r(object_prototypes);
+    for(var i= 0,l=object_prototypes.length;i<l;i++){
 
-    for(var i= 0,l=objectPrototypes.length;i<l;i++){
 
+        if(object_prototypes[i].subtype==subtype){
 
-        if(objectPrototypes[i].subtype==subtype){
-
-            var icon=objectPrototypes[i].design.data.createIcon(50);
+            var icon=object_prototypes[i].design.data.createIcon(50);
 
 
             var title='ahoj';
             var content='rsgeths aetsyhj  res6tu yhj esyhu j sy rthu ae5y t ae5 y';
-            var action='buildingStart(objectPrototypes['+(i)+']);';
+            var action='buildingStart(object_prototypes['+(i)+']);';//todo here should be id
 
 
             objectmenu+=Templates.objectMenu({

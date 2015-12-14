@@ -1,7 +1,7 @@
 
-pages.blocks={"header": 'Stavební bloky'};
+Pages.blocks={"header": 'Stavební bloky'};
 
-pages.blocks.content= `
+Pages.blocks.content= `
 
 
 <canvas id="block-editing" width="300" height="300"></canvas>
@@ -11,6 +11,11 @@ pages.blocks.content= `
 
  <form onsubmit="return false;" id="block-editing-form">
 
+
+<button onclick="Pages.blocks.deleteBlock();">{{block.delete}}</button>
+<button onclick="Pages.blocks.duplicateBlock();">{{block.duplicate}}</button>
+
+
 <textarea id="block-editing-json" style="display:none;"></textarea>
 
 
@@ -18,6 +23,9 @@ pages.blocks.content= `
 
 
 
+
+
+  <tr><th colspan="2"><input id="block-editing-name" type="text" placeholder="{{block.name.placeholder}}" /></th></tr>
 
 
   <tr><th colspan="2">{{block.shape}}</th></tr>
@@ -85,86 +93,215 @@ pages.blocks.content= `
 
 
 
-
-<input type="submit" value="OK">
-
 </form>
 
 
 `;
 
+//======================================================================================================================
 
 
-pages.blocks.openJS = function(){
+Pages.blocks.openJS = function(){
 
-    building.design.data.particles[0]=ModelParticles.cParams(building.design.data.particles[0]);
+    //r('Opening block editor');
+    //---------------------------------------------
+
+    Pages.blocks.rotation = 0 ;
+    Pages.blocks.slope = map_slope ;
+
+    //---------------------------------------------
+
+    if(building!==false){
+
+        Pages.blocks.block_id=building.id;
+
+    }else {
+
+        var tmp_id=generateID();
+        object_prototypes.push({
+
+            id: tmp_id,
+            name: "",
+            type: "building",
+            subtype: "block",
+            design: {
+                type: "model",
+                data: new Model({
+                    particles: [
+                        {
+                            shape:{
+                                type: 'prisms',
+                                n:4,
+                            },
+                            color: "#cccccc",
+                            position: {x:0,y:0,z:0},
+                            size: {x:40,y:40,z:40},
+                            rotation: {"xy":0}
+
+                        }
+                    ]
+                })
+
+            }
+        });
 
 
-    $('#block-editing-shape-n').val(building.design.data.particles[0].shape.n);
+        Pages.blocks.block_id=tmp_id;
+    }
 
-    $('#block-editing-shape-top').val(building.design.data.particles[0].shape.top);
-    $('#block-editing-shape-bottom').val(building.design.data.particles[0].shape.bottom);
+    //---------------------------------------------
 
-    $('#block-editing-skew-z-x').val(building.design.data.particles[0].skew.z.x);
-    $('#block-editing-skew-z-y').val(building.design.data.particles[0].skew.z.y);
+    objectMenuBuildingsPrototypes('block');
 
-    $('#block-editing-size-x').val(building.design.data.particles[0].size.x);
-    $('#block-editing-size-y').val(building.design.data.particles[0].size.y);
-    $('#block-editing-size-z').val(building.design.data.particles[0].size.z);
+    //---------------------------------------------
 
-    $('#block-editing-rotation-xy').val(building.design.data.particles[0].rotation.xy);
-    $('#block-editing-rotation-xz').val(building.design.data.particles[0].rotation.xz);
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
+    buildingStart(object_prototypes[i]);
 
 
-    pages.blocks.block_editing = document.getElementById('block-editing');
-    pages.blocks.block_editing_ctx = pages.blocks.block_editing.getContext('2d');
+    $('#block-editing-name').val(object_prototypes[i].name);
+
+    (function(particle){
+
+
+        particle=ModelParticles.cParams(particle);
+
+        $('#block-editing-shape-n').val(particle.shape.n);
+
+        $('#block-editing-shape-top').val(particle.shape.top);
+        $('#block-editing-shape-bottom').val(particle.shape.bottom);
+
+        $('#block-editing-skew-z-x').val(particle.skew.z.x);
+        $('#block-editing-skew-z-y').val(particle.skew.z.y);
+
+        $('#block-editing-size-x').val(particle.size.x);
+        $('#block-editing-size-y').val(particle.size.y);
+        $('#block-editing-size-z').val(particle.size.z);
+
+        $('#block-editing-rotation-xy').val(particle.rotation.xy);
+        $('#block-editing-rotation-xz').val(particle.rotation.xz);
+        //('#block-editing-rotation-yz').val(particle.rotation.yz);
+
+
+    })(object_prototypes[i].design.data.particles[0]);
+
+
+
+
+    Pages.blocks.block_editing = document.getElementById('block-editing');
+    Pages.blocks.block_editing_ctx = Pages.blocks.block_editing.getContext('2d');
 
 
     $('#block-editing-form').find('input').mousemove(function(){
-        pages.blocks.update();
+        Pages.blocks.update();
     });
 
-    pages.blocks.update();
+
+    /*$('#block-editing-form').find('input').click(function(){
+        setTimeout(function(){
+            r('objectMenuBuildingsPrototypes');
+            objectMenuBuildingsPrototypes('block');
+        },IMMEDIATELY_MS);
+    }());*/
+
+
+    Pages.blocks.update();
+
+
+};
+//======================================================================================================================
+
+
+Pages.blocks.closeJS = function(){
+    objectMenuBuildingsPrototypes('block');
+}
+
+//======================================================================================================================
+
+
+
+Pages.blocks.update = function () {
+
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
+
+
+    object_prototypes[i].name=$('#block-editing-name').val();
+
+    [object_prototypes[i].design.data.particles[0],building.design.data.particles[0]].forEach(function(particle){
+
+
+            particle.shape.n = parseInt($('#block-editing-shape-n').val());
+
+
+            particle.shape.top = parseFloat($('#block-editing-shape-top').val());
+            particle.shape.bottom = parseFloat($('#block-editing-shape-bottom').val());
+
+            particle.skew={z:{}};
+            particle.skew.z.x = parseFloat($('#block-editing-skew-z-x').val());
+            particle.skew.z.y = parseFloat($('#block-editing-skew-z-y').val());
+
+
+            particle.size.x = parseInt($('#block-editing-size-x').val());
+            particle.size.y = parseInt($('#block-editing-size-y').val());
+            particle.size.z = parseInt($('#block-editing-size-z').val());
+
+            particle.rotation.xy = parseInt($('#block-editing-rotation-xy').val());
+            particle.rotation.xz = parseInt($('#block-editing-rotation-xz').val());
+            //particle.rotation.yz = parseInt($('#block-editing-rotation-yz').val());
+
+
+        });
+
+
+
+
+
+    $('#block-editing-json').val(JSON.stringify(object_prototypes[i].design.data.particles[0],'false',true));
+
+
+    Pages.blocks.block_editing_ctx.clearRect ( 0 , 0 ,300 , 300 );
+    object_prototypes[i].design.data.draw(Pages.blocks.block_editing_ctx,1,150,150,Pages.blocks.rotation,Pages.blocks.slope);
 
 
 };
 
-pages.blocks.rotation = 0 ;
-pages.blocks.slope = map_slope ;
+
+//======================================================================================================================
+
+
+Pages.blocks.deleteBlock = function () {
+
+
+    if(confirm(Locale.get())){
+
+        var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);//todo maybe create function deleteID
+
+        //ArrayFunctions.removeItems(object_prototypes,i,1); //todo
+        object_prototypes.splice(i,1);
+
+
+        window_close();
 
 
 
-pages.blocks.update = function () {
+    }
+
+};
+
+//===================================================================
 
 
-    //r($('#block-editing-shape-n').val());
+Pages.blocks.duplicateBlock = function () {
+
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
 
 
-    building.design.data.particles[0].shape.n = parseInt($('#block-editing-shape-n').val());
+    var tmp_block = deepCopyObject(object_prototypes[i]);
+    tmp_block.id=generateID();
 
+    object_prototypes.push(tmp_block);
 
-    building.design.data.particles[0].shape.top = parseFloat($('#block-editing-shape-top').val());
-    building.design.data.particles[0].shape.bottom = parseFloat($('#block-editing-shape-bottom').val());
-
-    building.design.data.particles[0].skew={z:{}};
-    building.design.data.particles[0].skew.z.x = parseFloat($('#block-editing-skew-z-x').val());
-    building.design.data.particles[0].skew.z.y = parseFloat($('#block-editing-skew-z-y').val());
-
-
-    building.design.data.particles[0].size.x = parseInt($('#block-editing-size-x').val());
-    building.design.data.particles[0].size.y = parseInt($('#block-editing-size-y').val());
-    building.design.data.particles[0].size.z = parseInt($('#block-editing-size-z').val());
-
-    building.design.data.particles[0].rotation.xy = parseInt($('#block-editing-rotation-xy').val());
-    building.design.data.particles[0].rotation.xz = parseInt($('#block-editing-rotation-xz').val());
-
-
-
-    $('#block-editing-json').val(JSON.stringify(building.design.data.particles[0],'false',true));
-
-
-    pages.blocks.block_editing_ctx.clearRect ( 0 , 0 ,300 , 300 );
-    building.design.data.draw(pages.blocks.block_editing_ctx,1,150,150,pages.blocks.rotation,pages.blocks.slope);
-
+    building={id:tmp_block.id};//todo ?? better
+    window_open('blocks');
 
 };

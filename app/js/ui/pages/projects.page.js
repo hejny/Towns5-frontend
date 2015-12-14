@@ -1,5 +1,5 @@
 
-pages.projects={"header": 'Towns 5'};
+Pages.projects={"header": 'Towns 5'};
 
 
 /*<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
@@ -8,7 +8,7 @@ pages.projects={"header": 'Towns 5'};
 </div>*/
 
 
-pages.projects.content=`
+Pages.projects.content=`
 
 
   <h2 style="font-size:1.1em;text-align: center;">

@@ -11,6 +11,8 @@ var Locale={};//set en, cs here
 
 Locale.get = function(key){
 
+    if(!is(key))return 'MESSAGE';
+
     var message;
 
     try {
