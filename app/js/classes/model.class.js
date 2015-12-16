@@ -208,12 +208,15 @@ Model.prototype.joinModel = function(model,move_x,move_y){
  * @param {number} slope 0-90 Angle in degrees
  * @param {string} force color - format #ff00ff
  */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color) {
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false) {
 
 
-    force_color=cParam(force_color,false);
-
+    //force_color=cParam(force_color,false);
     //todo delat kontrolu vstupnich parametru u funkci???
+
+
+
+
 
 
     var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
@@ -268,7 +271,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     });
 
-    delete this_;//todo deep delete
+    //"use strict"//delete this_;//todo deep delete
 
 
     //r(resource);
@@ -333,11 +336,16 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     //==========================================================================================stín
 
+    draw_polygons=[];
 
     for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
 
-        var tmppoints = [];
+        draw_polygons[i2]={
+            color: 'rgb(255,255,255)',
+            points: []
+
+        };
 
         for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
 
@@ -353,31 +361,83 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 var yy = x * slope_m + y * slope_m;
 
 
-                tmppoints.push({x: xx, y: yy});
+                draw_polygons[i2].points.push({x: xx+x_begin, y: yy+y_begin});
+
 
 
             }
         }
 
-        ctx.fillStyle = 'rgba(0,0,0,0.2)';
-
-        //------------------------Vykreslení­ bodů
-
-        if(tmppoints.length>0){
-            ctx.beginPath();
-
-            for (var i = 0, l = tmppoints.length; i < l; i++) {
-
-                ctx.lineTo(tmppoints[i].x + x_begin, tmppoints[i].y + y_begin);
-
-            }
-            ctx.closePath();
-            ctx.fill();
-
-        }
 
     }
 
+    //------------------------Range
+
+    var range={
+        min:{
+            x: false,
+            y: false
+        },
+        max:{
+            x: false,
+            y: false
+        }
+    };
+
+
+    draw_polygons.forEach(function(polygon){
+
+        polygon.points.forEach(function(point){
+
+            if(range.min.x===false)range.min.x=point.x;
+            if(range.min.y===false)range.min.y=point.y;
+            if(range.max.x===false)range.max.x=point.x;
+            if(range.max.y===false)range.max.y=point.y;
+
+            if(range.min.x>point.x)range.min.x=point.x;
+            if(range.min.y>point.y)range.min.y=point.y;
+            if(range.max.x<point.x)range.max.x=point.x;
+            if(range.max.y<point.y)range.max.y=point.y;
+
+        });
+
+    });
+
+    var border=2;
+
+    range.min.x-=border;
+    range.min.y-=border;
+    range.max.x+=border;
+    range.max.y+=border;
+
+
+
+
+    var canvas = createCanvasViaFunction(range.max.x-range.min.x,range.max.y-range.min.y,function(ctx_shade){
+
+
+
+        ctx_shade.drawPolygons(draw_polygons,range.min);
+        ctx_shade.recolorImage(
+            255,255,255,false,
+            0,0,0,100
+        );
+        ctx_shade.blur(2);
+
+
+    });
+
+    ctx.drawImage(canvas,range.min.x,range.min.y);
+
+
+
+
+    //ctx.drawPolygons(draw_polygons);
+
+
+    //------------------------Vykreslení
+
+    //return;
     //==========================================================================================Vykreslení­ polygonů
     for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 

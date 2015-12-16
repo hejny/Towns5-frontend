@@ -25,7 +25,7 @@ Map.loadMap = function(){
     map_z_data = map_xy_data[0];
     map_bg_data = map_xy_data[1];
 
-    delete map_xy_data;
+    //strict//delete map_xy_data;
 
     var tmp=Math.round(map_size/2)-2;
 

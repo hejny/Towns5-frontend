@@ -46,7 +46,8 @@
     "gulp-jshint": "^1.11.2",
     "gulp-imagemin": "^2.3.0",
     "gulp-cache": "^0.3.0",
-    "del": "^2.0.2"
+    "del": "^2.0.2",
+    "gulp-babel": "~6.1.1"
   },
   "preferGlobal": false
 }
