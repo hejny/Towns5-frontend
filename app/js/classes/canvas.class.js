@@ -46,3 +46,21 @@ function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunctio
 
 
 }
+
+//======================================================================================================================
+
+function createCanvasViaFunction(width,height,manipulationFunction){
+
+    var canvas = document.createElement('canvas');
+    canvas.width=width;
+    canvas.height = height;
+    var context = canvas.getContext('2d');
+
+    manipulationFunction(context);
+
+    return(canvas);
+
+
+}
+
+

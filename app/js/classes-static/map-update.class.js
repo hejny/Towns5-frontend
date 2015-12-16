@@ -21,7 +21,7 @@ Map.updateMap = function(ms){
         var timeLast=time;
         tmp = new Date();
         time = (new Date()).getTime();
-        delete tmp;
+        //strict//delete tmp;
 
         if(timeLast==0){
             var ms=0;

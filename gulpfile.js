@@ -8,7 +8,8 @@ var gulp = require('gulp'),
     cache = require('gulp-cache'),
 //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
-    del = require('del');
+    del = require('del'),
+    babel = require("gulp-babel");
 
 // Configuration autoloader
 var config = [];
@@ -212,21 +213,22 @@ delete _tmp;
 //console.log(config.includes['js']);
 
 
-// Scripts - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
+// Scripts
 gulp.task('production-scripts', function() {
     gulp.src(config.includes.js)
         .pipe(concat('towns.js'))
-        .pipe(gulp.dest('app-dist/js'))
-        .pipe(rename({suffix: '.min'}))//todo towns.js should be deleted afrer minification
-        .pipe(uglify())
+        //.pipe(gulp.dest('app-dist'))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(babel())
+        //.pipe(uglify())//todo minification not working
         .pipe(gulp.dest('app-dist/js'));
 });
 
-// Styly - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
+// Styly
 gulp.task('production-styles', function () {
     gulp.src(config.includes.css)
         .pipe(concat('towns.css'))
-        .pipe(gulp.dest('app-dist/css'))
+        //.pipe(gulp.dest('app-dist'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(gulp.dest('app-dist/css'));

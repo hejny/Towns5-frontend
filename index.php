@@ -28,6 +28,14 @@ foreach(scandir(__DIR__."/config") as $config_file)
     }
 }
 
+//force production enviroment
+if(isset($_GET['production'])){
+    $config['app']['environment']='production';
+}
+
+
+
+
 // load the app based on configuration environment
 if(isset($config['app']['environment']) && in_array($config['app']['environment'], ["develop", "test"])){
     require('app/index.php');
