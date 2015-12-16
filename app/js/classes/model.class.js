@@ -334,111 +334,198 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     });
 
 
-    //==========================================================================================stín
-
-    draw_polygons=[];
-
-    for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
+    //==========================================================================================Vykresleni
 
 
-        draw_polygons[i2]={
-            color: 'rgb(255,255,255)',
-            points: []
-
-        };
-
-        for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
-
-
-            if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
-
-                var z = Math.abs(resource['points'][resource['polygons'][i2][i3]][2]);
-                var x =          resource['points'][resource['polygons'][i2][i3]][0] + z / 1.5;
-                var y =          resource['points'][resource['polygons'][i2][i3]][1] - z / 1.5 / 2;
-
+    [
+        {
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
+            color: function(){return(new Color(255,255,255,255));},
+            position: function(position3D){
+                z = Math.abs(position3D.z);
+                x = position3D.x + z / 1.5;
+                y = position3D.y - z / 1.5 / 2;
 
                 var xx = x * 1 - (y * 1);
                 var yy = x * slope_m + y * slope_m;
 
+                return(new Position(xx,yy));
 
-                draw_polygons[i2].points.push({x: xx+x_begin, y: yy+y_begin});
-
-
-
+            },
+            canvasBefore: function(ctx) {
+                ctx.lineWidth = 0;
+                r('lineWidth',ctx.lineWidth);
+            },
+            canvasAfter: function(ctx) {
+                ctx.recolorImage(
+                    new Color(255,255,255,false),
+                    new Color(0,0,0,100)
+                );
+                ctx.blur(2);
             }
-        }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        },{
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
+            color: force_color==false?function(color,polygon3D){
+
+                var add=polygon3D[0].x;
+
+                //add+=Math.random()*100;
+
+                color.r+=add;
+                color.g+=add;
+                color.b+=add;
+
+                return(color);
 
 
+
+            }:function(){
+
+                return(hexToRgb(force_color));//todo refactoring force_color should be instance of Color
+
+            },
+            position: function(position3D){
+
+                //return(new Color(0,255,255,100));
+
+                var x = position3D.x,
+                    y = position3D.y,
+                    z = position3D.z;
+
+                var k=1+(z/400);
+
+                x=x*k;
+                y=y*k;
+
+                xx = x - y;
+                yy = x * slope_m + y * slope_m - (z * slope_n);
+
+                return(new Position(xx,yy));
+
+            },
+            canvasBefore: function(ctx) {
+
+                ctx.strokeStyle = '#444444';
+                ctx.lineWidth = 1;
+
+            },
+            canvasAfter: function(ctx) {}
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
 
-    //------------------------Range
+    ].forEach(function(shader){
 
-    var range={
-        min:{
-            x: false,
-            y: false
-        },
-        max:{
-            x: false,
-            y: false
+
+        draw_polygons=[];
+
+        for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
+
+
+            draw_polygons[i2]={
+                points: []
+            };
+            var polygon3D=[];
+
+
+            for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
+
+
+                //x2 = resource['points'][resource['polygons'][i2][2]][0],
+                //y2 = resource['points'][resource['polygons'][i2][2]][1];
+
+                if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
+
+
+                    x = resource['points'][resource['polygons'][i2][i3]][0];
+                    y = resource['points'][resource['polygons'][i2][i3]][1];
+                    z = resource['points'][resource['polygons'][i2][i3]][2];
+
+                    var position3D=new Position3D(x,y,z);
+                    polygon3D.push(position3D);
+                    var position=shader.position(position3D);
+
+
+                    position.x+=x_begin;
+                    position.y+=y_begin;
+
+                    draw_polygons[i2].points.push(position);
+
+                }
+            }
+
+
+            color = hexToRgb(resource['polygons'][i2]['color']);
+            draw_polygons[i2].color=shader.color(color,polygon3D)
+
         }
-    };
+
+        //------------------------Range
+
+        var range={
+            min:{
+                x: false,
+                y: false
+            },
+            max:{
+                x: false,
+                y: false
+            }
+        };
 
 
-    draw_polygons.forEach(function(polygon){
+        draw_polygons.forEach(function(polygon){
 
-        polygon.points.forEach(function(point){
+            polygon.points.forEach(function(point){
 
-            if(range.min.x===false)range.min.x=point.x;
-            if(range.min.y===false)range.min.y=point.y;
-            if(range.max.x===false)range.max.x=point.x;
-            if(range.max.y===false)range.max.y=point.y;
+                if(range.min.x===false)range.min.x=point.x;
+                if(range.min.y===false)range.min.y=point.y;
+                if(range.max.x===false)range.max.x=point.x;
+                if(range.max.y===false)range.max.y=point.y;
 
-            if(range.min.x>point.x)range.min.x=point.x;
-            if(range.min.y>point.y)range.min.y=point.y;
-            if(range.max.x<point.x)range.max.x=point.x;
-            if(range.max.y<point.y)range.max.y=point.y;
+                if(range.min.x>point.x)range.min.x=point.x;
+                if(range.min.y>point.y)range.min.y=point.y;
+                if(range.max.x<point.x)range.max.x=point.x;
+                if(range.max.y<point.y)range.max.y=point.y;
+
+            });
 
         });
 
+        var border=2;
+
+        range.min.x-=border;
+        range.min.y-=border;
+        range.max.x+=border;
+        range.max.y+=border;
+
+
+        //------------------------
+
+        //r(draw_polygons);
+
+        var canvas = createCanvasViaFunction(range.max.x-range.min.x,range.max.y-range.min.y,function(ctx_){
+
+            shader.canvasBefore(ctx_);
+            ctx_.drawPolygons(draw_polygons,range.min);
+            shader.canvasAfter(ctx_);
+
+        });
+
+        ctx.drawImage(canvas,range.min.x,range.min.y);
+
+
+
+
+        //ctx.drawPolygons(draw_polygons);
+
+
+        //------------------------Vykreslení
+
     });
 
-    var border=2;
 
-    range.min.x-=border;
-    range.min.y-=border;
-    range.max.x+=border;
-    range.max.y+=border;
-
-
-
-
-    var canvas = createCanvasViaFunction(range.max.x-range.min.x,range.max.y-range.min.y,function(ctx_shade){
-
-
-
-        ctx_shade.drawPolygons(draw_polygons,range.min);
-        ctx_shade.recolorImage(
-            255,255,255,false,
-            0,0,0,100
-        );
-        ctx_shade.blur(2);
-
-
-    });
-
-    ctx.drawImage(canvas,range.min.x,range.min.y);
-
-
-
-
-    //ctx.drawPolygons(draw_polygons);
-
-
-    //------------------------Vykreslení
-
-    //return;
-    //==========================================================================================Vykreslení­ polygonů
+    /*
     for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
         tmppoints = [];
@@ -531,8 +618,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
         }
 
 
-    }
-}
+    }*/
+};
 
 
 //======================================================================================================================
@@ -557,7 +644,7 @@ Model.prototype.createIcon = function(size){
 
     return(canvas.toDataURL());
 
-}
+};
 
 //==================================================
 
@@ -573,59 +660,8 @@ Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, 
 
     return(canvas.toDataURL());
 
-}
-
-
-
-
-
-//======================================================================================================================
-
-
-
-/**
- * Convert HTML HEX Color to {r:...,g:...,b:...}
- * @param {string} hex code of color
- * @returns {*}
- */
-function hexToRgb(hex) {
-    var result, shorthandRegex;
-    if (hex == null) {
-        hex = '000000';
-    }
-    shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-    result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    if (result) {
-        return {
-            r: parseInt(result[1], 16),
-            g: parseInt(result[2], 16),
-            b: parseInt(result[3], 16)
-        };
-    } else {
-        return {
-            r: 0,
-            g: 0,
-            b: 0
-        };
-    }
 };
 
-
-//---------------------------
-
-/**
- * Convert r,g,b to Hex HTML color
- * @param {number} r 0-255
- * @param {number} g 0-255
- * @param {number} b 0-255
- * @returns {string} Hex code of HTML color eg. #FF0000
- */
-function rgbToHex(r, g, b) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-};
 
 
 

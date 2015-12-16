@@ -40,7 +40,9 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
 
     polygons.forEach(function(polygon){
 
-        ctx.fillStyle = polygon.color;
+        ctx.fillStyle = polygon.color.rgb();
+        //r(ctx.fillStyle);
+
         ctx.beginPath();
 
         polygon.points.forEach(function(point){
@@ -53,6 +55,9 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
         ctx.closePath();
         ctx.fill();
 
+        if(ctx.lineWidth!==0)
+            ctx.stroke();
+
     });
 
 };
@@ -61,7 +66,7 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
 
 
 
-CanvasRenderingContext2D.prototype.recolorImage = function(oldRed,oldGreen,oldBlue,oldAlpha,newRed,newGreen,newBlue,newAlpha){
+CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
 
     //r(this.canvas);
 
@@ -71,21 +76,21 @@ CanvasRenderingContext2D.prototype.recolorImage = function(oldRed,oldGreen,oldBl
     // pull the entire image into an array of pixel data
     var imageData = this.getImageData(0, 0, w, h);
 
-    r(imageData);
+    //r(imageData);
     // examine every pixel,
     // change any old rgb to the new-rgba
     for (var i=0;i<imageData.data.length;i+=4) {
         // is this pixel the old rgb?
-        if(imageData.data[i]==oldRed &&
-            imageData.data[i+1]==oldGreen &&
-            imageData.data[i+2]==oldBlue &&
-            (imageData.data[i+3]==oldAlpha || oldAlpha===false)
+        if(imageData.data[i]==oldColor.r &&
+            imageData.data[i+1]==oldColor.g &&
+            imageData.data[i+2]==oldColor.b &&
+            (imageData.data[i+3]==oldColor.a || oldColor.a===false)
         ){
             // change to your new rgba
-            imageData.data[i]=newRed;
-            imageData.data[i+1]=newGreen;
-            imageData.data[i+2]=newBlue;
-            imageData.data[i+3]=newAlpha;
+            imageData.data[i]=newColor.r;
+            imageData.data[i+1]=newColor.g;
+            imageData.data[i+2]=newColor.b;
+            imageData.data[i+3]=newColor.a;
         }
 
 

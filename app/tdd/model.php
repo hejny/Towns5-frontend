@@ -72,7 +72,7 @@
                     top:.8
                     //rotation:33
                 },
-                color: "#999999",
+                color: "#995555",
                 position: {x:0,y:0,z:0},
                 size: {x:50,y:50,z:50},
                 skew: {z:{x:0,y:0}},
