@@ -267,7 +267,7 @@ Map.drawMap = function(){
 
 
         //----------------------------------------------Selected object?
-        if (map_data[i].type != 'story')
+        /*if (map_data[i].type != 'story')
             if (map_selected_ids.indexOf(object_id) != -1) {
 
 
@@ -285,14 +285,15 @@ Map.drawMap = function(){
                 ]);
 
 
-            }
+            }*/
         //----------------------------------------------
 
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             map_data[i].type,
-            map_data[i].type == 'story' ? map_data[i].content : map_data[i].design.data,
+            //map_data[i].type == 'story' ? map_data[i].content : map_data[i].design.data,
+            map_data[i],
             object_screen_x,
             object_screen_y,
             ((map_data[i].type == 'story') ? 9999 : object_screen_y + 120 + 10 * map_model_size)
@@ -373,7 +374,10 @@ Map.drawMap = function(){
         } else if (map_draw[i][0] == 'building') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~building
 
-            map_draw[i][1].draw(map_ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            map_draw[i][1].design.data.draw(map_ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope,false,
+
+                (map_selected_ids.indexOf(map_draw[i][1].id) != -1?true:false)
+            );
 
         } else if (map_draw[i][0] == 'ellipse') {
 
@@ -394,12 +398,9 @@ Map.drawMap = function(){
         } else if (map_draw[i][0] == 'story') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-            var content = map_draw[i][1];
-
             //r(content);
 
-            var ellipse_width = Math.pow(content.data.length, 1 / 3) * 2;
+            var ellipse_width = Math.pow(map_draw[i][1].content.data.length, 1 / 3) * 2;
 
 
             //r('storka');

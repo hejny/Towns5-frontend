@@ -208,7 +208,7 @@ Model.prototype.joinModel = function(model,move_x,move_y){
  * @param {number} slope 0-90 Angle in degrees
  * @param {string} force color - format #ff00ff
  */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false) {
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
 
 
     //force_color=cParam(force_color,false);
@@ -294,9 +294,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     //r(resource);
 
-    //------------------------Seřazení bodů
+    //==========================================================================================Sorting
 
+    /**/
     resource['polygons'].sort(function (a, b) {
+
         var sum,cnt;
 
         var polygons=[a,b];
@@ -304,20 +306,21 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
         for(var polygon in polygons){
 
-            sum = 0;
-            cnt = 0;
+            var sum = 0;
+            var cnt = 0;
+
             for (var i in polygons[polygon]) {
 
                 if(i!='color' && is(resource['points'][polygons[polygon][i]])) {
 
-                    sum += resource['points'][polygons[polygon][i]][0] * slope_m
-                    +  resource['points'][polygons[polygon][i]][1] * slope_m
-                    +  resource['points'][polygons[polygon][i]][2] * slope_n;
+                    sum += resource['points'][polygons[polygon][i]][0] ;//* slope_m;
+                    sum += resource['points'][polygons[polygon][i]][1] ;//* slope_m;
+                    sum += resource['points'][polygons[polygon][i]][2] ;//* slope_n;
                     cnt++;
                 }
 
             }
-            //r(sum,cnt);
+
             zindex[polygon] = sum / cnt;
 
         }
@@ -331,16 +334,15 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
         } else {
             return 0;
         }
-    });
+    });/**/
 
 
-    //==========================================================================================Vykresleni
+    //==========================================================================================Shaders
 
-
-    [
-        {
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
-            color: function(){return(new Color(255,255,255,255));},
+    var shaders=[];
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
+    shaders.push({
+            fill: function(){return(new Color(255,255,255,255));},
             position: function(position3D){
                 z = Math.abs(position3D.z);
                 x = position3D.x + z / 1.5;
@@ -352,69 +354,100 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 return(new Position(xx,yy));
 
             },
-            canvasBefore: function(ctx) {
-                ctx.lineWidth = 0;
-                r('lineWidth',ctx.lineWidth);
-            },
-            canvasAfter: function(ctx) {
+            canvas: function(ctx) {
                 ctx.recolorImage(
                     new Color(255,255,255,false),
                     new Color(0,0,0,100)
                 );
                 ctx.blur(2);
             }
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        },{
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
-            color: force_color==false?function(color,polygon3D){
 
-                var add=polygon3D[0].x;
+        });
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    var shaderShapePosition = function(position3D){
 
-                //add+=Math.random()*100;
+        //return(new Color(0,255,255,100));
 
-                color.r+=add;
-                color.g+=add;
-                color.b+=add;
+        var x = position3D.x,
+            y = position3D.y,
+            z = position3D.z;
 
-                return(color);
+        var k=1+(z/400);
 
+         x=x*k;
+         y=y*k;
+         z=z*Math.pow(k,(1/1.2));
 
+        xx = x - y;
+        yy = x * slope_m + y * slope_m - (z * slope_n);
 
-            }:function(){
+        return(new Position(xx,yy));
 
-                return(hexToRgb(force_color));//todo refactoring force_color should be instance of Color
+    };
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material - glow
 
-            },
-            position: function(position3D){
-
-                //return(new Color(0,255,255,100));
-
-                var x = position3D.x,
-                    y = position3D.y,
-                    z = position3D.z;
-
-                var k=1+(z/400);
-
-                x=x*k;
-                y=y*k;
-
-                xx = x - y;
-                yy = x * slope_m + y * slope_m - (z * slope_n);
-
-                return(new Position(xx,yy));
+    if(selected)
+    shaders.push({
+            line: function(color,polygon3D){
+                return({
+                    color: new Color(255,255,0,255),
+                    width: 5
+                });
 
             },
-            canvasBefore: function(ctx) {
+            position: shaderShapePosition,
+            canvas: function(ctx) {
+                ctx.blur(2);
+            }
+    });
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
+    shaders.push({
 
-                ctx.strokeStyle = '#444444';
-                ctx.lineWidth = 1;
+        fill: force_color==false?function(color,polygon3D){
 
-            },
-            canvasAfter: function(ctx) {}
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    }
+            var vector1={},
+                vector2={},
+                vector3={};//normal vector
 
-    ].forEach(function(shader){
+            vector1.x=polygon3D[1].x-polygon3D[0].x;
+            vector1.y=polygon3D[1].y-polygon3D[0].y;
+            vector1.z=polygon3D[1].z-polygon3D[0].z;
+
+            vector2.x=polygon3D[2].x-polygon3D[0].x;
+            vector2.y=polygon3D[2].y-polygon3D[0].y;
+            vector2.z=polygon3D[2].z-polygon3D[0].z;
+
+
+            vector3.x = vector1.y*vector2.z - vector1.z*vector2.y
+            vector3.y = vector1.z*vector2.x - vector1.x*vector2.z
+            vector3.z = vector1.x*vector2.y - vector1.y*vector2.x
+
+
+            var polar = Math.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
+
+            var angle=Math.angleDiff(polar.deg,-45);
+
+            var add=angle/-5;
+
+            color.r+=add;
+            color.g+=add;
+            color.b+=add;
+
+            return(color);
+
+
+
+        }:function(){
+
+            return(hexToRgb(force_color));//todo refactoring force_color should be instance of Color
+
+        },
+        position: shaderShapePosition
+    });
+    //==========================================================================================Draw
+
+
+    shaders.forEach(function(shader){
 
 
         draw_polygons=[];
@@ -455,8 +488,17 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             }
 
 
-            color = hexToRgb(resource['polygons'][i2]['color']);
-            draw_polygons[i2].color=shader.color(color,polygon3D)
+
+            if(is(shader.fill)){
+                color = hexToRgb(resource['polygons'][i2]['color']);
+                draw_polygons[i2].fill={color: shader.fill(color,polygon3D)};
+            }
+
+            if(is(shader.line)){
+                draw_polygons[i2].line=shader.line();
+            }
+
+
 
         }
 
@@ -492,7 +534,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
         });
 
-        var border=2;
+        var border=10;
 
         range.min.x-=border;
         range.min.y-=border;
@@ -506,9 +548,12 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
         var canvas = createCanvasViaFunction(range.max.x-range.min.x,range.max.y-range.min.y,function(ctx_){
 
-            shader.canvasBefore(ctx_);
             ctx_.drawPolygons(draw_polygons,range.min);
-            shader.canvasAfter(ctx_);
+
+            if(is(shader.canvas)){
+                shader.canvas(ctx_);
+            }
+
 
         });
 
@@ -524,101 +569,6 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     });
 
-
-    /*
-    for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
-
-        tmppoints = [];
-        i = 0;
-        for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
-            if (is(resource['points'][resource['polygons'][i2][i3]])) {
-
-                x = resource['points'][resource['polygons'][i2][i3]][0];
-                y = resource['points'][resource['polygons'][i2][i3]][1];
-                z = resource['points'][resource['polygons'][i2][i3]][2];
-                xx = x - y;
-                yy = x * slope_m + y * slope_m - (z * slope_n);
-
-
-                tmppoints.push({x: xx, y: yy});
-            }
-        }
-
-        if(force_color==false){
-            var color = resource['polygons'][i2]['color'];
-            color = hexToRgb(color);
-        }
-
-
-        //------------------------Vystínování podle sklonu polygonu
-
-        if ((resource['points'][resource['polygons'][i2][0]] != null) && (resource['points'][resource['polygons'][i2][2]] != null)) {
-            var x1 = resource['points'][resource['polygons'][i2][0]][0],
-                y1 = resource['points'][resource['polygons'][i2][0]][1],
-                x2 = resource['points'][resource['polygons'][i2][2]][0],
-                y2 = resource['points'][resource['polygons'][i2][2]][1];
-
-            var x = Math.abs(x1 - x2) + 1,
-                y = Math.abs(y1 - y2) + 1;
-
-            var plus = Math.log(x / y) * slnko;
-
-            if (plus < -20) {
-                plus = -20;
-            }
-            if (plus > 20) {
-                plus = 20;
-            }
-            plus = Math.round(plus);
-        } else {
-            plus = 0;
-        }
-
-        //--------------
-        color.r = color.r + plus;
-        color.g = color.g + plus;
-        color.b = color.b + plus;
-
-        //--------------
-        if (color.r > 255) {
-            color.r = 255;
-        }
-        if (color.r < 0) {
-            color.r = 0;
-        }
-        if (color.g > 255) {
-            color.g = 255;
-        }
-        if (color.g < 0) {
-            color.g = 0;
-        }
-        if (color.b > 255) {
-            color.b = 255;
-        }
-        if (color.b < 0) {
-            color.b = 0;
-        }
-        ctx.fillStyle = 'rgb(' + color.r + ', ' + color.g + ', ' + color.b + ')';
-
-        //------------------------Vykreslení bodů
-
-        if(tmppoints.length>0){
-
-            ctx.beginPath();
-
-            for (var i = 0, l = tmppoints.length; i < l; i++) {
-
-                ctx.lineTo(tmppoints[i].x + x_begin, tmppoints[i].y + y_begin);
-
-            }
-
-            ctx.closePath();
-            ctx.fill();
-
-        }
-
-
-    }*/
 };
 
 
