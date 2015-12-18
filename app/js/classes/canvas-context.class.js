@@ -40,8 +40,17 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
 
     polygons.forEach(function(polygon){
 
-        ctx.fillStyle = polygon.color.rgb();
-        //r(ctx.fillStyle);
+        if(is(polygon.fill)){
+            //r(polygon.fill);
+            ctx.fillStyle = polygon.fill.color.rgb();
+        }
+
+
+        if(is(polygon.line)){
+            ctx.strokeStyle = polygon.line.color.rgb();
+            ctx.lineWidth = polygon.line.width;
+        }
+
 
         ctx.beginPath();
 
@@ -53,9 +62,12 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
         });
 
         ctx.closePath();
-        ctx.fill();
 
-        if(ctx.lineWidth!==0)
+        if(is(polygon.fill))
+            ctx.fill();
+
+        if(is(polygon.line))
+        if(polygon.line.width!==0)
             ctx.stroke();
 
     });

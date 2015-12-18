@@ -83,7 +83,7 @@ Map.objectsHTML = function(objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            model_moving,
+            model_moving,//todo do it same as map-draw
             object_screen_x,
             object_screen_y,
             ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)

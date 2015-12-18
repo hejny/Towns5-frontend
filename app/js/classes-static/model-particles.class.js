@@ -67,7 +67,7 @@ ModelParticles.get3D = function(particle){
 
         /**/
         resource.points=[];
-        resource.polygons=[[]];
+        resource.polygons=[[],[]];
         resource.polygons2D=[[],[]];
 
         for(var level=0;level<2;level++){
@@ -145,7 +145,8 @@ ModelParticles.get3D = function(particle){
                 if(level==0){
 
                     //r(n,1,particle.shape.n,(n+1+particle.shape.n));
-                    resource.polygons[0].push(n+1+particle.shape.n);
+                    resource.polygons[0].push(n+1);
+                    resource.polygons[1].push(n+1+particle.shape.n);
 
                     resource.polygons2D[0].push(n+1);
                     resource.polygons2D[1].push(n+1+particle.shape.n);
