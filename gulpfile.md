@@ -50,6 +50,6 @@ Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižnicia
     	        ├─> [production-scripts]    <- priprav js knižnice   	
     	        ├─> [production-styles]     <- priprav css knižnice
     	        ├─> [production-fonts]      <- priprav súbory fontov
-    	        ├─> [production-graphic]    <- skopíruj súbory graphic
+    	        ├─> [production-php]    <- skopíruj súbory php
     	        ├─> //[production-images]   <- priprav obrázky
     	        └─> //[production-sound]    <- priprav zvuky
