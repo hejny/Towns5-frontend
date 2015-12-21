@@ -12,13 +12,13 @@
 
 **[PH] Pavol Hejný:** https://www.facebook.com/hejny
 
-**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
-
 **[SK] Stefan Kecskes:** https://www.skey.uk
 
-**Přemysl Černý:** https://www.facebook.com/longhorn86
+**[MP] Matúš Petrofčík** https://www.facebook.com/puchal
 
 **[DH] David Hrůša:** https://www.facebook.com/dhrusa
+
+**Přemysl Černý:** https://www.facebook.com/longhorn86
 
 
 
@@ -39,7 +39,7 @@ Nové Towns 5:
 	│   ├── [css]/              <- naše štýly (nie css z knižníc)
 	│   ├── [css-lib]/          <- štýly z knižníc (nie naše css)	
 	│   ├── [fonts]/            <- fonty z knižníc (tiež cez gulp)		
-	│   ├── [graphic]/          <- obrázky generované cez PHP
+	│   ├── [php]/              <- věci generované cez PHP
 	│   ├── [js]/               <- naše javascripty (nie knižnice)
 	│   ├── [js-lib]/           <- js knižnice (nie naše scripty!!!) (některé ale náma upravené) TODO: [SK]@[PH]: o tomto musime hodit rec. 
 	│   ├── [locale]/           <- jazykové lokalizácie
@@ -86,38 +86,41 @@ Staré Towns 4:
 
 * * *
 
-## Inštalácia
+## Installation
 
 
-1. Potřeba vytvořit vlastní local doménu pro projekt např. towns.local
+1. You have to create own virtual domain towns.local
 
     Linux: http://tecadmin.net/create-virtual-hosts-in-apache-on-ubuntu/
     Windows: http://ccm.net/faq/8485-configuring-apache-and-windows-to-create-a-virtual-host
     
 
-2. Nainštaluj si node.js a npm(node package manager)
+2. Install node.js & npm (node package manager)
 
 
 	sudo apt-get install nodejs npm
 	
-3. Nainštaluj si gulp cez npm (možeš aj globálne)  
+	
+	
+3. Install gulp via NPM (you can also globally)  
 
 
 	sudo apt-get install --global gulp
 
-4. Stiahni si balíky potrebné pre tento projekt (zadefinované v package.json)
+
+4. You have to download and install all dependencies 
 
 
 	npm install
 
 
-5. Spusť gulp, nech vykoná úlohy v gulpfile.json. 
+5. Run gulp!
 
 
 	gulp
 
 	
-Produkčný build bude v adresári `/app-dist`
+6. Production build is in directory `/app-dist`
 	
 * * *	
 	
@@ -125,22 +128,52 @@ Produkčný build bude v adresári `/app-dist`
 
 Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižniciach)
 
-	gulp lint
+	gulp hint
 	
 //todo: implementovat aspoň unit testing a behaviour testing. (TDD) + automatické testovanie po každom commite.
 	
 
 * * *
 
-## Commity
-
-Každý commit by měl mít označení projektu + autora např.: [WorldLayer][PH] Změny v minimenu
+## Konvence
 
 
-* * *
+### Commit
 
-## Soubory
+Každý commit by měl mít označení [projektu][autora] Název kartičky v Trellu / Co jsem udělal
 
-Všechny soubory + databáze je v UTF-8 a jako oddělovač řádků používat \n
+např.: [WorldLayer][PH] Refaktoring / vytvoření statického objektu Model 
+
+
+## File names
+
+**.class.js** - todo description
+
+**.action** - todo description
+
+**.tools** - todo description
+
+**.page** - todo description
+
+**.menu** - todo description
+
+**.events** - todo description
+
+**.draw** - todo description
+
+**.init** - todo description
+
+**.ctl.init** - todo description
+
+
+
+
+## Text a kódování
+
+
+Všechny soubor jsou v UTF-8 a jako oddělovač řádků používat \n
+
+
+## Dokumentace
 
 Psát poznámky a dokumentovat pomocí JSDoc a PhpDocumentator

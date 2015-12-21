@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    fs = require('fs'),
     uglify = require('gulp-uglify'),
     jshint = require('gulp-jshint'),
     minifyCss = require('gulp-minify-css'),
@@ -8,7 +9,17 @@ var gulp = require('gulp'),
 //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
     del = require('del'),
-    config = require('./config/app.json');
+    babel = require("gulp-babel");
+
+// Configuration autoloader
+var config = [];
+fs.readdirSync("./config").forEach(function(file) {
+    if (file.match(/\.json$/) !== null) {
+        var name = file.replace('.json', '');
+        config[name] = require('./config/' + file);
+    }
+});
+console.log(config);
 
 // Lint - testovanie
 gulp.task("test", function() {
@@ -26,10 +37,10 @@ gulp.task("documentation", function() {
 // Starter Buildu
 gulp.task('default', function() {
     // Nacita sa hodnota environment z konfiguracneho suboru a spusti sa spravny build
-    if(config.environment == "develop") {
+    if(config.app.environment == "develop") {
         gulp.start("develop");
     } else {
-        if (config.environment == "test") {
+        if (config.app.environment == "test") {
             gulp.start("test")
         } else {
             gulp.start("production")
@@ -140,84 +151,97 @@ gulp.task('production-clean', function() {
 // Produkcny Build
 gulp.task('production-build', [
     'production-index',
+    'production-locale',
     'production-scripts',
-    //'production-images',
+    'production-images',
     //'production-sound',
     'production-styles',
     'production-fonts',
-    'production-graphic'
+    'production-php'
 ], function () {
     console.log(' ¯\\_(ツ)_/¯ Produkčný build je hotový ');
 });
+
+
 
 // Index.php pre produkcny build
 gulp.task('production-index', function () {
     gulp.src('app/*.php')
         .pipe(gulp.dest('app-dist/'));
+
+    gulp.src('app/php/neon/*.php')//todo better solution for php subdirs
+        .pipe(gulp.dest('app-dist/php/neon/'));
+
+    gulp.src('app/php/neon/Neon/*.php')
+        .pipe(gulp.dest('app-dist/php/neon/Neon/'));
+
+
 });
 
-// Scripts - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
+
+// Index.php pre produkcny build
+gulp.task('production-locale', function () {
+    gulp.src('app/locale/*.neon')
+        .pipe(gulp.dest('app-dist/locale/'));
+
+
+});
+
+
+var _tmp=[];
+for(i=0,l=config.includes.js.length;i<l;i++){
+
+    if(typeof config.includes.js[i] != 'string'){
+
+        for(var key in config.includes.js[i]){
+            if(key==/*config.app.environment*/'production'){
+
+                _tmp.push(config.includes.js[i][key]);
+
+            }
+        }
+
+    }else{
+        _tmp.push(config.includes.js[i]);
+    }
+
+
+}
+config.includes.js =_tmp;
+delete _tmp;
+
+//console.log(config.includes['js']);
+
+
+// Scripts
 gulp.task('production-scripts', function() {
-    gulp.src([
-        'node_modules/jquery/dist/jquery.js',
-        'node_modules/jquery-ui-bundle/jquery-ui.js',
-        //'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
-        'node_modules/jquery-mousewheel/jquery.mousewheel.js',
-        'node_modules/hammerjs/hammer.js',
-        'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js',
-        '/app/js/vars.js',
-        'app/js/func.lib.js',
-        'app/js/log.lib.js',
-        'app/js/main.js',
-        'app/js/lang.lib.js',
-        'app/locale/cs.js',
-        'app/js/townsapi.lib.js',
-        'app/js/townsapi.fake.lib.js',
-        'app/js/functions/create.js',
-        'app/js/functions/terrain.js',
-        'app/js/map.lib.js',
-        'app/js/model.lib.js',
-        'app/js/graphic.js',
-        'app/js/events.js',
-        'app/js/objectmenu.js',
-        'app/js/terrainmenu.js',
-        'app/js/uniquemenu.js',
-        'app/js/ui.js',
-        //'app/js/localstorage.fake.js.php',
-        'app/coffeehtml/debug.js',
-        //'app/coffeehtml/loginform.js',
-        'app/coffeehtml/projects.js',
-        'app/js/functions/login.js'
-        //'browser-sync/browser-sync-client.2.9.8.js'
-    ])
+    gulp.src(config.includes.js)
         .pipe(concat('towns.js'))
-        .pipe(gulp.dest('app-dist/js'))
+        //.pipe(gulp.dest('app-dist'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(uglify())
+        .pipe(babel())
+        //.pipe(uglify())//todo minification not working
         .pipe(gulp.dest('app-dist/js'));
 });
 
-// Styly - musia byt vylistovane radsej ako nacitanim s wildcard pretoze poradie nacitania zalezi
+// Styly
 gulp.task('production-styles', function () {
-    gulp.src([
-        'app/css/*.css',
-        'node_modules/roboto-fontface/css/roboto-fontface.css',
-        'node_modules/font-awesome/css/font-awesome.css',
-        'node_modules/font-awesome-animation/src/font-awesome-animation.css'])
+    gulp.src(config.includes.css)
         .pipe(concat('towns.css'))
-        .pipe(gulp.dest('app-dist/css'))
+        //.pipe(gulp.dest('app-dist'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(gulp.dest('app-dist/css'));
 });
 
-// Obrazky - nateraz neaktivne
+// Obrazky - nateraz neaktivne //todo use in app
 gulp.task('production-images', function () {
     gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
         //.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true, multipass: true }))
         .pipe(gulp.dest('app-dist/media/image'));
 });
+
 
 // Zvuky - nateraz neaktivne
 gulp.task('production-sound', function () {
@@ -233,9 +257,9 @@ gulp.task('production-fonts', function () {
         .pipe(gulp.dest('app-dist/fonts/'));
 });
 
-// Priprav graphic pre produkčný build
-gulp.task('production-graphic', function () {
+// Priprav php pre produkčný build
+gulp.task('production-php', function () {
     gulp.src([
-        'app/graphic/*'])
-        .pipe(gulp.dest('app-dist/graphic/'));
+        'app/php/*'])
+        .pipe(gulp.dest('app-dist/php/'));
 });

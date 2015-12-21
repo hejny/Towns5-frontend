@@ -14,16 +14,65 @@
 
 //======================================================================================================================
 
-//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-// TODO: Zgrupnut tieto premenne do jedneho pola $page a pouzivat ako $page['meta_og']['site_name'] alebo $page['title']. Takymto zgrupenim budeme vediet odkial tieto hodnoty su.
 
+error_reporting(E_ALL & ~E_NOTICE);
+
+
+//----------------------------------------load $LANGUAGE and $MESSAGES
+
+require __DIR__ . '/php/neon/neon.php';
+
+if(isset($_COOKIE['LANGUAGE'])) {
+    $LANGUAGE = $_COOKIE['LANGUAGE'];
+}else{
+    $LANGUAGE = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+}
+
+
+
+$file=__DIR__ ."/locale/$LANGUAGE.neon";
+if(!file_exists($file)) {
+    $LANGUAGE='cs';//todo in future default language should be english
+    $file=__DIR__ ."/locale/$LANGUAGE.neon";
+}
+$MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
+//print_r($MESSAGES);
+
+function message($path){
+    global $MESSAGES;
+
+    $eval='$value=$MESSAGES["'.str_replace('.','"]["',$path).'"];';
+
+
+    //echo($eval);
+
+    try {
+        eval($eval);
+    }catch (Exception $err){
+
+    }
+
+
+    if(!isset($value)){
+        $value=$path;
+    }
+
+    return $value;
+
+}
+
+//----------------------------------------
+
+
+
+
+//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 
 $page=[];
-$page['title'] = 'Towns';
-$page['description'] = '';
+$page['title'] = message('page.title');
+$page['description'] = message('page.description');
 $page['meta_og'] = [
-    'site_name' => 'Towns',
+    'site_name' => message('page.title'),
     'title' => $page['title'],
     'description' => $page['description'],
     'type' => 'game'
@@ -43,6 +92,33 @@ $notifications['content'] = '';
 http_response_code(200);
 
 
+
+if(isset($config['app']['environment']) && $config['app']['environment'] != "production"){
+
+    $page['title'].=' - '.ucfirst($config['app']['environment']).' enviroment';
+
+}
+
+
+//------------------------------------------------Nice HTML
+
+function tidyHTML($buffer) {
+    // load our document into a DOM object
+    $dom = new DOMDocument();
+    // we want nice output
+    $dom->preserveWhiteSpace = false;
+    $dom->loadHTML($buffer);
+    $dom->formatOutput = true;
+    return($dom->saveHTML());
+}
+
+// start output buffering, using our nice
+// callback function to format the output.
+//ob_start("tidyHTML");//todo Deploy tidyHTML
+
+//------------------------------------------------
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,8 +132,8 @@ http_response_code(200);
 
     <?php
     //--------------------------------Dodatecne hlavicky
-    if (isset($config['facebook']['app_id'])) {
-        echo '<meta property="fb:app_id" content="' . $config['facebook']['app_id'] . '" >';
+    if (isset($config['app']['facebook']['app_id'])) {
+        echo '<meta property="fb:app_id" content="' . $config['app']['facebook']['app_id'] . '" >';
     }
 
     //--------------------------------Open Graph informace
@@ -67,73 +143,64 @@ http_response_code(200);
 
     }
 
-    //tady je podminka zda jse o testovaci verzi
-    if (isset($config['environment']) && $config['environment'] != "production") : ?>
+    //--------------------------------var LANGUAGE
+    ?>
+    <script>
+        var LANGUAGE='<?=$LANGUAGE?>';
+    </script>
+    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-dist')?>/php/locale.php?LANGUAGE=<?=$LANGUAGE?>"></script>
 
-    <link rel="stylesheet" type="text/css" href="/app/css/style.css"/>
+    <?php
+    //--------------------------------Includes
 
-    <link rel="stylesheet" type="text/css"
-          href="/app/css-lib/roboto-fontface.css?family=Roboto:400,700&subset=latin,latin-ext"/>
-    <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="/app/css-lib/font-awesome-animation.css"/>
-
-
-        <script src="/app/js-lib/jquery.js"></script>
-        <script src="/app/js-lib/jquery-ui.js"></script>
-
-        <script src="/app/js-lib/jquery.ui.touch-punch.js"></script>
-        <script src="/app/js-lib/jquery.mousewheel.js"></script>
-        <script src="/app/js-lib/hammer.js"></script>
-        <script src="/app/js-lib/jquery.fullscreen.js"></script>
-
-        <script src="/app/js/vars.js"></script>
+    //tady je podminka zda jde o testovaci verzi
+    if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
 
-        <script src="/app/js/func.lib.js"></script>
-        <script src="/app/js/log.lib.js"></script>
-        <script src="/app/js/main.js"></script>
-        <script src="/app/js/lang.lib.js"></script>
-        <script src="/app/locale/cs.js"></script>
+        foreach ($config['includes']['css'] as $include) {
+            echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>'."\n";
+        }
+
+        foreach ($config['includes']['js'] as $include) {
+
+            /*print_r($include);
+            echo("\n");*/
+
+            if(is_array($include)){
+                foreach($include as $environment=>$file){
+                    if($environment==$config['app']['environment']){
+                        echo '<script src="/' . addslashes($file) . '"></script>'."\n";
+                    }
+                }
+            }elseif(is_string($include)){
+
+                echo '<script src="/' . addslashes($include) . '"></script>'."\n";
+
+            }
+
+        }
 
 
-        <script src="/app/js/townsapi.lib.js"></script>
-        <script src="/app/js/townsapi.fake.lib.js"></script>
+    }else{
+        ?>
+            <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
+            <script src="/app-dist/js/towns.min.js" async></script>
+        <?php
+    }
+    //--------------------------------
+
+    ?>
 
 
-        <script src="/app/js/functions/create.js"></script>
-        <script src="/app/js/functions/terrain.js"></script>
 
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?=addslashes($config['app']['blog']['rss_feed'])?>">
 
-        <script src="/app/js/map.lib.js"></script>
-        <script src="/app/js/model.lib.js"></script>
-        <script src="/app/js/graphic.js"></script>
-        <script src="/app/js/events.js"></script>
-        <script src="/app/js/objectmenu.js"></script><!--todo soubory podle funkci-->
-        <script src="/app/js/terrainmenu.js"></script>
-        <script src="/app/js/uniquemenu.js"></script>
-        <script src="/app/js/ui.js"></script>
-
-
-        <!--<script src="app/coffeehtml/loginform.js"></script>-->
-        <script src="/app/coffeehtml/projects.js"></script>
-
-
-        <script src="/app/js/functions/login.js"></script>
-
-
-        <!--<script async src='/browser-sync/browser-sync-client.2.9.8.js'></script>-->
-
-
-    <?php else : ?>
-    <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.css"/>
-        <script src="/app-dist/js/towns.js"></script>
-    <?php endif; ?>
 
 </head>
 <body>
 
 
-<?php if (isset($config['google']['tracking_id'])) : ?>
+<?php if (isset($config['app']['google']['tracking_id'])) : ?>
     <!-- Google Analytics -->
     <script>
         (function (i, s, o, g, r, a, m) {
@@ -148,7 +215,7 @@ http_response_code(200);
             m.parentNode.insertBefore(a, m)
         })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-        ga('create', '<?= $config['google']['tracking_id'] ?>', 'auto');
+        ga('create', '<?= $config['app']['google']['tracking_id'] ?>', 'auto');
         ga('send', 'pageview');
 
     </script>
@@ -161,6 +228,20 @@ http_response_code(200);
 </div>
 
 
+
+<div id="message"><div id="message_inner"></div></div>
+
+
+<!--Example of user prompt-->
+<div id="eu_cookies">
+    <div id="eu_cookies_inner">
+        <?=message('ui.prompts.cookies')?>
+        <button class="micro-button"><?=message('ui.buttons.agree')?></button>
+    </div>
+</div>
+
+
+
 <div id="map_drag"></div>
 
 <div id="loadbar_outer">
@@ -169,19 +250,29 @@ http_response_code(200);
 
 
 <canvas id="map_buffer" width="100" height="100"></canvas>
-<canvas id="map_bg" width="100" height="100"></canvas>
+<div id="map-move"></div>
+<canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
+
 
 
 <canvas id="selecting-distance" width="100" height="50"></canvas>
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-close" class="mini-button"><i class="fa fa-times"></i></div>
+    <div id="selecting-distance-plus" class="mini-button" title="<?=message('ui.tool_controls.plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="selecting-distance-minus" class="mini-button" title="<?=message('ui.tool_controls.minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="selecting-distance-left" class="mini-button" title="<?=message('ui.tool_controls.left')?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="mini-button" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right"></i></i></div>
+    <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.color')?>"><i class="fa fa-paint-brush faa-tada"></i>
+    </div>
+    <div id="selecting-distance-blocks" class="mini-button" title="<?=message('ui.tool_controls.blocks')?>"><i class="fa fa-cubes"></i></div>
+    <div id="selecting-distance-close" class="mini-button" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times"></i></div>
+</div>
 
+
+<div id="color-ctl" style="display: none;">
+
+    <div id="selecting-distance-color-box"></div>
 </div>
 
 
@@ -189,7 +280,7 @@ http_response_code(200);
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img src="media/image/icon/logo1.png" alt="Towns.cz logo"/>
+        <img class="js-popup-window-open" content="projects" src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
 
     </div>
 
@@ -197,33 +288,41 @@ http_response_code(200);
     <ul class="menu-list menu-list-left">
 
         <li class="menu-list-item">
-            <a href="#">Příroda</a>
+            <a><?=message('ui.menu.nature._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="" onclick="objectMenuTerrainChange();return false;">Typy</a></li>
-                <li class="menu-dlist-item"><a href="" onclick="terrainNeutralizeStart();return false;">Původní stav</a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuTerrainChange();return false;"><?=message('ui.menu.nature.types')?></a></li>
+                <li class="menu-dlist-item"><a onclick="terrainNeutralizeStart();return false;"><?=message('ui.menu.nature.neutralize')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Budovy</a>
+            <a><?=message('ui.menu.buildings._name')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('main');return false;">Zakladni</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="objectMenuUnique('wall');return false;">Hradby</a></li>
-                <li class="menu-dlist-item"><a href="#" onclick="dismantlingStart();return false;">Zbourat</a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=message('ui.menu.buildings.wall')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
+                <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Příběhy</a>
+            <a><?=message('ui.menu.stories._name')?></a>
 
             <ul class="menu-dlist">
+                <li class="menu-dlist-item">
+
+                    <a onclick="objectMenuStory();return false;"><?=message('ui.menu.stories.write')?></a>
+
+
+
+                </li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a href="#">Zprávy</a>
+            <a><?=message('ui.menu.messages._name')?></a>
 
             <ul class="menu-dlist">
             </ul>
@@ -231,24 +330,44 @@ http_response_code(200);
 
 
         <li class="menu-list-item">
-            <a href="#">Mapa</a>
+            <a><?=message('ui.menu.map._name')?></a>
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a href="" onclick="localStorage.clear();location.reload();return false;">Restartovat</a></li>
+                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();return false;"><?=message('ui.menu.map.screenshot')?></a></li>
+                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();return false;"><?=message('ui.menu.map.restart')?></a></li>
 
 
             </ul>
         </li>
+
+
+
+        <li class="menu-list-item">
+            <a><?=message('ui.menu.blog._name')?></a>
+
+            <ul class="menu-dlist" id="menu-feed">
+                <!--This content will be loaded by js-->
+            </ul>
+        </li>
+
 
 
     </ul>
 
+
+
+
     <ul class="menu-list menu-list-right">
+
+        <!--<li class="menu-list-item menu-list-item-icon">
+            $100
+        </li>-->
+
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" header="Towns 5" content="projects_html" href="#">O hře</a>
+            <a class="js-popup-window-open" content="projects"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
@@ -269,11 +388,6 @@ http_response_code(200);
 
 <aside id="objectmenu">
     <div id="objectmenu-inner">
-        <div class="action-wrapper">
-
-            <div class="action js-popup-action-open" template_params></div>
-
-        </div>
         <div>
 </aside>
 
@@ -305,7 +419,7 @@ http_response_code(200);
 
     </div>
     <div class="footer">
-        <a href="#">Všetky notifikácie</a>
+        <a href="#"><?=message('ui.notifications.all_notifications')?></a>
     </div>
 </div>
 
@@ -314,3 +428,8 @@ http_response_code(200);
 </html>
 
 
+<?php
+// this will be called implicitly, but we'll
+// call it manually to illustrate the point.
+ob_end_flush();
+?>

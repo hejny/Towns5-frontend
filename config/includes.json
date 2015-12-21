@@ -1,0 +1,103 @@
+{
+  "js": [
+
+
+    "node_modules/jquery/dist/jquery.js",
+    "node_modules/jquery-ui-bundle/jquery-ui.js",
+
+    "node_modules/jquery-mousewheel/jquery.mousewheel.js",
+    "node_modules/hammerjs/hammer.js",
+    "node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js",
+
+    "node_modules/ion-sound/js/ion.sound.js",
+    "node_modules/markdown/lib/markdown.js",
+
+
+
+    {"develop": "app/config/develop.js"},
+    {"production": "app/config/production.js"},
+    "app/config/vars.js",
+
+
+    "app/js/classes/path.class.js",
+    "app/js/classes/position.class.js",
+    "app/js/classes/model.class.js",
+    "app/js/classes/townsapi.class.js",
+    "app/js/classes/string.class.js",
+    "app/js/classes/canvas-context.class.js",
+    "app/js/classes/canvas.class.js",
+
+
+
+    "app/js/classes-static/array.class.js",
+    "app/js/classes-static/farbtastic.class.js",
+    "app/js/classes-static/log.class.js",
+    "app/js/classes-static/locale.class.js",
+    "app/js/classes-static/storage.class.js",
+    "app/js/classes-static/map-generate.class.js",
+    "app/js/classes-static/map.class.js",
+    "app/js/classes-static/map-update.class.js",
+    "app/js/classes-static/ui.class.js",
+    "app/js/classes-static/map-objects-draw.class.js",
+    "app/js/classes-static/math.class.js",
+    "app/js/classes-static/interval.class.js",
+    "app/js/classes-static/copy.class.js",
+    "app/js/classes-static/types.class.js",
+    "app/js/classes-static/cookie.class.js",
+    "app/js/classes-static/map-load.class.js",
+    "app/js/classes-static/map-draw.class.js",
+    "app/js/classes-static/templates.class.js",
+    "app/js/classes-static/map-objects-html-draw.class.js",
+    "app/js/classes-static/model-particles.class.js",
+
+
+
+    "app/js/ui/pages/projects.page.js",
+    "app/js/ui/pages/loginform.page.js",
+    "app/js/ui/pages/storyread.page.js",
+    "app/js/ui/pages/storywrite.page.js",
+    "app/js/ui/pages/blocks.page.js",
+
+    "app/js/ui/menu/story.menu.js",
+    "app/js/ui/menu/object.menu.js",
+    "app/js/ui/menu/buildings-prototypes.menu.js",
+    "app/js/ui/menu/terrain.menu.js",
+
+
+
+    "app/js/ui/events/map.events.js",
+    "app/js/ui/events/ui.events.js",
+
+
+
+
+    "app/js/actions/create.action.js",
+    "app/js/actions/dismantle.action.js",
+    "app/js/actions/login.action.js",
+    "app/js/actions/terrain.action.js",
+
+
+    "app/js/inits/main.init.js",
+    "app/js/inits/townsapi.init.js",
+    "app/js/inits/game.init.js",
+    "app/js/inits/objects-prototypes.init.js",
+    "app/js/inits/objects.init.js",
+    "app/js/inits/graphic.init.js",
+    "app/js/inits/sound.init.js",
+    "app/js/inits/map-move.ctl.init.js",
+    "app/js/inits/map-buffer.ctl.init.js",
+    "app/js/inits/blogfeed.init.js"
+
+
+  ],
+  "css": [
+    "app/css/style.css",
+
+
+    "app/css/farbtastic.css",
+    "node_modules/roboto-fontface/css/roboto-fontface.css",
+    "node_modules/font-awesome/css/font-awesome.css",
+    "node_modules/font-awesome-animation/src/font-awesome-animation.css"
+
+  ]
+}

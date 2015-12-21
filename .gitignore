@@ -15,10 +15,13 @@
 
 npm-debug.log
 /node_modules/
+/app/css-lib/
+/app/js-lib/
+/app/fonts/
 
+/cache/*
+!/cache/.gitkeep
 
-
-/cache
 /backup
 /admin
 /userdata
@@ -26,6 +29,6 @@ npm-debug.log
 
 /app/test/*
 
-app-dist
+/app-dist/
 documentation
 asd.*
