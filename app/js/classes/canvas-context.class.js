@@ -49,6 +49,7 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
         if(is(polygon.line)){
             ctx.strokeStyle = polygon.line.color.rgb();
             ctx.lineWidth = polygon.line.width;
+            ctx.lineJoin = 'round';
         }
 
 
