@@ -372,11 +372,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             y = position3D.y,
             z = position3D.z;
 
-        var k=1+(z/400);
+        /*var k=1+(z/400);
 
          x=x*k;
          y=y*k;
-         z=z*Math.pow(k,(1/1.2));
+         z=z*Math.pow(k,(1/1.2));*/
 
         xx = x - y;
         yy = x * slope_m + y * slope_m - (z * slope_n);
@@ -390,7 +390,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     shaders.push({
             line: function(color,polygon3D){
                 return({
-                    color: new Color(255,255,0,255),
+                    color: new Color(224,173,106),
                     width: 5
                 });
 
@@ -599,14 +599,14 @@ Model.prototype.createIcon = function(size){
 //==================================================
 
 
-Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, slope){
+Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, slope,selected=false){
 
     var canvas = document.createElement('canvas');
     canvas.width=x_size;
     canvas.height = y_size;
     var context = canvas.getContext('2d');
 
-    this.draw(context, s, x_begin, y_begin,  rot, slope);
+    this.draw(context, s, x_begin, y_begin,  rot, slope,false,selected);
 
     return(canvas.toDataURL());
 

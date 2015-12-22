@@ -9,7 +9,8 @@ var gulp = require('gulp'),
 //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
     del = require('del'),
-    babel = require("gulp-babel");
+    babel = require("gulp-babel"),
+    browserSync = require('browser-sync').create();
 
 // Configuration autoloader
 var config = [];
@@ -128,6 +129,18 @@ gulp.task('develop-watch', function() {
 
     // Sleduj zmeny zvukov
     //gulp.watch('media/sound/*', ['develop-sound']);
+
+});
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: "towns.local"
+    });
+
+
+    gulp.watch('app/*.{php,phtml}').on('change', browserSync.reload);
+
+
 
 });
 
