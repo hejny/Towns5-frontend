@@ -112,11 +112,9 @@ Color.prototype.hex = function(){
  * @param {string} hex code of color
  * @returns Color
  */
-function hexToRgb(hex) {
+function hexToRgb(hex='000000') {
     var result, shorthandRegex;
-    if (hex == null) {
-        hex = '000000';
-    }
+
     shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     hex = hex.replace(shorthandRegex, function(m, r, g, b) {
         return r + r + g + g + b + b;

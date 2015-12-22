@@ -379,21 +379,6 @@ Map.drawMap = function(){
                 (map_selected_ids.indexOf(map_draw[i][1].id) != -1?true:false)
             );
 
-        } else if (map_draw[i][0] == 'ellipse') {
-
-
-            map_ctx.fillStyle = map_draw[i][1][0];
-            map_ctx.strokeStyle = map_draw[i][1][1];
-            map_ctx.lineWidth = map_draw[i][1][2];
-
-
-            map_ctx.drawEllipse(
-                map_draw[i][2],
-                map_draw[i][3],
-                map_draw[i][5],
-                map_draw[i][6]
-            );
-
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         } else if (map_draw[i][0] == 'story') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

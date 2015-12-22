@@ -1048,7 +1048,17 @@ $(function() {
 
         //------------------------------------------------------
 
-        bufferDrawCtl();
+
+        try{
+
+            bufferDrawCtl();
+
+        }catch(e){
+
+            //todo IndexSizeError: Index or size is negative or greater than the allowed amount
+
+        }
+
 
         setTimeout(function(){
 

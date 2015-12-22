@@ -14,7 +14,7 @@
 
 Map.objectsDraw = function(ctx,objects) {
 
-    r('objectsDraw',objects.length,objects);
+    //r('objectsDraw',objects.length,objects);
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
 
@@ -50,7 +50,7 @@ Map.objectsDraw = function(ctx,objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            objects[i].design.data,
+            objects[i],
             object_screen_x,
             object_screen_y,
              object_screen_y + 120
@@ -91,7 +91,9 @@ Map.objectsDraw = function(ctx,objects) {
         if (map_draw[i][0] == 'building') {
 
 
-            map_draw[i][1].draw(ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope);
+            map_draw[i][1].design.data.draw(ctx, map_zoom_m * map_model_size, map_draw[i][2], map_draw[i][3], -map_rotation, map_slope,false,
+                (map_selected_ids.indexOf(map_draw[i][1].id) != -1?true:false)
+            );
 
         }
 

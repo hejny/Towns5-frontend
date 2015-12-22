@@ -35,14 +35,14 @@ Map.objectsHTML = function(objects) {
 
 
 
-            var model_moving=deepCopyModel(objects[i].design.data);//Model.rewriteRot(objects[i].res,objects[i].path.rotation());
-            model_moving.rotation=objects[i].path.rotation();
+            //var model_moving=deepCopyModel(objects[i].design.data);//Model.rewriteRot(objects[i].res,objects[i].path.rotation());
+            objects[i].design.data.rotation=objects[i].path.rotation();
 
 
         }else{
 
             notMoving=true;
-            var model_moving=objects[i].design.data;
+            //var model_moving=objects[i].design.data;
 
         }
         //-----------------------------------------
@@ -83,7 +83,7 @@ Map.objectsHTML = function(objects) {
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         map_draw.push([
             objects[i].type,
-            model_moving,//todo do it same as map-draw
+            objects[i],//todo do it same as map-draw
             object_screen_x,
             object_screen_y,
             ((objects[i].type == 'story') ? 9999 : object_screen_y + 120)
@@ -127,7 +127,10 @@ Map.objectsHTML = function(objects) {
         if (draw_item[0] == 'building') {
 
             var img = new Image(x_size/*todo refactor*/, y_size);
-            img.src = draw_item[1].createSrc( map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope);/*todo cache SRCs*/
+            img.src = draw_item[1].design.data.createSrc( map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope,
+                (map_selected_ids.indexOf(draw_item[1].id) != -1?true:false)
+
+            );/*todo cache SRCs*/
 
             $(img).css('position','absolute');
             $(img).addClass('moving-object');
@@ -137,43 +140,6 @@ Map.objectsHTML = function(objects) {
             html+=img.outerHTML;
 
 
-
-
-        }else if (draw_item[0] == 'ellipse') {
-
-
-            var width  = draw_item[5] + draw_item[1][2] * 2,
-                height = draw_item[6] + draw_item[1][2] * 2;
-
-
-            var img = new Image(width,height);
-
-
-            img.src=createCanvasViaFunctionAndConvertToSrc(width,height,function(ctx){
-
-
-                ctx.fillStyle = draw_item[1][0];
-                ctx.strokeStyle = draw_item[1][1];
-                ctx.lineWidth = draw_item[1][2];
-
-
-                ctx.drawEllipse(
-                    draw_item[1][2],
-                    draw_item[1][2],
-                    draw_item[5],
-                    draw_item[6]
-                );
-
-            });
-
-
-
-            $(img).css('position','absolute');
-            $(img).addClass('moving-object');
-            $(img).css('left',Math.floor(draw_item[2]));
-            $(img).css('top', Math.floor(draw_item[3]));
-
-            html+=img.outerHTML;
 
 
         }
