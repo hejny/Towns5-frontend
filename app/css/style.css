@@ -797,6 +797,17 @@ input, textarea {
     text-decoration: underline;
 }
 
+/*=========================================================================================================*/
+
+.page-column-2{
+
+    display: inline-block;
+    width: calc(50% - 10px);
+    height: 100%;
+    border-top: 1px solid #bababa;
+    vertical-align: middle;
+}
+
 
 
 /* RSS FEED ------------------------------------------------------------------------------------------------*/
