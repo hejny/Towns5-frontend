@@ -3,26 +3,25 @@ Pages.blocks={"header": 'Stavební bloky'};
 
 Pages.blocks.content= `
 
-
-<canvas id="block-editing" width="300" height="300"></canvas>
-
+<form onsubmit="return false;" id="block-editing-form">
 
 
 
- <form onsubmit="return false;" id="block-editing-form">
+<div class="page-column-2">
 
 
-<button onclick="Pages.blocks.deleteBlock();">{{block.delete}}</button>
-<button onclick="Pages.blocks.duplicateBlock();">{{block.duplicate}}</button>
+    <canvas id="block-editing" width="300" height="300"></canvas>
 
 
-<textarea id="block-editing-json" style="display:none;"></textarea>
+    <button onclick="Pages.blocks.deleteBlock();">{{block.delete}}</button>
+    <button onclick="Pages.blocks.duplicateBlock();">{{block.duplicate}}</button>
+
+</div>
 
 
-<table>
 
 
-
+<table  class="page-column-2">
 
 
   <tr><th colspan="2"><input id="block-editing-name" type="text" placeholder="{{block.name.placeholder}}" /></th></tr>
@@ -255,8 +254,6 @@ Pages.blocks.update = function () {
 
 
 
-
-    $('#block-editing-json').val(JSON.stringify(object_prototypes[i].design.data.particles[0],'false',true));
 
 
     Pages.blocks.block_editing_ctx.clearRect ( 0 , 0 ,300 , 300 );
