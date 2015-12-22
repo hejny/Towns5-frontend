@@ -390,8 +390,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     shaders.push({
             line: function(color,polygon3D){
                 return({
-                    color: new Color(224,173,106),
-                    width: 5
+                    color: hexToRgb('4C9ED9'),
+                    width: 10
                 });
 
             },

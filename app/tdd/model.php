@@ -114,7 +114,7 @@
     r('------------------------------');
     building1.joinModel(building1,15,-16);
 
-    building1.draw(ctx4, 0.5, 150, 250, 0, 30);
+    building1.draw(ctx4, 0.5, 150, 250, 0, 30,false,true);
 
 
     r(building1.range('x'));
