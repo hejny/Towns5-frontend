@@ -28,11 +28,11 @@ var separator_width,separator_border,window_padding;
 
 Pages.storywrite.openJS = function(){
 
-    separator_width=5;//parseInt($('#vertical_separator').css('width'));
-    separator_border=2;//parseInt($('#story-content').css('border-right'));
-    window_padding=20;//parseInt($('.popup-window .content').css('padding'));
+    separator_width=5;//parseInt($('#vertical_separator').scss('width'));
+    separator_border=2;//parseInt($('#story-content').scss('border-right'));
+    window_padding=20;//parseInt($('.popup-window .content').scss('padding'));
 
-    //r('storywrite',separator_width,separator_border,window_padding,$('#vertical_separator'),$('#story-content').css('border-right'),$('.popup-window .content'));
+    //r('storywrite',separator_width,separator_border,window_padding,$('#vertical_separator'),$('#story-content').scss('border-right'),$('.popup-window .content'));
 
     $('#vertical_separator').css('left',window_width/2+separator_width/2-window_padding);
 

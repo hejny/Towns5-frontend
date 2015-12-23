@@ -124,7 +124,7 @@ function buildingStart(object){
 
     $('#selecting-distance').attr('height',300);//todo Jaká by měla být velikost - rozmyslet?
     $('#selecting-distance').attr('width',300);
-    //$('#selecting-distance').css('border',2);
+    //$('#selecting-distance').scss('border',2);
 
     buildingUpdate();
     //r(building.res);
@@ -132,7 +132,7 @@ function buildingStart(object){
 
 
     $('#selecting-distance-ctl').css('background','');
-    //$('#selecting-distance-ctl').css('background-size','cover');
+    //$('#selecting-distance-ctl').scss('background-size','cover');
 
 
     $('#selecting-distance-ctl').show();
@@ -247,7 +247,7 @@ function objectMenuUnique(group){
                 .split('%action').join(htmlEncode(action));
 
             //$(objectmenu[i]).children('div').attr('content',content);
-            //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
+            //$(objectmenu[i]).children('.js-popup-action-open').scss('background','url(\''+icon+'\')');
 
         }
 

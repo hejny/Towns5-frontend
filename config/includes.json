@@ -91,10 +91,24 @@
 
   ],
   "css": [
-    "app/css/style.css",
 
-
+    "app/css/body.css",
     "app/css/farbtastic.css",
+    "app/css/messages.css",
+    "app/css/components.css",
+    "app/css/general.css",
+    "app/css/map.css",
+    "app/css/tool.css",
+    "app/css/menu.css",
+    "app/css/left-menu.css",
+    "app/css/popup.css",
+    "app/css/notifications.css",
+    "app/css/feed.css",
+    "app/css/window.css",
+    "app/css/window-story.css",
+
+
+
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
     "node_modules/font-awesome-animation/src/font-awesome-animation.css"

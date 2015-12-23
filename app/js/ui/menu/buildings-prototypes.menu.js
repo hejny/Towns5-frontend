@@ -39,7 +39,7 @@ function buildingStart(object){
     $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
     $('#selecting-distance').attr('height',selecting_size.y);
 
-    //$('#selecting-distance').css('border',2);
+    //$('#selecting-distance').scss('border',2);
 
     buildingUpdate();
     //r(building.res);
@@ -101,8 +101,8 @@ function buildingUpdate(object){
 
             $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
             $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
-            /*$('#selecting-distance').css('left', screen_position.x+(canvas_width / 3/2));
-            $('#selecting-distance').css('top', screen_position.y+(canvas_height / 3/2));*/
+            /*$('#selecting-distance').scss('left', screen_position.x+(canvas_width / 3/2));
+            $('#selecting-distance').scss('top', screen_position.y+(canvas_height / 3/2));*/
 
 
 
@@ -231,7 +231,7 @@ function objectMenuBuildingsPrototypes(subtype){
 
 
             //$(objectmenu[i]).children('div').attr('content',content);
-            //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
+            //$(objectmenu[i]).children('.js-popup-action-open').scss('background','url(\''+icon+'\')');
 
         }
 

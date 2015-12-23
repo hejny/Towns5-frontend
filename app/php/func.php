@@ -262,12 +262,12 @@ function target($sub,$w="",$ee="",$q,$only=false,$rot="",$noi=false,$prompt='',$
     $vi="
 if(typeof event === 'undefined'){1;}else{
 ion.sound.play('beer_can_opening');
-\$('#loading').css('display','block');
-\$('#loading').css('left',event.pageX-10);
-\$('#loading').css('top',event.pageY-10);
+\$('#loading').scss('display','block');
+\$('#loading').scss('left',event.pageX-10);
+\$('#loading').scss('top',event.pageY-10);
 }
 ";
-    $iv="\$('#loading').css('display','none');";//ion.sound.play('bell_ring');
+    $iv="\$('#loading').scss('display','none');";//ion.sound.play('bell_ring');
     if($jsa)$iv.=$jsa;
     
     

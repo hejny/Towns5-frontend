@@ -1,0 +1,53 @@
+#loading{
+  position:absolute;
+  display:none;
+  z-index:10000;
+  top:100px;
+  left:100px;
+  font-size: 22px;
+
+}
+
+
+#map_drag{
+  position:absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index:3000;
+  /*border: 2px dashed #FF0000;*/
+}
+
+#loadbar_outer{
+  position:absolute;
+  width: 100vw;
+  height: 100vh;
+  font-size:2em;
+  text-align:center;
+  z-index:2000;
+}
+
+
+#loadbar{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+#map_bg {
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:1000;
+
+}
+
+#map-move {/*todo all clases with Capital letter*/
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:1005;
+
+}
+
+

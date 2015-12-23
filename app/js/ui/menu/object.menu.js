@@ -74,7 +74,7 @@ function objectMenu(){
 
 
             //$(objectmenu[i]).children('div').attr('content',content);
-            //$(objectmenu[i]).children('.js-popup-action-open').css('background','url(\''+icon+'\')');
+            //$(objectmenu[i]).children('.js-popup-action-open').scss('background','url(\''+icon+'\')');
 
 
 

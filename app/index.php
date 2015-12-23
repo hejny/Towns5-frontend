@@ -158,7 +158,7 @@ function tidyHTML($buffer) {
 
 
         foreach ($config['includes']['css'] as $include) {
-            echo '<link rel="stylesheet" type="text/css" href="/' . addslashes($include) . '"/>'."\n";
+            echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>'."\n";
         }
 
         foreach ($config['includes']['js'] as $include) {

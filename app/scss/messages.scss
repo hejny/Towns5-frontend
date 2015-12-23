@@ -1,0 +1,102 @@
+
+
+#message {
+
+  z-index:3900;
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  height: 20px;
+  width: 100%;
+
+  text-align: center;
+
+}
+
+#message_inner {
+
+  display: inline-block;
+  border-radius: 3px;
+  background-color: #ff0000;
+  padding: 4px;
+
+}
+
+#eu_cookies {
+
+  z-index:3800;
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+
+  text-align: center;
+
+
+}
+
+#eu_cookies_inner {
+
+  display: inline-block;
+  border-radius: 3px;
+  background-color: rgba(30,150,150,0.8);
+  padding: 4px;
+
+}
+
+.micro-button{
+
+  border: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  font-weight: 600;
+  font-size: 0.8em;
+  border-radius: 3px;
+  text-shadow: #000011;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+
+}
+
+
+
+.error {
+  color: #FFFFFF;
+  background-color: #FF0000;
+}
+
+
+.success {
+  color: #FFFFFF;
+  background-color:  #228855;
+}
+
+.info {
+  color: #FFFFFF;
+  background-color: #444488;
+}
+
+.loading {/*todo jak tohle nazyvat*/
+  color: #FFFFFF;
+  background-color: #444444;
+}
+
+.error, .success, .info, .loading {
+
+  text-align: center;
+  display: block;
+  width: 100%;
+  padding: 6px;
+
+  font-weight: bold;
+
+
+}
