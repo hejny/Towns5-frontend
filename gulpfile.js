@@ -1,3 +1,7 @@
+
+
+
+
 var gulp = require('gulp'),
     fs = require('fs'),
     uglify = require('gulp-uglify'),
@@ -10,7 +14,10 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     del = require('del'),
     babel = require("gulp-babel"),
-    browserSync = require('browser-sync').create();
+    browserSync = require('browser-sync').create(),
+    sass        = require('gulp-sass');
+
+
 
 // Configuration autoloader
 var config = [];
@@ -20,7 +27,6 @@ fs.readdirSync("./config").forEach(function(file) {
         config[name] = require('./config/' + file);
     }
 });
-console.log(config);
 
 // Lint - testovanie
 gulp.task("test", function() {
@@ -50,99 +56,46 @@ gulp.task('default', function() {
 
 });
 
-// Vycisti develop a zacni Develop Build
-gulp.task('develop', ['develop-clean'], function() {
-    gulp.start('develop-build');
-});
 
-// Vymazanie develop kniznic pred buildom
-gulp.task('develop-clean', function() {
-    del([
-        'app/css-lib/*',
-        'app/js-lib/*',
-        'app/fonts/*'
-    ])
-});
+//======================================================================================================================
 
-// Index.php pre development build
-gulp.task('develop-index', function () {
-    // ziadna uloha momentalne
-});
-
-// Priprav scripty pre develop build
-gulp.task('develop-scripts', function() {
-    gulp.src([
-        'node_modules/jquery/dist/jquery.js',
-        'node_modules/jquery-ui-bundle/jquery-ui.js',
-        'node_modules/jquery-ui-touch-punch/jquery.ui.touch-punch.js',
-        'node_modules/jquery-mousewheel/jquery.mousewheel.js',
-        'node_modules/hammerjs/hammer.js',
-        'node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js'
-    ])
-        .pipe(gulp.dest('app/js-lib/'));
-});
-
-// Priprav style pre develop build
-gulp.task('develop-styles', function () {
-    gulp.src([
-        'node_modules/roboto-fontface/css/roboto-fontface.css',
-        'node_modules/font-awesome/css/font-awesome.css',
-        'node_modules/font-awesome-animation/src/font-awesome-animation.css'])
-        .pipe(gulp.dest('app/css-lib/'));
-});
-
-// Priprav fonty pre develop build
-gulp.task('develop-fonts', function () {
-    gulp.src([
-        'node_modules/roboto-fontface/fonts/*',
-        'node_modules/font-awesome/fonts/*'])
-        .pipe(gulp.dest('app/fonts/'));
-});
-
-// Develop Build
-gulp.task('develop-build', [
-    'develop-index',
-    'develop-scripts',
-    //'develop-images',
-    //'develop-sound',
-    'develop-styles',
-    'develop-fonts'
-], function () {
-    gulp.start('develop-watch');
-    console.log(' ¯\\_(ツ)_/¯ Development build je teraz hotový, už len kontrolujem zmeny ');
-});
-
-// Sledovanie zmien
-gulp.task('develop-watch', function() {
-
-    // Sleduj index zmeny
-    gulp.watch('app/*.{php,phtml}', ['develop-index']);
-
-    // Sleduj css zmeny
-    gulp.watch('app/**/*.css', ['develop-styles']);
-
-    // Sleduj js zmeny
-    gulp.watch('app/**/*.js', ['develop-scripts']);
-
-    // Sleduj zmeny obrazkov
-    //gulp.watch('media/image/**/*', ['develop-images']);
-
-    // Sleduj zmeny zvukov
-    //gulp.watch('media/sound/*', ['develop-sound']);
-
-});
-
-gulp.task('browser-sync', function() {
+gulp.task('develop', function() {
     browserSync.init({
         proxy: "towns.local"
     });
 
 
+    gulp.src("app/scss/*.scss")
+        .pipe(sass())
+        .pipe(gulp.dest("app/css"));
+
+
+    gulp.watch("app/scss/*.scss", ['develop-sass']);
     gulp.watch('app/*.{php,phtml}').on('change', browserSync.reload);
 
+});
 
+
+// Compile sass into CSS & auto-inject into browsers
+gulp.task('develop-sass', function() {
+
+    try {
+
+        return gulp.src("app/scss/*.scss")
+            .pipe(sass())
+            .pipe(gulp.dest("app/css"))
+            .pipe(browserSync.stream());
+
+    }catch(e){
+
+        console.log(e);
+    }
 
 });
+
+
+//======================================================================================================================
+
 
 // Vycisti production adresar a zacni Produkcny Build
 gulp.task('production', ['production-clean'], function() {
@@ -153,7 +106,7 @@ gulp.task('production', ['production-clean'], function() {
 gulp.task('production-clean', function() {
     del([
         'app-dist/index.php',
-        'app-dist/css/*',
+        'app-dist/scss/*',
         //'app-dist/media/image',
         //'app-dist/media/sound',
         'app-dist/js/*',
@@ -240,8 +193,8 @@ gulp.task('production-scripts', function() {
 // Styly
 gulp.task('production-styles', function () {
     gulp.src(config.includes.css)
+        .pipe(sass())
         .pipe(concat('towns.css'))
-        //.pipe(gulp.dest('app-dist'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifyCss({compatibility: 'ie8'}))
         .pipe(gulp.dest('app-dist/css'));

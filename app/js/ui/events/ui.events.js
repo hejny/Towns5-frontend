@@ -268,7 +268,7 @@ window.uiScript = function(){
 
 
 
-    $('.towns-window'/*todo all classes css+js should be AllFirstLetters*/).unbind('click').click(function(e){
+    $('.towns-window'/*todo all classes scss+js should be AllFirstLetters*/).unbind('click').click(function(e){
         e/*todo use e or event???*/.preventDefault();
 
 
@@ -364,7 +364,7 @@ $(function() {
      r(selected_color);
 
 
-     $('#selecting-distance-color').css('selected_color',selected_color);
+     $('#selecting-distance-color').scss('selected_color',selected_color);
 
 
      }); //link to callback*/
