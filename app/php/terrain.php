@@ -20,6 +20,7 @@
 
 //todo use path like require __DIR__ . '/neon/neon.php';
 require_once('files.lib.php');
+require_once('graphic.lib.php');
 require_once('init.php');
 
 
@@ -68,6 +69,42 @@ $file="../../media/image/terrain/$terrain.png";
 if(!file_exists($file)){
     die('{error: \'No terrain!\'}');
 }
+
+
+//--------------------------------------------------------------------
+
+if(isset($_GET['raw'])){
+
+
+
+    $cachefile=files\cacheFile(array($terrain,$size),'png','terrain');//todo size or width
+    if(!file_exists($cachefile) or isset($_GET['notmp']) or filesize($cachefile)<10/** or 1/**/) {
+
+        $src = imagecreatefrompng($file);
+        $dest = graphic\imgresizew($src, $size);
+
+        imagesavealpha($dest, true);
+        imagepng($dest,$cachefile);
+
+
+    }
+
+
+    header('Content-Type: image/png');
+    readfile($cachefile);
+
+
+}
+
+
+//--------------------------------------------------------------------
+
+
+
+
+
+
+
 
 $seed=intval($_GET['seed']);
 
