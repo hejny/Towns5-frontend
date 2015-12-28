@@ -1,5 +1,7 @@
 
-Pages.projects={"header": 'Towns 5'};
+Pages.home={};
+
+Pages.home.header='Towns 5';
 
 
 /*<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
@@ -8,7 +10,7 @@ Pages.projects={"header": 'Towns 5'};
 </div>*/
 
 
-Pages.projects.content=`
+Pages.home.content=`
 
 
   <h2 style="font-size:1.1em;text-align: center;">
@@ -52,11 +54,11 @@ Pages.projects.content=`
         <input type="text" value="" name="sp_lastname"/>
       </p>-->
 
-    </div>
   </form>
 
 
   <script>
+    $(function() {
       $("#sendpress").submit( function() {
 
         $("#sendpress_success").hide();
@@ -82,6 +84,7 @@ Pages.projects.content=`
         });
           return false;
       });
+    });
   </script>
 
 

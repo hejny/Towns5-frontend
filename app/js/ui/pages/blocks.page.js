@@ -1,5 +1,7 @@
 
-Pages.blocks={"header": 'Stavební bloky'};
+Pages.blocks={};
+
+Pages.blocks.header='Stavební bloky';
 
 Pages.blocks.content= `
 

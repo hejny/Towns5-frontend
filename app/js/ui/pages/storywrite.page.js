@@ -1,8 +1,7 @@
 
-//todo header
-//todo ?? DI
 
-Pages.storywrite={"header": 'Upravit příběh'};
+Pages.storywrite={};
+Pages.storywrite.header='Upravit příběh';
 
 
 //======================================================================================================================

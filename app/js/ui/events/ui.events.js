@@ -418,8 +418,8 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    if(environment!='develop')
-    window_open('projects');
+    /*if(environment!='develop')
+    window_open('projects');*/
 
 
 });
