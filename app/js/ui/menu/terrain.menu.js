@@ -140,8 +140,8 @@ function objectMenuTerrainChange(){
 
             objectmenu+=Templates.objectMenu({
                 icon: icon,
-                title: Locale.get('terrains.t'+terrain),
-                content: content,
+                title: Locale.get('terrains.t'+terrain+'.name'),
+                content: Locale.get('terrains.t'+terrain+'.description'),
                 action: action
             });
 

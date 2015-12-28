@@ -34,6 +34,7 @@ Pages.data_json.openJS = function(){
 Pages.data_json.closeJS = function() {
 
     loadMapObjectChanges($('#data_json_textarea').val());
+    saveMapObjectChangesToStorage();
 
 };
 

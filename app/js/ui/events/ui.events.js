@@ -75,28 +75,6 @@ window.uiScript = function(){
             eval($(this).attr('action'));
 
             //---------------------------------
-        }else
-        if($('#popup-action').css('display')=='none'){
-            //---------------------------------Zobrazení nápovědy
-            r('Zobrazení nápovědy');
-            var content=$(this).attr('content');
-            var title=$(this).attr('title');
-
-            if(content!='') {
-
-                content='<h2>'+title+'</h2><p>'+content+'</p>';
-
-                var offset=$(this).offset();
-
-                $('#popup-action').css('top',offset.top);
-                $('#popup-action .content').html(content);
-                $('#popup-action').show();
-
-
-            }else{
-                $('#popup-action').hide();
-            }
-            //---------------------------------
         }else{
             //---------------------------------Odznačení všeho
             r('Odznačení všeho');
@@ -110,11 +88,40 @@ window.uiScript = function(){
     });
 
 
-    $('.js-popup-action-close').unbind('click').on('click', function(){
+    $('.js-popup-action-open').unbind('mouseenter').on('mouseenter', function(e){
 
-        $('#popup-action').hide();
+
+        //---------------------------------Zobrazení nápovědy
+        r('Zobrazení nápovědy');
+        var content=$(this).attr('content');
+        var title=$(this).attr('popup_title');
+
+        if(title!='' && content!='') {
+
+            content='<h2>'+title+'</h2><p>'+content+'</p>';
+
+            var offset=$(this).offset();
+
+            $('#popup-action').css('top',offset.top);
+            $('#popup-action .content').html(content);
+            $('#popup-action').stop();
+            $('#popup-action').show();
+
+
+        }else{
+
+            $('#popup-action').hide();
+        }
+
+        //---------------------------------
 
     });
+
+    $('.js-popup-action-open').unbind('mouseleave').on('mouseleave', function(e){
+        $('#popup-action').fadeOut(200);
+    });
+
+
 
     //==================================================================================================================popup story
 
