@@ -372,7 +372,11 @@ function tidyHTML($buffer) {
         <li class="menu-list-item">
             <a><?=message('ui.menu.data._name')?></a>
 
+
+
             <ul class="menu-dlist">
+
+                <li class="menu-dlist-info"><?=message('ui.menu.data._info')?></li>
 
                 <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=message('ui.menu.data.screenshot')?></a></li>
                 <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=message('ui.menu.data.restart')?></a></li>
@@ -426,7 +430,6 @@ function tidyHTML($buffer) {
 <div id="popup-action">
     <div class="arrow"></div>
     <div class="content"></div>
-    <div class="close js-popup-action-close"><i class="fa fa-times"></i></div>
 </div>
 
 
