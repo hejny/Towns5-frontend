@@ -83,7 +83,7 @@ function terrainChangeStart(terrain){
     //----------------------------
 
     //if(terrain_change){
-    $('#selecting-distance-ctl').css('background','url(\'media/image/terrain/t'+(terrainChanging)+'.png\')');
+    $('#selecting-distance-ctl').css('background','url(\''+appDir+'/php/terrain.php?raw&size=200&terrain=t'+(terrainChanging)+'\')');
     $('#selecting-distance-ctl').css('background-size','cover');
     //}
 
@@ -129,7 +129,7 @@ function objectMenuTerrainChange(){
         for(var terrain=1;terrain<14;terrain++){
 
 
-            var icon='media/image/terrain/t'+(terrain)+'.png';
+            var icon=appDir+'/php/terrain.php?raw&size=60&terrain=t'+(terrain);
 
             /*content='<h2>'+l('terrain','t'+terrain)+'</h2>' +
                 '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
