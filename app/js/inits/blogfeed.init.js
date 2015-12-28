@@ -15,15 +15,13 @@ $.get(feed_url, function (data) {
         var el = $(this);
 
         html+=[
-            '<li class="menu-dlist-item">',
             '<a class="towns-window" href="' +el.find("link").text()+ '" title="'  +el.find("title").text()+  '" target="_blank">',
-            el.find("title").text(),
-            '</li>'
+            el.find("title").text()
         ].join('');
 
     });
 
 
-    $("#menu-feed").html(html);
+    $("#notifications").html(html);
     uiScript();
 });

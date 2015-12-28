@@ -52,11 +52,12 @@
 
 
 
-    "app/js/ui/pages/projects.page.js",
+    "app/js/ui/pages/home.page.js",
     "app/js/ui/pages/loginform.page.js",
     "app/js/ui/pages/storyread.page.js",
     "app/js/ui/pages/storywrite.page.js",
     "app/js/ui/pages/blocks.page.js",
+    "app/js/ui/pages/data-json.page.js",
 
     "app/js/ui/menu/story.menu.js",
     "app/js/ui/menu/object.menu.js",

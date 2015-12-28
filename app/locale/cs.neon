@@ -43,13 +43,11 @@ ui:
             _name: Příběhy
             write: Napsat příběh
 
-        messages:
-            _name: Zprávy
-
-        map:
-            _name: Mapa
+        data:
+            _name: Data
             screenshot: Screenshot
             restart: Restartovat
+            export: JSON
 
         blog:
             _name: Blog

@@ -1,5 +1,7 @@
 
-Pages.loginform={"header": 'Login'};
+Pages.loginform={};
+
+Pages.loginform.header='Login';
 
 Pages.loginform.content=`
 

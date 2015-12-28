@@ -80,13 +80,62 @@ $page['meta_og'] = [
     //'image' =>
 ];
 
-$window=[];
-$window['display'] = 'none';
-$window['header'] = '';
-$window['content'] = '';
 
-$notifications=[];
-$notifications['content'] = '';
+
+$inner_window=[];
+
+if($config['app']['environment'] == "production"/** or true/**/){
+
+    $inner_page='home';
+    $inner_page_content=file_get_contents(__DIR__.'/js/ui/pages/'.$inner_page.'.page.js');
+
+    function getFromJs($content,$val,$quote){
+        $pos=strpos($content,$val);
+        $content=substr($content,$pos);
+        $pos=strpos($content,$quote);
+        $content=substr($content,$pos+1);
+        $pos=strpos($content,$quote);
+        $content=substr($content,0,$pos);
+        return $content;
+    }
+
+
+    $inner_window['header']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.header','\'');
+    $inner_window['content']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.content','`');
+    //$inner_window['openJS']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.openJS','`');
+
+
+    $inner_window['content']=explode('{{', $inner_window['content']);
+
+
+    for($i=1;$i<count($inner_window['content']);$i++){
+
+
+        $inner_window['content'][$i]=explode('}}',$inner_window['content'][$i]);
+
+
+
+
+        $inner_window['content'][$i][0]=message($inner_window['content'][$i][0]);
+        $inner_window['content'][$i]=implode('',$inner_window['content'][$i]);
+
+
+    }
+    $inner_window['content']=implode('', $inner_window['content']);
+
+
+}else{
+
+
+    $inner_window['display'] = 'none';
+    $inner_window['header'] = '';
+    $inner_window['content'] = '';
+    //$inner_window['openJS'] = '';
+
+}
+
+
+
 
 
 http_response_code(200);
@@ -152,7 +201,6 @@ function tidyHTML($buffer) {
 
     <?php
     //--------------------------------Includes
-
     //tady je podminka zda jde o testovaci verzi
     if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
@@ -161,10 +209,9 @@ function tidyHTML($buffer) {
             echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>'."\n";
         }
 
+        /**/
         foreach ($config['includes']['js'] as $include) {
 
-            /*print_r($include);
-            echo("\n");*/
 
             if(is_array($include)){
                 foreach($include as $environment=>$file){
@@ -178,7 +225,7 @@ function tidyHTML($buffer) {
 
             }
 
-        }
+        }/**/
 
 
     }else{
@@ -280,7 +327,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="projects" src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
+        <img class="js-popup-window-open" content="home" src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
 
     </div>
 
@@ -321,33 +368,17 @@ function tidyHTML($buffer) {
             </ul>
         </li>
 
-        <li class="menu-list-item">
-            <a><?=message('ui.menu.messages._name')?></a>
-
-            <ul class="menu-dlist">
-            </ul>
-        </li>
-
 
         <li class="menu-list-item">
-            <a><?=message('ui.menu.map._name')?></a>
+            <a><?=message('ui.menu.data._name')?></a>
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();return false;"><?=message('ui.menu.map.screenshot')?></a></li>
-                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();return false;"><?=message('ui.menu.map.restart')?></a></li>
+                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=message('ui.menu.data.screenshot')?></a></li>
+                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=message('ui.menu.data.restart')?></a></li>
+                <li class="menu-dlist-item"><a class="js-popup-window-open" content="data_json"><?=message('ui.menu.data.export')?></a></li>
 
 
-            </ul>
-        </li>
-
-
-
-        <li class="menu-list-item">
-            <a><?=message('ui.menu.blog._name')?></a>
-
-            <ul class="menu-dlist" id="menu-feed">
-                <!--This content will be loaded by js-->
             </ul>
         </li>
 
@@ -367,7 +398,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="projects"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" content="home"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
@@ -388,7 +419,7 @@ function tidyHTML($buffer) {
 
 <aside id="objectmenu">
     <div id="objectmenu-inner">
-        <div>
+    </div>
 </aside>
 
 
@@ -399,23 +430,35 @@ function tidyHTML($buffer) {
 </div>
 
 
-<div class="overlay" style="display: <?= addslashes($window['display']) ?>;"></div>
 
-<div class="popup-window" style="display: <?= addslashes($window['display']) ?>;">
-    <div class="header"><?= addslashes($window['header']) ?></div>
-    <div class="content"><?= addslashes($window['content']) ?></div>
+
+<div class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></div>
+<div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
+    <div class="header"><?= htmlspecialchars($inner_window['header']) ?></div>
+    <div class="content"><?= ($inner_window['content']) ?></div>
 
 
     <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>
 </div>
+<?php if($inner_window['content']):/*todo this JS is duplicite*/ ?>
+    <script>
+        $(function(){
+            $('.popup-window .content').mousedown(function(){
+                $('body').enableSelection();
+            });
+            $('body').enableSelection();
+            window_opened=true;
+        });
+    </script>
+<?php endif; ?>
+
 
 
 <div class="popup-notification">
     <div class="arrow"></div>
     <div class="header"></div>
-    <div class="content">
+    <div class="content" id="notifications">
 
-        <?= htmlspecialchars($notifications['content']) ?>
 
     </div>
     <div class="footer">
