@@ -4,11 +4,18 @@
  */
 //======================================================================================================================
 
-
+/**
+ * Container of html templates
+ */
 var Templates={};
 
 
-
+/**
+ * left menu item //todo objectmenu vs leftmenu?
+ * @static
+ * @param {object} params
+ * @return {string} html
+ */
 Templates.objectMenu = function(params){
 
 

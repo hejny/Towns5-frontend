@@ -5,7 +5,11 @@
 //======================================================================================================================
 
 
-
+/**
+ * Updates map position, zoom, ect. and run DrawMap
+ * @static
+ * @param ms @deprecated
+ */
 Map.updateMap = function(ms){
 
     r('updateMap');

@@ -5,8 +5,10 @@
 //======================================================================================================================
 
 
-
-
+/**
+ * Draw the map on canvas
+ * @static
+ */
 Map.drawMap = function(){
 
     //r(map_ctx);
@@ -409,7 +411,11 @@ Map.drawMap = function(){
 };
 
 
-
+/**
+ * Draw the map on canvas asynchronously
+ * @static
+ * @param {number} delay ms
+ */
 Map.drawMapAsync = function(delay){//todo search where to use this function
 
     delay=cParam(delay,IMMEDIATELY_MS);

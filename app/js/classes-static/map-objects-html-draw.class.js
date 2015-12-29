@@ -5,7 +5,11 @@
 //======================================================================================================================
 
 
-
+/**
+ * Render objects as HTML
+ * @param {array} objects
+ * @return {string} html code
+ */
 Map.objectsHTML = function(objects) {
 
     //r('objectsDraw',objects.length,objects);

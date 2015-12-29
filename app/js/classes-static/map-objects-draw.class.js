@@ -4,7 +4,12 @@
  */
 //======================================================================================================================
 
-
+/**
+ * Draw objects on canvas
+ * @static
+ * @param ctx
+ * @param {array} objects
+ */
 Map.objectsDraw = function(ctx,objects) {
 
     //r('objectsDraw',objects.length,objects);

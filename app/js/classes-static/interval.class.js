@@ -7,36 +7,50 @@
 
 var Interval={};
 
-
-Interval.debounce = function(func, wait, immediate) {
+/**
+ * Creates the function that runs callback only after last call and wait ms
+ * @static
+ * @param {function} callback
+ * @param {number} wait ms
+ * @param {bool} immediate call
+ * @return {Function}
+ */
+Interval.debounce = function(callback, wait, immediate) {
     var timeout;
     return function() {
         var context = this, args = arguments;
         var later = function() {
             timeout = null;
-            if (!immediate) func.apply(context, args);
+            if (!immediate) callback.apply(context, args);
         };
         var callNow = immediate && !timeout;
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
+        if (callNow) callback.apply(context, args);
     };
 };
 
 //======================================================================================================================
 
-Interval.maxRunPerMs = function(func, maxwait) {
+/**
+ * Calls callback maximum 1/minwait times per ms
+ * @static
+ * @param {function} callback
+ * @param {number} minwait
+ * @return {Function}
+ */
+Interval.maxRunPerMs = function(callback, minwait) {
     var timeout,time_started=0;
 
     return function() {
         var context = this, args = arguments;
 
-        var wait = maxwait - (Date.now()-time_started);
+        var wait = minwait - (Date.now()-time_started);
         if(wait<1)wait=1;
 
         var later = function() {
             timeout = null;
-            func.apply(context, args);
+            callback.apply(context, args);
         };
 
         clearTimeout(timeout);
