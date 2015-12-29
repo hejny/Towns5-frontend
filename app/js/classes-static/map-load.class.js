@@ -66,7 +66,7 @@ Map.loadMap = function(){
              if(typeof(map_data_terrain[i].res)!='undefined'){
 
              var terrain=map_data_terrain[i].res;
-             terrain=parseInt(terrain.substr(1));
+             terrain=Math.toInt(terrain.substr(1));
 
              //terrain=terrain-1;
 

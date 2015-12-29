@@ -5,7 +5,12 @@
 //======================================================================================================================
 
 
-
+/**
+ *
+ * @static
+ * @param {number}
+ * @return {number}
+ */
 Math.sign = Math.sign || function(x) {
     x = +x; // convert to a number
     if (x === 0 || isNaN(x)) {
@@ -16,6 +21,12 @@ Math.sign = Math.sign || function(x) {
 
 //-------------------------
 
+/**
+ * Difference between two angeles
+ * @param {number} degrees 1
+ * @param {number} degrees 2
+ * @return {number} degrees difference
+ */
 Math.angleDiff = function(deg1,deg2){
     var a = deg1 - deg2;
     var a = (a + 180) % 360 - 180;
@@ -24,18 +35,32 @@ Math.angleDiff = function(deg1,deg2){
 
 //-------------------------
 
+/**
+ * @param {number} radians
+ * @return {number} degrees
+ */
 Math.rad2deg = function(radians){
     return(radians * (180/Math.PI));
 };
 
 //-------------------------
 
+/**
+ * @param {number} degrees
+ * @return {number} radians
+ */
 Math.deg2rad = function(degrees){
     return(degrees * (Math.PI/180));
 };
 
 //-------------------------
 
+/**
+ *
+ * @param x
+ * @param y
+ * @return {number} distance
+ */
 Math.xy2dist = function(x,y){
     return(Math.sqrt(Math.pow(x,2)+Math.pow(y,2)));
 };
@@ -43,6 +68,7 @@ Math.xy2dist = function(x,y){
 
 //-------------------------
 
+//todo refactor to position
 Math.xy2distDeg = function(x,y){
 
     var output={};
@@ -56,6 +82,7 @@ Math.xy2distDeg = function(x,y){
 
 //-------------------------
 
+//todo refactor to position
 Math.distDeg2xy = function(dist,deg){
 
     var rad=Math.deg2rad(deg);
@@ -71,6 +98,7 @@ Math.distDeg2xy = function(dist,deg){
 
 //-------------------------
 
+//todo mybe refactor to position
 Math.xyRotate = function(x,y,deg){
 
     //nevyuzivam funkce Math.xy2distDeg a Math.distDeg2xy, abych nedelal zbytecny prevod do stupnu a spatky
@@ -89,10 +117,13 @@ Math.xyRotate = function(x,y,deg){
 
 //======================================================================================================================
 
-//todo stejny prevod string na int v celem projektu
-//todo vyhledat v projektu, kde by se to dalo pouzit a nahradit
-
-Math.toFloat = function(value,defval){
+/**
+ * Converts multitype to float
+ * @param value
+ * @param {number} defval
+ * @return {number}
+ */
+Math.toFloat = function(value,defval=0){
 
     if(typeof(value)==='undefined')return(defval);
 
@@ -107,7 +138,12 @@ Math.toFloat = function(value,defval){
 
 //----------------------------------------------------------
 
-
+/**
+ * Converts multitype to integer
+ * @param value
+ * @param {number} defval
+ * @return {number}
+ */
 Math.toInt = function(value,defval){
 
     if(typeof(value)==='undefined')return(defval);
@@ -124,7 +160,18 @@ Math.toInt = function(value,defval){
 
 //----------------------------------------------------------
 
-
+/**
+ * Is line A colliding line B?
+ * @param a1x
+ * @param a1y
+ * @param a2x
+ * @param a2y
+ * @param b1x
+ * @param b1y
+ * @param b2x
+ * @param b2y
+ * @return {boolean}
+ */
 Math.lineCollision = function(a1x,a1y,a2x,a2y,b1x,b1y,b2x,b2y){
 
 
