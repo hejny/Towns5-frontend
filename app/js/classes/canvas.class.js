@@ -5,9 +5,8 @@
 //======================================================================================================================
 
 
-
 /**
- * @returns {string} image source in base 64
+ * Open window with downloadable image
  */
 HTMLCanvasElement.prototype.downloadCanvas = function(){
 
@@ -54,6 +53,13 @@ function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunctio
 
 //======================================================================================================================
 
+/**
+ * Creates canvas via inserted 2D canvas context manipulation function
+ * @param {number} width
+ * @param {number} height
+ * @param {function} manipulationFunction
+ * @returns canvas
+ */
 function createCanvasViaFunction(width,height,manipulationFunction){
 
     var canvas = document.createElement('canvas');

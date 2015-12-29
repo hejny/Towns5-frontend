@@ -5,7 +5,11 @@
 //======================================================================================================================
 
 
-
+/**
+ * @param {object} Model json
+ * @return {boolean} false in case of fail
+ * @constructor
+ */
 var Model = function (json){
 
     if(typeof(json)=='undefined')return false;
@@ -19,7 +23,10 @@ var Model = function (json){
 };
 //==================================================
 
-
+/**
+ * @param {number} rotation
+ * @param {number} size
+ */
 Model.prototype.addRotationSize = function(rotation,size){
 
     rotation=cParam(rotation,0);
@@ -37,6 +44,9 @@ Model.prototype.addRotationSize = function(rotation,size){
 
 //==================================================
 
+/**
+ * Mix rotation and size into particles
+ */
 Model.prototype.compileRotationSize = function(){
 
     //r(this.particles);
@@ -83,7 +93,10 @@ Model.prototype.compileRotationSize = function(){
 
 //==================================================
 
-
+/**
+ * @param {string} dimension x,y,z,xy
+ * @return {number} range
+ */
 Model.prototype.range = function(dimension){
 
     if(dimension=='xy'){
@@ -122,7 +135,11 @@ Model.prototype.range = function(dimension){
 
 //==================================================
 
-
+/**
+ * @param {number} move_x
+ * @param {number} move_y
+ * @param {number} move_z
+ */
 Model.prototype.moveBy = function(move_x,move_y,move_z){
 
     move_x=cParam(move_x,0);
@@ -144,7 +161,12 @@ Model.prototype.moveBy = function(move_x,move_y,move_z){
 };
 //==================================================
 
-
+/**
+ * Join models together
+ * @param {object} Model
+ * @param {number} move_x
+ * @param {number} move_y
+ */
 Model.prototype.joinModel = function(model,move_x,move_y){
 
     var  model_=deepCopyModel(model);
@@ -212,6 +234,7 @@ Model.prototype.joinModel = function(model,move_x,move_y){
  * @param {number} rotation 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
  * @param {string} force color - format #ff00ff
+ * @param {boolean} selected - display blue highlight around model
  */
 Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
 

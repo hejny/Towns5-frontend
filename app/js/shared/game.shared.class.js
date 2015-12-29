@@ -22,6 +22,11 @@ Game.coefficients.create={
 };
 
 
+/**
+ * Simulate result of building object
+ * @param object
+ * @return {object} Action result //todo class action result
+ */
 Game.functions.create=function(object){
     return(false);
 };

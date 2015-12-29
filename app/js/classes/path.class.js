@@ -4,7 +4,14 @@
  */
 //======================================================================================================================
 
-
+/**
+ * @param {object} Position start
+ * @param {object} Position end
+ * @param {number} speed in parcel/s
+ * @param {array} map collision
+ * @param {object} Position map_topleft center of collision map
+ * @constructor
+ */
 var Path = function (start, end, speed , map, map_topleft) {
 
     r(start,end,map_topleft);
@@ -16,7 +23,7 @@ var Path = function (start, end, speed , map, map_topleft) {
 
     if(map[Math.round(end.y)-map_topleft.y][Math.round(end.x)-map_topleft.x]==false){
 
-        throw 'Wrong Destination';
+        throw 'Wrong Destination';//todo throw real Errors not strings
     }
 
 
@@ -188,7 +195,9 @@ var Path = function (start, end, speed , map, map_topleft) {
 
 //----------------------------------------------------------
 
-
+/**
+ * @return {object} Position current
+ */
 Path.prototype.recount = function(){
 
 
@@ -224,7 +233,10 @@ Path.prototype.recount = function(){
 
 //----------------------------------------------------------
 
-
+/**
+ *
+ * @return {number} current rotation in degrees
+ */
 Path.prototype.rotation = function(){
 
 
@@ -259,7 +271,9 @@ Path.prototype.rotation = function(){
 
 //----------------------------------------------------------
 
-
+/**
+ * @return {boolean} is this in progress = true, finished or not yet started=false
+ */
 Path.prototype.inProgress = function(){
 
     var stopMs=this.times[this.times.length-1];
@@ -275,7 +289,11 @@ Path.prototype.inProgress = function(){
 //----------------------------------------------------------
 
 
-
+/**
+ * @static
+ * @param {object} Path
+ * @return {boolean} true = inserted object is path and it is in progress
+ */
 Path.is = function(path){
 
 
@@ -286,3 +304,4 @@ Path.is = function(path){
     return true;
 
 };
+
