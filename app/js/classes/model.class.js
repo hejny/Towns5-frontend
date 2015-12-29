@@ -1,4 +1,9 @@
-//todo headers
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates Class Model
+ */
+//======================================================================================================================
+
 
 
 var Model = function (json){

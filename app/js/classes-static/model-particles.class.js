@@ -1,6 +1,8 @@
-//todo headers
-
-
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates object ModelParticles with static methods
+ */
+//======================================================================================================================
 
 
 var ModelParticles = {};

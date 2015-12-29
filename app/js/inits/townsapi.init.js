@@ -1,5 +1,11 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Towns API initialization
+ */
+//======================================================================================================================
 
 
+/*
 var token;
 
 if(!Storage.is('townsToken')) {
@@ -20,4 +26,4 @@ if(!Storage.is('townsToken')) {
 
 //r(token);
 var townsApiUrl='https://towns.cz/world2/api?token='+token+'&locale=&output=jsonp';
-//var url='http://towns.local/api/fakeserver.php';
+//var url='http://towns.local/api/fakeserver.php';*/

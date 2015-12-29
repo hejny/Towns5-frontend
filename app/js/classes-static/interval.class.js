@@ -1,3 +1,8 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates object Interval with static methods
+ */
+//======================================================================================================================
 
 
 var Interval={};

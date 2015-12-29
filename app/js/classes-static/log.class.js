@@ -1,24 +1,13 @@
 /**
-
-     ██╗      ██████╗  ██████╗
-     ██║     ██╔═══██╗██╔════╝
-     ██║     ██║   ██║██║  ███╗
-     ██║     ██║   ██║██║   ██║
-     ███████╗╚██████╔╝╚██████╔╝
-     ╚══════╝ ╚═════╝  ╚═════╝
-     © Towns.cz
-
+ * @author ©Towns.cz
  * @fileOverview Functions for debuging, logging and tracking events.
-
  */
-
-
 //======================================================================================================================
 
+
+
+
 //todo should it be Loging object with static functions?
-
-
-
 
 /**
  * Report to console. Wrapper for console.log().

@@ -1,3 +1,9 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates object ArrayFunctions with static methods
+ */
+//======================================================================================================================
+
 
 //todo where this functions should be?
 

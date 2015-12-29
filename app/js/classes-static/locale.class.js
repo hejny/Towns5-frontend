@@ -1,6 +1,9 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates object Locale with static methods
+ */
+//======================================================================================================================
 
-
-//todo headers
 
 //todo ?? maybe rename to Messages or Locale.Messages???
 var Locale={};//set en, cs here
