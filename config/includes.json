@@ -80,7 +80,6 @@
 
     "app/js/inits/main.init.js",
     "app/js/inits/townsapi.init.js",
-    "app/js/inits/game.init.js",
     "app/js/inits/objects-prototypes.init.js",
     "app/js/inits/objects.init.js",
     "app/js/inits/graphic.init.js",

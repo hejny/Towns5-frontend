@@ -1,3 +1,10 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Page shows map_object_changes as raw JSON
+ */
+//======================================================================================================================
+
+
 
 Pages.data_json={};
 

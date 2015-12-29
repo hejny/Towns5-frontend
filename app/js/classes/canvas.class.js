@@ -1,3 +1,8 @@
+/**
+ * @author ©Towns.cz
+ * @fileOverview Additional methods to HTMLCanvasElement prototype
+ */
+//======================================================================================================================
 
 
 

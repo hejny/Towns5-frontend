@@ -1,10 +1,10 @@
 /**
- * Created by hejny on 4.12.15.
+ * @author ©Towns.cz
+ * @fileOverview Load object data from Storage
  */
-//todo header
+//======================================================================================================================
 
 
-//----------------
 
 function loadMapObjectChanges(json){
     try {

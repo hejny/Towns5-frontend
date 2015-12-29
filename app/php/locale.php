@@ -1,7 +1,10 @@
 <?php
+/**
+ * @author ©Towns.cz
+ * @fileOverview Convert ne-on localization to JSON
+ */
+//======================================================================================================================
 
-
- //todo headers
 
 require __DIR__ . '/neon/neon.php';
 

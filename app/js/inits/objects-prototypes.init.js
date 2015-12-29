@@ -1,7 +1,10 @@
 /**
- * Created by hejny on 1.12.15.
+ * @author ©Towns.cz
+ * @fileOverview Load objects prototypes
+ * todo load from API
  */
-//todo headers
+//======================================================================================================================
+
 
 
 var object_prototypes=[];

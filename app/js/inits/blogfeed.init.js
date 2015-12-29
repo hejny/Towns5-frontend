@@ -1,5 +1,11 @@
-//todo headers
-//todo dont load feed_url twice - precache it
+/**
+ * @author ©Towns.cz
+ * @fileOverview Load and display XML blog FEED
+ */
+//======================================================================================================================
+
+
+//todo refactor dont load feed_url twice - precache it
 
 $.get(feed_url, function (data) {
 
