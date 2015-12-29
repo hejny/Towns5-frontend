@@ -32,9 +32,9 @@ var separator_width,separator_border,window_padding;
 
 Pages.storywrite.openJS = function(){
 
-    separator_width=5;//parseInt($('#vertical_separator').scss('width'));
-    separator_border=2;//parseInt($('#story-content').scss('border-right'));
-    window_padding=20;//parseInt($('.popup-window .content').scss('padding'));
+    separator_width=5;//Math.toInt($('#vertical_separator').scss('width'));
+    separator_border=2;//Math.toInt($('#story-content').scss('border-right'));
+    window_padding=20;//Math.toInt($('.popup-window .content').scss('padding'));
 
     //r('storywrite',separator_width,separator_border,window_padding,$('#vertical_separator'),$('#story-content').scss('border-right'),$('.popup-window .content'));
 
@@ -89,7 +89,7 @@ Pages.storywrite.closeJS = function(){
 
 var storyContentWidthReload = function(){
 
-    var width1 = parseInt($('#vertical_separator').css('left'));
+    var width1 = Math.toInt($('#vertical_separator').css('left'));
 
     if(isNaN(width1))width1=0;
 

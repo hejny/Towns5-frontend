@@ -18,8 +18,8 @@ hash=hash.split(',');
 var x,y;
 if(is(hash[0]) && is(hash[1])){
 
-    map_x=parseFloat(hash[0]);
-    map_y=parseFloat(hash[1]);
+    map_x=Math.toFloat(hash[0]);
+    map_y=Math.toFloat(hash[1]);
 
     if(isNaN(map_x))map_x=0;
     if(isNaN(map_y))map_y=0;
@@ -28,8 +28,8 @@ if(is(hash[0]) && is(hash[1])){
 }else
 if(Storage.is('map_x') && Storage.is('map_y')){
 
-    var map_x=parseFloat(Storage.load('map_x'));
-    var map_y=parseFloat(Storage.load('map_y'));
+    var map_x=Math.toFloat(Storage.load('map_x'));
+    var map_y=Math.toFloat(Storage.load('map_y'));
 
 }else{
 

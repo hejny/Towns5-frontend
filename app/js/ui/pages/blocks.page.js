@@ -237,24 +237,23 @@ Pages.blocks.update = function () {
     [object_prototypes[i].design.data.particles[0],building.design.data.particles[0]].forEach(function(particle){
 
 
-            particle.shape.n = parseInt($('#block-editing-shape-n').val());
+            particle.shape.n = Math.toInt($('#block-editing-shape-n').val());
 
-
-            particle.shape.top = parseFloat($('#block-editing-shape-top').val());
-            particle.shape.bottom = parseFloat($('#block-editing-shape-bottom').val());
+            particle.shape.top = Math.toFloat($('#block-editing-shape-top').val());
+            particle.shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
 
             particle.skew={z:{}};
-            particle.skew.z.x = parseFloat($('#block-editing-skew-z-x').val());
-            particle.skew.z.y = parseFloat($('#block-editing-skew-z-y').val());
+            particle.skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
+            particle.skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
 
 
-            particle.size.x = parseInt($('#block-editing-size-x').val());
-            particle.size.y = parseInt($('#block-editing-size-y').val());
-            particle.size.z = parseInt($('#block-editing-size-z').val());
+            particle.size.x = Math.toInt($('#block-editing-size-x').val());
+            particle.size.y = Math.toInt($('#block-editing-size-y').val());
+            particle.size.z = Math.toInt($('#block-editing-size-z').val());
 
-            particle.rotation.xy = parseInt($('#block-editing-rotation-xy').val());
-            particle.rotation.xz = parseInt($('#block-editing-rotation-xz').val());
-            //particle.rotation.yz = parseInt($('#block-editing-rotation-yz').val());
+            particle.rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
+            particle.rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
+            //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
 
 
         });

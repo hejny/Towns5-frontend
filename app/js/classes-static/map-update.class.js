@@ -171,8 +171,8 @@ Map.mapMove = function(deltaX,deltaY) {
 
     //----------------
 
-    var map_bg_x = parseInt($('#map_bg').css('left'));
-    var map_bg_y = parseInt($('#map_bg').css('top'));
+    var map_bg_x = Math.toInt($('#map_bg').css('left'));
+    var map_bg_y = Math.toInt($('#map_bg').css('top'));
 
     //console.log($('#map_bg').scss('left'),map_bg_x,map_bg_y);
 
