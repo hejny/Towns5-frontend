@@ -10,6 +10,7 @@ var ArrayFunctions={};
 
 
 /**
+ * @static
  * Searches an item with ID in array
  * @param {object} array Array of objects with ID
  * @param {*} id Searched ID
@@ -29,7 +30,12 @@ ArrayFunctions.id2i = function(array,id){
 //======================================================================================================================
 
 
-
+/**
+ * Iterate through 2D array
+ * @static
+ * @param array
+ * @param {function} callback
+ */
 ArrayFunctions.iterate2D = function(array,callback){
 
     //r(array);
@@ -46,7 +52,13 @@ ArrayFunctions.iterate2D = function(array,callback){
 
 //======================================================================================================================
 
-
+/**
+ * @static
+ * @param array
+ * @param from
+ * @param to
+ * @return {array} Removed items
+ */
 ArrayFunctions.removeItems = function(array,from, to) {
     var rest = array.slice((to || from) + 1 || array.length);
     array.length = from < 0 ? array.length + from : from;

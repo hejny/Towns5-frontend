@@ -8,7 +8,12 @@
 var ModelParticles = {};
 
 
-
+/**
+ * Add missing params into particle
+ * @static
+ * @param {object} particle
+ * @return {object} particle
+ */
 ModelParticles.cParams = function(particle){//todo ?? maybe rename
 
 
@@ -41,7 +46,12 @@ ModelParticles.cParams = function(particle){//todo ?? maybe rename
 
 //======================================================================================================================
 
-
+/**
+ * Get 3D model from particle
+ * @static
+ * @param particle
+ * @return {object} 3D model
+ */
 ModelParticles.get3D = function(particle){
 
     var resource={};
@@ -180,8 +190,13 @@ ModelParticles.get3D = function(particle){
 };
 
 
-
-
+/**
+ * Get 2D lines from particle
+ * @static
+ * @param {object} particle
+ * @param {number} base 0=bottom, 1=top
+ * @return {Array} 2D lines
+ */
 ModelParticles.get2Dlines = function(particle,base){
 
 
@@ -247,6 +262,14 @@ ModelParticles.get2Dlines = function(particle,base){
 
 //======================================================================================================================
 
+//todo maybe refactor move to Math
+/**
+ * Detect collision between 2 2D lines
+ * @static
+ * @param {array} lines1
+ * @param (array) lines2
+ * @return {boolean}
+ */
 ModelParticles.collisionLinesDetect = function(lines1,lines2){
 
     for (var i1 in lines1) {
@@ -278,7 +301,13 @@ ModelParticles.collisionLinesDetect = function(lines1,lines2){
 
 //----------------------------------------------------------------------------------------------------------------------
 
-
+/**
+ * Detect collision between 2 particles
+ * @static
+ * @param {object} particle1 bottom
+ * @param (object) particle2 top
+ * @return {boolean}
+ */
 ModelParticles.collision2D = function(particle1,particle2){
 
 

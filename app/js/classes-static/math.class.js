@@ -23,6 +23,7 @@ Math.sign = Math.sign || function(x) {
 
 /**
  * Difference between two angeles
+ * @static
  * @param {number} degrees 1
  * @param {number} degrees 2
  * @return {number} degrees difference
@@ -36,6 +37,7 @@ Math.angleDiff = function(deg1,deg2){
 //-------------------------
 
 /**
+ * @static
  * @param {number} radians
  * @return {number} degrees
  */
@@ -46,6 +48,7 @@ Math.rad2deg = function(radians){
 //-------------------------
 
 /**
+ * @static
  * @param {number} degrees
  * @return {number} radians
  */
@@ -56,7 +59,7 @@ Math.deg2rad = function(degrees){
 //-------------------------
 
 /**
- *
+ * @static
  * @param x
  * @param y
  * @return {number} distance
@@ -119,6 +122,7 @@ Math.xyRotate = function(x,y,deg){
 
 /**
  * Converts multitype to float
+ * @static
  * @param value
  * @param {number} defval
  * @return {number}
@@ -140,6 +144,7 @@ Math.toFloat = function(value,defval=0){
 
 /**
  * Converts multitype to integer
+ * @static
  * @param value
  * @param {number} defval
  * @return {number}
@@ -162,6 +167,7 @@ Math.toInt = function(value,defval){
 
 /**
  * Is line A colliding line B?
+ * @static
  * @param a1x
  * @param a1y
  * @param a2x

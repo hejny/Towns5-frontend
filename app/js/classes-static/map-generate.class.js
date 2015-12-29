@@ -1,9 +1,11 @@
+
 /**
  * @author ©Towns.cz
  * @fileOverview Creates object MapGenerator with static methods
  */
 //======================================================================================================================
 
+//todo this file is deprecated and will be removed
 
 var MapGenerator={};
 

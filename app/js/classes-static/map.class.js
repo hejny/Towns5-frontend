@@ -9,6 +9,7 @@ var Map={};
 
 //FUNC
 
+//todo maybe refactor to positon
 Map.mouseCenterPos2MapPos = function(map_click_x,map_click_y) {
 
 
@@ -52,6 +53,8 @@ Map.mouseCenterPos2MapPos = function(map_click_x,map_click_y) {
 
 //======================================================================================================================
 
+
+//todo maybe refactor to positon
 Map.mapPos2MouseCenterPos = function(map_position_x,map_position_y) {//todo refactor use this function in all mapDraws
 
 

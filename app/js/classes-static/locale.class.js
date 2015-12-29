@@ -9,9 +9,10 @@
 var Locale={};//set en, cs here
 
 
-
-
-
+/**
+ * @param {string} key
+ * @return {string} message
+ */
 Locale.get = function(key){
 
     if(!is(key))return 'MESSAGE';
