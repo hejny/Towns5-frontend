@@ -118,6 +118,11 @@ var map_slope_m;
 var map_slope_n;
 
 
+var window_opened=false;
+var keys=[];
+var moving=false;
+
+
 
 var blockedTerrains=[1,11,5];
 

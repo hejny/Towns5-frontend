@@ -66,7 +66,14 @@
 
 
 
-    "app/js/ui/events/map.events.js",
+    "app/js/ui/events/resize.events.js",
+    "app/js/ui/events/keys.events.js",
+    "app/js/ui/events/mouse-wheel.events.js",
+    "app/js/ui/events/drag-map.events.js",
+    "app/js/ui/events/drag-tools.events.js",
+    "app/js/ui/events/mouse-move.events.js",
+    "app/js/ui/events/click-left.events.js",
+    "app/js/ui/events/click-right.events.js",
     "app/js/ui/events/ui.events.js",
 
 
