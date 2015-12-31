@@ -9,25 +9,41 @@
 
 .json-editor{
 
-  button{
 
-    @include button(30px);
-    //@include button(40px);
-    //width: 100px;
+  h3{
+
+    .btn-group/*, .controls, .control-group*/{
+
+      display: inline-block;
+      margin: 0;
+      //border: none;
+      //background-color: none;
+    }
+
+    button{
+
+      @include button(30px);
+      //@include button(40px);
+      //width: 100px;
+
+    }
+
+    span{
+
+      @include button(30px);
+      display: inline-block;
+
+    }
+
 
   }
+
+
 
   .controls{
     display: inline-block;
     margin-left: 10px;
     width: 50%;
-  }
-
-  .btn-group/*, .controls, .control-group*/{
-
-    display: inline-block;
-    //border: none;
-    //background-color: none;
   }
 
 

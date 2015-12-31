@@ -3,6 +3,9 @@
  * @fileOverview Default styling of HTML components
  */
 //======================================================================================================================
+@import 'config.scss';
+
+
 
 
 @mixin button($size) {
@@ -14,11 +17,19 @@
   margin: $size/4 auto;
   height: $size;
   line-height: $size;
-  font-size: $size/40*16;
+  font-size: 8+$size/40*8;
   border-radius: 3px;
-  background-color: #0098ff;
+  background-color: $button-color;
   color: white;
   cursor: pointer;
+
+
+  &:hover{
+
+    background-color: $button-color-hover;
+
+  }
+
 
 }
 
