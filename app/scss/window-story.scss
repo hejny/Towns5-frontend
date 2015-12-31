@@ -1,10 +1,11 @@
 /**
- * @author ©Towns.cz
+ * @author ï¿½Towns.cz
  * @fileOverview Style of story editor
   todo maybe refactor rename to inner-page-story-editor.scss
  */
 //======================================================================================================================
-
+@import 'config.scss';
+@import 'components.scss';
 
 #story-name{
 

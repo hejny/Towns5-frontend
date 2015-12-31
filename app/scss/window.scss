@@ -1,10 +1,11 @@
 /**
- * @author ©Towns.cz
+ * @author ï¿½Towns.cz
  * @fileOverview Style of Towns inner window
  todo maybe refactor rename to inner-window.scss
  */
 //======================================================================================================================
-
+@import 'config.scss';
+@import 'components.scss';
 
 
 .js-popup-window-open,
