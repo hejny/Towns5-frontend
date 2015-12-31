@@ -58,7 +58,7 @@
     "app/js/ui/pages/story.page.js",
     "app/js/ui/pages/story-editor.page.js",
     "app/js/ui/pages/block-editor.page.js",
-    "app/js/ui/pages/object-editor.page.js",
+    "app/js/ui/pages/building-editor.page.js",
     "app/js/ui/pages/data-json.page.js",
 
     "app/js/ui/menu/story.menu.js",

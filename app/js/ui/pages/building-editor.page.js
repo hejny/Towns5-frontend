@@ -5,11 +5,11 @@
 //======================================================================================================================
 
 
-Pages.object_editor={};
+Pages.building_editor={};
 
-Pages.object_editor.header='Budova';
+Pages.building_editor.header='Budova';
 
-Pages.object_editor.content= `
+Pages.building_editor.content= `
 <div class="json-editor"></div>
 
 `;
@@ -17,18 +17,22 @@ Pages.object_editor.content= `
 //======================================================================================================================
 
 
-Pages.object_editor.openJS = function(){
+Pages.building_editor.openJS = function(){
 
-    Pages.object_editor.object=map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])];
+    var object=map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])];
 
-    window_write_header(Pages.object_editor.object.name);
+    window_write_header(object.name);
 
 
 
-    JSONEditor.defaults.options.theme = 'bootstrap2';
+    JSONEditor.defaults.options.theme = 'bootstrap3';
+    /*JSONEditor.defaults.options.theme = 'foundation5';
+    JSONEditor.defaults.options.icon = 'fontawesome3';
+    JSONEditor.defaults.options.object_layout = 'grid';*/
+
 
     // Initialize the editor
-        var editor = new JSONEditor($('.json-editor')[0],{
+    Pages.building_editor.editor = new JSONEditor($('.json-editor')[0],{
             schema: {
                 "title": "Budova",
                 "type": "object",
@@ -174,10 +178,22 @@ Pages.object_editor.openJS = function(){
     });*/
 
 
+    Pages.building_editor.editor.setValue(object);
+    /*editor.on("change",  function() {
+
+        var json = editor.getValue();
+        r(json);
+
+    });*/
+
+
 };
 //======================================================================================================================
 
 
-Pages.object_editor.closeJS = function(){
+Pages.building_editor.closeJS = function(){
+
+    map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])]
+        = deepCopyObject(Pages.building_editor.editor.getValue());
 
 };
