@@ -47,7 +47,7 @@ function objectMenu(){
             inner: '<i class="fa fa-code"></i>',
             title: 'Zdrojový kód',
             content: 'co co',
-            action: 'window_open(\'object_editor\')'
+            action: 'window_open(\'building_editor\')'
         });
 
 
