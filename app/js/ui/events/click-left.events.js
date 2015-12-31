@@ -1,5 +1,5 @@
 /**
- * @author �Towns.cz
+ * @author Towns.cz
  * @fileOverview  Click on map - call the action eg. selecting, building, dismantling,...
  */
 //======================================================================================================================
