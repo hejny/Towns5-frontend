@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author ï¿½Towns.cz
  * @fileOverview Default styling of HTML components
  */
 //======================================================================================================================
@@ -23,6 +23,7 @@ input, textarea {
 
 button{
 
+  display: inline-block;
   border: none;
   display: block;
   padding: 0 10px;

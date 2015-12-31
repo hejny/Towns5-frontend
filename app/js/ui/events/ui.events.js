@@ -240,7 +240,7 @@ window.uiScript = function(){
 
     $('#selecting-distance-blocks').unbind('click').click(function(){
         //block_editing=building.id;
-        window_open('blocks');
+        window_open('block_editor');
 
     });
 
@@ -283,6 +283,7 @@ window.mapSpecialCursorStart = function(){
 
     specialCursor=true;
     $('#map_drag').draggable('disable');
+    map_selected_ids=[];
 
 };
 
@@ -303,7 +304,7 @@ window.mapSpecialCursorStop = function(){
     dismantlingStop();
     terrainChangeStop();
     terrainNeutralizeStop();
-    storyWriteStop();
+    story_editorStop();
 };
 
 

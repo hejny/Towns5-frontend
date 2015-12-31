@@ -11,6 +11,7 @@
 
     "node_modules/ion-sound/js/ion.sound.js",
     "node_modules/markdown/lib/markdown.js",
+    "node_modules/json-editor/dist/jsoneditor.js",
 
 
 
@@ -54,9 +55,10 @@
 
     "app/js/ui/pages/home.page.js",
     "app/js/ui/pages/loginform.page.js",
-    "app/js/ui/pages/storyread.page.js",
-    "app/js/ui/pages/storywrite.page.js",
-    "app/js/ui/pages/blocks.page.js",
+    "app/js/ui/pages/story.page.js",
+    "app/js/ui/pages/story-editor.page.js",
+    "app/js/ui/pages/block-editor.page.js",
+    "app/js/ui/pages/object-editor.page.js",
     "app/js/ui/pages/data-json.page.js",
 
     "app/js/ui/menu/story.menu.js",
@@ -113,6 +115,7 @@
     "app/css/feed.css",
     "app/css/window.css",
     "app/css/window-story.css",
+    "app/css/json-editor.css",
 
 
 

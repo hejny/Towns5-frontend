@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+
+<div class="json-editor">aaa
+    <div style="position: relative;" data-schemapath="root" data-schematype="object" data-schemaid="object">
+        <h3><span>Budova</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">name<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">subtype<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">x<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">y<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">design<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+        <div style="display: none;"></div>
+        <div style="padding-bottom: 0px;" class="well well-small">
+            <div class="container-fluid">
+                <div>
+                    <div class="row-fluid">
+                        <div class="span12" data-schemapath="root.name" data-schematype="string">
+                            <div class="control-group">
+                                <label class=" control-label" style="display: inline-block; font-weight: bold;">name</label>
+                                <div class="controls">
+                                    <input name="root[name]" pattern=".{4,}" style="width: 98%;" type="text">
+                                    <p class="help-inline">First and Last name</p>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12" data-schemapath="root.subtype" data-schematype="enum">
+                            <label style="display: inline-block; font-weight: bold;">subtype</label>
+                            <select style="width: auto; max-width: 98%; background-color: transparent; display: inline-block; font-style: italic; font-weight: normal; height: auto; margin-bottom: 0px; margin-left: 5px; padding: 0px 0px 0px 3px;">
+                                <option value="Value 1">Value 1</option>
+                                <option value="Value 2">Value 2</option>
+                                <option value="Value 3">Value 3</option>
+                            </select>
+                            <div style="padding-bottom: 0px;" class="well well-small">main</div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12" data-schemapath="root.x" data-schematype="integer">
+                            <div class="control-group">
+                                <label class=" control-label" style="display: inline-block; font-weight: bold;">x</label>
+                                <div class="controls">
+                                    <input name="root[x]" style="width: 98%;" type="text">
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12" data-schemapath="root.y" data-schematype="integer">
+                            <div class="control-group">
+                                <label class=" control-label" style="display: inline-block; font-weight: bold;">y</label>
+                                <div class="controls">
+                                    <input name="root[y]" style="width: 98%;" type="text">
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span12" style="position: relative;" data-schemapath="root.design" data-schematype="object">
+                            <h3><span>design</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">name<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">data<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                            <div style="display: none;"></div>
+                            <div style="padding-bottom: 0px;" class="well well-small">
+                                <div class="container-fluid">
+                                    <div>
+                                        <div class="row-fluid">
+                                            <div class="span12" data-schemapath="root.design.name" data-schematype="string">
+                                                <div class="control-group">
+                                                    <label class=" control-label" style="display: inline-block; font-weight: bold;">name</label>
+                                                    <div class="controls">
+                                                        <input name="root[design][name]" style="width: 98%;" type="text">
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                        <div class="row-fluid">
+                                            <div class="span12" style="position: relative;" data-schemapath="root.design.data" data-schematype="object">
+                                                <h3><span>data</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">particles<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">rotation<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">size<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                <div style="display: none;"></div>
+                                                <div style="padding-bottom: 0px;" class="well well-small">
+                                                    <div class="container-fluid">
+                                                        <div>
+                                                            <div class="row-fluid">
+                                                                <div class="span12" data-schemapath="root.design.data.particles" data-schematype="array">
+                                                                    <h3><span>particles</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div></h3>
+                                                                    <div style="display: none;"></div>
+                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                        <div>
+                                                                            <div style="position: relative;" data-schemapath="root.design.data.particles.0" data-schematype="object">
+                                                                                <h3><span>item 1</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button><button data-i="0" class=" btn btn-default json-editor-btn-delete  delete" type="button">Delete item</button><button style="" data-i="0" class=" btn btn-default json-editor-btn-movedown  movedown" type="button">Move down</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">shape<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">size<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">position<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                <div style="display: none;"></div>
+                                                                                <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                    <div class="container-fluid">
+                                                                                        <div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.0.shape" data-schematype="object">
+                                                                                                    <h3><span>shape</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">n<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">top<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">bottom<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.shape.n" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">n</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][shape][n]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.shape.top" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">top</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][shape][top]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.shape.bottom" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">bottom</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][shape][bottom]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.0.size" data-schematype="object">
+                                                                                                    <h3><span>size</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">x<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">y<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">z<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.size.x" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">x</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][size][x]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.size.y" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">y</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][size][y]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.size.z" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">z</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][size][z]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.0.position" data-schematype="object">
+                                                                                                    <h3><span>position</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">x<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">y<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">z<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.position.x" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">x</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][position][x]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.position.y" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">y</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][position][y]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.0.position.z" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">z</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][0][position][z]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div></div>
+                                                                            </div>
+                                                                            <div style="position: relative;" data-schemapath="root.design.data.particles.1" data-schematype="object">
+                                                                                <h3><span>item 2</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button><button data-i="1" class=" btn btn-default json-editor-btn-delete  delete" type="button">Delete item</button><button data-i="1" class=" btn btn-default json-editor-btn-moveup  moveup" type="button">Move up</button><button style="display: none;" data-i="1" class=" btn btn-default json-editor-btn-movedown  movedown" type="button">Move down</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">shape<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">size<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">position<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                <div style="display: none;"></div>
+                                                                                <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                    <div class="container-fluid">
+                                                                                        <div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.1.shape" data-schematype="object">
+                                                                                                    <h3><span>shape</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">n<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">top<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">bottom<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.shape.n" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">n</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][shape][n]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.shape.top" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">top</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][shape][top]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.shape.bottom" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">bottom</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][shape][bottom]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.1.size" data-schematype="object">
+                                                                                                    <h3><span>size</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Collapse</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">x<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">y<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">z<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.size.x" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">x</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][size][x]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.size.y" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">y</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][size][y]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.size.z" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">z</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][size][z]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="row-fluid">
+                                                                                                <div class="span12" style="position: relative;" data-schemapath="root.design.data.particles.1.position" data-schematype="object">
+                                                                                                    <h3><span>position</span><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-collapse " type="button">Expand</button></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Edit JSON</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><textarea style="width: 300px; height: 170px; box-sizing: border-box; display: block;"></textarea><button class=" btn btn-default json-editor-btn-save " type="button">Save</button><button class=" btn btn-default json-editor-btn-cancel " type="button">Cancel</button></div></div><div style="margin-left: 10px;" class="btn-group"><button class=" btn btn-default json-editor-btn-edit " type="button">Object Properties</button><div style="background-color: white; border: 1px solid black; box-shadow: 3px 3px black; position: absolute; z-index: 10; display: none;"><div class="property-selector" style="width: 295px; max-height: 160px; padding: 5px 0px 5px 5px; overflow-y: auto; overflow-x: hidden;"><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">x<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">y<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div><div style="margin-top: 0px; padding-top: 0px; margin-bottom: 0px; padding-bottom: 0px; height: auto;" class="control-group"><div style="height: 30px;" class="controls"><label class=" checkbox" style="display: inline-block; font-weight: normal;">z<input style="width: auto; display: inline-block;" type="checkbox"></label></div></div></div><input placeholder="Property name..." style="width: 220px; margin-bottom: 0px; display: inline-block;" type="text"><button class=" btn btn-default json-editor-btn-add " type="button">add</button><div style="clear: both;"></div></div></div></h3>
+                                                                                                    <div style="display: none;"></div>
+                                                                                                    <div style="padding-bottom: 0px; display: none;" class="well well-small">
+                                                                                                        <div class="container-fluid">
+                                                                                                            <div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.position.x" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">x</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][position][x]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.position.y" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">y</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][position][y]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                                <div class="row-fluid">
+                                                                                                                    <div class="span12" data-schemapath="root.design.data.particles.1.position.z" data-schematype="integer">
+                                                                                                                        <div class="control-group">
+                                                                                                                            <label class=" control-label" style="display: inline-block; font-weight: bold;">z</label>
+                                                                                                                            <div class="controls">
+                                                                                                                                <input name="root[design][data][particles][1][position][z]" style="width: 98%;" type="text">
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <div></div>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div></div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div style="display: inline-block;" class="btn-group">
+                                                                            <button class=" btn btn-default json-editor-btn-add " type="button">Add item</button>
+                                                                            <button style="" class=" btn btn-default json-editor-btn-delete " type="button">Delete Last item</button>
+                                                                            <button style="" class=" btn btn-default json-editor-btn-delete " type="button">Delete All</button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-fluid">
+                                                                <div class="span12" data-schemapath="root.design.data.rotation" data-schematype="integer">
+                                                                    <div class="control-group">
+                                                                        <label class=" control-label" style="display: inline-block; font-weight: bold;">rotation</label>
+                                                                        <div class="controls">
+                                                                            <input name="root[design][data][rotation]" style="width: 98%;" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div></div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row-fluid">
+                                                                <div class="span12" data-schemapath="root.design.data.size" data-schematype="integer">
+                                                                    <div class="control-group">
+                                                                        <label class=" control-label" style="display: inline-block; font-weight: bold;">size</label>
+                                                                        <div class="controls">
+                                                                            <input name="root[design][data][size]" style="width: 98%;" type="text">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div></div>
+    </div>
+</div>
+
+</body>
+
+</html>

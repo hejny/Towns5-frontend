@@ -26,7 +26,7 @@ var storyPrototypes= {
 //======================================================================================================================objectMenuTerrainChange
 //CHANGE
 
-function storyWriteStart(storyType){
+function story_editorStart(storyType){
 
     mapSpecialCursorStop();
     mapSpecialCursorStart();
@@ -47,7 +47,7 @@ function storyWriteStart(storyType){
 }
 
 //todo in doc this funcs. dont use directly only via mapSpecialCursorStop();
-function storyWriteStop(){
+function story_editorStop(){
 
 
     $('#selecting-distance-ctl').hide();
@@ -78,7 +78,7 @@ function objectMenuStory(){
          '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
          '<button>Postaviť drist!</button>';*/
         var content='';
-        var action='storyWriteStart(\''+(storyTypes[key])+'\');';
+        var action='story_editorStart(\''+(storyTypes[key])+'\');';
 
 
         objectmenu+=Templates.objectMenu({
