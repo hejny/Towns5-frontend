@@ -3,7 +3,8 @@
  * @fileOverview Style for left tool menu
  */
 //======================================================================================================================
-
+@import 'config.scss';
+@import 'components.scss';
 
 #objectmenu {
   z-index:4000;

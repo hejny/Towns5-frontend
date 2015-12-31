@@ -1,22 +1,19 @@
-
+/**
+ * @author �Towns.cz
+ * @fileOverview Style to json-editor
+ */
+//======================================================================================================================
+@import 'config.scss';
+@import 'components.scss';
 
 
 .json-editor{
 
   button{
 
-    display: inline-block;
-    border: none;
-    display: block;
-    padding: 0;
-    margin: 2px;
-    height: 30px;
-    line-height: 40px;
-    font-size: 12px;
-    border-radius: 3px;
-    background-color: #9eb9c2;
-    color: white;
-    cursor: pointer;
+    @include button(30px);
+    //@include button(40px);
+    //width: 100px;
 
   }
 
