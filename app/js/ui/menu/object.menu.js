@@ -42,32 +42,16 @@ function objectMenu(){
         });
 
 
-
-        for(var key in map_data[i].actions){
-
-
-            icon='media/image/icon/f_'+(map_data[i].actions[key].class)+'.png';
-            content='<h2>'+key+id+'</h2>' +
-                '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio eligendi et ex fuga mollitia nisi obcaecati possimus sint, tenetur vitae? A aspernatur officiis quas quis ratione. Atque fugit optio suscipit?</p> ' +
-                '<button>Postaviť drist!</button>';
-
-
-
-            objectmenu+=Templates.objectMenu({
-                icon: icon,
-                title: '',
-                content: content,
-                action: ''
-            });
+        objectmenu+=Templates.objectMenu({
+            //icon: 'media/image/icon/f_create_wall.png',
+            inner: '<i class="fa fa-code"></i>',
+            title: 'Zdrojový kód',
+            content: 'co co',
+            action: 'window_open(\'object_editor\')'
+        });
 
 
 
-            //$(objectmenu[i]).children('div').attr('content',content);
-            //$(objectmenu[i]).children('.js-popup-action-open').scss('background','url(\''+icon+'\')');
-
-
-
-        }
 
 
         showLeftMenu(objectmenu);

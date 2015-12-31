@@ -1,0 +1,44 @@
+
+
+
+.json-editor{
+
+  button{
+
+    display: inline-block;
+    border: none;
+    display: block;
+    padding: 0;
+    margin: 2px;
+    height: 30px;
+    line-height: 40px;
+    font-size: 12px;
+    border-radius: 3px;
+    background-color: #9eb9c2;
+    color: white;
+    cursor: pointer;
+
+  }
+
+  .controls{
+    display: inline-block;
+    margin-left: 10px;
+    width: 50%;
+  }
+
+  .btn-group/*, .controls, .control-group*/{
+
+    display: inline-block;
+    //border: none;
+    //background-color: none;
+  }
+
+
+  .row-fluid{
+    background-color: rgba(0,0,0,0.1);
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border-left: 2px solid #000000;
+  }
+
+}

@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author ï¿½Towns.cz
  * @fileOverview  Click on map - call the action eg. selecting, building, dismantling,...
  */
 //======================================================================================================================
@@ -181,7 +181,7 @@ $(function(){
                 var id=create(storyWriting);
 
                 map_selected_ids=[id];
-                window_open('storywrite');
+                window_open('story_editor');
 
                 mapSpecialCursorStop();
                 hideLeftMenu();
@@ -262,7 +262,7 @@ $(function(){
                 if (selected_object.type == 'story') {
                     //~~~~~~~~~
 
-                    window_open('storyread');
+                    window_open('story');
 
                     //~~~~~~~~~
                 }else{
