@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview  Right click on map - create path destination of selected building
  */
 //======================================================================================================================

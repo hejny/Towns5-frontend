@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Creates object Locale with static methods
  */
 //======================================================================================================================
