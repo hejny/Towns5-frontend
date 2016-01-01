@@ -23,6 +23,11 @@ window.window_open = function(page){
     //todo sounds ion.sound.play("door_bump");
     r('Opening window '+page);
 
+
+    if(!is(Pages[page])){
+        throw new Error('Page '+page+' not exist.');
+    }
+
     var header=Pages[page].header;
     var content=Pages[page].content;
 

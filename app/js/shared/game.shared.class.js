@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Conditions of the game - this file is shared between Frontend and Backend.
  */
 //======================================================================================================================

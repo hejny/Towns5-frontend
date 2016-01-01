@@ -187,7 +187,7 @@ function createBuilding(object){
             delete map_object_changes[distances[0].i].res_path;*/
 
 
-            return(object.id);
+            return(map_object_changes[join.i].id);
 
         }
 

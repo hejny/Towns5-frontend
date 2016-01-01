@@ -5,11 +5,11 @@
 //======================================================================================================================
 
 
-Pages.blocks={};
+Pages.block_editor={};
 
-Pages.blocks.header='Stavební bloky';
+Pages.block_editor.header='Stavební bloky';
 
-Pages.blocks.content= `
+Pages.block_editor.content= `
 
 <form onsubmit="return false;" id="block-editing-form">
 
@@ -21,8 +21,8 @@ Pages.blocks.content= `
     <canvas id="block-editing" width="300" height="300"></canvas>
 
 
-    <button onclick="Pages.blocks.deleteBlock();">{{block.delete}}</button>
-    <button onclick="Pages.blocks.duplicateBlock();">{{block.duplicate}}</button>
+    <button onclick="Pages.block_editor.deleteBlock();">{{block.delete}}</button>
+    <button onclick="Pages.block_editor.duplicateBlock();">{{block.duplicate}}</button>
 
 </div>
 
@@ -108,19 +108,19 @@ Pages.blocks.content= `
 //======================================================================================================================
 
 
-Pages.blocks.openJS = function(){
+Pages.block_editor.openJS = function(){
 
     //r('Opening block editor');
     //---------------------------------------------
 
-    Pages.blocks.rotation = 0 ;
-    Pages.blocks.slope = map_slope ;
+    Pages.block_editor.rotation = 0 ;
+    Pages.block_editor.slope = map_slope ;
 
     //---------------------------------------------
 
     if(building!==false){
 
-        Pages.blocks.block_id=building.id;
+        Pages.block_editor.block_id=building.id;
 
     }else {
 
@@ -153,7 +153,7 @@ Pages.blocks.openJS = function(){
         });
 
 
-        Pages.blocks.block_id=tmp_id;
+        Pages.block_editor.block_id=tmp_id;
     }
 
     //---------------------------------------------
@@ -162,7 +162,7 @@ Pages.blocks.openJS = function(){
 
     //---------------------------------------------
 
-    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);
     buildingStart(object_prototypes[i]);
 
 
@@ -195,12 +195,12 @@ Pages.blocks.openJS = function(){
 
 
 
-    Pages.blocks.block_editing = document.getElementById('block-editing');
-    Pages.blocks.block_editing_ctx = Pages.blocks.block_editing.getContext('2d');
+    Pages.block_editor.block_editing = document.getElementById('block-editing');
+    Pages.block_editor.block_editing_ctx = Pages.block_editor.block_editing.getContext('2d');
 
 
     $('#block-editing-form').find('input').mousemove(function(){
-        Pages.blocks.update();
+        Pages.block_editor.update();
     });
 
 
@@ -212,14 +212,14 @@ Pages.blocks.openJS = function(){
     }());*/
 
 
-    Pages.blocks.update();
+    Pages.block_editor.update();
 
 
 };
 //======================================================================================================================
 
 
-Pages.blocks.closeJS = function(){
+Pages.block_editor.closeJS = function(){
     objectMenuBuildingsPrototypes('block');
 }
 
@@ -227,9 +227,9 @@ Pages.blocks.closeJS = function(){
 
 
 
-Pages.blocks.update = function () {
+Pages.block_editor.update = function () {
 
-    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);
 
 
     object_prototypes[i].name=$('#block-editing-name').val();
@@ -263,8 +263,8 @@ Pages.blocks.update = function () {
 
 
 
-    Pages.blocks.block_editing_ctx.clearRect ( 0 , 0 ,300 , 300 );
-    object_prototypes[i].design.data.draw(Pages.blocks.block_editing_ctx,1,150,150,Pages.blocks.rotation,Pages.blocks.slope);
+    Pages.block_editor.block_editing_ctx.clearRect ( 0 , 0 ,300 , 300 );
+    object_prototypes[i].design.data.draw(Pages.block_editor.block_editing_ctx,1,150,150,Pages.block_editor.rotation,Pages.block_editor.slope);
 
 
 };
@@ -273,12 +273,12 @@ Pages.blocks.update = function () {
 //======================================================================================================================
 
 
-Pages.blocks.deleteBlock = function () {
+Pages.block_editor.deleteBlock = function () {
 
 
     if(confirm(Locale.get())){
 
-        var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);//todo maybe create function deleteID
+        var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);//todo maybe create function deleteID
 
         //ArrayFunctions.removeItems(object_prototypes,i,1); //todo
         object_prototypes.splice(i,1);
@@ -295,9 +295,9 @@ Pages.blocks.deleteBlock = function () {
 //===================================================================
 
 
-Pages.blocks.duplicateBlock = function () {
+Pages.block_editor.duplicateBlock = function () {
 
-    var i=ArrayFunctions.id2i(object_prototypes,Pages.blocks.block_id);
+    var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);
 
 
     var tmp_block = deepCopyObject(object_prototypes[i]);

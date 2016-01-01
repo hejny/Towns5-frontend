@@ -1,38 +1,36 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Default styling of HTML components
  */
 //======================================================================================================================
-
-
-hr {
-
-  color: #777777;
-  background-color: #777777;
-  height: 1px;
-}
-
-
-/*
-input, textarea {
-    -moz-user-select: text;
-}
-*/
+@import 'config.scss';
 
 
 
-button{
 
+@mixin button($size) {
+
+  display: inline-block;
   border: none;
   display: block;
-  padding: 0 10px;
-  margin: 10px auto;
-  height: 40px;
-  line-height: 40px;
-  font-size: 16px;
+  padding: 0 $size/4;
+  margin: $size/4 auto;
+  height: $size;
+  line-height: $size;
+  font-size: 8+$size/40*8;
   border-radius: 3px;
-  background-color: #0098ff;
+  background-color: $button-color;
   color: white;
   cursor: pointer;
 
+
+  &:hover{
+
+    background-color: $button-color-hover;
+
+  }
+
+
 }
+
+

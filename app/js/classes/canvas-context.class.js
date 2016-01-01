@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Additional methods to CanvasRenderingContext2D prototype
  */
 //======================================================================================================================

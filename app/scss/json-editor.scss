@@ -1,0 +1,61 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Style to json-editor
+ */
+//======================================================================================================================
+@import 'config.scss';
+@import 'components.scss';
+
+
+.json-editor{
+
+
+  h3{
+
+    .btn-group/*, .controls, .control-group*/{
+
+      display: inline-block;
+      margin: 0;
+      //border: none;
+      //background-color: none;
+    }
+
+    button{
+
+      @include button(30px);
+      //@include button(40px);
+      //width: 100px;
+
+    }
+
+    span{
+
+      @include button(30px);
+      display: inline-block;
+
+    }
+
+
+  }
+
+  /*div{
+    border: none;
+    //background-color: none;
+  }*/
+
+
+  .controls{
+    display: inline-block;
+    margin-left: 10px;
+    width: 50%;
+  }
+
+
+  .row{
+    background-color: rgba(0,0,0,0.1);
+    padding-left: 10px;
+    margin-bottom: 10px;
+    border-left: 2px solid #000000;
+  }
+
+}
