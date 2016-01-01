@@ -1,5 +1,5 @@
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Page shows map_object_changes as raw JSON
  */
 //======================================================================================================================

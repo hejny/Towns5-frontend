@@ -5,13 +5,13 @@
 //======================================================================================================================
 
 
-Pages.storywrite={};
-Pages.storywrite.header='Upravit příběh';
+Pages.story_editor={};
+Pages.story_editor.header='Upravit příběh';
 
 
 //======================================================================================================================
 
-Pages.storywrite.content=[
+Pages.story_editor.content=[
     '<input type="text" id="story-name" value="" placeholder="Název příběhu">',
     //'<button id="story-save" onclick="storyContentReload();">Uložit</button>',
     '<br>',
@@ -30,7 +30,7 @@ var separator_width,separator_border,window_padding;
 
 //======================================================================================================================
 
-Pages.storywrite.openJS = function(){
+Pages.story_editor.openJS = function(){
 
     separator_width=5;//Math.toInt($('#vertical_separator').scss('width'));
     separator_border=2;//Math.toInt($('#story-content').scss('border-right'));
@@ -75,7 +75,7 @@ Pages.storywrite.openJS = function(){
 
 //======================================================================================================================
 
-Pages.storywrite.closeJS = function(){
+Pages.story_editor.closeJS = function(){
 
     map_selected_ids=[];
     Map.loadMap();

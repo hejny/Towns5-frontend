@@ -1,28 +1,31 @@
 /**
  * @author Towns.cz
- * @fileOverview Other styling
+ * @fileOverview Default styling of HTML components
  */
 //======================================================================================================================
 @import 'config.scss';
 @import 'components.scss';
 
 
-.hide {
-  display: none;
+
+
+hr {
+
+  color: #777777;
+  background-color: #777777;
+  height: 1px;
 }
 
 
-.left {
-  float: left;
+/*
+input, textarea {
+    -moz-user-select: text;
 }
+*/
 
-.right {
-  float: right;
+
+
+button{
+
+  @include button(40px);
 }
-
-.cleaner {
-  clear: both;
-}
-
-
-

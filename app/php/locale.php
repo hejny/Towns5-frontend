@@ -1,6 +1,6 @@
 <?php
 /**
- * @author ©Towns.cz
+ * @author Towns.cz
  * @fileOverview Convert ne-on localization to JSON
  */
 //======================================================================================================================

@@ -61,7 +61,7 @@ function buildingUpdate(object){
     if(join===false){
         //------------------------------------------------------------Normal building
 
-            building.design.data.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope);
+            building.design.data.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,false,true);
             //,building.subtype=='block'?selected_color:false
 
         //------------------------------------------------------------
@@ -91,7 +91,7 @@ function buildingUpdate(object){
 
 
 
-            tmpModel.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope);
+            tmpModel.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,false,true);
 
 
         //------------------------------------------------------------
@@ -173,7 +173,7 @@ function objectMenuBuildingsPrototypes(subtype){
             inner: '<i class="fa fa-plus-square-o"></i>',
             title: title,
             content: content,
-            action: `mapSpecialCursorStop();window_open('blocks');`
+            action: `mapSpecialCursorStop();window_open('block_editor');`
         });
 
 

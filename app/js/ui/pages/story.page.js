@@ -5,13 +5,13 @@
 //======================================================================================================================
 
 
-Pages.storyread={};
-Pages.storyread.header='Příběh';
+Pages.story={};
+Pages.story.header='Příběh';
 
 
 //======================================================================================================================
 
-Pages.storyread.openJS = function(){
+Pages.story.openJS = function(){
 
 
     var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
@@ -26,7 +26,7 @@ Pages.storyread.openJS = function(){
 
     content+=[
         '<hr>' +
-        '<a class="js-popup-window-open" content="storywrite" href="#">Upravit</a>' +
+        '<a class="js-popup-window-open" content="story_editor" href="#">Upravit</a>' +
         '<br>' +
         '<a onclick="deleteStory('+map_selected_ids[0]+')" href="#">Smazat</a>'
     ].join('');
@@ -40,7 +40,7 @@ Pages.storyread.openJS = function(){
 
 //======================================================================================================================
 
-Pages.storyread.closeJS = function(){
+Pages.story.closeJS = function(){
 
     map_selected_ids=[];
     Map.loadMap();
