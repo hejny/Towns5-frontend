@@ -67,7 +67,7 @@
         particles: [
             {
                 shape:{
-                    type: 'prisms',
+                    type: 'prism',
                     n:5,
                     top:.8
                     //rotation:33

@@ -25,7 +25,7 @@ object_prototypes.push({
             particles: [
                 {
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:4,
                     },
                     color: "#cccccc",
@@ -51,7 +51,7 @@ object_prototypes.push({
             particles: [
                 {
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:3
                     },
                     color: "#cccccc",
@@ -77,7 +77,7 @@ object_prototypes.push({
             particles: [
                 {
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:4,
                         top:0
                     },
@@ -116,7 +116,7 @@ object_prototypes.push({
             particles: [
                 {
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:4
                     },
                     color: "#999999",
@@ -126,7 +126,7 @@ object_prototypes.push({
 
                 },{
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:4
                     },
                     color: "#cccccc",
@@ -164,7 +164,7 @@ object_prototypes.push({
             particles: [
                 {
                     shape:{
-                        type: 'prisms',
+                        type: 'prism',
                         n:17
                     },
                     color: "#874822",

@@ -137,7 +137,7 @@ Pages.block_editor.openJS = function(){
                     particles: [
                         {
                             shape:{
-                                type: 'prisms',
+                                type: 'prism',
                                 n:4,
                             },
                             color: "#cccccc",
