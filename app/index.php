@@ -199,7 +199,18 @@ function tidyHTML($buffer) {
 
 
         foreach ($config['includes']['css'] as $include) {
-            echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>'."\n";
+
+            if(is_array($include)){
+                foreach($include as $environment=>$file){
+                    if($environment==$config['app']['environment']){
+                        echo '<link rel="stylesheet" href="/' . addslashes($file) . '"/>' . "\n";
+                    }
+                }
+            }elseif(is_string($include)) {
+
+                echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>' . "\n";
+
+            }
         }
 
         /**/

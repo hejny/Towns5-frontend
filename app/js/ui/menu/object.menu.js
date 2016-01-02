@@ -28,7 +28,8 @@ function objectMenu(){
 
 
         objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icon/f_upgrade.png',
+            //icon: 'media/image/icon/f_upgrade.png',
+            inner: '<i class="fa fa-building-o"></i>',
             title: 'Duplikat',
             content: 'co co',
             action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
@@ -47,7 +48,7 @@ function objectMenu(){
             inner: '<i class="fa fa-code"></i>',
             title: 'Zdrojový kód',
             content: 'co co',
-            action: 'window_open(\'building_editor\')'
+            action: 'window_open(\'object_json\')'
         });
 
 

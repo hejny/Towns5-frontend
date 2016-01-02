@@ -5,11 +5,11 @@
 //======================================================================================================================
 
 
-Pages.building_editor={};
+Pages.object_editor={};
 
-Pages.building_editor.header='Budova';
+Pages.object_editor.header='Budova';
 
-Pages.building_editor.content= `
+Pages.object_editor.content= `
 <div class="json-editor"></div>
 
 `;
@@ -17,7 +17,7 @@ Pages.building_editor.content= `
 //======================================================================================================================
 
 
-Pages.building_editor.openJS = function(){
+Pages.object_editor.openJS = function(){
 
     var object=map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])];
 
@@ -25,33 +25,53 @@ Pages.building_editor.openJS = function(){
 
 
 
-    JSONEditor.defaults.options.theme = 'bootstrap3';
-    /*JSONEditor.defaults.options.theme = 'foundation5';
+    //JSONEditor.defaults.options.theme = 'bootstrap3';
+    JSONEditor.defaults.options.theme = 'foundation5';
     JSONEditor.defaults.options.icon = 'fontawesome3';
-    JSONEditor.defaults.options.object_layout = 'grid';*/
+    JSONEditor.defaults.options.object_layout = 'grid';
+    JSONEditor.defaults.options.disable_collapse = true;
+    JSONEditor.defaults.options.disable_properties = true;
+    JSONEditor.defaults.options.disable_edit_json = true;
 
 
     // Initialize the editor
-    Pages.building_editor.editor = new JSONEditor($('.json-editor')[0],{
+    Pages.object_editor.editor = new JSONEditor($('.json-editor')[0],{
             schema: {
-                "title": "Budova",
+                "title": /*object.name*/'',
                 "type": "object",
                 "id": "object",
                 "properties": {
+
+                    "id": {
+                        "type": "string",
+                        "minLength": 4
+                    },
+
                     "name": {
                         "type": "string",
                         //"description": "First and Last name",
                         "minLength": 4
                     },
 
+
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "building",
+                            "story",
+                            "terrain"
+                        ]
+                    },
+
                     "subtype": {
-                        "type": "enum",
+                        "type": "string",
                         "enum": [
                             "main",
                             "block",
                             "wall"
                         ]
                     },
+
                     "x": {
                         "type": "integer",
                         "default": 21,
@@ -67,7 +87,7 @@ Pages.building_editor.openJS = function(){
                     "design": {
                         "type": "object",
                         "properties": {
-                            "name": {
+                            "type": {
                                 "type": "string"
                             },
 
@@ -84,21 +104,21 @@ Pages.building_editor.openJS = function(){
                                                     "properties": {
                                                         "n": {
                                                             "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "default": 4,
+                                                            "minimum": 3,
+                                                            "maximum": 20
                                                         },
                                                         "top": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 1,
+                                                            "minimum": 0,
+                                                            "maximum": 10
                                                         },
                                                         "bottom": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 1,
+                                                            "minimum": 0,
+                                                            "maximum": 10
                                                         }
                                                     }
                                                 },
@@ -106,22 +126,16 @@ Pages.building_editor.openJS = function(){
                                                     "type": "object",
                                                     "properties": {
                                                         "x": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 0
                                                         },
                                                         "y": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 0
                                                         },
                                                         "z": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 0
                                                         }
                                                     }
                                                 },
@@ -129,22 +143,33 @@ Pages.building_editor.openJS = function(){
                                                     "type": "object",
                                                     "properties": {
                                                         "x": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 0
                                                         },
                                                         "y": {
-                                                            "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "type": "number",
+                                                            "default": 0
                                                         },
                                                         "z": {
+                                                            "type": "number",
+                                                            "default": 0
+                                                        }
+                                                    }
+                                                },
+                                                "rotation":{
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "xy": {
                                                             "type": "integer",
-                                                            "default": 21,
-                                                            "minimum": 18,
-                                                            "maximum": 99
+                                                            "default": 0
+                                                        },
+                                                        "yz": {
+                                                            "type": "integer",
+                                                            "default": 0
+                                                        },
+                                                        "xz": {
+                                                            "type": "integer",
+                                                            "default": 0
                                                         }
                                                     }
                                                 }
@@ -153,15 +178,12 @@ Pages.building_editor.openJS = function(){
                                     },
                                     "rotation": {
                                         "type": "integer",
-                                        "default": 21,
-                                        "minimum": 18,
-                                        "maximum": 99
+                                        "default": 0
                                     },
                                     "size": {
-                                        "type": "integer",
-                                        "default": 21,
-                                        "minimum": 18,
-                                        "maximum": 99
+                                        "type": "number",
+                                        "default": 1,
+                                        "minimum": 0
                                     }
                                 }
 
@@ -178,7 +200,7 @@ Pages.building_editor.openJS = function(){
     });*/
 
 
-    Pages.building_editor.editor.setValue(object);
+    Pages.object_editor.editor.setValue(object);
     /*editor.on("change",  function() {
 
         var json = editor.getValue();
@@ -191,9 +213,9 @@ Pages.building_editor.openJS = function(){
 //======================================================================================================================
 
 
-Pages.building_editor.closeJS = function(){
+Pages.object_editor.closeJS = function(){
 
     map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])]
-        = deepCopyObject(Pages.building_editor.editor.getValue());
+        = deepCopyObject(Pages.object_editor.editor.getValue());
 
 };

@@ -60,7 +60,7 @@ ModelParticles.get3D = function(particle){
 
     particle=ModelParticles.cParams(particle);
 
-    if(particle.shape.type=='prisms') {
+    if(particle.shape.type=='prism') {
 
 
         var x = particle.position.x;
