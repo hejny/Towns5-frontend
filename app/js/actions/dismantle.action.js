@@ -21,7 +21,7 @@ function dismantle(id){
 //todo create static class fro actions and UI actions
 function dismantleUI(id){
 
-    if(confirm(Locale.get('types.'+ArrayFunctions.id2item(map_object_changes,id).type+'.delete_confirm'))){//todo create better confirm
+    if(confirm(Locale.get('dismantle '+ArrayFunctions.id2item(map_object_changes,id).type+' confirm'))){//todo create better confirm
 
         dismantle(id);
         Map.loadMapAsync();
