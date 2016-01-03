@@ -10,8 +10,8 @@ require __DIR__ . '/neon/neon.php';
 
 
 
-$LANGUAGE=$_GET['LANGUAGE'];
-$file=__DIR__ ."/../locale/$LANGUAGE.neon";
+$language=$_GET['language'];
+$file=__DIR__ ."/../locale/$language.neon";
 
 if(file_exists($file)){
 

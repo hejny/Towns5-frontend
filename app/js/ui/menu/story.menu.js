@@ -83,6 +83,7 @@ function objectMenuStory(){
 
         objectmenu+=Templates.objectMenu({
             icon: icon,
+            selectable: true,
             title: '',
             content: content,
             action: action

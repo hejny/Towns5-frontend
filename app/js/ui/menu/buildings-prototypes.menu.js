@@ -170,7 +170,8 @@ function objectMenuBuildingsPrototypes(subtype){
 
     if(subtype=='block')
         objectmenu+=Templates.objectMenu({
-            inner: '<i class="fa fa-plus-square-o"></i>',
+            icon: 'media/image/icons/add.svg',
+            icon_size: 0.55,
             title: title,
             content: content,
             action: `mapSpecialCursorStop();window_open('block_editor');`
@@ -194,6 +195,7 @@ function objectMenuBuildingsPrototypes(subtype){
 
             objectmenu+=Templates.objectMenu({
                 icon: icon,
+                selectable: true,
                 title: title,
                 content: content,
                 action: action
