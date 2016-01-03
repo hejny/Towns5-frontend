@@ -44,7 +44,6 @@ function terrainNeutralizeStop(){
 
 function terrainChangeStart(terrain){
 
-    mapSpecialCursorStop();
     mapSpecialCursorStart();
 
     updateSelectingDistance();
@@ -108,6 +107,8 @@ function objectMenuTerrainChange(){
 
             objectmenu+=Templates.objectMenu({
                 icon: icon,
+                icon_size: 1.2,
+                selectable: true,
                 title: Locale.get('terrains.t'+terrain+'.name'),
                 content: Locale.get('terrains.t'+terrain+'.description'),
                 action: action

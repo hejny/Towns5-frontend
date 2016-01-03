@@ -235,3 +235,11 @@ function definePrototype(objectReference,forceSubtype){
 
 }
 
+//======================================================================================================================
+
+function definePrototypeUI(objectReference,forceSubtype){
+
+    definePrototype(objectReference,forceSubtype);
+    message(Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
+
+}

@@ -12,8 +12,8 @@ Pages.home.header='Towns 5';
 
 
 /*<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
-<img src="media/image/languages/cs.png" onclick="changeLanguage('cs')">
-<img src="media/image/languages/en.png" onclick="changeLanguage('en')">
+<img src="media/image/languages/cs.png" onclick="changelanguage('cs')">
+<img src="media/image/languages/en.png" onclick="changelanguage('en')">
 </div>*/
 
 
