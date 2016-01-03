@@ -28,8 +28,8 @@ function objectMenu(){
         objectmenu+=Templates.objectMenu({
             icon: 'media/image/icons/dismantle.svg',
             icon_size: 0.8,
-            title: Locale.get('dismantle building confirm'),
-            content: Locale.get('dismantle building confirm description'),
+            title: Locale.get('dismantle building'),
+            content: Locale.get('dismantle building description'),
             action: 'dismantleUI(\''+id+'\');'
         });
 
