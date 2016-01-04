@@ -1,0 +1,89 @@
+@charset "UTF-8";
+/**
+ * @author ©Towns.cz
+ * @fileOverview Style for notification popup
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.popup-notification {
+  display: none;
+  z-index: 4000;
+  position: fixed;
+  top: 65px;
+  right: 15px;
+  width: 400px;
+  height: 500px;
+  color: black;
+  overflow: hidden; }
+
+.popup-notification .arrow {
+  margin-left: 275px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom-width: 10px;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  border-bottom-color: rgba(255, 255, 255, 0.85); }
+
+.popup-notification .header {
+  height: 9px;
+  line-height: 9px;
+  text-align: center;
+  color: #000000;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid #bababa;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px; }
+
+.popup-notification .content {
+  width: auto;
+  height: 440px;
+  box-sizing: border-box;
+  padding: 0;
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
+  overflow-y: auto; }
+
+.popup-notification .content p {
+  /* todo: nespraviť z toho a ??? */
+  padding: 10px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-bottom: 1px solid #bababa; }
+
+.popup-notification .content p:last-of-type {
+  border: none; }
+
+.popup-notification .content p:hover {
+  background-color: #fff; }
+
+.popup-notification .footer {
+  height: 29px;
+  line-height: 29px;
+  text-align: center;
+  color: #000000;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.85);
+  border-top: 1px solid #bababa;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px; }
+
+.popup-notification .footer a {
+  color: black;
+  text-decoration: none; }
+
+.popup-notification .footer a:hover {
+  text-decoration: underline; }

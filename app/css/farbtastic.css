@@ -1,0 +1,48 @@
+@charset "UTF-8";
+/**
+ * @author © 2008 Steven Wittens
+ * @fileOverview Style for Farbtastic Color Picker 1.2
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.farbtastic {
+  position: relative; }
+
+.farbtastic * {
+  position: absolute;
+  cursor: crosshair; }
+
+.farbtastic, .farbtastic .wheel {
+  width: 195px;
+  height: 195px; }
+
+.farbtastic .color, .farbtastic .overlay {
+  top: 47px;
+  left: 47px;
+  width: 101px;
+  height: 101px; }
+
+.farbtastic .wheel {
+  background: url('../../media/image/farbtastic/wheel.png') no-repeat;
+  width: 195px;
+  height: 195px; }
+
+.farbtastic .overlay {
+  background: url('../../media/image/farbtastic/mask.png') no-repeat; }
+
+.farbtastic .marker {
+  width: 17px;
+  height: 17px;
+  margin: -8px 0 0 -8px;
+  overflow: hidden;
+  background: url('../../media/image/farbtastic/marker.png') no-repeat; }
