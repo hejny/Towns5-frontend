@@ -6,7 +6,7 @@
 
 
 Pages.story={};
-Pages.story.header='Příběh';
+Pages.story.header='';
 
 
 //======================================================================================================================
@@ -26,9 +26,9 @@ Pages.story.openJS = function(){
 
     content+=[
         '<hr>' +
-        '<a class="js-popup-window-open" content="story_editor" href="#">Upravit</a>' +
+        '<a class="js-popup-window-open" content="story_editor" href="#">{{story edit}}</a>' +
         '<br>' +
-        '<a onclick="dismantleUI('+map_selected_ids[0]+')" href="#">Smazat</a>'
+        '<a onclick="dismantleUI('+map_selected_ids[0]+')" href="#">{{story delete}}</a>'
     ].join('');
 
     window_write_header(map_object_changes[i].name);

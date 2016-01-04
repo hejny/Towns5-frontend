@@ -109,8 +109,8 @@ function objectMenuTerrainChange(){
                 icon: icon,
                 icon_size: 1.2,
                 selectable: true,
-                title: Locale.get('terrains.t'+terrain+'.name'),
-                content: Locale.get('terrains.t'+terrain+'.description'),
+                title: Locale.get('terrain '+terrain),
+                content: Locale.get('terrain '+terrain+' description'),
                 action: action
             });
 
