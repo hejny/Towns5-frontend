@@ -21,8 +21,8 @@ Pages.block_editor.content= `
     <canvas id="block-editing" width="300" height="300"></canvas>
 
 
-    <button onclick="Pages.block_editor.deleteBlock();">{{block.delete}}</button>
-    <button onclick="Pages.block_editor.duplicateBlock();">{{block.duplicate}}</button>
+    <button onclick="Pages.block_editor.deleteBlock();">{{block delete}}</button>
+    <button onclick="Pages.block_editor.duplicateBlock();">{{block duplicate}}</button>
 
 </div>
 
@@ -32,63 +32,63 @@ Pages.block_editor.content= `
 <table  class="page-column-2">
 
 
-  <tr><th colspan="2"><input id="block-editing-name" type="text" placeholder="{{block.name.placeholder}}" /></th></tr>
+  <tr><th colspan="2"><input id="block-editing-name" type="text" placeholder="{{block name placeholder}}" /></th></tr>
 
 
-  <tr><th colspan="2">{{block.shape}}</th></tr>
+  <tr><th colspan="2">{{block shape}}</th></tr>
   <tr>
-    <td>{{block.shape.n}}</td>
+    <td>{{block shape n}}</td>
     <td><input id="block-editing-shape-n" type="range" min="3" max="20" step="1" /></td>
   </tr>
   <tr>
-    <td>{{block.shape.top}}</td>
+    <td>{{block shape top}}</td>
     <td><input id="block-editing-shape-top" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
   <tr>
-    <td>{{block.shape.bottom}}</td>
+    <td>{{block shape bottom}}</td>
     <td><input id="block-editing-shape-bottom" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
 
 
 
 
-  <tr><th colspan="2">{{block.skew}}</th></tr>
+  <tr><th colspan="2">{{block skew}}</th></tr>
   <tr>
-    <td>{{block.skew.z.x}}</td>
+    <td>{{block skew z x}}</td>
     <td><input id="block-editing-skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
   <tr>
-    <td>{{block.skew.z.y}}</td>
+    <td>{{block skew z y}}</td>
     <td><input id="block-editing-skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
 
 
 
 
-  <tr><th colspan="2">{{block.size}}</th></tr>
+  <tr><th colspan="2">{{block size}}</th></tr>
   <tr>
-    <td>{{block.size.x}}</td>
+    <td>{{block size x}}</td>
     <td><input id="block-editing-size-x" type="range" min="1" max="100" step="1" /></td>
   </tr>
   <tr>
-    <td>{{block.size.y}}</td>
+    <td>{{block size y}}</td>
     <td><input id="block-editing-size-y" type="range" min="1" max="100" step="1" /></td>
   </tr>
   <tr>
-    <td>{{block.size.z}}</td>
+    <td>{{block size z}}</td>
     <td><input id="block-editing-size-z" type="range" min="1" max="100" step="1" /></td>
   </tr>
 
 
 
 
-  <tr><th colspan="2">{{block.rotation}}</th></tr>
+  <tr><th colspan="2">{{block rotation}}</th></tr>
   <tr>
-    <td>{{block.rotation.xy}}</td>
+    <td>{{block rotation xy}}</td>
     <td><input id="block-editing-rotation-xy" type="range" min="0" max="360" step="10" /></td>
   </tr>
     <tr>
-    <td>{{block.rotation.xz}}</td>
+    <td>{{block rotation xz}}</td>
     <td><input id="block-editing-rotation-xz" type="range" min="0" max="90" step="10" /></td>
   </tr>
 
@@ -276,7 +276,7 @@ Pages.block_editor.update = function () {
 Pages.block_editor.deleteBlock = function () {
 
 
-    if(confirm(Locale.get())){
+    if(confirm(Locale.get('block delete confirm'))){
 
         var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);//todo maybe create function deleteID
 

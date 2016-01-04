@@ -21,20 +21,20 @@ Pages.home.content=`
 
 
   <h2 style="font-size:1.1em;text-align: center;">
-<img src="media/image/icon/logo1.png" alt="Towns.cz logo" width="100"/><br/>
-{{pages.projects.info}}</h2>
+<img src="media/image/icons/logo.png" alt="{{towns logo}}" width="100"/><br/>
+{{projects info}}</h2>
 
 
 
 <p style="text-align: center;">
-  {{pages.projects.info_sub}}
+  {{projects info subtitle}}
 
 </p>
 
 
-  <div class="loading" style="display: none" id="sendpress_loading">{{ui.messages.loading}}</div>
-  <div class="success" style="display: none" id="sendpress_success">{{pages.projects.subscribe_success}}</div>
-  <div class="error" style="display: none" id="sendpress_error">{{pages.projects.subscribe_error}}
+  <div class="loading" style="display: none" id="sendpress_loading">{{ui messages loading}}</div>
+  <div class="success" style="display: none" id="sendpress_success">{{projects subscribe success}}</div>
+  <div class="error" style="display: none" id="sendpress_error">{{projects subscribe error}}
 
     <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
     <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
@@ -47,13 +47,13 @@ Pages.home.content=`
     <input type="hidden" name="sendpress" value="post" />
 
       <p style="text-align: center;">
-        <b>{{form.mail}}:</b>
+        <b>{{form mail}}:</b>
         <input type="text" value="@" name="sp_email"/>
 
-        <b>{{form.your_name}}:</b>
+        <b>{{form your name}}:</b>
         <input type="text" value="" name="sp_firstname"/>
 
-        <input value="{{form.send}}" class="sendpress-submit" type="submit" id="submit" name="submit">
+        <input value="{{form send}}" class="sendpress-submit" type="submit" id="submit" name="submit">
       </p>
 
       <!--<p name="lastname">
@@ -96,7 +96,7 @@ Pages.home.content=`
 
 
 <p style="text-align: center;">
-  {{pages.projects.subscribe}}
+  {{projects subscribe}}
   <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
   <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
   <a href="https://twitter.com/townsgame" target="_blank">Twitter</a>.
@@ -107,7 +107,7 @@ Pages.home.content=`
 
 
 <p style="text-align: center;">
-  <b>{{pages.projects.news_from_game}}</b>
+  <b>{{projects news from game}}</b>
 </p>
 
 <div id="feed" class="feed"></div>
@@ -168,8 +168,8 @@ Pages.home.content=`
   <hr>
 
 <p style="text-align: center;">
-  <b>{{pages.projects.projects}}</b><br>
-  {{pages.projects.projects_info}}
+  <b>{{projects}}</b><br>
+  {{projects projects subtitle}}
 </p>
 
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>
