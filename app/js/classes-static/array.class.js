@@ -9,6 +9,8 @@
 var ArrayFunctions={};
 
 
+//======================================================================================================================
+
 /**
  * @static
  * Searches an item with ID in array
@@ -22,6 +24,25 @@ ArrayFunctions.id2i = function(array,id){
         if(array[i].id==id)return i;
     }
     return -1;
+
+};
+
+
+//======================================================================================================================
+
+/**
+ * @static
+ * Searches an item with ID in array
+ * @param {object} array Array of objects with ID
+ * @param {*} id Searched ID
+ * @returns {object} Object with this ID, null if not exist
+ */
+ArrayFunctions.id2item = function(array,id){
+
+    for(var i in array){
+        if(array[i].id==id)return array[i];
+    }
+    return null;
 
 };
 

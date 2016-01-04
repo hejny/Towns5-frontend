@@ -28,7 +28,7 @@ Pages.story.openJS = function(){
         '<hr>' +
         '<a class="js-popup-window-open" content="story_editor" href="#">Upravit</a>' +
         '<br>' +
-        '<a onclick="deleteStory('+map_selected_ids[0]+')" href="#">Smazat</a>'
+        '<a onclick="dismantleUI('+map_selected_ids[0]+')" href="#">Smazat</a>'
     ].join('');
 
     window_write_header(map_object_changes[i].name);
@@ -46,23 +46,4 @@ Pages.story.closeJS = function(){
     Map.loadMap();
 
 };
-
-//======================================================================================================================
-
-
-
-function deleteStory(id){
-
-    if(confirm('Opracdu smazat???')){//todo create better confirm //todo use locale
-
-        dismantle(id);
-        Map.loadMapAsync();
-        window_close();
-
-    }
-
-}
-
-
-
 
