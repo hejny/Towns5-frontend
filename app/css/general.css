@@ -1,0 +1,27 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Other styling
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.hide {
+  display: none; }
+
+.left {
+  float: left; }
+
+.right {
+  float: right; }
+
+.cleaner {
+  clear: both; }

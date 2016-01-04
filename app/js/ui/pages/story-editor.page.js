@@ -6,7 +6,7 @@
 
 
 Pages.story_editor={};
-Pages.story_editor.header='Upravit příběh';
+Pages.story_editor.header=Locale.get('story editor');
 
 
 //======================================================================================================================

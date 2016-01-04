@@ -1,0 +1,81 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Style of Towns inner window
+ todo maybe refactor rename to inner-window.scss
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.popup-window {
+  z-index: 7000;
+  position: fixed;
+  top: 80px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  /*box-shadow: #000000 0 0 15px 0;*/
+  max-width: 800px;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden; }
+
+.popup-window .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 10px;
+  margin: 0;
+  height: 39px;
+  line-height: 39px;
+  font-size: 18px;
+  /*color: white;*/
+  /*background-color: black;*/
+  /*background-color: rgba(0, 0, 0, 0.85);*/
+  color: black;
+  background-color: white;
+  background-color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  border-bottom: 1px solid #bababa; }
+
+.popup-window .content {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: white; }
+
+.popup-window .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 20px;
+  width: 20px;
+  cursor: pointer; }
+
+.popup-window-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0 auto;
+  padding: 0; }
+
+.page-column-2 {
+  display: inline-block;
+  width: calc(50% - 10px);
+  height: 100%;
+  vertical-align: middle; }

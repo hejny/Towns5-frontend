@@ -1,0 +1,56 @@
+/**
+ * @author Towns.cz
+ * @fileOverview XML feed in project-style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.feed {
+  width: 100%;
+  text-align: center; }
+
+.feed_item {
+  background-color: #999999;
+  display: inline-block;
+  width: 262px;
+  height: 162px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border-radius: 5px;
+  border: #000000 0px solid;
+  margin: 4px 4px 4px 4px;
+  padding: 4px 4px 4px 4px;
+  color: #000000; }
+
+.feed_title {
+  display: inline-block;
+  width: 100%;
+  font-size: 1.1em;
+  height: 25px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 4px; }
+
+.feed_description {
+  text-align: justify;
+  padding: 3%;
+  font-size: 1em; }
+
+.feed_author {
+  border: #000000 2px solid;
+  border-radius: 22px;
+  background-color: #000000;
+  position: relative;
+  left: 210px;
+  top: 80px; }

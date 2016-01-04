@@ -1,67 +1,30 @@
-# Lokalizační soubor pro češtinu v Towns
-
-page:
-    title: Towns
-    description: Popis pro Sociální sítě a SEO
-
-ui:
-
-    buttons:
-        about_game: O hře
-        agree: Souhlasím
-
-    prompts:
-        cookies: Tento web využívá cookies a LocalStorage. Používáním tohoto webu s tím souhlasíte.
-
-    messages:
-        loading: Načítání...
 
 
-    tool_controls:
-        plus: Zvětšit
-        minus: Zmenšit
-        left: Otočit doleva
-        right: Otočit doprava
-        close: Zavřít
-
-
-
-    menu:
-        nature:
-            _name: Příroda
-            types: Typy
-            neutralize: Původní stav
-
-        buildings:
-            _name: Budovy
-            main: Zakladni
-            wall: Hradby
-            block: Bloky
-            dismantle: Zbourat
-
-        stories:
-            _name: Příběhy
-            write: Napsat příběh
-
-        data:
-            _name: Data
-            screenshot: Screenshot
-            restart: Restartovat
-            export: JSON
-
-        blog:
-            _name: Blog
-
-
-    notifications:
-        all_notifications: Všetky notifikácie
-
-
-
-
-
-
-
-
-
-object_json: JSON data
+page_title: page_title
+page_description: page_description
+ui_prompts_cookies: ui_prompts_cookies
+ui_buttons_agree: ui_buttons_agree
+ui_tool_controls_plus: ui_tool_controls_plus
+ui_tool_controls_minus: ui_tool_controls_minus
+ui_tool_controls_left: ui_tool_controls_left
+ui_tool_controls_right: ui_tool_controls_right
+ui_tool_controls_color: ui_tool_controls_color
+ui_tool_controls_blocks: ui_tool_controls_blocks
+ui_tool_controls_close: ui_tool_controls_close
+ui_title: ui_title
+ui_menu_nature: ui_menu_nature
+ui_menu_nature_types: ui_menu_nature_types
+ui_menu_nature_neutralize: ui_menu_nature_neutralize
+ui_menu_buildings: ui_menu_buildings
+ui_menu_buildings_main: ui_menu_buildings_main
+ui_menu_buildings_wall: ui_menu_buildings_wall
+ui_menu_buildings_block: ui_menu_buildings_block
+ui_menu_buildings_dismantle: ui_menu_buildings_dismantle
+ui_menu_stories: ui_menu_stories
+ui_menu_stories_write: ui_menu_stories_write
+ui_menu_data: ui_menu_data
+ui_menu_data_screenshot: ui_menu_data_screenshot
+ui_menu_data_restart: ui_menu_data_restart
+ui_menu_data_export: ui_menu_data_export
+ui_buttons_about_game: ui_buttons_about_game
+ui_notifications_all: ui_notifications_all

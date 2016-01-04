@@ -1,0 +1,66 @@
+@charset "UTF-8";
+/**
+ * @author ©Towns.cz
+ * @fileOverview Style for left tool menu
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+#objectmenu {
+  z-index: 4000;
+  position: fixed;
+  top: 60px;
+  left: -60px;
+  bottom: 0;
+  width: 60px;
+  height: 100%;
+  overflow: hidden; }
+
+#objectmenu-inner {
+  width: 160px;
+  height: 100%;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
+  overflow: scroll;
+  overflow-x: hidden; }
+
+.action-wrapper {
+  position: relative; }
+
+.action {
+  margin: 5px;
+  width: 48px;
+  height: 48px;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  /*background-color: #111111;*/
+  box-shadow: black 0 0 3px 0;
+  cursor: pointer;
+  font-size: 50px;
+  color: #cccccc;
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+  background-size: cover;
+  background-repeat: no-repeat; }
+
+.action-wrapper:nth-child(even) .action {
+  background-color: teal; }
+
+.action:hover {
+  box-shadow: #999999 0 0 3px 0; }
+
+/*.action-wrapper.active .action {*/
+.active {
+  border: 2px solid #0098ff;
+  box-shadow: #0098ff 0 0 3px 0;
+  /* todo: nedať .active radšej na .action ??? */ }
