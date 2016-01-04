@@ -7,8 +7,8 @@
 
 //todo where this functions should be?
 
-function changeLanguage(LANGUAGE){
-    setCookie('LANGUAGE',LANGUAGE);
+function changelanguage(language){
+    setCookie('language',language);
     location.reload();
 }
 //======================================================================================================================

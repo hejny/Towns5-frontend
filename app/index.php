@@ -11,22 +11,22 @@
 error_reporting(E_ALL & ~E_NOTICE);
 
 
-//----------------------------------------load $LANGUAGE and $MESSAGES
+//----------------------------------------load $language and $MESSAGES
 
 require __DIR__ . '/php/neon/neon.php';
 
-if(isset($_COOKIE['LANGUAGE'])) {
-    $LANGUAGE = $_COOKIE['LANGUAGE'];
+if(isset($_COOKIE['language'])) {
+    $language = $_COOKIE['language'];
 }else{
-    $LANGUAGE = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    $language = substr($_SERVER['HTTP_ACCEPT_language'], 0, 2);
 }
 
 
 
-$file=__DIR__ ."/locale/$LANGUAGE.neon";
+$file=__DIR__ ."/locale/$language.neon";
 if(!file_exists($file)) {
-    $LANGUAGE='cs';//todo in future default language should be english
-    $file=__DIR__ ."/locale/$LANGUAGE.neon";
+    $language='cs';//todo in future default language should be english
+    $file=__DIR__ ."/locale/$language.neon";
 }
 $MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
 //print_r($MESSAGES);
@@ -185,12 +185,12 @@ function tidyHTML($buffer) {
 
     }
 
-    //--------------------------------var LANGUAGE
+    //--------------------------------var language
     ?>
     <script>
-        var LANGUAGE='<?=$LANGUAGE?>';
+        var language='<?=$language?>';
     </script>
-    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-dist')?>/php/locale.php?LANGUAGE=<?=$LANGUAGE?>"></script>
+    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-dist')?>/php/locale.php?language=<?=$language?>"></script>
 
     <?php
     //--------------------------------Includes
@@ -331,7 +331,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="home" src="media/image/icon/logo1.png" alt="<?=message('ui.title)')?>"/>
+        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=message('ui.title)')?>"/>
 
     </div>
 

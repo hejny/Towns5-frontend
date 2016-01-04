@@ -61,6 +61,7 @@ $(function(){
 
 
                 Map.loadMap();
+                buildingUpdate();
 
                 //mapSpecialCursorStop();
 

@@ -25,29 +25,36 @@ function objectMenu(){
         var icon,content;
 
 
-
-
         objectmenu+=Templates.objectMenu({
-            //icon: 'media/image/icon/f_upgrade.png',
-            inner: '<i class="fa fa-building-o"></i>',
-            title: 'Duplikat',
-            content: 'co co',
-            action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
+            icon: 'media/image/icons/dismantle.svg',
+            icon_size: 0.8,
+            title: Locale.get('dismantle building'),
+            content: Locale.get('dismantle building description'),
+            action: 'dismantleUI(\''+id+'\');'
         });
 
         objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icon/f_create_wall.png',
-            title: 'Duplikat',
-            content: 'co co',
-            action: 'definePrototype(map_data[ArrayFunctions.id2i(map_data,'+id+')],\'wall\');'
+            icon: 'media/image/icons/define_building_main.svg.svg',
+            icon_size: 0.8,
+            title: Locale.get('define prototype building main'),
+            content: Locale.get('define prototype building main description'),
+            action: 'definePrototypeUI(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
+        });
+
+        objectmenu+=Templates.objectMenu({
+            icon: 'media/image/icons/define_building_wall.svg',
+            icon_size: 0.8,
+            title: Locale.get('define prototype building wall'),
+            content: Locale.get('define prototype building wall description'),
+            action: 'definePrototypeUI(map_data[ArrayFunctions.id2i(map_data,'+id+')],\'wall\');'
         });
 
 
         objectmenu+=Templates.objectMenu({
-            //icon: 'media/image/icon/f_create_wall.png',
-            inner: '<i class="fa fa-code"></i>',
-            title: 'Zdrojový kód',
-            content: 'co co',
+            icon: 'media/image/icons/source.svg',
+            icon_size: 0.8,
+            title: Locale.get('object json'),
+            content: Locale.get('object json description'),
             action: 'window_open(\'object_json\')'
         });
 

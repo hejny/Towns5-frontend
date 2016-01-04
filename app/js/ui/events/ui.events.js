@@ -47,25 +47,34 @@ window.uiScript = function(){
     $('.js-popup-action-open').unbind('click').on('click', function(e){
 
         //e.preventDefault();
+        //r('Kliknutí na nástroj');
+        $('.active').removeClass('active');
 
-        if($(this).hasClass('active')==false){
-            //---------------------------------Označení nástroje
-            r('Označení nástroje');
-            mapSpecialCursorStop();
-            $('.active').removeClass('active');
-            $(this).addClass('active');
+        if($(this).attr('selectable')=='1') {
+
+
+            if ($(this).hasClass('active') == false) {
+                //---------------------------------Označení nástroje
+                r('Označení nástroje');
+
+                $(this).addClass('active');
+                eval($(this).attr('action'));
+
+                //---------------------------------
+            } else {
+                //---------------------------------Odznačení všeho
+                r('Odznačení všeho');
+
+                $('#popup-action').hide();
+                mapSpecialCursorStop();
+
+                //---------------------------------
+            }
+
+        }else{
 
             eval($(this).attr('action'));
 
-            //---------------------------------
-        }else{
-            //---------------------------------Odznačení všeho
-            r('Odznačení všeho');
-            $('.active').removeClass('active');
-            $('#popup-action').hide();
-            mapSpecialCursorStop();
-
-            //---------------------------------
         }
 
     });
@@ -75,7 +84,7 @@ window.uiScript = function(){
 
 
         //---------------------------------Zobrazení nápovědy
-        r('Zobrazení nápovědy');
+        //r('Zobrazení nápovědy');
         var content=$(this).attr('content');
         var title=$(this).attr('popup_title');
 
