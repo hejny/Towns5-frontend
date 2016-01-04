@@ -13,6 +13,9 @@ error_reporting(E_ALL & ~E_NOTICE);
 
 //----------------------------------------load $language and $MESSAGES
 
+
+//---------------------------Initialization
+
 require __DIR__ . '/php/neon/neon.php';
 
 if(isset($_COOKIE['language'])) {
@@ -23,32 +26,44 @@ if(isset($_COOKIE['language'])) {
 
 
 
-$file=__DIR__ ."/locale/$language.neon";
-if(!file_exists($file)) {
+$language_file=__DIR__ ."/locale/$language.neon";
+if(!file_exists($language_file)) {
     $language='cs';//todo in future default language should be english
-    $file=__DIR__ ."/locale/$language.neon";
+    $language_file=__DIR__ ."/locale/$language.neon";
 }
-$MESSAGES = Nette\Neon\Neon::decode(file_get_contents($file));
-//print_r($MESSAGES);
-
-function message($path){
-    global $MESSAGES;
-
-    $eval='$value=$MESSAGES["'.str_replace('.','"]["',$path).'"];';
 
 
-    //echo($eval);
+function locale_init(){
+    global $MESSAGES,$language_file;
+    $MESSAGES = Nette\Neon\Neon::decode(file_get_contents($language_file));
+}
 
-    try {
-        eval($eval);
-    }catch (Exception $err){
+locale_init();
+
+//---------------------------Locale.get equivalent in PHP
+
+function locale($key){
+    global $MESSAGES,$language_file;
+
+    $key=str_replace(' ','_',$key);
+
+    if(isset($MESSAGES[$key])){
+
+        $value=$MESSAGES[$key];
+
+    }else {
+
+        if(1/*todo only in develop*/){
+            file_put_contents(
+                $language_file,
+                file_get_contents($language_file) . "\n$key: " . Nette\Neon\Neon::encode($key)
+            );
+            locale_init();
+        }
+        $value=$key;
 
     }
 
-
-    if(!isset($value)){
-        $value=$path;
-    }
 
     return $value;
 
@@ -62,10 +77,10 @@ function message($path){
 //todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 
 $page=[];
-$page['title'] = message('page.title');
-$page['description'] = message('page.description');
+$page['title'] = locale('page title');
+$page['description'] = locale('page description');
 $page['meta_og'] = [
-    'site_name' => message('page.title'),
+    'site_name' => locale('page title'),
     'title' => $page['title'],
     'description' => $page['description'],
     'type' => 'game'
@@ -109,7 +124,7 @@ if($config['app']['environment'] == "production"/** or true/**/){
 
 
 
-        $inner_window['content'][$i][0]=message($inner_window['content'][$i][0]);
+        $inner_window['content'][$i][0]=locale($inner_window['content'][$i][0]);
         $inner_window['content'][$i]=implode('',$inner_window['content'][$i]);
 
 
@@ -286,8 +301,8 @@ function tidyHTML($buffer) {
 <!--Example of user prompt-->
 <div id="eu_cookies">
     <div id="eu_cookies_inner">
-        <?=message('ui.prompts.cookies')?>
-        <button class="micro-button"><?=message('ui.buttons.agree')?></button>
+        <?=locale('ui prompts cookies')?>
+        <button class="micro-button"><?=locale('ui buttons agree')?></button>
     </div>
 </div>
 
@@ -310,14 +325,14 @@ function tidyHTML($buffer) {
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button" title="<?=message('ui.tool_controls.plus')?>"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button" title="<?=message('ui.tool_controls.minus')?>"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button" title="<?=message('ui.tool_controls.left')?>"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button" title="<?=message('ui.tool_controls.right')?>"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=message('ui.tool_controls.color')?>"><i class="fa fa-paint-brush faa-tada"></i>
+    <div id="selecting-distance-plus" class="mini-button" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="selecting-distance-minus" class="mini-button" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="selecting-distance-left" class="mini-button" title="<?=locale('ui tool controls left')?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="mini-button" title="<?=locale('ui tool controls right')?>"><i class="fa fa-angle-double-right"></i></i></div>
+    <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=locale('ui tool controls color')?>"><i class="fa fa-paint-brush faa-tada"></i>
     </div>
-    <div id="selecting-distance-blocks" class="mini-button" title="<?=message('ui.tool_controls.blocks')?>"><i class="fa fa-cubes"></i></div>
-    <div id="selecting-distance-close" class="mini-button" title="<?=message('ui.tool_controls.close')?>"><i class="fa fa-times"></i></div>
+    <div id="selecting-distance-blocks" class="mini-button" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cubes"></i></div>
+    <div id="selecting-distance-close" class="mini-button" title="<?=locale('ui tool controls close')?>"><i class="fa fa-times"></i></div>
 </div>
 
 
@@ -331,7 +346,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=message('ui.title)')?>"/>
+        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=locale('ui title')?>"/>
 
     </div>
 
@@ -339,32 +354,32 @@ function tidyHTML($buffer) {
     <ul class="menu-list menu-list-left">
 
         <li class="menu-list-item">
-            <a><?=message('ui.menu.nature._name')?></a>
+            <a><?=locale('ui menu nature')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a onclick="objectMenuTerrainChange();return false;"><?=message('ui.menu.nature.types')?></a></li>
-                <li class="menu-dlist-item"><a onclick="terrainNeutralizeStart();return false;"><?=message('ui.menu.nature.neutralize')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuTerrainChange();return false;"><?=locale('ui menu nature types')?></a></li>
+                <li class="menu-dlist-item"><a onclick="terrainNeutralizeStart();return false;"><?=locale('ui menu nature neutralize')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a><?=message('ui.menu.buildings._name')?></a>
+            <a><?=locale('ui menu buildings')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('main');return false;"><?=message('ui.menu.buildings.main')?></a></li>
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=message('ui.menu.buildings.wall')?></a></li>
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('block');return false;"><?=message('ui.menu.buildings.block')?></a></li>
-                <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=message('ui.menu.buildings.dismantle')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('main');return false;"><?=locale('ui menu buildings main')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('block');return false;"><?=locale('ui menu buildings block')?></a></li>
+                <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
             </ul>
         </li>
 
         <li class="menu-list-item">
-            <a><?=message('ui.menu.stories._name')?></a>
+            <a><?=locale('ui menu stories')?></a>
 
             <ul class="menu-dlist">
                 <li class="menu-dlist-item">
 
-                    <a onclick="objectMenuStory();return false;"><?=message('ui.menu.stories.write')?></a>
+                    <a onclick="objectMenuStory();return false;"><?=locale('ui menu stories write')?></a>
 
 
 
@@ -374,17 +389,17 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item">
-            <a><?=message('ui.menu.data._name')?></a>
+            <a><?=locale('ui menu data')?></a>
 
 
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-info"><?=message('ui.menu.data._info')?></li>
+                <li class="menu-dlist-info"><?=locale('ui menu data')?></li>
 
-                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=message('ui.menu.data.screenshot')?></a></li>
-                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=message('ui.menu.data.restart')?></a></li>
-                <li class="menu-dlist-item"><a class="js-popup-window-open" content="data_json"><?=message('ui.menu.data.export')?></a></li>
+                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu data screenshot')?></a></li>
+                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=locale('ui menu data restart')?></a></li>
+                <li class="menu-dlist-item"><a class="js-popup-window-open" content="data_json"><?=locale('ui menu data export')?></a></li>
 
 
             </ul>
@@ -406,7 +421,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="home"><?=message('ui.buttons.about_game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" content="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
@@ -469,7 +484,7 @@ function tidyHTML($buffer) {
 
     </div>
     <div class="footer">
-        <a href="#"><?=message('ui.notifications.all_notifications')?></a>
+        <a href="#"><?=locale('ui notifications all')?></a>
     </div>
 </div>
 
