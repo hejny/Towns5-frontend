@@ -1,30 +1,75 @@
 
 
-page_title: page_title
-page_description: page_description
-ui_prompts_cookies: ui_prompts_cookies
-ui_buttons_agree: ui_buttons_agree
-ui_tool_controls_plus: ui_tool_controls_plus
-ui_tool_controls_minus: ui_tool_controls_minus
-ui_tool_controls_left: ui_tool_controls_left
-ui_tool_controls_right: ui_tool_controls_right
-ui_tool_controls_color: ui_tool_controls_color
-ui_tool_controls_blocks: ui_tool_controls_blocks
-ui_tool_controls_close: ui_tool_controls_close
-ui_title: ui_title
-ui_menu_nature: ui_menu_nature
-ui_menu_nature_types: ui_menu_nature_types
-ui_menu_nature_neutralize: ui_menu_nature_neutralize
-ui_menu_buildings: ui_menu_buildings
-ui_menu_buildings_main: ui_menu_buildings_main
-ui_menu_buildings_wall: ui_menu_buildings_wall
-ui_menu_buildings_block: ui_menu_buildings_block
-ui_menu_buildings_dismantle: ui_menu_buildings_dismantle
-ui_menu_stories: ui_menu_stories
-ui_menu_stories_write: ui_menu_stories_write
-ui_menu_data: ui_menu_data
-ui_menu_data_screenshot: ui_menu_data_screenshot
-ui_menu_data_restart: ui_menu_data_restart
-ui_menu_data_export: ui_menu_data_export
-ui_buttons_about_game: ui_buttons_about_game
-ui_notifications_all: ui_notifications_all
+page_title: Towns
+page_description: "TOWNS je nový typ strategické online hry založené na vytváření vlastního města. Zažijte zbrusu novou atmosféru stavění města na různých terénech v doprovodu s elegantní grafikou. Bojujte a domlouvejte se se spoluhráči, získávejte suroviny, stavějte a dokonce si vytvářejte vlastní budovy!"
+ui_prompts_cookies: Tento web využívá cookies a LocalStorage. Používáním tohoto webu s tím souhlasíte.
+
+ui_logo: Towns logo
+
+
+ui_buttons_agree: Souhlasím
+ui_tool_controls_plus: Zvětšit
+ui_tool_controls_minus: Zmenšit
+ui_tool_controls_left: Otočit doleva
+ui_tool_controls_right: Otočit doprava
+ui_tool_controls_color: Barvy
+ui_tool_controls_blocks: Upravit blok
+ui_tool_controls_close: Zavřít
+
+
+
+
+ui_menu_nature: Příroda
+ui_menu_nature_types: Typy
+ui_menu_nature_neutralize: Původní stav
+
+ui_menu_buildings: Budovy
+ui_menu_buildings_main: Základni
+ui_menu_buildings_wall: Hradby
+ui_menu_buildings_block: Bloky
+ui_menu_buildings_dismantle: Zbourat
+
+ui_menu_stories: Příběhy
+ui_menu_stories_write: Napsat příběh
+
+ui_menu_data: Data
+ui_menu_data_info: 'Tyto funkce jsou vývojářské nástroje, které nebudou moct běžní hráči využívat.'
+ui_menu_data_screenshot: Screenshot
+ui_menu_data_restart: Restartovat
+ui_menu_data_export: JSON
+ui_menu_data_locale_write: Lokalizace
+
+ui_buttons_about_game: O hře
+ui_notifications_all: Všetky notifikácie
+
+
+
+story_editor: Editor příběhů
+towns_logo: logo
+
+
+
+
+
+
+
+
+home_info: "Vytváříme kreativní hru, kde si můžeš vyrobit naprosto cokoliv od vzhledu jednotlivých budov až po celé státy a impéria, také můžeš psát příběhy a tím tvořit její historii."
+home_info_subtitle: "Tato aplikace je pouze malá ukázka toho, co máme rozpracované.<br> Právě teď připravujeme novou verzi hry. Svět z Towns 4 bude převeden do nové verze.<br>Až budeme mít hotovo můžeme ti poslat email:"
+loading: Načítání...
+home_subscribe_success: "Děkujeme, až bude hra připravena pošleme ti mail."
+home_subscribe_error: "Něco se nezdařilo, buď máme chybu na serveru nebo jsi zadal chybný mail, každopádně nás můžeš sledovat přes"
+form_mail: E-mail
+form_your_name: Tvé jméno
+form_send: Odeslat
+home_subscribe: Nebo se můžeš přihlásit k odběru novinek přes
+home_news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
+projects: "Podívej se, na čem právě pracujeme:"
+projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
+
+
+
+
+
+
+

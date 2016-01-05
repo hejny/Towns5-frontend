@@ -38,10 +38,15 @@ Locale.get = function(key){
             MESSAGES[key]=key;
             Locale.keys_write.push(key);
 
+            var count=Math.toInt($('#locale-write-count').html())+1;
+            $('#locale-write-count').html(count);
+
+
             clearTimeout(Locale.keys_write_interval);
             Locale.keys_write_interval=setTimeout(function(){
-                window.open(appDir+'/php/locale-write.php?language='+language+'&keys='+Locale.keys_write.join(','), "_blank", "width=800,height=500,top=100,left=100,resizable=yes,scrollbars=yes");
-                Locale.keys_write=[];
+
+                $('#menu-list-item-data').effect('shake');
+
             },400);
 
 
