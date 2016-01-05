@@ -83,11 +83,25 @@ if(file_exists($file)){
 
 
     echo('<form method="post">');
-    echo('<table>');
+    echo('<input type="submit" value="OK">');
+    echo('<table style="width:100%;" cellpadding="2" cellspacing="0">');
+
+    $i=0;
 
     foreach($keys as $key){
-        if(!isset($array[$key]))
-            echo('<tr><td>'.$key.'</td><td><input type="text" name="MESSAGES_'.$key.'" value="'./*addslashes($array[$key]).*/'"></td></tr>');
+        if(!isset($array[$key])){
+
+            $i++;
+            $color=$i%2?'#ffffff':'#dddddd';
+
+            if(strpos($key,'info')==false and strpos($key,'description')==false){
+                echo('<tr bgcolor="'.$color.'"><td>'.$key.'</td><td style="width:50%"><input type="text" name="MESSAGES_'.$key.'" value="'./*addslashes($array[$key]).*/'" style="width:100%"></td></tr>');
+            }else{
+                echo('<tr bgcolor="'.$color.'"><td colspan="2">'.$key.'</td></tr><tr bgcolor="'.$color.'"><td colspan="2"><textarea name="MESSAGES_'.$key.'" style="width:100%"></textarea></td></tr>');
+            }
+
+        }
+
     }
 
     echo('</table>');

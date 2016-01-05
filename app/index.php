@@ -346,7 +346,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=locale('ui title')?>"/>
+        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
 
     </div>
 
@@ -388,18 +388,19 @@ function tidyHTML($buffer) {
         </li>
 
 
-        <li class="menu-list-item">
+        <li class="menu-list-item" id="menu-list-item-data">
             <a><?=locale('ui menu data')?></a>
 
 
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-info"><?=locale('ui menu data')?></li>
+                <li class="menu-dlist-info"><?=locale('ui menu data info')?></li>
 
                 <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu data screenshot')?></a></li>
                 <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=locale('ui menu data restart')?></a></li>
                 <li class="menu-dlist-item"><a class="js-popup-window-open" content="data_json"><?=locale('ui menu data export')?></a></li>
+                <li class="menu-dlist-item"><a class="js-popup-window-open" content="locale_write"><?=locale('ui menu data locale write')?> (<span id="locale-write-count">0</span>)</a></li>
 
 
             </ul>

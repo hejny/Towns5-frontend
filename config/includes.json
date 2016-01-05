@@ -61,6 +61,7 @@
     {"none": "app/js/ui/pages/object-editor.page.js"},
     "app/js/ui/pages/object-json.page.js",
     "app/js/ui/pages/data-json.page.js",
+    {"develop": "app/js/ui/pages/locale-write.page.js"},
 
     "app/js/ui/menu/story.menu.js",
     "app/js/ui/menu/object.menu.js",

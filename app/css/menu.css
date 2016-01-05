@@ -136,6 +136,13 @@
 .menu-list-item:hover .menu-dlist {
   display: block; }
 
+.menu-dlist-info {
+  display: block;
+  margin: 0;
+  padding: 4px;
+  color: #0098ff;
+  border-top: 1px solid rgba(84, 84, 84, 0.51); }
+
 .menu-dlist-item {
   display: block;
   margin: 0;

@@ -22,19 +22,19 @@ Pages.home.content=`
 
   <h2 style="font-size:1.1em;text-align: center;">
 <img src="media/image/icons/logo.png" alt="{{towns logo}}" width="100"/><br/>
-{{projects info}}</h2>
+{{home info}}</h2>
 
 
 
 <p style="text-align: center;">
-  {{projects info subtitle}}
+  {{home info subtitle}}
 
 </p>
 
 
-  <div class="loading" style="display: none" id="sendpress_loading">{{ui messages loading}}</div>
-  <div class="success" style="display: none" id="sendpress_success">{{projects subscribe success}}</div>
-  <div class="error" style="display: none" id="sendpress_error">{{projects subscribe error}}
+  <div class="loading" style="display: none" id="sendpress_loading">{{loading}}</div>
+  <div class="success" style="display: none" id="sendpress_success">{{home subscribe success}}</div>
+  <div class="error" style="display: none" id="sendpress_error">{{home subscribe error}}
 
     <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
     <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
@@ -96,7 +96,7 @@ Pages.home.content=`
 
 
 <p style="text-align: center;">
-  {{projects subscribe}}
+  {{home subscribe}}
   <a href="http://forum.towns.cz/feed/" target="_blank">RSS Feed</a>,
   <a href="https://www.facebook.com/townsgame/" target="_blank">Facebook</a> nebo
   <a href="https://twitter.com/townsgame" target="_blank">Twitter</a>.
@@ -107,7 +107,7 @@ Pages.home.content=`
 
 
 <p style="text-align: center;">
-  <b>{{projects news from game}}</b>
+  <b>{{home news from game}}</b>
 </p>
 
 <div id="feed" class="feed"></div>
@@ -169,7 +169,7 @@ Pages.home.content=`
 
 <p style="text-align: center;">
   <b>{{projects}}</b><br>
-  {{projects projects subtitle}}
+  {{projects subtitle}}
 </p>
 
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>

@@ -152,12 +152,23 @@
   display: block;
 }
 
+
+.menu-dlist-info {
+  display: block;
+  margin: 0;
+  padding: 4px;
+  color: $info-color;
+  border-top: 1px solid rgba(84, 84, 84, 0.51);
+}
+
+
 .menu-dlist-item {
   display: block;
   margin: 0;
   padding: 0;
   border-top: 1px solid rgba(84, 84, 84, 0.51);
 }
+
 
 .menu-dlist-item > a {
   display: block;
