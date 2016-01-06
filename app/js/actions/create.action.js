@@ -14,8 +14,10 @@ function generateID(){
 
 
 //======================================================================================================================
+//todo create Static object Actions
 
-function create(object,nosave){
+
+function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
     if(typeof nosave =='undefined')nosave=false;
 
     if(!nosave)//todo sounds ion.sound.play("door_bump");
@@ -33,7 +35,7 @@ function create(object,nosave){
 
     var updatedID=false;
 
-    if(object.type=='building'){updatedID=createBuilding(object);}else
+    if(object.type=='building'){updatedID=createBuilding(object,nojoin);}else
     if(object.type=='story'){updatedID=createStory(object);}else
     {throw 'Unknown object type';}
 
@@ -61,7 +63,7 @@ function create(object,nosave){
 
 function createMulti(objects){
     for (var i = 0,l=objects.length; i < l; i++)
-        create(objects[i],(i==l-1?false:true));
+        create(objects[i],(i==l-1?false:true),(i==l-1?false:true));//todo refactor duplicite
 
 }
 
@@ -139,7 +141,7 @@ function createNewOrJoin(object){
 //======================================================================================================================
 
 
-function createBuilding(object){
+function createBuilding(object,nojoin=false){
 
 
     var join = createNewOrJoin(object);
@@ -164,10 +166,10 @@ function createBuilding(object){
         //------------------------------------------------------------Join buildings
 
 
-        if(0){
+        if(nojoin){
 
-            delete map_object_changes[join.i];
-            map_object_changes[join.i]=object;
+            //delete map_object_changes[join.i];
+            //map_object_changes[join.i]=object;
         }else{
 
 
@@ -187,9 +189,9 @@ function createBuilding(object){
             delete map_object_changes[distances[0].i].res_path;*/
 
 
-            return(map_object_changes[join.i].id);
-
         }
+
+        return(map_object_changes[join.i].id);
 
         //------------------------------------------------------------
 
