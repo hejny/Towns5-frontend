@@ -25,14 +25,14 @@ MapGenerator.getZ = function(x,y){
         max_possible_n=0;
 
 
-    for(var i= 0;i<13;i++){
+    for(var i= 0;i<19;i++){
 
 
         n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
         max_possible_n+=2;
 
-        x=Math.floor(x/1.5);
-        y=Math.floor(y/1.5);
+        x=Math.floor(x/3);
+        y=Math.floor(y/3);
 
         var xy = Math.xyRotate(x,y,57);
 
@@ -235,22 +235,24 @@ MapGenerator.terrainColor = function(terrain){
 MapGenerator.terrains=[
 	[ 0 , -1 , '000000'] ,  //temnota
     [ 5 , 5 , '878787'],   //kamení
-    [ 8 , 10 , '2A7302'] ,  //tráva(normal)
+    [ 7 , 7 , 'EFF7FB'] ,  //sníh/led
+    [ 3 , 9 , 'EFF7FB'] ,  //sníh/led
+    [12 , 11 , '8ABC02'] ,  //tráva(jaro)
     [ 9 , 12 , '51F311'] ,  //tráva(toxic)
     [ 4 , 14 , 'F9F98D'] ,  //písek
-	[11 , 37 , '337EFA'] ,  //řeka
-	[ 4 , 40 , 'F9F98D'] ,  //písek
-	[ 9 , 47 , '51F311'] ,  //tráva(toxic)
-	[12 , 55 , '8ABC02'] ,  //tráva(jaro)
-    [ 8 , 57 , '2A7302'] ,  //tráva(normal)
-    [10 , 58 , '535805'] ,  //les
-	[ 8 , 62 , '2A7302'] ,  //tráva(normal)
+	[11 , 29 , '337EFA'] ,  //řeka
+    [1 , 30 , '337EFA'] ,  //moře
+    [11 , 39 , '337EFA'] ,  //řeka
+	[ 4 , 42 , 'F9F98D'] ,  //písek
+	[ 9 , 49 , '51F311'] ,  //tráva(toxic)
+	[12 , 57 , '8ABC02'] ,  //tráva(jaro)
+    [ 8 , 59 , '2A7302'] ,  //tráva(normal)
+    [10 , 60 , '535805'] ,  //les
+	[ 8 , 34 , '2A7302'] ,  //tráva(normal)
     [10 , 68 , '535805'] ,  //les
-	[13 , 80 , '8A9002'] ,  //tráva(pozim)
-    [ 6 , 82 , '5A2F00'] ,  //hlína
-	[ 5 , 85 , '878787'],   //kamení
-    [ 3 , 93 , 'EFF7FB'],   //sníh/led
-    [12 , 100 , '8ABC02'] ,  //tráva(jaro)
+	[13 , 73 , '8A9002'] ,  //tráva(pozim)
+    [ 4 , 87 , 'F9F98D'] ,  //písek
+    [ 6 , 100 , '5A2F00']   //hlína
 
 
 	/*[10 , 40 , '535805'] ,  //les
