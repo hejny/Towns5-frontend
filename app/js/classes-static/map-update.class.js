@@ -117,7 +117,7 @@ Map.updateMap = function(ms){
 
         //console.log('loadMap');
         if(isNaN(map_size))throw 'map_size is NaN after updateMap and before loadMap';
-        Map.loadMap();
+        Map.loadMapAsync();
 
     }
 
@@ -150,7 +150,7 @@ Map.updateMap = function(ms){
 //======================================================================================================================
 
 
-Map.mapMove = function(deltaX,deltaY) {
+Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
     //----------------
 
@@ -189,6 +189,13 @@ Map.mapMove = function(deltaX,deltaY) {
 
     $('.moving-object').css( 'left', '+='+deltaX );
     $('.moving-object').css( 'top', '+='+deltaY );
+
+
+    if(autoUpdate){
+        if(Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
+            Map.updateMap();
+        }
+    }
 
 
 };

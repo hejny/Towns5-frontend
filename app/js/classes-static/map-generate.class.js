@@ -25,6 +25,16 @@ MapGenerator.getZ = function(x,y){
         max_possible_n=0;
 
 
+    x=x+1*Math.sin(y);
+    y=y+1*Math.sin(x);
+
+
+    //x=Math.floor(x/2.6);
+    //y=Math.floor(y/2.6);
+    //x=Math.floor(x/4);
+    //y=Math.floor(y/4);
+
+
     for(var i= 0;i<19;i++){
 
 
