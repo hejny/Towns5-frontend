@@ -83,16 +83,9 @@ $(function() {
     map_buffer_ctx = map_buffer.getContext('2d');
 
 
-    //----------------------------------------------------------------window sizw
+    //----------------------------------------------------------------window size
 
-
-    $('#map_bg').attr('width',$(document).width()*3);
-    $('#map_bg').attr('height',$(document).height()*3);
-
-
-    canvas_width=map_bg.width;
-    canvas_height=map_bg.height;
-
+    canvasResize();
 
     //----------------------------------------------------------------Podklad
 

@@ -20,8 +20,8 @@ Map.drawMap = function(){
 
     //----------------Move canvas
 
-    $('#map_bg').css('left', -canvas_width / 3);
-    $('#map_bg').css('top', -canvas_height / 3);
+    $('#map_bg').css('left', canvas_left);
+    $('#map_bg').css('top', canvas_top);
 
     //----------------Prepare objects
 

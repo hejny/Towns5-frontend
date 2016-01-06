@@ -21,8 +21,16 @@ var selecting_distance_canvas_ctx;
 
 //-------------------------
 
+//------------TMP values
+
 var canvas_width;
 var canvas_height;
+
+var canvas_left;
+var canvas_top;
+
+var window_width;
+var window_height;
 
 //------------
 
@@ -31,8 +39,9 @@ var map_loaded=false;
 //----
 
 
+var map_canvas_size=2;
 var map_zoom=-3;
-var map_rotation=Math.random()*360;
+//var map_rotation=Math.random()*360;
 var map_slope=27;
 
 

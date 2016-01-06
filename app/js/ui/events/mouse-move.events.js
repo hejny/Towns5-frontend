@@ -106,7 +106,7 @@ $(function(){
         if(e.clientX<BorderMoveRegion){
             BorderMoveX=BorderMoveSpeed;//r('set borders');
         }else
-        if(e.clientX>(canvas_width/3)-BorderMoveRegion){
+        if(e.clientX>window_width-BorderMoveRegion){
             BorderMoveX=-BorderMoveSpeed;//r('set borders');
         }else{
             BorderMoveX=0;
@@ -117,7 +117,7 @@ $(function(){
         if(e.clientY<BorderMoveRegion){
             BorderMoveY=BorderMoveSpeed;//r('set borders');
         }else
-        if(e.clientY>(canvas_height/3)-BorderMoveRegion){
+        if(e.clientY>window_height-BorderMoveRegion){
             BorderMoveY=-BorderMoveSpeed;//r('set borders');
         }else{
             BorderMoveY=0;
@@ -146,8 +146,8 @@ $(function(){
                     //r('preview');
 
 
-                    var map_click_x=(e.clientX-(canvas_width / 3/2));
-                    var map_click_y=(e.clientY-(canvas_height / 3/2));
+                    var map_click_x=(e.clientX-(window_width/2));
+                    var map_click_y=(e.clientY-(window_height/2));
                     var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                     building.x=mapPos.x;

@@ -86,10 +86,6 @@ function buildingUpdate(object){
 
             $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
             $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
-            /*$('#selecting-distance').scss('left', screen_position.x+(canvas_width / 3/2));
-            $('#selecting-distance').scss('top', screen_position.y+(canvas_height / 3/2));*/
-
-
 
             tmpModel.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],-map_rotation,map_slope,false,true);
 
