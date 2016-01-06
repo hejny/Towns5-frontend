@@ -73,3 +73,21 @@ projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj
 
 
 
+
+block_delete: Smazat blok
+block_duplicate: Duplikovat blok
+block_name_placeholder: Jméno bloku
+block_shape: Tvar
+block_shape_n: Počet stran podstav
+block_shape_top: Velikost horní podstavy
+block_shape_bottom: Velikost dolní podstavy
+block_skew: Zkosení
+block_skew_z_x: X
+block_skew_z_y: Y
+block_size: Velikost
+block_size_x: X
+block_size_y: Y
+block_size_z: Z
+block_rotation: Otočení
+block_rotation_xy: XY
+block_rotation_xz: XZ
