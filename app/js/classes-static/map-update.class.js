@@ -183,7 +183,7 @@ Map.mapMove = function(deltaX,deltaY) {
     map_bg_x += deltaX;
     map_bg_y += deltaY;
 
-    $('#map_bg').css('left', map_bg_x);
+    $('#map_bg').css('left', map_bg_x);//faster than +=
     $('#map_bg').css('top', map_bg_y);
 
 

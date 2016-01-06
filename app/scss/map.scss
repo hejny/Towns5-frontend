@@ -22,7 +22,30 @@
   width: 100vw;
   height: 100vh;
   z-index:3000;
-  /*border: 2px dashed #FF0000;*/
+
+  @if($debug_lines){
+    border: 2px dashed #FF0000;
+    background-color: rgba(0, 166, 153, 0.20);
+  }
+
+
+}
+
+
+#map_bg{
+
+  @if($debug_lines){
+    border: 2px dashed #e255ff;
+  }
+
+  @if($night){//todo create night mode
+    filter: brightness(0.2);
+    -moz-filter: brightness(0.2);
+    -webkit-filter: brightness(0.2);
+    filter: grayscale(100%);
+    filter: contrast(120%)
+  }
+
 }
 
 #loadbar_outer{
