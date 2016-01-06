@@ -28,7 +28,7 @@ Pages.locale_write.openJS = function(){
 
     $('#locale-write-iframe').attr('src',url);
 
-    $('#locale-write-count').val('0');
+    $('#locale-write-count').html('0');
 
 
 

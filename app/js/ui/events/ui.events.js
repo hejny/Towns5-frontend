@@ -88,15 +88,23 @@ window.uiScript = function(){
         var content=$(this).attr('content');
         var title=$(this).attr('popup_title');
 
-        if(title!='' && content!='') {
+        if(is(title) || is(content)) {
 
-            content='<h2>'+title+'</h2><p>'+content+'</p>';
+            var html='';
+
+            if(is(title))
+            html+='<h2>'+title+'</h2>';
+
+            if(is(content))
+            html+='<p>'+content+'</p>';
 
             var offset=$(this).offset();
 
             $('#popup-action').css('top',offset.top);
-            $('#popup-action .content').html(content);
+            $('#popup-action .content').html(html);
+
             $('#popup-action').stop();
+            $('#popup-action').css('opacity',1);
             $('#popup-action').show();
 
 
