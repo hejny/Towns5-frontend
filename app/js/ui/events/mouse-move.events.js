@@ -71,7 +71,7 @@ $(function(){
                 if(BorderMoveDelay_<0){
 
                     r('border moving');
-                    Map.mapMove(BorderMoveX,BorderMoveY);
+                    Map.mapMove(BorderMoveX,BorderMoveY,true);
                     BorderMoveQ=true;
                 }
 

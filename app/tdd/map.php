@@ -1,18 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>TDD Map</title>
+<?php
 
-    <script src="/app/lib/jquery-1.11.3.js"></script>
-    <script src="/app/lib/jquery-ui.js"></script>
-
-    <script src="../js/func.lib.js"></script>
-
-
-    <script src="../js/map.lib.js"></script>
-</head>
-<body>
+    $title='map';
+    require('init.php');
+?>
 
 
 <canvas id="a" width="300" height="300"></canvas>
@@ -45,7 +35,7 @@
 
 
 
-    var map=getMap(-150,150,300,false);
+    var map=MapGenerator.getMap(-150,150,300,false);
 
     r(map);
 
@@ -62,7 +52,7 @@
 
     //--------------------
 
-    var map=getMap(123456,-1234,300,false);
+    var map=MapGenerator.getMap(123456,-1234,300,false);
     ArrayFunctions.iterate2D(map[1],function(y,x){
         ctx2.fillStyle = MapGenerator.terrainColor(map[1][y][x]);
         ctx2.fillRect (x, y,x+size, y+size);
@@ -72,7 +62,7 @@
     var map_x=(Math.random()-0.5)*1000000;
     var map_y=(Math.random()-0.5)*1000000;
 
-    var map=getMap(map_x,map_y,600,false);
+    var map=MapGenerator.getMap(map_x,map_y,600,false);
     ArrayFunctions.iterate2D(map[1],function(y,x){
         ctx3.fillStyle = MapGenerator.terrainColor(map[1][y][x]);
         ctx3.fillRect (x, y,x+size, y+size);
