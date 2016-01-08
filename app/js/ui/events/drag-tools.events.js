@@ -90,20 +90,48 @@ $(function(){
 
     var mouseDown=function (e) {
 
+        r('mouseDown');
+
         if (building == false)return;
-        if (building.subtype!='wall')return;
+        if (building.subtype!='wall'){
 
 
-        buildingByDraggingRange = building.design.data.range('x')/100*2;//todo better
+            var map_click_x=(e.clientX-(window_width/2));
+            var map_click_y=(e.clientY-(window_height/2));
 
 
-        buildingByDraggingPath=[];
-        mouseMove(e);
 
-        bufferDrawStartCtl();
-        $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStartCtl
-        requestAnimationFrame(buildingLoop);
+            var forceJoiningMapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
+
+            var building_test=deepCopyObject(building);
+            building_test.x = forceJoiningMapPos.x;
+            building_test.y = forceJoiningMapPos.y;
+
+            forceJoining=createNewOrJoin(building_test);
+
+            if(forceJoining!=false){
+                map_selected_ids=[forceJoining.id];
+                //Map.drawMapAsync();
+            }
+
+
+
+        }else{
+
+
+            buildingByDraggingRange = building.design.data.range('x')/100*2;//todo better
+
+
+            buildingByDraggingPath=[];
+            mouseMove(e);
+
+            bufferDrawStartCtl();
+            $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStartCtl
+            requestAnimationFrame(buildingLoop);
+
+
+        }
 
     };
 
