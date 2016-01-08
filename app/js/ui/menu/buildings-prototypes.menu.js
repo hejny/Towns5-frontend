@@ -9,13 +9,17 @@
 
 //todo refactor all names unique to object_prototypes
 //======================================================================================================================buildingStart
-//BUILDING
 
+var forceJoining=false;
+
+
+//BUILDING
 function buildingStart(object){
 
     mapSpecialCursorStart();
 
     building=deepCopyObject(object);
+    forceJoining=false;
 
     selecting_size={x: 300,y: 700};
     selecting_offset={x: 150,y: 650};
@@ -50,14 +54,18 @@ function buildingStart(object){
 //---------------------------------------------------------------
 
 
-function buildingUpdate(object){
+function buildingUpdate(object) {
 
     //r('buildingUpdate');
 
-    selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,selecting_size.x , selecting_size.y );
+    selecting_distance_canvas_ctx.clearRect(0, 0, selecting_size.x, selecting_size.y);
+
 
 
     var join=createNewOrJoin(building);
+
+
+
     if(join===false){
         //------------------------------------------------------------Normal building
 

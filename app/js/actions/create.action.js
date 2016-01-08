@@ -123,6 +123,7 @@ function createNewOrJoin(object){
 
         return {
             'i': distances[0].i,
+            'id': map_object_changes[distances[0].i].id,
             'xy': xy
         };
 
@@ -144,7 +145,33 @@ function createNewOrJoin(object){
 function createBuilding(object,nojoin=false){
 
 
-    var join = createNewOrJoin(object);
+    if(forceJoining==false){
+        var join=createNewOrJoin(object);
+    }else{
+
+
+        var join=forceJoining;
+
+        var joiningObject=ArrayFunctions.id2item(map_object_changes,join.id);
+
+
+        join.xy
+            =
+            Math.xyRotate(
+
+                (object.x-joiningObject.x)*100/map_model_size,
+                (object.y-joiningObject.y)*100/map_model_size,
+
+                45);
+
+
+        //join.xy.x=object.x-joiningObject.x;
+        //join.xy.y=object.y-joiningObject.y;
+
+    }
+
+    forceJoining=false;
+
 
     if(join===false) {
         //------------------------------------------------------------Normal building
