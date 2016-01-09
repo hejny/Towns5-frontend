@@ -28,11 +28,11 @@ TownsAPI.prototype.query = function(uri,method,data,callback){
     var request = $.ajax({
         type: method,
         url: this.url+uri,
-        crossDomain: true,
+        //crossDomain: true,
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify(data),
         dataType: 'json',
-        timeout: 1000
+        timeout: 7000
     });
 
     r('sended');

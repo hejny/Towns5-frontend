@@ -50,7 +50,10 @@ function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
 
         townsAPI.post('objects',object,function(response){
 
-            r('saved',response);
+            object.id=response.objectId;
+            r('object was send to server',object);
+
+
         });
 
 
