@@ -39,17 +39,38 @@ Map.loadMap = function(){
 
             res.forEach(function(serverObject){
 
-                if(['building','story'].indexOf(serverObject.type)!=-1){
+                if(['building','story'].indexOf(serverObject.type)!=-1){//todo here should be all type of objects - terrain
 
-                    map_data.push(deepCopyObject(serverObject));//todo init object
+                    var serverObjectCopy=deepCopyObject(serverObject);//todo init object
+
+
+                    serverObjectCopy.id=serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
+
+
+                    //todo in map_object_changes should be all changes - terrain
+                    var i=ArrayFunctions.id2i(map_object_changes,serverObjectCopy.id);
+                    //r('server object',i,serverObjectCopy);
+
+                    if(i!=-1){
+                        //-------------Existing object
+                        map_object_changes[i]=serverObjectCopy;//todo map object changes refactor to objects internal
+                        //-------------
+                    }else{
+                        //-------------New object
+
+                        map_object_changes.push(serverObjectCopy);
+
+                        //-------------
+                    }
+
 
                 }
 
             });
 
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects//todo rename this notice
 
-            map_data=map_data.concat(map_object_changes);
+            map_data=map_data.concat(map_object_changes);//todo delete map_data use only map_object_changes refactored to objects internal
             //map_data=map_data.concat(map_object_changes_buffer);
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Terrains
