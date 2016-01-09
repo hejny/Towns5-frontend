@@ -12,6 +12,14 @@ TownsAPI=function(url=''){
 
 //======================================================================================================================
 
+/**
+ * @private
+ * @param uri
+ * @param method
+ * @param data
+ * @param callback
+ * @returns {object} jQuery $.ajax
+ */
 TownsAPI.prototype.query = function(uri,method,data,callback){
 
     r(this.url+uri);
@@ -55,8 +63,23 @@ TownsAPI.prototype.query = function(uri,method,data,callback){
 
 //=================================================
 
-TownsAPI.prototype.get = function(uri,data,callback){this.query(uri,'GET',data,callback);};
-TownsAPI.prototype.post = function(uri,data,callback){this.query(uri,'POST',data,callback);};
+/**
+ *
+ * @param uri
+ * @param data
+ * @param callback
+ * @returns {object} jQuery $.ajax
+ */
+TownsAPI.prototype.get = function(uri,data,callback){return this.query(uri,'GET',data,callback);};
+
+/**
+ *
+ * @param uri
+ * @param data
+ * @param callback
+ * @returns {object} jQuery $.ajax
+ */
+TownsAPI.prototype.post = function(uri,data,callback){return this.query(uri,'POST',data,callback);};
 
 
 
