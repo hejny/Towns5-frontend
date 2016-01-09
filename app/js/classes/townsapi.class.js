@@ -1,126 +1,62 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Towns API Wrapper, Only temporary file
+ * @fileOverview Towns API Wrapper
  */
 //======================================================================================================================token
 
+TownsAPI=function(url=''){
 
-//todo refactor as class
+    this.url=url;
 
-
-function townsApiEscape(query){
-
-    //----------------------Následující escapování se dá udělat výrazně elegantněji, tohle by ale mělo fungovat i ve starších verzích PHP
-    var separator='';
-    var i,l;
-    for(i=0,l=query.length;i<l;i++){
-
-        if(query[i] instanceof Array){
-
-            for(ii=0,ll=query[i].length;ii<ll;ii++){
-
-                query[i][ii]=query[i][ii].split('\\').join('\\\\');
-                query[i][ii]=query[i][ii].split(',').join('\\,');
-            }
-
-            query[i]=query[i].join(',');
-
-        }
-
-        query[i]=query[i].split('\\').join('\\\\');
-        query[i]=query[i].split(',').join('\\,');
-
-    }
-    //r(query);
-    query=query.join(',');
-    //----------------------
-
-    return(query);
-
-}
-
+};
 
 //======================================================================================================================
 
-function townsApi(query,callback){
-    //r('townsApi');
+TownsAPI.prototype.query = function(uri,method,data,callback){
 
-    //output=json - Některé funkce např ad nebo Model vrací přímo obrázek. Pokud je v GET parametrech output=json je místo toho vrácen json s klíčem url na daný obrázek.
-
-
-
-    query=townsApiEscape(query);
-
-    //r(query);
-
-    var response;
+    r(this.url+uri);
+    r(data);
 
     var request = $.ajax({
-        type: 'POST',
-        url: townsApiUrl,
-        data: {q:query},
-        dataType: 'jsonp',
-        timeout: 4000000
+        type: method,
+        url: this.url+uri,
+        crossDomain: true,
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        timeout: 1000
     });
 
+    r('sended');
 
 
-    request.done(function( data ){
-        //r('done');
-        //r(data);
-        callback(data);
+
+    request.done(function( response ){
+        r('success');
+        callback(response);
     });
 
 
     request.fail(function( jqXHR, textStatus ) {
         r('error');
-        //r(data);
+        throw new Error(textStatus);
+
     });
 
+
+    r('sended');
     //----------------------
 
     return(request);
-}
-
-//======================================================================================================================
-
-function townsApiMulti(querys,callback){
-
-    var response,data={};
-
-    for(var i= 0,l=querys.length;i<l;i++){
-        data['q'+(i+1)]=townsApiEscape(querys[i]);
-    }
 
 
-
-    var request = $.ajax({
-        type: 'POST',
-        url: townsApiUrl,
-        data: data,
-        dataType: 'jsonp',
-        timeout: 4000000
-    });
+};
 
 
+//=================================================
 
-    request.done(function( data ){
-        //r('done');
-        //r(data);
-        callback(data);
-    });
+TownsAPI.prototype.get = function(uri,data,callback){this.query(uri,'GET',data,callback);};
+TownsAPI.prototype.post = function(uri,data,callback){this.query(uri,'POST',data,callback);};
 
-
-    request.fail(function( jqXHR, textStatus ) {
-        r('error');
-        //r(data);
-    });
-
-    //----------------------
-
-    return(request);
-}
-
-//======================================================================================================================
 
 

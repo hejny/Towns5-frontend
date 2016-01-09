@@ -48,6 +48,12 @@ function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
         saveMapObjectChangesToStorage();
 
 
+        townsAPI.post('objects',object,function(response){
+
+            r('saved',response);
+        });
+
+
         trackEvent('functions','create',object.name);
 
     }else{
