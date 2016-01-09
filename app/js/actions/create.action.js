@@ -41,20 +41,24 @@ function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
 
 
 
+    //---------------------------------------Sending objects to TownsAPI
+
+
+    townsAPI.post('objects',object,function(response){
+
+        object.id=response.objectId;
+        r('object was send to server',object);
+
+
+    });
+
+
     //---------------------------------------Save objects to local storage
     if(!nosave){
 
         r('saving objects');
         saveMapObjectChangesToStorage();
 
-
-        townsAPI.post('objects',object,function(response){
-
-            object.id=response.objectId;
-            r('object was send to server',object);
-
-
-        });
 
 
         trackEvent('functions','create',object.name);
