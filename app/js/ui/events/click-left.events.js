@@ -87,6 +87,17 @@ $(function(){
 
                             //r('splicing '+i);
 
+                            //todo refactor use here action dismantle
+
+                            //---------------------------------------Sending to TownsAPI
+
+                            townsAPI.delete('objects/'+map_object_changes[i].id,function(response){
+
+                                r('object '+map_object_changes[i].id+' was deleted in server');
+
+                            });
+                            //---------------------------------------
+
                             map_object_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
 
                         }
