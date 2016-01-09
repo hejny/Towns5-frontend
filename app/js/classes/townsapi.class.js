@@ -40,7 +40,6 @@ TownsAPI.prototype.query = function(uri,method,data,callback){
 
 
     request.done(function( response ){
-        r('success');
         callback(response);
     });
 
@@ -81,5 +80,12 @@ TownsAPI.prototype.get = function(uri,data,callback){return this.query(uri,'GET'
  */
 TownsAPI.prototype.post = function(uri,data,callback){return this.query(uri,'POST',data,callback);};
 
+/**
+ *
+ * @param uri
+ * @param callback
+ * @returns {Object}
+ */
+TownsAPI.prototype.delete = function(uri,callback){return this.query(uri,'DELETE',{},callback);};
 
 
