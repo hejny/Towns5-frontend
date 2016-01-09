@@ -5,6 +5,9 @@
 //======================================================================================================================
 //CONSTANTS
 
+var TOWNS_API_URL='http://localhost:3000/';
+
+
 var IMMEDIATELY_MS = 100;
 var MESSAGE_MS = 2000;
 //todo collect all constants and put it here
