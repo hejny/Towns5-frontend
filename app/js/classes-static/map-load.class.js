@@ -7,7 +7,7 @@
 
 
 //todo refactor this should not be here
-var map_request_holder;
+var map_request_callback;
 
 
 Map.loadMap = function(){
@@ -26,18 +26,27 @@ Map.loadMap = function(){
     var tmp=Math.round(map_size/2)-2;
 
 
-    /*if(typeof map_request_holder!=='undefined')
-        map_request_holder.abort();*/
+    /*if(typeof map_request_callback!=='undefined')
+        map_request_callback.abort();*/
 
-    map_request_holder=function(res){
+    map_request_callback=function(res){
 
             r('Loaded from Towns API');
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Objects
-            if(res.length>0)
-                map_data=res[0]['objects'];
-            else
-                map_data=[];
+
+            map_data=[];
+
+            res.forEach(function(serverObject){
+
+                if(['building','story'].indexOf(serverObject.type)!=-1){
+
+                    map_data.push(deepCopyObject(serverObject));//todo init object
+
+                }
+
+            });
+
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Local Objects
 
             map_data=map_data.concat(map_object_changes);
@@ -45,6 +54,7 @@ Map.loadMap = function(){
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Server Terrains
 
+            /*r(res);*/
             /*var map_data_terrain=res[1]['objects'];
 
              for(var i= 0, l=map_data_terrain.length;i<l;i++){
@@ -193,23 +203,32 @@ Map.loadMap = function(){
 
         ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
-                if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
+            if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
 
-            });
+        });
 
-            //~~~~~~~~~~~~~
-
-
-            //mapWindow(map_collision_data);
+        //~~~~~~~~~~~~~
 
 
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        //mapWindow(map_collision_data);
 
-            r('Executing drawMap');
-            Map.drawMap();
 
-        };
-    map_request_holder([]);
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        r('Executing drawMap');
+        Map.drawMap();
+
+    };
+
+
+    townsAPI.get(
+        'objects',
+        {},
+        map_request_callback
+    );
+
+
+    map_request_callback([]);
 
 
 
