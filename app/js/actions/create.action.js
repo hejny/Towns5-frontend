@@ -17,8 +17,7 @@ function generateID(){
 //todo create Static object Actions
 
 
-function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
-    if(typeof nosave =='undefined')nosave=false;
+function create(object,nosave=false,nojoin=false){//todo maybe refactor rename
 
     if(!nosave)//todo sounds ion.sound.play("door_bump");
 
