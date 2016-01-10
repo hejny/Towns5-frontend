@@ -26,7 +26,7 @@ object_prototypes.push({
                 {
                     shape:{
                         type: 'prism',
-                        n:4,
+                        n:4
                     },
                     color: "#cccccc",
                     position: {x:0,y:0,z:0},

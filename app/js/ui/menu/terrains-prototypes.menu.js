@@ -42,13 +42,19 @@ function terrainNeutralizeStop(){
 //======================================================================================================================objectMenuTerrainChange
 //CHANGE
 
-function terrainChangeStart(terrain){
+function terrainChangeStart(terrain){//todo here should be prototype id
 
     mapSpecialCursorStart();
 
     updateSelectingDistance();
 
-    terrainChanging=terrain;
+    terrainChanging={
+        "type": "terrain",
+        "design": {
+            "type": "terrain",
+            "data": terrain
+        }
+    };
 
     //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
     if(blockedTerrains.indexOf(terrainChanging)!=-1){
@@ -57,7 +63,7 @@ function terrainChangeStart(terrain){
     //----------------------------
 
     //if(terrain_change){
-    $('#selecting-distance-ctl').css('background','url(\''+appDir+'/php/terrain.php?raw&size=200&terrain=t'+(terrainChanging)+'\')');
+    $('#selecting-distance-ctl').css('background','url(\''+appDir+'/php/terrain.php?raw&size=200&terrain=t'+(terrain)+'\')');
     $('#selecting-distance-ctl').css('background-size','cover');
     //}
 

@@ -66,7 +66,7 @@
     "app/js/ui/menu/story.menu.js",
     "app/js/ui/menu/object.menu.js",
     "app/js/ui/menu/buildings-prototypes.menu.js",
-    "app/js/ui/menu/terrain.menu.js",
+    "app/js/ui/menu/terrains-prototypes.menu.js",
 
 
 
@@ -82,11 +82,9 @@
 
 
 
-
     "app/js/actions/create.action.js",
     "app/js/actions/dismantle.action.js",
     "app/js/actions/login.action.js",
-    "app/js/actions/terrain.action.js",
 
 
     "app/js/inits/main.init.js",
