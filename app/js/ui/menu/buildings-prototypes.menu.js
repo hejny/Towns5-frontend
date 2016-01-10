@@ -14,7 +14,7 @@ var forceJoining=false;
 
 
 //BUILDING
-function buildingStart(object){
+function buildingStart(object){//todo here should be prototype id
 
     mapSpecialCursorStart();
 

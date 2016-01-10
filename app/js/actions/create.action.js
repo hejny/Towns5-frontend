@@ -35,8 +35,11 @@ function create(object,nojoin=false,nosave=false){//todo maybe refactor rename
 
     var updatedID=false;
 
+    if(object.type=='terrain'){updatedID=createTerrain(object);}else
     if(object.type=='building'){updatedID=createBuilding(object,nojoin);}else
     if(object.type=='story'){updatedID=createStory(object);}else
+
+
     {throw 'Unknown object type';}
 
 
@@ -91,26 +94,26 @@ function createNewOrJoin(object){
 
 
     for (var i = 0,l=map_object_changes.length; i < l; i++){
+        if(map_object_changes[i].type=='building'){
 
-        var bothDistances=0;
+            var bothDistances=0;
 
-        bothDistances+=map_object_changes[i].design.data.range('xy');
-        bothDistances+=object.design.data.range('xy');
+            bothDistances+=map_object_changes[i].design.data.range('xy');
+            bothDistances+=object.design.data.range('xy');
 
-        bothDistances=bothDistances/2/100;//todo better
-
-
-        if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<bothDistances*map_model_size){
+            bothDistances=bothDistances/2/100;//todo better
 
 
-            distances.push({i: i,distance: distance});
-            //map_object_changes.slice(i,1);
-            //i--;l--;
+            if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<bothDistances*map_model_size){
 
 
+                distances.push({i: i,distance: distance});
+                //map_object_changes.slice(i,1);
+                //i--;l--;
+
+
+            }
         }
-
-
     }
 
 
@@ -152,8 +155,20 @@ function createNewOrJoin(object){
 
 
 
-//======================================================================================================================
+//==========================================================createTerrain
 
+
+function createTerrain(object){//todo maybe create other
+
+    object.id=generateID();
+    map_object_changes.push(deepCopyObject(object));
+
+    return(object.id);
+
+}
+
+
+//==========================================================createStory
 
 function createBuilding(object,nojoin=false){
 
@@ -239,8 +254,10 @@ function createBuilding(object,nojoin=false){
 
 }
 
-//======================================================================================================================
 
+
+
+//==========================================================createStory
 
 function createStory(object){
 
@@ -253,7 +270,7 @@ function createStory(object){
 
 
 //======================================================================================================================
-
+//==========================================================definePrototype
 
 //todo where this function should be?
 function definePrototype(objectReference,forceSubtype){

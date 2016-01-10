@@ -133,7 +133,12 @@ $(function(){
 
                         if (Math.xy2dist(x - mapPos.x, y - mapPos.y) <= selecting_distance_fields) {
 
-                            map_terrain_changes.push([x, y, terrainChanging]);
+                            terrainChanging.x=x;
+                            terrainChanging.y=y;
+                            create(terrainChanging);
+
+
+                            //map_terrain_changes.push([x, y, terrainChanging]);
                         }
                     }
                 }
