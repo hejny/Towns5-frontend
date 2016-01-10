@@ -127,23 +127,13 @@ $(function(){
 
                 mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
-                for(var y=Math.round(mapPos.y-selecting_distance_fields);y<=Math.round(mapPos.y+selecting_distance_fields);y++){
 
-                    for(var x=Math.round(mapPos.x-selecting_distance_fields);x<=Math.round(mapPos.x+selecting_distance_fields);x++) {
+                terrainChanging.design.data.size=selecting_distance_fields;
+                terrainChanging.x=mapPos.x;
+                terrainChanging.y=mapPos.y;
+                create(terrainChanging);
 
-                        if (Math.xy2dist(x - mapPos.x, y - mapPos.y) <= selecting_distance_fields) {
-
-                            terrainChanging.x=x;
-                            terrainChanging.y=y;
-                            create(terrainChanging,true);
-
-
-                            //map_terrain_changes.push([x, y, terrainChanging]);
-                        }
-                    }
-                }
-
-                saveMapObjectChangesToStorage();
+                //saveMapObjectChangesToStorage();
                 Map.loadMap();
 
 

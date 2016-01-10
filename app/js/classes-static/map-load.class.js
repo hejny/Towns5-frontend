@@ -79,22 +79,38 @@ Map.loadMap = function(){
 
             }else{
 
-                var x=object.x,
-                    y=object.y;
+                var xc=object.x,//center
+                    yc=object.y,
+                    size=Math.ceil(object.design.data.size);
 
-                x=x-Math.round(map_x)+Math.floor(map_size/2);
-                y=y-Math.round(map_y)+Math.floor(map_size/2);
+                xc=xc-Math.round(map_x)+Math.floor(map_size/2);
+                yc=yc-Math.round(map_y)+Math.floor(map_size/2);
 
 
                 if(
-                    x<0 ||
-                    y<0 ||
-                    x>=map_size ||
-                    y>=map_size
+                    xc<0 ||
+                    yc<0 ||
+                    xc>=map_size ||
+                    yc>=map_size
 
                 ){}else{
 
-                    map_bg_data[y][x]=object.design.data;
+
+                    //r(xc,yc,size);
+
+                    for(var y=yc-size;y<=yc+size;y++){
+
+                        for(var x=xc-size;x<=xc+size;x++){
+
+                            if (Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
+
+                                //r(x,y);
+                                map_bg_data[Math.round(y)][Math.round(x)]=object.design.data.image;
+
+                            }
+                        }
+                    }
+
 
                 }
 
@@ -197,7 +213,7 @@ Map.loadMap = function(){
 
     townsAPI.get(
         'objects',
-        {},
+        {},//todo range and order by time
         map_request_callback
     );
 
