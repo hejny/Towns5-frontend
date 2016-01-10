@@ -52,7 +52,10 @@ function terrainChangeStart(terrain){//todo here should be prototype id
         "type": "terrain",
         "design": {
             "type": "terrain",
-            "data": terrain
+            "data": {
+                "image": terrain,
+                "size": 1//todo maybe this (terrains and buildings) should be radius
+            }
         }
     };
 
