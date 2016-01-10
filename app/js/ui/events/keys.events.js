@@ -51,6 +51,14 @@ $(function(){
             if ($.inArray(e.which, keys) == -1) {
                 keys.push(e.which);
 
+                if(typeof releaseKeyTimeout!='undefined')
+                    clearTimeout(releaseKeyTimeout);
+
+                releaseKeyTimeout=setTimeout(function(){
+                    r('Released all keys');
+                    keys=[];
+                },500);
+
             }
         }
 
@@ -58,7 +66,7 @@ $(function(){
 
     $(document).keyup(function (e) {
 
-        if(focusOnMap()) {
+        //if(focusOnMap()) {
             r('UP', e.which);
 
             var i = $.inArray(e.which, keys);
@@ -68,7 +76,7 @@ $(function(){
                 keys.splice(i, 1);
 
             }
-        }
+        //}
 
     });
 

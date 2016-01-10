@@ -45,8 +45,8 @@ TownsAPI.prototype.query = function(uri,method,data,callback){
 
 
     request.fail(function( jqXHR, textStatus ) {
-        r('error');
-        throw new Error(textStatus);
+        //r('error');
+        //throw new Error(textStatus);
 
     });
 
