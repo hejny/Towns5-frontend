@@ -135,7 +135,7 @@ $(function(){
 
                             terrainChanging.x=x;
                             terrainChanging.y=y;
-                            create(terrainChanging);
+                            create(terrainChanging,true);
 
 
                             //map_terrain_changes.push([x, y, terrainChanging]);
@@ -143,7 +143,7 @@ $(function(){
                     }
                 }
 
-                saveMapTerrainChangesToStorage();
+                saveMapObjectChangesToStorage();
                 Map.loadMap();
 
 

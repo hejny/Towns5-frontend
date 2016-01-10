@@ -5,8 +5,7 @@
 //======================================================================================================================
 
 
-
-function loadMapObjectChanges(json){
+function loadMapObjectChanges(json){//todo refactor rename to localChanges
     try {
         map_object_changes=JSON.parse(json);
 
@@ -27,21 +26,12 @@ function loadMapObjectChanges(json){
 
 //----------------
 
-function saveMapObjectChangesToStorage(){
+function saveMapObjectChangesToStorage(){//todo refactor rename to localChanges
 
     Storage.save('map_object_changes',JSON.stringify(map_object_changes));
 }
 
 //----------------
-
-function saveMapTerrainChangesToStorage(){
-
-    Storage.save('map_terrain_changes',JSON.stringify(map_terrain_changes));
-}
-
-
-//----------------
-
 
 
 loadMapObjectChanges(Storage.load('map_object_changes','[]'));
