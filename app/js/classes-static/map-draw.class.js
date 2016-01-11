@@ -72,7 +72,7 @@ Map.drawMap = function(){
 
 
                     screen_x += (canvas_width / 2);
-                    screen_y += (canvas_height / 2) - (height / 2);
+                    screen_y += (canvas_height / 2)/* - (height / 2)*/;
 
 
                     //------------------------------------------
@@ -150,7 +150,7 @@ Map.drawMap = function(){
 
 
                                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m - 300 / map_slope_n * map_zoom_m;
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m /*- 300 / map_slope_n * map_zoom_m*/;
 
 
                                 object_screen_x += (canvas_width / 2);
@@ -332,12 +332,11 @@ Map.drawMap = function(){
 
         if (map_draw[i][0] == 'image') {//todo is it used?
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~image
-
             try {
                 map_ctx.drawImage(
                     map_draw[i][1],
-                    map_draw[i][2],
-                    map_draw[i][3],
+                    map_draw[i][2]-(map_draw[i][5]/2),
+                    map_draw[i][3]-(map_draw[i][5]/2/map_slope_m),
                     //[4] is order used in sorting
                     map_draw[i][5],
                     map_draw[i][6]
@@ -353,8 +352,8 @@ Map.drawMap = function(){
 
             map_ctx.drawImage(
                 map_draw[i][1],
-                map_draw[i][2],
-                map_draw[i][3],
+                map_draw[i][2]-(map_draw[i][5]/2),
+                map_draw[i][3]-(map_draw[i][6]/2/map_slope_m),
                 //[4] is order used in sorting
                 map_draw[i][5],
                 map_draw[i][6]
