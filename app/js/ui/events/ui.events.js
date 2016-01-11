@@ -239,13 +239,13 @@ window.uiScript = function(){
 
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.design.data.rotation-=10;
+        building.design.data.rotation+=10;
         buildingUpdate();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.design.data.rotation+=10;
+        building.design.data.rotation-=10;
         buildingUpdate();
     });
 
