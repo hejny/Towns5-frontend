@@ -133,7 +133,9 @@ function createNewOrJoin(object){
 
 
 
-        var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,45);
+        var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,
+            45+2*(map_rotation-45)
+        );
 
 
         return {

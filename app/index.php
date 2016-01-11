@@ -337,8 +337,16 @@ function tidyHTML($buffer) {
 
 
 <div id="color-ctl" style="display: none;">
-
     <div id="selecting-distance-color-box"></div>
+</div>
+
+
+
+<div id="map-ctl">
+    <div id="map-plus" class="mini-button" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="map-minus" class="mini-button" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="map-left" class="mini-button" title="<?=locale('ui tool controls left')?>"><i class="fa fa-undo"></i></i></div>
+    <div id="map-right" class="mini-button" title="<?=locale('ui tool controls right')?>"><i class="fa fa-repeat"></i></i></div>
 </div>
 
 
@@ -430,8 +438,9 @@ function tidyHTML($buffer) {
                 class="fa fa-flag fa-lg faa-shake"></i></li>
         <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i
                 class="fa fa-wrench fa-lg faa-wrench"></i></li>
-        <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"
-            onclick="$(document).toggleFullScreen();"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>
+
+        <!--<li class="menu-list-item menu-list-item-icon faa-parent animated-hover"
+            onclick="$(document).toggleFullScreen();"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>-->
         <!--todo tohle neni ciste reseni js by mel byt mimo html dokumentu v tomhle pripade v ui.js-->
 
 

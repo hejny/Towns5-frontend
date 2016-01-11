@@ -10,37 +10,10 @@
  * @static
  * @param ms @deprecated
  */
-Map.updateMap = function(ms){
+Map.updateMap = function(){
 
     r('updateMap');
-
-
-    if(typeof ms=='undefined'){
-
-
-        var timeLast=time;
-        tmp = new Date();
-        time = (new Date()).getTime();
-        //strict//delete tmp;
-
-        if(timeLast==0){
-            var ms=0;
-            fps=0;
-        }else{
-            var ms=time-timeLast;
-            fps=Math.round(100000/ms)/100;
-
-        }
-
-
-
-    }
-
-    //console.log(ms);
-
-
-    //if(!map_loaded)return
-    if(!ms)ms=1000;
+    var ms=1000;
 
     //----------------
 
@@ -65,7 +38,7 @@ Map.updateMap = function(ms){
     map_y=Math.round(map_y*100)/100;
     map_size=Math.round(map_size);
 
-    //----
+    //----------------bounds
 
     if(map_rotation<0)map_rotation+=360;
     if(map_rotation>360)map_rotation-=360;
@@ -73,7 +46,7 @@ Map.updateMap = function(ms){
     if(map_slope<20)map_slope=20;
     if(map_slope>90)map_slope=90;
 
-    if(map_zoom>-1.5)map_zoom=-1.5;
+    if(map_zoom>1)map_zoom=1;
     if(map_zoom<-4)map_zoom=-4;
 
 
@@ -99,7 +72,7 @@ Map.updateMap = function(ms){
     }
 
 
-    if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || !is(map_size)){
+    if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || map_rotation_delta || !is(map_size)){
 
 
         updateMapLocationHash();

@@ -198,7 +198,7 @@ window.uiScript = function(){
 
     //==================================================================================================================selecting_distance Click
 
-    $('.mini-button').off();
+    $('#selecting-distance-ctl .mini-button').off();
 
 
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance

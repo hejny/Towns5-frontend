@@ -79,6 +79,7 @@
     "app/js/ui/events/click-left.events.js",
     "app/js/ui/events/click-right.events.js",
     "app/js/ui/events/ui.events.js",
+    "app/js/ui/events/map-ctl.events.js",
 
 
 
