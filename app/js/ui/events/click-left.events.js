@@ -125,7 +125,7 @@ $(function(){
                 $('#loading').hide();
 
 
-                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
+                /*mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
 
                 terrainChanging.design.data.size=selecting_distance_fields;
