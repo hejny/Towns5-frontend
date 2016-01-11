@@ -134,7 +134,7 @@ function createNewOrJoin(object){
 
 
         var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,
-            45+2*(map_rotation-45)
+            -45+2*(map_rotation-45)
         );
 
 
@@ -191,7 +191,7 @@ function createBuilding(object,nojoin=false){
                 (object.x-joiningObject.x)*100/map_model_size,
                 (object.y-joiningObject.y)*100/map_model_size,
 
-                45);
+                -45);
 
 
         //join.xy.x=object.x-joiningObject.x;
