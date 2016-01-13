@@ -59,11 +59,11 @@ Pages.story_editor.openJS = function(){
      ''].join('\n');*/
 
 
-    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);
+    var i = ArrayFunctions.id2i(objects_external,map_selected_ids[0]);
     r(map_selected_ids,i);
 
-    $('#story-name').val(map_object_changes[i].name);
-    $('#story-content').val(map_object_changes[i].content.data);
+    $('#story-name').val(objects_external[i].name);
+    $('#story-content').val(objects_external[i].content.data);
 
 
     storyContentReload();
@@ -142,14 +142,14 @@ var storyContentReload = function(){
     $('#story-content-html').html(story_content_html);
     //r(story_name,story_content,story_content_html);
 
-    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo bind editor content + name with i
+    var i = ArrayFunctions.id2i(objects_external,map_selected_ids[0]);//todo bind editor content + name with i
 
-    map_object_changes[i].name = story_name;
-    map_object_changes[i].content.data = story_content;
+    objects_external[i].name = story_name;
+    objects_external[i].content.data = story_content;
 
 
-    saveMapObjectChangesToStorage();
-    r('saved to LS');
+    saveObjectsInternal(objects_external[i]);
+    //r('saved to LS');
 
 };
 

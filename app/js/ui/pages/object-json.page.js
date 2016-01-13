@@ -1,6 +1,6 @@
 /**
  * @author Towns.cz
- * @fileOverview Page shows map_object_changes as raw JSON
+ * @fileOverview Page shows objects_external as raw JSON
  */
 //======================================================================================================================
 
@@ -27,13 +27,13 @@ Pages.object_json.content= `
 Pages.object_json.openJS = function(){
 
 
-    var object=map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])];
+    var object=objects_external[ArrayFunctions.id2i(objects_external,map_selected_ids[0])];//todo loadObject
 
     window_write_header(object.name);
 
     var json;
 
-    //r(map_object_changes);
+    //r(objects_external);
     json=JSON.stringify(object,false,4);
 
     //alert(json);
@@ -44,9 +44,8 @@ Pages.object_json.openJS = function(){
 
 Pages.object_json.closeJS = function() {
 
-    map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])]
-        =
-        deepCopyObject(JSON.parse($('#object_json_textarea').val()));
+
+    saveObject(deepCopyObject(JSON.parse($('#object_json_textarea').val())));
 
 };
 

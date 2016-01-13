@@ -79,32 +79,19 @@ $(function(){
                 $('#loading').hide();
 
 
-                for(var i=map_object_changes.length-1;i>=0;i--){
+                for(var i=objects_external.length-1;i>=0;i--){
 
-                    if(map_object_changes[i].type=='building')
-                    //r(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y),selecting_distance/map_field_size);
-                        if(Math.xy2dist(map_object_changes[i].x-mapPos.x,map_object_changes[i].y-mapPos.y)<=selecting_distance_fields){
+                    if(objects_external[i].type=='building'){
+                        if(Math.xy2dist(objects_external[i].x-mapPos.x,objects_external[i].y-mapPos.y)<=selecting_distance_fields){
 
-                            //r('splicing '+i);
-
-                            //todo refactor use here action dismantle
-
-                            //---------------------------------------Sending to TownsAPI
-
-                            townsAPI.delete('objects/'+map_object_changes[i].id,function(response){
-
-                                r('object '+map_object_changes[i].id+' was deleted in server');
-
-                            });
-                            //---------------------------------------
-
-                            map_object_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
+                            dismantle(objects_external[i].id);
 
                         }
+                    }
 
                 }
 
-                saveMapObjectChangesToStorage();
+
                 Map.loadMap();
 
 
@@ -133,7 +120,7 @@ $(function(){
                 terrainChanging.y=mapPos.y;
                 create(terrainChanging);
 
-                //saveMapObjectChangesToStorage();
+                //saveObjectsInternal();
                 Map.loadMap();
 
 
@@ -214,7 +201,7 @@ $(function(){
 
             //-----------------------------------------Searching for nearest object
 
-            map_object_changes.forEach(function(object){
+            objects_external.forEach(function(object){
 
                 var distance_pow = Math.pow(object.x - mapPos.x, 2) + Math.pow(object.y - mapPos.y, 2);
 

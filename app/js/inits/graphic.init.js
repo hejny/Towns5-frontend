@@ -29,7 +29,7 @@ function imageLoad(){
 
         $('#loadbar').remove();
 
-        var map_object_changes_=map_object_changes;
+        var objects_external_=objects_external;
 
         clearTimeout(imageLoadTimeout);
         imageLoadTimeout=setTimeout(function(){

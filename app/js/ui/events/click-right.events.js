@@ -19,22 +19,22 @@ $(function(){
 
         map_selected_ids.forEach(function(id){
 
-            var i=ArrayFunctions.id2i(map_object_changes,id);
+            var i=ArrayFunctions.id2i(objects_external,id);
 
-            if(Path.is(map_object_changes[i].path)){
-                var position=map_object_changes[i].path.recount();
+            if(Path.is(objects_external[i].path)){
+                var position=objects_external[i].path.recount();
             }else{
-                var position=new Position(map_object_changes[i].x,map_object_changes[i].y);
+                var position=new Position(objects_external[i].x,objects_external[i].y);
             }
 
 
-            map_object_changes[i].x=position.x;
-            map_object_changes[i].y=position.y;
+            objects_external[i].x=position.x;
+            objects_external[i].y=position.y;
 
 
             try {
 
-                map_object_changes[i].path=new Path(position,mapPos,6,map_collision_data,new Position(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2))));
+                objects_external[i].path=new Path(position,mapPos,6,map_collision_data,new Position(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2))));
 
             }catch(error) {
 

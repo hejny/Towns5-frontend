@@ -150,7 +150,7 @@ $(function(){
 
         //------------------------------------------------------
 
-        map_object_changes_buffer=[];
+        objects_external_buffer=[];
 
 
         //r(buildingByDraggingPath);
@@ -227,7 +227,7 @@ $(function(){
 
                 //------
 
-                map_object_changes_buffer.push(tmp);
+                objects_external_buffer.push(tmp);
 
             }
         }
@@ -265,8 +265,11 @@ $(function(){
 
         buildingLoop();
 
-        createMulti(map_object_changes_buffer);
-        map_object_changes_buffer=[];
+        objects_external_buffer.forEach(function(object){
+            create(object);
+        });
+
+        objects_external_buffer=[];
 
 
         buildingByDraggingPath=false;

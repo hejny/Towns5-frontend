@@ -9,10 +9,12 @@
 
 function dismantle(id){
 
-    var i = ArrayFunctions.id2i(map_object_changes,id);
 
-    map_object_changes.splice(i,1);
-    saveMapObjectChangesToStorage();
+    saveObject({
+        id: id,
+        stop_time: true//todo is thare a better solution?
+    });
+
 
 }
 
@@ -21,7 +23,7 @@ function dismantle(id){
 //todo create static class fro actions and UI actions
 function dismantleUI(id){
 
-    if(confirm(Locale.get('dismantle '+ArrayFunctions.id2item(map_object_changes,id).type+' confirm'))){//todo create better confirm
+    if(confirm(Locale.get('dismantle '+ArrayFunctions.id2item(objects_external,id).type+' confirm'))){//todo create better confirm
 
         dismantle(id);
         Map.loadMapAsync();

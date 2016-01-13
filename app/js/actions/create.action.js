@@ -17,9 +17,9 @@ function generateID(){
 //todo create Static object Actions
 
 
-function create(object,nosave=false,nojoin=false){//todo maybe refactor rename
+function create(object,nojoin=false){//todo maybe refactor rename
 
-    if(!nosave)//todo sounds ion.sound.play("door_bump");
+    //todo sounds ion.sound.play("door_bump");
 
     var x=Math.round(object.x);
     var y=Math.round(object.y);
@@ -37,48 +37,17 @@ function create(object,nosave=false,nojoin=false){//todo maybe refactor rename
     if(object.type=='terrain'){updatedID=createTerrain(object);}else
     if(object.type=='building'){updatedID=createBuilding(object,nojoin);}else
     if(object.type=='story'){updatedID=createStory(object);}else
-
-
     {throw 'Unknown object type';}
 
 
 
-    //---------------------------------------Sending objects to TownsAPI
-
-
-    townsAPI.post('objects',object,function(response){
-
-        object.id=response.objectId;
-        r('object was send to server',object);
-
-
-    });
-
-
-    //---------------------------------------Save objects to local storage
-    if(!nosave){
-
-        r('saving objects');
-        saveMapObjectChangesToStorage();
+    trackEvent('functions','create',object.name);
 
 
 
-        trackEvent('functions','create',object.name);
-
-    }else{
-        //r('NO saving objects');
-    }
     //---------------------------------------
 
     return(updatedID);
-
-}
-
-//----------------------------------------------------------------------------------------------------------------------
-
-function createMulti(objects){
-    for (var i = 0,l=objects.length; i < l; i++)
-        create(objects[i],(i==l-1?false:true),(i==l-1?false:true));//todo refactor duplicite
 
 }
 
@@ -92,22 +61,22 @@ function createNewOrJoin(object){
     var distance,distances=[];
 
 
-    for (var i = 0,l=map_object_changes.length; i < l; i++){
-        if(map_object_changes[i].type=='building'){
+    for (var i = 0,l=objects_external.length; i < l; i++){
+        if(objects_external[i].type=='building'){
 
             var bothDistances=0;
 
-            bothDistances+=map_object_changes[i].design.data.range('xy');
+            bothDistances+=objects_external[i].design.data.range('xy');
             bothDistances+=object.design.data.range('xy');
 
             bothDistances=bothDistances/2/100;//todo better
 
 
-            if((distance=Math.xy2dist(map_object_changes[i].x-object.x,map_object_changes[i].y-object.y))<bothDistances*map_model_size){
+            if((distance=Math.xy2dist(objects_external[i].x-object.x,objects_external[i].y-object.y))<bothDistances*map_model_size){
 
 
                 distances.push({i: i,distance: distance});
-                //map_object_changes.slice(i,1);
+                //objects_external.slice(i,1);
                 //i--;l--;
 
 
@@ -133,14 +102,14 @@ function createNewOrJoin(object){
 
 
 
-        var xy=Math.xyRotate((object.x-map_object_changes[distances[0].i].x)*100/map_model_size,(object.y-map_object_changes[distances[0].i].y)*100/map_model_size,
+        var xy=Math.xyRotate((object.x-objects_external[distances[0].i].x)*100/map_model_size,(object.y-objects_external[distances[0].i].y)*100/map_model_size,
             -45+2*(map_rotation-45)
         );
 
 
         return {
             'i': distances[0].i,
-            'id': map_object_changes[distances[0].i].id,
+            'id': objects_external[distances[0].i].id,
             'xy': xy
         };
 
@@ -162,7 +131,7 @@ function createNewOrJoin(object){
 function createTerrain(object){//todo maybe create other
 
     object.id=generateID();
-    map_object_changes.push(deepCopyObject(object));
+    saveObject(deepCopyObject(object));
 
     return(object.id);
 
@@ -181,7 +150,7 @@ function createBuilding(object,nojoin=false){
 
         var join=forceJoining;
 
-        var joiningObject=ArrayFunctions.id2item(map_object_changes,join.id);
+        var joiningObject=ArrayFunctions.id2item(objects_external,join.id);
 
 
         join.xy
@@ -213,7 +182,7 @@ function createBuilding(object,nojoin=false){
         }
 
 
-        map_object_changes.push(object);
+        saveObject(object);
 
         return(object.id);
 
@@ -224,30 +193,30 @@ function createBuilding(object,nojoin=false){
 
         if(nojoin){
 
-            //delete map_object_changes[join.i];
-            //map_object_changes[join.i]=object;
+            //delete objects_external[join.i];
+            //objects_external[join.i]=object;
         }else{
 
 
 
 
-            map_object_changes[join.i].design.data.joinModel(
+            objects_external[join.i].design.data.joinModel(
                         object.design.data,
                         join.xy.x,
                         join.xy.y
                 );
 
 
-            map_object_changes[join.i].subtype='main';
+            objects_external[join.i].subtype='main';
 
 
-            /*delete map_object_changes[distances[0].i].res_node;
-            delete map_object_changes[distances[0].i].res_path;*/
+            /*delete objects_external[distances[0].i].res_node;
+            delete objects_external[distances[0].i].res_path;*/
 
 
         }
 
-        return(map_object_changes[join.i].id);
+        return(objects_external[join.i].id);
 
         //------------------------------------------------------------
 
@@ -263,7 +232,7 @@ function createBuilding(object,nojoin=false){
 function createStory(object){
 
     object.id=generateID();
-    map_object_changes.push(deepCopyObject(object));
+    saveObject(deepCopyObject(object));
 
     return(object.id);
 

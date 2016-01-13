@@ -21,8 +21,6 @@ if(is(hash[0]) && is(hash[1])){
     map_x=Math.toFloat(hash[0]);
     map_y=Math.toFloat(hash[1]);
 
-    if(isNaN(map_x))map_x=0;
-    if(isNaN(map_y))map_y=0;
 
 
 }else
@@ -38,7 +36,8 @@ if(Storage.is('map_x') && Storage.is('map_y')){
 
 }
 
-
+if(isNaN(map_x))map_x=0;
+if(isNaN(map_y))map_y=0;
 r(map_x,map_y);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~updateMapLocationHash
