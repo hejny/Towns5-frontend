@@ -10,12 +10,12 @@ function orderMoveAndNormal(){
 
     var change=false;
 
-    //Standing object put into map_object_changes;
-    map_object_changes_move=map_object_changes_move.filter(function(object){
+    //Standing object put into objects_external;
+    objects_external_move=objects_external_move.filter(function(object){
 
         if(!Path.is(object.path)){
 
-            map_object_changes.push(object);
+            objects_external.push(object);
             change=true;
             return false;
 
@@ -26,12 +26,12 @@ function orderMoveAndNormal(){
     });
 
 
-    //Moving object put into map_object_changes_move;
-    map_object_changes=map_object_changes.filter(function(object){
+    //Moving object put into objects_external_move;
+    objects_external=objects_external.filter(function(object){
 
         if(Path.is(object.path)){
 
-            map_object_changes_move.push(object);
+            objects_external_move.push(object);
             change=true;
             return false;
 
@@ -50,7 +50,7 @@ function orderMoveAndNormal(){
 
 function moveDrawCtl(){
 
-    $('#map-move').html(Map.objectsHTML(map_object_changes_move));
+    $('#map-move').html(Map.objectsHTML(objects_external_move));
     //r($('#map-move').html());
 
 

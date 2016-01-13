@@ -19,7 +19,7 @@ Pages.object_editor.content= `
 
 Pages.object_editor.openJS = function(){
 
-    var object=map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])];
+    var object=objects_external[ArrayFunctions.id2i(objects_external,map_selected_ids[0])];
 
     window_write_header(object.name);
 
@@ -215,7 +215,7 @@ Pages.object_editor.openJS = function(){
 
 Pages.object_editor.closeJS = function(){
 
-    map_object_changes[ArrayFunctions.id2i(map_object_changes,map_selected_ids[0])]
+    objects_external[ArrayFunctions.id2i(objects_external,map_selected_ids[0])]
         = deepCopyObject(Pages.object_editor.editor.getValue());
 
 };

@@ -66,18 +66,18 @@ Map.loadMapRequestCallback=function(res){
             serverObjectCopy.id=serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
 
 
-            //todo in map_object_changes should be all changes - terrain
-            var i=ArrayFunctions.id2i(map_object_changes,serverObjectCopy.id);
+            //todo in objects_external should be all changes - terrain
+            var i=ArrayFunctions.id2i(objects_external,serverObjectCopy.id);
             //r('server object',i,serverObjectCopy);
 
             if(i!=-1){
-                //-------------Existing object
-                map_object_changes[i]=serverObjectCopy;//todo map object changes refactor to objects internal
+                //-------------Existing internal object
+                objects_external[i]=serverObjectCopy;//todo map object changes refactor to objects internal
                 //-------------
             }else{
                 //-------------New object
 
-                map_object_changes.push(serverObjectCopy);
+                objects_external.push(serverObjectCopy);
 
                 //-------------
             }
@@ -92,52 +92,7 @@ Map.loadMapRequestCallback=function(res){
 
     map_data=[];//todo maybe delete and use only local_objects
 
-    map_object_changes.forEach(function(object){//todo refactor local_objects
-
-        if(object.type!='terrain'){
-
-            map_data.push(object);
-
-        }else{
-
-            var xc=object.x,//center
-                yc=object.y,
-                size=Math.ceil(object.design.data.size);
-
-            xc=xc-Math.round(map_x)+Math.floor(map_size/2);
-            yc=yc-Math.round(map_y)+Math.floor(map_size/2);
-
-
-            if(
-                xc<0 ||
-                yc<0 ||
-                xc>=map_size ||
-                yc>=map_size
-
-            ){}else{
-
-
-                //r(xc,yc,size);
-
-                for(var y=yc-size;y<=yc+size;y++){
-
-                    for(var x=xc-size;x<=xc+size;x++){
-
-                        if (Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
-
-                            //r(x,y);
-                            map_bg_data[Math.round(y)][Math.round(x)]=object.design.data.image;
-
-                        }
-                    }
-                }
-
-
-            }
-
-        }
-
-    });
+    objects_external.forEach(Map.iterateAndCreateMapData);
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Count collisions
 
@@ -228,6 +183,56 @@ Map.loadMapRequestCallback=function(res){
 
     //r('Executing drawMap');
     Map.drawMap();
+
+};
+
+//======================================================================================================================
+
+
+Map.iterateAndCreateMapData=function(object){//todo refactor local_objects
+
+    if(object.type!='terrain'){
+
+        map_data.push(object);
+
+    }else{
+
+        var xc=object.x,//center
+            yc=object.y,
+            size=Math.ceil(object.design.data.size);
+
+        xc=xc-Math.round(map_x)+Math.floor(map_size/2);
+        yc=yc-Math.round(map_y)+Math.floor(map_size/2);
+
+
+        if(
+            xc<0 ||
+            yc<0 ||
+            xc>=map_size ||
+            yc>=map_size
+
+        ){}else{
+
+
+            //r(xc,yc,size);
+
+            for(var y=yc-size;y<=yc+size;y++){
+
+                for(var x=xc-size;x<=xc+size;x++){
+
+                    if (Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
+
+                        //r(x,y);
+                        map_bg_data[Math.round(y)][Math.round(x)]=object.design.data.image;
+
+                    }
+                }
+            }
+
+
+        }
+
+    }
 
 };
 

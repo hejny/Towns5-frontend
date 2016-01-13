@@ -35,7 +35,7 @@ function bufferDrawEndCtl(){
 
 function bufferDrawCtl(){
 
-    Map.objectsDraw(map_buffer_ctx,map_object_changes_buffer);
+    Map.objectsDraw(map_buffer_ctx,objects_external_buffer);
 
 
 }

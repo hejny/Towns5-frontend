@@ -343,11 +343,13 @@ function tidyHTML($buffer) {
 
 
 <div id="map-ctl">
-    <div id="map-plus" class="mini-button" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
-    <div id="map-minus" class="mini-button" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
-    <div id="map-left" class="mini-button" title="<?=locale('ui tool controls left')?>"><i class="fa fa-undo"></i></i></div>
-    <div id="map-right" class="mini-button" title="<?=locale('ui tool controls right')?>"><i class="fa fa-repeat"></i></i></div>
+    <div id="map-plus" class="mini-button" title="<?=locale('ui map controls plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="map-minus" class="mini-button" title="<?=locale('ui map controls minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="map-left" class="mini-button" title="<?=locale('ui map controls left')?>"><i class="fa fa-undo"></i></i></div>
+    <div id="map-right" class="mini-button" title="<?=locale('ui map controls right')?>"><i class="fa fa-repeat"></i></i></div>
 </div>
+
+
 
 
 <nav class="menu">
@@ -397,18 +399,15 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item" id="menu-list-item-data">
-            <a><?=locale('ui menu data')?></a>
+            <a><?=locale('ui menu develop')?></a>
 
 
 
             <ul class="menu-dlist">
 
-                <li class="menu-dlist-info"><?=locale('ui menu data info')?></li>
-
-                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu data screenshot')?></a></li>
-                <li class="menu-dlist-item"><a onclick="Storage.restart();location.reload();"><?=locale('ui menu data restart')?></a></li>
-                <li class="menu-dlist-item"><a class="js-popup-window-open" content="data_json"><?=locale('ui menu data export')?></a></li>
-                <li class="menu-dlist-item"><a class="js-popup-window-open" content="locale_write"><?=locale('ui menu data locale write')?> (<span id="locale-write-count">0</span>)</a></li>
+                <li class="menu-dlist-info"><?=locale('ui menu develop info')?></li>
+                <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu develop screenshot')?></a></li>
+                <li class="menu-dlist-item"><a class="js-popup-window-open" content="locale_write"><?=locale('ui menu develop locale write')?> (<span id="locale-write-count">0</span>)</a></li>
 
 
             </ul>

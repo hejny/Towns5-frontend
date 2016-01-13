@@ -14,11 +14,11 @@ Pages.story.header='';
 Pages.story.openJS = function(){
 
 
-    var i = ArrayFunctions.id2i(map_object_changes,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
+    var i = ArrayFunctions.id2i(objects_external,map_selected_ids[0]);//todo maybe refactor array map_selected_ids[0] to map_selected_id
     r(map_selected_ids,i);
 
 
-    var content=map_object_changes[i].content.data;
+    var content=objects_external[i].content.data;
 
     content = markdown.toHTML(content);
 
@@ -31,7 +31,7 @@ Pages.story.openJS = function(){
         '<a onclick="dismantleUI('+map_selected_ids[0]+')" href="#">{{story delete}}</a>'
     ].join('');
 
-    window_write_header(map_object_changes[i].name);
+    window_write_header(objects_external[i].name);
     window_write_content(content);
 
 

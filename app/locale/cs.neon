@@ -32,12 +32,10 @@ ui_menu_buildings_dismantle: Zbourat
 ui_menu_stories: Příběhy
 ui_menu_stories_write: Napsat příběh
 
-ui_menu_data: Data
-ui_menu_data_info: 'Tyto funkce jsou vývojářské nástroje, které nebudou moct běžní hráči využívat.'
-ui_menu_data_screenshot: Screenshot
-ui_menu_data_restart: Restartovat
-ui_menu_data_export: JSON
-ui_menu_data_locale_write: Lokalizace
+ui_menu_develop: Vývojář
+ui_menu_develop_info: 'Tyto funkce jsou vývojářské nástroje, které nebudou moct běžní hráči využívat.'
+ui_menu_develop_screenshot: Screenshot
+ui_menu_develop_locale_write: Lokalizace
 
 ui_buttons_about_game: O hře
 ui_notifications_all: Všetky notifikácie
@@ -91,3 +89,8 @@ block_size_z: Z
 block_rotation: Otočení
 block_rotation_xy: XY
 block_rotation_xz: XZ
+ui_map_controls_plus: ui_map_controls_plus
+ui_map_controls_minus: ui_map_controls_minus
+ui_map_controls_left: ui_map_controls_left
+ui_map_controls_right: ui_map_controls_right
+ui_changes_push: ui_changes_push

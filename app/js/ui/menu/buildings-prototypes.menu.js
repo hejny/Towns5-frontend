@@ -79,7 +79,7 @@ function buildingUpdate(object) {
             r('buildingUpdate');
 
 
-            var tmpModel=deepCopyModel(map_object_changes[join.i].design.data);
+            var tmpModel=deepCopyModel(objects_external[join.i].design.data);
 
             building.design.data.compileRotationSize();
 
@@ -89,7 +89,7 @@ function buildingUpdate(object) {
                 join.xy.y
             );
 
-            var screen_position=Map.mapPos2MouseCenterPos(map_object_changes[join.i].x,map_object_changes[join.i].y);
+            var screen_position=Map.mapPos2MouseCenterPos(objects_external[join.i].x,objects_external[join.i].y);
 
 
             $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
