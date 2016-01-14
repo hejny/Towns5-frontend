@@ -98,7 +98,7 @@ function terrainChangeStop(){
 
 
 
-function objectMenuTerrainChange(){
+function objectMenuTerrainChange(){//todo refactor this should be under objectMenu
 
     var objectmenu='';
 

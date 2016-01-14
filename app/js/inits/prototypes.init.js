@@ -12,8 +12,33 @@ var object_prototypes=[];
 
 
 
+//r('LOADING prototypes');
+townsAPI.get('objects/prototypes',{},function(response){
 
-object_prototypes.push({
+    //r('LOADED prototypes');
+
+    response.forEach(function(object){
+
+        var object_prototype=deepCopyObject(object);
+        object_prototype.prototypeId=object_prototype._id;
+        object_prototype.id=object_prototype._id;
+
+
+        object_prototypes.push(object_prototype);//todo refactor init object or new object
+
+    });
+
+    r(object_prototypes);
+
+
+
+});
+
+
+
+
+
+/*object_prototypes.push({
 
     id: 'x1',
     name: "Kamenný kvádr",
@@ -94,54 +119,6 @@ object_prototypes.push({
 
 },{
 
-    id: 'x4',
-    name: "Kamenná věž",
-    type: "building",
-    subtype: "main",
-    actions: {
-        attack: {
-            strenght: 15,
-            radius: 1,
-            rounds: 1,
-            cooldown: 1,
-            retaliate: true
-        },
-        defense: {
-            strenght: 10
-        }
-    },
-    design: {
-        type: "model",
-        data: new Model({
-            particles: [
-                {
-                    shape:{
-                        type: 'prism',
-                        n:4
-                    },
-                    color: "#999999",
-                    position: {x:0,y:0,z:0},
-                    size: {x:20,y:30,z:40},
-                    rotation: {"xy":0}
-
-                },{
-                    shape:{
-                        type: 'prism',
-                        n:4
-                    },
-                    color: "#cccccc",
-                    position: {x:0,y:0,z:40},
-                    size: {x:50,y:50,z:40},
-                    rotation: {"xy":45}
-
-                }
-            ]
-        })
-
-    }
-
-},{
-
     id: 'x5',
     name: "Kamenná hradba",
     type: "building",
@@ -178,4 +155,4 @@ object_prototypes.push({
 
     }
 
-});
+});*/

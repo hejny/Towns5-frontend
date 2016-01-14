@@ -62,10 +62,13 @@
     "app/js/ui/pages/object-json.page.js",
     {"develop": "app/js/ui/pages/locale-write.page.js"},
 
-    "app/js/ui/menu/story.menu.js",
+
+
     "app/js/ui/menu/object.menu.js",
-    "app/js/ui/menu/buildings-prototypes.menu.js",
+    "app/js/ui/menu/object-prototypes.menu.js",
     "app/js/ui/menu/terrains-prototypes.menu.js",
+    "app/js/ui/menu/buildings-prototypes.menu.js",
+    "app/js/ui/menu/story-prototypes.menu.js",
 
 
 
@@ -90,7 +93,7 @@
 
     "app/js/inits/main.init.js",
     "app/js/inits/townsapi.init.js",
-    "app/js/inits/objects-prototypes.init.js",
+    "app/js/inits/prototypes.init.js",
     "app/js/inits/graphic.init.js",
     "app/js/inits/sound.init.js",
     "app/js/inits/map-move.ctl.init.js",

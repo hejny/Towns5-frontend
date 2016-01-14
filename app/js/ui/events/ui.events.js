@@ -321,7 +321,7 @@ window.mapSpecialCursorStop = function(){
     dismantlingStop();
     terrainChangeStop();
     terrainNeutralizeStop();
-    story_editorStop();
+    storyWritingStop();
 };
 
 

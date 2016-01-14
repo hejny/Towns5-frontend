@@ -376,9 +376,9 @@ function tidyHTML($buffer) {
             <a><?=locale('ui menu buildings')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('main');return false;"><?=locale('ui menu buildings main')?></a></li>
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
-                <li class="menu-dlist-item"><a onclick="objectMenuBuildingsPrototypes('block');return false;"><?=locale('ui menu buildings block')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','main');return false;"><?=locale('ui menu buildings main')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>
                 <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
             </ul>
         </li>
@@ -389,7 +389,7 @@ function tidyHTML($buffer) {
             <ul class="menu-dlist">
                 <li class="menu-dlist-item">
 
-                    <a onclick="objectMenuStory();return false;"><?=locale('ui menu stories write')?></a>
+                    <a onclick="objectPrototypesMenu('story');return false;"><?=locale('ui menu stories write')?></a>
 
 
 

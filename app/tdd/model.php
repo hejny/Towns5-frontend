@@ -2,7 +2,7 @@
 
 <?php
     $title='model';
-    $inits=array('objects-prototypes.init.js');
+    $inits=array('prototypes.init.js');
     require('init.php');
 ?>
 
