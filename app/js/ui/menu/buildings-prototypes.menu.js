@@ -14,11 +14,12 @@ var forceJoining=false;
 
 
 //BUILDING
-function buildingStart(object){//todo here should be prototype id
+function buildingStart(prototypeId){
 
     mapSpecialCursorStart();
 
-    building=deepCopyObject(object);
+    building=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId));
+
     forceJoining=false;
 
     selecting_size={x: 300,y: 700};
@@ -38,12 +39,12 @@ function buildingStart(object){//todo here should be prototype id
     $('#selecting-distance-ctl').show();//showing toolbar control
     $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
     //showing buttons used by actual tool
-    if(object.subtype!='wall')$('#selecting-distance-right').show();
-    if(object.subtype!='wall')$('#selecting-distance-left').show();
+    if(building.subtype!='wall')$('#selecting-distance-right').show();
+    if(building.subtype!='wall')$('#selecting-distance-left').show();
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
-    if(object.subtype=='block')$('#selecting-distance-color').show();//todo refactor not same if conditions
-    if(object.subtype=='block')$('#selecting-distance-blocks').show();
+    if(building.subtype=='block')$('#selecting-distance-color').show();//todo refactor not same if conditions
+    if(building.subtype=='block')$('#selecting-distance-blocks').show();
     $('#selecting-distance-close').show();
 
 
@@ -106,15 +107,6 @@ function buildingUpdate(object) {
 
 
 
-
-
-
-
-
-
-
-
-
 }
 
 //---------------------------------------------------------------
@@ -164,59 +156,3 @@ function dismantlingStop(){
 
 }
 
-//======================================================================================================================ObjectMenu
-//MENU
-
-function objectMenuBuildingsPrototypes(subtype){
-
-    var objectmenu='';
-
-
-    if(subtype=='block')
-        objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/add.svg',
-            icon_size: 0.55,
-            title: title,
-            content: content,
-            action: `mapSpecialCursorStop();window_open('block_editor');`
-        });
-
-
-
-    //r(object_prototypes);
-    for(var i= 0,l=object_prototypes.length;i<l;i++){
-
-
-        if(object_prototypes[i].subtype==subtype){
-
-            var icon=object_prototypes[i].design.data.createIcon(50);
-
-
-            var title=object_prototypes[i].name;
-            var content='popis budovy';
-            var action='buildingStart(object_prototypes['+(i)+']);';//todo here should be id
-
-
-            objectmenu+=Templates.objectMenu({
-                icon: icon,
-                selectable: true,
-                title: title,
-                content: content,
-                action: action
-            });
-
-
-            //$(objectmenu[i]).children('div').attr('content',content);
-            //$(objectmenu[i]).children('.js-popup-action-open').scss('background','url(\''+icon+'\')');
-
-        }
-
-
-
-    }
-
-
-
-    showLeftMenu(objectmenu);
-
-}

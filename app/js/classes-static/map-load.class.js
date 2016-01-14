@@ -56,31 +56,19 @@ Map.loadMapRequestCallback=function(res){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Load server Objects to Local objects
 
+    objects_external=[];
+
     res.forEach(function(serverObject){
+
 
         if(['building','story','terrain'].indexOf(serverObject.type)!=-1){//todo here should be all type of objects - terrain
 
-            var serverObjectCopy=deepCopyObject(serverObject);//todo init object
 
+            var serverObjectCopy=deepCopyObject(serverObject);//todo init object
 
             serverObjectCopy.id=serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
 
-
-            //todo in objects_external should be all changes - terrain
-            var i=ArrayFunctions.id2i(objects_external,serverObjectCopy.id);
-            //r('server object',i,serverObjectCopy);
-
-            if(i!=-1){
-                //-------------Existing internal object
-                objects_external[i]=serverObjectCopy;//todo map object changes refactor to objects internal
-                //-------------
-            }else{
-                //-------------New object
-
-                objects_external.push(serverObjectCopy);
-
-                //-------------
-            }
+            objects_external.push(serverObjectCopy);
 
 
         }
