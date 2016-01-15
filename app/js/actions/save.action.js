@@ -44,14 +44,14 @@ function saveObject(object){//todo refactor this should not be in this file
 
         if(i==-1)throw Error('Object do not exists.');
 
-        objects_external.splice(i,1);
-
 
         townsAPI.delete('objects/'+objects_external[i].id,function(response){
 
             r('object '+objects_external[i].id+' was deleted in server');
 
         });
+
+        objects_external.splice(i,1);
 
         //-------------------------------
     }
