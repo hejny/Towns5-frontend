@@ -65,7 +65,7 @@
 
 
     "app/js/ui/menu/object.menu.js",
-    "app/js/ui/menu/object-prototypes.menu.js",
+    "app/js/ui/menu/prototypes.menu.js",
     "app/js/ui/menu/terrains-prototypes.menu.js",
     "app/js/ui/menu/buildings-prototypes.menu.js",
     "app/js/ui/menu/story-prototypes.menu.js",

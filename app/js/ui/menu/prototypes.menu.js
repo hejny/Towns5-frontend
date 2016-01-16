@@ -31,13 +31,31 @@ function objectPrototypesMenu(type,subtype=false){
 
             //----------------------------------------------------
 
+
+             var icon,
+                icon_size=1,
+                title=object.name,
+                content='',
+                action=''
+            ;
+
+
             //------------------------building
             if(object.type=='building'){
-                var icon=object.design.data.createIcon(50);
 
-                var title=object.name;
-                var content='popis budovy';
-                var action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
+                icon=object.design.data.createIcon(50);
+                content='popis budovy';
+                action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
+
+            }
+            //------------------------
+
+            //------------------------terrain
+            if(object.type=='terrain'){
+
+                icon=appDir+'/php/terrain.php?raw&size=60&terrain=t'+(object.design.data.image);
+                action='terrainChangeStart(\''+object.id+'\');';
+                icon_size=1.2;
 
             }
             //------------------------
@@ -45,11 +63,8 @@ function objectPrototypesMenu(type,subtype=false){
             //------------------------story
             if(object.type=='story'){
 
-                var icon='media/image/terrain/t1.png';
-
-
-                var content='';
-                var action='storyWritingStart(\''+object.id+'\');';
+                icon='media/image/terrain/t1.png';
+                action='storyWritingStart(\''+object.id+'\');';
 
             }
             //------------------------
@@ -57,6 +72,7 @@ function objectPrototypesMenu(type,subtype=false){
 
             object_menu_html+=Templates.objectMenu({
                 icon: icon,
+                icon_size: icon_size,
                 selectable: true,
                 title: title,
                 content: content,

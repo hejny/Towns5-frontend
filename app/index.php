@@ -377,7 +377,7 @@ function tidyHTML($buffer) {
             <a><?=locale('ui menu nature')?></a>
 
             <ul class="menu-dlist">
-                <li class="menu-dlist-item"><a onclick="objectMenuTerrainChange();return false;"><?=locale('ui menu nature types')?></a></li>
+                <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('terrain');return false;"><?=locale('ui menu nature types')?></a></li>
                 <li class="menu-dlist-item"><a onclick="terrainNeutralizeStart();return false;"><?=locale('ui menu nature neutralize')?></a></li>
             </ul>
         </li>
