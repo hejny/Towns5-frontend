@@ -13,6 +13,7 @@
 function deepCopy(oldObject) {
 
     if(typeof(oldObject)=='undefined') throw 'You can not copy undefined.';
+    if(oldObject==null) throw 'You can not copy null.';
 
     return JSON.parse(JSON.stringify(oldObject));
 
