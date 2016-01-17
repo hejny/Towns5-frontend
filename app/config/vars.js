@@ -19,6 +19,12 @@ var MESSAGE_MS = 2000;
 var Pages={};
 
 
+
+
+var object_prototypes=[];
+
+
+
 var objects_external=[];
 var objects_external_buffer=[];//Preview eg. walls
 var objects_external_move=[];//Moving objects

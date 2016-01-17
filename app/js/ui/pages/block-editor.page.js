@@ -158,12 +158,14 @@ Pages.block_editor.openJS = function(){
 
     //---------------------------------------------
 
-    objectMenuBuildingsPrototypes('block');
+    objectPrototypesMenu('building','block');
 
     //---------------------------------------------
 
     var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);
-    buildingStart(object_prototypes[i]);
+
+
+    buildingStart(Pages.block_editor.block_id);
 
 
     $('#block-editing-name').val(object_prototypes[i].name);
@@ -220,7 +222,18 @@ Pages.block_editor.openJS = function(){
 
 
 Pages.block_editor.closeJS = function(){
-    objectMenuBuildingsPrototypes('block');
+
+    townsAPI.post('objects/prototypes',ArrayFunctions.id2item(object_prototypes,Pages.block_editor.block_id),function(){
+
+        loadObjectPrototypes(function(){
+
+            objectPrototypesMenu('building','block');
+
+        });
+
+    });
+
+
 }
 
 //======================================================================================================================
@@ -306,6 +319,6 @@ Pages.block_editor.duplicateBlock = function () {
     object_prototypes.push(tmp_block);
 
     building={id:tmp_block.id};//todo ?? better
-    window_open('blocks');
+    window_open('block_editor');
 
 };
