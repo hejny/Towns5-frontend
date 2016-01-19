@@ -85,14 +85,15 @@ https://trello.com/b/d2b6mY6s/frontend
 
 	npm install
 
+	
+5. Create directory cache with mod 0777
 
-5. Run gulp!
+
+
+6. Run gulp!
 
 
 	gulp
-
-	
-6. Production build is in directory `/app-dist`
 	
 * * *	
 	
