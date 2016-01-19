@@ -21,7 +21,17 @@ function objectPrototypesMenu(type,subtype=false){
             action: `mapSpecialCursorStop();window_open('block_editor');`
         });
     }
-    //------------------------
+
+    if(type=='building' && subtype=='main'){
+        object_menu_html+=Templates.objectMenu({
+            icon: 'media/image/icons/add.svg',
+            icon_size: 0.55,
+            title: '',
+            content: content,
+            action: `mapSpecialCursorStop();window_open('building_editor');`
+        });
+    }
+    //------------------------.
 
 
     object_prototypes.forEach(function(object){

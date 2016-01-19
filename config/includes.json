@@ -56,12 +56,16 @@
     "app/js/ui/pages/home.page.js",
     "app/js/ui/pages/loginform.page.js",
     "app/js/ui/pages/story.page.js",
+    "app/js/ui/pages/editor.page.js",
     "app/js/ui/pages/story-editor.page.js",
     "app/js/ui/pages/block-editor.page.js",
+    "app/js/ui/pages/building-editor.page.js",
     {"none": "app/js/ui/pages/object-editor.page.js"},
     "app/js/ui/pages/object-json.page.js",
     {"develop": "app/js/ui/pages/locale-write.page.js"},
 
+
+    "app/js/ui/editors/building-block.editor.js",
 
 
     "app/js/ui/menu/object.menu.js",

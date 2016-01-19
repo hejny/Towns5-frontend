@@ -47,6 +47,28 @@ ArrayFunctions.id2item = function(array,id){
 };
 
 
+//======================================================================================================================
+
+/**
+ * @static
+ * Delete an item with ID in array
+ * @param {object} array Array of objects with ID
+ * @param {*} id Searched ID
+ * @returns {boolean}
+ */
+ArrayFunctions.idRemove = function(array,id){
+
+    for(var i in array){
+        if(array[i].id==id){
+            array.splice(i,1);
+            return true;
+        }
+    }
+    return false;
+
+};
+
+
 
 //======================================================================================================================
 
