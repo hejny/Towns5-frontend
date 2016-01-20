@@ -21,11 +21,14 @@
 
 
     "app/js/classes/*",
+    "app/js/classes-static/map.class.js",
     "app/js/classes-static/*",
     "app/js/ui/pages/*",
     "app/js/ui/menu/*",
     "app/js/ui/events/*",
     "app/js/actions/*",
+    "app/js/inits/main.init.js",
+    "app/js/inits/townsapi.init.js",
     "app/js/inits/*"
 
 
