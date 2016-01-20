@@ -6,18 +6,9 @@
 
 
 
-Pages.home={};
-
-Pages.home.header='Towns 5';
-
-
-/*<div style="position:absolute;width:calc(100% - 40px);text-align:right;">
-<img src="media/image/languages/cs.png" onclick="changelanguage('cs')">
-<img src="media/image/languages/en.png" onclick="changelanguage('en')">
-</div>*/
-
-
-Pages.home.content=`
+Pages.home = new Page(
+    'Towns 5',
+    `
 
 
   <h2 style="font-size:1.1em;text-align: center;">
@@ -174,7 +165,5 @@ Pages.home.content=`
 
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>
 
-
-
-`;
-
+`
+);

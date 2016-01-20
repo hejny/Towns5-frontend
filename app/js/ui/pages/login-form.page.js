@@ -6,11 +6,9 @@
 
 
 
-Pages.loginform={};
-
-Pages.loginform.header='Login';
-
-Pages.loginform.content=`
+Pages.login_form = new Page(
+    'Login',
+    `
 
 
 <div id="login-error" class="hidden"></div>
@@ -25,4 +23,6 @@ Heslo: <input type="password" id="password">
 </form>
 
 
-`;
+`
+);
+
