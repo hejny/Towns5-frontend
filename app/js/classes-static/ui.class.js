@@ -5,99 +5,54 @@
 //======================================================================================================================
 
 
-//todo should it be UI object with static functions?
+var UI={};
 
-//------------------------------------------------------------------focusOnMap
 
-function focusOnMap(){
+/**
+ * @returns {boolean} is user focused on map
+ */
+UI.focusOnMap = function(){
     return(!(window_opened || ['INPUT','TEXTAREA'].indexOf(document.activeElement.tagName)!=-1));
-}
-
-//------------------------------------------------------------------window_open
-
-var window_closeJS = false;//todo refactor strange name
-
-window.window_open = function(page){
+};
 
 
-    //todo sounds ion.sound.play("door_bump");
-    r('Opening window '+page);
+/**
+ * Changes title of opened popup window
+ * @param title
+ */
+UI.popupWindowTitle = function(title){
 
-
-    if(!is(Pages[page])){
-        throw new Error('Page '+page+' not exist.');
-    }
-
-    var header=Pages[page].header;
-    var content=Pages[page].content;
-
-
-    if(!is(header))header='';
-    if(!is(content))content='';
-
-    content=content.split('{{');
-
-
-    for(var i=1,l=content.length;i<l;i++){
-
-        //r(content[i]);
-        content[i]=content[i].split('}}');
-
-
-        //r('eval ','content[i][0]='+content[i][0]+';');
-
-        content[i][0]=Locale.get(content[i][0]);
-        content[i]=content[i].join('');
-
-
-    }
-    content=content.join('');
-
-
-
-    //r(header,content);
-
-    window_open_content(header,content);
-
-    if(is(Pages[page].openJS)) {
-        setTimeout(function () {
-            Pages[page].openJS();
-        },IMMEDIATELY_MS);
-    }
-
-
-    if(is(Pages[page].closeJS)) {
-        window_closeJS=Pages[page].closeJS;
-    }
-
-
-
+    $('.popup-window .header').text(title);//todo refactor html class header to title
 
 };
 
-//------------------------------------------------------------------window write
 
-window.window_write_header = function(header){//todo refactor to same names
-
-    $('.popup-window .header').text(header);
-
-};
-
-//-----------------------------
-
-window.window_write_content = function(content){//todo refactor to same names
+/**
+ * Changes content of opened popup window
+ * @param content
+ */
+UI.popupWindowContent = function(content){
 
     $('.popup-window .content').html(content);
     uiScript();
 
 };
 
-//------------------------------------------------------------------window_open_content
 
-window.window_open_content = function(header,content){
+/**
+ * Open popup window
+ * @param title
+ * @param content
+ * @param close close callback
+ */
+UI.popupWindowOpen = function(title,content,close=false){
 
-    window_write_header(header);
-    window_write_content(content);
+    if(close){
+        UI.popupCloseCallback=close;
+    }
+
+    UI.popupWindowTitle(title);
+    UI.popupWindowContent(content);
 
     $('.overlay').show();
     $('.popup-window').show();
@@ -113,9 +68,11 @@ window.window_open_content = function(header,content){
 
 };
 
-//------------------------------------------------------------------window_close
 
-window.window_close = function(){
+/**
+ * Close popup window and run close callback
+ */
+UI.popupWindowClose = function(){
 
     //todo sounds ion.sound.play("door_bump");
 
@@ -124,18 +81,21 @@ window.window_close = function(){
 
     $('body').disableSelection();
 
-    if(is(window_closeJS)){
+    if(is(UI.popupCloseCallback)){
 
-        window_closeJS();
-        window_closeJS=false;
+        UI.popupCloseCallback();
+        delete UI.popupCloseCallback;
     }
 
     window_opened=false;
 };
 
-//------------------------------------------------------------------message
 
-window.message = function(text,type){
+/**
+ * @param text
+ * @param type error,success,info
+ */
+UI.message = function(text,type){
 
     //todo [PH] types of message - error, notice,...?
     //todo [PH] play sound here
