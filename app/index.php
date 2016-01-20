@@ -222,40 +222,54 @@ function tidyHTML($buffer) {
     //tady je podminka zda jde o testovaci verzi
     if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
+        $js_files=array();
+        $css_files=array();
 
-        foreach ($config['includes']['css'] as $include) {
+        //-----------------------------------------------------
 
-            if(is_array($include)){
-                foreach($include as $environment=>$file){
-                    if($environment==$config['app']['environment']){
-                        echo '<link rel="stylesheet" href="/' . addslashes($file) . '"/>' . "\n";
-                    }
-                }
-            }elseif(is_string($include)) {
-
-                echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>' . "\n";
-
-            }
-        }
-
-        /**/
         foreach ($config['includes']['js'] as $include) {
 
 
             if(is_array($include)){
                 foreach($include as $environment=>$file){
                     if($environment==$config['app']['environment']){
-                        echo '<script src="/' . addslashes($file) . '"></script>'."\n";
+                        $js_files=array_merge($js_files,glob($file));
                     }
                 }
             }elseif(is_string($include)){
 
-                echo '<script src="/' . addslashes($include) . '"></script>'."\n";
+                $js_files=array_merge($js_files,glob($include));
 
             }
 
-        }/**/
+        }
 
+        foreach ($config['includes']['css'] as $include) {
+
+            if(is_array($include)){
+                foreach($include as $environment=>$file){
+                    if($environment==$config['app']['environment']){
+                        $css_files=array_merge($css_files,glob($file));
+                    }
+                }
+            }elseif(is_string($include)) {
+
+                $css_files=array_merge($css_files,glob($include));
+
+            }
+        }
+
+
+        //-----------------------------------------------------
+
+        foreach($js_files as $js_file){
+            echo '<script src="/' . addslashes($js_file) . '"></script>'."\n";
+        }
+        foreach($css_files as $css_file){
+            echo '<link rel="stylesheet" href="/' . addslashes($css_file) . '"/>' . "\n";
+        }
+
+        //-----------------------------------------------------
 
     }else{
         ?>
@@ -440,7 +454,7 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
