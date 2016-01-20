@@ -6,37 +6,25 @@
 
 
 
-Pages.locale_write={};
+Pages.locale_write = new Page(
+    'Locale',
+    `<iframe src="" width="100%" height="100%" frameborder="0" scrolling="0" id="locale-write-iframe"></iframe>`,
+    function(){
 
 
-Pages.locale_write.header='Locale';
+        var url;
 
-Pages.locale_write.content= `
-        <iframe src="" width="100%" height="100%" frameborder="0" scrolling="0" id="locale-write-iframe"></iframe>
-`;
-
+        url=appDir+'/php/locale-write.php?language='+language+'&keys='+Locale.keys_write.join(',');
+        Locale.keys_write=[];
 
 
-Pages.locale_write.openJS = function(){
+        $('#locale-write-iframe').attr('src',url);
 
-
-    var url;
-
-    url=appDir+'/php/locale-write.php?language='+language+'&keys='+Locale.keys_write.join(',');
-    Locale.keys_write=[];
-
-
-    $('#locale-write-iframe').attr('src',url);
-
-    $('#locale-write-count').html('0');
+        $('#locale-write-count').html('0');
 
 
 
-};
-
-Pages.locale_write.closeJS = function() {
-
-
-};
+    }
+);
 
 
