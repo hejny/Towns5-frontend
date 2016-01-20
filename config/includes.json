@@ -20,111 +20,19 @@
     "app/config/vars.js",
 
 
-    "app/js/classes/path.class.js",
-    "app/js/classes/position.class.js",
-    "app/js/classes/model.class.js",
-    "app/js/classes/townsapi.class.js",
-    "app/js/classes/string.class.js",
-    "app/js/classes/canvas-context.class.js",
-    "app/js/classes/canvas.class.js",
-
-
-
-    "app/js/classes-static/array.class.js",
-    "app/js/classes-static/farbtastic.class.js",
-    "app/js/classes-static/log.class.js",
-    "app/js/classes-static/locale.class.js",
-    "app/js/classes-static/storage.class.js",
-    "app/js/classes-static/map-generate.class.js",
-    "app/js/classes-static/map.class.js",
-    "app/js/classes-static/map-update.class.js",
-    "app/js/classes-static/ui.class.js",
-    "app/js/classes-static/map-objects-draw.class.js",
-    "app/js/classes-static/math.class.js",
-    "app/js/classes-static/interval.class.js",
-    "app/js/classes-static/copy.class.js",
-    "app/js/classes-static/types.class.js",
-    "app/js/classes-static/cookie.class.js",
-    "app/js/classes-static/map-load.class.js",
-    "app/js/classes-static/map-draw.class.js",
-    "app/js/classes-static/templates.class.js",
-    "app/js/classes-static/map-objects-html-draw.class.js",
-    "app/js/classes-static/model-particles.class.js",
-
-
-
-    "app/js/ui/pages/home.page.js",
-    "app/js/ui/pages/loginform.page.js",
-    "app/js/ui/pages/story.page.js",
-    "app/js/ui/pages/editor.page.js",
-    "app/js/ui/pages/story-editor.page.js",
-    "app/js/ui/pages/block-editor.page.js",
-    "app/js/ui/pages/building-editor.page.js",
-    {"none": "app/js/ui/pages/object-editor.page.js"},
-    "app/js/ui/pages/object-json.page.js",
-    {"develop": "app/js/ui/pages/locale-write.page.js"},
-
-
-    "app/js/ui/editors/building-block.editor.js",
-
-
-    "app/js/ui/menu/object.menu.js",
-    "app/js/ui/menu/prototypes.menu.js",
-    "app/js/ui/menu/terrains-prototypes.menu.js",
-    "app/js/ui/menu/buildings-prototypes.menu.js",
-    "app/js/ui/menu/story-prototypes.menu.js",
-
-
-
-    "app/js/ui/events/resize.events.js",
-    "app/js/ui/events/keys.events.js",
-    "app/js/ui/events/mouse-wheel.events.js",
-    "app/js/ui/events/drag-map.events.js",
-    "app/js/ui/events/drag-tools.events.js",
-    "app/js/ui/events/mouse-move.events.js",
-    "app/js/ui/events/click-left.events.js",
-    "app/js/ui/events/click-right.events.js",
-    "app/js/ui/events/ui.events.js",
-    "app/js/ui/events/map-ctl.events.js",
-
-
-
-    "app/js/actions/create.action.js",
-    "app/js/actions/dismantle.action.js",
-    "app/js/actions/login.action.js",
-    "app/js/actions/save.action.js",
-
-
-    "app/js/inits/main.init.js",
-    "app/js/inits/townsapi.init.js",
-    "app/js/inits/prototypes.init.js",
-    "app/js/inits/graphic.init.js",
-    "app/js/inits/sound.init.js",
-    "app/js/inits/map-move.ctl.init.js",
-    "app/js/inits/map-buffer.ctl.init.js",
-    "app/js/inits/blogfeed.init.js"
+    "app/js/classes/*",
+    "app/js/classes-static/*",
+    "app/js/ui/pages/*",
+    "app/js/ui/menu/*",
+    "app/js/ui/events/*",
+    "app/js/actions/*",
+    "app/js/inits/*"
 
 
   ],
   "css": [
 
-    "app/css/body.css",
-    "app/css/farbtastic.css",
-    "app/css/messages.css",
-    "app/css/html-tags.css",
-    "app/css/general.css",
-    "app/css/map.css",
-    "app/css/tool.css",
-    "app/css/menu.css",
-    "app/css/left-menu.css",
-    "app/css/popup.css",
-    "app/css/notifications.css",
-    "app/css/feed.css",
-    "app/css/window.css",
-    "app/css/window-story.css",
-    {"none": "app/css/json-editor.css"},
-
-
+    "app/css/*",
 
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
