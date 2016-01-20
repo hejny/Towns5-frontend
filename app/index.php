@@ -258,9 +258,10 @@ function tidyHTML($buffer) {
 
             }
         }
-
-
         //-----------------------------------------------------
+
+        $js_files=array_unique($js_files);
+        $css_files=array_unique($css_files);
 
         foreach($js_files as $js_file){
             echo '<script src="/' . addslashes($js_file) . '"></script>'."\n";
