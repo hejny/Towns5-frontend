@@ -17,6 +17,12 @@ var Editor = function(title,content,open_callback,default_object){
 
     this.page = new Page(
         title,
+        `
+        <form>
+        <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
+        </form>
+        <button onclick="Pages.block_editor.deleteBlock();">{{`+default_object.type+` `+default_object.subtype+` delete}}</button>
+        <button onclick="Pages.block_editor.duplicateBlock();">{{`+default_object.type+` `+default_object.subtype+` duplicate}}</button>`+
         content,
         false,
         function(){
@@ -116,8 +122,28 @@ Editor.prototype.open = function(collection,id){
     }
 
     this.opened.object=deepCopyObject(this.opened.object);
-    this.open_callback(this.opened.object);
 
 
-}
+
+
+
+    this.page.open(function(open_callback,object){
+
+        //-----------------------------------------
+
+        open_callback(object);
+
+        //-----------------------------------------
+
+        $('#editor-object-name').change(function(){
+            object.name=$('#editor-object-name').val();
+            r(object);
+        });
+
+        //-----------------------------------------
+
+    },[this.open_callback,this.opened.object]);
+
+
+};
 
