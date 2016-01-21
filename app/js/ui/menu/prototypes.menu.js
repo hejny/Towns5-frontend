@@ -18,7 +18,7 @@ function objectPrototypesMenu(type,subtype=false){
             icon_size: 0.55,
             title: '',
             content: content,
-            action: `mapSpecialCursorStop();window_open('block_editor');`
+            action: `mapSpecialCursorStop();Editors.block_editor.open(0,-1);`
         });
     }
 

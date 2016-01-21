@@ -17,6 +17,7 @@ var MESSAGE_MS = 2000;
 
 
 var Pages={};
+var Editors={};
 
 
 

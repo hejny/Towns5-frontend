@@ -257,9 +257,7 @@ window.uiScript = function(){
 
 
     $('#selecting-distance-blocks').unbind('click').click(function(){
-        //block_editing=building.id;
-        window_open('block_editor');
-
+        Editors.block_editor.open(0,building.id);
     });
 
 
