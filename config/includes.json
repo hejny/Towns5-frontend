@@ -24,6 +24,7 @@
     "app/js/classes-static/map.class.js",
     "app/js/classes-static/*",
     "app/js/ui/pages/*",
+    "app/js/ui/editors/*",
     "app/js/ui/menu/*",
     "app/js/ui/events/*",
     "app/js/actions/*",

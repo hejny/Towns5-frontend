@@ -5,4 +5,4 @@
 
 
 
-Editors.building.block=
+Editors.building={};
