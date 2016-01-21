@@ -26,7 +26,7 @@ var Page=function(title,content,open_callback=false,close_callback=false) {
 /**
  * Open page in popup window
  */
-Page.prototype.open = function(){
+Page.prototype.open = function(additional_callback=false,additional_parameters=false){
 
     var title=this.title;
     var content=this.content;
@@ -62,9 +62,15 @@ Page.prototype.open = function(){
         },IMMEDIATELY_MS);
     }
 
+    if(additional_callback) {
+        setTimeout(function () {
+            additional_callback.apply(this,additional_parameters);
+        },IMMEDIATELY_MS);
+    }
+
 
     if(this.close_callback) {
-        UI.popupWindowCloseCallback=Pages[page].closeJS;
+        UI.popupWindowCloseCallback=this.close_callback;
     }
 
 };

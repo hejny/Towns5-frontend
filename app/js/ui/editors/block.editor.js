@@ -19,19 +19,12 @@ Editors.block_editor = new Editor(
     <canvas id="block-editing" width="300" height="300"></canvas>
 
 
-    <button onclick="Pages.block_editor.deleteBlock();">{{block delete}}</button>
-    <button onclick="Pages.block_editor.duplicateBlock();">{{block duplicate}}</button>
-
 </div>
 
 
 
 
 <table  class="page-column-2">
-
-
-  <tr><th colspan="2"><input id="block-editing-name" type="text" placeholder="{{block name placeholder}}" /></th></tr>
-
 
   <tr><th colspan="2">{{block shape}}</th></tr>
   <tr>
