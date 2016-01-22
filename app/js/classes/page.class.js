@@ -40,11 +40,9 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
 
     for(var i=1,l=content.length;i<l;i++){
 
-        //r(content[i]);
         content[i]=content[i].split('}}');
 
 
-        //r('eval ','content[i][0]='+content[i][0]+';');
 
         content[i][0]=Locale.get(content[i][0]);
         content[i]=content[i].join('');
@@ -56,9 +54,10 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
 
     UI.popupWindowOpen(title,content);
 
+    var self=this;
     if(this.open_callback) {
         setTimeout(function () {
-            this.open_callback();
+            self.open_callback();
         },IMMEDIATELY_MS);
     }
 
@@ -67,6 +66,7 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
             additional_callback.apply(this,additional_parameters);
         },IMMEDIATELY_MS);
     }
+
 
 
     if(this.close_callback) {

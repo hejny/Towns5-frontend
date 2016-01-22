@@ -81,10 +81,11 @@ UI.popupWindowClose = function(){
 
     $('body').disableSelection();
 
-    if(is(UI.popupCloseCallback)){
+    if(UI.popupWindowCloseCallback){
 
-        UI.popupCloseCallback();
-        delete UI.popupCloseCallback;
+
+        UI.popupWindowCloseCallback();
+        delete UI.popupWindowCloseCallback;
     }
 
     window_opened=false;
