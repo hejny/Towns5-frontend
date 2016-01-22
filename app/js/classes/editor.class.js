@@ -23,10 +23,10 @@ var Editor = function(title,content,open_callback,default_object){
             <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
 
 
-            <div class="mini-button"  id="editor-object-delete" onclick="Pages.block_editor.deleteBlock();" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
+            <div class="mini-button"  id="editor-object-duplicate" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
 
 
-            <div class="mini-button"  id="editor-object-duplicate" onclick="Pages.block_editor.duplicateBlock();" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
+            <div class="mini-button"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
 
 
         </form>`+content,
@@ -138,20 +138,36 @@ Editor.prototype.open = function(collection,id){
     }
 
 
-
+    var editor=this;
     this.page.open(function(open_callback,object){
 
         //-----------------------------------------
 
         open_callback(object);
 
-        //-----------------------------------------
+        //-----------------------------------------Editor header
 
+        //-----------------Name
+        //--------Init name
         $('#editor-object-name').val(object.name);
-
+        //--------Update name
         $('#editor-object-name').change(function(){
             object.name=$('#editor-object-name').val();
         });
+        //-----------------
+
+        //-----------------Delete
+        $('#editor-object-delete').click(function(){
+            if(editor.opened.collection==0){
+
+                r('Deleting object prototype '+object.name+'.');
+
+            }else{
+                throw new Error(''+collection+' is invalid identificator of collection!');
+            }
+        });
+        //-----------------
+
 
         //-----------------------------------------
 
