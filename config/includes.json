@@ -20,23 +20,24 @@
     "app/config/vars.js",
 
 
-    "app/js/classes/*",
+    "app/js/classes/*.js",
     "app/js/classes-static/map.class.js",
-    "app/js/classes-static/*",
-    "app/js/ui/pages/*",
-    "app/js/ui/editors/*",
-    "app/js/ui/menu/*",
-    "app/js/ui/events/*",
-    "app/js/actions/*",
+    "app/js/classes-static/*.js",
+    "app/js/ui/pages/*.js",
+    "app/js/ui/editors/*.js",
+    "app/js/ui/menu/*.js",
+    "app/js/ui/events/*.js",
+    "app/js/actions/*.js",
     "app/js/inits/main.init.js",
     "app/js/inits/townsapi.init.js",
-    "app/js/inits/*"
+    "app/js/inits/*.js"
 
 
   ],
   "css": [
 
-    "app/css/*",
+    "app/css/*.css",
+    "app/css/**/*.css",
 
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",

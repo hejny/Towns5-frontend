@@ -65,13 +65,13 @@ gulp.task('develop', function() {
     });
 
 
-    gulp.src("app/scss/*.scss")
+    gulp.src("app/scss/**/*.scss")
         .pipe(sass())
         .pipe(gulp.dest("app/css"));
 
 
-    gulp.watch("app/scss/*.scss", ['develop-sass']);
-    gulp.watch('app/*.{php,phtml}').on('change', browserSync.reload);
+    gulp.watch("app/scss/**/*.scss", ['develop-sass']);
+    gulp.watch('app/**/*.{js,php,phtml}').on('change', browserSync.reload);
 
 });
 
@@ -81,7 +81,9 @@ gulp.task('develop-sass', function() {
 
     try {
 
-        return gulp.src("app/scss/*.scss")
+        del(['app/css/*']);
+
+        return gulp.src("app/scss/**/*.scss")
             .pipe(sass())
             .pipe(gulp.dest("app/css"))
             .pipe(browserSync.stream());
