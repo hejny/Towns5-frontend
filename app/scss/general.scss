@@ -1,10 +1,11 @@
 /**
  * @author Towns.cz
  * @fileOverview Other styling
+  //todo refactor delete this file
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 
 .hide {

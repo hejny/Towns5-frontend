@@ -1,7 +1,6 @@
 /**
  * @author Towns.cz
- * @fileOverview Other styling
-  //todo refactor delete this file
+ * @fileOverview XML feed in project-style
  */
 /**
  * @author Towns.cz
@@ -15,14 +14,6 @@
  * @author Towns.cz
  * @fileOverview Configuration of style
  */
-.hide {
-  display: none; }
-
-.left {
-  float: left; }
-
-.right {
-  float: right; }
-
-.cleaner {
-  clear: both; }
+.model-canvas {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 8px;
+  background-color: rgba(78, 139, 255, 0.05); }

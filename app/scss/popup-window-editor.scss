@@ -3,8 +3,8 @@
  * @fileOverview Style for window popup
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 #editor-object-header{
   display: block;

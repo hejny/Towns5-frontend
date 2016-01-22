@@ -1,0 +1,39 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Style for window popup
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+#editor-object-header {
+  display: block;
+  width: 100%;
+  text-align: left; }
+  #editor-object-header .mini-button {
+    width: 15px;
+    height: 15px;
+    font-size: 15px; }
+
+#editor-object-name {
+  display: inline-block;
+  overflow: hidden;
+  width: calc(100% - 0px);
+  height: 30px;
+  font-size: 1.6em;
+  border: none;
+  border-bottom: 2px solid #cccccc;
+  z-index: 3; }
+
+#editor-object-delete, #editor-object-duplicate {
+  position: relative;
+  top: -50px;
+  left: 675px; }

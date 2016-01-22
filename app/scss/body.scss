@@ -3,8 +3,8 @@
  * @fileOverview Style for body, html
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 * {
   outline: none;

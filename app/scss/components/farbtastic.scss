@@ -3,8 +3,8 @@
  * @fileOverview Style for Farbtastic Color Picker 1.2
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import '../config';
+@import '../mixins';
 
 
 .farbtastic {

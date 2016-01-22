@@ -1,10 +1,11 @@
 /**
  * @author ©Towns.cz
  * @fileOverview Style for notification popup
+//todo refactor to notifications
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 
 .js-popup-notification-open,
