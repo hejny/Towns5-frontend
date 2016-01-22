@@ -9,6 +9,8 @@
 
 function objectPrototypesMenu(type,subtype=false){
 
+    r('ObjectPrototypesMenu '+type+' '+subtype);
+
     var object_menu_html='';
 
     //------------------------Extra buttons

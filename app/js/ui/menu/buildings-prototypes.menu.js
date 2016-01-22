@@ -18,7 +18,7 @@ function buildingStart(prototypeId){
 
     mapSpecialCursorStart();
 
-    building=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId));
+    building=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId,'Prototype with id '+prototypeId+' do not exist.'));
 
     forceJoining=false;
 

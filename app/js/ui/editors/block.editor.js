@@ -16,7 +16,7 @@ Editors.block_editor = new Editor(
 <div class="page-column-2">
 
 
-    <canvas id="block-editing" width="300" height="300"></canvas>
+    <div id="model-canvas"></div>
 
 
 </div>
@@ -96,6 +96,9 @@ Editors.block_editor = new Editor(
 
     `,function(object){
 
+
+        var model_canvas= new ModelCanvas('model-canvas',object.design.data,300,300);
+
         var particle=ModelParticles.cParams(object.design.data.particles[0]);
 
         $('#block-editing-shape-n').val(particle.shape.n);
@@ -114,29 +117,28 @@ Editors.block_editor = new Editor(
         $('#block-editing-rotation-xz').val(particle.rotation.xz);
         //('#block-editing-rotation-yz').val(particle.rotation.yz);
 
-        $('#block-editing-form input').mouseup(function(){
-
-                var particle=object.design.data.particles[0];
-
-                particle.shape.n = Math.toInt($('#block-editing-shape-n').val());
-
-                particle.shape.top = Math.toFloat($('#block-editing-shape-top').val());
-                particle.shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
-
-                particle.skew={z:{}};
-                particle.skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
-                particle.skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
+        $('#block-editing-form input').click(function(){
 
 
-                particle.size.x = Math.toInt($('#block-editing-size-x').val());
-                particle.size.y = Math.toInt($('#block-editing-size-y').val());
-                particle.size.z = Math.toInt($('#block-editing-size-z').val());
+                object.design.data.particles[0].shape.n = Math.toInt($('#block-editing-shape-n').val());
 
-                particle.rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
-                particle.rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
+                object.design.data.particles[0].shape.top = Math.toFloat($('#block-editing-shape-top').val());
+                object.design.data.particles[0].shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
+
+                object.design.data.particles[0].skew={z:{}};
+                object.design.data.particles[0].skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
+                object.design.data.particles[0].skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
+
+
+                object.design.data.particles[0].size.x = Math.toInt($('#block-editing-size-x').val());
+                object.design.data.particles[0].size.y = Math.toInt($('#block-editing-size-y').val());
+                object.design.data.particles[0].size.z = Math.toInt($('#block-editing-size-z').val());
+
+                object.design.data.particles[0].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
+                object.design.data.particles[0].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
                 //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
 
-                object.design.draw(document.getElementById('block-editing').getContext('2d'),1,150,150,10,10);
+                model_canvas.setModel(object.design.data);
 
 
         }

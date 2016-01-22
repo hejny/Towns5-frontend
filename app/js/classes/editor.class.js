@@ -15,6 +15,7 @@
  */
 var Editor = function(title,content,open_callback,default_object){
 
+    var self=this;
     this.page = new Page(
         title,
         `
@@ -27,50 +28,36 @@ var Editor = function(title,content,open_callback,default_object){
         false,
         function(){
 
-            if(this.opened==false)
+            if(self.opened==false)
                 throw new Error('Editor error - missing object identificator!');
 
 
 
-            if(is(building)){
-                building=deepCopyObject(this.opened.object);
-            }
+            if(self.opened.collection==0){
 
-            if(this.opened.id==-1){
+                var i = ArrayFunctions.id2item(object_prototypes,self.opened.object.id);
+                object_prototypes[i]=self.opened.object;
 
-                this.opened.id=generateID();
-                this.opened.object.id=this.opened.id;
+                r(object_prototypes[i]);
 
 
-                if(this.opened.collection==0){
+                objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
+                buildingStart(object_prototypes[i].id);
 
-                    object_prototypes.push(this.opened.object);
 
-                }else
-                if(this.opened.collection==1){
+                r('Updating object prototype '+self.opened.object.name+'.');
 
-                    objects_external.push(this.opened.object)
+            }/*else
+            if(self.opened.collection==1){
 
-                }
+                var i = ArrayFunctions.id2item(objects_external,self.opened.object.id);
+                objects_external[i]=deepCopyObject(self.opened.object);
+                r('Updating object '+self.opened.object.name+'.');
 
-            }else{
+            }*/
 
-                if(this.opened.collection==0){
 
-                    var i = ArrayFunctions.id2item(object_prototypes,this.opened.id);
-                    object_prototypes[i]=this.opened.object;
-
-                }else
-                if(this.opened.collection==1){
-
-                    var i = ArrayFunctions.id2item(objects_external,this.opened.id);
-                    objects_external[i]=this.opened.object;
-
-                }
-
-            }
-
-            this.opened=false;
+            self.opened=false;
 
         }
     );
@@ -92,38 +79,58 @@ var Editor = function(title,content,open_callback,default_object){
 Editor.prototype.open = function(collection,id){
 
     this.opened = {
-        collection: collection,
-        id: id
+        collection: collection
     };
 
 
     if(id==-1){
 
-        this.opened.object = this.default_object;
+        this.opened.object = deepCopyObject(this.default_object);
+        this.opened.object.id=generateID();
+
+
+        if(collection==0){
+
+            object_prototypes.push(this.opened.object);
+            objectPrototypesMenu(this.opened.object.type,this.opened.object.subtype);
+
+            r('Creating new object prototype '+this.opened.object.name+'.');
+
+
+        }/*else
+        if(collection==1){
+
+            objects_external.push(this.opened.object)
+            r('Creating new object '+this.opened.object.name+'.');
+
+        }*/else{
+            throw new Error(''+collection+' is invalid identificator of collection!');
+        }
+
+
+
+
+
 
     }else{
 
         if(collection==0){
 
             this.opened.object = ArrayFunctions.id2item(object_prototypes,id);
-            objectPrototypesMenu(this.opened.object.type,this.opened.object.subtype);
-            buildingStart(this.opened.object.id);
+            r('Opening object prototype '+this.opened.object.name+'.');
 
 
-        }else
+        }/*else
         if(collection==1){
 
             this.opened.object = ArrayFunctions.id2item(objects_external,id);
+            r('Opening object '+this.opened.object.name+'.');
 
-        }else{
+        }*/else{
             throw new Error(''+collection+' is invalid identificator of collection!');
         }
 
     }
-
-    this.opened.object=deepCopyObject(this.opened.object);
-
-
 
 
 
@@ -137,7 +144,6 @@ Editor.prototype.open = function(collection,id){
 
         $('#editor-object-name').change(function(){
             object.name=$('#editor-object-name').val();
-            r(object);
         });
 
         //-----------------------------------------
