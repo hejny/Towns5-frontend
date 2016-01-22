@@ -35,14 +35,20 @@ ArrayFunctions.id2i = function(array,id){
  * Searches an item with ID in array
  * @param {object} array Array of objects with ID
  * @param {*} id Searched ID
+ * @param {string} error_message when iten not exists
  * @returns {object} Object with this ID, null if not exist
  */
-ArrayFunctions.id2item = function(array,id){
+ArrayFunctions.id2item = function(array,id,error_message=false){
 
     for(var i in array){
         if(array[i].id==id)return array[i];
     }
-    return null;
+
+    if(error_message){
+        throw new Error(error_message);
+    }else{
+        return null;
+    }
 
 };
 
