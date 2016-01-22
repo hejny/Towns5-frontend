@@ -26,7 +26,7 @@
 
   &:hover{
 
-    background-color: $button-color-hover;
+    background-color: darken($button-color,50);
 
   }
 
@@ -34,6 +34,34 @@
 }
 
 
+
+
+@mixin mini-button($size,$color){
+
+  border: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  font-weight: 600;
+  width: $size;
+  height: $size;
+  font-size: ($size/26*21);
+  border: 2px solid rgba(lighten($color,50),0.5);
+  border-radius: 3px;
+  text-shadow: #000011;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba($color,0.5);
+  color: invert($color);
+  cursor: pointer;
+
+
+
+  &:hover{
+    background-color: rgba($color,0.65);
+  }
+
+}
 
 
 
