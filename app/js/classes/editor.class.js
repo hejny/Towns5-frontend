@@ -19,12 +19,17 @@ var Editor = function(title,content,open_callback,default_object){
     this.page = new Page(
         title,
         `
-        <form>
-        <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
-        </form>
-        <button onclick="Pages.block_editor.deleteBlock();">{{`+default_object.type+` `+default_object.subtype+` delete}}</button>
-        <button onclick="Pages.block_editor.duplicateBlock();">{{`+default_object.type+` `+default_object.subtype+` duplicate}}</button>`+
-        content,
+        <form id="editor-object-header">
+            <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
+
+
+            <div class="mini-button"  id="editor-object-delete" onclick="Pages.block_editor.deleteBlock();" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
+
+
+            <div class="mini-button"  id="editor-object-duplicate" onclick="Pages.block_editor.duplicateBlock();" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
+
+
+        </form>`+content,
         false,
         function(){
 
@@ -141,6 +146,8 @@ Editor.prototype.open = function(collection,id){
         open_callback(object);
 
         //-----------------------------------------
+
+        $('#editor-object-name').val(object.name);
 
         $('#editor-object-name').change(function(){
             object.name=$('#editor-object-name').val();
