@@ -52,6 +52,30 @@
 }
 
 
+
+#macros{
+  position:absolute;
+  top:300px;
+  right:10px;
+  /*padding: 4px;
+  background-color: #999999;
+  box-shadow: #000000 0 0 3px 0;
+  border-radius: 3px;*/
+  z-index: 3600;
+
+  .mini-button{
+
+    display: block;
+    width: 15px;
+    height: 15px;
+    font-size: 15px;
+
+  }
+
+}
+
+
+
 .mini-button{
 
   border: none;
