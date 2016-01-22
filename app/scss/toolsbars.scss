@@ -4,8 +4,8 @@
  todo refactor rename this file to special-cursor.scss
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 
 #selecting-distance{
