@@ -9,7 +9,19 @@
 
 .model-canvas{
 
+  display: inline-block;
   box-shadow: rgba(0,0,0,0.2) 0px 0px 8px;
   background-color: rgba(78, 139, 255, 0.05);
+
+}
+
+
+
+.model-canvas-ctl{
+
+  .mini-button{
+    @include mini-button(15px,$mini-button-color-light);
+  }
+
 
 }

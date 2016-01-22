@@ -13,11 +13,9 @@
 
   //border: 2px solid #ffcccc;
 
-  .mini-button{//todo create mixin
+  .mini-button{
 
-    width: 15px;
-    height: 15px;
-    font-size: 15px;
+    @include mini-button(15px,$mini-button-color-light);
 
   }
 

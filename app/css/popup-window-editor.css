@@ -19,9 +19,24 @@
   width: 100%;
   text-align: left; }
   #editor-object-header .mini-button {
+    border: none;
+    display: inline-block;
+    margin: 2px;
+    padding: 10px;
+    font-weight: 600;
     width: 15px;
     height: 15px;
-    font-size: 15px; }
+    font-size: 12.11538px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+    text-shadow: #000011;
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgba(204, 204, 204, 0.5);
+    color: #333333;
+    cursor: pointer; }
+    #editor-object-header .mini-button:hover {
+      background-color: rgba(204, 204, 204, 0.65); }
 
 #editor-object-name {
   display: inline-block;
