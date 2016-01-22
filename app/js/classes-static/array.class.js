@@ -62,7 +62,7 @@ ArrayFunctions.id2item = function(array,id,error_message=false){
  * @param {*} id Searched ID
  * @returns {boolean}
  */
-ArrayFunctions.idRemove = function(array,id){
+ArrayFunctions.idRemove = function(array,id){//todo refactor use this not splice
 
     for(var i in array){
         if(array[i].id==id){

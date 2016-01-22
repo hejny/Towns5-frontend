@@ -71,8 +71,9 @@ UI.popupWindowOpen = function(title,content,close=false){
 
 /**
  * Close popup window and run close callback
+ * @param {boolean} dont_run_callback
  */
-UI.popupWindowClose = function(){
+UI.popupWindowClose = function(dont_run_callback=false){
 
     //todo sounds ion.sound.play("door_bump");
 
@@ -83,8 +84,10 @@ UI.popupWindowClose = function(){
 
     if(UI.popupWindowCloseCallback){
 
+        if(dont_run_callback===false){
+            UI.popupWindowCloseCallback();
+        }
 
-        UI.popupWindowCloseCallback();
         delete UI.popupWindowCloseCallback;
     }
 

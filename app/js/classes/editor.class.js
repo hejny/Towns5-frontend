@@ -162,6 +162,19 @@ Editor.prototype.open = function(collection,id){
 
                 r('Deleting object prototype '+object.name+'.');
 
+                //todo maybe create action DELETE prototype?
+                if(confirm(Locale.get('delete prototype '+object.type+' '+object.subtype+' confirm'))){//todo create better confirm
+
+                    ArrayFunctions.idRemove(object_prototypes,object.id);
+
+                    mapSpecialCursorStop();
+                    objectPrototypesMenu(object.type,object.subtype);
+
+                    UI.popupWindowClose(true);
+
+                }
+
+
             }else{
                 throw new Error(''+collection+' is invalid identificator of collection!');
             }
