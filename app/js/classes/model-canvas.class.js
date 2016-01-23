@@ -6,11 +6,11 @@
 
 
 
-var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=0,y=0,slope=map_slope){
+var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope){
 
     this.rotation=rotation;
     this.slope=slope;
-    this.size=size;
+    this.zoom=zoom;
     this.width=width;
     this.height=height;
     this.x=x;
@@ -82,13 +82,13 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=
     var self=this;
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-plus').click(function(){
-        self.size+=0.5;
+        self.zoom+=0.2;
         self.draw();
     });
 
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-minus').click(function(){
-        self.size-=0.5;
+        self.zoom-=0.2;
         self.draw();
     });
 
@@ -140,8 +140,11 @@ ModelCanvas.prototype.setModel = function(model){
 
 ModelCanvas.prototype.draw = function(model){
 
+    var size=Math.pow(Math.E,this.zoom);
+
+
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, this.size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope);
+    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope);
 
     /*this.ctx.beginPath();
     this.ctx.arc(this.x+(this.width/2), this.y+(this.height/2),20,0,2*Math.PI);
