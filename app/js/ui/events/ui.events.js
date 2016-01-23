@@ -256,7 +256,7 @@ window.uiScript = function(){
     });
 
 
-    $('#selecting-distance-blocks').unbind('click').click(function(){
+    $('#selecting-distance-editor').unbind('click').click(function(){
         Editors.block_editor.open(0,building.id);
     });
 
@@ -265,7 +265,6 @@ window.uiScript = function(){
         //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
         $('#popup-action').hide();
-        $('#color-ctl').hide();
     });
 
 
@@ -323,48 +322,6 @@ window.mapSpecialCursorStop = function(){
     terrainNeutralizeStop();
     storyWritingStop();
 };
-
-
-//======================================================================================================================
-//COLOR
-
-
-$(function() {
-
-    $('#selecting-distance-color-box').farbtastic(Interval.maxRunPerMs(function (color) {
-
-        r(color);
-        selected_color = color;
-        $('#selecting-distance-color').css('background-color', selected_color);
-
-
-        if(building.subtype=='block'){
-            for(var i in building.design.data.particles){
-                building.design.data.particles[i].color=selected_color;
-            }
-        }
-
-
-
-
-        buildingUpdate();
-
-    }, 200));
-
-    /*('#selecting-distance-color-input');
-     picker.setColor(selected_color); //set initial color
-     picker.linkTo(function(){
-
-
-
-     r(selected_color);
-
-
-     $('#selecting-distance-color').scss('selected_color',selected_color);
-
-
-     }); //link to callback*/
-});
 
 //======================================================================================================================
 //LEFT MENU
