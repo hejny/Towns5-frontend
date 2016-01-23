@@ -7,24 +7,9 @@
 
 Editors.block_editor = new Editor(
     'Stavební bloky',
-    `
-
+    `<div class="page-column-2">
 <form onsubmit="return false;" id="block-editing-form">
-
-
-
-<div class="page-column-2">
-
-
-    <div id="model-canvas"></div>
-
-
-</div>
-
-
-
-
-<table  class="page-column-2">
+<table>
 
   <tr><th colspan="2">{{block shape}}</th></tr>
   <tr>
@@ -84,20 +69,28 @@ Editors.block_editor = new Editor(
   </tr>
 
 
-
+  <tr><th colspan="2">{{block material}}</th></tr>
+  <tr>
+    <td colspan="2"><div id="farbtastic-color-box"></div></td>
+  </tr>
 
 
 </table>
-
-
-
 </form>
+</div>
+
+
+<div class="page-column-2">
+
+    <div id="model-canvas"></div>
+
+</div>
 
 
     `,function(object){
 
 
-        var model_canvas= new ModelCanvas('model-canvas',object.design.data,300,300);
+        var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
 
         var particle=ModelParticles.cParams(object.design.data.particles[0]);
 
@@ -116,6 +109,18 @@ Editors.block_editor = new Editor(
         $('#block-editing-rotation-xy').val(particle.rotation.xy);
         $('#block-editing-rotation-xz').val(particle.rotation.xz);
         //('#block-editing-rotation-yz').val(particle.rotation.yz);
+
+
+
+
+        var farbtastic = $.farbtastic('#farbtastic-color-box').setColor(object.design.data.particles[0].color);
+
+        farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
+
+            object.design.data.particles[0].color=color;
+            model_canvas.setModel(object.design.data);
+
+        }, 200));
 
 
         $('#block-editing-form').find('input').mousemove(function(){
@@ -177,58 +182,3 @@ Editors.block_editor = new Editor(
 
 
 );
-
-
-
-/*Pages.block_editor.closeJS = function(){
-
-    townsAPI.post('objects/prototypes',ArrayFunctions.id2item(object_prototypes,Pages.block_editor.block_id),function(){
-
-        loadObjectPrototypes(function(){
-
-            objectPrototypesMenu('building','block');
-
-        });
-
-    });
-
-
-}
-
-
-Pages.block_editor.deleteBlock = function () {
-
-
-    if(confirm(Locale.get('block delete confirm'))){
-
-        var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);//todo maybe create function deleteID
-
-        //ArrayFunctions.removeItems(object_prototypes,i,1); //todo
-        object_prototypes.splice(i,1);
-
-
-        UI.popupWindowClose();
-
-
-
-    }
-
-};
-
-//===================================================================
-
-
-Pages.block_editor.duplicateBlock = function () {
-
-    var i=ArrayFunctions.id2i(object_prototypes,Pages.block_editor.block_id);
-
-
-    var tmp_block = deepCopyObject(object_prototypes[i]);
-    tmp_block.id=generateID();
-
-    object_prototypes.push(tmp_block);
-
-    building={id:tmp_block.id};//todo ?? better
-    window_open('block_editor');
-
-};*/

@@ -44,7 +44,7 @@ function buildingStart(prototypeId){
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
     if(building.subtype=='block')$('#selecting-distance-color').show();//todo refactor not same if conditions
-    if(building.subtype=='block')$('#selecting-distance-blocks').show();
+    if(building.subtype=='block')$('#selecting-distance-editor').show();
     $('#selecting-distance-close').show();
 
 
