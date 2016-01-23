@@ -21,20 +21,19 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=
     this.editor.css('width',width);
     this.editor.css('height',height);
     this.editor.css('overflow','hidden');
-    this.editor.css('box-shadow','#777777 0px 0px 4px');
+
+    this.editor.addClass('model-canvas');
 
     this.editor.html(`
 
         <style>
 
-            .model-canvas{
+            .model-canvas-canvas{
                 z-index:1;
                 display:block;
-                width:`+width+`px;
-                height:`+height+`px;
             }
 
-            .model-drag{
+            .model-canvas-drag{
                 z-index:2;
                 display:block;
                 position:relative;
@@ -46,14 +45,14 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=
             }
 
 
-            .model-ctl{
+            .model-canvas-ctl{
                 z-index:3;
                 position: relative;
                 top:`+(-2*height)+`px;
                 left: `+(width-40)+`px;
             }
 
-            .model-ctl .mini-button{
+            .model-canvas-ctl .mini-button{
                 display: block;
                 width: 10px;
                 height: 10px;
@@ -63,12 +62,12 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=
         </style>
 
 
-        <canvas class="model-canvas"></canvas>
-        <div class="model-drag"></div>
-        <div class="model-ctl">
+        <canvas class="model-canvas-canvas" width="`+width+`" height="`+height+`"></canvas>
+        <div class="model-canvas-drag"></div>
+        <div class="model-canvas-ctl">
 
-            <div class="model-plus mini-button" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
-            <div class="model-minus mini-button" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
+            <div class="model-canvas-plus mini-button" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
+            <div class="model-canvas-minus mini-button" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
 
         </div>
 
@@ -77,25 +76,25 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,size=1,x=
 
     `);
 
-    this.ctx=this.editor.find('.model-canvas')[0].getContext('2d');
+    this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
 
 
     var self=this;
 
-    this.editor.find('.model-ctl').find('.model-plus').click(function(){
+    this.editor.find('.model-canvas-ctl').find('.model-canvas-plus').click(function(){
         self.size+=0.5;
         self.draw();
     });
 
 
-    this.editor.find('.model-ctl').find('.model-minus').click(function(){
+    this.editor.find('.model-canvas-ctl').find('.model-canvas-minus').click(function(){
         self.size-=0.5;
         self.draw();
     });
 
 
     var drag_vars={};
-    this.editor.find('.model-drag').draggable({
+    this.editor.find('.model-canvas-drag').draggable({
         //'axis': 'x',
         'start': function(){
 
@@ -142,6 +141,10 @@ ModelCanvas.prototype.setModel = function(model){
 ModelCanvas.prototype.draw = function(model){
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, this.size, this.x+(this.width/2), this.y+(this.height/2), this.rotation, this.slope);
+    this.model.draw(this.ctx, this.size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope);
+
+    /*this.ctx.beginPath();
+    this.ctx.arc(this.x+(this.width/2), this.y+(this.height/2),20,0,2*Math.PI);
+    this.ctx.stroke();*/
 
 };

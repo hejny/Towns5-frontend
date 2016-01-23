@@ -43,12 +43,17 @@ UI.popupWindowContent = function(content){
  * Open popup window
  * @param title
  * @param content
- * @param close close callback
+ * @param close_callback
  */
-UI.popupWindowOpen = function(title,content,close=false){
+UI.popupWindowOpen = function(title,content,close_callback=false){
 
-    if(close){
-        UI.popupCloseCallback=close;
+    if(window_opened){
+        UI.popupWindowClose(false);
+    }
+
+
+    if(close_callback){
+        UI.popupCloseCallback=close_callback;
     }
 
     UI.popupWindowTitle(title);
@@ -58,7 +63,7 @@ UI.popupWindowOpen = function(title,content,close=false){
     $('.popup-window').show();
 
 
-    $('.popup-window .content').mousedown(function(){
+    $('.popup-window .content').unbind('mousedown').mousedown(function(){
 
         $('body').enableSelection();
     });
@@ -71,27 +76,36 @@ UI.popupWindowOpen = function(title,content,close=false){
 
 /**
  * Close popup window and run close callback
- * @param {boolean} dont_run_callback
+ * @param {boolean} dont_run_close_callback
  */
-UI.popupWindowClose = function(dont_run_callback=false){
+UI.popupWindowClose = function(dont_run_close_callback=false){
 
+    //-------------------------------------------Play sound
     //todo sounds ion.sound.play("door_bump");
+    //-------------------------------------------
 
+    //-------------------------------------------Hide popup window
     $('.overlay').hide();
     $('.popup-window').hide();
 
     $('body').disableSelection();
 
+    window_opened=false;
+    //-------------------------------------------
+
+
+    //-------------------------------------------Run close callback
     if(UI.popupWindowCloseCallback){
 
-        if(dont_run_callback===false){
+        if(dont_run_close_callback===false){
             UI.popupWindowCloseCallback();
         }
 
         delete UI.popupWindowCloseCallback;
     }
+    //-------------------------------------------
 
-    window_opened=false;
+
 };
 
 
