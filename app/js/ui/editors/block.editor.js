@@ -117,7 +117,8 @@ Editors.block_editor = new Editor(
         $('#block-editing-rotation-xz').val(particle.rotation.xz);
         //('#block-editing-rotation-yz').val(particle.rotation.yz);
 
-        $('#block-editing-form input').click(function(){
+
+        $('#block-editing-form').find('input').mousemove(function(){
 
 
                 object.design.data.particles[0].shape.n = Math.toInt($('#block-editing-shape-n').val());

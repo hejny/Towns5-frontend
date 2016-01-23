@@ -182,6 +182,35 @@ Editor.prototype.open = function(collection,id){
         //-----------------
 
 
+        //-----------------Duplicate
+        $('#editor-object-duplicate').click(function(){
+            if(editor.opened.collection==0){
+
+                r('Duplicating object prototype '+object.name+'.');
+
+                //todo maybe create action DUPLICATE prototype?
+                if(confirm(Locale.get('duplicate prototype '+object.type+' '+object.subtype+' confirm'))){//todo create better confirm
+
+                    var object_duplicate=deepCopyObject(editor.opened.object);
+                    object_duplicate.id=generateID();
+
+                    object_prototypes.push(object_duplicate);
+
+                    //r('Opening duplicated object prototype '+object.name+'.');
+                    //r(object_duplicate);
+                    UI.popupWindowClose();
+                    editor.open(0,object_duplicate.id);
+
+                }
+
+
+            }else{
+                throw new Error(''+collection+' is invalid identificator of collection!');
+            }
+        });
+        //-----------------
+
+
         //-----------------------------------------
 
     },[this.open_callback,this.opened.object]);

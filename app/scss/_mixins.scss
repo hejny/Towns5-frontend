@@ -46,7 +46,7 @@
   width: $size;
   height: $size;
   font-size: ($size/26*21);
-  border: 2px solid rgba(lighten($color,50),0.5);
+  border: 2px solid rgba(mix($color,#888888),0.5);
   border-radius: 3px;
   text-shadow: #000011;
   text-align: center;
