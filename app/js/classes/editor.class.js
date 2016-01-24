@@ -29,7 +29,8 @@ var Editor = function(title,content,open_callback,default_object){
             <div class="mini-button"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
 
 
-        </form>`+content,
+        </form>
+        <div id="editor-object-errors"></div>`+content,
         false,
         function(){
 
@@ -48,6 +49,12 @@ var Editor = function(title,content,open_callback,default_object){
 
                 objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
                 buildingStart(object_prototypes[i].id);
+
+
+                townsAPI.post('objects/prototypes',object_prototypes[i],function(errors){
+
+                    self.open(0,object_prototypes[i].id,errors);
+                });
 
 
                 r('Updating object prototype '+self.opened.object.name+'.');
@@ -81,7 +88,7 @@ var Editor = function(title,content,open_callback,default_object){
  * @param {number} collection 0=object_prototypes, 0=objects_external
  * @param {string} id
  */
-Editor.prototype.open = function(collection,id){
+Editor.prototype.open = function(collection,id,errors=false){
 
     this.opened = {
         collection: collection
@@ -144,6 +151,21 @@ Editor.prototype.open = function(collection,id){
         //-----------------------------------------
 
         open_callback(object);
+
+
+        //-----------------------------------------Errors
+
+        if(errors){
+
+            //r(errors);
+            for(key in errors.message){
+                //UI.message(errors.message[key].message,'error');
+
+                $('#editor-object-errors').append('<div class="error">'+(errors.message[key].message.text2html())+'</div>');
+            }
+
+
+        }
 
         //-----------------------------------------Editor header
 

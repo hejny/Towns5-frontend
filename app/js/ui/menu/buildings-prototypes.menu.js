@@ -20,6 +20,10 @@ function buildingStart(prototypeId){
 
     building=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId,'Prototype with id '+prototypeId+' do not exist.'));
 
+    building.prototypeId=prototypeId;//todo should it be here?
+    //r('buildingStart',building);
+
+
     forceJoining=false;
 
     selecting_size={x: 300,y: 700};

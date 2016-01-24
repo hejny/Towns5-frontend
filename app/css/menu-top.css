@@ -107,20 +107,15 @@
   padding: 0;
   margin: 10px 5px;
   text-decoration: none;
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   line-height: 30px;
   text-align: center;
-  cursor: pointer;
-  border-radius: 50%; }
+  cursor: pointer; }
 
-.menu-list-item-icon > img {
-  vertical-align: bottom;
-  width: 20px;
-  height: auto; }
-
-.menu-list-item-icon:hover {
-  background-color: black; }
+.menu-list-item-icon:hover i {
+  color: #ffffff;
+  text-shadow: #ffffff 0 0 5px; }
 
 .menu-dlist {
   display: none;

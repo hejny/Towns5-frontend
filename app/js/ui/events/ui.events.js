@@ -158,6 +158,7 @@ window.uiScript = function(){
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
     $('.js-popup-notification-open').unbind('click').on('click', function(event){
         event.stopPropagation();
+        $('.popup-server').hide();
         $('.popup-notification').toggle();
     });
 
@@ -166,10 +167,31 @@ window.uiScript = function(){
         event.stopPropagation();
     });
 
-    // kliknutie na document schová popup-notification
+
+    //------------------------------------
+
+    // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
+    $('.js-popup-server-open').unbind('click').on('click', function(event){
+        event.stopPropagation();
+        $('.popup-notification').hide();
+        $('.popup-server').toggle();
+    });
+
+    // kliknutie na otvorený popup-notification neurobí nič
+    $('.popup-server').unbind('click').on('click', function(event){
+        event.stopPropagation();
+    });
+
+
+    //------------------------------------
+
+
+    // kliknutie na document schová oba
     $(document).unbind('click').on('click', function(){
         $('.popup-notification').hide();
+        $('.popup-server').hide();
     });
+
 
 
 

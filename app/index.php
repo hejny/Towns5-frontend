@@ -440,6 +440,7 @@ function tidyHTML($buffer) {
 
 
 
+
     </ul>
 
 
@@ -458,14 +459,23 @@ function tidyHTML($buffer) {
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover"><i
-                class="fa fa-flag fa-lg faa-shake"></i></li>
-        <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i
-                class="fa fa-wrench fa-lg faa-wrench"></i></li>
+        <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover">
+            <i class="fa fa-flag fa-lg faa-shake"></i>
+        </li>
 
-        <!--<li class="menu-list-item menu-list-item-icon faa-parent animated-hover"
-            onclick="$(document).toggleFullScreen();"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>-->
-        <!--todo tohle neni ciste reseni js by mel byt mimo html dokumentu v tomhle pripade v ui.js-->
+
+        <li class="menu-list-item menu-list-item-icon js-popup-server-open faa-parent animated-hover">
+
+            <i id="server-loading" style="display: none;" class="fa fa-spinner faa-spin animated"></i>
+            <i id="server-ok" class="fa fa-check-circle"></i>
+            <i id="server-error" style="display: none;" class="fa fa-exclamation-triangle"></i>
+
+
+
+        </li>
+
+
+
 
 
     </ul>
@@ -519,6 +529,19 @@ function tidyHTML($buffer) {
     </div>
     <div class="footer">
         <a href="#"><?=locale('ui notifications all')?></a>
+    </div>
+</div>
+
+
+<div class="popup-server">
+    <div class="arrow"></div>
+    <div class="header"></div>
+    <div class="content" id="server">
+
+
+    </div>
+    <div class="footer">
+        <a href="#"><?=locale('ui server')?></a>
     </div>
 </div>
 
