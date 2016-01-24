@@ -222,40 +222,55 @@ function tidyHTML($buffer) {
     //tady je podminka zda jde o testovaci verzi
     if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
 
+        $js_files=array();
+        $css_files=array();
 
-        foreach ($config['includes']['css'] as $include) {
+        //-----------------------------------------------------
 
-            if(is_array($include)){
-                foreach($include as $environment=>$file){
-                    if($environment==$config['app']['environment']){
-                        echo '<link rel="stylesheet" href="/' . addslashes($file) . '"/>' . "\n";
-                    }
-                }
-            }elseif(is_string($include)) {
-
-                echo '<link rel="stylesheet" href="/' . addslashes($include) . '"/>' . "\n";
-
-            }
-        }
-
-        /**/
         foreach ($config['includes']['js'] as $include) {
 
 
             if(is_array($include)){
                 foreach($include as $environment=>$file){
                     if($environment==$config['app']['environment']){
-                        echo '<script src="/' . addslashes($file) . '"></script>'."\n";
+                        $js_files=array_merge($js_files,glob($file));
                     }
                 }
             }elseif(is_string($include)){
 
-                echo '<script src="/' . addslashes($include) . '"></script>'."\n";
+                $js_files=array_merge($js_files,glob($include));
 
             }
 
-        }/**/
+        }
 
+        foreach ($config['includes']['css'] as $include) {
+
+            if(is_array($include)){
+                foreach($include as $environment=>$file){
+                    if($environment==$config['app']['environment']){
+                        $css_files=array_merge($css_files,glob($file));
+                    }
+                }
+            }elseif(is_string($include)) {
+
+                $css_files=array_merge($css_files,glob($include));
+
+            }
+        }
+        //-----------------------------------------------------
+
+        $js_files=array_unique($js_files);
+        $css_files=array_unique($css_files);
+
+        foreach($js_files as $js_file){
+            echo '<script src="/' . addslashes($js_file) . '"></script>'."\n";
+        }
+        foreach($css_files as $css_file){
+            echo '<link rel="stylesheet" href="/' . addslashes($css_file) . '"/>' . "\n";
+        }
+
+        //-----------------------------------------------------
 
     }else{
         ?>
@@ -339,15 +354,8 @@ function tidyHTML($buffer) {
     <div id="selecting-distance-minus" class="mini-button" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
     <div id="selecting-distance-left" class="mini-button" title="<?=locale('ui tool controls left')?>"><i class="fa fa-angle-double-left"></i></i></div>
     <div id="selecting-distance-right" class="mini-button" title="<?=locale('ui tool controls right')?>"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-color" class="mini-button faa-parent animated-hover" title="<?=locale('ui tool controls color')?>"><i class="fa fa-paint-brush faa-tada"></i>
-    </div>
-    <div id="selecting-distance-blocks" class="mini-button" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cubes"></i></div>
+    <div id="selecting-distance-editor" class="mini-button" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cube"></i></div>
     <div id="selecting-distance-close" class="mini-button" title="<?=locale('ui tool controls close')?>"><i class="fa fa-times"></i></div>
-</div>
-
-
-<div id="color-ctl" style="display: none;">
-    <div id="selecting-distance-color-box"></div>
 </div>
 
 
@@ -357,6 +365,12 @@ function tidyHTML($buffer) {
     <div id="map-minus" class="mini-button" title="<?=locale('ui map controls minus')?>"><i class="fa fa-minus"></i></div>
     <div id="map-left" class="mini-button" title="<?=locale('ui map controls left')?>"><i class="fa fa-undo"></i></i></div>
     <div id="map-right" class="mini-button" title="<?=locale('ui map controls right')?>"><i class="fa fa-repeat"></i></i></div>
+</div>
+
+
+
+<div id="macros">
+    <div onclick="objectPrototypesMenu('building','wall');Editors.block_editor.open(0,-1);return false;" class="mini-button" title="<?=locale('ui macros create block')?>"><i class="fa fa-cube"></i></div>
 </div>
 
 
@@ -426,6 +440,7 @@ function tidyHTML($buffer) {
 
 
 
+
     </ul>
 
 
@@ -440,18 +455,27 @@ function tidyHTML($buffer) {
 
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" content="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover"><i
-                class="fa fa-flag fa-lg faa-shake"></i></li>
-        <li class="menu-list-item menu-list-item-icon faa-parent animated-hover"><i
-                class="fa fa-wrench fa-lg faa-wrench"></i></li>
+        <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover">
+            <i class="fa fa-flag fa-lg faa-shake"></i>
+        </li>
 
-        <!--<li class="menu-list-item menu-list-item-icon faa-parent animated-hover"
-            onclick="$(document).toggleFullScreen();"><i class="fa fa-arrows-alt fa-lg faa-pulse"></i></li>-->
-        <!--todo tohle neni ciste reseni js by mel byt mimo html dokumentu v tomhle pripade v ui.js-->
+
+        <li class="menu-list-item menu-list-item-icon js-popup-server-open faa-parent animated-hover">
+
+            <i id="server-loading" style="display: none;" class="fa fa-spinner faa-spin animated"></i>
+            <i id="server-ok" class="fa fa-check-circle"></i>
+            <i id="server-error" style="display: none;" class="fa fa-exclamation-triangle"></i>
+
+
+
+        </li>
+
+
+
 
 
     </ul>
@@ -505,6 +529,19 @@ function tidyHTML($buffer) {
     </div>
     <div class="footer">
         <a href="#"><?=locale('ui notifications all')?></a>
+    </div>
+</div>
+
+
+<div class="popup-server">
+    <div class="arrow"></div>
+    <div class="header"></div>
+    <div class="content" id="server">
+
+
+    </div>
+    <div class="footer">
+        <a href="#"><?=locale('ui server')?></a>
     </div>
 </div>
 

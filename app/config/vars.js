@@ -17,6 +17,13 @@ var MESSAGE_MS = 2000;
 
 
 var Pages={};
+var Editors={};
+
+
+
+
+var object_prototypes=[];
+
 
 
 var objects_external=[];
@@ -84,8 +91,6 @@ var max_map_size=180;//180;
 var selecting_distance=1000;
 var selecting_distance_fields=0;
 
-
-var selected_color='#cccccc';
 
 //----
 

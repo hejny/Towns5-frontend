@@ -28,7 +28,7 @@ function dismantleUI(id){
         dismantle(id);
         Map.loadMapAsync();
         hideLeftMenu();
-        window_close();
+        UI.popupWindowClose();
 
     }
 

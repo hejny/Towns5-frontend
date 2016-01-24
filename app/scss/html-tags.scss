@@ -3,8 +3,8 @@
  * @fileOverview Default styling of HTML components
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 
 
@@ -28,4 +28,13 @@ input, textarea {
 button{
 
   @include button(40px);
+}
+
+
+
+
+table tr th{
+  //padding-top: 30px;
+  border-bottom: 2px solid rgba(200,200,200,0.3);
+  background-color: rgba(200,200,200,0.2);
 }

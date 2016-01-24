@@ -17,10 +17,11 @@ TownsAPI=function(url=''){
  * @param uri
  * @param method
  * @param data
- * @param callback
+ * @param callback_success
+ * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.query = function(uri,method,data,callback){
+TownsAPI.prototype.query = function(uri,method,data,callback_success=false,callback_error=false){
 
     r(this.url+uri);
     r(data);
@@ -37,14 +38,31 @@ TownsAPI.prototype.query = function(uri,method,data,callback){
 
     r('sended');
 
+    $('#server-loading').show();
+    $('#server-ok').hide();
+    $('#server-error').hide();
 
 
     request.done(function( response ){
-        callback(response);
+
+        $('#server-loading').hide();
+        $('#server-ok').show();
+        $('#server-error').hide();
+
+        if(callback_success)
+            callback_success(response);
     });
 
 
     request.fail(function( jqXHR, textStatus ) {
+
+        $('#server-loading').hide();
+        $('#server-ok').hide();
+        $('#server-error').show();
+
+
+        if(callback_error)
+            callback_error(jqXHR.responseJSON);
         //r('error');
         //throw new Error(textStatus);
 
@@ -78,7 +96,42 @@ TownsAPI.prototype.get = function(uri,data,callback){return this.query(uri,'GET'
  * @param callback
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.post = function(uri,data,callback){return this.query(uri,'POST',data,callback);};
+TownsAPI.prototype.post = function(uri,object,callback_error){
+
+
+    //--------------------
+    if(uri=='objects/prototypes'){
+
+        var callback_success=function(response){
+
+
+            r('UPDATING object prototype id after server response from '+object.id+' to '+response.objectId);
+
+
+            var i=ArrayFunctions.id2i(object_prototypes,object.id);
+            object_prototypes[i].id=response.objectId;
+
+
+            r(object_prototypes[i],object_prototypes[i].id);
+
+            objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
+            buildingStart(object_prototypes[i].id);
+
+
+
+        };
+
+
+    }
+    //--------------------
+
+
+    return this.query(uri,'POST',object,callback_success,callback_error);
+
+
+
+
+};
 
 /**
  *
@@ -86,6 +139,6 @@ TownsAPI.prototype.post = function(uri,data,callback){return this.query(uri,'POS
  * @param callback
  * @returns {Object}
  */
-TownsAPI.prototype.delete = function(uri,callback){return this.query(uri,'DELETE',{},callback);};
+TownsAPI.prototype.delete = function(uri){return this.query(uri,'DELETE',{});};
 
 

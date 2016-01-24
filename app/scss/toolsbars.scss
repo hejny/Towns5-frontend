@@ -4,8 +4,8 @@
  todo refactor rename this file to special-cursor.scss
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 
 #selecting-distance{
@@ -52,45 +52,33 @@
 }
 
 
-.mini-button{
 
-  border: none;
-  display: inline-block;
-  margin: 2px;
-  padding: 10px;
-  font-weight: 600;
-  width: 26px;
-  height: 26px;
-  font-size: 21px;
-  border: 2px solid rgba(50,50,50,0.5);
-  border-radius: 3px;
-  text-shadow: #000011;
-  text-align: center;
-  vertical-align: middle;
-  background-color: rgba(0,0,0,0.5);
-  color: white;
-  cursor: pointer;
-
-}
-
-
-
-
-.mini-button:hover{
-  background-color: rgba(0,0,0,0.65);
-}
-
-
-#color-ctl{
+#macros{
   position:absolute;
-  top:150px;
-  left:70px;
+  top:300px;
+  right:10px;
   /*padding: 4px;
-  background-color: #444444;
+  background-color: #999999;
   box-shadow: #000000 0 0 3px 0;
   border-radius: 3px;*/
   z-index: 3600;
+
+  .mini-button{
+
+    display: block;
+
+    @include mini-button(15px,$mini-button-color);
+
+  }
+
 }
 
+
+
+.mini-button{
+
+  @include mini-button(26px,$mini-button-color);
+
+}
 
 

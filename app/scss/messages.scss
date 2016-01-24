@@ -3,12 +3,12 @@
  * @fileOverview Style for Towns Messages
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 #message {
 
-  z-index:3900;
+  z-index:93900;
   display: none;
   position: fixed;
   top: 70px;

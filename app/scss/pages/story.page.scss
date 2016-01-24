@@ -4,8 +4,8 @@
   todo maybe refactor rename to inner-page-story-editor.scss
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import '../config';
+@import '../mixins';
 
 #story-name{
 

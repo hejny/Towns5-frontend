@@ -1,10 +1,11 @@
 /**
  * @author ©Towns.cz
  * @fileOverview Style for left tool menu
+ //todo refactor to menu left
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import 'config';
+@import 'mixins';
 
 #objectmenu {
   z-index:4000;

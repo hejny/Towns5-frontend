@@ -32,7 +32,7 @@ $(function(){
         // space and arrow keys
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
 
-            if(focusOnMap()){
+            if(UI.focusOnMap()){
                 e.preventDefault();
             }
 
@@ -45,7 +45,7 @@ $(function(){
 
     $(document).keydown(function (e) {
 
-        if(focusOnMap()) {
+        if(UI.focusOnMap()) {
             r('DOWN', e.which);
 
             if ($.inArray(e.which, keys) == -1) {
@@ -66,7 +66,7 @@ $(function(){
 
     $(document).keyup(function (e) {
 
-        //if(focusOnMap()) {
+        //if(UI.focusOnMap()) {
             r('UP', e.which);
 
             var i = $.inArray(e.which, keys);

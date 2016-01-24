@@ -3,8 +3,8 @@
  * @fileOverview Style for Farbtastic Color Picker 1.2
  */
 //======================================================================================================================
-@import 'config.scss';
-@import 'components.scss';
+@import '../config';
+@import '../mixins';
 
 
 .farbtastic {
@@ -25,19 +25,20 @@
   height: 101px;
 }
 .farbtastic .wheel {
-  background: url('../../media/image/farbtastic/wheel.png') no-repeat;
+  background: url('../../../media/image/farbtastic/wheel.png') no-repeat;
   width: 195px;
   height: 195px;
 }
 .farbtastic .overlay {
+  display: none;//todo remove from farbtastic
   position: absolute;
-  background: url('../../media/image/farbtastic/mask.png') no-repeat;
+  background: url('../../../media/image/farbtastic/mask.png') no-repeat;
 }
 .farbtastic .marker {
   width: 17px;
   height: 17px;
   margin: -8px 0 0 -8px;
   overflow: hidden; 
-  background: url('../../media/image/farbtastic/marker.png') no-repeat;
+  background: url('../../../media/image/farbtastic/marker.png') no-repeat;
 }
 
