@@ -9,6 +9,8 @@
 
 function objectPrototypesMenu(type,subtype=false){
 
+    r('ObjectPrototypesMenu '+type+' '+subtype);
+
     var object_menu_html='';
 
     //------------------------Extra buttons
@@ -18,10 +20,20 @@ function objectPrototypesMenu(type,subtype=false){
             icon_size: 0.55,
             title: '',
             content: content,
-            action: `mapSpecialCursorStop();window_open('block_editor');`
+            action: `mapSpecialCursorStop();Editors.block_editor.open(0,-1);`
         });
     }
-    //------------------------
+
+    if(type=='building' && subtype=='main'){
+        object_menu_html+=Templates.objectMenu({
+            icon: 'media/image/icons/add.svg',
+            icon_size: 0.55,
+            title: '',
+            content: content,
+            action: `mapSpecialCursorStop();window_open('building_editor');`
+        });
+    }
+    //------------------------.
 
 
     object_prototypes.forEach(function(object){

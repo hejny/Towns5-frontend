@@ -132,8 +132,9 @@ window.uiScript = function(){
     $('.js-popup-window-open').unbind('click').on('click', function(){
 
 
-        var content=$(this).attr('content');
-        window_open(content);
+        var page=$(this).attr('page');
+        //r(page,Pages);
+        Pages[page].open();
 
 
 
@@ -141,12 +142,12 @@ window.uiScript = function(){
 
     // kliknutie na overlay schová overlay a popup-window
     $('.overlay').unbind('click').on('click', function(){
-        window_close()
+        UI.popupWindowClose()
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
     $('.js-popup-window-close').unbind('click').on('click', function(){
-        window_close()
+        UI.popupWindowClose()
     });
 
 
@@ -157,6 +158,7 @@ window.uiScript = function(){
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
     $('.js-popup-notification-open').unbind('click').on('click', function(event){
         event.stopPropagation();
+        $('.popup-server').hide();
         $('.popup-notification').toggle();
     });
 
@@ -165,10 +167,31 @@ window.uiScript = function(){
         event.stopPropagation();
     });
 
-    // kliknutie na document schová popup-notification
+
+    //------------------------------------
+
+    // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
+    $('.js-popup-server-open').unbind('click').on('click', function(event){
+        event.stopPropagation();
+        $('.popup-notification').hide();
+        $('.popup-server').toggle();
+    });
+
+    // kliknutie na otvorený popup-notification neurobí nič
+    $('.popup-server').unbind('click').on('click', function(event){
+        event.stopPropagation();
+    });
+
+
+    //------------------------------------
+
+
+    // kliknutie na document schová oba
     $(document).unbind('click').on('click', function(){
         $('.popup-notification').hide();
+        $('.popup-server').hide();
     });
+
 
 
 
@@ -255,10 +278,8 @@ window.uiScript = function(){
     });
 
 
-    $('#selecting-distance-blocks').unbind('click').click(function(){
-        //block_editing=building.id;
-        window_open('block_editor');
-
+    $('#selecting-distance-editor').unbind('click').click(function(){
+        Editors.block_editor.open(0,building.id);
     });
 
 
@@ -266,7 +287,6 @@ window.uiScript = function(){
         //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
         $('#popup-action').hide();
-        $('#color-ctl').hide();
     });
 
 
@@ -275,12 +295,13 @@ window.uiScript = function(){
 
 
 
+    //todo usages?
     $('.towns-window'/*todo all classes scss+js should be AllFirstLetters*/).unbind('click').click(function(e){
         e/*todo use e or event???*/.preventDefault();
 
 
         var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
-        window_open_content($(this).attr('title'),html);
+        UI.popupWindowOpen($(this).attr('title'),html);
 
     });
 
@@ -323,48 +344,6 @@ window.mapSpecialCursorStop = function(){
     terrainNeutralizeStop();
     storyWritingStop();
 };
-
-
-//======================================================================================================================
-//COLOR
-
-
-$(function() {
-
-    $('#selecting-distance-color-box').farbtastic(Interval.maxRunPerMs(function (color) {
-
-        r(color);
-        selected_color = color;
-        $('#selecting-distance-color').css('background-color', selected_color);
-
-
-        if(building.subtype=='block'){
-            for(var i in building.design.data.particles){
-                building.design.data.particles[i].color=selected_color;
-            }
-        }
-
-
-
-
-        buildingUpdate();
-
-    }, 200));
-
-    /*('#selecting-distance-color-input');
-     picker.setColor(selected_color); //set initial color
-     picker.linkTo(function(){
-
-
-
-     r(selected_color);
-
-
-     $('#selecting-distance-color').scss('selected_color',selected_color);
-
-
-     }); //link to callback*/
-});
 
 //======================================================================================================================
 //LEFT MENU
