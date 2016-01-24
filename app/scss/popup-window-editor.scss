@@ -9,6 +9,8 @@
 #editor-object-header{
   display: block;
   width: 100%;
+  height: 40px;
+  //overflow: hidden;
   text-align: left;
 
   //border: 2px solid #ffcccc;
@@ -44,3 +46,16 @@
 
 
 }
+
+
+#editor-object-errors{
+  width: 100%;
+
+
+  .error{
+
+    color: #000000;
+    background-color: rgba($error-color,0.4);
+  }
+}
+
