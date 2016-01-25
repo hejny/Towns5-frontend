@@ -14,6 +14,8 @@
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
 
 
+    "app/js/classes-static/towns.class.js",
+
 
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},

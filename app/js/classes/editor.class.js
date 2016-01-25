@@ -13,10 +13,10 @@
  * @param default_object
  * @constructor
  */
-var Editor = function(title,content,open_callback,default_object){
+Towns.Editor = function(title,content,open_callback,default_object){
 
     var self=this;
-    this.page = new Page(
+    this.page = new Towns.Page(
         title,
         `
         <form id="editor-object-header">
@@ -88,7 +88,7 @@ var Editor = function(title,content,open_callback,default_object){
  * @param {number} collection 0=object_prototypes, 0=objects_external
  * @param {string} id
  */
-Editor.prototype.open = function(collection,id,errors=false){
+Towns.Editor.prototype.open = function(collection,id,errors=false){
 
     this.opened = {
         collection: collection

@@ -6,7 +6,7 @@
 
 
 
-Pages.locale_write = new Page(
+Pages.locale_write = new Towns.Page(
     'Locale',
     `<iframe src="" width="100%" height="100%" frameborder="0" scrolling="0" id="locale-write-iframe"></iframe>`,
     function(){

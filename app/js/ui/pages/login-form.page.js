@@ -6,7 +6,7 @@
 
 
 
-Pages.login_form = new Page(
+Pages.login_form = new Towns.Page(
     'Login',
     `
 
