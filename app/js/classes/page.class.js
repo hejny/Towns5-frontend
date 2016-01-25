@@ -1,6 +1,6 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates Class Page
+ * @fileOverview Creates Class Towns.Page
  */
 //======================================================================================================================
 
@@ -13,7 +13,7 @@
  * @param close_callback
  * @constructor
  */
-var Page=function(title,content,open_callback=false,close_callback=false) {
+Towns.Page=function(title,content,open_callback=false,close_callback=false) {
 
     this.title = title;
     this.content = content;
@@ -26,7 +26,7 @@ var Page=function(title,content,open_callback=false,close_callback=false) {
 /**
  * Open page in popup window
  */
-Page.prototype.open = function(additional_callback=false,additional_parameters=false){
+Towns.Page.prototype.open = function(additional_callback=false,additional_parameters=false){
 
     var title=this.title;
     var content=this.content;
@@ -80,6 +80,6 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
  * Wrapper for UI.popupWindowClose
  * @static
  */
-Page.close = function(){
+Towns.Page.close = function(){
         UI.popupWindowClose();
 };

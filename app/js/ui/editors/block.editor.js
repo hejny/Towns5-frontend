@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Editors.block_editor = new Editor(
+Editors.block_editor = new Towns.Editor(
     'Stavební bloky',
     `<div class="page-column-2">
 <form onsubmit="return false;" id="block-editing-form">

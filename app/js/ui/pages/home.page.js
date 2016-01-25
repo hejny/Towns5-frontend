@@ -6,7 +6,7 @@
 
 
 
-Pages.home = new Page(
+Pages.home = new Towns.Page(
     'Towns 5',
     `
 
