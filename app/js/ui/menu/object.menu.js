@@ -55,7 +55,7 @@ function objectMenu(){
             icon_size: 0.8,
             title: Locale.get('object json'),
             content: Locale.get('object json description'),
-            action: 'window_open(\'object_json\')'
+            action: 'Towns.Plugins.Pages.open(\'object_json\')'
         });
 
 

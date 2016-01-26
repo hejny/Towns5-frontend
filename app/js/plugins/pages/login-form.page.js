@@ -6,7 +6,8 @@
 
 
 
-Pages.login_form = new Towns.Page(
+T.Plugins.install(new T.Page(
+    'login',
     'Login',
     `
 
@@ -24,5 +25,5 @@ Heslo: <input type="password" id="password">
 
 
 `
-);
+));
 

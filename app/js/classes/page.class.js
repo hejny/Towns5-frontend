@@ -7,14 +7,16 @@
 
 /**
  * Creates page
- * @param title
- * @param content
- * @param open_callback
- * @param close_callback
+ * @param {string} uri
+ * @param {string} title
+ * @param {string} content
+ * @param {function} open_callback
+ * @param {function} close_callback
  * @constructor
  */
-Towns.Page=function(title,content,open_callback=false,close_callback=false) {
+Towns.Page=function(uri,title,content,open_callback=false,close_callback=false) {
 
+    this.uri = uri;
     this.title = title;
     this.content = content;
     this.open_callback = open_callback;

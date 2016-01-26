@@ -131,12 +131,8 @@ window.uiScript = function(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $('.js-popup-window-open').unbind('click').on('click', function(){
 
-
         var page=$(this).attr('page');
-        //r(page,Pages);
-        Pages[page].open();
-
-
+        Towns.Plugins.Pages.open(page);
 
     });
 
@@ -383,7 +379,7 @@ $(function(){
     uiScript();
 
     /*if(environment!='develop')
-    window_open('projects');*/
+    Towns.Plugins.Pages.open('projects');*/
 
 
 });
