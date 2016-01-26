@@ -30,7 +30,7 @@ function objectPrototypesMenu(type,subtype=false){
             icon_size: 0.55,
             title: '',
             content: content,
-            action: `mapSpecialCursorStop();window_open('building_editor');`
+            action: `mapSpecialCursorStop();Towns.Plugins.Pages.open('building_editor');`
         });
     }
     //------------------------.

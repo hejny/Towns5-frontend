@@ -4,8 +4,9 @@
  */
 //======================================================================================================================
 
-
-Pages.story = new Towns.Page(
+//todo this file should be Viewer!
+T.Plugins.install(new T.Page(
+    'story',
     '',
     '',
     function(){
@@ -23,7 +24,7 @@ Pages.story = new Towns.Page(
 
         content+=[
             '<hr>' +
-            '<a class="js-popup-window-open" content="story_editor" href="#">{{story edit}}</a>' +
+            '<a class="js-popup-window-open" content="story-editor" href="#">{{story edit}}</a>' +
             '<br>' +
             '<a onclick="dismantleUI('+map_selected_ids[0]+')" href="#">{{story delete}}</a>'
         ].join('');
@@ -40,4 +41,4 @@ Pages.story = new Towns.Page(
         Map.loadMap();
 
     }
-);
+));

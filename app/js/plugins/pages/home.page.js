@@ -6,7 +6,8 @@
 
 
 
-Pages.home = new Towns.Page(
+T.Plugins.install(new T.Page(
+    'home',
     'Towns 5',
     `
 
@@ -166,4 +167,4 @@ Pages.home = new Towns.Page(
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>
 
 `
-);
+));

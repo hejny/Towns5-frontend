@@ -7,16 +7,20 @@
 
 /**
  * Creates object editor
- * @param title
- * @param content
- * @param open_callback
- * @param default_object
+ * @param {string} uri
+ * @param {string} title
+ * @param {string} content
+ * @param {function} open_callback
+ * @param {function} default_object
  * @constructor
  */
-Towns.Editor = function(title,content,open_callback,default_object){
+Towns.Editor = function(uri,title,content,open_callback,default_object){
+
+    this.uri=uri;
 
     var self=this;
     this.page = new Towns.Page(
+        uri,
         title,
         `
         <form id="editor-object-header">
@@ -85,10 +89,12 @@ Towns.Editor = function(title,content,open_callback,default_object){
 
 /**
  * Open editor
- * @param {number} collection 0=object_prototypes, 0=objects_external
+ * @param {number} collection 0=object_prototypes, 1=objects_external
  * @param {string} id
  */
 Towns.Editor.prototype.open = function(collection,id,errors=false){
+
+    //r('Towns.Editor');
 
     this.opened = {
         collection: collection

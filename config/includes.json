@@ -32,7 +32,8 @@
     "app/js/actions/*.js",
     "app/js/inits/main.init.js",
     "app/js/inits/townsapi.init.js",
-    "app/js/inits/*.js"
+    "app/js/inits/*.js",
+    "app/js/plugins/*/*.js"
 
 
   ],
