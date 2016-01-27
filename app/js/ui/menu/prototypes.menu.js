@@ -16,7 +16,7 @@ function objectPrototypesMenu(type,subtype=false){
     //------------------------Extra buttons
     if(type=='building' && subtype=='block'){
         object_menu_html+=Templates.objectMenu({
-            icon: 'media/image/icons/add.svg',
+            icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
             content: content,
@@ -26,7 +26,7 @@ function objectPrototypesMenu(type,subtype=false){
 
     if(type=='building' && subtype=='main'){
         object_menu_html+=Templates.objectMenu({
-            icon: 'media/image/icons/add.svg',
+            icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
             content: content,

@@ -18,8 +18,14 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     this.editor=$('#'+id);
 
-    this.editor.css('width',width);
-    this.editor.css('height',height);
+
+    this.editor.css('width',this.width);
+    this.editor.css('height',this.height);
+
+    this.width=this.editor.width();
+    this.height=this.editor.height();
+
+
     this.editor.css('overflow','hidden');
 
     this.editor.addClass('model-canvas');
@@ -37,10 +43,10 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
                 z-index:2;
                 display:block;
                 position:relative;
-                top:`+(-1*height)+`px;
+                top:`+(-1*this.height)+`px;
                 left:0px;
-                width:`+width+`px;
-                height:`+height+`px;
+                width:`+this.width+`px;
+                height:`+this.height+`px;
                 /*border: 2px solid #FF0000;*/
             }
 
@@ -48,8 +54,8 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
             .model-canvas-ctl{
                 z-index:3;
                 position: relative;
-                top:`+(-2*height)+`px;
-                left: `+(width-40)+`px;
+                top:`+(-2*this.height)+`px;
+                left: `+(this.width-40)+`px;
             }
 
             .model-canvas-ctl .mini-button{
@@ -62,7 +68,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
         </style>
 
 
-        <canvas class="model-canvas-canvas" width="`+width+`" height="`+height+`"></canvas>
+        <canvas class="model-canvas-canvas" width="`+this.width+`" height="`+this.height+`"></canvas>
         <div class="model-canvas-drag"></div>
         <div class="model-canvas-ctl">
 
@@ -78,6 +84,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
 
+    r(this.ctx);
 
     var self=this;
 
