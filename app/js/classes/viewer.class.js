@@ -25,6 +25,8 @@ Towns.Viewer = function(uri,title,content,open_callback){
     );
 
 
+    this.open_callback=open_callback;
+
     this.opened=false;
 
 };
@@ -48,13 +50,13 @@ Towns.Viewer.prototype.open = function(collection,id){
         r('Opening object prototype '+this.opened.object.name+'.');
 
 
-    }/*else
+    }else
      if(collection==1){
 
-     this.opened.object = ArrayFunctions.id2item(objects_external,id);
-     r('Opening object '+this.opened.object.name+'.');
+         this.opened.object = ArrayFunctions.id2item(objects_external,id);
+         r('Opening object '+this.opened.object.name+'.');
 
-     }*/else{
+     }else{
         throw new Error(''+collection+' is invalid identificator of collection!');
     }
 

@@ -6,13 +6,20 @@
 
 
 T.Plugins.install(new T.Viewer(
-    'building'
+    'building-viewer'
     ,'Prohlížeč budov'
-    ,` <div id="model-canvas"></div>`
+    ,/*todo better solution*/`
+    <style>
+        .popup-window .content {
+            padding: 4px !important;
+        }
+    </style>
+    <div id="model-canvas"></div>
+    `
     ,function(object){
 
 
-        new ModelCanvas('model-canvas',object.design.data,380,600);
+        new ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
 
 
     }

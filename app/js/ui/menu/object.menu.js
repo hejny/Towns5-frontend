@@ -26,14 +26,14 @@ function objectMenu(){
 
 
         objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/dismantle.svg',
+            icon: '/media/image/icons/dismantle.svg',
             icon_size: 0.8,
             title: Locale.get('dismantle building'),
             content: Locale.get('dismantle building description'),
             action: 'dismantleUI(\''+id+'\');'
         });
 
-        objectmenu+=Templates.objectMenu({
+        /*objectmenu+=Templates.objectMenu({
             icon: 'media/image/icons/define_building_main.svg.svg',
             icon_size: 0.8,
             title: Locale.get('define prototype building main'),
@@ -47,17 +47,30 @@ function objectMenu(){
             title: Locale.get('define prototype building wall'),
             content: Locale.get('define prototype building wall description'),
             action: 'definePrototypeUI(map_data[ArrayFunctions.id2i(map_data,'+id+')],\'wall\');'
-        });
+        });*/
 
 
         objectmenu+=Templates.objectMenu({
+            icon: '/media/image/icons/view.svg',
+            icon_size: 0.8,
+            title: Locale.get('dismantle building'),
+            content: Locale.get('dismantle building description'),
+            action: 'T.Plugins.open(\'building-viewer\',1,\''+id+'\');'
+        });
+
+
+
+
+
+
+        /*objectmenu+=Templates.objectMenu({
             icon: 'media/image/icons/source.svg',
             icon_size: 0.8,
             title: Locale.get('object json'),
             content: Locale.get('object json description'),
             action: 'Towns.Plugins.Pages.open(\'object_json\')'
         });
-
+*/
 
 
 
