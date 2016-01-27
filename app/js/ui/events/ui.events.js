@@ -132,7 +132,7 @@ window.uiScript = function(){
     $('.js-popup-window-open').unbind('click').on('click', function(){
 
         var page=$(this).attr('page');
-        Towns.Plugins.Pages.open(page);
+        Towns.Plugins.open(page);
 
     });
 

@@ -96,6 +96,7 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
 
     //r('Towns.Editor');
 
+
     this.opened = {
         collection: collection
     };
@@ -149,6 +150,9 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
         }
 
     }
+
+
+    URI.object=this.opened.object.id;
 
 
     var editor=this;
