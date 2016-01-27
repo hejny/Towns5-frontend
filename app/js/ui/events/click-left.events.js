@@ -57,10 +57,11 @@ $(function(){
                  }*/
 
 
-                create(tmp);
+                create(tmp,function(){
+                    Map.loadMap()
+                });
 
 
-                Map.loadMap();
                 buildingUpdate();
 
                 //mapSpecialCursorStop();

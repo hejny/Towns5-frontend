@@ -17,7 +17,7 @@ function generateID(){
 //todo create Static object Actions
 
 
-function create(object,nojoin=false){//todo maybe refactor rename
+function create(object,callback=false){
 
     //todo sounds ion.sound.play("door_bump");
 
@@ -34,9 +34,9 @@ function create(object,nojoin=false){//todo maybe refactor rename
 
     var updatedID=false;
 
-    if(object.type=='terrain'){updatedID=createTerrain(object);}else
-    if(object.type=='building'){updatedID=createBuilding(object,nojoin);}else
-    if(object.type=='story'){updatedID=createStory(object);}else
+    if(object.type=='terrain'){updatedID=createTerrain(object,callback);}else
+    if(object.type=='building'){updatedID=createBuilding(object,callback);}else
+    if(object.type=='story'){updatedID=createStory(object,callback);}else
     {throw 'Unknown object type';}
 
 
@@ -128,10 +128,12 @@ function createNewOrJoin(object){
 //==========================================================createTerrain
 
 
-function createTerrain(object){//todo maybe create other
+function createTerrain(object,callback){//todo maybe create other
 
     object.id=generateID();
-    saveObject(deepCopyObject(object));
+    saveObject(deepCopyObject(object));//todo refactor
+
+    if(callback)callback();
 
     return(object.id);
 
@@ -140,7 +142,7 @@ function createTerrain(object){//todo maybe create other
 
 //==========================================================createStory
 
-function createBuilding(object,nojoin=false){
+function createBuilding(object,callback){
 
 
     if(forceJoining==false){
@@ -182,7 +184,9 @@ function createBuilding(object,nojoin=false){
         }
 
 
-        saveObject(object);
+        saveObject(object);//todo refactor
+
+        if(callback)callback();
 
         return(object.id);
 
@@ -191,30 +195,36 @@ function createBuilding(object,nojoin=false){
         //------------------------------------------------------------Join buildings
 
 
-        if(nojoin){
 
-            //delete objects_external[join.i];
-            //objects_external[join.i]=object;
-        }else{
-
-
-
-
-            objects_external[join.i].design.data.joinModel(
-                        object.design.data,
-                        join.xy.x,
-                        join.xy.y
-                );
+        objects_external[join.i].design.data.joinModel(
+                    object.design.data,
+                    join.xy.x,
+                    join.xy.y
+            );
 
 
-            objects_external[join.i].subtype='main';
+        objects_external[join.i].subtype='main';
 
 
-            /*delete objects_external[distances[0].i].res_node;
-            delete objects_external[distances[0].i].res_path;*/
+        townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
 
 
-        }
+            townsAPI.post('objects',{
+                prototypeId: response.objectId,
+                x: objects_external[join.i].x,
+                y: objects_external[join.i].y
+
+            },function(){
+
+                if(callback)callback();
+
+
+            });
+
+        });
+
+
+
 
         return(objects_external[join.i].id);
 
@@ -229,10 +239,12 @@ function createBuilding(object,nojoin=false){
 
 //==========================================================createStory
 
-function createStory(object){
+function createStory(object,callback){
 
     object.id=generateID();
-    saveObject(deepCopyObject(object));
+    saveObject(deepCopyObject(object));//todo refactor
+
+    if(callback)callback();
 
     return(object.id);
 
