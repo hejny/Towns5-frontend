@@ -17,12 +17,31 @@ function objectMenu(){
 
         var id=map_selected_ids[0];
 
-        var i=ArrayFunctions.id2i(map_data,id);
+        var object=ArrayFunctions.id2item(objects_external,id);
 
 
         var objectmenu='';
 
         var icon,content;
+
+
+        objectmenu+=Templates.objectMenu({
+            icon: '/media/image/icons/view.svg',
+            icon_size: 0.8,
+            title: Locale.get('dismantle building'),
+            content: Locale.get('dismantle building description'),
+            action: 'T.Plugins.open(\'building-viewer\',1,\''+id+'\');'
+        });
+
+
+
+        objectmenu+=Templates.objectMenu({
+            icon: '/media/image/icons/clone.svg',
+            icon_size: 0.8,
+            title: Locale.get('dismantle building'),
+            content: Locale.get('dismantle building description'),
+            action: 'buildingStart(\''+object._prototypeId+'\');'
+        });
 
 
         objectmenu+=Templates.objectMenu({
@@ -50,13 +69,7 @@ function objectMenu(){
         });*/
 
 
-        objectmenu+=Templates.objectMenu({
-            icon: '/media/image/icons/view.svg',
-            icon_size: 0.8,
-            title: Locale.get('dismantle building'),
-            content: Locale.get('dismantle building description'),
-            action: 'T.Plugins.open(\'building-viewer\',1,\''+id+'\');'
-        });
+
 
 
 
