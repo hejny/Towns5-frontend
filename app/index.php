@@ -380,7 +380,7 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="home" src="media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
+        <img class="js-popup-window-open" content="home" src="/media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
 
     </div>
 

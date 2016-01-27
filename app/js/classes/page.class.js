@@ -54,9 +54,27 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
     content=content.join('');
 
 
-    UI.popupWindowOpen(title,content);
+
+    URI.plugin=this.uri;
+    URI.update();
+
 
     var self=this;
+
+    UI.popupWindowOpen(title,content,function(){
+
+        r('CLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo');
+
+        if(self.close_callback){
+            self.close_callback();
+        }
+
+        URI.plugin=false;
+        URI.object=false;
+        URI.update();
+    });
+
+
     if(this.open_callback) {
         setTimeout(function () {
             self.open_callback();
@@ -70,18 +88,8 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
     }
 
 
-
-    if(this.close_callback) {
+    /*if(this.close_callback) {
         UI.popupWindowCloseCallback=this.close_callback;
-    }
+    }*/
 
-};
-
-/**
- * Close popup window and run close callback
- * Wrapper for UI.popupWindowClose
- * @static
- */
-Towns.Page.close = function(){
-        UI.popupWindowClose();
 };

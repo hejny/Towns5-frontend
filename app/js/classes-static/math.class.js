@@ -132,7 +132,7 @@ Math.toFloat = function(value,defval=0){
     if(typeof(value)==='undefined')return(defval);
 
     value=parseFloat(value);
-    if(value===NaN){
+    if(isNaN(value)){
         return(defval);
     }else{
         return(value);
@@ -154,7 +154,7 @@ Math.toInt = function(value,defval){
     if(typeof(value)==='undefined')return(defval);
 
     value=parseInt(value);
-    if(value===NaN){
+    if(isNaN(value)){
         return(defval);
     }else{
         return(value);

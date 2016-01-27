@@ -53,7 +53,7 @@ UI.popupWindowOpen = function(title,content,close_callback=false){
 
 
     if(close_callback){
-        UI.popupCloseCallback=close_callback;
+        UI.popupWindowCloseCallback=close_callback;
     }
 
     UI.popupWindowTitle(title);

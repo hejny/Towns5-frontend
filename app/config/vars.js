@@ -150,7 +150,7 @@ var moving=false;
 var blockedTerrains=[1,11,5];
 
 
-var appDir = (environment=='production')?'app-dist':'app';
+var appDir = (environment=='production')?'/app-dist':'/app';
 
 
 var feed_url='http://blog.towns.cz/feed/';

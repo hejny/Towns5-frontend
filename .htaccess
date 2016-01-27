@@ -1,11 +1,32 @@
+
+Options -Indexes
+Options +FollowSymLinks
+
+
+<IfModule mod_negotiation.c>
+    Options -MultiViews
+</IfModule>
+
+
+<Files ".htaccess|README.md">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+
+
 <IfModule mod_rewrite.c>
-	<IfModule mod_negotiation.c>
-    	Options -MultiViews
-    </IfModule>
 
-    Options +FollowSymLinks
     RewriteEngine On
-
     # zakaz prehliadat nasledujuci adresar
     RewriteRule ^config($|/) - [L,NC,R=404]
+
+
+
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . /index.php [L,QSA]
+
+
 </IfModule>
