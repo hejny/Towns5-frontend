@@ -55,7 +55,16 @@ Towns.Editor = function(uri,title,content,open_callback,default_object){
                 buildingStart(object_prototypes[i].id);
 
 
-                townsAPI.post('objects/prototypes',object_prototypes[i],function(errors){
+                townsAPI.post('objects/prototypes',object_prototypes[i]
+                    ,function(response){
+
+
+                        objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
+                        buildingStart(object_prototypes[i].id);
+
+
+                    }
+                    ,function(errors){
 
                     self.open(0,object_prototypes[i].id,errors);
                 });
