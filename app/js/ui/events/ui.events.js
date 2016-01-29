@@ -117,9 +117,18 @@ window.uiScript = function(){
 
     });
 
-    $('.js-popup-action-open').unbind('mouseleave').on('mouseleave', function(e){
+    $('.js-popup-action-open, #popup-action').unbind('mouseleave').on('mouseleave', function(e){
         $('#popup-action').fadeOut(200);
     });
+
+
+    $('#popup-action').unbind('mouseenter').on('mouseenter', function(e){
+        $('#popup-action').stop();
+        $('#popup-action').css('opacity',1);
+        $('#popup-action').show();
+    });
+
+
 
 
 

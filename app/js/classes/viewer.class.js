@@ -13,9 +13,10 @@
  * @param {function} open_callback
  * @constructor
  */
-Towns.Viewer = function(uri,title,content,open_callback){
+Towns.Viewer = function(uri,conditions,title,content,open_callback){
 
     this.uri=uri;
+    this.conditions=conditions;
 
     var self=this;
     this.page = new Towns.Page(

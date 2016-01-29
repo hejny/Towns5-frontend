@@ -7,7 +7,10 @@
 
 T.Plugins.install(new T.Viewer(
     'building-viewer'
-    ,'Prohlížeč budov'
+    ,{
+        type: 'building'
+    }
+    ,'Vzhled budovy'
     ,/*todo better solution*/`
     <style>
         .popup-window .content {

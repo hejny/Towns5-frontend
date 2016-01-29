@@ -45,6 +45,8 @@ Towns.Plugins.uninstall = function(id){
 
 
 
+
+
 Towns.Plugins.open = function(uri){
 
     var args = [].slice.call(arguments).splice(1);
@@ -60,5 +62,40 @@ Towns.Plugins.open = function(uri){
             this.plugins[i].open.apply(this.plugins[i],args);
         }
     }
+
+};
+
+
+
+
+Towns.Plugins.search = function(action,object){
+
+    var possible=[];
+
+    for(i in this.plugins){
+
+        if(
+            (action=='edit' && this.plugins[i] instanceof Towns.Editor) ||
+            (action=='view' && this.plugins[i] instanceof Towns.Viewer)
+        ){
+
+            var is_possible=true;
+            for(key in this.plugins[i].conditions){
+
+                if(object[key] != this.plugins[i].conditions[key]){
+                    var is_possible=false;
+                    break;
+                }
+
+            }
+
+            if(is_possible)
+                possible.push(this.plugins[i].uri);
+        }
+
+
+    }
+
+    return(possible);
 
 };
