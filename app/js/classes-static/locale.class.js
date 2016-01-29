@@ -20,7 +20,7 @@ Locale.keys_write=[];
  */
 Locale.get = function(){//todo refactor useges use more params not ' '
 
-    var key = [].slice.call(arguments).splice(1).join(' ');
+    var key = [].slice.call(arguments).join(' ');
 
     if(!is(key))return 'MESSAGE';
 
