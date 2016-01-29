@@ -25,12 +25,17 @@ function objectMenu(){
         var icon,content;
 
 
+
+        var possible =Towns.Plugins.search('view',ArrayFunctions.id2item(objects_external,id));
+        possible=possible.map(function(item){
+            return(`<button onclick="Towns.Plugins.open('`+item+`',1,'`+id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,'view')+`</button>`);
+        });
+        possible=possible.join('');
         objectmenu+=Templates.objectMenu({
             icon: '/media/image/icons/view.svg',
             icon_size: 0.8,
             title: Locale.get('dismantle building'),
-            content: Locale.get('dismantle building description'),
-            action: 'T.Plugins.open(\'building-viewer\',1,\''+id+'\');'
+            content: Locale.get(object.type,object.subtype,'view')+possible
         });
 
 

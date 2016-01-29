@@ -125,3 +125,8 @@ UI.message = function(text,type){
     $('#message').fadeOut(MESSAGE_MS);//todo UX?
 
 };
+
+
+
+
+
