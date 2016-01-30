@@ -8,15 +8,17 @@
 /**
  * Creates object editor
  * @param {string} uri
+ * @param {object} conditions of opened object
  * @param {string} title
  * @param {string} content
  * @param {function} open_callback
  * @param {function} default_object
  * @constructor
  */
-Towns.Editor = function(uri,title,content,open_callback,default_object){
+Towns.Editor = function(uri,conditions,title,content,open_callback,default_object){
 
     this.uri=uri;
+    this.conditions=conditions;
 
     var self=this;
     this.page = new Towns.Page(
