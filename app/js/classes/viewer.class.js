@@ -8,6 +8,7 @@
 /**
  * Creates object viewer
  * @param {string} uri
+ * @param {object} conditions of opened object
  * @param {string} title
  * @param {string} content
  * @param {function} open_callback

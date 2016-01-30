@@ -7,6 +7,10 @@
 
 T.Plugins.install(new T.Editor(
     'building-block-editor',
+    {
+      type: 'building',
+      subtype: 'block'
+    },
     'Stavební bloky',
     `<div class="page-column-2">
 <form onsubmit="return false;" id="block-editing-form">
