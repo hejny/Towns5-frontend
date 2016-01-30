@@ -53,7 +53,15 @@ ui_map_controls_minus: Oddálit
 ui_map_controls_left: Otočit doleva
 ui_map_controls_right: Otočit doprava
 
-ui_macros_create_block: Vytvořit blok
+
+
+
+ui_macros_create_building: Vytvořit budovu
+ui_macros_create_building_block: Vytvořit blok
+
+
+
+
 
 ui_server: Načítání ze serveru
 
@@ -73,6 +81,20 @@ home_news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
 projects: "Podívej se, na čem právě pracujeme:"
 projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
 
+
+
+
+plugin_building_viewer_open_building_block_view: Zobrazit blok
+plugin_profile_viewer_open_building_block_view: Profil bloku
+building_block_view_description: "Vyber, jakým způsobem chceš blok zobrazit:"
+plugin_building_block_editor_open_building_block_edit: Upravit blok
+building_block_edit_description: "Vyber, jakým způsobem chceš blok upravit:"
+building_block_clone: Klonovat
+building_block_dismantle: Rozebrat
+building_block_clone_description: none
+building_block_dismantle_description: none
+building_block_view: Zobrazit
+building_block_edit: Upravit
 
 
 
@@ -106,8 +128,6 @@ block_rotation_xz: XZ
 
 
 
-
-
 #---------------------------NEW
 
 
@@ -115,17 +135,7 @@ block_rotation_xz: XZ
 
 
 
-plugin_building_viewer_open_building_block_view: Zobrazit blok
-plugin_profile_viewer_open_building_block_view: Profil bloku
-building_block_view_description: "Vyber, jakým způsobem chceš blok zobrazit:"
-plugin_building_block_editor_open_building_block_edit: Upravit blok
-building_block_edit_description: "Vyber, jakým způsobem chceš blok upravit:"
-building_block_clone: Klonovat
-building_block_dismantle: Rozebrat
-building_block_clone_description: none
-building_block_dismantle_description: none
-building_block_view: Zobrazit
-building_block_edit: Upravit
+
 
 
 

@@ -370,7 +370,14 @@ function tidyHTML($buffer) {
 
 
 <div id="macros">
-    <div onclick="objectPrototypesMenu('building','wall');Towns.Plugins.open('building-block-editor',0,-1);return false;" class="mini-button" title="<?=locale('ui macros create block')?>"><i class="fa fa-cube"></i></div>
+
+
+    <div onclick="objectPrototypesMenu('building','main');Towns.Plugins.open('building-editor',0,-1);return false;" class="mini-button" title="<?=locale('ui macros create building')?>"><i class="fa fa-building-o"></i></div>
+
+
+    <div onclick="objectPrototypesMenu('building','wall');Towns.Plugins.open('building-block-editor',0,-1);return false;" class="mini-button" title="<?=locale('ui macros create building block')?>"><i class="fa fa-cube"></i></div>
+
+
 </div>
 
 
