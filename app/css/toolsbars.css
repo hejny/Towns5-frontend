@@ -56,7 +56,6 @@
   border-radius: 3px;*/
   z-index: 3600; }
   #macros .mini-button {
-    display: block;
     border: none;
     display: inline-block;
     margin: 2px;
@@ -72,7 +71,8 @@
     vertical-align: middle;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    cursor: pointer; }
+    cursor: pointer;
+    display: block; }
     #macros .mini-button:hover {
       background-color: rgba(0, 0, 0, 0.65); }
 

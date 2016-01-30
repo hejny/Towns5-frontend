@@ -65,9 +65,9 @@
 
   .mini-button{
 
-    display: block;
-
     @include mini-button(15px,$mini-button-color);
+
+    display: block;
 
   }
 
