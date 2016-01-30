@@ -25,6 +25,7 @@ Locale.get = function(){//todo refactor useges use more params not ' '
     if(!is(key))return 'MESSAGE';
 
     key=key.split(' ').join('_');
+    key=key.split('-').join('_');
 
 
     var message;
