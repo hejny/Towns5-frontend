@@ -176,6 +176,16 @@ T.Plugins.install(new T.Editor(
                         size: {x:40,y:40,z:40},
                         rotation: {"xy":0}
 
+                    },{
+                        shape:{
+                            type: 'prism',
+                            n:4,
+                        },
+                        color: "#cccccc",
+                        position: {x:0,y:0,z:0},
+                        size: {x:40,y:40,z:40},
+                        rotation: {"xy":0}
+
                     }
                 ]
             })
