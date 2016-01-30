@@ -50,7 +50,7 @@ Towns.Plugins.uninstall = function(id){
 Towns.Plugins.open = function(uri){
 
     var args = [].slice.call(arguments).splice(1);
-    r(args);
+    //r(args);
 
     for(i in this.plugins){
 
@@ -60,8 +60,13 @@ Towns.Plugins.open = function(uri){
 
 
             this.plugins[i].open.apply(this.plugins[i],args);
+            return(true);
+
         }
     }
+
+
+    throw new Error('Plugin '+uri+' do not exists.');
 
 };
 
