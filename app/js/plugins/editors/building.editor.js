@@ -15,6 +15,29 @@ T.Plugins.install(new T.Editor(
 <form onsubmit="return false;" id="block-editing-form">
 <table>
 
+
+  <tr><th colspan="2">{{block choose}}</th></tr>
+  <tr>
+    <td colspan="2" id="block-choose"></td>
+  </tr>
+
+
+  <tr><th colspan="2">{{block position}}</th></tr>
+  <tr>
+    <td>{{block position x}}:</td>
+    <td><input id="block-editing-position-x" type="range" min="-100" max="100" step="1" /></td>
+  </tr>
+  <tr>
+    <td>{{block position y}}:</td>
+    <td><input id="block-editing-position-y" type="range" min="-100" max="100" step="1" /></td>
+  </tr>
+  <tr>
+    <td>{{block position z}}:</td>
+    <td><input id="block-editing-position-z" type="range" min="0" max="100" step="1" /></td>
+  </tr>
+
+
+
   <tr><th colspan="2">{{block shape}}</th></tr>
   <tr>
     <td>{{block shape n}}:</td>
@@ -95,33 +118,93 @@ T.Plugins.install(new T.Editor(
 
 
         var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
+        var farbtastic = $.farbtastic('#farbtastic-color-box')
 
-        var particle=ModelParticles.cParams(object.design.data.particles[0]);
-
-        $('#block-editing-shape-n').val(particle.shape.n);
-
-        $('#block-editing-shape-top').val(particle.shape.top);
-        $('#block-editing-shape-bottom').val(particle.shape.bottom);
-
-        $('#block-editing-skew-z-x').val(particle.skew.z.x);
-        $('#block-editing-skew-z-y').val(particle.skew.z.y);
-
-        $('#block-editing-size-x').val(particle.size.x);
-        $('#block-editing-size-y').val(particle.size.y);
-        $('#block-editing-size-z').val(particle.size.z);
-
-        $('#block-editing-rotation-xy').val(particle.rotation.xy);
-        $('#block-editing-rotation-xz').val(particle.rotation.xz);
-        //('#block-editing-rotation-yz').val(particle.rotation.yz);
+        var block_choose_i=0;
 
 
+        var block_choose = function(i){
+
+            r('Choosed block '+i);
+
+            $('.block-choose').removeClass('selected');
+            $('#block-choose-'+i).addClass('selected');
+            r($('#block-choose-'+i));
+            block_choose_i=i;
+
+            var particle=ModelParticles.cParams(object.design.data.particles[0]);
+
+            $('#block-editing-position-x').val(particle.position.x);
+            $('#block-editing-position-y').val(particle.position.y);
+            $('#block-editing-position-z').val(particle.position.z);
+
+            $('#block-editing-shape-n').val(particle.shape.n);
+
+            $('#block-editing-shape-top').val(particle.shape.top);
+            $('#block-editing-shape-bottom').val(particle.shape.bottom);
+
+            $('#block-editing-skew-z-x').val(particle.skew.z.x);
+            $('#block-editing-skew-z-y').val(particle.skew.z.y);
+
+            $('#block-editing-size-x').val(particle.size.x);
+            $('#block-editing-size-y').val(particle.size.y);
+            $('#block-editing-size-z').val(particle.size.z);
+
+            $('#block-editing-rotation-xy').val(particle.rotation.xy);
+            $('#block-editing-rotation-xz').val(particle.rotation.xz);
+            //('#block-editing-rotation-yz').val(particle.rotation.yz);
 
 
-        var farbtastic = $.farbtastic('#farbtastic-color-box').setColor(object.design.data.particles[0].color);
+            farbtastic.setColor(object.design.data.particles[0].color);
+
+        };
+
+
+
+
+        object.design.data.particles.forEach(function(particle,block_i){
+
+            var particle_model = new Model({
+                particles:[
+                    particle
+                ]
+            });
+
+            r(particle_model);
+
+            var particle_icon=particle_model.createIcon(50);
+
+
+            var particle_button = $('<img>');
+            particle_button.attr('src',particle_icon);
+            particle_button.attr('block_i',block_i);
+            particle_button.attr('id','block-choose-'+block_i);
+            particle_button.attr('class','block-choose');
+
+            //r(block_choose);
+            particle_button.click(function(){
+
+                var block_i=$(this).attr('block_i');
+
+                block_choose(block_i);
+
+
+            });
+
+            $('#block-choose').append(particle_button);
+
+
+        });
+
+
+        block_choose(0);
+
+
+
 
         farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
 
-            object.design.data.particles[0].color=color;
+            object.design.data.particles[block_choose_i].color=color;
             model_canvas.setModel(object.design.data);
 
         }, 200));
@@ -130,22 +213,26 @@ T.Plugins.install(new T.Editor(
         $('#block-editing-form').find('input').mousemove(function(){
 
 
-                object.design.data.particles[0].shape.n = Math.toInt($('#block-editing-shape-n').val());
+                object.design.data.particles[block_choose_i].position.x = Math.toInt($('#block-editing-position-x').val());
+                object.design.data.particles[block_choose_i].position.y = Math.toInt($('#block-editing-position-y').val());
+                object.design.data.particles[block_choose_i].position.z = Math.toInt($('#block-editing-position-z').val());
 
-                object.design.data.particles[0].shape.top = Math.toFloat($('#block-editing-shape-top').val());
-                object.design.data.particles[0].shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
+                object.design.data.particles[block_choose_i].shape.n = Math.toInt($('#block-editing-shape-n').val());
 
-                object.design.data.particles[0].skew={z:{}};
-                object.design.data.particles[0].skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
-                object.design.data.particles[0].skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
+                object.design.data.particles[block_choose_i].shape.top = Math.toFloat($('#block-editing-shape-top').val());
+                object.design.data.particles[block_choose_i].shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
+
+                object.design.data.particles[block_choose_i].skew={z:{}};
+                object.design.data.particles[block_choose_i].skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
+                object.design.data.particles[block_choose_i].skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
 
 
-                object.design.data.particles[0].size.x = Math.toInt($('#block-editing-size-x').val());
-                object.design.data.particles[0].size.y = Math.toInt($('#block-editing-size-y').val());
-                object.design.data.particles[0].size.z = Math.toInt($('#block-editing-size-z').val());
+                object.design.data.particles[block_choose_i].size.x = Math.toInt($('#block-editing-size-x').val());
+                object.design.data.particles[block_choose_i].size.y = Math.toInt($('#block-editing-size-y').val());
+                object.design.data.particles[block_choose_i].size.z = Math.toInt($('#block-editing-size-z').val());
 
-                object.design.data.particles[0].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
-                object.design.data.particles[0].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
+                object.design.data.particles[block_choose_i].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
+                object.design.data.particles[block_choose_i].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
                 //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
 
                 model_canvas.setModel(object.design.data);
