@@ -21,6 +21,10 @@ T.Plugins.install(new T.Editor(
     <td colspan="2" id="block-choose"></td>
   </tr>
 
+  <tr><th colspan="2">{{block actions}}</th></tr>
+  <tr>
+    <td colspan="2" id="block-actions"></td>
+  </tr>
 
   <tr><th colspan="2">{{block position}}</th></tr>
   <tr>
@@ -120,21 +124,28 @@ T.Plugins.install(new T.Editor(
         var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
         var farbtastic = $.farbtastic('#farbtastic-color-box')
 
-        var block_choose_i;
+        var block_choose_i,
+            block_lock=false;
 
 
         var block_choose = function(i){
 
             block_buttons();
 
-            //r('Choosed block '+i);
+            i = Math.toInt(i);
+
+            block_lock=true;
+
+
+            block_choose_i = i;
+
+            model_canvas.selected_polygon=Math.toInt(i);
+            model_canvas.draw();
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-'+i).addClass('selected');
-            //r($('#block-choose-'+i));
-            block_choose_i=i;
 
-            var particle=ModelParticles.cParams(object.design.data.particles[0]);
+            var particle=ModelParticles.cParams(object.design.data.particles[block_choose_i]);
 
             $('#block-editing-position-x').val(particle.position.x);
             $('#block-editing-position-y').val(particle.position.y);
@@ -156,8 +167,11 @@ T.Plugins.install(new T.Editor(
             $('#block-editing-rotation-xz').val(particle.rotation.xz);
             //('#block-editing-rotation-yz').val(particle.rotation.yz);
 
-
             farbtastic.setColor(object.design.data.particles[0].color);
+
+            block_lock=false;
+
+
 
         };
 
@@ -177,8 +191,19 @@ T.Plugins.install(new T.Editor(
 
         //---------------------------------------------------------------------------
 
+        var block_delete = function(i){
+
+            object.design.data.particles.splice(i,1);
+
+        };
+
+        //---------------------------------------------------------------------------
+
         var block_buttons = function(i) {
             $('#block-choose').html('');
+
+
+            //-----------------------Blocks
             object.design.data.particles.forEach(function (particle, block_i) {
 
                 var particle_on_ground = deepCopy(particle);
@@ -216,25 +241,39 @@ T.Plugins.install(new T.Editor(
 
 
             });
+            //-----------------------
+
+            $('#block-actions').html('');
 
             //-----------------------New
 
+            var button = $(`<button>`+Locale.get('building editor duplicate block')+`</button>`);
 
-            var particle_button = $('<img src="/media/image/icons/add.svg">');
-            particle_button.attr('src', '/media/image/icons/add.svg');
-            particle_button.attr('block_i', -1);
-            particle_button.attr('id', 'block-choose-new');
-            particle_button.attr('class', 'block-choose');
-            particle_button.click(function () {
+            button.attr('class', 'block-button');
+            button.click(function () {
 
                 block_choose(block_create());
 
+            });
+            $('#block-actions').append(button);
+
+            //-----------------------
+
+            //-----------------------Delete
+
+            var button = $(`<button>`+Locale.get('building editor delete block')+`</button>`);
+
+            button.attr('class', 'block-button');
+            button.click(function () {
+
+                block_delete(block_choose_i);
+                block_choose(block_choose_i-1);
 
             });
-            $('#block-choose').append(particle_button);
+            $('#block-actions').append(button);
 
+            //-----------------------
 
-            $('#block-choose-new').css('width', 30).css('height', 30);
         };
 
         //---------------------------------------------------------------------------
@@ -248,7 +287,11 @@ T.Plugins.install(new T.Editor(
 
         farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
 
-            object.design.data.particles[block_choose_i].color=color;
+            if(block_lock)return;
+
+            var i = block_choose_i;
+
+            object.design.data.particles[i].color=color;
             model_canvas.setModel(object.design.data);
 
         }, 200));
@@ -256,30 +299,36 @@ T.Plugins.install(new T.Editor(
 
         $('#block-editing-form').find('input').mousemove(function(){
 
+                if(block_lock)return;
 
-                object.design.data.particles[block_choose_i].position.x = Math.toInt($('#block-editing-position-x').val());
-                object.design.data.particles[block_choose_i].position.y = Math.toInt($('#block-editing-position-y').val());
-                object.design.data.particles[block_choose_i].position.z = Math.toInt($('#block-editing-position-z').val());
-
-                object.design.data.particles[block_choose_i].shape.n = Math.toInt($('#block-editing-shape-n').val());
-
-                object.design.data.particles[block_choose_i].shape.top = Math.toFloat($('#block-editing-shape-top').val());
-                object.design.data.particles[block_choose_i].shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
-
-                object.design.data.particles[block_choose_i].skew={z:{}};
-                object.design.data.particles[block_choose_i].skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
-                object.design.data.particles[block_choose_i].skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
+                var i = block_choose_i;
 
 
-                object.design.data.particles[block_choose_i].size.x = Math.toInt($('#block-editing-size-x').val());
-                object.design.data.particles[block_choose_i].size.y = Math.toInt($('#block-editing-size-y').val());
-                object.design.data.particles[block_choose_i].size.z = Math.toInt($('#block-editing-size-z').val());
+                object.design.data.particles[i].position.x = Math.toInt($('#block-editing-position-x').val());
+                object.design.data.particles[i].position.y = Math.toInt($('#block-editing-position-y').val());
+                object.design.data.particles[i].position.z = Math.toInt($('#block-editing-position-z').val());
 
-                object.design.data.particles[block_choose_i].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
-                object.design.data.particles[block_choose_i].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
+                object.design.data.particles[i].shape.n = Math.toInt($('#block-editing-shape-n').val());
+
+                object.design.data.particles[i].shape.top = Math.toFloat($('#block-editing-shape-top').val());
+                object.design.data.particles[i].shape.bottom = Math.toFloat($('#block-editing-shape-bottom').val());
+
+                object.design.data.particles[i].skew={z:{}};
+                object.design.data.particles[i].skew.z.x = Math.toFloat($('#block-editing-skew-z-x').val());
+                object.design.data.particles[i].skew.z.y = Math.toFloat($('#block-editing-skew-z-y').val());
+
+
+                object.design.data.particles[i].size.x = Math.toInt($('#block-editing-size-x').val());
+                object.design.data.particles[i].size.y = Math.toInt($('#block-editing-size-y').val());
+                object.design.data.particles[i].size.z = Math.toInt($('#block-editing-size-z').val());
+
+                object.design.data.particles[i].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
+                object.design.data.particles[i].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
                 //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
 
                 model_canvas.setModel(object.design.data);
+
+                r(block_lock);
 
 
             }
@@ -292,7 +341,7 @@ T.Plugins.install(new T.Editor(
     },
     {
 
-        name: "",
+        name: "ttttttttt",
         type: "building",
         subtype: "main",
         design: {
@@ -303,6 +352,7 @@ T.Plugins.install(new T.Editor(
                         shape:{
                             type: 'prism',
                             n:4,
+                            top: 0
                         },
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
@@ -313,6 +363,7 @@ T.Plugins.install(new T.Editor(
                         shape:{
                             type: 'prism',
                             n:4,
+                            bottom: 0
                         },
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
