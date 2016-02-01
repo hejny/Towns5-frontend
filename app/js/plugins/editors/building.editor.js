@@ -120,16 +120,18 @@ T.Plugins.install(new T.Editor(
         var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
         var farbtastic = $.farbtastic('#farbtastic-color-box')
 
-        var block_choose_i=0;
+        var block_choose_i;
 
 
         var block_choose = function(i){
 
-            r('Choosed block '+i);
+            block_buttons();
+
+            //r('Choosed block '+i);
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-'+i).addClass('selected');
-            r($('#block-choose-'+i));
+            //r($('#block-choose-'+i));
             block_choose_i=i;
 
             var particle=ModelParticles.cParams(object.design.data.particles[0]);
@@ -159,46 +161,88 @@ T.Plugins.install(new T.Editor(
 
         };
 
+        //---------------------------------------------------------------------------
+
+        var block_create = function(){
+
+            var particle=deepCopy(object.design.data.particles[block_choose_i]);
+
+            particle.position.z=particle.position.z+particle.size.z;
+
+            object.design.data.particles.push(particle);
+
+            return(object.design.data.particles.length-1);
+
+        };
+
+        //---------------------------------------------------------------------------
+
+        var block_buttons = function(i) {
+            $('#block-choose').html('');
+            object.design.data.particles.forEach(function (particle, block_i) {
+
+                var particle_on_ground = deepCopy(particle);
+
+                particle_on_ground.position.z=0;
+
+                var particle_model = new Model({
+                    particles: [
+                        particle_on_ground
+                    ]
+                });
+
+                //r(particle_model);
+
+                var particle_icon = particle_model.createIcon(50);
 
 
+                var particle_button = $('<img>');
+                particle_button.attr('src', particle_icon);
+                particle_button.attr('block_i', block_i);
+                particle_button.attr('id', 'block-choose-' + block_i);
+                particle_button.attr('class', 'block-choose');
 
-        object.design.data.particles.forEach(function(particle,block_i){
+                //r(block_choose);
+                particle_button.click(function () {
 
-            var particle_model = new Model({
-                particles:[
-                    particle
-                ]
+                    var block_i = $(this).attr('block_i');
+
+                    block_choose(block_i);
+
+
+                });
+
+                $('#block-choose').append(particle_button);
+
+
             });
 
-            r(particle_model);
-
-            var particle_icon=particle_model.createIcon(50);
+            //-----------------------New
 
 
-            var particle_button = $('<img>');
-            particle_button.attr('src',particle_icon);
-            particle_button.attr('block_i',block_i);
-            particle_button.attr('id','block-choose-'+block_i);
-            particle_button.attr('class','block-choose');
+            var particle_button = $('<img src="/media/image/icons/add.svg">');
+            particle_button.attr('src', '/media/image/icons/add.svg');
+            particle_button.attr('block_i', -1);
+            particle_button.attr('id', 'block-choose-new');
+            particle_button.attr('class', 'block-choose');
+            particle_button.click(function () {
 
-            //r(block_choose);
-            particle_button.click(function(){
-
-                var block_i=$(this).attr('block_i');
-
-                block_choose(block_i);
+                block_choose(block_create());
 
 
             });
-
             $('#block-choose').append(particle_button);
 
 
-        });
+            $('#block-choose-new').css('width', 30).css('height', 30);
+        };
 
+        //---------------------------------------------------------------------------
 
         block_choose(0);
 
+
+        //---------------------------------------------------------------------------
 
 
 
@@ -241,6 +285,8 @@ T.Plugins.install(new T.Editor(
             }
 
         );
+
+        //---------------------------------------------------------------------------
 
 
     },
