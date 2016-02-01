@@ -208,18 +208,26 @@ function createBuilding(object,callback){
 
         townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
 
+            townsAPI.delete('objects/'+objects_external[join.i].id,function(){
 
-            townsAPI.post('objects',{
-                prototypeId: response.objectId,
-                x: objects_external[join.i].x,
-                y: objects_external[join.i].y
+                townsAPI.post('objects',{
+                    prototypeId: response.objectId,
+                    x: objects_external[join.i].x,
+                    y: objects_external[join.i].y
 
-            },function(){
+                },function(){
 
-                if(callback)callback();
+                    if(callback)callback();
+
+
+                });
 
 
             });
+
+
+
+
 
         });
 
