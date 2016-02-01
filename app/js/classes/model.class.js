@@ -263,13 +263,14 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     var resource={
         points: [],
         polygons: [],
-        colors: []
+        colors: [],
+        particles: []
     };
 
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
 
-    this_.particles.forEach(function(particle){
+    this_.particles.forEach(function(particle,particle_i){
 
         var addResource=ModelParticles.get3D(particle);
 
@@ -288,9 +289,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 addResource.polygons[poly_i][point_i]+=i-1;
             }
 
-
-            resource.polygons.push(addResource.polygons[poly_i]);
             resource.colors.push(particle.color);
+            resource.polygons.push(addResource.polygons[poly_i]);
+
+            resource.particles.push(particle_i);
+
         }
 
 
@@ -304,13 +307,14 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     //r(resource);
 
-    //------------------------Prirazeni barev k polygonum pred serazenim
+    //------------------------Prirazeni barev a cisel castecek k polygonum pred serazenim
 
     if(force_color==false){
 
-        for(var i= 0,l=resource['polygons'].length;i<l;i++){
+        for(var i= 0,l=resource.polygons.length;i<l;i++){
 
-            resource['polygons'][i]['color']=resource['colors'][i];
+            resource.polygons[i].color=resource.colors[i];
+            resource.polygons[i].particle=resource.particles[i];
         }
 
     }else{
@@ -414,8 +418,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     };
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material - glow
 
-    if(selected)
-    shaders.push({
+    if(selected===true){
+        shaders.push({
             line: function(color,polygon3D){
                 return({
                     color: hexToRgb('4C9ED9'),
@@ -427,7 +431,9 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             canvas: function(ctx) {
                 ctx.blur(2);
             }
-    });
+        });
+    }
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
     shaders.push({
 
@@ -515,7 +521,15 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 }
             }
 
+            //todo refactor maybe as shader ?
+            if(selected!==false && resource['polygons'][i2]['particle']===selected){
 
+                draw_polygons[i2].line={
+                    width: 2,
+                    color: hexToRgb('4C9ED9')
+                };
+
+            }
 
             if(is(shader.fill)){
                 color = hexToRgb(resource['polygons'][i2]['color']);
@@ -525,6 +539,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             if(is(shader.line)){
                 draw_polygons[i2].line=shader.line();
             }
+
 
 
 
