@@ -35,23 +35,47 @@
     building1=new Model({
         particles: [
             {
+                particles:[
+                    {
+                        shape:{
+                            type: 'prism',
+                            n:4
+                        },
+                        color: "#cccccc",
+                        position: {x:10,y:10,z:0},
+                        size: {x:10,y:10,z:10},
+                        rotation: 10
+                    },{
+                        shape:{
+                            type: 'prism',
+                            n:5,
+                            rotated:true
+                        },
+                        color: "#cccccc",
+                        position: {x:-10,y:-10,z:0},
+                        size: {x:10,y:10,z:10},
+                        rotation: 20
+                    }
+                ],
+                position: {x:0,y:0,z:40},
+                size: 1,
+                rotation: 20
+
+            },{
                 shape:{
                     type: 'prism',
-                    n:5,
-                    top:.8
-                    //rotation:33
+                    n:4,
+                    bottom: 0
                 },
-                color: "#995555",
+                color: "#cccccc",
                 position: {x:0,y:0,z:0},
-                size: {x:50,y:50,z:50},
-                skew: {z:{x:0,y:0}},
-                rotation: {xy:-45,xz:0,yz:0}
+                size: {x:40,y:40,z:40},
 
             }
         ]
     });
     //deepCopyModel(objectPrototypes[2].design.data);
-    building2=deepCopyModel(object_prototypes[1].design.data);
+    //building2=
 
     //console.log(building1);
     //console.log(building2);
