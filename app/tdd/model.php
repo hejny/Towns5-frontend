@@ -7,8 +7,8 @@
 ?>
 
 
-
-<canvas id="canvas1" width="300" height="300"></canvas>
+<div id="model-canvas"></div>
+<!--<canvas id="canvas1" width="300" height="300"></canvas>
 <canvas id="canvas2" width="300" height="300"></canvas>
 <canvas id="canvas3" width="300" height="300"></canvas>
 <canvas id="canvas4" width="300" height="300"></canvas>
@@ -19,15 +19,15 @@
     }
 
 </style>
-
+-->
 
 <script>
 
 
-    ctx1=document.getElementById('canvas1').getContext('2d');
+    /*ctx1=document.getElementById('canvas1').getContext('2d');
     ctx2=document.getElementById('canvas2').getContext('2d');
     ctx3=document.getElementById('canvas3').getContext('2d');
-    ctx4=document.getElementById('canvas4').getContext('2d');
+    ctx4=document.getElementById('canvas4').getContext('2d');*/
 
 
     //--------------------------------------------
@@ -35,6 +35,7 @@
     building1=new Model({
         particles: [
             {
+                name: 'top',
                 particles:[
                     {
                         shape:{
@@ -46,34 +47,58 @@
                         size: {x:10,y:10,z:10},
                         rotation: 10
                     },{
-                        shape:{
-                            type: 'prism',
-                            n:5,
-                            rotated:true
-                        },
-                        color: "#cccccc",
-                        position: {x:-10,y:-10,z:0},
-                        size: {x:10,y:10,z:10},
-                        rotation: 20
+                        particles:[
+                            {
+                                shape:{
+                                    type: 'prism',
+                                    n:5,
+                                    rotated:true
+                                },
+                                color: "#cccccc",
+                                position: {x:-10,y:-10,z:0},
+                                size: {x:10,y:10,z:10},
+                                rotation: 20
+                            },{
+                                shape:{
+                                    type: 'prism',
+                                    n:7,
+                                    rotated:true
+                                },
+                                color: "#00ff00",
+                                position: {x:-10,y:-10,z:10},
+                                size: {x:5,y:5,z:20},
+                                rotation: 20
+                            }
+                        ],
+                        size:2
+
                     }
+
                 ],
                 position: {x:0,y:0,z:40},
                 size: 1,
                 rotation: 20
 
             },{
+                name: 'basement',
                 shape:{
                     type: 'prism',
                     n:4,
-                    bottom: 0
+                    bottom:0.3
                 },
-                color: "#cccccc",
+                color: "#7799ff",
                 position: {x:0,y:0,z:0},
                 size: {x:40,y:40,z:40},
 
             }
         ]
     });
+
+
+    var model_canvas= new ModelCanvas('model-canvas',building1,300,600);
+
+
+
     //deepCopyModel(objectPrototypes[2].design.data);
     //building2=
 
@@ -83,7 +108,7 @@
     //building2.rotation=30;
     //building2.size=0.5;
 
-    building1.draw(ctx1, 0.5, 150, 250, 0, 30);
+    //building1.draw(ctx1, 0.5, 150, 250, 0, 30);
     /**
     building1.rotation+=20;
     building1.draw(ctx2, 0.5, 150, 250, 0, 30);
@@ -94,7 +119,7 @@
 
     /**/
 
-    building2.draw(ctx2, 0.5, 150, 250, 0, 30);
+    /*building2.draw(ctx2, 0.5, 150, 250, 0, 30);
     building1.joinModel(building2,50,-80);
     building2.rotation+=20;
     building1.joinModel(building2);

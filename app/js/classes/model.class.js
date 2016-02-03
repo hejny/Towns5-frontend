@@ -27,10 +27,7 @@ var Model = function (json){
  * @param {number} rotation
  * @param {number} size
  */
-Model.prototype.addRotationSize = function(rotation,size){
-
-    rotation=cParam(rotation,0);
-    size=cParam(size,1);
+Model.prototype.addRotationSize = function(rotation=0,size=1){
 
     this.rotation+=rotation;
     this.size=this.size*size;
@@ -47,7 +44,7 @@ Model.prototype.addRotationSize = function(rotation,size){
 /**
  * Mix rotation and size into particles
  */
-Model.prototype.compileRotationSize = function(){
+/*Model.prototype.compileRotationSize = function(){
 
     //r(this.particles);
     //r('compileRotationSize',this.rotation,this.size);
@@ -89,7 +86,7 @@ Model.prototype.compileRotationSize = function(){
     this.rotation=0;
     this.size=1;
 
-};
+};*/
 
 //==================================================
 
@@ -256,7 +253,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     //r(this_);
 
     this_.addRotationSize(rotation,s);
-    this_.compileRotationSize();
+    //this_.compileRotationSize();
 
     //---------------------------------------------Create empty Towns4 3DModel Array
 
@@ -267,10 +264,143 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
         particles: []
     };
 
+
+    //---------------------------------------------Convert particles to 1D particles
+
+    var particlesLinear=[];
+
+
+    var particles2Linear = function(particles,position=false,rotation=0,size=1){
+
+        if(position===false){
+            position={
+                x:0,
+                y:0,
+                z:0
+            };
+        }
+
+        particles.forEach(function(particle){
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Default params of particle, group or link
+            if(!particle.position){
+                particle.position={
+                    x:0,
+                    y:0,
+                    z:0
+                }
+            }
+            if(!is(particle.rotation))particle.rotation=0;
+            if(!is(particle.size))particle.size=1;
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Position, Rotation and size
+
+            /*var distDeg = Math.xy2distDeg(this.particles[i].position.x,this.particles[i].position.y);
+
+            distDeg.dist=distDeg.dist*this.size;
+            distDeg.deg+=this.rotation;
+
+            //r(distDeg);
+
+            var xy = Math.distDeg2xy(distDeg.dist,distDeg.deg);
+
+            //r(xy);
+            //r(this.particles[i].position.z,this.size);
+
+            this.particles[i].rotation.xy+=this.rotation;
+
+            this.particles[i].position.x=xy.x;
+            this.particles[i].position.y=xy.y;
+            this.particles[i].position.z=this.particles[i].position.z*this.size;
+
+
+            this.particles[i].size.x=this.particles[i].size.x*this.size;
+            this.particles[i].size.y=this.particles[i].size.y*this.size;
+            this.particles[i].size.z=this.particles[i].size.z*this.size;*/
+
+
+
+
+            var distDeg = Math.xy2distDeg(particle.position.x, particle.position.y);
+
+            distDeg.dist = distDeg.dist * size;
+            distDeg.deg += rotation;
+
+            var xy = Math.distDeg2xy(distDeg.dist, distDeg.deg);
+
+            particle.rotation += rotation;
+
+            particle.position.x = xy.x;
+            particle.position.y = xy.y;
+            particle.position.z = particle.position.z * size;
+
+            particle.position.x += position.x;
+            particle.position.y += position.y;
+            particle.position.z += position.z;
+
+            if(typeof particle.size == 'number') {
+
+                particle.size = particle.size * size;
+
+            }else{
+
+                particle.size.x = particle.size.x * size;
+                particle.size.y = particle.size.y * size;
+                particle.size.z = particle.size.z * size;
+
+            }
+
+
+            /*if(typeof particle.size == 'number') {
+
+                particle.size = particle.size * size;
+
+            }else{
+
+                particle.size.x=particle.size.x*size;
+                particle.size.y=particle.size.y*size;
+                particle.size.z=particle.size.z*size;
+
+            }*/
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+            //------------------------------------------Particle
+            if(is(particle.particles)){
+
+                particles2Linear(particle.particles,particle.position,particle.rotation,particle.size);
+
+            }else
+            //------------------------------------------Group
+            if(is(particle.shape)){
+
+                particlesLinear.push(particle);
+
+            }else
+            //------------------------------------------Link
+            if(is(particle.link)) {
+                //todo link
+            }
+            //------------------------------------------
+
+
+        });
+
+
+    };
+
+    particles2Linear(this_.particles,false,this_.rotation,this_.size);
+
+
+    r(particlesLinear);
+
+
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
 
-    this_.particles.forEach(function(particle,particle_i){
+    //this_.particles
+    particlesLinear.forEach(function(particle,particle_i){
 
         var addResource=ModelParticles.get3D(particle);
 

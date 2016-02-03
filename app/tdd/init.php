@@ -6,6 +6,8 @@
     <title><?=$title?> TDD - towns</title>
     <script>
         var environment='debug';
+        var map_rotation=0;
+        var map_slope=30;
     </script>
 
 
