@@ -47,6 +47,7 @@
                         size: {x:10,y:10,z:10},
                         rotation: 10
                     },{
+                        name: 'chimney',
                         particles:[
                             {
                                 shape:{
@@ -71,6 +72,13 @@
                             }
                         ],
                         size:2
+
+                    },
+                    {
+                        link: 'chimney',
+                        //size:3,
+                        position: {x:-20,y:20,z:0},
+                        //rotation: 20
 
                     }
 
