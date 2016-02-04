@@ -269,6 +269,30 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     var particlesLinear=[];
 
+    var findParticleByName = function(particles,name){
+
+        for(var i in particles){
+
+            if(particles[i].name==name){
+                return(particles[i]);
+            }
+
+            if(is(particles[i].particles)){
+                var finded_particle = findParticleByName(particles[i].particles,name);
+
+                if(finded_particle!==false){
+                    return(finded_particle);
+                }
+
+            }
+
+
+        }
+
+        return(false);
+
+    };
+
 
     var particles2Linear = function(particles,position=false,rotation=0,size=1){
 
@@ -366,6 +390,29 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
+
+            //------------------------------------------Link
+            if(is(particle.link)) {
+                //todo link
+
+                var linked_particle = findParticleByName(this_.particles,particle.link);
+
+                if(linked_particle==false){
+                    throw new Error('Invalid link '+particle.link);
+                }
+
+                linked_particle=deepCopy(linked_particle);
+
+                if(is(particle.rotation))linked_particle.rotation=particle.rotation;
+                if(is(particle.size))linked_particle.size=particle.size;
+                if(is(particle.position))linked_particle.position=particle.position;
+
+                particle=linked_particle;
+            }
+            //------------------------------------------
+
+
+
             //------------------------------------------Particle
             if(is(particle.particles)){
 
@@ -377,12 +424,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
                 particlesLinear.push(particle);
 
-            }else
-            //------------------------------------------Link
-            if(is(particle.link)) {
-                //todo link
             }
-            //------------------------------------------
 
 
         });
