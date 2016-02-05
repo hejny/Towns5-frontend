@@ -165,8 +165,8 @@
     ];
 
 
-
-    models.push(models[0].joinModel(models[1],50,-80));
+    models[2]=deepCopyModel(models[0]);
+    models[2].joinModel(models[1],50,-80);
 
 
 

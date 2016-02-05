@@ -86,7 +86,7 @@ function buildingUpdate(object) {
 
             var tmpModel=deepCopyModel(objects_external[join.i].design.data);
 
-            building.design.data.compileRotationSize();
+            //building.design.data.compileRotationSize();
 
             tmpModel.joinModel(
                 building.design.data,
