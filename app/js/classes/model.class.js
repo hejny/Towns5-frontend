@@ -103,13 +103,14 @@ Model.prototype.range = function(dimension){
     }
 
 
+    var particlesLinear=this.getLinearParticles();
 
     var max=false,min=false,max_,min_;
-    for(var i in this.particles){
+    for(var i in particlesLinear){
 
 
-        min_=this.particles[i].position[dimension];
-        max_=this.particles[i].position[dimension]+this.particles[i].size[dimension];
+        min_=particlesLinear[i].position[dimension];
+        max_=particlesLinear[i].position[dimension]+particlesLinear[i].size[dimension];
 
         //todo feature reverse
 
@@ -164,15 +165,34 @@ Model.prototype.moveBy = function(move_x,move_y,move_z){
  * @param {number} move_x
  * @param {number} move_y
  */
-Model.prototype.joinModel = function(model,move_x,move_y){
+Model.prototype.joinModel = function(model,move_x,move_y){//todo second param should be position
 
-    var  model_=deepCopyModel(model);
-    model_.moveBy(move_x,move_y);
+    //var  model_=deepCopyModel(model);
+    //model_.moveBy(move_x,move_y);//todo maybe delete moveBy
+
+    var max_z=this.range('z');
 
 
-    this.compileRotationSize();
-    model_.compileRotationSize();
+    this.particles=[
+            deepCopy(this),
+            deepCopy(model)
+        ];
 
+    this.particles[1].position={
+      x:move_x,
+      y:move_y,
+      z:max_z
+    };
+
+    this.rotation=0;
+    this.size=1;
+
+
+
+    //this.compileRotationSize();
+    //model_.compileRotationSize();
+
+    /*
 
     model_.particles.sort(function(particle1,particle2){
 
@@ -210,7 +230,7 @@ Model.prototype.joinModel = function(model,move_x,move_y){
     model_.moveBy(0,0,max_z);
 
 
-   this.particles=this.particles.concat(model_.particles);
+   this.particles=this.particles.concat(model_.particles);*/
 
 
 
@@ -222,53 +242,14 @@ Model.prototype.joinModel = function(model,move_x,move_y){
 
 
 
-/**
- * Draw model on canvas
- * @param ctx Canvas context
- * @param {number} s Size of 1 virtual px
- * @param {number} x_begin Canvas left
- * @param {number} y_begin Canvas top
- * @param {number} rotation 0-360 Angle in degrees
- * @param {number} slope 0-90 Angle in degrees
- * @param {string} force color - format #ff00ff
- * @param {boolean} selected - display blue highlight around model
- */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
-
-
-    //force_color=cParam(force_color,false);
-    //todo delat kontrolu vstupnich parametru u funkci???
-
-
-
-
-
-
-    var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
-    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4 ;
-    var slnko = 50;
-
+Model.prototype.getLinearParticles = function(){
 
     var this_=deepCopyModel(this);
-    //r(this_);
-
-    this_.addRotationSize(rotation,s);
-    //this_.compileRotationSize();
-
-    //---------------------------------------------Create empty Towns4 3DModel Array
-
-    var resource={
-        points: [],
-        polygons: [],
-        colors: [],
-        particles: []
-    };
-
 
     //---------------------------------------------Convert links to raw data
 
 
-    var findParticleByName = function(particles,name){
+    var findParticleByName = function(particles,name){//todo move to prototype
 
         for(var i in particles){
 
@@ -294,14 +275,14 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
 
 
+    var particlesLinks = function(particles){//todo move to prototype
 
-    var particlesLinks = function(particles){
 
         for(var i in particles){
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Link
             if(is(particles[i].link)) {
-                //todo link
+
 
                 var linked_particle = findParticleByName(this_.particles,particles[i].link);
 
@@ -311,15 +292,15 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
                 linked_particle=deepCopy(linked_particle);
 
-                 if(is(particles[i].rotation)){
-                     linked_particle.rotation=particles[i].rotation;
-                 }
-                 if(is(particles[i].size)){
-                     linked_particle.size=particles[i].size;
-                 }
-                 if(is(particles[i].position)){
-                     linked_particle.position=particles[i].position;
-                 }
+                if(is(particles[i].rotation)){
+                    linked_particle.rotation=particles[i].rotation;
+                }
+                if(is(particles[i].size)){
+                    linked_particle.size=particles[i].size;
+                }
+                if(is(particles[i].position)){
+                    linked_particle.position=particles[i].position;
+                }
                 //todo skew
 
 
@@ -341,17 +322,15 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     };
 
-    //r(this_.particles);
+
     particlesLinks(this_.particles);
-    //r(this_.particles);
-    //r('------------------------');
 
     //---------------------------------------------Convert particles to 1D particles
 
 
     var particlesLinear=[];
 
-    var particles2Linear = function(particles,position=false,rotation=0,size=1){
+    var particles2Linear = function(particles,position=false,rotation=0,size=1){//todo move to prototype
 
         if(position===false){
             position={
@@ -438,9 +417,65 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     particles2Linear(this_.particles,false,this_.rotation,this_.size);
 
+    delete this_;
 
-    //r(particlesLinear);
+    return(particlesLinear);
 
+};
+
+
+
+//======================================================================================================================
+
+
+
+
+
+/**
+ * Draw model on canvas
+ * @param ctx Canvas context
+ * @param {number} s Size of 1 virtual px
+ * @param {number} x_begin Canvas left
+ * @param {number} y_begin Canvas top
+ * @param {number} rotation 0-360 Angle in degrees
+ * @param {number} slope 0-90 Angle in degrees
+ * @param {string} force color - format #ff00ff
+ * @param {boolean} selected - display blue highlight around model
+ */
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
+
+
+    //force_color=cParam(force_color,false);
+    //todo delat kontrolu vstupnich parametru u funkci???
+
+
+
+
+
+
+    var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
+    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4 ;
+    var slnko = 50;
+
+
+    var this_=deepCopyModel(this);
+    //r(this_);
+
+    this_.addRotationSize(rotation,s);
+    //this_.compileRotationSize();
+
+    //---------------------------------------------Create empty Towns4 3DModel Array
+
+    var resource={
+        points: [],
+        polygons: [],
+        colors: [],
+        particles: []
+    };
+
+
+    var particlesLinear=this_.getLinearParticles();
+    delete this_;
 
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
