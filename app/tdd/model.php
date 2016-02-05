@@ -7,7 +7,7 @@
 ?>
 
 
-<div id="model-canvas"></div>
+<div id="model-canvases"></div>
 <!--<canvas id="canvas1" width="300" height="300"></canvas>
 <canvas id="canvas2" width="300" height="300"></canvas>
 <canvas id="canvas3" width="300" height="300"></canvas>
@@ -32,78 +32,155 @@
 
     //--------------------------------------------
 
-    building1=new Model({
-        particles: [
-            {
-                name: 'top',
-                particles:[
-                    {
-                        shape:{
-                            type: 'prism',
-                            n:4
+    var models = [
+
+        new Model({
+            particles: [
+                {
+                    name: 'top',
+                    particles:[
+                        {
+                            shape:{
+                                type: 'prism',
+                                n:4
+                            },
+                            color: "#cccccc",
+                            position: {x:10,y:10,z:0},
+                            size: {x:10,y:10,z:10},
+                            rotation: 10
+                        },{
+                            name: 'chimney',
+                            particles:[
+                                {
+                                    shape:{
+                                        type: 'prism',
+                                        n:5,
+                                        rotated:true
+                                    },
+                                    color: "#cccccc",
+                                    position: {x:-10,y:-10,z:0},
+                                    size: {x:10,y:10,z:10},
+                                    rotation: 20
+                                },{
+                                    shape:{
+                                        type: 'prism',
+                                        n:7,
+                                        rotated:true
+                                    },
+                                    color: "#00ff00",
+                                    position: {x:-10,y:-10,z:10},
+                                    size: {x:5,y:5,z:20},
+                                    rotation: 20
+                                }
+                            ],
+                            size:2
+
                         },
-                        color: "#cccccc",
-                        position: {x:10,y:10,z:0},
-                        size: {x:10,y:10,z:10},
-                        rotation: 10
-                    },{
-                        name: 'chimney',
-                        particles:[
-                            {
-                                shape:{
-                                    type: 'prism',
-                                    n:5,
-                                    rotated:true
-                                },
-                                color: "#cccccc",
-                                position: {x:-10,y:-10,z:0},
-                                size: {x:10,y:10,z:10},
-                                rotation: 20
-                            },{
-                                shape:{
-                                    type: 'prism',
-                                    n:7,
-                                    rotated:true
-                                },
-                                color: "#00ff00",
-                                position: {x:-10,y:-10,z:10},
-                                size: {x:5,y:5,z:20},
-                                rotation: 20
-                            }
-                        ],
-                        size:2
+                        {
+                            link: 'chimney',
+                            size:1,
+                            position: {x:-20,y:20,z:0},
+                            rotation: -20
 
+                        }
+
+                    ],
+                    position: {x:0,y:0,z:40},
+                    size: 1,
+                    rotation: 20
+
+                },{
+                    name: 'basement',
+                    shape:{
+                        type: 'prism',
+                        n:4,
+                        bottom:0.3
                     },
-                    {
-                        link: 'chimney',
-                        size:1,
-                        position: {x:-20,y:20,z:0},
-                        rotation: -20
+                    color: "#7799ff",
+                    position: {x:0,y:0,z:0},
+                    size: {x:40,y:40,z:40},
 
+                }
+            ]
+        })
+
+        ,new Model({
+            //"size": 1,
+            //"rotation": 0,
+            "particles": [
+                {
+                    "shape": {
+                        "bottom": 1,
+                        "top": 1,
+                        "n": 6,
+                        "type": "prism"
+                    },
+                    "color": "#e18989",
+                    "skew": {
+                        "z": {
+                            "y": 0,
+                            "x": 0
+                        }
+                    },
+                    "rotation": 0,
+                    "size": {
+                        "z": 40,
+                        "y": 40,
+                        "x": 40
+                    },
+                    "position": {
+                        "z": 0,
+                        "y": 0,
+                        "x": 0
                     }
-
-                ],
-                position: {x:0,y:0,z:40},
-                size: 1,
-                rotation: 20
-
-            },{
-                name: 'basement',
-                shape:{
-                    type: 'prism',
-                    n:4,
-                    bottom:0.3
                 },
-                color: "#7799ff",
-                position: {x:0,y:0,z:0},
-                size: {x:40,y:40,z:40},
+                {
+                    "shape": {
+                        "bottom": 1,
+                        "top": 1,
+                        "n": 6,
+                        "type": "prism"
+                    },
+                    "color": "#e18989",
+                    "skew": {
+                        "z": {
+                            "y": 0,
+                            "x": 0
+                        }
+                    },
+                    "rotation": 0,
+                    "size": {
+                        "z": 40,
+                        "y": 40,
+                        "x": 40
+                    },
+                    "position": {
+                        "z": 40,
+                        "y": 10,
+                        "x": 5
+                    }
+                }
+            ]
+        })/**/
+    ];
 
-            }
-        ]
+
+
+    models.push(models[0].joinModel(models[1],50,-80));
+
+
+
+    models.forEach(function(model,i){
+
+
+        $('#model-canvases').append('<div id="model-canvas-'+i+'"></div>');
+        var editor = new ModelCanvas('model-canvas-'+i,model,300,600);
+
+        editor.editor.css('display','inline-block');
+
     });
 
 
-    var model_canvas= new ModelCanvas('model-canvas',building1,300,600);
 
 
 

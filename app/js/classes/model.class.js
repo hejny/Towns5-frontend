@@ -320,6 +320,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                  if(is(particles[i].position)){
                      linked_particle.position=particles[i].position;
                  }
+                //todo skew
 
 
                 particles[i]=linked_particle;
@@ -340,12 +341,10 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     };
 
-
-    r(this_.particles);
+    //r(this_.particles);
     particlesLinks(this_.particles);
-    r(this_.particles);
-    r('------------------------');
-
+    //r(this_.particles);
+    //r('------------------------');
 
     //---------------------------------------------Convert particles to 1D particles
 
@@ -380,7 +379,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             if(!is(particle.size))particle.size=1;
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Position, Rotation and size
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Position, Rotation and size //todo skew
 
             var distDeg = Math.xy2distDeg(particle.position.x, particle.position.y);
 

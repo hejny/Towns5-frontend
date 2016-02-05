@@ -46,9 +46,7 @@ $(function(){
                 tmp.y=mapPos.y;
 
 
-                tmp.design.data.compileRotationSize();
-
-
+                //tmp.design.data.compileRotationSize();
 
                 /*if(tmp.subtype=='block'){
                  for(var i in tmp.design.data.particles){

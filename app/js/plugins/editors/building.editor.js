@@ -48,6 +48,10 @@ T.Plugins.install(new T.Editor(
     <td><input id="block-editing-shape-n" type="range" min="3" max="20" step="1" /></td>
   </tr>
   <tr>
+    <td>{{block shape rotated}}:</td>
+    <td><input id="block-editing-shape-rotated" type="range" min="0" max="1" step="1" /></td>
+  </tr>
+  <tr>
     <td>{{block shape top}}:</td>
     <td><input id="block-editing-shape-top" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
@@ -91,12 +95,8 @@ T.Plugins.install(new T.Editor(
 
   <tr><th colspan="2">{{block rotation}}</th></tr>
   <tr>
-    <td>{{block rotation xy}}:</td>
-    <td><input id="block-editing-rotation-xy" type="range" min="0" max="360" step="10" /></td>
-  </tr>
-    <tr>
-    <td>{{block rotation xz}}:</td>
-    <td><input id="block-editing-rotation-xz" type="range" min="0" max="90" step="10" /></td>
+    <td>{{block rotation}}:</td>
+    <td><input id="block-editing-rotation" type="range" min="0" max="360" step="10" /></td>
   </tr>
 
 
@@ -163,9 +163,7 @@ T.Plugins.install(new T.Editor(
             $('#block-editing-size-y').val(particle.size.y);
             $('#block-editing-size-z').val(particle.size.z);
 
-            $('#block-editing-rotation-xy').val(particle.rotation.xy);
-            $('#block-editing-rotation-xz').val(particle.rotation.xz);
-            //('#block-editing-rotation-yz').val(particle.rotation.yz);
+            $('#block-editing-rotation').val(particle.rotation);
 
             farbtastic.setColor(object.design.data.particles[0].color);
 
@@ -322,9 +320,7 @@ T.Plugins.install(new T.Editor(
                 object.design.data.particles[i].size.y = Math.toInt($('#block-editing-size-y').val());
                 object.design.data.particles[i].size.z = Math.toInt($('#block-editing-size-z').val());
 
-                object.design.data.particles[i].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
-                object.design.data.particles[i].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
-                //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
+                object.design.data.particles[i].rotation = Math.toInt($('#block-editing-rotation').val());
 
                 model_canvas.setModel(object.design.data);
 
@@ -357,7 +353,7 @@ T.Plugins.install(new T.Editor(
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
                         size: {x:40,y:40,z:40},
-                        rotation: {"xy":0}
+                        rotation: 0
 
                     },{
                         shape:{
@@ -368,7 +364,7 @@ T.Plugins.install(new T.Editor(
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
                         size: {x:40,y:40,z:40},
-                        rotation: {"xy":0}
+                        rotation: 0
 
                     }
                 ]
