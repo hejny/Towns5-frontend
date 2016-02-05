@@ -170,7 +170,39 @@ Model.prototype.joinModel = function(model,move_x,move_y){//todo second param sh
     //var  model_=deepCopyModel(model);
     //model_.moveBy(move_x,move_y);//todo maybe delete moveBy
 
-    var max_z=this.range('z');
+    //var max_z=this.range('z');
+
+
+    var this_linear_particles=this.getLinearParticles();
+    var model_linear_particles=model.getLinearParticles();
+
+
+    var distances=[0];
+    for(var i in model_linear_particles){
+
+        model_linear_particles[i].position.x+=move_x;
+        model_linear_particles[i].position.y+=move_y;
+
+        for(var ii in this_linear_particles){//todo maybe optimize by pre-sorting
+
+
+            if(ModelParticles.collision2D(this_linear_particles[ii],model_linear_particles[i])){
+
+                r(this_linear_particles[ii],model_linear_particles[i]);
+
+
+                distances.push(this_linear_particles[ii].position.z+this_linear_particles[ii].size.z);
+
+            }
+
+
+
+        }
+
+    }
+
+    var max_z=Math.max.apply(Math,distances);
+    //max_z=max_z/2;
 
 
     this.particles=[

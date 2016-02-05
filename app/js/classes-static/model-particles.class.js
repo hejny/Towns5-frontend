@@ -290,7 +290,7 @@ ModelParticles.collision2D = function(particle1,particle2){
 
     //-------------------------------Inner convex collision
 
-    if(!collision){
+    /**/if(!collision){
 
         collision=function(){
 
@@ -301,16 +301,16 @@ ModelParticles.collision2D = function(particle1,particle2){
 
                 if(i==0){
                     var outer=deepCopy(lines2);
-                    var inner=deepCopy(lines1[0]);
+                    var inner=/*deepCopy*/(lines1[0]);
                 }else{
                     var outer=deepCopy(lines1);
-                    var inner=deepCopy(lines2[0]);
+                    var inner=/*deepCopy*/(lines2[0]);
                 }
 
 
 
-                var inner1=inner;
-                var inner2=inner;
+                var inner1=deepCopy(inner);
+                var inner2=deepCopy(inner);
 
 
 
@@ -346,13 +346,13 @@ ModelParticles.collision2D = function(particle1,particle2){
         }();
 
 
-    }
+    }/**/
 
 
     //-------------------------------
 
     //-------------------------------Debug TDD
-    /**var size=50;
+    /**var size=100;
     var src=createCanvasViaFunctionAndConvertToSrc(
         size*2,size*2,function(ctx){
 
