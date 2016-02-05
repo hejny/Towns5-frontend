@@ -76,9 +76,9 @@
                     },
                     {
                         link: 'chimney',
-                        //size:3,
+                        size:1,
                         position: {x:-20,y:20,z:0},
-                        //rotation: 20
+                        rotation: -20
 
                     }
 

@@ -265,9 +265,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     };
 
 
-    //---------------------------------------------Convert particles to 1D particles
+    //---------------------------------------------Convert links to raw data
 
-    var particlesLinear=[];
 
     var findParticleByName = function(particles,name){
 
@@ -294,6 +293,65 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     };
 
 
+
+
+    var particlesLinks = function(particles){
+
+        for(var i in particles){
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Link
+            if(is(particles[i].link)) {
+                //todo link
+
+                var linked_particle = findParticleByName(this_.particles,particles[i].link);
+
+                if(linked_particle==false){
+                    throw new Error('Invalid link '+particle.link);
+                }
+
+                linked_particle=deepCopy(linked_particle);
+
+                 if(is(particles[i].rotation)){
+                     linked_particle.rotation=particles[i].rotation;
+                 }
+                 if(is(particles[i].size)){
+                     linked_particle.size=particles[i].size;
+                 }
+                 if(is(particles[i].position)){
+                     linked_particle.position=particles[i].position;
+                 }
+
+
+                particles[i]=linked_particle;
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Group
+            if(is(particles[i].particles)){
+
+                particlesLinks(particles[i].particles);
+
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        }
+
+    };
+
+
+    r(this_.particles);
+    particlesLinks(this_.particles);
+    r(this_.particles);
+    r('------------------------');
+
+
+    //---------------------------------------------Convert particles to 1D particles
+
+
+    var particlesLinear=[];
+
     var particles2Linear = function(particles,position=false,rotation=0,size=1){
 
         if(position===false){
@@ -305,6 +363,10 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
         }
 
         particles.forEach(function(particle){
+
+            //particle=deepCopy(particle);
+
+
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Default params of particle, group or link
             if(!particle.position){
@@ -319,32 +381,6 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Position, Rotation and size
-
-            /*var distDeg = Math.xy2distDeg(this.particles[i].position.x,this.particles[i].position.y);
-
-            distDeg.dist=distDeg.dist*this.size;
-            distDeg.deg+=this.rotation;
-
-            //r(distDeg);
-
-            var xy = Math.distDeg2xy(distDeg.dist,distDeg.deg);
-
-            //r(xy);
-            //r(this.particles[i].position.z,this.size);
-
-            this.particles[i].rotation.xy+=this.rotation;
-
-            this.particles[i].position.x=xy.x;
-            this.particles[i].position.y=xy.y;
-            this.particles[i].position.z=this.particles[i].position.z*this.size;
-
-
-            this.particles[i].size.x=this.particles[i].size.x*this.size;
-            this.particles[i].size.y=this.particles[i].size.y*this.size;
-            this.particles[i].size.z=this.particles[i].size.z*this.size;*/
-
-
-
 
             var distDeg = Math.xy2distDeg(particle.position.x, particle.position.y);
 
@@ -375,41 +411,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
             }
 
-
-            /*if(typeof particle.size == 'number') {
-
-                particle.size = particle.size * size;
-
-            }else{
-
-                particle.size.x=particle.size.x*size;
-                particle.size.y=particle.size.y*size;
-                particle.size.z=particle.size.z*size;
-
-            }*/
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-            //------------------------------------------Link
-            if(is(particle.link)) {
-                //todo link
-
-                var linked_particle = findParticleByName(this_.particles,particle.link);
-
-                if(linked_particle==false){
-                    throw new Error('Invalid link '+particle.link);
-                }
-
-                linked_particle=deepCopy(linked_particle);
-
-                if(is(particle.rotation))linked_particle.rotation=particle.rotation;
-                if(is(particle.size))linked_particle.size=particle.size;
-                if(is(particle.position))linked_particle.position=particle.position;
-
-                particle=linked_particle;
-            }
-            //------------------------------------------
 
 
 
@@ -425,6 +428,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 particlesLinear.push(particle);
 
             }
+            //------------------------------------------
+
 
 
         });
@@ -435,7 +440,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     particles2Linear(this_.particles,false,this_.rotation,this_.size);
 
 
-    r(particlesLinear);
+    //r(particlesLinear);
 
 
     //---------------------------------------------Convert particles to Towns4 3DModel Array
