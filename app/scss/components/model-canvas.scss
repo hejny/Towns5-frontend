@@ -20,7 +20,7 @@
 .model-canvas-ctl{
 
   .mini-button{
-    @include mini-button(15px,$mini-button-color-light);
+    @include miniButton(15px,$mini-button-color-light);
   }
 
 
