@@ -124,20 +124,20 @@ T.Plugins.install(new T.Editor(
         var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
         var farbtastic = $.farbtastic('#farbtastic-color-box')
 
-        var block_choose_i,
+        var blockChoose_i,
             block_lock=false;
 
 
-        var block_choose = function(i){
+        var blockChoose = function(i){
 
-            block_buttons();
+            blockButtons();
 
             i = Math.toInt(i);
 
             block_lock=true;
 
 
-            block_choose_i = i;
+            blockChoose_i = i;
 
             model_canvas.selected_polygon=Math.toInt(i);
             model_canvas.draw();
@@ -145,7 +145,7 @@ T.Plugins.install(new T.Editor(
             $('.block-choose').removeClass('selected');
             $('#block-choose-'+i).addClass('selected');
 
-            var particle=ModelParticles.cParams(object.design.data.particles[block_choose_i]);
+            var particle=ModelParticles.cParams(object.design.data.particles[blockChoose_i]);
 
             $('#block-editing-position-x').val(particle.position.x);
             $('#block-editing-position-y').val(particle.position.y);
@@ -175,9 +175,9 @@ T.Plugins.install(new T.Editor(
 
         //---------------------------------------------------------------------------
 
-        var block_create = function(){
+        var blockCreate = function(){
 
-            var particle=deepCopy(object.design.data.particles[block_choose_i]);
+            var particle=deepCopy(object.design.data.particles[blockChoose_i]);
 
             particle.position.z=particle.position.z+particle.size.z;
 
@@ -189,7 +189,7 @@ T.Plugins.install(new T.Editor(
 
         //---------------------------------------------------------------------------
 
-        var block_delete = function(i){
+        var blockDelete = function(i){
 
             object.design.data.particles.splice(i,1);
 
@@ -197,12 +197,107 @@ T.Plugins.install(new T.Editor(
 
         //---------------------------------------------------------------------------
 
-        var block_buttons = function(i) {
+        var blockButtons = function(particles,html_id) {
+
+            r(particles);
+
+
+            $('#'+html_id).addClass('model-dir');
+            //$('#'+html_id).html('particles');
+
+
+            /*$('#'+html_id).html(`
+                <div class="model-dir-particles" id="`+html_id+`-base">
+                    <i class="fa fa-sitemap"></i>
+                </div>
+            `);*/
+
+            particles.forEach(function (particle,i) {
+
+                r(particle);
+
+                var html_id_i = html_id+'-'+i;
+                var name;
+
+                $('#'+html_id).append(`<div id="`+html_id_i+`"></div>`);
+                $('#'+html_id_i).addClass('model-dir-label');
+
+                //---------------------------shape
+                if(is(particle.shape)){
+
+                    $('#'+html_id_i).addClass('model-dir-shape');
+                    $('#'+html_id_i).addClass('model-dir-label');
+                    name = Locale.get('model dir shape');
+
+                }else
+                //---------------------------link
+                if(is(particle.link)){
+                    $('#'+html_id_i).addClass('model-dir-link');
+                    $('#'+html_id_i).addClass('model-dir-label');
+                    name = Locale.get('model dir shape');
+
+
+                    /*$('#'+html_id).append(`
+                        <div class="model-dir-link" id="`+html_id+`-`+i+`">
+                            <i class="fa fa-link"></i>
+                        </div>
+                    `);*/
+                }else
+                //---------------------------particles
+                if(is(particle.particles)){
+
+
+                    $('#'+html_id_i).addClass('model-dir-particles');
+
+                    $('#'+html_id).append(`<div id="`+html_id_i+`-dir"></div>`);
+
+
+                    //r(particle.particles);
+                    //r(is(particle.particles));
+                    blockButtons(particle.particles,html_id_i+'-dir');
+
+
+                }
+                //---------------------------
+
+
+                if(is(particle.name)){
+                    name=particle.name
+                }
+
+                $('#'+html_id_i).prepend(name);
+
+
+                $('#'+html_id_i).click(function(){
+
+                    $('.model-dir-label').removeClass('model-dir-selected');
+                    $(this).addClass('model-dir-selected');
+
+                });
+
+            });
+
+
+
+
+
+        };
+
+
+
+        blockButtons(object.design.data.particles,'block-choose');
+
+
+        //---------------------------------------------------------------------------
+
+
+        /*var blockButtons = function(i) {
             $('#block-choose').html('');
 
-
+            
+            
             //-----------------------Blocks
-            object.design.data.particles.forEach(function (particle, block_i) {
+            /*object.design.data.particles.forEach(function (particle, block_i) {
 
                 var particle_on_ground = deepCopy(particle);
 
@@ -225,12 +320,12 @@ T.Plugins.install(new T.Editor(
                 particle_button.attr('id', 'block-choose-' + block_i);
                 particle_button.attr('class', 'block-choose');
 
-                //r(block_choose);
+                //r(blockChoose);
                 particle_button.click(function () {
 
                     var block_i = $(this).attr('block_i');
 
-                    block_choose(block_i);
+                    blockChoose(block_i);
 
 
                 });
@@ -239,44 +334,48 @@ T.Plugins.install(new T.Editor(
 
 
             });
-            //-----------------------
 
-            $('#block-actions').html('');
 
-            //-----------------------New
-
-            var button = $(`<button>`+Locale.get('building editor duplicate block')+`</button>`);
-
-            button.attr('class', 'block-button');
-            button.click(function () {
-
-                block_choose(block_create());
-
-            });
-            $('#block-actions').append(button);
-
-            //-----------------------
-
-            //-----------------------Delete
-
-            var button = $(`<button>`+Locale.get('building editor delete block')+`</button>`);
-
-            button.attr('class', 'block-button');
-            button.click(function () {
-
-                block_delete(block_choose_i);
-                block_choose(block_choose_i-1);
-
-            });
-            $('#block-actions').append(button);
-
-            //-----------------------
-
-        };
+        };*/
 
         //---------------------------------------------------------------------------
 
-        block_choose(0);
+
+        //-----------------------
+
+        $('#block-actions').html('');
+
+        //-----------------------New
+
+        var button = $(`<button>`+Locale.get('building editor duplicate block')+`</button>`);
+
+        button.attr('class', 'block-button');
+        button.click(function () {
+
+            blockChoose(blockCreate());
+
+        });
+        $('#block-actions').append(button);
+
+        //-----------------------
+
+        //-----------------------Delete
+
+        var button = $(`<button>`+Locale.get('building editor delete block')+`</button>`);
+
+        button.attr('class', 'block-button');
+        button.click(function () {
+
+            blockDelete(blockChoose_i);
+            blockChoose(blockChoose_i-1);
+
+        });
+        $('#block-actions').append(button);
+
+        //-----------------------
+
+
+        blockChoose(0);
 
 
         //---------------------------------------------------------------------------
@@ -287,7 +386,7 @@ T.Plugins.install(new T.Editor(
 
             if(block_lock)return;
 
-            var i = block_choose_i;
+            var i = blockChoose_i;
 
             object.design.data.particles[i].color=color;
             model_canvas.setModel(object.design.data);
@@ -299,7 +398,7 @@ T.Plugins.install(new T.Editor(
 
                 if(block_lock)return;
 
-                var i = block_choose_i;
+                var i = blockChoose_i;
 
 
                 object.design.data.particles[i].position.x = Math.toInt($('#block-editing-position-x').val());
@@ -342,7 +441,7 @@ T.Plugins.install(new T.Editor(
         subtype: "main",
         design: {
             type: "model",
-            data: new Model({
+            data: new Model(/*{
                 particles: [
                     {
                         shape:{
@@ -368,7 +467,77 @@ T.Plugins.install(new T.Editor(
 
                     }
                 ]
-            })
+            }*/
+                {
+                    particles: [
+                        {
+                            name: 'top',
+                            particles:[
+                                {
+                                    shape:{
+                                        type: 'prism',
+                                        n:4
+                                    },
+                                    color: "#cccccc",
+                                    position: {x:10,y:10,z:0},
+                                    size: {x:10,y:10,z:10},
+                                    rotation: 10
+                                },{
+                                    name: 'chimney',
+                                    particles:[
+                                        {
+                                            shape:{
+                                                type: 'prism',
+                                                n:5,
+                                                rotated:true
+                                            },
+                                            color: "#cccccc",
+                                            position: {x:-10,y:-10,z:0},
+                                            size: {x:10,y:10,z:10},
+                                            rotation: 20
+                                        },{
+                                            shape:{
+                                                type: 'prism',
+                                                n:7,
+                                                rotated:true
+                                            },
+                                            color: "#00ff00",
+                                            position: {x:-10,y:-10,z:10},
+                                            size: {x:5,y:5,z:20},
+                                            rotation: 20
+                                        }
+                                    ],
+                                    size:2
+
+                                },
+                                {
+                                    link: 'chimney',
+                                    size:1,
+                                    position: {x:-20,y:20,z:0},
+                                    rotation: -20
+
+                                }
+
+                            ],
+                            position: {x:0,y:0,z:40},
+                            size: 1,
+                            rotation: 20
+
+                        },{
+                            name: 'basement',
+                            shape:{
+                                type: 'prism',
+                                n:4,
+                                bottom:0.3
+                            },
+                            color: "#7799ff",
+                            position: {x:0,y:0,z:0},
+                            size: {x:40,y:40,z:40},
+
+                        }
+                    ]
+                }
+            )
 
         }
     }
