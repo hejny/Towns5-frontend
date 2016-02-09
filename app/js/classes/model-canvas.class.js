@@ -13,7 +13,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
     this.zoom=zoom;
     this.width=width;
     this.height=height;
-    this.selected_polygon=false;
+    this.selected_path=false;
     this.x=x;
     this.y=y;
 
@@ -151,24 +151,19 @@ ModelCanvas.prototype.draw = function(model){
 
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, this.selected_polygon);
-
-    /*if(is(selected_polygon)){
+    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false);
 
 
-        var selected_polygon_model = deepCopyModel({
+    if(is(this.selected_path)){
 
-            particles: [
-                this.model.particles[0]
-            ],
-            size: this.model.size,
-            rotation: this.model.rotation
 
-        });
+        r(this);
+        var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
-        selected_polygon_model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true);
+        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true);
 
-    }*/
+    }
+
 
     /*this.ctx.beginPath();
     this.ctx.arc(this.x+(this.width/2), this.y+(this.height/2),20,0,2*Math.PI);
