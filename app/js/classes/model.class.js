@@ -765,14 +765,14 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             }
 
             //todo refactor maybe as shader ?
-            if(selected!==false && resource['polygons'][i2]['particle']===selected){
+            /*if(selected!==false && resource['polygons'][i2]['particle']===selected){
 
                 draw_polygons[i2].line={
                     width: 2,
                     color: hexToRgb('4C9ED9')
                 };
 
-            }
+            }*/
 
             if(is(shader.fill)){
                 color = hexToRgb(resource['polygons'][i2]['color']);
@@ -900,4 +900,67 @@ Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, 
 
 
 
+//==================================================
 
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPath = function(path){
+
+    var current=this;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+    path.forEach(function(i){
+        current = current.particles[i];
+    });
+
+    return(current);
+
+};
+
+
+
+//==================================================
+
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPathSiblings = function(path){
+
+    var filtered=deepCopyModel(this);
+    var current=filtered;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+    path.forEach(function(particle_i,path_ii){
+
+        /*if(path_ii<path.length-1){
+
+            current = current.particles[particle_i];
+
+        }else{*/
+
+            var me = current.particles[particle_i];
+
+            current.particles = [me];
+
+            current=me;
+        //}
+
+
+    });
+
+    return(filtered);
+
+};
