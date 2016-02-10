@@ -77,7 +77,8 @@ T.Plugins.install(new T.Editor(
 
   <tr><th colspan="2">{{block material}}</th></tr>
   <tr>
-    <td colspan="2"><div id="farbtastic-color-box"></div></td>
+    <td>{{block color}}:</td>
+    <td><input id="block-editing-color" type="color" value=""></td>
   </tr>
 
 
@@ -113,19 +114,9 @@ T.Plugins.install(new T.Editor(
         $('#block-editing-size-z').val(particle.size.z);
 
         $('#block-editing-rotation').val(particle.rotation);
+        $('#block-editing-color').val(particle.color);
         //todo rotated
 
-
-
-
-        var farbtastic = $.farbtastic('#farbtastic-color-box').setColor(object.design.data.particles[0].color);
-
-        farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
-
-            object.design.data.particles[0].color=color;
-            model_canvas.setModel(object.design.data);
-
-        }, 200));
 
 
         $('#block-editing-form').find('input').mousemove(function(){
@@ -147,12 +138,21 @@ T.Plugins.install(new T.Editor(
 
                 object.design.data.particles[0].rotation = Math.toInt($('#block-editing-rotation').val());
 
+
                 model_canvas.setModel(object.design.data);
 
 
-        }
+        });
 
-        );
+        $('#block-editing-color').change(function(){
+
+            object.design.data.particles[0].color = $('#block-editing-color').val();
+            model_canvas.setModel(object.design.data);
+
+
+        });
+
+
 
 
     },
