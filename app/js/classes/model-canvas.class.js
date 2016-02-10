@@ -157,16 +157,11 @@ ModelCanvas.prototype.draw = function(model){
     if(is(this.selected_path)){
 
 
-        r(this);
+        //r(this);
         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
         block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true);
 
-    }
-
-
-    /*this.ctx.beginPath();
-    this.ctx.arc(this.x+(this.width/2), this.y+(this.height/2),20,0,2*Math.PI);
-    this.ctx.stroke();*/
+    }/**/
 
 };
