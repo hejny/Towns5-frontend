@@ -85,7 +85,6 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
 
-    r(this.ctx);
 
     var self=this;
 
@@ -149,9 +148,15 @@ ModelCanvas.prototype.draw = function(model){
 
     var size=Math.pow(Math.E,this.zoom);
 
+    if(this.selected_path instanceof Array && this.selected_path.length==0){
+        var selected=true;
+    }else{
+        var selected=false;
+    }
+
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false);
+    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected);
 
 
     if(is(this.selected_path)){
@@ -162,6 +167,6 @@ ModelCanvas.prototype.draw = function(model){
 
         block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true);
 
-    }/**/
+    }
 
 };

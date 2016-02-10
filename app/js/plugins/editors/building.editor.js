@@ -151,7 +151,7 @@ T.Plugins.install(new T.Editor(
 
 
 
-            $('#block-editing-position-x').val(block_choosen.position.x);
+            /*$('#block-editing-position-x').val(block_choosen.position.x);
             $('#block-editing-position-y').val(block_choosen.position.y);
             $('#block-editing-position-z').val(block_choosen.position.z);
 
@@ -169,7 +169,9 @@ T.Plugins.install(new T.Editor(
 
             $('#block-editing-rotation').val(block_choosen.rotation);
 
-            farbtastic.setColor(block_choosen.color);
+            farbtastic.setColor(block_choosen.color);*/
+
+
 
             block_lock=false;
 
@@ -203,10 +205,8 @@ T.Plugins.install(new T.Editor(
 
 
 
-        var blockButtons = function(particles,html_id,path=false) {
+        var blockButtons = function(particles,html_id,path) {
 
-            if(!path)path=[];
-            //r(particles);
 
 
             $('#'+html_id).addClass('model-dir');
@@ -222,10 +222,18 @@ T.Plugins.install(new T.Editor(
             particles.forEach(function (particle,i) {
 
 
-                r(path);
-                var path_new=deepCopy(path);
-                path_new.push(i);
-                //r(particle);
+                if(path==-1) {
+
+                    path_new=[];
+
+                }else{
+
+                    var path_new=deepCopy(path);
+                    path_new.push(i);
+
+                }
+
+
 
                 var html_id_i = html_id+'-'+i;
                 var name;
@@ -290,10 +298,21 @@ T.Plugins.install(new T.Editor(
                     $('.model-dir-label').removeClass('model-dir-selected');
                     $(this).addClass('model-dir-selected');
 
+
+                    var path = $(this).attr('path');
+                    if(path==''){
+
+                        path = [];
+
+                    }else{
+
+                        path = path.split(',').map(Math.toInt);
+
+                    }
+
                     blockChoose(
-                        $(this).attr('path').split(',')
+                        path
                     );
-                    //alert($(this).attr('path'));
 
                 });
 
@@ -307,7 +326,7 @@ T.Plugins.install(new T.Editor(
 
 
 
-        blockButtons(object.design.data.particles,'block-choose');
+        blockButtons([object.design.data]/*.particles*/,'block-choose',-1);
 
 
         //---------------------------------------------------------------------------
@@ -404,7 +423,7 @@ T.Plugins.install(new T.Editor(
 
 
 
-        farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
+        /*farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
 
             if(block_lock)return;
 
@@ -444,7 +463,7 @@ T.Plugins.install(new T.Editor(
 
             }
 
-        );
+        );*/
 
         //---------------------------------------------------------------------------
 
