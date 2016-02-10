@@ -266,6 +266,8 @@ Model.prototype.getDeepCopyWithoutLinks = function() {
     var particlesLinks = function (particles) {//todo move to prototype
 
 
+        //r(particles);
+
         for (var i in particles) {
 
 
@@ -444,9 +446,11 @@ Model.prototype.filterPath = function(path){
         throw new Error('Path is not correct array.');
     }
 
+
     path.forEach(function(i){
         model = model.particles[i];
     });
+
 
     return(model);
 
@@ -470,6 +474,7 @@ Model.prototype.filterPathSiblings = function(path){
         r(path);
         throw new Error('Path is not correct array.');
     }
+
 
     path.forEach(function(particle_i,path_ii){
 
@@ -508,7 +513,7 @@ Model.prototype.filterPathSiblings = function(path){
  * @param {number} y_begin Canvas top
  * @param {number} rotation 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
- * @param {string} force color - format #ff00ff
+ * @param {string} force color - format #ff00ff //todo maybe delete
  * @param {boolean} selected - display blue highlight around model
  */
 Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
