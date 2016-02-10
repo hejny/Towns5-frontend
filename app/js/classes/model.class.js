@@ -219,53 +219,6 @@ Model.prototype.joinModel = function(model,move_x,move_y){//todo second param sh
     this.rotation=0;
     this.size=1;
 
-
-
-    //this.compileRotationSize();
-    //model_.compileRotationSize();
-
-    /*
-
-    model_.particles.sort(function(particle1,particle2){
-
-        return(particle1.position.z-particle2.position.z);
-
-    });
-
-
-    var distances=[0];
-
-
-
-    for(var i in model_.particles){
-
-
-        for(var ii in this.particles){//todo maybe optimize by pre-sorting
-
-            if(ModelParticles.collision2D(this.particles[ii],model_.particles[i])){
-                distances.push(this.particles[ii].position.z+this.particles[ii].size.z*2);//todo better solution then only simple bugfix *2
-            }
-
-
-
-        }
-
-    }
-
-    //r('distances',distances);
-
-    var max_z=Math.max.apply(Math,distances);
-    //var max_z=this.range('z');
-
-    //r(max_z);
-
-    model_.moveBy(0,0,max_z);
-
-
-   this.particles=this.particles.concat(model_.particles);*/
-
-
-
 };
 
 
@@ -273,27 +226,31 @@ Model.prototype.joinModel = function(model,move_x,move_y){//todo second param sh
 //======================================================================================================================
 
 
+/**
+ * Deep copy this and converts links to raw data
+ * @returns {object} Model
+ */
+Model.prototype.getDeepCopyWithoutLinks = function() {
 
-Model.prototype.getLinearParticles = function(){
 
-    var this_=deepCopyModel(this);
+    var model = deepCopyModel(this);
 
     //---------------------------------------------Convert links to raw data
 
 
-    var findParticleByName = function(particles,name){//todo move to prototype
+    var findParticleByName = function (particles, name) {//todo move to prototype
 
-        for(var i in particles){
+        for (var i in particles) {
 
-            if(particles[i].name==name){
-                return(particles[i]);
+            if (particles[i].name == name) {
+                return (particles[i]);
             }
 
-            if(is(particles[i].particles)){
-                var finded_particle = findParticleByName(particles[i].particles,name);
+            if (is(particles[i].particles)) {
+                var finded_particle = findParticleByName(particles[i].particles, name);
 
-                if(finded_particle!==false){
-                    return(finded_particle);
+                if (finded_particle !== false) {
+                    return (finded_particle);
                 }
 
             }
@@ -301,48 +258,48 @@ Model.prototype.getLinearParticles = function(){
 
         }
 
-        return(false);
+        return (false);
 
     };
 
 
+    var particlesLinks = function (particles) {//todo move to prototype
 
-    var particlesLinks = function(particles){//todo move to prototype
 
+        for (var i in particles) {
 
-        for(var i in particles){
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Link
-            if(is(particles[i].link)) {
+            if (is(particles[i].link)) {
 
 
-                var linked_particle = findParticleByName(this_.particles,particles[i].link);
+                var linked_particle = findParticleByName(model.particles, particles[i].link);
 
-                if(linked_particle==false){
-                    throw new Error('Invalid link '+particle.link);
+                if (linked_particle == false) {
+                    throw new Error('Invalid link ' + particle.link);
                 }
 
-                linked_particle=deepCopy(linked_particle);
+                linked_particle = deepCopy(linked_particle);
 
-                if(is(particles[i].rotation)){
-                    linked_particle.rotation=particles[i].rotation;
+                if (is(particles[i].rotation)) {
+                    linked_particle.rotation = particles[i].rotation;
                 }
-                if(is(particles[i].size)){
-                    linked_particle.size=particles[i].size;
+                if (is(particles[i].size)) {
+                    linked_particle.size = particles[i].size;
                 }
-                if(is(particles[i].position)){
-                    linked_particle.position=particles[i].position;
+                if (is(particles[i].position)) {
+                    linked_particle.position = particles[i].position;
                 }
                 //todo skew
 
 
-                particles[i]=linked_particle;
+                particles[i] = linked_particle;
             }
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Group
-            if(is(particles[i].particles)){
+            if (is(particles[i].particles)) {
 
                 particlesLinks(particles[i].particles);
 
@@ -355,12 +312,26 @@ Model.prototype.getLinearParticles = function(){
     };
 
 
-    particlesLinks(this_.particles);
+    particlesLinks(model.particles);
 
-    //---------------------------------------------Convert particles to 1D particles
+    return(model);
+
+};
+
+
+//======================================================================================================================
+
+
+/**
+ * Get 1D array of particles
+ * @returns {Array} array of particles
+ */
+Model.prototype.getLinearParticles = function(){
 
 
     var particlesLinear=[];
+
+    //---------------------------------------------Convert particles to 1D particles
 
     var particles2Linear = function(particles,position=false,rotation=0,size=1){//todo move to prototype
 
@@ -447,14 +418,80 @@ Model.prototype.getLinearParticles = function(){
 
     };
 
-    particles2Linear(this_.particles,false,this_.rotation,this_.size);
+    var model=this.getDeepCopyWithoutLinks();
 
-    delete this_;
+    particles2Linear(model.particles,false,model.rotation,model.size);
+
+    delete model;
 
     return(particlesLinear);
 
 };
 
+//======================================================================================================================
+
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPath = function(path){
+
+    var model=this;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+    path.forEach(function(i){
+        model = model.particles[i];
+    });
+
+    return(model);
+
+};
+
+
+
+//======================================================================================================================
+
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPathSiblings = function(path){
+
+    var model=this.getDeepCopyWithoutLinks();
+    var current=model;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+    path.forEach(function(particle_i,path_ii){
+
+        /*if(path_ii<path.length-1){
+
+         current = current.particles[particle_i];
+
+         }else{*/
+
+        var me = current.particles[particle_i];
+
+        current.particles = [me];
+
+        current=me;
+        //}
+
+
+    });
+
+    return(model);
+
+};
 
 
 //======================================================================================================================
@@ -899,68 +936,3 @@ Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, 
 };
 
 
-
-//==================================================
-
-/**
- *
- * @param path
- * @returns {object} part of this
- */
-Model.prototype.filterPath = function(path){
-
-    var current=this;
-
-    if(!is(path.forEach)){
-        r(path);
-        throw new Error('Path is not correct array.');
-    }
-
-    path.forEach(function(i){
-        current = current.particles[i];
-    });
-
-    return(current);
-
-};
-
-
-
-//==================================================
-
-/**
- *
- * @param path
- * @returns {object} part of this
- */
-Model.prototype.filterPathSiblings = function(path){
-
-    var filtered=deepCopyModel(this);
-    var current=filtered;
-
-    if(!is(path.forEach)){
-        r(path);
-        throw new Error('Path is not correct array.');
-    }
-
-    path.forEach(function(particle_i,path_ii){
-
-        /*if(path_ii<path.length-1){
-
-            current = current.particles[particle_i];
-
-        }else{*/
-
-            var me = current.particles[particle_i];
-
-            current.particles = [me];
-
-            current=me;
-        //}
-
-
-    });
-
-    return(filtered);
-
-};
