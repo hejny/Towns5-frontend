@@ -113,3 +113,56 @@ ArrayFunctions.removeItems = function(array,from, to) {
     array.length = from < 0 ? array.length + from : from;
     return array.push.apply(array, rest);
 };
+
+
+//======================================================================================================================
+
+
+/** todo should it be under ArrayFunctions
+ *
+ * @param {object} obect
+ * @param {array} path
+ */
+ArrayFunctions.filterPath = function(object,path,setValue){
+
+
+    if(!is(object)){//todo should it be here?
+        throw new Error('filterPath: Object is undefined.');
+    }
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('filterPath: Path is not correct array.');
+    }
+
+
+    for(path_i in path){
+
+        var object_key = path[path_i];
+
+        if(path_i<path.length-1 || typeof setValue == 'undefined'){
+
+            if(typeof object[object_key] == 'undefined'){
+
+                return(undefined);
+                //throw new Error('filterPath: Key \''+object_key+'\' in path in object is undefined');
+            }
+
+            object = object[object_key];
+
+        }else{
+
+            object[object_key]=setValue;
+
+            return(true);
+
+
+
+        }
+
+    }
+
+    return(object);
+
+
+};
