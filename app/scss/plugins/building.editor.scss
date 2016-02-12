@@ -7,42 +7,24 @@
 @import '../config';
 @import '../mixins';
 
-.block-button{
-
-  @include button-text(30px);
-
-  display: inline-block;
-}
 
 
-.model-dir{
-
-  //border-left: 2px dashed #968896;
-
-  //├──
-
-  //padding-left: 10px;
-  //border-left: 2px dashed #968896;
-
-  //padding-left: 10px;
-  margin-left: 8px;
-  border-left: 2px solid #968896;
+#block-choose{
 
 
-  padding-top:10px;
-  margin-bottom:10px;
+  .model-dir{
+
+    margin-left: 8px;
+    border-left: 2px solid #968896;
+
+
+    padding-top:10px;
+    margin-bottom:10px;
+
+  }
 
 }
 
-
-/*.model-dir-subitem{
-
-
-  padding-left: 10px;
-  margin-left: 8px;
-  border-left: 2px solid #968896;
-
-}**/
 
 
 .model-dir-label{
@@ -56,8 +38,6 @@
 
   font-weight: 800;
 }
-
-
 
 
 
