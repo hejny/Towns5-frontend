@@ -41,7 +41,7 @@ function buildingStart(prototypeId){
 
     $('#selecting-distance-ctl').css('background','');//neutral background
     $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
     //showing buttons used by actual tool
     if(building.subtype!='wall')$('#selecting-distance-right').show();
     if(building.subtype!='wall')$('#selecting-distance-left').show();

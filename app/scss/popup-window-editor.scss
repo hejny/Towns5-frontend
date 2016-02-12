@@ -15,9 +15,9 @@
 
   //border: 2px solid #ffcccc;
 
-  .mini-button{
+  .button-icon{
 
-    @include miniButton(15px,$mini-button-color-light);
+    @include button-icon(15px, $button-icon-color-light);
 
   }
 

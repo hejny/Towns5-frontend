@@ -126,7 +126,7 @@ T.Plugins.install(new T.Editor(
         var model_canvas = new ModelCanvas('model-canvas', object.design.data, 380, 600);
 
         var block_selected_path = [0],
-            block_choosen = false,
+            block_selected = false,
             block_lock = false;
 
 
@@ -134,7 +134,7 @@ T.Plugins.install(new T.Editor(
 
             block_selected_path = path;
 
-            block_choosen = object.design.data.filterPath(block_selected_path);
+            block_selected = object.design.data.filterPath(block_selected_path);
 
 
             //var particle=ModelParticles.cParams(object.design.data.particles[blockChoose_i]);
@@ -154,7 +154,7 @@ T.Plugins.install(new T.Editor(
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('id').split('-');
-                var actual = ArrayFunctions.filterPath(block_choosen, path);
+                var actual = ArrayFunctions.filterPath(block_selected, path);
 
 
                 if (is(actual)) {
@@ -176,7 +176,7 @@ T.Plugins.install(new T.Editor(
 
 
                         var path = $(this).attr('id').split('-');
-                        ArrayFunctions.filterPath(block_choosen, path, value);
+                        ArrayFunctions.filterPath(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
 
@@ -201,15 +201,80 @@ T.Plugins.install(new T.Editor(
 
             //-----------------------New
 
-            /*var button = $(`<button>`+Locale.get('building editor duplicate block')+`</button>`);
 
-             button.attr('class', 'block-button');
-             button.click(function () {
+            if(is(block_selected.particles)){
 
-             blockChoose(blockCreate());
 
-             });
-             $('#block-actions').append(button);*/
+                //-----------------------Block
+                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new block')+`"><i class="fa fa-cube"></i></div>`);
+
+                icon.click(function () {
+
+                    block_selected.particles.push({
+                        shape: {
+                            type: 'prism',
+                            n: 4,
+                            top: 1,
+                            bottom: 1,
+                            rotated: false
+                        },
+                        color: '#cccccc',
+                        position:{x:0,y:0,z:0},
+                        size:{x:10,y:10,z:10},
+                        rotation: 0,
+                        skew: {z:{x:0,y:0}}
+                    });
+
+                    renderBlockButtons();
+
+
+                });
+                $('#block-actions').append(icon);
+                //-----------------------
+
+                //-----------------------Group
+                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new group')+`"><i class="fa fa-cubes"></i></div>`);
+
+                icon.click(function () {
+
+                    block_selected.particles.push({
+                        particles: [],
+                        position:{x:0,y:0,z:0},
+                        size:1,
+                        rotation: 0,
+                        skew: {z:{x:0,y:0}}
+                    });
+
+                    renderBlockButtons();
+
+
+                });
+                $('#block-actions').append(icon);
+                //-----------------------
+
+                //-----------------------Link
+                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new link')+`"><i class="fa fa-link"></i></div>`);
+
+                icon.click(function () {
+
+                    block_selected.particles.push({
+                        link: '',
+                        position:{x:0,y:0,z:0},
+                        size:1,
+                        rotation: 0,
+                        skew: {z:{x:0,y:0}}
+                    });
+
+                    renderBlockButtons();
+
+
+                });
+                $('#block-actions').append(icon);
+                //-----------------------
+
+
+            }
+
 
             //-----------------------
 
@@ -217,12 +282,9 @@ T.Plugins.install(new T.Editor(
 
             if (block_selected_path.length != 0) {
 
+                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
 
-                var button = $(`<button>` + Locale.get('building editor delete block') + `</button>`);
-
-                button.attr('class', 'block-button');
-                button.click(function () {
-
+                icon.click(function () {
 
                     var i = block_selected_path.pop();
 
@@ -230,11 +292,11 @@ T.Plugins.install(new T.Editor(
 
                     parent.particles.splice(i, i + 1);
 
-                    renderBlockButtons();
                     blockChoose(block_selected_path);
+                    renderBlockButtons();
 
                 });
-                $('#block-actions').append(button);
+                $('#block-actions').append(icon);
 
             }
             //-----------------------

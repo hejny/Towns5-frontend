@@ -40,7 +40,7 @@
   border-radius: 3px;*/
   z-index: 3600;
 
-  .mini-button{
+  .button-icon{
 
     display: block;
     width: 15px;
@@ -63,9 +63,9 @@
   border-radius: 3px;*/
   z-index: 3600;
 
-  .mini-button{
+  .button-icon{
 
-    @include miniButton(15px,$mini-button-color);
+    @include button-icon(15px, $button-icon-color);
 
     display: block;
 
@@ -75,10 +75,9 @@
 
 
 
-.mini-button{
 
-  @include miniButton(26px,$mini-button-color);
 
-}
+
+
 
 
