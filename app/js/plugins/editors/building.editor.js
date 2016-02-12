@@ -454,99 +454,18 @@ T.Plugins.install(new T.Editor(
         subtype: "main",
         design: {
             type: "model",
-            data: new Model(/*{
-                particles: [
-                    {
-                        shape:{
-                            type: 'prism',
-                            n:4,
-                            top: 0
-                        },
-                        color: "#cccccc",
-                        position: {x:0,y:0,z:0},
-                        size: {x:40,y:40,z:40},
-                        rotation: 0
-
-                    },{
-                        shape:{
-                            type: 'prism',
-                            n:4,
-                            bottom: 0
-                        },
-                        color: "#cccccc",
-                        position: {x:0,y:0,z:0},
-                        size: {x:40,y:40,z:40},
-                        rotation: 0
-
-                    }
-                ]
-            }*/
+            data: new Model(
                 {
                     particles: [
                         {
-                            name: 'top',
-                            particles:[
-                                {
-                                    shape:{
-                                        type: 'prism',
-                                        n:4
-                                    },
-                                    color: "#cccccc",
-                                    position: {x:10,y:10,z:0},
-                                    size: {x:10,y:10,z:10},
-                                    rotation: 10
-                                },{
-                                    name: 'chimney',
-                                    particles:[
-                                        {
-                                            shape:{
-                                                type: 'prism',
-                                                n:5,
-                                                rotated:true
-                                            },
-                                            color: "#cccccc",
-                                            position: {x:-10,y:-10,z:0},
-                                            size: {x:10,y:10,z:10},
-                                            rotation: 20
-                                        },{
-                                            shape:{
-                                                type: 'prism',
-                                                n:7,
-                                                rotated:true
-                                            },
-                                            color: "#00ff00",
-                                            position: {x:-10,y:-10,z:10},
-                                            size: {x:5,y:5,z:20},
-                                            rotation: 20
-                                        }
-                                    ],
-                                    size:2
-
-                                },
-                                {
-                                    link: 'chimney',
-                                    size:1,
-                                    position: {x:-20,y:20,z:0},
-                                    rotation: -20
-
-                                }
-
-                            ],
-                            position: {x:0,y:0,z:40},
-                            size: 1,
-                            rotation: 20
-
-                        },{
-                            name: 'basement',
                             shape:{
                                 type: 'prism',
-                                n:4,
-                                bottom:0.3
+                                n:4
                             },
-                            color: "#7799ff",
+                            color: "#cccccc",
                             position: {x:0,y:0,z:0},
                             size: {x:40,y:40,z:40},
-
+                            rotation: 0
                         }
                     ]
                 }
