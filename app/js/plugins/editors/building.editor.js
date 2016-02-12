@@ -12,8 +12,8 @@ T.Plugins.install(new T.Editor(
     },
     'Editor budov',
     `<div class="page-column-2">
-<form onsubmit="return false;" id="form">
-<table>
+<form onsubmit="return false;" class="full" id="form">
+<table class="full">
 
 
   <tr><th colspan="2">{{block choose}}</th></tr>
@@ -25,6 +25,20 @@ T.Plugins.install(new T.Editor(
   <tr>
     <td colspan="2" id="block-actions"></td>
   </tr>
+
+
+  <tr><th colspan="2">{{block info}}</th></tr>
+  <tr>
+    <td>{{block name}}:</td>
+    <td><input class="block-parameter full" id="name" type="text" /></td>
+  </tr>
+  <tr>
+    <td>{{block link}}:</td>
+    <td><input class="block-parameter full" id="link" type="text" /></td>
+  </tr>
+
+
+
 
   <tr><th colspan="2">{{block position}}</th></tr>
   <tr>
@@ -211,6 +225,7 @@ T.Plugins.install(new T.Editor(
                 icon.click(function () {
 
                     block_selected.particles.push({
+                        name:'',
                         shape: {
                             type: 'prism',
                             n: 4,
@@ -238,6 +253,7 @@ T.Plugins.install(new T.Editor(
                 icon.click(function () {
 
                     block_selected.particles.push({
+                        name:'',
                         particles: [],
                         position:{x:0,y:0,z:0},
                         size:1,
