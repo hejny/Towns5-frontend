@@ -14,7 +14,7 @@
 
   .model-dir{
 
-    margin-left: 8px;
+    margin-left: 18px;//8px;
     border-left: 2px solid #968896;
 
 
@@ -29,7 +29,11 @@
 
 .model-dir-label{
 
-  background-color: rgba(100,100,100,0.2);
+  /*width: 150px;
+  max-width: 100%;
+  overflow: hidden;*/
+  //background-color: rgba(100,100,100,0.2);
+  background-color: rgba(100,100,100,0.02);
 }
 
 
