@@ -528,7 +528,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
 
     var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
-    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4 ;
+    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI));
     var slnko = 50;
 
 
