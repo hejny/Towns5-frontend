@@ -91,6 +91,10 @@ T.Plugins.install(new T.Editor(
 
 
   <tr><th colspan="2">{{block size}}</th></tr>
+    <tr>
+    <td>{{block size}}:</td>
+    <td><input class="block-parameter" id="size" type="range" min="0.1" max="3" step="0.1" /></td>
+  </tr>
   <tr>
     <td>{{block size x}}:</td>
     <td><input class="block-parameter" id="size-x" type="range" min="1" max="100" step="1" /></td>
@@ -171,7 +175,7 @@ T.Plugins.install(new T.Editor(
                 var actual = ArrayFunctions.filterPath(block_selected, path);
 
 
-                if (is(actual)) {
+                if (idDefined(actual)) {
 
                     $(this).val(actual);
 
@@ -197,10 +201,12 @@ T.Plugins.install(new T.Editor(
                     });
 
 
-                    $(this).show();
+                    $(this).parent().parent().show();
 
                 } else {
-                    $(this).hide();//attr('disabled','1');
+
+                    $(this).parent().parent().hide();//attr('disabled','1');
+
                 }
 
 
@@ -260,6 +266,7 @@ T.Plugins.install(new T.Editor(
                         rotation: 0,
                         skew: {z:{x:0,y:0}}
                     });
+
 
                     renderBlockButtons();
 
@@ -350,7 +357,7 @@ T.Plugins.install(new T.Editor(
                 $('#' + html_id_i).addClass('model-dir-label');
 
                 //---------------------------shape
-                if (is(particle.shape)) {
+                if (idDefined(particle.shape)) {
 
                     $('#' + html_id_i).addClass('model-dir-shape');
                     $('#' + html_id_i).addClass('model-dir-label');
@@ -358,7 +365,7 @@ T.Plugins.install(new T.Editor(
 
                 } else
                 //---------------------------link
-                if (is(particle.link)) {
+                if (idDefined(particle.link)) {
                     $('#' + html_id_i).addClass('model-dir-link');
                     $('#' + html_id_i).addClass('model-dir-label');
                     name = Locale.get('model dir shape');
@@ -366,7 +373,7 @@ T.Plugins.install(new T.Editor(
 
                 } else
                 //---------------------------particles
-                if (is(particle.particles)) {
+                if (idDefined(particle.particles)) {
 
 
                     $('#' + html_id_i).addClass('model-dir-particles');

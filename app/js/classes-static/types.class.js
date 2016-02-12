@@ -13,7 +13,7 @@
 
 //todo nahradit vsechny takovahle zjistovani touhle funkci
 //todo jsdoc
-function defined(val){
+function idDefined(val){
     if(typeof(val)==='undefined')return false;
     return true;
 
