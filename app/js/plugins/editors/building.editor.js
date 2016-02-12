@@ -184,7 +184,7 @@ T.Plugins.install(new T.Editor(
 
                     var event = 'change';
                     if ($(this).attr('type') == 'range') {
-                        event = 'mousemove';
+                        event = 'mousemove';//todo multiple events eg. change and keypress
                     }
 
                     $(this).unbind(event).bind(event, function () {
@@ -192,7 +192,7 @@ T.Plugins.install(new T.Editor(
 
                         var value = $(this).val();
 
-                        if(path=='name'){
+                        if($(this).attr('id')=='name'){
                             r($('.model-dir-selected'));
                             $('.model-dir-selected').text(value);
                         }
@@ -242,9 +242,7 @@ T.Plugins.install(new T.Editor(
 
                     if($(this).is(':visible'))hide_category = false;
 
-                });
-
-                $('[category="'+category+'"]').each(function(){
+                }).each(function(){
 
 
                     if($(this).find('th').length==0)return;
