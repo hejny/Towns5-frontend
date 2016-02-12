@@ -272,7 +272,7 @@ T.Plugins.install(new T.Editor(
             //-----------------------New
 
 
-            if(is(block_selected.particles)){
+            if(isDefined(block_selected.particles)){
 
 
                 //-----------------------Block
