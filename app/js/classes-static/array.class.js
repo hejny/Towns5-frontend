@@ -166,3 +166,25 @@ ArrayFunctions.filterPath = function(object,path,setValue){
 
 
 };
+
+
+//======================================================================================================================
+
+
+/**
+ *
+ * @param {Array} array
+ * @returns {Array} Array containing only unique values
+ */
+ArrayFunctions.unique = function(array) {
+    var n = {},r=[];
+    for(var i = 0; i < array.length; i++)
+    {
+        if (!n[array[i]])
+        {
+            n[array[i]] = array;
+            r.push(array[i]);
+        }
+    }
+    return r;
+}
