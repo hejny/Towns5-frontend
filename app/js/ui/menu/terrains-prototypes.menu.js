@@ -22,7 +22,7 @@ function terrainNeutralizeStart(){
 
 
     $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
     //showing buttons used by actual tool
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
@@ -74,7 +74,7 @@ function terrainChangeStart(prototypeId){
 
 
     $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
     //showing buttons used by actual tool
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();

@@ -59,7 +59,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
                 left: `+(this.width-40)+`px;
             }
 
-            .model-canvas-ctl .mini-button{
+            .model-canvas-ctl .button-icon{
                 display: block;
                 width: 10px;
                 height: 10px;
@@ -73,8 +73,8 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
         <div class="model-canvas-drag"></div>
         <div class="model-canvas-ctl">
 
-            <div class="model-canvas-plus mini-button" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
-            <div class="model-canvas-minus mini-button" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
+            <div class="model-canvas-plus button-icon" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
+            <div class="model-canvas-minus button-icon" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
 
         </div>
 

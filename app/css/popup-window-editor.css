@@ -19,7 +19,7 @@
   width: 100%;
   height: 40px;
   text-align: left; }
-  #editor-object-header .mini-button {
+  #editor-object-header .button-icon {
     border: none;
     display: inline-block;
     margin: 2px;
@@ -36,7 +36,7 @@
     background-color: rgba(204, 204, 204, 0.5);
     color: #333333;
     cursor: pointer; }
-    #editor-object-header .mini-button:hover {
+    #editor-object-header .button-icon:hover {
       background-color: rgba(204, 204, 204, 0.65); }
 
 #editor-object-name {

@@ -9,7 +9,7 @@
 
 .block-button{
 
-  @include button(30px);
+  @include button-text(30px);
 
   display: inline-block;
 }
