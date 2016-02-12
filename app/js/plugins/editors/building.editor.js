@@ -13,7 +13,7 @@ T.Plugins.install(new T.Editor(
     'Editor budov',
     `<div class="page-column-2">
 <form onsubmit="return false;" class="full" id="form">
-<table class="full">
+<table class="full_width">
 
 
   <tr><th colspan="2">{{block choose}}</th></tr>
@@ -27,49 +27,49 @@ T.Plugins.install(new T.Editor(
   </tr>
 
 
-  <tr><th colspan="2">{{block info}}</th></tr>
-  <tr>
+  <tr category="info"><th colspan="2">{{block info}}</th></tr>
+  <tr category="info">
     <td>{{block name}}:</td>
-    <td><input class="block-parameter full" id="name" type="text" /></td>
+    <td><input class="block-parameter full_width" id="name" type="text" /></td>
   </tr>
-  <tr>
+  <tr category="info">
     <td>{{block link}}:</td>
-    <td><input class="block-parameter full" id="link" type="text" /></td>
+    <td><input class="block-parameter full_width" id="link" type="text" /></td>
   </tr>
 
 
 
 
-  <tr><th colspan="2">{{block position}}</th></tr>
-  <tr>
+  <tr category="position"><th colspan="2">{{block position}}</th></tr>
+  <tr category="position">
     <td>{{block position x}}:</td>
     <td><input class="block-parameter" id="position-x" type="range" min="-100" max="100" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="position">
     <td>{{block position y}}:</td>
     <td><input class="block-parameter" id="position-y" type="range" min="-100" max="100" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="position">
     <td>{{block position z}}:</td>
     <td><input class="block-parameter" id="position-z" type="range" min="0" max="100" step="1" /></td>
   </tr>
 
 
 
-  <tr><th colspan="2">{{block shape}}</th></tr>
-  <tr>
+  <tr category="shape"><th colspan="2">{{block shape}}</th></tr>
+  <tr category="shape">
     <td>{{block shape n}}:</td>
     <td><input class="block-parameter" id="shape-n" type="range" min="3" max="20" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="shape">
     <td>{{block shape rotated}}:</td>
     <td><input class="block-parameter" id="shape-rotated" type="range" min="0" max="1" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="shape">
     <td>{{block shape top}}:</td>
     <td><input class="block-parameter" id="shape-top" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
-  <tr>
+  <tr category="shape">
     <td>{{block shape bottom}}:</td>
     <td><input class="block-parameter" id="shape-bottom" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
@@ -77,12 +77,12 @@ T.Plugins.install(new T.Editor(
 
 
 
-  <tr><th colspan="2">{{block skew}}</th></tr>
-  <tr>
+  <tr category="skew"><th colspan="2">{{block skew}}</th></tr>
+  <tr category="skew">
     <td>{{block skew z x}}:</td>
     <td><input class="block-parameter" id="skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
-  <tr>
+  <tr category="skew">
     <td>{{block skew z y}}:</td>
     <td><input class="block-parameter" id="skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
@@ -90,20 +90,20 @@ T.Plugins.install(new T.Editor(
 
 
 
-  <tr><th colspan="2">{{block size}}</th></tr>
-    <tr>
+  <tr category="size"><th colspan="2">{{block size}}</th></tr>
+  <tr category="size">
     <td>{{block size}}:</td>
     <td><input class="block-parameter" id="size" type="range" min="0.1" max="3" step="0.1" /></td>
   </tr>
-  <tr>
+  <tr category="size">
     <td>{{block size x}}:</td>
     <td><input class="block-parameter" id="size-x" type="range" min="1" max="100" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="size">
     <td>{{block size y}}:</td>
     <td><input class="block-parameter" id="size-y" type="range" min="1" max="100" step="1" /></td>
   </tr>
-  <tr>
+  <tr category="size">
     <td>{{block size z}}:</td>
     <td><input class="block-parameter" id="size-z" type="range" min="1" max="100" step="1" /></td>
   </tr>
@@ -111,16 +111,16 @@ T.Plugins.install(new T.Editor(
 
 
 
-  <tr><th colspan="2">{{block rotation}}</th></tr>
-  <tr>
+  <tr category="rotation"><th colspan="2">{{block rotation}}</th></tr>
+  <tr category="rotation">
     <td>{{block rotation}}:</td>
     <td><input class="block-parameter" id="rotation" type="range" min="0" max="360" step="10" /></td>
   </tr>
 
 
   
-  <tr><th colspan="2">{{block material}}</th></tr>
-  <tr>
+  <tr category="material"><th colspan="2">{{block material}}</th></tr>
+  <tr category="material">
     <td>{{block color}}:</td>
     <td><input class="block-parameter" id="color" type="color" value=""></td>
   </tr>
@@ -169,13 +169,16 @@ T.Plugins.install(new T.Editor(
             $('#block-choose-' + i).addClass('selected');
 
 
+            var categoryies=[];
+
+
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('id').split('-');
                 var actual = ArrayFunctions.filterPath(block_selected, path);
 
 
-                if (idDefined(actual)) {
+                if (isDefined(actual)) {
 
                     $(this).val(actual);
 
@@ -188,6 +191,13 @@ T.Plugins.install(new T.Editor(
 
 
                         var value = $(this).val();
+
+                        if(path=='name'){
+                            r($('.model-dir-selected'));
+                            $('.model-dir-selected').text(value);
+                        }
+
+
                         if ($(this).attr('type') == 'range') {
                             value = Math.toFloat(value);
                         }
@@ -209,8 +219,48 @@ T.Plugins.install(new T.Editor(
 
                 }
 
+                var category = $(this).parent().parent().attr('category');
+                if(isDefined(category)){
+                    categoryies.push(category);
+                }
+
+
 
             });
+
+            //------------------------Hiding whole categoryies
+
+            categoryies = ArrayFunctions.unique(categoryies);
+
+            categoryies.forEach(function(category){
+
+                var hide_category = true;
+
+                $('[category="'+category+'"]').each(function(){
+
+                    if($(this).find('th').length!=0)return;
+
+                    if($(this).is(':visible'))hide_category = false;
+
+                });
+
+                $('[category="'+category+'"]').each(function(){
+
+
+                    if($(this).find('th').length==0)return;
+
+                    if(hide_category){
+                        $(this).hide();
+                    }else{
+                        $(this).show();
+                    }
+
+                });
+
+            });
+            //------------------------
+
+
 
             block_lock = false;
 
@@ -357,7 +407,7 @@ T.Plugins.install(new T.Editor(
                 $('#' + html_id_i).addClass('model-dir-label');
 
                 //---------------------------shape
-                if (idDefined(particle.shape)) {
+                if (isDefined(particle.shape)) {
 
                     $('#' + html_id_i).addClass('model-dir-shape');
                     $('#' + html_id_i).addClass('model-dir-label');
@@ -365,7 +415,7 @@ T.Plugins.install(new T.Editor(
 
                 } else
                 //---------------------------link
-                if (idDefined(particle.link)) {
+                if (isDefined(particle.link)) {
                     $('#' + html_id_i).addClass('model-dir-link');
                     $('#' + html_id_i).addClass('model-dir-label');
                     name = Locale.get('model dir shape');
@@ -373,7 +423,7 @@ T.Plugins.install(new T.Editor(
 
                 } else
                 //---------------------------particles
-                if (idDefined(particle.particles)) {
+                if (isDefined(particle.particles)) {
 
 
                     $('#' + html_id_i).addClass('model-dir-particles');
@@ -458,9 +508,12 @@ T.Plugins.install(new T.Editor(
                 {
                     particles: [
                         {
+                            name: Locale.get('shape cube'),
                             shape:{
                                 type: 'prism',
-                                n:4
+                                n:4,
+                                top: 1,
+                                bottom: 1
                             },
                             color: "#cccccc",
                             position: {x:0,y:0,z:0},
