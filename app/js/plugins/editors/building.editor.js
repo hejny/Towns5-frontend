@@ -162,8 +162,7 @@ T.Plugins.install(new T.Editor(
 
 
             model_canvas.selected_path = block_selected_path;
-            //r('model_canvas.selected_path',model_canvas.selected_path);
-            model_canvas.draw();
+            model_canvas.drawAsync();
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-' + i).addClass('selected');
@@ -329,6 +328,7 @@ T.Plugins.install(new T.Editor(
                 icon.click(function () {
 
                     block_selected.particles.push({
+                        name: '',
                         link: '',
                         position:{x:0,y:0,z:0},
                         size:1,
