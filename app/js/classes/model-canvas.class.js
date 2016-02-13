@@ -6,13 +6,14 @@
 
 
 
-var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope){
+var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope,simple=true){
 
     this.rotation=rotation;
     this.slope=slope;
     this.zoom=zoom;
     this.width=width;
     this.height=height;
+    this.simple=simple;
     this.selected_path=false;
     this.x=x;
     this.y=y;
@@ -156,7 +157,7 @@ ModelCanvas.prototype.draw = function(model){
 
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected);
+    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
 
 
     if(is(this.selected_path)){
@@ -165,7 +166,7 @@ ModelCanvas.prototype.draw = function(model){
         //r(this);
         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
-        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true);
+        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
 
     }
 
