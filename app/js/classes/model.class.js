@@ -516,7 +516,7 @@ Model.prototype.filterPathSiblings = function(path){
  * @param {string} force color - format #ff00ff //todo maybe delete
  * @param {boolean} selected - display blue highlight around model
  */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
 
 
     //force_color=cParam(force_color,false);
@@ -658,6 +658,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     var shaders=[];
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
+    if(!simple)
     shaders.push({
             fill: function(){return(new Color(255,255,255,255));},
             position: function(position3D){
@@ -671,7 +672,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 return(new Position(xx,yy));
 
             },
-            canvas: function(ctx) {
+            canvas: simple?false:function(ctx) {
                 ctx.recolorImage(
                     new Color(255,255,255,false),
                     new Color(0,0,0,100)
@@ -713,7 +714,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
             },
             position: shaderShapePosition,
-            canvas: function(ctx) {
+            canvas: simple?false:function(ctx) {
                 ctx.blur(2);
             }
         });
