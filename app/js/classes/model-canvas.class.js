@@ -170,3 +170,16 @@ ModelCanvas.prototype.draw = function(model){
     }
 
 };
+
+
+
+ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
+
+    var self=this;
+    setInterval(
+        function(){
+            self.draw(model);
+        },ms
+    );
+
+};
