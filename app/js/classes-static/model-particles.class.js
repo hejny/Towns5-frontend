@@ -63,15 +63,16 @@ ModelParticles.get3D = function(particle){
 
     if(particle.shape.type=='prism') {
 
+        //-------------------------------------------------------------------prism
 
         var x = particle.position.x;
         var y = particle.position.y;
-        var z = particle.position.z * 2;
+        var z = particle.position.z;// * 2;
 
 
         var x_ = particle.size.x;
         var y_ = particle.size.y;
-        var z_ = particle.size.z * 2;//todo better solution then only simple bugfix *2
+        var z_ = particle.size.z;
 
 
         //r(x_,y_);
@@ -101,9 +102,29 @@ ModelParticles.get3D = function(particle){
 
             for(var n = 0;n<particle.shape.n;n++){
 
-                var x__=x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
-                    y__=y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
-                    z__=z_*level;
+                //------------------XYZ ratio
+
+                if(!is(particle.shape.rotated)){
+
+                    var x__=0.5*x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
+                        y__=0.5*y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
+                        z__=z_*level;
+
+                }else{
+
+                    var x__=x_*((level*2)-1);//*(level-0.5);//+x_*(level*particle.skew.z.x),
+
+                        y__=0.5*y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n));//+y_*(level*particle.skew.z.y),
+
+
+                        z__=(1)*0.5*(
+                                z_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))
+                                +z_*((Math.cos(Math.deg2rad(180/particle.shape.n))))
+                            );
+
+                }
+
+
 
 
                 //------------------ XY Rotation
@@ -146,8 +167,7 @@ ModelParticles.get3D = function(particle){
             }
         }/**/
 
-
-
+        //-------------------------------------------------------------------
     }else{
 
         throw 'Unknown particle shape '+particle.shape.type;

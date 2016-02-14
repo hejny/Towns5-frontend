@@ -138,7 +138,8 @@
                     "shape": {
                         "bottom": 1,
                         "top": 1,
-                        "n": 6,
+                        "n": 3,
+                        "rotated": true,
                         "type": "prism"
                     },
                     "color": "#e18989",
@@ -156,8 +157,88 @@
                     },
                     "position": {
                         "z": 40,
-                        "y": 10,
-                        "x": 5
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                {
+                    "shape": {
+                        "bottom": 1,
+                        "top": 1,
+                        "n": 6,
+                        "type": "prism"
+                    },
+                    "color": "#e18989",
+                    "skew": {
+                        "z": {
+                            "y": 0,
+                            "x": 0
+                        }
+                    },
+                    "rotation": 0,
+                    "size": {
+                        "z": 40,
+                        "y": 40,
+                        "x": 40
+                    },
+                    "position": {
+                        "z": 80,
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                {
+                    "shape": {
+                        "bottom": 1,
+                        "top": 1,
+                        "n": 20,
+                        "rotated": true,
+                        "type": "prism"
+                    },
+                    "color": "#cccccc",
+                    "skew": {
+                        "z": {
+                            "y": 0,
+                            "x": 0
+                        }
+                    },
+                    "rotation": 0,
+                    "size": {
+                        "z": 40,
+                        "y": 40,
+                        "x": 40
+                    },
+                    "position": {
+                        "z": 120,
+                        "y": 0,
+                        "x": 0
+                    }
+                },
+                {
+                    "shape": {
+                        "bottom": 1,
+                        "top": 1,
+                        "n": 20,
+                        "rotated": true,
+                        "type": "prism"
+                    },
+                    "color": "#cccccc",
+                    "skew": {
+                        "z": {
+                            "y": 0,
+                            "x": 0
+                        }
+                    },
+                    "rotation": 40,
+                    "size": {
+                        "z": 40,
+                        "y": 40,
+                        "x": 40
+                    },
+                    "position": {
+                        "z": 160,
+                        "y": 0,
+                        "x": 0
                     }
                 }
             ]
