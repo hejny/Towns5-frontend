@@ -23,7 +23,7 @@ T.Plugins.install(new T.Editor(
   </tr>
     <tr>
     <td>{{block shape rotated}}:</td>
-    <td><input id="block-editing-shape-rotated" type="range" min="0" max="1" step="1" /></td>
+    <td><input id="block-editing-shape-rotated" type="checkbox" /></td>
   </tr>
   <tr>
     <td>{{block shape top}}:</td>
@@ -103,6 +103,11 @@ T.Plugins.install(new T.Editor(
 
         $('#block-editing-shape-n').val(particle.shape.n);
 
+        if(particle.shape.rotated){
+            $('#block-editing-shape-rotated').attr('checked','checked');
+        }
+
+
         $('#block-editing-shape-top').val(particle.shape.top);
         $('#block-editing-shape-bottom').val(particle.shape.bottom);
 
@@ -115,12 +120,10 @@ T.Plugins.install(new T.Editor(
 
         $('#block-editing-rotation').val(particle.rotation);
         $('#block-editing-color').val(particle.color);
-        //todo rotated
 
 
 
         $('#block-editing-form').find('input').mousemove(function(){
-
 
                 object.design.data.particles[0].shape.n = Math.toInt($('#block-editing-shape-n').val());
 
@@ -143,6 +146,16 @@ T.Plugins.install(new T.Editor(
 
 
         });
+
+        $('#block-editing-shape-rotated').click(function(){
+
+            object.design.data.particles[0].shape.rotated = $('#block-editing-shape-rotated').is(':checked');
+
+            model_canvas.setModel(object.design.data);
+
+        });
+
+
 
         $('#block-editing-color').change(function(){
 
@@ -168,7 +181,8 @@ T.Plugins.install(new T.Editor(
                     {
                         shape:{
                             type: 'prism',
-                            n:4,
+                            n:6,
+                            rotated:true
                         },
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
