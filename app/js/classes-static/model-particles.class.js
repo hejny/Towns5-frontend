@@ -112,14 +112,20 @@ ModelParticles.get3D = function(particle){
 
                 }else{
 
+                    var tmp=(2-(Math.cos(Math.deg2rad(180/particle.shape.n))));//todo better
+
                     var x__=x_*((level*2)-1);//*(level-0.5);//+x_*(level*particle.skew.z.x),
 
                         y__=0.5*y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n));//+y_*(level*particle.skew.z.y),
 
 
                         z__=(1)*0.5*(
-                                z_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))
-                                +z_*((Math.cos(Math.deg2rad(180/particle.shape.n))))
+
+
+                                z_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*tmp
+
+
+                                +z_*((Math.cos(Math.deg2rad(180/particle.shape.n))))*tmp
                             );
 
                 }
