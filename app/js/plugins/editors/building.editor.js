@@ -63,7 +63,7 @@ T.Plugins.install(new T.Editor(
   </tr>
   <tr category="shape">
     <td>{{block shape rotated}}:</td>
-    <td><input class="block-parameter" id="shape-rotated" type="range" min="0" max="1" step="1" /></td>
+    <td><input class="block-parameter" id="shape-rotated" type="checkbox" /></td>
   </tr>
   <tr category="shape">
     <td>{{block shape top}}:</td>
@@ -177,28 +177,59 @@ T.Plugins.install(new T.Editor(
                 var actual = ArrayFunctions.filterPath(block_selected, path);
 
 
-                if (isDefined(actual)) {
+                if (isDefined(actual) && typeof actual!='object') {
 
-                    $(this).val(actual);
+                    //-------------------------------------------Putting value into HTML inputs from var actual
+                    if ($(this).attr('type') == 'checkbox') {
 
-                    var event = 'change';
-                    if ($(this).attr('type') == 'range') {
-                        event = 'mousemove';//todo multiple events eg. change and keypress
+                        if(actual){
+                            $(this).attr('checked','checked');
+                        }
+
+                    }else{
+
+                        $(this).val(actual);
+
                     }
+                    //-------------------------------------------
+
+
+
+                    //todo multiple events eg. change and keypress
+                    //-------------------------------------------Setting changing event
+                    if ($(this).attr('type') == 'range') {
+                        var event = 'mousemove';
+
+                    }else
+                    if($(this).attr('type') == 'checkbox'){
+
+                        var event = 'click';
+
+                    }else{
+                        var event = 'change';
+                    }
+                    //-------------------------------------------
 
                     $(this).unbind(event).bind(event, function () {
 
+                        //-------------------------------------------Putting value from HTML inputs to var value
+                        if ($(this).attr('type') == 'checkbox') {
+                            var value = $(this).is(':checked');
+                        }else
 
-                        var value = $(this).val();
+                        if ($(this).attr('type') == 'range') {
+                            var value = Math.toFloat($(this).val());
+
+                        }else{
+                            var value = $(this).val();
+                        }
+                        //-------------------------------------------
+
+
 
                         if($(this).attr('id')=='name'){
                             r($('.model-dir-selected'));
                             $('.model-dir-selected').text(value);
-                        }
-
-
-                        if ($(this).attr('type') == 'range') {
-                            value = Math.toFloat(value);
                         }
 
 
@@ -510,6 +541,7 @@ T.Plugins.install(new T.Editor(
                             shape:{
                                 type: 'prism',
                                 n:4,
+                                rotated:false,
                                 top: 1,
                                 bottom: 1
                             },

@@ -181,8 +181,7 @@ T.Plugins.install(new T.Editor(
                     {
                         shape:{
                             type: 'prism',
-                            n:6,
-                            rotated:true
+                            n:4
                         },
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
