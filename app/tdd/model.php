@@ -191,7 +191,7 @@
                     "shape": {
                         "bottom": 1,
                         "top": 1,
-                        "n": 20,
+                        "n": 6,
                         "rotated": true,
                         "type": "prism"
                     },
