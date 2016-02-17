@@ -305,16 +305,16 @@ T.Plugins.install(new T.Editor(
             //-----------------------New
 
 
-            if(isDefined(block_selected.particles)){
+            if(isDefined(block_selected.particles)) {
 
 
                 //-----------------------Block
-                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new block')+`"><i class="fa fa-cube"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
 
                 icon.click(function () {
 
                     block_selected.particles.push({
-                        name:'',
+                        name: '',
                         shape: {
                             type: 'prism',
                             n: 4,
@@ -323,10 +323,10 @@ T.Plugins.install(new T.Editor(
                             rotated: false
                         },
                         color: '#cccccc',
-                        position:{x:0,y:0,z:0},
-                        size:{x:10,y:10,z:10},
+                        position: {x: 0, y: 0, z: 0},
+                        size: {x: 10, y: 10, z: 10},
                         rotation: 0,
-                        skew: {z:{x:0,y:0}}
+                        skew: {z: {x: 0, y: 0}}
                     });
 
                     renderBlockButtons();
@@ -337,19 +337,18 @@ T.Plugins.install(new T.Editor(
                 //-----------------------
 
                 //-----------------------Group
-                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new group')+`"><i class="fa fa-cubes"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
 
                 icon.click(function () {
 
                     block_selected.particles.push({
-                        name:'',
+                        name: '',
                         particles: [],
-                        position:{x:0,y:0,z:0},
-                        size:1,
+                        position: {x: 0, y: 0, z: 0},
+                        size: 1,
                         rotation: 0,
-                        skew: {z:{x:0,y:0}}
+                        skew: {z: {x: 0, y: 0}}
                     });
-
 
                     renderBlockButtons();
 
@@ -359,14 +358,14 @@ T.Plugins.install(new T.Editor(
                 //-----------------------
 
                 //-----------------------Link
-                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor new link')+`"><i class="fa fa-link"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
 
                 icon.click(function () {
 
                     block_selected.particles.push({
                         //name: '',
                         link: '',
-                        position:{x:0,y:0,z:0},
+                        position: {x: 0, y: 0, z: 0},
                         //size:1,
                         rotation: 0,
                         //skew: {z:{x:0,y:0}}
@@ -380,10 +379,70 @@ T.Plugins.install(new T.Editor(
                 //-----------------------
 
 
+                if(block_selected_path.length!=0){
+                //-----------------------ungroup
+                    var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
+
+                    icon.click(function () {
+
+
+                        var i = block_selected_path.pop();
+
+                        var parent = object.design.data.filterPath(block_selected_path);
+
+
+                        block_selected.particles.forEach(function (particle) {
+                            parent.particles.push(particle);
+                        });
+
+
+                        parent.particles.splice(i, i + 1);
+
+                        blockChoose(block_selected_path);
+                        renderBlockButtons();
+
+
+                    });
+                    $('#block-actions').append(icon);
+
+                //-----------------------
+                }
+
             }
 
 
             //-----------------------
+
+            //-----------------------group
+            var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
+
+            icon.click(function () {
+
+
+                inner_block=deepCopy(block_selected);
+
+                for(key in block_selected){
+                    delete block_selected[key];
+                }
+
+
+
+                block_selected.name='';
+                block_selected.particles=[inner_block];
+                block_selected.position={x:0,y:0,z:0};
+                block_selected.size=1;
+                block_selected.rotation=0;
+                block_selected.skew={z:{x:0,y:0}};
+
+                renderBlockButtons();
+                blockChoose(block_selected_path);
+
+
+            });
+            $('#block-actions').append(icon);
+            //-----------------------
+
+
 
             //-----------------------Delete
 
@@ -543,6 +602,7 @@ T.Plugins.install(new T.Editor(
             type: "model",
             data: new Model(
                 {
+                    name:'root',
                     particles: [
                         {
                             name: Locale.get('shape cube'),
