@@ -24,30 +24,30 @@ Templates.objectMenu = function(params){
 
     var inner=$(`<div class="action js-popup-action-open"></div>`);
 
-    if(defined(params.icon)){
+    if(isDefined(params.icon)){
         inner.attr('style',`background: url('`+params.icon+`');background-size: `+params.icon_size+`% `+params.icon_size+`%;background-position: center  center;background-repeat: no-repeat;`);//todo via $.css
     }
 
 
-    if(defined(params.title)){
+    if(isDefined(params.title)){
         inner.attr('popup_title',params.title);
     }
 
-    if(defined(params.content)){
+    if(isDefined(params.content)){
         inner.attr('content',params.content);
     }
 
-    if(defined(params.action)){
+    if(isDefined(params.action)){
         inner.attr('action',params.action);
     }
 
-    if(defined(params.selectable)){
+    if(isDefined(params.selectable)){
         inner.attr('selectable',1);
     }else{
         inner.attr('selectable',0);
     }
 
-    if(defined(params.inner)){
+    if(isDefined(params.inner)){
         inner.html(inner);
     }
 

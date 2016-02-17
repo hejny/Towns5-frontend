@@ -21,6 +21,10 @@ T.Plugins.install(new T.Editor(
     <td>{{block shape n}}:</td>
     <td><input id="block-editing-shape-n" type="range" min="3" max="20" step="1" /></td>
   </tr>
+    <tr>
+    <td>{{block shape rotated}}:</td>
+    <td><input id="block-editing-shape-rotated" type="checkbox" /></td>
+  </tr>
   <tr>
     <td>{{block shape top}}:</td>
     <td><input id="block-editing-shape-top" type="range" min="0" max="2" step="0.05" /></td>
@@ -65,18 +69,16 @@ T.Plugins.install(new T.Editor(
 
   <tr><th colspan="2">{{block rotation}}</th></tr>
   <tr>
-    <td>{{block rotation xy}}:</td>
-    <td><input id="block-editing-rotation-xy" type="range" min="0" max="360" step="10" /></td>
+    <td>{{block rotation}}:</td>
+    <td><input id="block-editing-rotation" type="range" min="0" max="360" step="10" /></td>
   </tr>
-    <tr>
-    <td>{{block rotation xz}}:</td>
-    <td><input id="block-editing-rotation-xz" type="range" min="0" max="90" step="10" /></td>
-  </tr>
+
 
 
   <tr><th colspan="2">{{block material}}</th></tr>
   <tr>
-    <td colspan="2"><div id="farbtastic-color-box"></div></td>
+    <td>{{block color}}:</td>
+    <td><input id="block-editing-color" type="color" value=""></td>
   </tr>
 
 
@@ -101,6 +103,11 @@ T.Plugins.install(new T.Editor(
 
         $('#block-editing-shape-n').val(particle.shape.n);
 
+        if(particle.shape.rotated){
+            $('#block-editing-shape-rotated').attr('checked','checked');
+        }
+
+
         $('#block-editing-shape-top').val(particle.shape.top);
         $('#block-editing-shape-bottom').val(particle.shape.bottom);
 
@@ -111,25 +118,12 @@ T.Plugins.install(new T.Editor(
         $('#block-editing-size-y').val(particle.size.y);
         $('#block-editing-size-z').val(particle.size.z);
 
-        $('#block-editing-rotation-xy').val(particle.rotation.xy);
-        $('#block-editing-rotation-xz').val(particle.rotation.xz);
-        //('#block-editing-rotation-yz').val(particle.rotation.yz);
+        $('#block-editing-rotation').val(particle.rotation);
+        $('#block-editing-color').val(particle.color);
 
-
-
-
-        var farbtastic = $.farbtastic('#farbtastic-color-box').setColor(object.design.data.particles[0].color);
-
-        farbtastic.linkTo(Interval.maxRunPerMs(function (color) {
-
-            object.design.data.particles[0].color=color;
-            model_canvas.setModel(object.design.data);
-
-        }, 200));
 
 
         $('#block-editing-form').find('input').mousemove(function(){
-
 
                 object.design.data.particles[0].shape.n = Math.toInt($('#block-editing-shape-n').val());
 
@@ -145,16 +139,33 @@ T.Plugins.install(new T.Editor(
                 object.design.data.particles[0].size.y = Math.toInt($('#block-editing-size-y').val());
                 object.design.data.particles[0].size.z = Math.toInt($('#block-editing-size-z').val());
 
-                object.design.data.particles[0].rotation.xy = Math.toInt($('#block-editing-rotation-xy').val());
-                object.design.data.particles[0].rotation.xz = Math.toInt($('#block-editing-rotation-xz').val());
-                //particle.rotation.yz = Math.toInt($('#block-editing-rotation-yz').val());
+                object.design.data.particles[0].rotation = Math.toInt($('#block-editing-rotation').val());
+
 
                 model_canvas.setModel(object.design.data);
 
 
-        }
+        });
 
-        );
+        $('#block-editing-shape-rotated').click(function(){
+
+            object.design.data.particles[0].shape.rotated = $('#block-editing-shape-rotated').is(':checked');
+
+            model_canvas.setModel(object.design.data);
+
+        });
+
+
+
+        $('#block-editing-color').change(function(){
+
+            object.design.data.particles[0].color = $('#block-editing-color').val();
+            model_canvas.setModel(object.design.data);
+
+
+        });
+
+
 
 
     },
@@ -170,12 +181,12 @@ T.Plugins.install(new T.Editor(
                     {
                         shape:{
                             type: 'prism',
-                            n:4,
+                            n:4
                         },
                         color: "#cccccc",
                         position: {x:0,y:0,z:0},
                         size: {x:40,y:40,z:40},
-                        rotation: {"xy":0}
+                        rotation: 0
 
                     }
                 ]

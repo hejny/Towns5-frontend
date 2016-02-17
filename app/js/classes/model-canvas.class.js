@@ -6,13 +6,15 @@
 
 
 
-var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope){
+var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope,simple=true){
 
     this.rotation=rotation;
     this.slope=slope;
     this.zoom=zoom;
     this.width=width;
     this.height=height;
+    this.simple=simple;
+    this.selected_path=false;
     this.x=x;
     this.y=y;
 
@@ -58,7 +60,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
                 left: `+(this.width-40)+`px;
             }
 
-            .model-canvas-ctl .mini-button{
+            .model-canvas-ctl .button-icon{
                 display: block;
                 width: 10px;
                 height: 10px;
@@ -72,8 +74,8 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
         <div class="model-canvas-drag"></div>
         <div class="model-canvas-ctl">
 
-            <div class="model-canvas-plus mini-button" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
-            <div class="model-canvas-minus mini-button" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
+            <div class="model-canvas-plus button-icon" title="<?=locale('ui model controls plus')?>"><i class="fa fa-plus"></i></div>
+            <div class="model-canvas-minus button-icon" title="<?=locale('ui model controls minus')?>"><i class="fa fa-minus"></i></div>
 
         </div>
 
@@ -84,7 +86,6 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
 
-    r(this.ctx);
 
     var self=this;
 
@@ -136,7 +137,6 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 };
 
 
-
 ModelCanvas.prototype.setModel = function(model){
 
     this.model=model;
@@ -149,12 +149,38 @@ ModelCanvas.prototype.draw = function(model){
 
     var size=Math.pow(Math.E,this.zoom);
 
+    if(this.selected_path instanceof Array && this.selected_path.length==0){
+        var selected=true;
+    }else{
+        var selected=false;
+    }
+
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope);
+    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
 
-    /*this.ctx.beginPath();
-    this.ctx.arc(this.x+(this.width/2), this.y+(this.height/2),20,0,2*Math.PI);
-    this.ctx.stroke();*/
+
+    if(is(this.selected_path)){
+
+
+        //r(this);
+        var block_choosen=this.model.filterPathSiblings(this.selected_path);
+
+        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
+
+    }
+
+};
+
+
+
+ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
+
+    var self=this;
+    setInterval(
+        function(){
+            self.draw(model);
+        },ms
+    );
 
 };

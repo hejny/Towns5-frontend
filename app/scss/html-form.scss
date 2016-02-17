@@ -1,0 +1,25 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+//======================================================================================================================
+@import 'config';
+@import 'mixins';
+
+
+
+input.range-number{
+  margin:0px;
+  vertical-align: middle;
+}
+
+input[type="range"].range-number{
+
+    width: calc( 100% - 40px - 20px );
+}
+input[type="number"].range-number{
+
+
+  width: 40px;
+
+}

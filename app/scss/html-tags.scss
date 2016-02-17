@@ -27,9 +27,16 @@ input, textarea {
 
 button{
 
-  @include button(40px);
+  //margin: 4px;
+  @include button-text(40px);
 }
 
+
+.button-icon{
+
+  @include button-icon(26px, $button-icon-color);
+
+}
 
 
 

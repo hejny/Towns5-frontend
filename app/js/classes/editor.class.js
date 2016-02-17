@@ -29,10 +29,10 @@ Towns.Editor = function(uri,conditions,title,content,open_callback,default_objec
             <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
 
 
-            <div class="mini-button"  id="editor-object-duplicate" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
+            <div class="button-icon"  id="editor-object-duplicate" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
 
 
-            <div class="mini-button"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
+            <div class="button-icon"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
 
 
         </form>

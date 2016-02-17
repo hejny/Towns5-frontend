@@ -14,6 +14,7 @@ var Model = function (json){
 
     if(typeof(json)=='undefined')return false;
 
+    this.name=json.name;
     this.particles=json.particles;
     this.rotation=json.rotation;
     this.size=json.size;
@@ -27,10 +28,7 @@ var Model = function (json){
  * @param {number} rotation
  * @param {number} size
  */
-Model.prototype.addRotationSize = function(rotation,size){
-
-    rotation=cParam(rotation,0);
-    size=cParam(size,1);
+Model.prototype.addRotationSize = function(rotation=0,size=1){
 
     this.rotation+=rotation;
     this.size=this.size*size;
@@ -47,7 +45,7 @@ Model.prototype.addRotationSize = function(rotation,size){
 /**
  * Mix rotation and size into particles
  */
-Model.prototype.compileRotationSize = function(){
+/*Model.prototype.compileRotationSize = function(){
 
     //r(this.particles);
     //r('compileRotationSize',this.rotation,this.size);
@@ -89,7 +87,7 @@ Model.prototype.compileRotationSize = function(){
     this.rotation=0;
     this.size=1;
 
-};
+};*/
 
 //==================================================
 
@@ -106,13 +104,14 @@ Model.prototype.range = function(dimension){
     }
 
 
+    var particlesLinear=this.getLinearParticles();
 
     var max=false,min=false,max_,min_;
-    for(var i in this.particles){
+    for(var i in particlesLinear){
 
 
-        min_=this.particles[i].position[dimension];
-        max_=this.particles[i].position[dimension]+this.particles[i].size[dimension];
+        min_=particlesLinear[i].position[dimension];
+        max_=particlesLinear[i].position[dimension]+particlesLinear[i].size[dimension];
 
         //todo feature reverse
 
@@ -167,34 +166,34 @@ Model.prototype.moveBy = function(move_x,move_y,move_z){
  * @param {number} move_x
  * @param {number} move_y
  */
-Model.prototype.joinModel = function(model,move_x,move_y){
+Model.prototype.joinModel = function(model,move_x,move_y){//todo second param should be position
 
-    var  model_=deepCopyModel(model);
-    model_.moveBy(move_x,move_y);
+    //var  model_=deepCopyModel(model);
+    //model_.moveBy(move_x,move_y);//todo maybe delete moveBy
 
-
-    this.compileRotationSize();
-    model_.compileRotationSize();
+    //var max_z=this.range('z');
 
 
-    model_.particles.sort(function(particle1,particle2){
-
-        return(particle1.position.z-particle2.position.z);
-
-    });
+    var this_linear_particles=this.getLinearParticles();
+    var model_linear_particles=model.getLinearParticles();
 
 
     var distances=[0];
+    for(var i in model_linear_particles){
+
+        model_linear_particles[i].position.x+=move_x;
+        model_linear_particles[i].position.y+=move_y;
+
+        for(var ii in this_linear_particles){//todo maybe optimize by pre-sorting
 
 
+            if(ModelParticles.collision2D(this_linear_particles[ii],model_linear_particles[i])){
 
-    for(var i in model_.particles){
+                r(this_linear_particles[ii],model_linear_particles[i]);
 
 
-        for(var ii in this.particles){//todo maybe optimize by pre-sorting
+                distances.push(this_linear_particles[ii].position.z+this_linear_particles[ii].size.z);
 
-            if(ModelParticles.collision2D(this.particles[ii],model_.particles[i])){
-                distances.push(this.particles[ii].position.z+this.particles[ii].size.z*2);//todo better solution then only simple bugfix *2
             }
 
 
@@ -203,25 +202,307 @@ Model.prototype.joinModel = function(model,move_x,move_y){
 
     }
 
-    //r('distances',distances);
-
     var max_z=Math.max.apply(Math,distances);
-    //var max_z=this.range('z');
-
-    //r(max_z);
-
-    model_.moveBy(0,0,max_z);
+    //max_z=max_z/2;
 
 
-   this.particles=this.particles.concat(model_.particles);
+    this.particles=[
+            deepCopy(this),
+            deepCopy(model)
+        ];
 
+    this.particles[1].position={
+      x:move_x,
+      y:move_y,
+      z:max_z
+    };
 
+    this.rotation=0;
+    this.size=1;
 
 };
 
 
 
 //======================================================================================================================
+
+
+/**
+ * Deep copy this and converts links to raw data
+ * @returns {object} Model
+ */
+Model.prototype.getDeepCopyWithoutLinks = function() {
+
+
+    var model = deepCopyModel(this);
+
+    //---------------------------------------------Convert links to raw data
+
+
+    var findParticleByName = function (particles, name) {//todo move to prototype
+
+        for (var i in particles) {
+
+            if (particles[i].name == name) {
+                return (particles[i]);
+            }
+
+            if (is(particles[i].particles)) {
+                var finded_particle = findParticleByName(particles[i].particles, name);
+
+                if (finded_particle !== false) {
+                    return (finded_particle);
+                }
+
+            }
+
+
+        }
+
+        return (false);
+
+    };
+
+
+    var particlesLinks = function (particles) {//todo move to prototype
+
+
+        //r(particles);
+
+        for (var i in particles) {
+
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Link
+            if (is(particles[i].link)) {
+
+
+                var linked_particle = findParticleByName(model.particles, particles[i].link);
+
+                if (linked_particle == false) {
+                    throw new Error('Invalid link ' + particle.link);
+                }
+
+                linked_particle = deepCopy(linked_particle);
+
+                if (is(particles[i].rotation)) {
+                    linked_particle.rotation = particles[i].rotation;
+                }
+                if (is(particles[i].size)) {
+                    linked_particle.size = particles[i].size;
+                }
+                if (is(particles[i].position)) {
+                    linked_particle.position = particles[i].position;
+                }
+                //todo skew
+
+
+                particles[i] = linked_particle;
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Group
+            if (is(particles[i].particles)) {
+
+                particlesLinks(particles[i].particles);
+
+            }
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+        }
+
+    };
+
+
+    particlesLinks(model.particles);
+
+    return(model);
+
+};
+
+
+//======================================================================================================================
+
+
+/**
+ * Get 1D array of particles
+ * @returns {Array} array of particles
+ */
+Model.prototype.getLinearParticles = function(){
+
+
+    var particlesLinear=[];
+
+    //---------------------------------------------Convert particles to 1D particles
+
+    var particles2Linear = function(particles,position=false,rotation=0,size=1){//todo move to prototype
+
+        if(position===false){
+            position={
+                x:0,
+                y:0,
+                z:0
+            };
+        }
+
+        particles.forEach(function(particle){
+
+            //particle=deepCopy(particle);
+
+
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Default params of particle, group or link
+            if(!particle.position){
+                particle.position={
+                    x:0,
+                    y:0,
+                    z:0
+                }
+            }
+            if(!is(particle.rotation))particle.rotation=0;
+            if(!is(particle.size))particle.size=1;
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Position, Rotation and size //todo skew
+
+            var distDeg = Math.xy2distDeg(particle.position.x, particle.position.y);
+
+            distDeg.dist = distDeg.dist * size;
+            distDeg.deg += rotation;
+
+            var xy = Math.distDeg2xy(distDeg.dist, distDeg.deg);
+
+            particle.rotation += rotation;
+
+            particle.position.x = xy.x;
+            particle.position.y = xy.y;
+            particle.position.z = particle.position.z * size;
+
+            particle.position.x += position.x;
+            particle.position.y += position.y;
+            particle.position.z += position.z;
+
+            if(typeof particle.size == 'number') {
+
+                particle.size = particle.size * size;
+
+            }else{
+
+                particle.size.x = particle.size.x * size;
+                particle.size.y = particle.size.y * size;
+                particle.size.z = particle.size.z * size;
+
+            }
+
+            //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+            //------------------------------------------Particle
+            if(is(particle.particles)){
+
+                particles2Linear(particle.particles,particle.position,particle.rotation,particle.size);
+
+            }else
+            //------------------------------------------Group
+            if(is(particle.shape)){
+
+                particlesLinear.push(particle);
+
+            }
+            //------------------------------------------
+
+
+
+        });
+
+
+    };
+
+    var model=this.getDeepCopyWithoutLinks();
+
+    particles2Linear(model.particles,false,model.rotation,model.size);
+
+    delete model;
+
+    return(particlesLinear);
+
+};
+
+//======================================================================================================================
+
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPath = function(path){
+
+    var model=this;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+
+    path.forEach(function(i){
+        model = model.particles[i];
+    });
+
+
+    return(model);
+
+};
+
+
+
+//======================================================================================================================
+
+/**
+ *
+ * @param path
+ * @returns {object} part of this
+ */
+Model.prototype.filterPathSiblings = function(path){
+
+    var model=this.getDeepCopyWithoutLinks();
+    var current=model;
+
+    if(!is(path.forEach)){
+        r(path);
+        throw new Error('Path is not correct array.');
+    }
+
+
+    path.forEach(function(particle_i,path_ii){
+
+        /*if(path_ii<path.length-1){
+
+         current = current.particles[particle_i];
+
+         }else{*/
+
+        var me = current.particles[particle_i];
+
+        current.particles = [me];
+
+        current=me;
+        //}
+
+
+    });
+
+    return(model);
+
+};
+
+
+//======================================================================================================================
+
+
 
 
 
@@ -233,10 +514,10 @@ Model.prototype.joinModel = function(model,move_x,move_y){
  * @param {number} y_begin Canvas top
  * @param {number} rotation 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
- * @param {string} force color - format #ff00ff
+ * @param {string} force color - format #ff00ff //todo maybe delete
  * @param {boolean} selected - display blue highlight around model
  */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false) {
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
 
 
     //force_color=cParam(force_color,false);
@@ -248,7 +529,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
 
     var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
-    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI)) * 1.4 ;
+    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI));
     var slnko = 50;
 
 
@@ -256,20 +537,26 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     //r(this_);
 
     this_.addRotationSize(rotation,s);
-    this_.compileRotationSize();
+    //this_.compileRotationSize();
 
     //---------------------------------------------Create empty Towns4 3DModel Array
 
     var resource={
         points: [],
         polygons: [],
-        colors: []
+        colors: [],
+        particles: []
     };
+
+
+    var particlesLinear=this_.getLinearParticles();
+    delete this_;
 
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
 
-    this_.particles.forEach(function(particle){
+    //this_.particles
+    particlesLinear.forEach(function(particle,particle_i){
 
         var addResource=ModelParticles.get3D(particle);
 
@@ -288,9 +575,11 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 addResource.polygons[poly_i][point_i]+=i-1;
             }
 
-
-            resource.polygons.push(addResource.polygons[poly_i]);
             resource.colors.push(particle.color);
+            resource.polygons.push(addResource.polygons[poly_i]);
+
+            resource.particles.push(particle_i);
+
         }
 
 
@@ -304,13 +593,14 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     //r(resource);
 
-    //------------------------Prirazeni barev k polygonum pred serazenim
+    //------------------------Prirazeni barev a cisel castecek k polygonum pred serazenim
 
     if(force_color==false){
 
-        for(var i= 0,l=resource['polygons'].length;i<l;i++){
+        for(var i= 0,l=resource.polygons.length;i<l;i++){
 
-            resource['polygons'][i]['color']=resource['colors'][i];
+            resource.polygons[i].color=resource.colors[i];
+            resource.polygons[i].particle=resource.particles[i];
         }
 
     }else{
@@ -369,6 +659,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
     var shaders=[];
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
+    if(!simple)
     shaders.push({
             fill: function(){return(new Color(255,255,255,255));},
             position: function(position3D){
@@ -382,7 +673,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 return(new Position(xx,yy));
 
             },
-            canvas: function(ctx) {
+            canvas: simple?false:function(ctx) {
                 ctx.recolorImage(
                     new Color(255,255,255,false),
                     new Color(0,0,0,100)
@@ -398,7 +689,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
         var x = position3D.x,
             y = position3D.y,
-            z = position3D.z;
+            z = position3D.z *1.33;
 
         /*var k=1+(z/400);
 
@@ -414,8 +705,8 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
     };
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material - glow
 
-    if(selected)
-    shaders.push({
+    if(selected===true){
+        shaders.push({
             line: function(color,polygon3D){
                 return({
                     color: hexToRgb('4C9ED9'),
@@ -424,10 +715,12 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
             },
             position: shaderShapePosition,
-            canvas: function(ctx) {
+            canvas: simple?false:function(ctx) {
                 ctx.blur(2);
             }
-    });
+        });
+    }
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
     shaders.push({
 
@@ -515,7 +808,15 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
                 }
             }
 
+            //todo refactor maybe as shader ?
+            /*if(selected!==false && resource['polygons'][i2]['particle']===selected){
 
+                draw_polygons[i2].line={
+                    width: 2,
+                    color: hexToRgb('4C9ED9')
+                };
+
+            }*/
 
             if(is(shader.fill)){
                 color = hexToRgb(resource['polygons'][i2]['color']);
@@ -525,6 +826,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
             if(is(shader.line)){
                 draw_polygons[i2].line=shader.line();
             }
+
 
 
 
@@ -639,7 +941,5 @@ Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, 
     return(canvas.toDataURL());
 
 };
-
-
 
 
