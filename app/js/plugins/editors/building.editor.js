@@ -227,8 +227,7 @@ T.Plugins.install(new T.Editor(
 
 
 
-                        if($(this).attr('id')=='name'){
-                            r($('.model-dir-selected'));
+                        if($(this).attr('id')=='name' || $(this).attr('id')=='link'){
                             $('.model-dir-selected').text(value);
                         }
 
@@ -362,9 +361,9 @@ T.Plugins.install(new T.Editor(
                         //name: '',
                         link: '',
                         position:{x:0,y:0,z:0},
-                        size:1,
+                        //size:1,
                         rotation: 0,
-                        skew: {z:{x:0,y:0}}
+                        //skew: {z:{x:0,y:0}}
                     });
 
                     renderBlockButtons();
@@ -469,6 +468,9 @@ T.Plugins.install(new T.Editor(
 
                 if (is(particle.name)) {
                     name = particle.name
+                }else
+                if (is(particle.link)) {
+                    name = particle.link
                 }
 
                 $('#' + html_id_i).html(name);
@@ -549,6 +551,10 @@ T.Plugins.install(new T.Editor(
                             position: {x:0,y:0,z:0},
                             size: {x:40,y:40,z:40},
                             rotation: 0
+                        },{
+                            link: Locale.get('shape cube'),
+                            position: {x:0,y:0,z:40},
+                            rotation: 45
                         }
                     ]
                 }
