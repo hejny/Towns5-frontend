@@ -688,7 +688,7 @@ Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force
 
         var x = position3D.x,
             y = position3D.y,
-            z = position3D.z;
+            z = position3D.z *1.33;
 
         /*var k=1+(z/400);
 
