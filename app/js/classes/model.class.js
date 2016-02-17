@@ -14,6 +14,7 @@ var Model = function (json){
 
     if(typeof(json)=='undefined')return false;
 
+    this.name=json.name;
     this.particles=json.particles;
     this.rotation=json.rotation;
     this.size=json.size;
