@@ -43,7 +43,8 @@ T.Plugins.install(new T.Editor(
   <tr category="position"><th colspan="2">{{block position}}</th></tr>
   <tr category="position">
     <td>{{block position x}}:</td>
-    <td><input class="block-parameter" id="position-x" type="range" min="-100" max="100" step="1" /></td>
+    <td><input class="block-parameter" id="position-x" type="range" min="-100" max="100" step="1" />
+</td>
   </tr>
   <tr category="position">
     <td>{{block position y}}:</td>
@@ -198,7 +199,7 @@ T.Plugins.install(new T.Editor(
                     //todo multiple events eg. change and keypress
                     //-------------------------------------------Setting changing event
                     if ($(this).attr('type') == 'range') {
-                        var event = 'mousemove';
+                        var event = 'input';
 
                     }else
                     if($(this).attr('type') == 'checkbox'){
@@ -256,6 +257,11 @@ T.Plugins.install(new T.Editor(
 
 
             });
+
+            //------------------------
+
+            HtmlForm.addRangeNumber(false);
+
 
             //------------------------Hiding whole categoryies
 
@@ -551,11 +557,12 @@ T.Plugins.install(new T.Editor(
                             position: {x:0,y:0,z:0},
                             size: {x:40,y:40,z:40},
                             rotation: 0
-                        },{
+                        }/*,{
                             link: Locale.get('shape cube'),
                             position: {x:0,y:0,z:40},
+                            //size: 0.7,
                             rotation: 45
-                        }
+                        }*/
                     ]
                 }
             )
