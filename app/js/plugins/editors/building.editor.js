@@ -77,18 +77,6 @@ T.Plugins.install(new T.Editor(
 
 
 
-  <tr category="skew"><th colspan="2">{{block skew}}</th></tr>
-  <tr category="skew">
-    <td>{{block skew z x}}:</td>
-    <td><input class="block-parameter" id="skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
-  </tr>
-  <tr category="skew">
-    <td>{{block skew z y}}:</td>
-    <td><input class="block-parameter" id="skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
-  </tr>
-
-
-
 
   <tr category="size"><th colspan="2">{{block size}}</th></tr>
   <tr category="size">
@@ -115,6 +103,18 @@ T.Plugins.install(new T.Editor(
   <tr category="rotation">
     <td>{{block rotation}}:</td>
     <td><input class="block-parameter" id="rotation" type="range" min="0" max="360" step="10" /></td>
+  </tr>
+
+
+
+  <tr category="skew"><th colspan="2">{{block skew}}</th></tr>
+  <tr category="skew">
+    <td>{{block skew z x}}:</td>
+    <td><input class="block-parameter" id="skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
+  </tr>
+  <tr category="skew">
+    <td>{{block skew z y}}:</td>
+    <td><input class="block-parameter" id="skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
 
 
@@ -359,7 +359,7 @@ T.Plugins.install(new T.Editor(
                 icon.click(function () {
 
                     block_selected.particles.push({
-                        name: '',
+                        //name: '',
                         link: '',
                         position:{x:0,y:0,z:0},
                         size:1,
