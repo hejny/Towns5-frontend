@@ -138,7 +138,7 @@
                     "shape": {
                         "bottom": 1,
                         "top": 1,
-                        "n": 3,
+                        "n": 4,
                         "rotated": true,
                         "type": "prism"
                     },
