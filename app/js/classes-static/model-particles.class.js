@@ -36,8 +36,9 @@ ModelParticles.cParams = function(particle){//todo ?? maybe rename
     }
 
 
-    if(typeof particle.rotation.xz === 'undefined')particle.rotation.xz=0;
-    if(typeof particle.rotation.yz === 'undefined')particle.rotation.yz=0;
+    if(typeof particle.rotation === 'undefined'){
+        particle.rotation=0;
+    }
 
     return(particle);
 
@@ -62,15 +63,16 @@ ModelParticles.get3D = function(particle){
 
     if(particle.shape.type=='prism') {
 
+        //-------------------------------------------------------------------prism
 
         var x = particle.position.x;
         var y = particle.position.y;
-        var z = particle.position.z;
+        var z = particle.position.z;// * 2;
 
 
-        var x_ = particle.size.x*Math.sqrt(2);
-        var y_ = particle.size.y*Math.sqrt(2);
-        var z_ = particle.size.z * 2 ;//todo better solution then only simple bugfix *2
+        var x_ = particle.size.x;
+        var y_ = particle.size.y;
+        var z_ = particle.size.z;
 
 
         //r(x_,y_);
@@ -100,47 +102,41 @@ ModelParticles.get3D = function(particle){
 
             for(var n = 0;n<particle.shape.n;n++){
 
-                var x__=x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
-                    y__=y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
-                    z__=z_*level;
+                //------------------XYZ ratio
 
-                //------------------ XZ Rotation
+                if(!is(particle.shape.rotated)){
 
-                if(particle.rotation.xz!==0){
+                    var x__=0.5*x_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+x_*(level*particle.skew.z.x),
+                        y__=0.5*y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*base+y_*(level*particle.skew.z.y),
+                        z__=z_*level;
 
-                    var DistDeg_=Math.xy2distDeg(x__,z__);
-                    DistDeg_.deg+=particle.rotation.xz;
-                    var xz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
+                }else{
 
-                    x__=xz_.x;
-                    z__=xz_.y;
+                    var tmp=(2-(Math.cos(Math.deg2rad(180/particle.shape.n))));//todo better
+
+                    var x__=x_*((level*2)-1);//*(level-0.5);//+x_*(level*particle.skew.z.x),
+
+                        y__=0.5*y_*Math.sin(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n));//+y_*(level*particle.skew.z.y),
 
 
-                    z__+=particle.size.x/2/90*particle.rotation.xz;//todo real rotation
-                    x__-=particle.size.z/2/90*particle.rotation.xz;
+                        z__=(1)*0.5*(
+
+
+                                z_*Math.cos(n/particle.shape.n*Math.PI*2+Math.deg2rad(180+180/particle.shape.n))*tmp
+
+
+                                +z_*((Math.cos(Math.deg2rad(180/particle.shape.n))))*tmp
+                            );
+
                 }
-                //------------------ YZ Rotation
 
 
-                if(particle.rotation.yz!==0){
-
-                    var DistDeg_=Math.xy2distDeg(y__,z__);
-                    DistDeg_.deg+=particle.rotation.yz;
-                    var yz_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
-
-                    y__=yz_.x;
-                    z__=yz_.y;
-
-
-                    z__+=particle.size.y/2/90*particle.rotation.yz;
-                    y__-=particle.size.z/2/90*particle.rotation.yz;
-                }
 
 
                 //------------------ XY Rotation
 
                 var DistDeg_=Math.xy2distDeg(x__,y__);//todo refactor all like DistDeg, etc...
-                DistDeg_.deg+=particle.rotation.xy;
+                DistDeg_.deg+=particle.rotation;
                 var xy_=Math.distDeg2xy(DistDeg_.dist,DistDeg_.deg);
 
                 x__=xy_.x;
@@ -177,8 +173,7 @@ ModelParticles.get3D = function(particle){
             }
         }/**/
 
-
-
+        //-------------------------------------------------------------------
     }else{
 
         throw 'Unknown particle shape '+particle.shape.type;
@@ -321,7 +316,7 @@ ModelParticles.collision2D = function(particle1,particle2){
 
     //-------------------------------Inner convex collision
 
-    if(!collision){
+    /**/if(!collision){
 
         collision=function(){
 
@@ -332,16 +327,16 @@ ModelParticles.collision2D = function(particle1,particle2){
 
                 if(i==0){
                     var outer=deepCopy(lines2);
-                    var inner=deepCopy(lines1[0]);
+                    var inner=/*deepCopy*/(lines1[0]);
                 }else{
                     var outer=deepCopy(lines1);
-                    var inner=deepCopy(lines2[0]);
+                    var inner=/*deepCopy*/(lines2[0]);
                 }
 
 
 
-                var inner1=inner;
-                var inner2=inner;
+                var inner1=deepCopy(inner);
+                var inner2=deepCopy(inner);
 
 
 
@@ -377,13 +372,13 @@ ModelParticles.collision2D = function(particle1,particle2){
         }();
 
 
-    }
+    }/**/
 
 
     //-------------------------------
 
     //-------------------------------Debug TDD
-    /**var size=50;
+    /**var size=100;
     var src=createCanvasViaFunctionAndConvertToSrc(
         size*2,size*2,function(ctx){
 

@@ -350,21 +350,21 @@ function tidyHTML($buffer) {
 
 
 <div id="selecting-distance-ctl" style="display: none;">
-    <div id="selecting-distance-plus" class="mini-button" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
-    <div id="selecting-distance-minus" class="mini-button" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
-    <div id="selecting-distance-left" class="mini-button" title="<?=locale('ui tool controls left')?>"><i class="fa fa-angle-double-left"></i></i></div>
-    <div id="selecting-distance-right" class="mini-button" title="<?=locale('ui tool controls right')?>"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-editor" class="mini-button" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cube"></i></div>
-    <div id="selecting-distance-close" class="mini-button" title="<?=locale('ui tool controls close')?>"><i class="fa fa-times"></i></div>
+    <div id="selecting-distance-plus" class="button-icon" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="selecting-distance-minus" class="button-icon" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="selecting-distance-left" class="button-icon" title="<?=locale('ui tool controls left')?>"><i class="fa fa-angle-double-left"></i></i></div>
+    <div id="selecting-distance-right" class="button-icon" title="<?=locale('ui tool controls right')?>"><i class="fa fa-angle-double-right"></i></i></div>
+    <div id="selecting-distance-editor" class="button-icon" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cube"></i></div>
+    <div id="selecting-distance-close" class="button-icon" title="<?=locale('ui tool controls close')?>"><i class="fa fa-times"></i></div>
 </div>
 
 
 
 <div id="map-ctl">
-    <div id="map-plus" class="mini-button" title="<?=locale('ui map controls plus')?>"><i class="fa fa-plus"></i></div>
-    <div id="map-minus" class="mini-button" title="<?=locale('ui map controls minus')?>"><i class="fa fa-minus"></i></div>
-    <div id="map-left" class="mini-button" title="<?=locale('ui map controls left')?>"><i class="fa fa-undo"></i></i></div>
-    <div id="map-right" class="mini-button" title="<?=locale('ui map controls right')?>"><i class="fa fa-repeat"></i></i></div>
+    <div id="map-plus" class="button-icon" title="<?=locale('ui map controls plus')?>"><i class="fa fa-plus"></i></div>
+    <div id="map-minus" class="button-icon" title="<?=locale('ui map controls minus')?>"><i class="fa fa-minus"></i></div>
+    <div id="map-left" class="button-icon" title="<?=locale('ui map controls left')?>"><i class="fa fa-undo"></i></i></div>
+    <div id="map-right" class="button-icon" title="<?=locale('ui map controls right')?>"><i class="fa fa-repeat"></i></i></div>
 </div>
 
 
@@ -372,10 +372,10 @@ function tidyHTML($buffer) {
 <div id="macros">
 
 
-    <div onclick="objectPrototypesMenu('building','main');Towns.Plugins.open('building-editor',0,-1);return false;" class="mini-button" title="<?=locale('ui macros create building')?>"><i class="fa fa-building-o"></i></div>
+    <div onclick="objectPrototypesMenu('building','main');Towns.Plugins.open('building-editor',0,-1);return false;" class="button-icon" title="<?=locale('ui macros create building')?>"><i class="fa fa-building-o"></i></div>
 
 
-    <div onclick="objectPrototypesMenu('building','wall');Towns.Plugins.open('building-block-editor',0,-1);return false;" class="mini-button" title="<?=locale('ui macros create building block')?>"><i class="fa fa-cube"></i></div>
+    <div onclick="objectPrototypesMenu('building','wall');Towns.Plugins.open('building-block-editor',0,-1);return false;" class="button-icon" title="<?=locale('ui macros create building block')?>"><i class="fa fa-cube"></i></div>
 
 
 </div>

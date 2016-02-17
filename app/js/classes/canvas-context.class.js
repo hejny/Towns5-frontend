@@ -94,13 +94,25 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
  */
 CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
 
-    //r(this.canvas);
 
     var w = this.canvas.width;
     var h = this.canvas.height;
 
-    // pull the entire image into an array of pixel data
-    var imageData = this.getImageData(0, 0, w, h);
+    if(w==0 || h==0)return;
+
+    try{
+
+        // pull the entire image into an array of pixel data
+        var imageData = this.getImageData(0, 0, w, h);
+
+
+    }catch(error){
+
+        r(this.canvas);
+        throw(error);
+
+    }
+
 
     //r(imageData);
     // examine every pixel,
@@ -152,6 +164,8 @@ CanvasRenderingContext2D.prototype.blur = function( radius, iterations=1 ) {
     var top_y=0;
     var width=canvas.width;
     var height=canvas.height;
+
+    if(width==0 || height==0)return;
 
     var imageData;
 
