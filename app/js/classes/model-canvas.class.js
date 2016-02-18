@@ -123,7 +123,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
             self.rotation=(self.rotation-x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
-            self.draw3D();
+            self.draw();
         },
         'stop': function(){
             $(this).css('left',drag_vars.x_original);
