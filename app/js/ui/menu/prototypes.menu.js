@@ -81,6 +81,27 @@ function objectPrototypesMenu(type,subtype=false){
             }
             //------------------------
 
+            //------------------------Viewers, Editors
+            ['view','edit'].forEach(function(action){
+
+
+                var possible =Towns.Plugins.search(action,object);
+                possible=possible.map(function(item){
+                    return(`<button onclick="Towns.Plugins.open('`+item+`',0,'`+object.id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
+                });
+                possible=possible.join('');
+
+                content+=possible;
+                /*objectmenu+=Templates.objectMenu({
+                    icon: '/media/image/icons/'+action+'.svg',
+                    icon_size: 0.8,
+                    title: Locale.get(object.type,object.subtype,action),
+                    content: Locale.get(object.type,object.subtype,action,'description')+possible
+                });*/
+
+            });
+            //------------------------
+
 
             object_menu_html+=Templates.objectMenu({
                 icon: icon,
