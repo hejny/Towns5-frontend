@@ -100,7 +100,24 @@ window.uiScript = function(){
 
             var offset=$(this).offset();
 
-            $('#popup-action').css('top',offset.top);
+
+            var max_top=Math.toInt($( window ).height())-Math.toInt($( '#popup-action' ).height())-20;
+
+            var top=Math.toInt(offset.top);
+            if(top>max_top)top=max_top;
+
+            var arrow_top=Math.toInt(offset.top)-top+20;
+
+            if(arrow_top<Math.toInt($( '#popup-action' ).height())){
+                $('#popup-action .arrow').css('margin-top',arrow_top).css('visibility','visible');
+            }else{
+                $('#popup-action .arrow').css('visibility','hidden');
+            }
+
+            $('#popup-action').css('top',top);
+
+
+
             $('#popup-action .content').html(html);
 
             $('#popup-action').stop();
