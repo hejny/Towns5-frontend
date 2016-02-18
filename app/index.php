@@ -354,7 +354,6 @@ function tidyHTML($buffer) {
     <div id="selecting-distance-minus" class="button-icon" title="<?=locale('ui tool controls minus')?>"><i class="fa fa-minus"></i></div>
     <div id="selecting-distance-left" class="button-icon" title="<?=locale('ui tool controls left')?>"><i class="fa fa-angle-double-left"></i></i></div>
     <div id="selecting-distance-right" class="button-icon" title="<?=locale('ui tool controls right')?>"><i class="fa fa-angle-double-right"></i></i></div>
-    <div id="selecting-distance-editor" class="button-icon" title="<?=locale('ui tool controls blocks')?>"><i class="fa fa-cube"></i></div>
     <div id="selecting-distance-close" class="button-icon" title="<?=locale('ui tool controls close')?>"><i class="fa fa-times"></i></div>
 </div>
 

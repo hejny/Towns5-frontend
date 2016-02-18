@@ -127,11 +127,11 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
         //--------------------
         callback_success_wrapped = function(response){
 
-            r('Updating object prototype id after server response from '+object.id+' to '+response.objectId);
+            r('Updating object prototype id after server response from '+object.id+' to '+response.prototypeId);
 
 
             var i=ArrayFunctions.id2i(object_prototypes,object.id);
-            object_prototypes[i].id=response.objectId;
+            object_prototypes[i].id=response.prototypeId;
 
             if(callback_success)
                 callback_success(response);
