@@ -24,7 +24,7 @@ TownsAPI=function(url=''){
 TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=false,callback_error=false){
 
     //r(this.url+uri);
-    //r(data);
+    r(data);
 
     var query_data_string='';
     var query_separator='?';
@@ -51,7 +51,7 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=
         url: this.url+uri+query_data_string,
         //crossDomain: true,
         contentType: 'application/json; charset=UTF-8',
-        data: data.length>0?JSON.stringify(data):undefined,
+        data: JSON.stringify(data),
         dataType: 'json',
         timeout: 7000
     });
@@ -151,6 +151,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
     //----------------------------------------
 
 
+    //r('API',JSON.stringify(object));
     return this.query(uri,{},'POST',object,callback_success_wrapped,callback_error);
 
 
