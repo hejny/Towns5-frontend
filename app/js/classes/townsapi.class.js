@@ -21,22 +21,42 @@ TownsAPI=function(url=''){
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.query = function(uri,method,data,callback_success=false,callback_error=false){
+TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=false,callback_error=false){
 
-    r(this.url+uri);
-    r(data);
+    //r(this.url+uri);
+    //r(data);
+
+    var query_data_string='';
+    var query_separator='?';
+
+    for(var key in query_data){
+
+        var value=query_data[key];
+
+        if(value instanceof Array){
+            value = value.join(',');
+        }
+
+        value = encodeURIComponent(value);
+
+        query_data_string+=query_separator+key+'='+value;
+
+        query_separator='&';
+
+    }
+
 
     var request = $.ajax({
         type: method,
-        url: this.url+uri,
+        url: this.url+uri+query_data_string,
         //crossDomain: true,
         contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify(data),
+        data: data.length>0?JSON.stringify(data):undefined,
         dataType: 'json',
         timeout: 7000
     });
 
-    r('sended');
+    //r('sended');
 
     $('#server-loading').show();
     $('#server-ok').hide();
@@ -88,7 +108,7 @@ TownsAPI.prototype.query = function(uri,method,data,callback_success=false,callb
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.get = function(uri,data,callback_success,callback_error){return this.query(uri,'GET',data,callback_success,callback_error);};
+TownsAPI.prototype.get = function(uri,query_data,callback_success,callback_error){return this.query(uri,query_data,'GET',{},callback_success,callback_error);};
 
 /**
  *
@@ -131,7 +151,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
     //----------------------------------------
 
 
-    return this.query(uri,'POST',object,callback_success_wrapped,callback_error);
+    return this.query(uri,{},'POST',object,callback_success_wrapped,callback_error);
 
 
 };
@@ -145,7 +165,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
  */
 TownsAPI.prototype.delete = function(uri,callback_success,callback_error){
 
-    return this.query(uri,'DELETE',{},callback_success,callback_error);
+    return this.query(uri,{},'DELETE',{},callback_success,callback_error);
 
 };
 

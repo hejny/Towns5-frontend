@@ -36,7 +36,13 @@ Map.loadMap = function(){
 
     map_request_ajax=townsAPI.get(
         'objects',
-        {},//todo range and order by time
+        {
+            x: Math.round(map_x),
+            y: Math.round(map_y),
+            radius: map_size,
+            //keys: ,
+
+        },//todo range and order by time
         Map.loadMapRequestCallback
     );
 
