@@ -56,7 +56,7 @@ function objectPrototypesMenu(type,subtype=false){
             if(object.type=='building'){
 
                 icon=object.design.data.createIcon(50);
-                content='popis budovy';
+                //content='popis budovy';
                 action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
 
             }
