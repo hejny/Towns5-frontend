@@ -123,7 +123,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
             self.rotation=(self.rotation-x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
-            self.draw();
+            self.draw3D();
         },
         'stop': function(){
             $(this).css('left',drag_vars.x_original);
@@ -157,18 +157,18 @@ ModelCanvas.prototype.draw = function(model){
 
 
     this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
+    this.model.draw3D(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
 
 
-    if(is(this.selected_path)){
+    /*if(is(this.selected_path)){
 
 
         //r(this);
         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
-        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
+        block_choosen.draw3D(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
 
-    }
+    }*/
 
 };
 
