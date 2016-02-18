@@ -277,17 +277,6 @@ window.uiScript = function(){
         buildingUpdate();
     });
 
-    $('#selecting-distance-color').unbind('click').click(function(){
-        $('#color-ctl').toggle();
-
-    });
-
-
-    $('#selecting-distance-editor').unbind('click').click(function(){
-        Editors.block_editor.open(0,building.id);
-    });
-
-
     $('#selecting-distance-close').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         mapSpecialCursorStop();
