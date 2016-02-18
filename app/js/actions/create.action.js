@@ -211,7 +211,7 @@ function createBuilding(object,callback){
             townsAPI.delete('objects/'+objects_external[join.i].id,function(){
 
                 townsAPI.post('objects',{
-                    prototypeId: response.objectId,
+                    prototypeId: response.prototypeId,
                     x: objects_external[join.i].x,
                     y: objects_external[join.i].y
 
