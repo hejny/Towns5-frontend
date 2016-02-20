@@ -6,7 +6,6 @@
     require('init.php');
 ?>
 
-
 <div id="model-canvases"></div>
 <!--<canvas id="canvas1" width="300" height="300"></canvas>
 <canvas id="canvas2" width="300" height="300"></canvas>
@@ -21,7 +20,29 @@
 </style>
 -->
 
+
+<script id="shader-fs" type="x-shader/x-fragment">
+	    precision mediump float;
+
+	    uniform vec4 uColor;
+
+	    void main(void) {
+	        gl_FragColor = uColor;
+	    }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+	    attribute vec3 aVertexPosition;
+
+	    uniform mat4 uPMatrix;
+
+	    void main(void) {
+	        gl_Position = uPMatrix * vec4(aVertexPosition, 1.0);
+	    }
+</script>
+
 <script>
+
 
 
     /*ctx1=document.getElementById('canvas1').getContext('2d');
@@ -242,12 +263,306 @@
                     }
                 }
             ]
-        })/**/
+        }),
+        new Model({
+            "name": "",
+            "particles": [
+                {
+                    "name": "superfloor",
+                    "particles": [
+                        {
+                            "name": "floor",
+                            "particles": [
+                                {
+                                    "name": "sloup",
+                                    "particles": [
+                                        {
+                                            "name": "",
+                                            "shape": {
+                                                "type": "prism",
+                                                "n": 4,
+                                                "top": 1,
+                                                "bottom": 1,
+                                                "rotated": false
+                                            },
+                                            "color": "#cccccc",
+                                            "position": {
+                                                "x": 0,
+                                                "y": 0,
+                                                "z": 0
+                                            },
+                                            "size": {
+                                                "x": 10,
+                                                "y": 10,
+                                                "z": 25
+                                            },
+                                            "rotation": 0,
+                                            "skew": {
+                                                "z": {
+                                                    "x": 0,
+                                                    "y": 0
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "",
+                                            "shape": {
+                                                "type": "prism",
+                                                "n": 4,
+                                                "top": 2,
+                                                "bottom": 1,
+                                                "rotated": false
+                                            },
+                                            "color": "#cccccc",
+                                            "position": {
+                                                "x": 0,
+                                                "y": 0,
+                                                "z": 25
+                                            },
+                                            "size": {
+                                                "x": 10,
+                                                "y": 10,
+                                                "z": 15
+                                            },
+                                            "rotation": 0,
+                                            "skew": {
+                                                "z": {
+                                                    "x": 0.4,
+                                                    "y": 0.4
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "position": {
+                                        "x": -10,
+                                        "y": -10,
+                                        "z": 0
+                                    },
+                                    "size": 1,
+                                    "rotation": 0,
+                                    "skew": {
+                                        "z": {
+                                            "x": 0,
+                                            "y": 0
+                                        }
+                                    }
+                                },
+                                {
+                                    "link": "sloup",
+                                    "position": {
+                                        "x": 10,
+                                        "y": -10,
+                                        "z": 0
+                                    },
+                                    "rotation": 90
+                                },
+                                {
+                                    "link": "sloup",
+                                    "position": {
+                                        "x": 10,
+                                        "y": 10,
+                                        "z": 0
+                                    },
+                                    "rotation": 180
+                                },
+                                {
+                                    "link": "sloup",
+                                    "position": {
+                                        "x": -10,
+                                        "y": 10,
+                                        "z": 0
+                                    },
+                                    "rotation": 270
+                                },
+                                {
+                                    "name": "",
+                                    "particles": [
+                                        {
+                                            "name": "",
+                                            "shape": {
+                                                "type": "prism",
+                                                "n": 4,
+                                                "top": 0.9,
+                                                "bottom": 1,
+                                                "rotated": false
+                                            },
+                                            "color": "#bbbbbb",
+                                            "position": {
+                                                "x": 0,
+                                                "y": 0,
+                                                "z": 40
+                                            },
+                                            "size": {
+                                                "x": 38,
+                                                "y": 38,
+                                                "z": 3
+                                            },
+                                            "rotation": 0,
+                                            "skew": {
+                                                "z": {
+                                                    "x": 0,
+                                                    "y": 0
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "name": "",
+                                            "shape": {
+                                                "type": "prism",
+                                                "n": 4,
+                                                "top": 1,
+                                                "bottom": 0.95,
+                                                "rotated": false
+                                            },
+                                            "color": "#bbbbbb",
+                                            "position": {
+                                                "x": 0,
+                                                "y": 0,
+                                                "z": 43
+                                            },
+                                            "size": {
+                                                "x": 38,
+                                                "y": 38,
+                                                "z": 3
+                                            },
+                                            "rotation": 0,
+                                            "skew": {
+                                                "z": {
+                                                    "x": 0,
+                                                    "y": 0
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "position": {
+                                        "x": 0,
+                                        "y": 0,
+                                        "z": 0
+                                    },
+                                    "size": 1,
+                                    "rotation": 0,
+                                    "skew": {
+                                        "z": {
+                                            "x": 0,
+                                            "y": 0
+                                        }
+                                    }
+                                }
+                            ],
+                            "position": {
+                                "x": 13,
+                                "y": 13,
+                                "z": 0
+                            },
+                            "size": 1,
+                            "rotation": 0,
+                            "skew": {
+                                "z": {
+                                    "x": 0,
+                                    "y": 0
+                                }
+                            }
+                        },
+                        {
+                            "link": "floor",
+                            "position": {
+                                "x": -13,
+                                "y": 13,
+                                "z": 0
+                            },
+                            "rotation": 0
+                        },
+                        {
+                            "link": "floor",
+                            "position": {
+                                "x": 13,
+                                "y": -13,
+                                "z": 0
+                            },
+                            "rotation": 0
+                        },
+                        {
+                            "link": "floor",
+                            "position": {
+                                "x": -13,
+                                "y": -13,
+                                "z": 0
+                            },
+                            "rotation": 0
+                        }
+                    ],
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 0
+                    },
+                    "size": 1,
+                    "rotation": 0,
+                    "skew": {
+                        "z": {
+                            "x": 0,
+                            "y": 0
+                        }
+                    }
+                },
+                {
+                    "link": "superfloor",
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 43
+                    },
+                    "rotation": 0
+                },
+                {
+                    "name": "",
+                    "shape": {
+                        "type": "prism",
+                        "n": 3,
+                        "top": 1,
+                        "bottom": 1,
+                        "rotated": true
+                    },
+                    "color": "#cccccc",
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 86
+                    },
+                    "size": {
+                        "x": 18,
+                        "y": 49,
+                        "z": 20
+                    },
+                    "rotation": 0,
+                    "skew": {
+                        "z": {
+                            "x": 0,
+                            "y": 0
+                        }
+                    }
+                }
+            ],
+            "position": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "size": 1,
+            "rotation": 0,
+            "skew": {
+                "z": {
+                    "x": 0,
+                    "y": 0
+                }
+            }
+        })
+
     ];
 
 
-    models[2]=deepCopyModel(models[0]);
-    models[2].joinModel(models[1],50,-80);
+    /*models[2]=deepCopyModel(models[0]);
+    models[2].joinModel(models[1],50,-80);*/
 
 
 
