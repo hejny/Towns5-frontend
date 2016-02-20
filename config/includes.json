@@ -21,7 +21,7 @@
     {"production": "app/config/production.js"},
     "app/config/vars.js",
 
-
+    "app/js/webgl/*.js",
     "app/js/classes/model.class.js",
     "app/js/classes/*.js",
     "app/js/classes-static/map.class.js",

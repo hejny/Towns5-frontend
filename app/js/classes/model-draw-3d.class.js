@@ -100,291 +100,198 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
     //r(resource);
 
-    //==========================================================================================Sorting
-
-    /**/
-    resource['polygons'].sort(function (a, b) {
-
-        var sum,cnt;
-
-        var polygons=[a,b];
-        var zindex=[0,0];
-
-        for(var polygon in polygons){
-
-            var sum = 0;
-            var cnt = 0;
-
-            for (var i in polygons[polygon]) {
-
-                if(i!='color' && is(resource['points'][polygons[polygon][i]])) {
-
-                    sum += resource['points'][polygons[polygon][i]][0] ;//* slope_m;
-                    sum += resource['points'][polygons[polygon][i]][1] ;//* slope_m;
-                    sum += resource['points'][polygons[polygon][i]][2] ;//* slope_n;
-                    cnt++;
-                }
-
-            }
-
-            zindex[polygon] = sum / cnt;
-
-        }
-
-        //-------------------
-        if (zindex[0] > zindex[1]) {
-            return 1;
-        }
-        if (zindex[1] > zindex[0]) {
-            return -1;
-        } else {
-            return 0;
-        }
-    });/**/
-
 
     //==========================================================================================Shaders
 
-    var shaders=[];
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
-    if(!simple)
-        shaders.push({
-            fill: function(){return(new Color(255,255,255,255));},
-            position: function(position3D){
-                z = Math.abs(position3D.z);
-                x = position3D.x + z / 1.5;
-                y = position3D.y - z / 1.5 / 2;
 
-                var xx = x * 1 - (y * 1);
-                var yy = x * slope_m + y * slope_m;
+    var canvas = createCanvasViaFunction(/*range.max.x-range.min.x,range.max.y-range.min.y*/300,300,function(gl){
 
-                return(new Position(xx,yy));
 
-            },
-            canvas: simple?false:function(ctx) {
-                ctx.recolorImage(
-                    new Color(255,255,255,false),
-                    new Color(0,0,0,100)
-                );
-                ctx.blur(2);
+
+        //-------------------------------------
+
+        var shaderProgram;
+        var pMatrix = mat4.create();
+
+
+
+        //function initGL() {
+            //gl = WebGLUtils.setupWebGL(canvas);
+
+            /*if (!gl) {
+                return;
+            }*/
+
+            gl.clearColor(0.1, 0.1, 0.1, 1.0);
+
+            gl.viewportWidth = gl.canvas.width;
+            gl.viewportHeight = gl.canvas.height;
+
+            mat4.ortho(0, gl.viewportWidth, 0, gl.viewportHeight, -200, +200, pMatrix);
+        //}
+
+
+        function getShader(gl, id) {
+            var shaderScript = document.getElementById(id);
+
+            if (!shaderScript) {
+                return null;
             }
 
-        });
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    var shaderShapePosition = function(position3D){
+            var str = "";
+            var k = shaderScript.firstChild;
 
-        //return(new Color(0,255,255,100));
+            while (k) {
+                if (k.nodeType == 3) {
+                    str += k.textContent;
+                }
 
-        var x = position3D.x,
-            y = position3D.y,
-            z = position3D.z *1.33;
-
-        /*var k=1+(z/400);
-
-         x=x*k;
-         y=y*k;
-         z=z*Math.pow(k,(1/1.2));*/
-
-        xx = x - y;
-        yy = x * slope_m + y * slope_m - (z * slope_n);
-
-        return(new Position(xx,yy));
-
-    };
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material - glow
-
-    if(selected===true){
-        shaders.push({
-            line: function(color,polygon3D){
-                return({
-                    color: hexToRgb('4C9ED9'),
-                    width: 10
-                });
-
-            },
-            position: shaderShapePosition,
-            canvas: simple?false:function(ctx) {
-                ctx.blur(2);
+                k = k.nextSibling;
             }
-        });
-    }
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material
-    shaders.push({
+            var shader;
 
-        fill: force_color==false?function(color,polygon3D){
+            if (shaderScript.type == "x-shader/x-fragment") {
+                shader = gl.createShader(gl.FRAGMENT_SHADER);
+            } else if (shaderScript.type == "x-shader/x-vertex") {
+                shader = gl.createShader(gl.VERTEX_SHADER);
+            } else {
+                return null;
+            }
 
-            var vector1={},
-                vector2={},
-                vector3={};//normal vector
+            gl.shaderSource(shader, str);
+            gl.compileShader(shader);
 
-            vector1.x=polygon3D[1].x-polygon3D[0].x;
-            vector1.y=polygon3D[1].y-polygon3D[0].y;
-            vector1.z=polygon3D[1].z-polygon3D[0].z;
+            if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+                alert(gl.getShaderInfoLog(shader));
+                return null;
+            }
 
-            vector2.x=polygon3D[2].x-polygon3D[0].x;
-            vector2.y=polygon3D[2].y-polygon3D[0].y;
-            vector2.z=polygon3D[2].z-polygon3D[0].z;
+            return shader;
+        }
 
+        //function initShaders() {
+            var fragmentShader = getShader(gl, "shader-fs");
+            var vertexShader = getShader(gl, "shader-vs");
 
-            vector3.x = vector1.y*vector2.z - vector1.z*vector2.y
-            vector3.y = vector1.z*vector2.x - vector1.x*vector2.z
-            vector3.z = vector1.x*vector2.y - vector1.y*vector2.x
+            shaderProgram = gl.createProgram();
+            gl.attachShader(shaderProgram, vertexShader);
+            gl.attachShader(shaderProgram, fragmentShader);
+            gl.linkProgram(shaderProgram);
 
+            if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+                r("Could not initialise shaders");
+            }
 
-            var polar = Math.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
+            gl.useProgram(shaderProgram);
 
-            var angle=Math.angleDiff(polar.deg,-45);
+            shaderProgram.vertexPositionLoc = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+            gl.enableVertexAttribArray(shaderProgram.vertexPositionLoc);
 
-            var add=angle/-5;
-
-            color.r+=add;
-            color.g+=add;
-            color.b+=add;
-
-            return(color);
-
-
-
-        }:function(){
-
-            return(hexToRgb(force_color));//todo refactoring force_color should be instance of Color
-
-        },
-        position: shaderShapePosition
-    });
-    //==========================================================================================Draw
+            shaderProgram.colorLoc = gl.getUniformLocation(shaderProgram, "uColor");
+            shaderProgram.pMatrixLoc = gl.getUniformLocation(shaderProgram, "uPMatrix");
+        //}
 
 
-    shaders.forEach(function(shader){
+        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.uniformMatrix4fv(shaderProgram.pMatrixLoc, false, pMatrix);
+
+        //drawPolygons();
+        //function drawPolygons() {
+        /*    var p1 = [
+                new Point(50, 50, 5),
+                new Point(50, 100, 5),
+                new Point(250, 170, -5),
+                new Point(230, 245, -5),
+                new Point(70, 200, -5)
+            ];
+
+            var p2 = [
+                new Point(300, 320, 0),
+                new Point(480, 280, 0),
+                new Point(550, 350, 0),
+                new Point(270, 420, 0)
+            ];
+
+            var p3 = [
+                new Point(400, 100, 0),
+                new Point(520, 70, 0),
+                new Point(600, 160, 0),
+                new Point(550, 220, 0),
+                new Point(430, 230, 0),
+                new Point(345, 200, 0)
+            ];
+
+            gl.uniform4f(shaderProgram.colorLoc, 1.0, 1.0, 1.0, 1.0);
+            DrawUtils.drawPolygon(p1, gl, shaderProgram.vertexPositionLoc);
+
+            gl.uniform4f(shaderProgram.colorLoc, 0.0, 1.0, 0.0, 1.0);
+            DrawUtils.drawPolygon(p2, gl, shaderProgram.vertexPositionLoc);
+
+            gl.uniform4f(shaderProgram.colorLoc, 0.0, 0.0, 1.0, 1.0);
+            DrawUtils.drawPolygon(p3, gl, shaderProgram.vertexPositionLoc);*/
 
 
-        draw_polygons=[];
+        //}
+
+
 
         for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
-
-            draw_polygons[i2]={
-                points: []
-            };
             var polygon3D=[];
-
 
             for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
 
 
-                //x2 = resource['points'][resource['polygons'][i2][2]][0],
-                //y2 = resource['points'][resource['polygons'][i2][2]][1];
 
                 if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
 
-
-                    x = resource['points'][resource['polygons'][i2][i3]][0];
-                    y = resource['points'][resource['polygons'][i2][i3]][1];
+                    x = resource['points'][resource['polygons'][i2][i3]][0]+150;
+                    y = resource['points'][resource['polygons'][i2][i3]][1]+150;
                     z = resource['points'][resource['polygons'][i2][i3]][2];
 
                     var position3D=new Position3D(x,y,z);
                     polygon3D.push(position3D);
-                    var position=shader.position(position3D);
-
-
-                    position.x+=x_begin;
-                    position.y+=y_begin;
-
-                    draw_polygons[i2].points.push(position);
 
                 }
+
+
             }
-
-            //todo refactor maybe as shader ?
-            /*if(selected!==false && resource['polygons'][i2]['particle']===selected){
-
-             draw_polygons[i2].line={
-             width: 2,
-             color: hexToRgb('4C9ED9')
-             };
-
-             }*/
-
-            if(is(shader.fill)){
-                color = hexToRgb(resource['polygons'][i2]['color']);
-                draw_polygons[i2].fill={color: shader.fill(color,polygon3D)};
-            }
-
-            if(is(shader.line)){
-                draw_polygons[i2].line=shader.line();
-            }
+            var color = hexToRgb(resource['polygons'][i2]['color']);
 
 
+            //r(polygon3D);
+
+            gl.uniform4f(shaderProgram.colorLoc, color.r/255, color.g/255, color.b/255, 1.0);
+            DrawUtils.drawPolygon(polygon3D, gl, shaderProgram.vertexPositionLoc);
 
 
         }
 
-        //------------------------Range
-
-        var range={
-            min:{
-                x: false,
-                y: false
-            },
-            max:{
-                x: false,
-                y: false
-            }
-        };
+        //-------------------------------------
 
 
-        draw_polygons.forEach(function(polygon){
+        /*gl.viewport(0, 0,
+            gl.drawingBufferWidth, gl.drawingBufferHeight);
 
-            polygon.points.forEach(function(point){
-
-                if(range.min.x===false)range.min.x=point.x;
-                if(range.min.y===false)range.min.y=point.y;
-                if(range.max.x===false)range.max.x=point.x;
-                if(range.max.y===false)range.max.y=point.y;
-
-                if(range.min.x>point.x)range.min.x=point.x;
-                if(range.min.y>point.y)range.min.y=point.y;
-                if(range.max.x<point.x)range.max.x=point.x;
-                if(range.max.y<point.y)range.max.y=point.y;
-
-            });
-
-        });
-
-        var border=10;
-
-        range.min.x-=border;
-        range.min.y-=border;
-        range.max.x+=border;
-        range.max.y+=border;
+        var vertices = [
+            0.5,0.5,  //Vertex 1
+            0.5,-0.5, //Vertex 2
+            -0.5,-0.5, //Vertex 3
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);*/
 
 
-        //------------------------
-
-        //r(draw_polygons);
-
-        var canvas = createCanvasViaFunction(range.max.x-range.min.x,range.max.y-range.min.y,function(ctx_){
-
-            ctx_.drawPolygons(draw_polygons,range.min);
-
-            if(is(shader.canvas)){
-                shader.canvas(ctx_);
-            }
+        /*gl.enable(gl.SCISSOR_TEST);
+        gl.scissor(30, 10, 60, 60);
+        gl.clearColor(1.0, 1.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);*/
 
 
-        });
+    },'webgl');
 
-        ctx.drawImage(canvas,range.min.x,range.min.y);
-
-
+    ctx.drawImage(canvas,/*range.min.x,range.min.y*/0,0);
 
 
-        //ctx.drawPolygons(draw_polygons);
-
-
-        //------------------------Vykreslení
-
-    });
 
 };
