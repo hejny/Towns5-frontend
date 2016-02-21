@@ -7,39 +7,12 @@
 ?>
 
 <div id="model-canvases"></div>
-<!--<canvas id="canvas1" width="300" height="300"></canvas>
-<canvas id="canvas2" width="300" height="300"></canvas>
-<canvas id="canvas3" width="300" height="300"></canvas>
-<canvas id="canvas4" width="300" height="300"></canvas>
-
-<style>
-    canvas{
-        border: 2px solid #000000;
-    }
-
-</style>
--->
 
 
-<script id="shader-fs" type="x-shader/x-fragment">
-	    precision mediump float;
+<?php
+require('../js/webgl/shaders.html');
+?>
 
-	    uniform vec4 uColor;
-
-	    void main(void) {
-	        gl_FragColor = uColor;
-	    }
-</script>
-
-<script id="shader-vs" type="x-shader/x-vertex">
-	    attribute vec3 aVertexPosition;
-
-	    uniform mat4 uPMatrix;
-
-	    void main(void) {
-	        gl_Position = uPMatrix * vec4(aVertexPosition, 1.0);
-	    }
-</script>
 
 <script>
 

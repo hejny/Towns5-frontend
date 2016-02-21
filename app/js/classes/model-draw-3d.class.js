@@ -16,15 +16,15 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
 
 
-    var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
-    var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI));
+    //var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
+    //var slope_n = Math.abs(Math.cos(slope / 180 * Math.PI));
     var slnko = 50;
 
 
     var this_=deepCopyModel(this);
     //r(this_);
 
-    this_.addRotationSize(rotation,s);
+    this_.addRotationSize(rotation+45,s);
     //this_.compileRotationSize();
 
     //---------------------------------------------Create empty Towns4 3DModel Array
@@ -81,7 +81,7 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
     //r(resource);
 
-    //------------------------Prirazeni barev a cisel castecek k polygonum pred serazenim
+    //------------------------Prirazeni barev a cisel castecek k polygonum pred serazenim //todo delete
 
     if(force_color==false){
 
@@ -101,7 +101,7 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
     //r(resource);
 
 
-    //==========================================================================================Shaders
+    //==========================================================================================Draw
 
 
     var canvas = createCanvasViaFunction(/*range.max.x-range.min.x,range.max.y-range.min.y*/300,300,function(gl){
@@ -122,12 +122,12 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
                 return;
             }*/
 
-            gl.clearColor(0.1, 0.1, 0.1, 1.0);
+            gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
             gl.viewportWidth = gl.canvas.width;
             gl.viewportHeight = gl.canvas.height;
 
-            mat4.ortho(0, gl.viewportWidth, 0, gl.viewportHeight, -200, +200, pMatrix);
+            mat4.ortho(0, gl.viewportWidth, 0, gl.viewportHeight, -200, +10, pMatrix);
         //}
 
 
@@ -235,7 +235,6 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
         //}
 
 
-
         for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
 
             var polygon3D=[];
@@ -246,11 +245,20 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
                 if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
 
-                    x = resource['points'][resource['polygons'][i2][i3]][0]+150;
-                    y = resource['points'][resource['polygons'][i2][i3]][1]+150;
-                    z = resource['points'][resource['polygons'][i2][i3]][2];
+                    var x = resource['points'][resource['polygons'][i2][i3]][0];
+                    var y = resource['points'][resource['polygons'][i2][i3]][1];
+                    var z = resource['points'][resource['polygons'][i2][i3]][2];
 
-                    var position3D=new Position3D(x,y,z);
+                    var DistDeg=Math.xy2distDeg(x,z);//todo all DistDeg via capital
+
+                    DistDeg.deg+=slope;
+
+                    var XY = Math.distDeg2xy(DistDeg.dist,DistDeg.deg);
+
+                    x=XY.x;
+                    x=XY.y;
+
+                    var position3D=new Position3D(y+150,x+150,z);
                     polygon3D.push(position3D);
 
                 }
@@ -262,11 +270,13 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
             //r(polygon3D);
 
+
             gl.uniform4f(shaderProgram.colorLoc, color.r/255, color.g/255, color.b/255, 1.0);
             DrawUtils.drawPolygon(polygon3D, gl, shaderProgram.vertexPositionLoc);
 
-
         }
+
+
 
         //-------------------------------------
 
