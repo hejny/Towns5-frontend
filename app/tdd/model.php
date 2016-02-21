@@ -6,6 +6,7 @@
     require('init.php');
 ?>
 
+
 <div id="model-canvases"></div>
 
 
@@ -537,17 +538,20 @@ require('../js/webgl/shaders.html');
     /*models[2]=deepCopyModel(models[0]);
     models[2].joinModel(models[1],50,-80);*/
 
+    setTimeout(
+        function(){
+            models.forEach(function(model,i){
 
 
-    models.forEach(function(model,i){
+                $('#model-canvases').append('<div id="model-canvas-'+i+'"></div>');
+                var editor = new ModelCanvas('model-canvas-'+i,model,300,600);
 
+                editor.editor.css('display','inline-block');
 
-        $('#model-canvases').append('<div id="model-canvas-'+i+'"></div>');
-        var editor = new ModelCanvas('model-canvas-'+i,model,300,600);
-
-        editor.editor.css('display','inline-block');
-
-    });
+            });
+        }
+        ,500
+    );
 
 
 
@@ -596,6 +600,15 @@ require('../js/webgl/shaders.html');
 
     /**/
 
+
+    var textures=[];
+
+    textures[0] = new Image();
+    textures[0].src = "/media/image/textures/stone.jpg";
+
+
+    textures[1] = new Image();
+    textures[1].src = "/media/image/textures/wood.png";
 
 
 </script>
