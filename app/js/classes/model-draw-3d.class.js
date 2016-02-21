@@ -24,7 +24,7 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
     var this_=deepCopyModel(this);
     //r(this_);
 
-    this_.addRotationSize(rotation+45,s);
+    this_.addRotationSize(/*rotation+45*/0,s);
     //this_.compileRotationSize();
 
     //---------------------------------------------Create empty Towns4 3DModel Array
@@ -200,6 +200,15 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
                     vector_normal.y = vector_ab.z*vector_ac.x - vector_ab.x*vector_ac.z;
                     vector_normal.z = vector_ab.x*vector_ac.y - vector_ab.y*vector_ac.x;
 
+                    var distance = Math.sqrt(
+                    Math.pow(vector_normal.x,2)+
+                    Math.pow(vector_normal.y,2)+
+                    Math.pow(vector_normal.z,2));
+
+                    vector_normal.x = vector_normal.x/distance;
+                    vector_normal.y = vector_normal.y/distance;
+                    vector_normal.z = vector_normal.z/distance;
+
                 }else{
 
                     vector_normal={x:0,y:1,z:0};
@@ -271,16 +280,16 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
                         var y = resource['points'][resource['polygons'][i2][i3]][1];
                         var z = resource['points'][resource['polygons'][i2][i3]][2];
 
-                        var DistDeg=Math.xy2distDeg(x,z);//todo all DistDeg via capital
+                        /*var DistDeg=Math.xy2distDeg(x,z);//todo all DistDeg via capital
 
                         DistDeg.deg+=slope;
 
                         var XY = Math.distDeg2xy(DistDeg.dist,DistDeg.deg);
 
                         x=XY.x;
-                        x=XY.y;
+                        x=XY.y;*/
 
-                        var position3D=new Position3D(y,x,z);
+                        var position3D=new Position3D(x,z,y);
                         polygon3D.push(position3D);
 
                     }
@@ -431,18 +440,15 @@ Model.prototype.draw3D = function(ctx, s, x_begin, y_begin, rotation, slope, for
             // the center of the scene.
 
             loadIdentity();
-
             // Now move the drawing position a bit to where we want to start
             // drawing the cube.
 
             mvTranslate([0.0, 0.0, -6.0]);
-
             // Save the current matrix, then rotate before we draw.
 
             mvPushMatrix();
-
-            /*mvRotate(slope, [1, 0, 0]);
-            mvRotate(rotation+45, [0, -1, 0]);*/
+            mvRotate(slope, [1, 0, 0]);
+            mvRotate(rotation+45, [0, -1, 0]);
 
 
             // Draw the cube by binding the array buffer to the cube's vertices
