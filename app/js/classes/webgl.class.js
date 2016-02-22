@@ -134,6 +134,31 @@ WebGL.prototype.initBuffers = function(polygons) {
 
      ],1);*/
 
+    //---------------------------------------------Ground
+
+    /*for(var y=-1;y<=1;y++){
+        for(var x=-1;x<=1;x++){
+
+            var xx=x*75;
+            var yy=y*75;
+            var zz=Math.round(Math.random()*100);
+
+            polygons.push({
+                shape: [
+                    {x:-100+xx,y:-100+yy,z:zz},
+                    {x:100+xx,y:-100+yy,z:zz},
+                    {x:100+xx,y:100+yy,z:zz},
+                    {x:-100+xx,y:100+yy,z:zz}
+
+                ],
+                texture: 2
+            });
+
+
+        }
+    }*/
+
+
     //---------------------------------------------Adding polygons data
 
     polygons.forEach(function(polygon){
@@ -291,14 +316,15 @@ WebGL.prototype.initBuffers = function(polygons) {
 // the job; it gets called each time a texture finishes loading.
 //
 WebGL.prototype.initTextures = function() {
+    var self=this;
+
+    Textures.forEach(function(Texture,i){
+
+        self.cubeTextures[i] = self.gl.createTexture();
+        self.handleTextureLoaded(Texture, self.cubeTextures[i]);
 
 
-    this.cubeTextures[0] = this.gl.createTexture();
-    this.handleTextureLoaded(Textures[0], this.cubeTextures[0]);
-
-
-    this.cubeTextures[1] = this.gl.createTexture();
-    this.handleTextureLoaded(Textures[1], this.cubeTextures[1]);
+    });
 
 
 };
@@ -330,14 +356,14 @@ WebGL.prototype.drawScene = function() {
     // ratio of 640:480, and we only want to see objects between 0.1 units
     // and 100 units away from the camera.
 
-    /*this.viewMatrix = makePerspective(
+    /*/this.viewMatrix = makePerspective(
         45,
         this.gl.canvas.width/this.gl.canvas.height,
         0.1,
         100.0
     );/**/
 
-    this.viewMatrix = makeOrtho(
+    /**/this.viewMatrix = makeOrtho(
         this.gl.canvas.width/-200,
         this.gl.canvas.width/200,
         this.gl.canvas.height/-200,
@@ -516,9 +542,9 @@ WebGL.prototype.getShader = function(type) {
 
                 // Apply lighting effect
 
-                highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
+                highp vec3 ambientLight = vec3(0.5, 0.5, 0.5);
                 highp vec3 directionalLightColor = vec3(0.8, 0.8, 0.8);
-                highp vec3 directionalVector = vec3(0, -1, 0);
+                highp vec3 directionalVector = vec3(-1, -1, -0.2);
 
                 highp vec4 transformedNormal = uNormalMatrix * vec4(aVertexNormal, 1.0);
 

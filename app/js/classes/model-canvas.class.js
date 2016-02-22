@@ -127,7 +127,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
 
             self.webGL.rotations[1].deg=self.rotation+45;//todo better solution than 45
-            self.webGL.rotations[0].deg=self.slope;
+            self.webGL.rotations[0].deg=self.slope-90;//todo better solution than 180
 
             self.webGL.drawScene();
 

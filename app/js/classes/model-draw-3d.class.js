@@ -129,7 +129,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, fo
                  x=XY.x;
                  x=XY.y;*/
 
-                var position3D=new Position3D(x,z,y);
+                var position3D=new Position3D(x,y,z);
                 polygon3D.push(position3D);
 
             }
@@ -146,8 +146,8 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, fo
     }
 
     var rotations=[
-        {deg:slope, vector:[1, 0, 0]},
-        {deg:rotation+45, vector:[0, -1, 0]}
+        {deg:slope-90, vector:[1, 0, 0]},
+        {deg:rotation+45, vector:[0, 0, -1]}
     ];
 
 
