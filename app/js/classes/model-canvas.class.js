@@ -91,13 +91,13 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-plus').click(function(){
         self.zoom+=0.2;
-        self.draw();
+        self.redraw();
     });
 
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-minus').click(function(){
         self.zoom-=0.2;
-        self.draw();
+        self.redraw();
     });
 
 
