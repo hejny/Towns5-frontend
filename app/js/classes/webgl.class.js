@@ -442,8 +442,8 @@ WebGL.prototype.drawScene = function() {
 //
 WebGL.prototype.initShaders = function() {
     
-    var fragmentShader = this.getShader("shader-fs");
-    var vertexShader = this.getShader("shader-vs");
+    var fragmentShader = this.getShader('x-shader/x-fragment');
+    var vertexShader = this.getShader('x-shader/x-vertex');
 
     // Create the shader program
 
@@ -476,35 +476,53 @@ WebGL.prototype.initShaders = function() {
 // Loads a shader program by scouring the current document,
 // looking for a script with the specified ID.
 //
-WebGL.prototype.getShader = function(id) {
-    var shaderScript = document.getElementById(id);//todo Shaders in JS?
+WebGL.prototype.getShader = function(type) {
 
-    // Didn't find an element with the specified ID; abort.
-    if (!shaderScript) {
-        return null;
-    }
+    var shader,theSource;
 
-    // Walk through the source element's children, building the
-    // shader source string.
-    var theSource = "";
-    var currentChild = shaderScript.firstChild;
+    if (type == "x-shader/x-fragment") {
+        theSource=`
+            varying highp vec2 vTextureCoord;
+            varying highp vec3 vLighting;
 
-    while(currentChild) {
-        if (currentChild.nodeType == 3) {
-            theSource += currentChild.textContent;
-        }
+            uniform sampler2D uSampler;
 
-        currentChild = currentChild.nextSibling;
-    }
+            void main(void) {
+                highp vec4 texelColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
 
-    // Now figure out what type of shader script we have,
-    // based on its MIME type.
-
-    var shader;
-
-    if (shaderScript.type == "x-shader/x-fragment") {
+                gl_FragColor = vec4(texelColor.rgb * vLighting, texelColor.a);
+            }
+        `;
         shader = this.gl.createShader(this.gl.FRAGMENT_SHADER);
-    } else if (shaderScript.type == "x-shader/x-vertex") {
+    } else if (type == "x-shader/x-vertex") {
+        theSource=`
+            attribute highp vec3 aVertexNormal;
+            attribute highp vec3 aVertexPosition;
+            attribute highp vec2 aTextureCoord;
+
+            uniform highp mat4 uNormalMatrix;
+            uniform highp mat4 uMVMatrix;
+            uniform highp mat4 uPMatrix;
+
+            varying highp vec2 vTextureCoord;
+            varying highp vec3 vLighting;
+
+            void main(void) {
+                gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+                vTextureCoord = aTextureCoord;
+
+                // Apply lighting effect
+
+                highp vec3 ambientLight = vec3(0.3, 0.3, 0.3);
+                highp vec3 directionalLightColor = vec3(0.8, 0.8, 0.8);
+                highp vec3 directionalVector = vec3(0, -1, 0);
+
+                highp vec4 transformedNormal = uNormalMatrix * vec4(aVertexNormal, 1.0);
+
+                highp float directional = max(dot(transformedNormal.xyz, directionalVector), 0.0);
+                vLighting = ambientLight + (directionalLightColor * directional);
+            }
+        `;
         shader = this.gl.createShader(this.gl.VERTEX_SHADER);
     } else {
         return null;  // Unknown shader type
