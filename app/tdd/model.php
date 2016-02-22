@@ -10,11 +10,6 @@
 <div id="model-canvases"></div>
 
 
-<?php
-require('../js/webgl/shaders.html');
-?>
-
-
 <script>
 
 
