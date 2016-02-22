@@ -294,11 +294,11 @@ WebGL.prototype.initTextures = function() {
 
 
     this.cubeTextures[0] = this.gl.createTexture();
-    this.handleTextureLoaded(textures[0], this.cubeTextures[0]);
+    this.handleTextureLoaded(Textures[0], this.cubeTextures[0]);
 
 
     this.cubeTextures[1] = this.gl.createTexture();
-    this.handleTextureLoaded(textures[1], this.cubeTextures[1]);
+    this.handleTextureLoaded(Textures[1], this.cubeTextures[1]);
 
 
 };
