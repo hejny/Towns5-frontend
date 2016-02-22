@@ -29,14 +29,12 @@ var WebGL  = function(gl,polygons,rotations){
     this.vertexPositionAttribute;
     this.vertexNormalAttribute;
     this.textureCoordAttribute;
-    this.perspectiveMatrix;
+    this.viewMatrix;
     
     this.cubeVertexIndicesGroups;*/
     
     
     if (this.gl) {
-
-        r('aaaaaaaaaaaa');
     
         this.gl.clearColor(0.0, 0.0, 0.0, 0.0);  // Clear to black, fully opaque
         this.gl.clearDepth(1.0);                 // Clear everything
@@ -229,7 +227,7 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     //---------------------------------------------Debug data
 
-     /**/
+     /*
      r('vertices',this.vertices);
      r('vertexNormals',this.vertexNormals);
      r('textureCoordinates',this.textureCoordinates);
@@ -332,14 +330,19 @@ WebGL.prototype.drawScene = function() {
     // ratio of 640:480, and we only want to see objects between 0.1 units
     // and 100 units away from the camera.
 
-    //this.perspectiveMatrix = makePerspective(45, 640.0/480.0, 0.1, 100.0);
-    //r(this.gl.canvas.width,this.gl.canvas.height);
-    this.perspectiveMatrix = makeOrtho(
+    /*this.viewMatrix = makePerspective(
+        45,
+        this.gl.canvas.width/this.gl.canvas.height,
+        0.1,
+        100.0
+    );/**/
+
+    this.viewMatrix = makeOrtho(
         this.gl.canvas.width/-200,
         this.gl.canvas.width/200,
         this.gl.canvas.height/-200,
         this.gl.canvas.height/200,
-        -10,10);
+        -10,10);/**/
 
     // Set the drawing position to the "identity" point, which is
     // the center of the scene.
@@ -563,7 +566,7 @@ WebGL.prototype.mvTranslate = function(v) {
 
 WebGL.prototype.setMatrixUniforms = function() {
     var pUniform = this.gl.getUniformLocation(this.shaderProgram, "uPMatrix");
-    this.gl.uniformMatrix4fv(pUniform, false, new Float32Array(this.perspectiveMatrix.flatten()));
+    this.gl.uniformMatrix4fv(pUniform, false, new Float32Array(this.viewMatrix.flatten()));
 
     var mvUniform = this.gl.getUniformLocation(this.shaderProgram, "uMVMatrix");
     this.gl.uniformMatrix4fv(mvUniform, false, new Float32Array(this.mvMatrix.flatten()));
