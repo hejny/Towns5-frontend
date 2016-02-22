@@ -145,8 +145,12 @@ Model.prototype.prepare3D = function(gl, s, x_begin, y_begin, rotation, slope, f
 
     }
 
+    var rotations=[
+        {rotation:slope, vector:[1, 0, 0]},
+        {rotation:rotation+45, vector:[0, -1, 0]}
+    ];
 
-    new WebGL(gl,polygons3D);
+    new WebGL(gl,polygons3D,rotations);
 
 
 
