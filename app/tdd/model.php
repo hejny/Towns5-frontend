@@ -489,6 +489,24 @@ require('../js/webgl/shaders.html');
                     "rotation": 0
                 },
                 {
+                    "link": "superfloor",
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 43*2
+                    },
+                    "rotation": 0
+                },
+                {
+                    "link": "superfloor",
+                    "position": {
+                        "x": 0,
+                        "y": 0,
+                        "z": 43*3
+                    },
+                    "rotation": 0
+                },
+                {
                     "name": "",
                     "shape": {
                         "type": "prism",
@@ -501,7 +519,7 @@ require('../js/webgl/shaders.html');
                     "position": {
                         "x": 0,
                         "y": 0,
-                        "z": 86
+                        "z": 43*4
                     },
                     "size": {
                         "x": 18,

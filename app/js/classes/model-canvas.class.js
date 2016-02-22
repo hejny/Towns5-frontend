@@ -123,7 +123,16 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
             self.rotation=(self.rotation-x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
-            self.draw();
+
+
+
+            self.webGL.rotations[1].deg=self.rotation+45;//todo better solution than 45
+            self.webGL.rotations[0].deg=self.slope;
+
+            self.webGL.drawScene();
+
+            //self.draw();
+
         },
         'stop': function(){
             $(this).css('left',drag_vars.x_original);
@@ -140,12 +149,12 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 ModelCanvas.prototype.setModel = function(model){
 
     this.model=model;
-    this.draw();
+    this.redraw();
 
 };
 
 
-ModelCanvas.prototype.draw = function(model){
+ModelCanvas.prototype.redraw = function(model){
 
     var size=Math.pow(Math.E,this.zoom);
 
@@ -157,7 +166,7 @@ ModelCanvas.prototype.draw = function(model){
 
 
     //this.gl.clearRect(0, 0, this.width, this.height);
-    this.model.prepare3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
+    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
 
 
     /*if(is(this.selected_path)){
@@ -174,7 +183,7 @@ ModelCanvas.prototype.draw = function(model){
 
 
 
-ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
+/*ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
 
     var self=this;
     setInterval(
@@ -183,4 +192,4 @@ ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
         },ms
     );
 
-};
+};*/

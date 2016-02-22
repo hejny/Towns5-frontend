@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Model.prototype.prepare3D = function(gl, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
+Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
 
 
     //force_color=cParam(force_color,false);
@@ -150,10 +150,8 @@ Model.prototype.prepare3D = function(gl, s, x_begin, y_begin, rotation, slope, f
         {deg:rotation+45, vector:[0, -1, 0]}
     ];
 
-    new WebGL(gl,polygons3D,rotations);
 
-
-
+    return new WebGL(gl,polygons3D,rotations);
 
 
     //-------------------------------------
@@ -162,12 +160,3 @@ Model.prototype.prepare3D = function(gl, s, x_begin, y_begin, rotation, slope, f
 
 
 };
-
-
-
-
-Model.prototype.update3D = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
-
-
-
-}
