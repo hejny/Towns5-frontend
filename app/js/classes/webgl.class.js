@@ -38,7 +38,7 @@ var WebGL  = function(gl,polygons,rotations){
 
         r('aaaaaaaaaaaa');
     
-        this.gl.clearColor(0.1, 0.1, 0.1, 1.0);  // Clear to black, fully opaque
+        this.gl.clearColor(0.0, 0.0, 0.0, 0.0);  // Clear to black, fully opaque
         this.gl.clearDepth(1.0);                 // Clear everything
         this.gl.enable(this.gl.DEPTH_TEST);           // Enable depth testing
         this.gl.depthFunc(this.gl.LEQUAL);            // Near things obscure far things
