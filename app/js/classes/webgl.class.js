@@ -71,11 +71,11 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     var self=this;
 
-    //-------------------------
+    //---------------------------------------------Creating empty arrays for rendring
 
 
     // Now create an array of vertices for the cube.
-    var vertices = [/*
+    this.vertices = [/*
      -1.0, 1.0, -1.0,
      -1.0, 1.0, 1.0,
      1.0, 1.0, 1.0,
@@ -83,14 +83,14 @@ WebGL.prototype.initBuffers = function(polygons) {
      */];
 
 
-    var vertexNormals = [/*
+    this.vertexNormals = [/*
      0.0, 1.0, 0.0,
      0.0, 1.0, 0.0,
      0.0, 1.0, 0.0,
      0.0, 1.0, 0.0
      */];
 
-    var textureCoordinates = [/*
+    this.textureCoordinates = [/*
      0.0, 0.0,
      1.0, 0.0,
      1.0, 1.0,
@@ -107,18 +107,49 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     this.cubeVertexIndicesGroups=[];
 
+    //---------------------------------------------Adding test polygons
+
+
+    /*addPolygon([
+     {x:-100,y:-100,z:0},
+     {x:-100,y:100,z:0},
+     {x:100,y:100,z:0},
+     {x:150,y:-100,z:0},
+     {x:100,y:-150,z:0},
+
+
+     ],0);
+
+     addPolygon([
+     {x:-100,y:-100,z:100},
+     {x:-100,y:100,z:100},
+     {x:100,y:100,z:100},
+     {x:100,y:-100,z:100},
+
+     ],1);
+
+     addPolygon([
+     {x:-100,y:-100,z:-50},
+     {x:-100,y:100,z:-50},
+     {x:100,y:100,z:-50},
+     {x:100,y:-100,z:-50},
+
+     ],1);*/
+
+    //---------------------------------------------Adding polygons data
 
     polygons.forEach(function(polygon){
     
 
 
-        var i = vertices.length/3;
+        var i = self.vertices.length/3;
 
 
         if(polygon.shape.length>=3){
 
-            vector_ab={};
-            vector_ac={};
+            var vector_ab={};
+            var vector_ac={};
+            var vector_normal={};
 
             vector_ab.x = polygon.shape[0].x-polygon.shape[1].x;
             vector_ab.y = polygon.shape[0].y-polygon.shape[1].y;
@@ -196,42 +227,16 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     });
 
-    //-------------------------
+    //---------------------------------------------Debug data
 
-
-    /*addPolygon([
-     {x:-100,y:-100,z:0},
-     {x:-100,y:100,z:0},
-     {x:100,y:100,z:0},
-     {x:150,y:-100,z:0},
-     {x:100,y:-150,z:0},
-
-
-     ],0);
-
-     addPolygon([
-     {x:-100,y:-100,z:100},
-     {x:-100,y:100,z:100},
-     {x:100,y:100,z:100},
-     {x:100,y:-100,z:100},
-
-     ],1);
-
-     addPolygon([
-     {x:-100,y:-100,z:-50},
-     {x:-100,y:100,z:-50},
-     {x:100,y:100,z:-50},
-     {x:100,y:-100,z:-50},
-
-     ],1);*/
-
-    /*r('vertices',vertices);
-     r('vertexNormals',vertexNormals);
-     r('textureCoordinates',textureCoordinates);
+     /**/
+     r('vertices',this.vertices);
+     r('vertexNormals',this.vertexNormals);
+     r('textureCoordinates',this.textureCoordinates);
      r('this.cubeVertexIndices',this.cubeVertexIndices);
-     r('this.cubeVertexIndicesGroups',this.cubeVertexIndicesGroups);*/
+     r('this.cubeVertexIndicesGroups',this.cubeVertexIndicesGroups);/**/
 
-    //-------------------------
+    //---------------------------------------------Processing polygons data
 
 
     // Create a buffer for the cube's vertices.
@@ -245,14 +250,14 @@ WebGL.prototype.initBuffers = function(polygons) {
     // Now pass the list of vertices into WebGL to build the shape. We
     // do this by creating a Float32Array from the JavaScript array,
     // then use it to fill the current vertex buffer.
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertices), this.gl.STATIC_DRAW);
 
     // Set up the normals for the vertices, so that we can compute lighting.
     this.cubeVerticesNormalBuffer = this.gl.createBuffer();
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.cubeVerticesNormalBuffer);
 
 
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertexNormals),
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertexNormals),
         this.gl.STATIC_DRAW);
 
     // Map the texture onto the cube's faces.
@@ -261,7 +266,7 @@ WebGL.prototype.initBuffers = function(polygons) {
 
 
 
-    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(textureCoordinates),
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.textureCoordinates),
         this.gl.STATIC_DRAW);
 
 
@@ -315,6 +320,9 @@ WebGL.prototype.handleTextureLoaded = function(image, texture) {
 // Draw the scene.
 //
 WebGL.prototype.drawScene = function() {
+
+    var self = this;
+
     
     // Clear the canvas before we start drawing on it.
     this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -347,7 +355,7 @@ WebGL.prototype.drawScene = function() {
 
 
     this.rotations.forEach(function(rotation){
-        this.mvRotate(rotation.deg, rotation.vector);
+        self.mvRotate(rotation.deg, rotation.vector);
     });
 
 
@@ -383,8 +391,8 @@ WebGL.prototype.drawScene = function() {
     var i=0;
     this.cubeVertexIndicesGroups.forEach(function(group){
 
-        this.gl.bindTexture(this.gl.TEXTURE_2D, this.cubeTextures[group.texture]);
-        this.gl.drawElements(this.gl.TRIANGLES, group.count, this.gl.UNSIGNED_SHORT, i*2);
+        self.gl.bindTexture(self.gl.TEXTURE_2D, self.cubeTextures[group.texture]);
+        self.gl.drawElements(self.gl.TRIANGLES, group.count, self.gl.UNSIGNED_SHORT, i*2);
 
         i+=group.count;
 
@@ -532,7 +540,7 @@ WebGL.prototype.multMatrix = function(m) {
 };
 
 WebGL.prototype.mvTranslate = function(v) {
-    multMatrix(Matrix.Translation($V([v[0], v[1], v[2]])).ensure4x4());
+    this.multMatrix(Matrix.Translation($V([v[0], v[1], v[2]])).ensure4x4());
 };
 
 WebGL.prototype.setMatrixUniforms = function() {
@@ -570,5 +578,5 @@ WebGL.prototype.mvPopMatrix = function() {
 WebGL.prototype.mvRotate = function(angle, v) {
     var inRadians = angle * Math.PI / 180.0;
     var m = Matrix.Rotation(inRadians, $V([v[0], v[1], v[2]])).ensure4x4();
-    multMatrix(m);
+    this.multMatrix(m);
 };
