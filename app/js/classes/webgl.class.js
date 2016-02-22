@@ -4,9 +4,12 @@
  */
 //======================================================================================================================
 
-var WebGL  = function(canvas){
-    
-    //this.this.gl=canvasgetContext('webthis.gl');
+var WebGL  = function(gl,polygons,rotations){
+
+    this.gl=gl;
+    this.polygons=gl;
+    this.rotations=rotations;
+    //this.gl=canvasgetContext('webthis.gl');
     
     /*this.cubeVerticesBuffer;
     this.cubeVerticesTextureCoordBuffer;
@@ -32,7 +35,8 @@ var WebGL  = function(canvas){
     
     
     if (this.gl) {
-    
+
+        r('aaaaaaaaaaaa');
     
         this.gl.clearColor(0.1, 0.1, 0.1, 1.0);  // Clear to black, fully opaque
         this.gl.clearDepth(1.0);                 // Clear everything
@@ -45,7 +49,7 @@ var WebGL  = function(canvas){
     
         // Here's where we call the routine that builds all the objects
         // we'll be drawing.
-        this.initBuffers();
+        this.initBuffers(polygons);
     
         // Next, load and set up the textures we'll be using.
         this.initTextures();
@@ -64,6 +68,8 @@ var WebGL  = function(canvas){
 // one object -- a simple two-dimensional cube.
 //
 WebGL.prototype.initBuffers = function(polygons) {
+
+    var self=this;
 
     //-------------------------
 
@@ -95,29 +101,32 @@ WebGL.prototype.initBuffers = function(polygons) {
     // This array defines each face as two triangles, using the
     // indices into the vertex array to specify each triangle's
     // position.
-    var cubeVertexIndices = [/*
+    this.cubeVertexIndices = [/*
      0, 1, 2, 0, 2, 3
      */];
 
     this.cubeVertexIndicesGroups=[];
 
-    var addPolygon = function(polygon,texture){//TODO 1
+
+    polygons.forEach(function(polygon){
+    
+
 
         var i = vertices.length/3;
 
 
-        if(polygon.length>=3){
+        if(polygon.shape.length>=3){
 
             vector_ab={};
             vector_ac={};
 
-            vector_ab.x = polygon[0].x-polygon[1].x;
-            vector_ab.y = polygon[0].y-polygon[1].y;
-            vector_ab.z = polygon[0].z-polygon[1].z;
+            vector_ab.x = polygon.shape[0].x-polygon.shape[1].x;
+            vector_ab.y = polygon.shape[0].y-polygon.shape[1].y;
+            vector_ab.z = polygon.shape[0].z-polygon.shape[1].z;
 
-            vector_ac.x = polygon[0].x-polygon[2].x;
-            vector_ac.y = polygon[0].y-polygon[2].y;
-            vector_ac.z = polygon[0].z-polygon[2].z;
+            vector_ac.x = polygon.shape[0].x-polygon.shape[2].x;
+            vector_ac.y = polygon.shape[0].y-polygon.shape[2].y;
+            vector_ac.z = polygon.shape[0].z-polygon.shape[2].z;
 
             vector_normal.x = vector_ab.y*vector_ac.z - vector_ab.z*vector_ac.y;
             vector_normal.y = vector_ab.z*vector_ac.x - vector_ab.x*vector_ac.z;
@@ -140,24 +149,24 @@ WebGL.prototype.initBuffers = function(polygons) {
 
 
 
-        polygon.forEach(function(point,point_i){
+        polygon.shape.forEach(function(point,point_i){
 
-            vertices.push(point.x/100,point.y/100,point.z/100);
+            self.vertices.push(point.x/100,point.y/100,point.z/100);
 
-            vertexNormals.push(vector_normal.x,vector_normal.y,vector_normal.z);
+            self.vertexNormals.push(vector_normal.x,vector_normal.y,vector_normal.z);
 
             switch(point_i%4) {
                 case 0:
-                    textureCoordinates.push(0,0);
+                    self.textureCoordinates.push(0,0);
                     break;
                 case 1:
-                    textureCoordinates.push(1,0);
+                    self.textureCoordinates.push(1,0);
                     break;
                 case 2:
-                    textureCoordinates.push(1,1);
+                    self.textureCoordinates.push(1,1);
                     break;
                 case 3:
-                    textureCoordinates.push(0,1);
+                    self.textureCoordinates.push(0,1);
                     break;
 
             }
@@ -167,31 +176,24 @@ WebGL.prototype.initBuffers = function(polygons) {
 
         var count=0;
 
-        for(var nn=1;nn<=polygon.length-2;nn++){
+        for(var nn=1;nn<=polygon.shape.length-2;nn++){
 
-            cubeVertexIndices.push(i+0);
-            cubeVertexIndices.push(i+nn);
-            cubeVertexIndices.push(i+nn+1);
+            self.cubeVertexIndices.push(i+0);
+            self.cubeVertexIndices.push(i+nn);
+            self.cubeVertexIndices.push(i+nn+1);
 
             count+=3;
 
         }
 
 
-        this.cubeVertexIndicesGroups.push({
+        self.cubeVertexIndicesGroups.push({
             count: count,
-            texture: texture
+            texture: polygon.texture
         });
 
+        
 
-    };
-
-    //-------------------------TODO 2
-
-    
-    polygons.forEach(function(polygon){
-
-        self.addPolygon(polygon.shape,polygon.texture);
     });
 
     //-------------------------
@@ -226,7 +228,7 @@ WebGL.prototype.initBuffers = function(polygons) {
     /*r('vertices',vertices);
      r('vertexNormals',vertexNormals);
      r('textureCoordinates',textureCoordinates);
-     r('cubeVertexIndices',cubeVertexIndices);
+     r('this.cubeVertexIndices',this.cubeVertexIndices);
      r('this.cubeVertexIndicesGroups',this.cubeVertexIndicesGroups);*/
 
     //-------------------------
@@ -272,7 +274,7 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     // Now send the element array to GL
     this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER,
-        new Uint16Array(cubeVertexIndices), this.gl.STATIC_DRAW);
+        new Uint16Array(this.cubeVertexIndices), this.gl.STATIC_DRAW);
 
 
 
@@ -342,8 +344,11 @@ WebGL.prototype.drawScene = function() {
     // Save the current matrix, then rotate before we draw.
 
     this.mvPushMatrix();
-    this.mvRotate(thsi.slope, [1, 0, 0]);//todo rotations
-    this.mvRotate(rotation+45, [0, -1, 0]);
+
+
+    this.rotations.forEach(function(rotation){
+        this.mvRotate(rotation.deg, rotation.vector);
+    });
 
 
     // Draw the cube by binding the array buffer to the cube's vertices
