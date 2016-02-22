@@ -2,7 +2,7 @@
 
 <?php
     $title='model';
-    $inits=array('prototypes.init.js');
+    $inits=array('prototypes.init.js','textures.init.js');
     require('init.php');
 ?>
 
@@ -613,15 +613,6 @@
 
     /**/
 
-
-    var textures=[];
-
-    textures[0] = new Image();
-    textures[0].src = "/media/image/textures/stone.jpg";
-
-
-    textures[1] = new Image();
-    textures[1].src = "/media/image/textures/wood.png";
 
 
 </script>
