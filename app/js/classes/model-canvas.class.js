@@ -84,7 +84,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     `);
 
-    this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
+    this.gl=this.editor.find('.model-canvas-canvas')[0].getContext('webgl');
 
 
     var self=this;
@@ -156,8 +156,8 @@ ModelCanvas.prototype.draw = function(model){
     }
 
 
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw3D(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
+    //this.gl.clearRect(0, 0, this.width, this.height);
+    this.model.prepare3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
 
 
     /*if(is(this.selected_path)){
@@ -166,7 +166,7 @@ ModelCanvas.prototype.draw = function(model){
         //r(this);
         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
-        block_choosen.draw3D(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
+        block_choosen.draw3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
 
     }*/
 
