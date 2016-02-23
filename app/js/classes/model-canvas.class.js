@@ -183,13 +183,13 @@ ModelCanvas.prototype.redraw = function(model){
 
 
 
-/*ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
+ModelCanvas.prototype.redrawAsync = function(model, ms=IMMEDIATELY_MS){
 
     var self=this;
     setInterval(
         function(){
-            self.draw(model);
+            self.redraw(model);
         },ms
     );
 
-};*/
+};
