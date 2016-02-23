@@ -163,7 +163,7 @@ T.Plugins.install(new T.Editor(
 
 
             model_canvas.selected_path = block_selected_path;
-            model_canvas.drawAsync();
+            model_canvas.redrawAsync();
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-' + i).addClass('selected');
