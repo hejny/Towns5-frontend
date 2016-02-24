@@ -136,7 +136,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, fo
 
             polygons3D.push({
                 shape: polygon3D,
-                texture: 0
+                texture: 'stone'
             });
 
 

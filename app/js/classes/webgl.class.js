@@ -316,16 +316,14 @@ WebGL.prototype.initBuffers = function(polygons) {
 // the job; it gets called each time a texture finishes loading.
 //
 WebGL.prototype.initTextures = function() {
-    var self=this;
 
-    Textures.forEach(function(Texture,i){
+    for(var key in Textures){
 
-        self.cubeTextures[i] = self.gl.createTexture();
-        self.handleTextureLoaded(Texture, self.cubeTextures[i]);
+        this.cubeTextures[key] = this.gl.createTexture();
+        this.handleTextureLoaded(Textures[key], this.cubeTextures[key]);
 
 
-    });
-
+    };
 
 };
 
