@@ -4,12 +4,15 @@
  */
 //======================================================================================================================
 
-var Textures=[];
+var Textures={};
 
-Textures[0] = new Image();
-Textures[0].src = "/media/image/textures/stone.jpg";
+Textures.shadow = new Image();
+Textures.shadow.src = "/media/image/textures/stone.jpg";
+
+Textures.stone = new Image();
+Textures.stone.src = "/media/image/textures/stone.jpg";
 
 
-Textures[1] = new Image();
-Textures[1].src = "/media/image/textures/wood.png";
+Textures.wood = new Image();
+Textures.wood.src = "/media/image/textures/wood.png";
 
