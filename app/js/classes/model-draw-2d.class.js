@@ -13,32 +13,53 @@
  * @param {number} rotation 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
  * @param {string} force color - format #ff00ff //todo maybe delete
- * @param {boolean} selected - display blue highlight around model
+ * todo update
  */
-Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, shadow=false) {
+Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, shadow=false, cache=false) {
+
+    /*if(cache){
+        cache+=s+(rotation%360)+(this.rotation%360)+this.size;//+md5(JSON.stringify(this));
+    }
 
 
-    width=300;
-    height=300;
-
-    var self=this;
-    var canvas = createCanvasViaFunction(width,height,function(gl){
+    if(cache==false || !isDefined(ImageCache[cache])) {*/
 
 
-        //r(self);
-        var webGL = self.create3D(gl, s, x_begin, y_begin, rotation, slope, force_color, selected, shadow);
-        webGL = null;//removes unused webGL container
-        delete webGL;
+        width = 300;
+        height = 300;
+
+        var self = this;
+        var canvas = createCanvasViaFunction(width, height, function (gl) {
 
 
-    },'webgl');
+            //r(self);
+            var webGL = self.create3D(gl, s, x_begin, y_begin, rotation, slope, force_color, selected, shadow);
+            webGL = null;//removes unused webGL container
+            delete webGL;
+
+
+        }, 'webgl');
+
+        /*if(cache!==false){
+            r('Putting image into cache '+cache+'.');
+            ImageCache[cache]=canvas;
+        }
+
+
+    }else{
+
+        canvas=ImageCache[cache];
+
+    }*/
+
 
     ctx.drawImage(canvas,x_begin-(width/2),y_begin-(height/2));
 
 
-
-
 };
+
+
+var ImageCache = {};
 
 
 //======================================================================================================================
