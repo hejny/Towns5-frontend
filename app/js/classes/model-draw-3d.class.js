@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
+Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false, shadow=true) {
 
 
     //force_color=cParam(force_color,false);
@@ -151,7 +151,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, fo
     ];
 
 
-    return new WebGL(gl,polygons3D,rotations);
+    return new WebGL(gl,polygons3D,rotations,shadow);
 
 
     //-------------------------------------

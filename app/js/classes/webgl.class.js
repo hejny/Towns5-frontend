@@ -4,11 +4,12 @@
  */
 //======================================================================================================================
 
-var WebGL  = function(gl,polygons,rotations){
+var WebGL  = function(gl,polygons,rotations,shadow=false){
 
     this.gl=gl;
     this.polygons=gl;
     this.rotations=rotations;
+    this.shadow=shadow;
     //this.gl=canvasgetContext('webthis.gl');
     
     /*this.cubeVerticesBuffer;
@@ -161,92 +162,108 @@ WebGL.prototype.initBuffers = function(polygons) {
 
     //---------------------------------------------Adding polygons data
 
-    polygons.forEach(function(polygon){
-    
+    var materials=['solid'];
+    if(this.shadow){
+        materials.push('shadow');
+    }
 
+    materials.forEach(function(material){
 
-        var i = self.vertices.length/3;
-
-
-        if(polygon.shape.length>=3){
-
-            var vector_ab={};
-            var vector_ac={};
-            var vector_normal={};
-
-            vector_ab.x = polygon.shape[0].x-polygon.shape[1].x;
-            vector_ab.y = polygon.shape[0].y-polygon.shape[1].y;
-            vector_ab.z = polygon.shape[0].z-polygon.shape[1].z;
-
-            vector_ac.x = polygon.shape[0].x-polygon.shape[2].x;
-            vector_ac.y = polygon.shape[0].y-polygon.shape[2].y;
-            vector_ac.z = polygon.shape[0].z-polygon.shape[2].z;
-
-            vector_normal.x = vector_ab.y*vector_ac.z - vector_ab.z*vector_ac.y;
-            vector_normal.y = vector_ab.z*vector_ac.x - vector_ab.x*vector_ac.z;
-            vector_normal.z = vector_ab.x*vector_ac.y - vector_ab.y*vector_ac.x;
-
-            var distance = Math.sqrt(
-                Math.pow(vector_normal.x,2)+
-                Math.pow(vector_normal.y,2)+
-                Math.pow(vector_normal.z,2));
-
-            vector_normal.x = vector_normal.x/distance;
-            vector_normal.y = vector_normal.y/distance;
-            vector_normal.z = vector_normal.z/distance;
-
-        }else{
-
-            vector_normal={x:0,y:1,z:0};
-
-        }
+        polygons.forEach(function(polygon){
 
 
 
-        polygon.shape.forEach(function(point,point_i){
+            var i = self.vertices.length/3;
 
-            self.vertices.push(point.x/100,point.y/100,point.z/100);
 
-            self.vertexNormals.push(vector_normal.x,vector_normal.y,vector_normal.z);
+            if(polygon.shape.length>=3 && material=='solid'){
 
-            switch(point_i%4) {
-                case 0:
-                    self.textureCoordinates.push(0,0);
-                    break;
-                case 1:
-                    self.textureCoordinates.push(1,0);
-                    break;
-                case 2:
-                    self.textureCoordinates.push(1,1);
-                    break;
-                case 3:
-                    self.textureCoordinates.push(0,1);
-                    break;
+                var vector_ab={};
+                var vector_ac={};
+                var vector_normal={};
+
+                vector_ab.x = polygon.shape[0].x-polygon.shape[1].x;
+                vector_ab.y = polygon.shape[0].y-polygon.shape[1].y;
+                vector_ab.z = polygon.shape[0].z-polygon.shape[1].z;
+
+                vector_ac.x = polygon.shape[0].x-polygon.shape[2].x;
+                vector_ac.y = polygon.shape[0].y-polygon.shape[2].y;
+                vector_ac.z = polygon.shape[0].z-polygon.shape[2].z;
+
+                vector_normal.x = vector_ab.y*vector_ac.z - vector_ab.z*vector_ac.y;
+                vector_normal.y = vector_ab.z*vector_ac.x - vector_ab.x*vector_ac.z;
+                vector_normal.z = vector_ab.x*vector_ac.y - vector_ab.y*vector_ac.x;
+
+                var distance = Math.sqrt(
+                    Math.pow(vector_normal.x,2)+
+                    Math.pow(vector_normal.y,2)+
+                    Math.pow(vector_normal.z,2));
+
+                vector_normal.x = vector_normal.x/distance;
+                vector_normal.y = vector_normal.y/distance;
+                vector_normal.z = vector_normal.z/distance;
+
+            }else{
+
+                vector_normal={x:0,y:1,z:0};
 
             }
 
+
+
+            polygon.shape.forEach(function(point,point_i){
+
+                var point_=deepCopy(point);
+                if(material=='shadow'){
+                    point_.x+=point_.z;
+                    point_.y+=point_.z;
+                    point_.z=0;
+                }
+
+                self.vertices.push(point_.x/100,point_.y/100,point_.z/100);
+
+                self.vertexNormals.push(vector_normal.x,vector_normal.y,vector_normal.z);
+
+                switch(point_i%4) {
+                    case 0:
+                        self.textureCoordinates.push(0,0);
+                        break;
+                    case 1:
+                        self.textureCoordinates.push(1,0);
+                        break;
+                    case 2:
+                        self.textureCoordinates.push(1,1);
+                        break;
+                    case 3:
+                        self.textureCoordinates.push(0,1);
+                        break;
+
+                }
+
+            });
+
+
+            var count=0;
+
+            for(var nn=1;nn<=polygon.shape.length-2;nn++){
+
+                self.cubeVertexIndices.push(i+0);
+                self.cubeVertexIndices.push(i+nn);
+                self.cubeVertexIndices.push(i+nn+1);
+
+                count+=3;
+
+            }
+
+
+            self.cubeVertexIndicesGroups.push({
+                count: count,
+                texture: material=='shadow'?'shadow':polygon.texture
+            });
+
+
+
         });
-
-
-        var count=0;
-
-        for(var nn=1;nn<=polygon.shape.length-2;nn++){
-
-            self.cubeVertexIndices.push(i+0);
-            self.cubeVertexIndices.push(i+nn);
-            self.cubeVertexIndices.push(i+nn+1);
-
-            count+=3;
-
-        }
-
-
-        self.cubeVertexIndicesGroups.push({
-            count: count,
-            texture: polygon.texture
-        });
-
-        
 
     });
 

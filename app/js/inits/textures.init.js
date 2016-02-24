@@ -7,7 +7,8 @@
 var Textures={};
 
 Textures.shadow = new Image();
-Textures.shadow.src = "/media/image/textures/stone.jpg";
+Textures.shadow.src = "/media/image/textures/shadow.png";
+
 
 Textures.stone = new Image();
 Textures.stone.src = "/media/image/textures/stone.jpg";
