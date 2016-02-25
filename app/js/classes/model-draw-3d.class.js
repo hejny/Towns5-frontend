@@ -5,15 +5,7 @@
 //======================================================================================================================
 
 
-Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false, shadow=true) {
-
-
-    //force_color=cParam(force_color,false);
-    //todo delat kontrolu vstupnich parametru u funkci???
-
-
-
-
+Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, simple=false, shadow=true) {
 
 
     //var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
@@ -75,30 +67,6 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, fo
 
 
     });
-
-    //"use strict"//delete this_;//todo deep delete
-
-
-    //r(resource);
-
-    //------------------------Prirazeni barev a cisel castecek k polygonum pred serazenim //todo delete
-
-    if(force_color==false){
-
-        for(var i= 0,l=resource.polygons.length;i<l;i++){
-
-            resource.polygons[i].color=resource.colors[i];
-            resource.polygons[i].particle=resource.particles[i];
-        }
-
-    }else{
-
-        var color = force_color;
-        color = hexToRgb(color);
-
-    }
-
-    //r(resource);
 
 
     //==========================================================================================Draw
