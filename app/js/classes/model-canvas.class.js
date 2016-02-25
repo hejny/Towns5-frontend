@@ -166,7 +166,7 @@ ModelCanvas.prototype.redraw = function(model){
 
 
     //this.gl.clearRect(0, 0, this.width, this.height);
-    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple,false);
+    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, selected, this.simple,false);
 
 
     /*if(is(this.selected_path)){
