@@ -76,7 +76,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
         BuildingImages[file_url_key]= new Image();
 
 
-        $.ajax({
+        /*$.ajax({
             url: file_url,
             method: 'GET'
         }).done(function(result){
@@ -90,7 +90,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
 
             //r('fail',result);
 
-            r('Generating new image and sending to cache.');
+            r('Generating new image and sending to cache.');*/
 
 
 
@@ -110,7 +110,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
 
 
 
-            $.ajax({
+            /*$.ajax({
                 url: file_url,
                 method: 'POST',
                 data: {
@@ -123,7 +123,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
             });
 
 
-        });
+        });*/
 
     }
 
@@ -165,11 +165,9 @@ Model.prototype.createIcon = function(size){
     var rotation=0;
     var slope=30;
 
+    var image = this.createCacheLocalImage(rotation, slope);
 
-    this.createCacheLocalImage(rotation, slope);
-
-    var file_url=this.cacheURL(rotation, slope)+'&image';
-    return(file_url);
+    return(image.src);
 };
 
 

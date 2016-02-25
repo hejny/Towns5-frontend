@@ -25,7 +25,7 @@ if($method=='GET'){
 
     if(file_exists($file)){
 
-        header("Cache-Control: max-age=2592000");
+        //header("Cache-Control: max-age=2592000");
 
         if(isset($_GET['image'])){
 
