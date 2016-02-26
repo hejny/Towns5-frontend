@@ -8,9 +8,10 @@ $(function(){
 
     selecting_distance_canvas = document.getElementById('selecting-distance');
     selecting_distance_canvas_ctx = selecting_distance_canvas.getContext('2d');
+    //selecting_distance_canvas_gl = selecting_distance_canvas.getContext('webgl');
 
 
-    window.updateSelectingDistance= function() {//todo all as this
+    window.updateSelectingDistance= function() {//todo to static object
 
         if(selecting_distance<100)selecting_distance=100;
         if(selecting_distance>10000)selecting_distance=10000;
