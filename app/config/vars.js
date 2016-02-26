@@ -34,6 +34,8 @@ var objects_external_move=[];//Moving objects
 
 var selecting_distance_canvas;
 var selecting_distance_canvas_ctx;
+var selecting_distance_canvas_gl;
+//var selecting_distance_canvas_webgl;
 
 //-------------------------
 

@@ -13,6 +13,13 @@
 var forceJoining=false;
 
 
+var selecting_distance_3D_canvas;
+var selecting_distance_3D_gl;
+
+
+
+var selecting_distance_3D_webgl;
+
 //BUILDING
 function buildingStart(prototypeId){
 
@@ -35,7 +42,26 @@ function buildingStart(prototypeId){
 
     //$('#selecting-distance').scss('border',2);
 
-    buildingUpdate();
+
+    //selecting_distance_3D_webgl = /*building*/object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
+
+
+    selecting_distance_3D_canvas=window.document.createElement('canvas');
+    selecting_distance_3D_canvas.width=500;
+    selecting_distance_3D_canvas.height=500;
+    selecting_distance_3D_gl=selecting_distance_3D_canvas.getContext('webgl');
+
+
+
+    object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1, 150, 150, 0,30 , true, false);
+
+    selecting_distance_canvas_ctx.drawImage(selecting_distance_3D_canvas,0,0);
+
+
+
+
+
+    //buildingUpdate();
     //r(building.res);
 
 
@@ -70,7 +96,12 @@ function buildingUpdate(object) {
     if(join===false || true){
         //------------------------------------------------------------Normal building
 
-            building.design.data.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
+
+            //selecting_distance_canvas_webgl.rotations[1].deg=45;//todo better solution than 45
+            //selecting_distance_canvas_webgl.drawScene();
+
+
+            //building.design.data.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
             //,building.subtype=='block'?selected_color:false
 
         //------------------------------------------------------------

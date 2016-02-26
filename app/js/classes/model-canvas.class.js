@@ -6,14 +6,13 @@
 
 
 
-var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope,simple=true){
+var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope){//todo delete simple in usages - deleted param
 
     this.rotation=rotation;
     this.slope=slope;
     this.zoom=zoom;
     this.width=width;
     this.height=height;
-    this.simple=simple;
     this.selected_path=false;
     this.x=x;
     this.y=y;
@@ -166,7 +165,7 @@ ModelCanvas.prototype.redraw = function(model){
 
 
     //this.gl.clearRect(0, 0, this.width, this.height);
-    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, selected, this.simple,false);
+    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, selected,false);
 
 
     /*if(is(this.selected_path)){

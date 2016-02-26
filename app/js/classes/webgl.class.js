@@ -583,7 +583,7 @@ WebGL.prototype.getShader = function(type) {
     // See if it compiled successfully
 
     if (!this.gl.getShaderParameter(shader, this.gl.COMPILE_STATUS)) {
-        alert("An error occurred compiling the shaders: " + this.gl.getShaderInfoLog(shader));
+        alert("An error occurred compiling the "+type+" shader: " + this.gl.getShaderInfoLog(shader));
         return null;
     }
 
