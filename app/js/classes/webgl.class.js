@@ -215,8 +215,8 @@ WebGL.prototype.initBuffers = function(polygons) {
 
                 var point_=deepCopy(point);
                 if(material=='shadow'){
-                    point_.x+=point_.z;
-                    point_.y+=point_.z;
+                    point_.x+=point_.z*0.5;
+                    point_.y+=point_.z*0.5;
                     point_.z=0;
                 }
 

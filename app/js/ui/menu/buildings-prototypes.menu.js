@@ -61,18 +61,16 @@ function buildingUpdate(object) {
 
     //r('buildingUpdate');
 
-    selecting_distance_canvas_ctx.clearRect(0, 0, selecting_size.x, selecting_size.y);
-
 
 
     var join=createNewOrJoin(building);
 
 
 
-    if(join===false){
+    if(join===false || true){
         //------------------------------------------------------------Normal building
 
-            building.design.data.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,building.id);
+            building.design.data.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
             //,building.subtype=='block'?selected_color:false
 
         //------------------------------------------------------------

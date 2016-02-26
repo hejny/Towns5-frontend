@@ -34,26 +34,59 @@ function IsImageOk(img) {
  * @param {number} slope 0-90 Angle in degrees
  * todo update
  */
-Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, slope, selected=false, shadow=false,callback=false) {
+Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, slope, selected=false, shadow=false,clearBefore=false) {
 
-    width = 300;
-    height = 300;
+    width = 500/*500*2*s*this.size*/;
+    height = 500/*500*2*s*this.size*/;
 
-    var image = this.createCacheLocalImage(rotation, slope);
+    var image = this.createCacheLocalImage(s , rotation, slope);
+
+
+    var draw = function(){
+
+
+        /*CanvasRenderingContext2D.prototype.drawImageAntialias = function(image,x,y,width,height){
+
+            // step 1 - create off-screen canvas
+            var oc   = document.createElement('canvas'),
+                octx = oc.getContext('2d');
+
+
+            octx.drawImage(image, 0, 0, width, height);
+
+
+            //Step 2 reuses the off-screen canvas and draws the image reduced to half again:
+            octx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5);
+
+
+            // step 3 - And we draw once more to main canvas, again reduced to half but to the final size:
+            ctx.drawImage(oc, 0, 0, oc.width * 0.5, oc.height * 0.5,
+                0, 0, canvas.width,   canvas.height);
+
+        };*/
+
+
+        if(clearBefore){
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
+
+        ctx.imageSmoothingEnabled = true;
+        ctx.mozImageSmoothingEnabled = true;
+        ctx.drawImage(image,x_begin-(width/2),y_begin-(height/2),width,height);
+        //if(callback)callback();
+
+
+
+
+    };
 
     if(IsImageOk(image)){
 
-        ctx.drawImage(image,x_begin-(width/2),y_begin-(height/2));
+        draw();
 
     }else{
 
-        image.onload = function(){
-
-
-            ctx.drawImage(image,x_begin-(width/2),y_begin-(height/2));
-            //if(callback)callback();
-
-        };
+        image.onload = draw;
 
     }
 
@@ -64,16 +97,15 @@ Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, s
 
 /** //todo update
  */
-Model.prototype.createCacheLocalImage = function(rotation, slope){
+Model.prototype.createCacheLocalImage = function(size, rotation, slope){
 
     var self = this;
 
-    var file_url=this.cacheURL(rotation, slope);
-    var file_url_key=md5(file_url);
+    var hash=this.cacheHash(size, rotation, slope);
 
-    if(!isDefined(BuildingImages[file_url_key])){
+    if(!isDefined(BuildingImages[hash])){
 
-        BuildingImages[file_url_key]= new Image();
+        BuildingImages[hash]= new Image();
 
 
         /*$.ajax({
@@ -83,7 +115,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
             //r('done',result);
 
             r('Loading image from server cache to local cache.');
-            BuildingImages[file_url_key].src = file_url+'&image';
+            BuildingImages[hash].src = file_url+'&image';
 
 
         }).fail(function(result){
@@ -98,7 +130,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
 
 
                 //r(self);
-                var webGL = self.create3D(gl, 1, 250, 250, rotation, slope, false, true);
+                var webGL = self.create3D(gl, size, 250, 250, rotation, slope, false, true);
                 webGL = null;//removes unused webGL container
                 delete webGL;
 
@@ -106,7 +138,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
             }, 'webgl');
 
 
-            BuildingImages[file_url_key].src = src;
+            BuildingImages[hash].src = src;
 
 
 
@@ -127,7 +159,7 @@ Model.prototype.createCacheLocalImage = function(rotation, slope){
 
     }
 
-    return(BuildingImages[file_url_key]);
+    return(BuildingImages[hash]);
 
 };
 
@@ -142,16 +174,17 @@ var BuildingImages={};
  * @param {number} size Size of returned image
  * @returns {string} image data in base64
  */
-Model.prototype.cacheURL = function(rotation, slope){
+Model.prototype.cacheHash = function(size, rotation, slope){
 
     var rotation=((rotation+this.rotation)%360);
     rotation=Math.round(rotation/15)*15;
+    
+    var size=(size+this.size);
+    size=Math.round(size/0.1)*0.1;
 
-    var hash = md5(JSON.stringify(this.particles));
-    var file_url=appDir+'/php/building-image.php?hash='+hash+'&rotation='+rotation/*(this.rotation%360)*/;
+    var hash = md5(JSON.stringify(this.particles)+' '+rotation+' '+size);
 
-
-    return(file_url);
+    return(hash);
 };
 
 
@@ -165,7 +198,7 @@ Model.prototype.createIcon = function(size){
     var rotation=0;
     var slope=30;
 
-    var image = this.createCacheLocalImage(rotation, slope);
+    var image = this.createCacheLocalImage( 1 , rotation, slope);
 
     return(image.src);
 };
