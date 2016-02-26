@@ -173,7 +173,7 @@ function createBuilding(object,callback){
     forceJoining=false;
 
 
-    if(join===false) {
+    if(join===false || true) {
         //------------------------------------------------------------Normal building
 
         object.id=generateID();
