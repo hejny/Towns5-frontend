@@ -13,13 +13,6 @@
 var forceJoining=false;
 
 
-var selecting_distance_3D_canvas;
-var selecting_distance_3D_gl;
-
-
-
-var selecting_distance_3D_webgl;
-
 //BUILDING
 function buildingStart(prototypeId){
 
@@ -30,37 +23,13 @@ function buildingStart(prototypeId){
     building.prototypeId=prototypeId;//todo should it be here?
     //r('buildingStart',building);
 
-
     forceJoining=false;
 
-    selecting_size={x: 300,y: 700};
-    selecting_offset={x: 150,y: 650};
+    /*selecting_size={x: 300,y: 700};
+    selecting_offset={x: 150,y: 650};*/
 
 
-    $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
-    $('#selecting-distance').attr('height',selecting_size.y);
-
-    //$('#selecting-distance').scss('border',2);
-
-
-    //selecting_distance_3D_webgl = /*building*/object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
-
-
-    selecting_distance_3D_canvas=window.document.createElement('canvas');
-    selecting_distance_3D_canvas.width=500;
-    selecting_distance_3D_canvas.height=500;
-    selecting_distance_3D_gl=selecting_distance_3D_canvas.getContext('webgl');
-
-
-
-    object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1, 150, 150, 0,30 , true, false);
-
-    selecting_distance_canvas_ctx.drawImage(selecting_distance_3D_canvas,0,0);
-
-
-
-
-
+    buildingRedraw();
     //buildingUpdate();
     //r(building.res);
 
@@ -82,8 +51,42 @@ function buildingStart(prototypeId){
 
 //---------------------------------------------------------------
 
+function buildingRedraw() {
 
-function buildingUpdate(object) {
+
+    selecting_size={x: 200,y: 200};
+    selecting_offset={x: 100,y: 100};
+
+
+    $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
+    $('#selecting-distance').attr('height',selecting_size.y);
+
+    //$('#selecting-distance').scss('border',2);
+
+
+    //selecting_distance_3D_webgl = /*building*/object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
+
+
+    $(selecting_distance_2d_canvas).hide();
+    $(selecting_distance_3d_canvas)
+        .attr('width',selecting_size.x)
+        .attr('height',selecting_size.y)
+        .show();
+
+    selecting_distance_3d_canvas_gl = selecting_distance_3d_canvas.getContext('webgl');
+
+    selecting_distance_3d_canvas_webgl = building.design.data.create3D(selecting_distance_3d_canvas_gl, map_zoom_m*2, 150, 150, 0,30 , true, false);
+
+
+
+}
+
+
+
+//---------------------------------------------------------------
+
+
+function buildingUpdate() {
 
     //r('buildingUpdate');
 
@@ -93,22 +96,30 @@ function buildingUpdate(object) {
 
 
 
-    if(join===false || true){
+    if(join===false/* || true*/){
         //------------------------------------------------------------Normal building
 
+            r(building.rotation);
+            selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//todo better solution than 45
+            selecting_distance_3d_canvas_webgl.drawScene();
 
-            //selecting_distance_canvas_webgl.rotations[1].deg=45;//todo better solution than 45
-            //selecting_distance_canvas_webgl.drawScene();
+
+            $(selecting_distance_3d_canvas).css('border','none');
 
 
-            //building.design.data.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
+            //building.design.data.drawCashedAsync(selecting_distance_2d_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
             //,building.subtype=='block'?selected_color:false
 
         //------------------------------------------------------------
     }else{
         //------------------------------------------------------------Join buildings
 
-            r('buildingUpdate');
+            selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//-building.design.data.rotation+90;//todo better solution than 45
+            selecting_distance_3d_canvas_webgl.drawScene();
+
+            $(selecting_distance_3d_canvas).css('border','2px solid #ff0000');
+
+            /*r('buildingUpdate');
 
 
             var tmpModel=deepCopyModel(objects_external[join.i].design.data);
@@ -127,7 +138,7 @@ function buildingUpdate(object) {
             $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
             $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
 
-            tmpModel.drawCashedAsync(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true);
+            tmpModel.drawCashedAsync(selecting_distance_2d_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true);*/
 
 
         //------------------------------------------------------------
