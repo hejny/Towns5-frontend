@@ -345,8 +345,11 @@ function tidyHTML($buffer) {
 <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
 
 
+<div id="selecting-distance">
+    <canvas id="selecting-distance-2d" width="100" height="50"></canvas>
+    <canvas id="selecting-distance-3d" width="100" height="50"></canvas>
+</div>
 
-<canvas id="selecting-distance" width="100" height="50"></canvas>
 
 
 <div id="selecting-distance-ctl" style="display: none;">
