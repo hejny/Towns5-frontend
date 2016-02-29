@@ -6,6 +6,7 @@
 
 TownsAPIOffline=function(){
 
+    this.online=false;
 };
 
 //======================================================================================================================
@@ -54,7 +55,7 @@ TownsAPIOffline.prototype.get = function(uri,query_data,callback_success,callbac
  */
 TownsAPIOffline.prototype.post = function(uri,object,callback_success,callback_error){
 
-    return this.query(uri,{},'POST',object,callback_success_wrapped,callback_error);
+    return this.query(uri,{},'POST',object,callback_success,callback_error);
 
 
 };
