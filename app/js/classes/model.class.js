@@ -161,12 +161,12 @@ Model.prototype.moveBy = function(move_x,move_y,move_z){
 //==================================================
 
 /**
- * Join models together
+ * Return Z of joining model
  * @param {object} Model
  * @param {number} move_x
  * @param {number} move_y
  */
-Model.prototype.joinModel = function(model,move_x,move_y){//todo second param should be position
+Model.prototype.joinModelZ = function(model,move_x,move_y){//todo second param should be position
 
     //var  model_=deepCopyModel(model);
     //model_.moveBy(move_x,move_y);//todo maybe delete moveBy
@@ -203,18 +203,32 @@ Model.prototype.joinModel = function(model,move_x,move_y){//todo second param sh
     }
 
     var max_z=Math.max.apply(Math,distances);
-    //max_z=max_z/2;
+
+    return max_z;
+
+};
+//==================================================
+
+/**
+ * Join models together
+ * @param {object} Model
+ * @param {number} move_x
+ * @param {number} move_y
+ */
+Model.prototype.joinModel = function(model,move_x,move_y){//todo second param should be position
+
+    var max_z=this.joinModelZ(model,move_x,move_y);
 
 
     this.particles=[
-            deepCopy(this),
-            deepCopy(model)
-        ];
+        deepCopy(this),
+        deepCopy(model)
+    ];
 
     this.particles[1].position={
-      x:move_x,
-      y:move_y,
-      z:max_z
+        x:move_x,
+        y:move_y,
+        z:max_z
     };
 
     this.rotation=0;

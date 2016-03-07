@@ -72,6 +72,28 @@ Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, s
 
         ctx.imageSmoothingEnabled = true;
         ctx.mozImageSmoothingEnabled = true;
+
+
+        if(selected){
+
+
+            var canvas_ = createCanvasViaFunction(width, height, function (ctx_) {
+
+
+                ctx_.drawImage(image,0,0,width,height);
+                ctx_.blur(5,1);
+                ctx_.newcolorImage(hexToRgb('0098FF'));
+                ctx_.multiplyAlphaImage(2);
+
+
+            }, '2d');
+
+            ctx.drawImage(canvas_,x_begin-(width/2),y_begin-(height/2),width,height);
+
+
+        }
+
+
         ctx.drawImage(image,x_begin-(width/2),y_begin-(height/2),width,height);
         //if(callback)callback();
 

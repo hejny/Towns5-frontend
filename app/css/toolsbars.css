@@ -18,8 +18,7 @@
 #selecting-distance {
   position: absolute;
   z-index: 3500;
-  cursor: crosshair;
-  border: 2px solid rgba(100, 100, 100, 0.5); }
+  cursor: crosshair; }
 
 #selecting-distance canvas {
   position: absolute; }

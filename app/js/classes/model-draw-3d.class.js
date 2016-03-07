@@ -16,6 +16,8 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
     var this_=deepCopyModel(this);
     //r(this_);
 
+    s=s*5;
+
     this_.addRotationSize(/*rotation+45*/0,s);
     //this_.compileRotationSize();
 
