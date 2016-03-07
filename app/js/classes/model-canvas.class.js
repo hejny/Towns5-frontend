@@ -120,7 +120,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
             drag_vars.x_last=x;
             drag_vars.y_last=y;
 
-            self.rotation=(self.rotation-x_delta)%360;
+            self.rotation=(self.rotation+x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
 
 
@@ -155,7 +155,7 @@ ModelCanvas.prototype.setModel = function(model){
 
 ModelCanvas.prototype.redraw = function(model){
 
-    var size=Math.pow(Math.E,this.zoom);
+    var size=Math.pow(Math.E,this.zoom)/2;//todo maybe better
 
     if(this.selected_path instanceof Array && this.selected_path.length==0){
         var selected=true;
