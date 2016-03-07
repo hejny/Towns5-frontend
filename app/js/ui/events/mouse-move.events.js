@@ -6,11 +6,16 @@
 
 $(function(){
 
-    selecting_distance_canvas = document.getElementById('selecting-distance');
-    selecting_distance_canvas_ctx = selecting_distance_canvas.getContext('2d');
+
+    selecting_distance_3d_canvas = document.getElementById('selecting-distance-3d');//todo move to other file
 
 
-    window.updateSelectingDistance= function() {//todo all as this
+    selecting_distance_2d_canvas = document.getElementById('selecting-distance-2d');//todo move to other file
+    selecting_distance_2d_canvas_ctx = selecting_distance_2d_canvas.getContext('2d');
+    //selecting_distance_2d_canvas_gl = selecting_distance_2d_canvas.getContext('webgl');
+
+
+    window.updateSelectingDistance= function() {//todo to static object
 
         if(selecting_distance<100)selecting_distance=100;
         if(selecting_distance>10000)selecting_distance=10000;
@@ -22,19 +27,22 @@ $(function(){
         var height=selecting_distance * map_zoom_m;
         var border=3;
 
-        $('#selecting-distance').attr('width',width+2*border);
-        $('#selecting-distance').attr('height',height+2*border);
+        $(selecting_distance_3d_canvas).hide();
+        $(selecting_distance_2d_canvas)
+            .attr('width',width+2*border)
+            .attr('height',height+2*border)
+            .show();
 
         selecting_offset.x=width/2-border;
         selecting_offset.y=height/2-border;
 
 
-        selecting_distance_canvas_ctx.clearRect ( 0 , 0 ,width+border , height+border );
+        selecting_distance_2d_canvas_ctx.clearRect ( 0 , 0 ,width+border , height+border );
 
-        selecting_distance_canvas_ctx.fillStyle = 'transparent';
-        selecting_distance_canvas_ctx.strokeStyle = '#0098ff';
-        selecting_distance_canvas_ctx.lineWidth = border;
-        selecting_distance_canvas_ctx.drawEllipse( border, border, width,height);
+        selecting_distance_2d_canvas_ctx.fillStyle = 'transparent';
+        selecting_distance_2d_canvas_ctx.strokeStyle = '#0098ff';
+        selecting_distance_2d_canvas_ctx.lineWidth = border;
+        selecting_distance_2d_canvas_ctx.drawEllipse( border, border, width,height);
 
 
     };
@@ -132,11 +140,12 @@ $(function(){
 
 
 
-        if(specialCursor) {//todo [PH] pouzivat if(specialCursor) misto if(terrainChanging || building) a podobnych blbosti...
+        if(specialCursor) {
 
 
             $('#selecting-distance').css('left', e.clientX - selecting_offset['x']);
             $('#selecting-distance').css('top', e.clientY - selecting_offset['y']);
+            $('#selecting-distance').attr('joinmoved', '1');//todo refactor better solution
 
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building

@@ -6,14 +6,13 @@
 
 
 
-var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope,simple=true){
+var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=0,y=0,slope=map_slope){//todo delete simple in usages - deleted param
 
     this.rotation=rotation;
     this.slope=slope;
     this.zoom=zoom;
     this.width=width;
     this.height=height;
-    this.simple=simple;
     this.selected_path=false;
     this.x=x;
     this.y=y;
@@ -84,20 +83,20 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
     `);
 
-    this.ctx=this.editor.find('.model-canvas-canvas')[0].getContext('2d');
+    this.gl=this.editor.find('.model-canvas-canvas')[0].getContext('webgl');
 
 
     var self=this;
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-plus').click(function(){
         self.zoom+=0.2;
-        self.draw();
+        self.redraw();
     });
 
 
     this.editor.find('.model-canvas-ctl').find('.model-canvas-minus').click(function(){
         self.zoom-=0.2;
-        self.draw();
+        self.redraw();
     });
 
 
@@ -123,7 +122,16 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 
             self.rotation=(self.rotation-x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
-            self.draw();
+
+
+
+            self.webGL.rotations[1].deg=self.rotation+45;//todo better solution than 45
+            self.webGL.rotations[0].deg=self.slope-90;//todo better solution than 180
+
+            self.webGL.drawScene();
+
+            //self.draw();
+
         },
         'stop': function(){
             $(this).css('left',drag_vars.x_original);
@@ -140,14 +148,14 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
 ModelCanvas.prototype.setModel = function(model){
 
     this.model=model;
-    this.draw();
+    this.redraw();
 
 };
 
 
-ModelCanvas.prototype.draw = function(model){
+ModelCanvas.prototype.redraw = function(model){
 
-    var size=Math.pow(Math.E,this.zoom);
+    var size=Math.pow(Math.E,this.zoom)/2;//todo maybe better
 
     if(this.selected_path instanceof Array && this.selected_path.length==0){
         var selected=true;
@@ -156,30 +164,30 @@ ModelCanvas.prototype.draw = function(model){
     }
 
 
-    this.ctx.clearRect(0, 0, this.width, this.height);
-    this.model.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, selected, this.simple);
+    //this.gl.clearRect(0, 0, this.width, this.height);
+    this.webGL = this.model.create3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, selected,false);
 
 
-    if(is(this.selected_path)){
+    /*if(is(this.selected_path)){
 
 
         //r(this);
         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
-        block_choosen.draw(this.ctx, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
+        block_choosen.draw3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
 
-    }
+    }*/
 
 };
 
 
 
-ModelCanvas.prototype.drawAsync = function(model,ms=IMMEDIATELY_MS){
+ModelCanvas.prototype.redrawAsync = function(model, ms=IMMEDIATELY_MS){
 
     var self=this;
     setInterval(
         function(){
-            self.draw(model);
+            self.redraw(model);
         },ms
     );
 
