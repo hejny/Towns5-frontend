@@ -140,11 +140,12 @@ $(function(){
 
 
 
-        if(specialCursor) {//todo [PH] pouzivat if(specialCursor) misto if(terrainChanging || building) a podobnych blbosti...
+        if(specialCursor) {
 
 
             $('#selecting-distance').css('left', e.clientX - selecting_offset['x']);
             $('#selecting-distance').css('top', e.clientY - selecting_offset['y']);
+            $('#selecting-distance').attr('joinmoved', '1');//todo refactor better solution
 
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building

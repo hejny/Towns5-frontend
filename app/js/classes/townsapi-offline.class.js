@@ -57,7 +57,7 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
                                 }/*,{
                                  link: Locale.get('shape cube'),
                                  position: {x:0,y:0,z:40},
-                                 //size: 0.7,
+                                 size: 0.7,
                                  rotation: 45
                                  }*/
                             ]
@@ -66,7 +66,7 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
             },{
                 name: "Kamenná pyramida",
                 type: "building",
-                subtype: "block",
+                subtype: "wall",
                 design: {
                     type: "model",
                     data: {

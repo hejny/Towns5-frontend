@@ -91,6 +91,9 @@ function buildingUpdate() {
     //r('buildingUpdate');
 
 
+    selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//todo better solution than 45
+    selecting_distance_3d_canvas_webgl.drawScene();
+
 
     var join=createNewOrJoin(building);
 
@@ -99,46 +102,30 @@ function buildingUpdate() {
     if(join===false/* || true*/){
         //------------------------------------------------------------Normal building
 
-            r(building.rotation);
-            selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//todo better solution than 45
-            selecting_distance_3d_canvas_webgl.drawScene();
+        r(building.rotation);
 
 
-            $(selecting_distance_3d_canvas).css('border','none');
+        //$(selecting_distance_3d_canvas).css('filter','contrast(100%)');
 
-
-            //building.design.data.drawCashedAsync(selecting_distance_2d_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true,true,true);
-            //,building.subtype=='block'?selected_color:false
 
         //------------------------------------------------------------
     }else{
         //------------------------------------------------------------Join buildings
 
-            selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//-building.design.data.rotation+90;//todo better solution than 45
-            selecting_distance_3d_canvas_webgl.drawScene();
-
-            $(selecting_distance_3d_canvas).css('border','2px solid #ff0000');
-
-            /*r('buildingUpdate');
+        //$(selecting_distance_3d_canvas).css('filter','contrast(150%)');
 
 
-            var tmpModel=deepCopyModel(objects_external[join.i].design.data);
+        var model_z = building.design.data.joinModelZ(
+            building.design.data,
+            join.xy.x,
+            join.xy.y
+        );
 
-            //building.design.data.compileRotationSize();
+        if($('#selecting-distance').attr('joinmoved')!='0'){//todo refactor better solution
+            $('#selecting-distance').css('top', '+=-'+model_z);
+            $('#selecting-distance').attr('joinmoved','0');
+        }
 
-            tmpModel.joinModel(
-                building.design.data,
-                join.xy.x,
-                join.xy.y
-            );
-
-            var screen_position=Map.mapPos2MouseCenterPos(objects_external[join.i].x,objects_external[join.i].y);
-
-
-            $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
-            $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
-
-            tmpModel.drawCashedAsync(selecting_distance_2d_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,true);*/
 
 
         //------------------------------------------------------------

@@ -141,6 +141,92 @@ CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
 
 //======================================================================================================================
 
+
+/**
+ * Replace all colors with another
+ * @param {object} color newColor
+ */
+CanvasRenderingContext2D.prototype.newcolorImage = function(newColor){//todo refactor better name
+
+
+    var w = this.canvas.width;
+    var h = this.canvas.height;
+
+    if(w==0 || h==0)return;
+
+    try{
+
+        // pull the entire image into an array of pixel data
+        var imageData = this.getImageData(0, 0, w, h);
+
+
+    }catch(error){
+
+        r(this.canvas);
+        throw(error);
+
+    }
+
+
+    //r(imageData);
+    // examine every pixel,
+    // change any old rgb to the new-rgba
+    for (var i=0;i<imageData.data.length;i+=4) {
+        // is this pixel the old rgb?
+
+            // change to your new rgb
+            imageData.data[i]=newColor.r;
+            imageData.data[i+1]=newColor.g;
+            imageData.data[i+2]=newColor.b;
+
+    }
+
+    // put the altered data back on the canvas
+    this.putImageData(imageData,0,0);
+
+};
+
+//======================================================================================================================
+
+
+/**
+ * @param {number} k
+ */
+CanvasRenderingContext2D.prototype.multiplyAlphaImage = function(k){
+
+
+    var w = this.canvas.width;
+    var h = this.canvas.height;
+
+    if(w==0 || h==0)return;
+
+    try{
+
+        // pull the entire image into an array of pixel data
+        var imageData = this.getImageData(0, 0, w, h);
+
+
+    }catch(error){
+
+        r(this.canvas);
+        throw(error);
+
+    }
+
+    for (var i=0;i<imageData.data.length;i+=4) {
+
+        //imageData.data[i+3]=255-imageData.data[i+3];
+        imageData.data[i+3]=imageData.data[i+3]*k;
+        //imageData.data[i+3]=255-imageData.data[i+3];
+
+    }
+
+    // put the altered data back on the canvas
+    this.putImageData(imageData,0,0);
+
+};
+//======================================================================================================================
+
 /**
  * Apply gaussian blur on canvas
  * @param {number} radius
