@@ -72,9 +72,16 @@
 
 .page-column-2 {
   display: inline-block;
-  width: calc(50% - 10px);
-  height: 100%;
+  width: calc(50% - 2px);
+  height: calc( 100% - 50px);
+  overflow: hidden;
   vertical-align: top; }
+
+.full-scroll-column {
+  width: calc( 100% + 15px);
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll; }
 
 .popup-window .button-icon {
   border: none;

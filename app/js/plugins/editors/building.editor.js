@@ -12,6 +12,7 @@ T.Plugins.install(new T.Editor(
     },
     'Editor budov',
     `<div class="page-column-2">
+     <div class="full-scroll-column">
 <form onsubmit="return false;" class="full" id="form">
 <table class="full_width">
 
@@ -129,6 +130,7 @@ T.Plugins.install(new T.Editor(
 
 </table>
 </form>
+</div>
 </div>
 
 
