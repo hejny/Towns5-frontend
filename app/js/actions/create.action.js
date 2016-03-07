@@ -112,8 +112,8 @@ function createNewOrJoin(object){
 
         );
 
-        xy.x=-xy.x;//todo better
-        //xy.y=-xy.y;
+        //xy.x=-xy.x;//todo better
+        xy.y=-xy.y;
 
 
         return {
