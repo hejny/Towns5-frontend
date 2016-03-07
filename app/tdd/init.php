@@ -23,11 +23,10 @@ foreach ($includes['js'] as $include) {
 
     if(is_string($include)){
         if(
-            strpos($include,'inits/')===false and
-            strpos($include,'ui/')===false and
-            strpos($include,'config/')===false and
-            strpos($include,'plugins/')===false
-
+                strpos($include,'inits/')===false and
+                strpos($include,'ui/')===false and
+                strpos($include,'config/')===false and
+                strpos($include,'plugins/')===false
         ){
 
             $js_files=array_merge($js_files,glob('../../'.$include));
@@ -35,6 +34,11 @@ foreach ($includes['js'] as $include) {
         }
     }
 
+}
+
+
+foreach($inits as $init){
+    $js_files=array_merge($js_files,array('../../app/js/inits/'.$init));
 }
 
 //-----------------------------------------------------

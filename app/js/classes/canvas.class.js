@@ -37,12 +37,12 @@ HTMLCanvasElement.prototype.downloadCanvas = function(){
  * @param {function} manipulationFunction
  * @returns {string} image source in base 64
  */
-function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunction){
+function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunction,contextType='2d'){
 
     var canvas = document.createElement('canvas');
     canvas.width=width;
     canvas.height = height;
-    var context = canvas.getContext('2d');
+    var context = canvas.getContext(contextType);
 
     manipulationFunction(context);
 
@@ -60,12 +60,12 @@ function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunctio
  * @param {function} manipulationFunction
  * @returns canvas
  */
-function createCanvasViaFunction(width,height,manipulationFunction){
+function createCanvasViaFunction(width,height,manipulationFunction,contextType='2d'){
 
     var canvas = document.createElement('canvas');
     canvas.width=width;
     canvas.height = height;
-    var context = canvas.getContext('2d');
+    var context = canvas.getContext(contextType);
 
     manipulationFunction(context);
 

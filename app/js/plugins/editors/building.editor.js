@@ -12,6 +12,7 @@ T.Plugins.install(new T.Editor(
     },
     'Editor budov',
     `<div class="page-column-2">
+     <div class="full-scroll-column">
 <form onsubmit="return false;" class="full" id="form">
 <table class="full_width">
 
@@ -130,6 +131,7 @@ T.Plugins.install(new T.Editor(
 </table>
 </form>
 </div>
+</div>
 
 
 <div class="page-column-2">
@@ -163,7 +165,7 @@ T.Plugins.install(new T.Editor(
 
 
             model_canvas.selected_path = block_selected_path;
-            model_canvas.drawAsync();
+            model_canvas.redrawAsync();
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-' + i).addClass('selected');

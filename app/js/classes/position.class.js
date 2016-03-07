@@ -4,7 +4,7 @@
  */
 //======================================================================================================================
 
-//todo ?? point vs position
+//todo refactor to point
 //todo refactoring extend types of coord systems - cartesian, cartesian3D, polar
 //todo refactoring extend types of meaning - map, screen, screen_center, color, other
 //todo refactoring xy2DistDeg, ect. should be under position

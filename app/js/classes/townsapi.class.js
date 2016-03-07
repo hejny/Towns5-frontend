@@ -6,6 +6,7 @@
 
 TownsAPI=function(url=''){
 
+    this.online=true;
     this.url=url;
 
 };

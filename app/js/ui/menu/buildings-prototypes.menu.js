@@ -23,19 +23,14 @@ function buildingStart(prototypeId){
     building.prototypeId=prototypeId;//todo should it be here?
     //r('buildingStart',building);
 
-
     forceJoining=false;
 
-    selecting_size={x: 300,y: 700};
-    selecting_offset={x: 150,y: 650};
+    /*selecting_size={x: 300,y: 700};
+    selecting_offset={x: 150,y: 650};*/
 
 
-    $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
-    $('#selecting-distance').attr('height',selecting_size.y);
-
-    //$('#selecting-distance').scss('border',2);
-
-    buildingUpdate();
+    buildingRedraw();
+    //buildingUpdate();
     //r(building.res);
 
 
@@ -56,49 +51,81 @@ function buildingStart(prototypeId){
 
 //---------------------------------------------------------------
 
+function buildingRedraw() {
 
-function buildingUpdate(object) {
+
+    selecting_size={x: 200,y: 200};
+    selecting_offset={x: 100,y: 100};
+
+
+    $('#selecting-distance').attr('width',selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
+    $('#selecting-distance').attr('height',selecting_size.y);
+
+    //$('#selecting-distance').scss('border',2);
+
+
+    //selecting_distance_3D_webgl = /*building*/object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
+
+
+    $(selecting_distance_2d_canvas).hide();
+    $(selecting_distance_3d_canvas)
+        .attr('width',selecting_size.x)
+        .attr('height',selecting_size.y)
+        .show();
+
+    selecting_distance_3d_canvas_gl = selecting_distance_3d_canvas.getContext('webgl');
+
+    selecting_distance_3d_canvas_webgl = building.design.data.create3D(selecting_distance_3d_canvas_gl, map_zoom_m*2, 150, 150, 0,30 , true, false);
+
+
+
+}
+
+
+
+//---------------------------------------------------------------
+
+
+function buildingUpdate() {
 
     //r('buildingUpdate');
 
-    selecting_distance_canvas_ctx.clearRect(0, 0, selecting_size.x, selecting_size.y);
 
+    selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//todo better solution than 45
+    selecting_distance_3d_canvas_webgl.drawScene();
 
 
     var join=createNewOrJoin(building);
 
 
 
-    if(join===false){
+    if(join===false/* || true*/){
         //------------------------------------------------------------Normal building
 
-            building.design.data.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,false,true);
-            //,building.subtype=='block'?selected_color:false
+        r(building.rotation);
+
+
+        //$(selecting_distance_3d_canvas).css('filter','contrast(100%)');
+
 
         //------------------------------------------------------------
     }else{
         //------------------------------------------------------------Join buildings
 
-            r('buildingUpdate');
+        //$(selecting_distance_3d_canvas).css('filter','contrast(150%)');
 
 
-            var tmpModel=deepCopyModel(objects_external[join.i].design.data);
+        var model_z = building.design.data.joinModelZ(
+            building.design.data,
+            join.xy.x,
+            join.xy.y
+        );
 
-            //building.design.data.compileRotationSize();
+        if($('#selecting-distance').attr('joinmoved')!='0'){//todo refactor better solution
+            $('#selecting-distance').css('top', '+=-'+model_z);
+            $('#selecting-distance').attr('joinmoved','0');
+        }
 
-            tmpModel.joinModel(
-                building.design.data,
-                join.xy.x,
-                join.xy.y
-            );
-
-            var screen_position=Map.mapPos2MouseCenterPos(objects_external[join.i].x,objects_external[join.i].y);
-
-
-            $('#selecting-distance').css('left', screen_position.x-selecting_offset['x']);
-            $('#selecting-distance').css('top', screen_position.y-selecting_offset['y']);
-
-            tmpModel.draw(selecting_distance_canvas_ctx,map_zoom_m*map_model_size,selecting_offset['x'],selecting_offset['y'],map_rotation,map_slope,false,true);
 
 
         //------------------------------------------------------------

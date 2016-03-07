@@ -257,14 +257,14 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingUpdate();
+            buildingRedraw();
         }else{
             selecting_distance+=100;
             updateSelectingDistance();
         }
     });
 
-    $('#selecting-distance-minus').unbind('click').click(function(){
+    $('#selecting-distance-minus').unbind('click').click(function(){//todo refactor move to separate toolbox file
 
         //todo sounds ion.sound.play("door_bump");
 
@@ -275,7 +275,7 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingUpdate();
+            buildingRedraw();
         }else{
             selecting_distance-=100;
             updateSelectingDistance();
@@ -285,13 +285,13 @@ window.uiScript = function(){
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation+=10;
-        buildingUpdate();
+        buildingRedraw();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation-=10;
-        buildingUpdate();
+        buildingRedraw();
     });
 
     $('#selecting-distance-close').unbind('click').click(function(){

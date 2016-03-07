@@ -9,6 +9,8 @@
     "node_modules/hammerjs/hammer.js",
     "node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js",
 
+    "node_modules/js-md5/src/md5.js",
+
     "node_modules/ion-sound/js/ion.sound.js",
     "node_modules/markdown/lib/markdown.js",
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
@@ -21,7 +23,9 @@
     {"production": "app/config/production.js"},
     "app/config/vars.js",
 
-
+    "app/js/webgl/*.js",
+    "app/js/functions/*.js",
+    "app/js/classes/model.class.js",
     "app/js/classes/*.js",
     "app/js/classes-static/map.class.js",
     "app/js/classes-static/*.js",
