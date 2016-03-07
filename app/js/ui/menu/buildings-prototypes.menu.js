@@ -91,7 +91,7 @@ function buildingUpdate() {
     //r('buildingUpdate');
 
 
-    selecting_distance_3d_canvas_webgl.rotations[1].deg=building.design.data.rotation+45+map_rotation;//todo better solution than 45
+    selecting_distance_3d_canvas_webgl.rotations[1].deg=-building.design.data.rotation+45+map_rotation;//todo better solution than 45
     selecting_distance_3d_canvas_webgl.drawScene();
 
 
