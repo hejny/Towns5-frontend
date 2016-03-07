@@ -117,7 +117,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
 
     var rotations=[
         {deg:slope-90, vector:[1, 0, 0]},
-        {deg:rotation+45, vector:[0, 0, 1]}
+        {deg:rotation+45, vector:[0, 0, -1]}
     ];
 
 

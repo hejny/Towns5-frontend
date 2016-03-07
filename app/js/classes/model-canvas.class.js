@@ -120,7 +120,7 @@ var ModelCanvas = function(id,model,width,height,rotation=map_rotation,zoom=0,x=
             drag_vars.x_last=x;
             drag_vars.y_last=y;
 
-            self.rotation=(self.rotation+x_delta)%360;
+            self.rotation=(self.rotation-x_delta)%360;
             self.slope=Math.bounds(self.slope+y_delta,0,90);
 
 
