@@ -41,13 +41,35 @@
 
 .menu-list-left {
   float: left;
+  //border: 2px solid #00aaff;
 }
+
 
 .menu-list-right {
   color: #cccccc;
   float: right;
   margin-right: 5px;
+  //border: 2px solid #00aaff;
 }
+
+#resources {
+
+  height: 60px;
+
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+  //border: 2px solid #00aaff;
+
+
+
+}
+
+
+
 
 .menu-list-item {
   float: left;
