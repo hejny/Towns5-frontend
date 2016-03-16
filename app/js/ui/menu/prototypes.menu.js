@@ -60,6 +60,9 @@ function objectPrototypesMenu(type,subtype=false){
                 //content='popis budovy';
                 action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
 
+
+                content+=game.getObjectPrice(object).toHTML();
+
             }
             //------------------------
 
@@ -81,6 +84,9 @@ function objectPrototypesMenu(type,subtype=false){
 
             }
             //------------------------
+
+
+
 
             //------------------------Viewers, Editors
             ['view','edit'].forEach(function(action){

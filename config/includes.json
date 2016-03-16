@@ -16,6 +16,13 @@
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
 
 
+
+    "app/js/inits/module.init.js",
+    "towns-shared/game/classes/*.js",
+    "towns-shared/game/inits/game.init.js",
+
+
+
     "app/js/classes-static/towns.class.js",
 
 
