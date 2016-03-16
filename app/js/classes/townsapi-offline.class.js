@@ -27,250 +27,29 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
     //================================================
     //------------------------------------------------
     if(uri=='objects/prototypes' && method=='GET'){
-        var response = [
-
-            //==============================================================================================================building
-
-            {
-                name: "Kamenolom",
-                type: "building",
-                subtype: "main",
-
-                design: {
-                    type: "model",
-                    data: {
-                        name:'root',
-
-                        "particles": [ { "name": "", "particles": [ { "name": "floor", "particles": [ { "name": "row", "particles": [ { "name": "brick", "shape": { "type": "prism", "n": 4, "rotated": false, "top": 1, "bottom": 1.1 }, "color": "#cccccc", "position": { "x": 0, "y": 0, "z": 0 }, "size": { "x": 7, "y": 14, "z": 5 }, "rotation": 0 }, { "link": "brick", "position": { "x": 10, "y": 0, "z": 0 }, "rotation": 0 }, { "link": "brick", "position": { "x": 30, "y": 0, "z": 0 }, "rotation": 0 }, { "link": "brick", "position": { "x": 20, "y": 0, "z": 0 }, "rotation": 0 } ], "position": { "x": 0, "y": 0, "z": 0 }, "size": 1, "rotation": 0, "skew": { "z": { "x": 0, "y": 0 } } }, { "link": "row", "position": { "x": 0, "y": 15, "z": 0 }, "rotation": 0 } ], "position": { "x": 0, "y": 0, "z": 0 }, "size": 1, "rotation": 0, "skew": { "z": { "x": 0, "y": 0 } } }, { "link": "floor", "position": { "x": -6, "y": 0, "z": 0 }, "rotation": 290 } ], "position": { "x": 0, "y": 0, "z": 0 }, "size": 1, "rotation": 0, "skew": { "z": { "x": 0, "y": 0 } } }, { "name": "", "shape": { "type": "prism", "n": 4, "top": 1, "bottom": 1, "rotated": false }, "color": "#cccccc", "position": { "x": 17, "y": -17, "z": 0 }, "size": { "x": 25, "y": 25, "z": 18 }, "rotation": 30, "skew": { "z": { "x": 0, "y": 0 } } }, { "name": "", "shape": { "type": "prism", "n": 4, "top": 1, "bottom": 1, "rotated": false }, "color": "#cccccc", "position": { "x": 23, "y": -6, "z": 0 }, "size": { "x": 25, "y": 19, "z": 12 }, "rotation": 0, "skew": { "z": { "x": 0, "y": 0 } } } ]
 
 
-                    }
-                },
 
-                actions: {
+        $.ajax( appDir+"/php/townsapi-offline-prototypes-aggregate.php" )
+            .done(function(data) {
 
-                }
+                eval(data);
+                r(objects);
 
-            },{
-                name: "Kamenná pyramida",
-                type: "building",
-                subtype: "wall",
-                design: {
-                    type: "model",
-                    data: {
-                        particles: [
-                            {
-                                shape:{
-                                    type: 'prism',
-                                    n:4,
-                                    top:1
-                                },
-                                color: "#cccccc",
-                                position: {x:0,y:0,z:0},
-                                size: {x:50,y:50,z:50},
-                                rotation: {"xy":0,"xz":0}
+                objects.map(function(item){
+                    item._id=generateID();
+                    return(item);
+                });
 
-                            }
-                        ]
-                    }
-
-                }
-
-            },{
-                name: "Kamenný ježek",
-                type: "building",
-                subtype: "wall",
-                design: {
-                    type: "model",
-                    data: {
-                        particles: [
-                            {
-                                shape:{
-                                    type: 'prism',
-                                    n:3,
-                                    top:0.1
-                                },
-                                color: "#cccccc",
-                                position: {x:0,y:0,z:0},
-                                size: {x:40,y:40,z:40},
-                                rotation: {"xy":30,"xz":0}
-
-                            }
-                        ]
-                    }
-
-                }
-
-            },
+                if(callback_success)
+                    callback_success(objects);
 
 
-            //==============================================================================================================terrain
-            {
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:1,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:2,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:3,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:4,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:5,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:6,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:7,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:8,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:9,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:10,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:11,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:12,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:13,
-                        size: 1
-                    }
-                }
-            },{
-                "type": "terrain",
-                "name": "Terén",
-                "design": {
-                    "type": "terrain",
-                    "data":{
-                        image:14,
-                        size: 1
-                    }
-                }
-            },
+            });
 
 
-            //==============================================================================================================story
-
-
-            {
-                "name": "Příběh",
-                "type": "story",
-                "locale": "cs",
-                "content": {
-                    "type": "markdown",
-                    "data": "Kde bolo tam bolo"
-                },
-                "owner": "5126bc054aed4daf9e2ab772"
-            }
-
-
-            //==============================================================================================================
-        ];
-
-
-        response.map(function(item){
-            item._id=generateID();
-            return(item);
-        });
+        return false;
+        /**/
 
     }else
     //------------------------------------------------
