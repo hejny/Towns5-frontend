@@ -457,11 +457,9 @@ function tidyHTML($buffer) {
 
     <ul class="menu-list menu-list-right">
 
-        <!--<li class="menu-list-item menu-list-item-icon">
-            $100
-        </li>-->
 
-
+        <li class="menu-list-item" id="resources">
+        </li>
 
         <li class="menu-list-item menu-list-item-registration">
             <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
