@@ -1,34 +1,19 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Functions for debuging, logging and tracking events.
+ * @fileOverview Functions for debugging
  */
 //======================================================================================================================
 
 
 
+if(environment=='production'){
 
-//todo should it be Loging object with static functions?
+    var r = function(){};
 
-/**
- * Report to console. Wrapper for console.log().
- * @author PH
- */
-function r(){
-    if(environment=='production')return;
+}else{
 
+    var r = console.log.bind(console);
 
-    if(arguments.length==1){
-
-        console.log(arguments[0]);
-
-    }else{
-
-        var arg=[];
-        for(var i= 0,l=arguments.length;i<l;i++){
-            arg.push(deepCopy(arguments[i]));
-        }
-        console.log(deepCopy(arg));
-    }
 }
 
 
@@ -91,29 +76,6 @@ function mapWindow(map){
 
     window.open(src);
 }
-
-
-//======================================================================================================================
-
-
-/**
- * Towns event tracking system
- * @author PH
- * @param {string} category eg. function, ui,..
- * @param {string} action eg. terrain changing, dismantling,...
- * @param additional params eg. t10, building_market,...
- */
-function trackEvent(category, action , additional){
-
-    r('Tracked event '+category+' / '+action+' !');
-
-
-    ga('send', 'event', category, action /*'Fall Campaign'*/);
-
-
-
-}
-
 
 
 
