@@ -352,7 +352,6 @@ window.mapSpecialCursorStop = function(){
     buildingStop();
     dismantlingStop();
     terrainChangeStop();
-    terrainNeutralizeStop();
     storyWritingStop();
 };
 
