@@ -56,14 +56,14 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
 
 
     URI.plugin=this.uri;
-    URI.update();
+    URI.write();
 
 
     var self=this;
 
     UI.popupWindowOpen(title,content,function(){
 
-        r('CLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo');
+        //r('CLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOoo');
 
         if(self.close_callback){
             self.close_callback();
@@ -71,7 +71,7 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
 
         URI.plugin=false;
         URI.object=false;
-        URI.update();
+        URI.write();
     });
 
 

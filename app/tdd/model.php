@@ -2,7 +2,7 @@
 
 <?php
     $title='model';
-    $inits=array('prototypes.init.js','textures.init.js');
+    $inits=array('prototypes.read.js','textures.read.js');
     require('init.php');
 ?>
 

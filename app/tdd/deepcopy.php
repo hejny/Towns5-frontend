@@ -7,7 +7,7 @@
 
     <?php
 
-    $inits=array('prototypes.init.js');
+    $inits=array('prototypes.read.js');
 
     //--------------------------------Includes
 
