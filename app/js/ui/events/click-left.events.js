@@ -129,40 +129,6 @@ $(function(){
             }
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
-            if(terrainNeutralizing !== false){
-
-                //todo sounds ion.sound.play("door_bump");
-
-                $('#loading').hide();
-
-
-                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
-
-
-                for(var i=map_terrain_changes.length-1;i>=0;i--){
-
-
-                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance_fields){
-
-                        //r('splicing '+i);
-
-                        map_terrain_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
-
-                    }
-
-                }
-
-                saveMapTerrainChangesToStorage();
-                Map.loadMap();
-
-
-                return;
-
-
-            }
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++storyWriting
             if(storyWriting !== false){
 
