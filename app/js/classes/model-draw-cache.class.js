@@ -32,7 +32,7 @@ function IsImageOk(img) {
  * @param {number} y_begin Canvas top
  * @param {number} rotation 0-360 Angle in degrees
  * @param {number} slope 0-90 Angle in degrees
- * todo update
+ * todo write
  */
 Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, slope, selected=false, shadow=false,clearBefore=false) {
 
@@ -117,7 +117,7 @@ Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, s
 
 //======================================================================================================================
 
-/** //todo update
+/** //todo write
  */
 Model.prototype.createCacheLocalImage = function(size, rotation, slope){
 
@@ -191,7 +191,7 @@ var BuildingImages={};
 //======================================================================================================================
 
 
-/** //todo update
+/** //todo write
  * Create icon of Towns model
  * @param {number} size Size of returned image
  * @returns {string} image data in base64
@@ -210,7 +210,7 @@ Model.prototype.cacheHash = function(size, rotation, slope){
 };
 
 
-/** //todo update
+/** //todo write
  * Create icon of Towns model
  * @param {number} size Size of returned image
  * @returns {string} image data in base64

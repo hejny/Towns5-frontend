@@ -75,8 +75,8 @@ Map.updateMap = function(){
     if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || map_rotation_delta || !is(map_size)){
 
 
-        URI.position=new Position(map_x,map_y);
-        URI.update();
+        //URI.position=new Position(map_x,map_y);
+        URI.write();
 
         //r(canvas_height,canvas_width,map_field_size,map_zoom_m);
         map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/map_field_size/*1.4*/))/map_zoom_m;

@@ -7,14 +7,14 @@
 var URI={
     'object':'',
     'plugin':'',
-    'position': false
+    //'position': false
 };
 
 
 /**
  * Initialize URI pathname from location
  */
-URI.init = function(){
+URI.read = function(){
 
     //-------------------
     var pathname=window.location.pathname;
@@ -48,18 +48,47 @@ URI.init = function(){
 
     if(hash.length==2){
 
-        this.position=new Position(Math.toFloat(hash[0]),Math.toFloat(hash[1]));
+        var position=new Position(Math.toFloat(hash[0]),Math.toFloat(hash[1]));
     }
 
     //-------------------
+
+
+    if(is(position)){
+
+        map_x=position.x;//todo Static object Map
+        map_y=position.y;
+
+    }else{
+
+        map_x=(Math.random()-0.5)*1000000;
+        map_y=(Math.random()-0.5)*1000000;
+
+    }
+
+    if(isNaN(map_x) || isNaN(map_y)){
+        throw new Error('Map x or y is NaN.');
+    }
+
+    //-------------------
+
 };
 
+
+//todo jsdoc
+URI.readAndUpdate = function(){
+
+    r('Reading And Updating URI');
+    this.read();
+    Map.loadMapAsync();
+
+};
 
 
 /**
  * Updates window.location after updating object, plugin or position
  */
-URI.update = function(){
+URI.write = function(){
 
     var pathname = '';
     if(this.plugin) pathname += '/'+this.plugin;
@@ -68,8 +97,13 @@ URI.update = function(){
     if(pathname=='') pathname='/';
 
 
+    if(isDefined(map_x)){
+        //var hash = '#'+Math.round(URI.position.x)+','+Math.round(URI.position.y);
+        var hash = '#'+Math.round(map_x)+','+Math.round(map_y);
+    }else{
+        var hash = '';
+    }
 
-    var hash = '#'+Math.round(URI.position.x)+','+Math.round(URI.position.y);
 
 
     window.history.pushState('', "Towns", window.location.origin+pathname+hash);

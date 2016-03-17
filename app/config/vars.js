@@ -102,7 +102,12 @@ var map_zoom_delta=0;
 var map_rotation_delta=0;
 var map_slope_delta=0;
 
-var map_x_delta=0;
+
+var map_x=false;//todo Static object Map
+var map_y=false;
+
+
+var map_x_delta=0;//todo refactor delete all delta
 var map_y_delta=0;
 var map_size_delta=0;
 

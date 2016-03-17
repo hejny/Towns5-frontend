@@ -72,7 +72,7 @@ Map.loadMapRequestCallback=function(res){
             if (['building', 'story', 'terrain'].indexOf(serverObject.type) != -1) {//todo here should be all type of objects - terrain
 
 
-                var serverObjectCopy = deepCopyObject(serverObject);//todo init object
+                var serverObjectCopy = deepCopyObject(serverObject);//todo read object
 
                 serverObjectCopy.id = serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
 

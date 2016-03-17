@@ -1,6 +1,6 @@
 <?php
 $title='model';
-$inits=array('townsapi.init.js');
+$inits=array('townsapi.read.js');
 require('init.php');
 ?>
 
