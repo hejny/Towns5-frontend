@@ -140,7 +140,7 @@ $(function(){
                 var id=create(storyWriting);
 
                 map_selected_ids=[id];
-                Towns.Plugins.Pages.open('story_editor');
+                Towns.Plugins.open('story-editor',1,id);
 
                 mapSpecialCursorStop();
                 hideLeftMenu();
@@ -221,7 +221,7 @@ $(function(){
                 if (selected_object.type == 'story') {
                     //~~~~~~~~~
 
-                    Towns.Plugins.Pages.open('story');
+                    Towns.Plugins.open('story');
 
                     //~~~~~~~~~
                 }else{

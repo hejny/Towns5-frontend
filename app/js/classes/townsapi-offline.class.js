@@ -54,6 +54,21 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
     }else
     //------------------------------------------------
     //------------------------------------------------
+    if(uri=='objects' && method=='POST'){
+
+
+
+        var response={
+            objectId: generateID()
+        };
+
+
+        return false;
+        /**/
+
+    }else
+    //------------------------------------------------
+    //------------------------------------------------
     if(true){
         var response = [];
     }

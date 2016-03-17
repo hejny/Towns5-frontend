@@ -260,7 +260,10 @@ function createBuilding(object,callback){
 
 function createStory(object,callback){
 
+    r(object.id);
     object.id=generateID();
+    r(object.id);
+    r(deepCopyObject(object));
     saveObject(deepCopyObject(object));//todo refactor
 
     if(callback)callback();

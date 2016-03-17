@@ -127,13 +127,14 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
             r('Creating new object prototype '+this.opened.object.name+'.');
 
 
-        }/*else
+        }else
         if(collection==1){
 
-            objects_external.push(this.opened.object)
-            r('Creating new object '+this.opened.object.name+'.');
+            /*objects_external.push(this.opened.object)
+            r('Creating new object '+this.opened.object.name+'.');*/
+            throw new Error('In objects can not be created new object without prototype.');
 
-        }*/else{
+        }else{
             throw new Error(''+collection+' is invalid identificator of collection!');
         }
 
@@ -150,13 +151,14 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
             r('Opening object prototype '+this.opened.object.name+'.');
 
 
-        }/*else
+        }else
         if(collection==1){
 
+            r(objects_external,id);
             this.opened.object = ArrayFunctions.id2item(objects_external,id);
             r('Opening object '+this.opened.object.name+'.');
 
-        }*/else{
+        }else{
             throw new Error(''+collection+' is invalid identificator of collection!');
         }
 
