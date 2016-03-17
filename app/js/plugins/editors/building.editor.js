@@ -31,11 +31,11 @@ T.Plugins.install(new T.Editor(
   <tr category="info"><th colspan="2">{{block info}}</th></tr>
   <tr category="info">
     <td>{{block name}}:</td>
-    <td><input class="block-parameter full_width" id="name" type="text" /></td>
+    <td><input class="block-parameter full_width" name="name" type="text" /></td>
   </tr>
   <tr category="info">
     <td>{{block link}}:</td>
-    <td><input class="block-parameter full_width" id="link" type="text" /></td>
+    <td><input class="block-parameter full_width" name="link" type="text" /></td>
   </tr>
 
 
@@ -44,16 +44,16 @@ T.Plugins.install(new T.Editor(
   <tr category="position"><th colspan="2">{{block position}}</th></tr>
   <tr category="position">
     <td>{{block position x}}:</td>
-    <td><input class="block-parameter" id="position-x" type="range" min="-100" max="100" step="1" />
+    <td><input class="block-parameter" name="position-x" type="range" min="-100" max="100" step="1" />
 </td>
   </tr>
   <tr category="position">
     <td>{{block position y}}:</td>
-    <td><input class="block-parameter" id="position-y" type="range" min="-100" max="100" step="1" /></td>
+    <td><input class="block-parameter" name="position-y" type="range" min="-100" max="100" step="1" /></td>
   </tr>
   <tr category="position">
     <td>{{block position z}}:</td>
-    <td><input class="block-parameter" id="position-z" type="range" min="0" max="100" step="1" /></td>
+    <td><input class="block-parameter" name="position-z" type="range" min="0" max="100" step="1" /></td>
   </tr>
 
 
@@ -61,19 +61,19 @@ T.Plugins.install(new T.Editor(
   <tr category="shape"><th colspan="2">{{block shape}}</th></tr>
   <tr category="shape">
     <td>{{block shape n}}:</td>
-    <td><input class="block-parameter" id="shape-n" type="range" min="3" max="20" step="1" /></td>
+    <td><input class="block-parameter" name="shape-n" type="range" min="3" max="20" step="1" /></td>
   </tr>
   <tr category="shape">
     <td>{{block shape rotated}}:</td>
-    <td><input class="block-parameter" id="shape-rotated" type="checkbox" /></td>
+    <td><input class="block-parameter" name="shape-rotated" type="checkbox" /></td>
   </tr>
   <tr category="shape">
     <td>{{block shape top}}:</td>
-    <td><input class="block-parameter" id="shape-top" type="range" min="0" max="2" step="0.05" /></td>
+    <td><input class="block-parameter" name="shape-top" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
   <tr category="shape">
     <td>{{block shape bottom}}:</td>
-    <td><input class="block-parameter" id="shape-bottom" type="range" min="0" max="2" step="0.05" /></td>
+    <td><input class="block-parameter" name="shape-bottom" type="range" min="0" max="2" step="0.05" /></td>
   </tr>
 
 
@@ -83,19 +83,19 @@ T.Plugins.install(new T.Editor(
   <tr category="size"><th colspan="2">{{block size}}</th></tr>
   <tr category="size">
     <td>{{block size}}:</td>
-    <td><input class="block-parameter" id="size" type="range" min="0.1" max="3" step="0.1" /></td>
+    <td><input class="block-parameter" name="size" type="range" min="0.1" max="3" step="0.1" /></td>
   </tr>
   <tr category="size">
     <td>{{block size x}}:</td>
-    <td><input class="block-parameter" id="size-x" type="range" min="1" max="100" step="1" /></td>
+    <td><input class="block-parameter" name="size-x" type="range" min="1" max="100" step="1" /></td>
   </tr>
   <tr category="size">
     <td>{{block size y}}:</td>
-    <td><input class="block-parameter" id="size-y" type="range" min="1" max="100" step="1" /></td>
+    <td><input class="block-parameter" name="size-y" type="range" min="1" max="100" step="1" /></td>
   </tr>
   <tr category="size">
     <td>{{block size z}}:</td>
-    <td><input class="block-parameter" id="size-z" type="range" min="1" max="100" step="1" /></td>
+    <td><input class="block-parameter" name="size-z" type="range" min="1" max="100" step="1" /></td>
   </tr>
 
 
@@ -104,7 +104,7 @@ T.Plugins.install(new T.Editor(
   <tr category="rotation"><th colspan="2">{{block rotation}}</th></tr>
   <tr category="rotation">
     <td>{{block rotation}}:</td>
-    <td><input class="block-parameter" id="rotation" type="range" min="0" max="360" step="10" /></td>
+    <td><input class="block-parameter" name="rotation" type="range" min="0" max="360" step="10" /></td>
   </tr>
 
 
@@ -112,20 +112,24 @@ T.Plugins.install(new T.Editor(
   <tr category="skew"><th colspan="2">{{block skew}}</th></tr>
   <tr category="skew">
     <td>{{block skew z x}}:</td>
-    <td><input class="block-parameter" id="skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
+    <td><input class="block-parameter" name="skew-z-x" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
   <tr category="skew">
     <td>{{block skew z y}}:</td>
-    <td><input class="block-parameter" id="skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
+    <td><input class="block-parameter" name="skew-z-y" type="range" min="-5" max="5" step="0.05" /></td>
   </tr>
 
 
   
   <tr category="material"><th colspan="2">{{block material}}</th></tr>
   <tr category="material">
-    <td>{{block color}}:</td>
-    <td><input class="block-parameter" id="color" type="color" value=""></td>
+    <td colspan="2">
+        `+
+        Textures.getInput('material','block-parameter')
+        +`
+    </td>
   </tr>
+
 
 
 </table>
@@ -153,6 +157,10 @@ T.Plugins.install(new T.Editor(
 
         var blockChoose = function (path) {
 
+            r('blockChoose');
+
+
+
             block_selected_path = path;
 
             block_selected = object.design.data.filterPath(block_selected_path);
@@ -165,7 +173,7 @@ T.Plugins.install(new T.Editor(
 
 
             model_canvas.selected_path = block_selected_path;
-            model_canvas.redrawAsync();
+            //model_canvas.redrawAsync();
 
             $('.block-choose').removeClass('selected');
             $('#block-choose-' + i).addClass('selected');
@@ -173,10 +181,11 @@ T.Plugins.install(new T.Editor(
 
             var categoryies=[];
 
-
+            //return;
+            /**/
             $('.block-parameter').each(function () {
 
-                var path = $(this).attr('id').split('-');
+                var path = $(this).attr('name').split('-');
                 var actual = ArrayFunctions.filterPath(block_selected, path);
 
 
@@ -235,7 +244,7 @@ T.Plugins.install(new T.Editor(
                         }
 
 
-                        var path = $(this).attr('id').split('-');
+                        var path = $(this).attr('name').split('-');
                         ArrayFunctions.filterPath(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
@@ -259,6 +268,7 @@ T.Plugins.install(new T.Editor(
 
 
             });
+            /**/
 
             //------------------------
 
@@ -324,7 +334,7 @@ T.Plugins.install(new T.Editor(
                             bottom: 1,
                             rotated: false
                         },
-                        color: '#cccccc',
+                        material: 'clay-bricks',
                         position: {x: 0, y: 0, z: 0},
                         size: {x: 10, y: 10, z: 10},
                         rotation: 0,
@@ -477,6 +487,8 @@ T.Plugins.install(new T.Editor(
 
         var blockButtons = function (particles, html_id, path) {
 
+            r('blockButtons');
+
 
             $('#' + html_id).addClass('model-dir');
 
@@ -615,7 +627,7 @@ T.Plugins.install(new T.Editor(
                                 top: 1,
                                 bottom: 1
                             },
-                            color: "#cccccc",
+                            material: "clay_bricks",
                             position: {x:0,y:0,z:0},
                             size: {x:40,y:40,z:40},
                             rotation: 0
