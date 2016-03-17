@@ -51,7 +51,7 @@ Textures.getAll = function(key){
 
 
 //todo jsdoc
-Textures.getInput = function(NameOfRadios){
+Textures.getInput = function(NameOfRadios,AdditionalClass=''){
 
     var html='';
 
@@ -59,7 +59,7 @@ Textures.getInput = function(NameOfRadios){
     for(var key in this.images){
 
         html+=`
-            <input type="radio" name="`+NameOfRadios+`" id="`+NameOfRadios+`-`+key+`" value="`+key+`" required/>
+            <input type="radio" name="`+NameOfRadios+`" id="`+NameOfRadios+`-`+key+`" value="`+key+`" class="`+AdditionalClass+`" />
             <label for="`+NameOfRadios+`-`+key+`">
                 <img src="`+this.images[key].src+`">
             </label>
@@ -92,7 +92,7 @@ var files=[
     'stone-plain.jpg',
     'wood-boards.jpg',
     'wood-raw.jpg',
-    'woon-fence.jpg'
+    'wood-fence.jpg'
 ];
 
 Textures.init(files);
