@@ -334,10 +334,12 @@ WebGL.prototype.initBuffers = function(polygons) {
 //
 WebGL.prototype.initTextures = function() {
 
-    for(var key in Textures){
+    var textures = Textures.getAll();
+
+    for(var key in textures){
 
         this.cubeTextures[key] = this.gl.createTexture();
-        this.handleTextureLoaded(Textures[key], this.cubeTextures[key]);
+        this.handleTextureLoaded(textures[key], this.cubeTextures[key]);
 
 
     };

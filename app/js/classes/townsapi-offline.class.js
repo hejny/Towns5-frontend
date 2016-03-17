@@ -34,7 +34,7 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
             .done(function(data) {
 
                 eval(data);
-                r(objects);
+                //r(objects);
 
                 objects.map(function(item){
                     item._id=generateID();
