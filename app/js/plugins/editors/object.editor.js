@@ -5,6 +5,8 @@
 //======================================================================================================================
 
 
+//todo NOT WORKING purge this and JSONEditor
+
 Pages.object_editor={};
 
 Pages.object_editor.header='Budova';
