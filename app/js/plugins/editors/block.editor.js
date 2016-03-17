@@ -77,8 +77,11 @@ T.Plugins.install(new T.Editor(
 
   <tr><th colspan="2">{{block material}}</th></tr>
   <tr>
-    <td>{{block color}}:</td>
-    <td><input id="block-editing-color" type="color" value=""></td>
+    <td colspan="2">
+        `+
+        Textures.getInput('block-editing-material')
+        +`
+    </td>
   </tr>
 
 
@@ -122,7 +125,9 @@ T.Plugins.install(new T.Editor(
         $('#block-editing-size-z').val(particle.size.z);
 
         $('#block-editing-rotation').val(particle.rotation);
-        $('#block-editing-color').val(particle.color);
+
+
+        $("input[name='block-editing-material']").filter("[value='"+particle.material+"']").attr('checked', true);
 
 
 
@@ -160,11 +165,20 @@ T.Plugins.install(new T.Editor(
 
 
 
-        $('#block-editing-color').change(function(){
+        $('#block-editing-material').change(function(){
 
             object.design.data.particles[0].color = $('#block-editing-color').val();
             model_canvas.setModel(object.design.data);
 
+
+        });
+
+
+        $("input[name='block-editing-material']").click(function() {
+
+            r(this.value);
+            object.design.data.particles[0].material=this.value;
+            model_canvas.setModel(object.design.data);
 
         });
 
@@ -186,7 +200,7 @@ T.Plugins.install(new T.Editor(
                             type: 'prism',
                             n:4
                         },
-                        color: "#cccccc",
+                        material: "clay_bricks",
                         position: {x:0,y:0,z:0},
                         size: {x:40,y:40,z:40},
                         rotation: 0

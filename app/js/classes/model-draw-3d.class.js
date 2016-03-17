@@ -26,7 +26,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
     var resource={
         points: [],
         polygons: [],
-        colors: [],
+        materials: [],
         particles: []
     };
 
@@ -57,7 +57,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
                 addResource.polygons[poly_i][point_i]+=i-1;
             }
 
-            resource.colors.push(particle.color);
+            resource.materials.push(particle.material);
             resource.polygons.push(addResource.polygons[poly_i]);
 
             resource.particles.push(particle_i);
@@ -76,19 +76,19 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
     var polygons3D=[];
 
 
-    for (var i2 = 0, l2 = resource['polygons'].length; i2 < l2; i2++) {
+    for (var i2 = 0, l2 = resource.polygons.length; i2 < l2; i2++) {
 
         var polygon3D=[];
 
-        for (var i3 = 0, l3 = resource['polygons'][i2].length; i3 < l3; i3++) {
+        for (var i3 = 0, l3 = resource.polygons[i2].length; i3 < l3; i3++) {
 
 
 
-            if (typeof resource['points'][resource['polygons'][i2][i3]] !== 'undefined') {
+            if (typeof resource.points[resource.polygons[i2][i3]] !== 'undefined') {
 
-                var x = resource['points'][resource['polygons'][i2][i3]][0];
-                var y = resource['points'][resource['polygons'][i2][i3]][1];
-                var z = resource['points'][resource['polygons'][i2][i3]][2];
+                var x = resource.points[resource.polygons[i2][i3]][0];
+                var y = resource.points[resource.polygons[i2][i3]][1];
+                var z = resource.points[resource.polygons[i2][i3]][2];
 
                 /*var DistDeg=Math.xy2distDeg(x,z);//todo all DistDeg via capital
 
@@ -106,12 +106,11 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
 
             polygons3D.push({
                 shape: polygon3D,
-                texture: 'stone'
+                texture: resource.materials[i2]
             });
 
 
         }
-        //var color = hexToRgb(resource['polygons'][i2]['color']);
 
     }
 
