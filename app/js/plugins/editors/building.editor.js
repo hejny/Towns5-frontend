@@ -194,9 +194,19 @@ T.Plugins.install(new T.Editor(
                     //-------------------------------------------Putting value into HTML inputs from var actual
                     if ($(this).attr('type') == 'checkbox') {
 
-                        if(actual){
-                            $(this).attr('checked','checked');
+                        if (actual) {
+                            $(this).attr('checked', 'checked');
                         }
+                    }else
+                    if ($(this).attr('type') == 'radio') {
+
+                        r($(this).attr('value'),actual);
+                        if($(this).attr('value')==actual){
+
+                            $(this).attr('checked','checked');
+
+                        }
+
 
                     }else{
 
@@ -217,6 +227,11 @@ T.Plugins.install(new T.Editor(
 
                         var event = 'click';
 
+                    }else
+                    if($(this).attr('type') == 'radio'){
+
+                        var event = 'click';
+
                     }else{
                         var event = 'change';
                     }
@@ -227,6 +242,10 @@ T.Plugins.install(new T.Editor(
                         //-------------------------------------------Putting value from HTML inputs to var value
                         if ($(this).attr('type') == 'checkbox') {
                             var value = $(this).is(':checked');
+                        }else
+
+                        if ($(this).attr('type') == 'checkbox') {
+                            var value = $(this).attr('value');
                         }else
 
                         if ($(this).attr('type') == 'range') {
