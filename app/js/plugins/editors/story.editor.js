@@ -13,9 +13,6 @@ T.Plugins.install(new T.Editor(
     },
     Locale.get('story editor'),
     `
-        <input type="text" id="story-name" value="" placeholder="Název příběhu">
-        <button id="story-save" onclick="storyContentReload();">Uložit</button>
-        <br>
 
         <div id="vertical_separator" style="display: none;"></div>
         <textarea id="story-content" onkeypress="storyContentReload();" style="display: none;"></textarea>
@@ -135,6 +132,10 @@ var storyContentWidthReload = function(){
     $('#story-content').show();
     $('#story-content-html').show();
     $('#story-content-html').show();
+    $('#vertical_separator').show();
+
+
+    r('Uzzzzzzzzzzzz');
 
 };
 
@@ -142,23 +143,15 @@ var storyContentWidthReload = function(){
 
 var storyContentReload = function(){
 
-    var story_name = $('#story-name').val();
     var story_content = $('#story-content').val();
 
     var story_content_html = markdown.toHTML(story_content);
 
 
     $('#story-content-html').html(story_content_html);
-    //r(story_name,story_content,story_content_html);
-
-    var i = ArrayFunctions.id2i(objects_external,map_selected_ids[0]);//todo bind editor content + name with i
-
-    objects_external[i].name = story_name;
-    objects_external[i].content.data = story_content;
 
 
-    saveObjectsInternal(objects_external[i]);
-    //r('saved to LS');
+
 
 };
 
