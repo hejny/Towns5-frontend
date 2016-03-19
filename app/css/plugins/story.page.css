@@ -40,23 +40,26 @@
   position: absolute;
   display: inline-block;
   width: 50%;
-  height: calc( 100% - 80px);
+  height: calc( 100% - 100px);
   border: none;
   border-right: 2px solid #666666;
   padding: 4px;
   padding-top: 20px;
-  z-index: 1; }
+  margin-top: 0px;
+  z-index: 1;
+  resize: none; }
 
 #story-content-html {
   position: absolute;
   display: inline-block;
   overflow-y: scroll;
   width: 50%;
-  height: calc( 100% - 80px);
+  height: calc( 100% - 100px);
   border: none;
   border-left: 2px solid #666666;
   padding: 4px;
-  padding-top: 20px;
+  padding-top: 4px;
+  margin-top: 0px;
   z-index: 1; }
 
 #vertical_separator {
@@ -64,12 +67,12 @@
   display: inline-block;
   overflow: hidden;
   width: 5px;
-  height: calc( 100% - 80px);
+  height: calc( 100% - 100px);
   cursor: col-resize;
   /*border: 2px dashed #000011;
   border-top: none;
   border-bottom: none;*/
-  background-color: rgba(100, 100, 100, 0.2);
-  /**/
+  background-color: transparent;
+  /*background-color: rgba(100,100,100,0.2);/**/
   border: none;
   z-index: 2; }
