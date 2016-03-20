@@ -17,9 +17,17 @@
 
 
 
+
     "app/js/inits/module.init.js",
+
+    "towns-shared/game/classes-static/math.static.js",
+    "towns-shared/game/classes-static/model-particles.static.js",
+
+    "towns-shared/game/classes/resources.class.js",
     "towns-shared/game/classes/*.js",
+
     "towns-shared/game/inits/game.init.js",
+
 
 
 
