@@ -1,4 +1,4 @@
-/towns-shared
+
 
 *desktop.ini
 
@@ -41,4 +41,5 @@ documentation
 asd.*
 
 
-towns-shared/
+/towns-shared
+/towns-shared/*
