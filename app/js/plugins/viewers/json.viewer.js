@@ -15,7 +15,7 @@ T.Plugins.install(new T.Viewer(
     ,function(object){
 
 
-        $('#viewer-json').text(JSON.stringify(object,null,2));
+        $('#viewer-json').text(JSON.stringify(object.design.data,null,2));
 
         selectText('viewer-json');
 

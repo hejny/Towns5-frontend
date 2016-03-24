@@ -71,6 +71,19 @@
 }
 
 
+.popup-window-small{
+
+  max-width: 500px;
+
+  top: 0;
+  bottom: 0;
+
+  top: calc(50% - 200px);
+  bottom: calc(50% - 100px);
+
+}
+
+
 
 .popup-window-iframe {
   width: 100%;
