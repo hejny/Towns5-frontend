@@ -18,11 +18,12 @@ TownsAPI=function(url=''){
  * @param uri //todo this param should be with /
  * @param method
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=false,callback_error=false){
+TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_success=false,callback_error=false){
 
     //r(this.url+uri);
     r(data);
@@ -51,6 +52,7 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=
         type: method,
         url: this.url+uri+query_data_string,
         //crossDomain: true,
+        headers: headers,
         contentType: 'application/json; charset=UTF-8',
         data: JSON.stringify(data),
         dataType: 'json',
@@ -105,21 +107,27 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,callback_success=
  *
  * @param uri
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.get = function(uri,query_data,callback_success,callback_error){return this.query(uri,query_data,'GET',{},callback_success,callback_error);};
+TownsAPI.prototype.get = function(uri,query_data,headers,callback_success,callback_error){
+
+    return this.query(uri,query_data,'GET',{},headers,callback_success,callback_error);
+
+};
 
 /**
  *
  * @param uri
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
+TownsAPI.prototype.post = function(uri,object,headers,callback_success,callback_error){
 
     var callback_success_wrapped;
 
@@ -153,7 +161,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
 
 
     //r('API',JSON.stringify(object));
-    return this.query(uri,{},'POST',object,callback_success_wrapped,callback_error);
+    return this.query(uri,{},'POST',object,headers,callback_success_wrapped,callback_error);
 
 
 };
@@ -167,7 +175,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
  */
 TownsAPI.prototype.delete = function(uri,callback_success,callback_error){
 
-    return this.query(uri,{},'DELETE',{},callback_success,callback_error);
+    return this.query(uri,{},'DELETE',{},{},callback_success,callback_error);
 
 };
 

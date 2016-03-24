@@ -16,11 +16,12 @@ TownsAPIOffline=function(){
  * @param uri
  * @param method
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_success=false,callback_error=false){
+TownsAPIOffline.prototype.query = function(uri,query_data,method,data,headers,callback_success=false,callback_error=false){
 
     r(uri,method);
 
@@ -92,12 +93,13 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,callback_s
  *
  * @param uri
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPIOffline.prototype.get = function(uri,query_data,callback_success,callback_error){
-    return this.query(uri,query_data,'GET',{},callback_success,callback_error);
+TownsAPIOffline.prototype.get = function(uri,query_data,headers,callback_success,callback_error){
+    return this.query(uri,query_data,'GET',{},headers,callback_success,callback_error);
 
 
 };
@@ -106,13 +108,14 @@ TownsAPIOffline.prototype.get = function(uri,query_data,callback_success,callbac
  *
  * @param uri
  * @param data
+ * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPIOffline.prototype.post = function(uri,object,callback_success,callback_error){
+TownsAPIOffline.prototype.post = function(uri,object,headers,callback_success,callback_error){
 
-    return this.query(uri,{},'POST',object,callback_success,callback_error);
+    return this.query(uri,{},'POST',object,{},headers,callback_success,callback_error);
 
 
 };
@@ -126,7 +129,7 @@ TownsAPIOffline.prototype.post = function(uri,object,callback_success,callback_e
  */
 TownsAPIOffline.prototype.delete = function(uri,callback_success,callback_error){
 
-    return this.query(uri,{},'DELETE',{},callback_success,callback_error);
+    return this.query(uri,{},'DELETE',{},{},callback_success,callback_error);
 
 };
 

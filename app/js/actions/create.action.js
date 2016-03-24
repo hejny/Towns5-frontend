@@ -217,7 +217,7 @@ function createBuilding(object,callback){
         objects_external[join.i].subtype='main';
 
 
-        townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
+        townsAPI.post('objects/prototypes/',objects_external[join.i],{},function(response){
 
             townsAPI.delete('objects/'+objects_external[join.i].id,function(){
 
@@ -226,7 +226,7 @@ function createBuilding(object,callback){
                     x: objects_external[join.i].x,
                     y: objects_external[join.i].y
 
-                },function(){
+                },{},function(){
 
                     if(callback)callback();
 
