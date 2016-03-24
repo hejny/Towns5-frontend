@@ -50,7 +50,6 @@ require('init.php');
 
         },
 
-        {}
 
         ,function(response){
 

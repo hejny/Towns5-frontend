@@ -43,7 +43,6 @@ Map.loadMap = function(){
             //keys: ,
 
         },//todo range and order by time
-        {},
         Map.loadMapRequestCallback
     );
 

@@ -31,8 +31,12 @@ T.Plugins.install(new T.Page(
 
 
         <tr>
-            <td>*`+Locale.get('user','password','again')+`:</td>
-            <td><input type="text" name="password-again" required></td>
+            <td>*`+Locale.get('user','password')+`:</td>
+            <td><input type="text" name="password" required></td>
+        </tr>
+
+        <tr>
+            <td colspan="2"><input type="submit" value="`+Locale.get('user','register')+`"></td>
         </tr>
 
     </table>
@@ -73,15 +77,10 @@ T.Plugins.install(new T.Page(
 
 
 
-            townsAPI.get('users',{
-                    "profile": data,
-                    "login_methods": {
-                        password
-                    },
-                    "contacts": [],
-                    "language" : "cs"//todo language
+            townsAPI.get('auth',{
+                    "username": data.username,
+                    "password": data.password
                 },
-                {},
                 function(response){
 
                     r(response);
