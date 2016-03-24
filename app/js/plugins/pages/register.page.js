@@ -42,13 +42,13 @@ T.Plugins.install(new T.Page(
         </tr>
         <tr>
             <td>*`+Locale.get('user','password','again')+`:</td>
-            <td><input type="text" name="password-again" autocomplete="off"></td>
+            <td><input type="text" name="password-again" autocomplete="off" required></td>
         </tr>
 
 
         <tr>
             <td>`+Locale.get('user','email')+`:</td>
-            <td><input type="email" name="username" placeholder="`+Locale.get('user','email','placeholder')+`" value="aa@bb" autocomplete="off"></td>
+            <td><input type="email" name="username" placeholder="`+Locale.get('user','email','placeholder')+`" value="aa@bb" autocomplete="on"></td>
         </tr>
 
 
@@ -105,6 +105,14 @@ T.Plugins.install(new T.Page(
 `
 ,function(){
 
+        $('#login-form').find('input').change(function(e){
+
+            r('changed');
+            unsetInputError(this);
+
+        });
+
+
 
         $('#login-form').submit(function(e){
 
@@ -121,6 +129,9 @@ T.Plugins.install(new T.Page(
 
                 var key=$(this).attr('name');
                 key=key.split('-').join('_');
+
+                r(key);
+
                 data[key]=$(this).val();
 
             });
@@ -128,12 +139,41 @@ T.Plugins.install(new T.Page(
 
             if(data.password!==data.password_again){
 
-                $("input[name='password-again']")[0].setCustomValidity('Passwords must match');
+
+                setInputError($("input[name='password-again']")[0],Locale.get('user','password','again','notsame'));
+
+
+            }else{
+
+
+
+                var password=data.password;
+                delete data.password;
+                delete data.password_again;
+
+                townsAPI.post('users',{
+                    "profile": data,
+                    "login_methods": {
+                        password
+                    },
+                    "contacts": [],
+                    "language" : "cs"//todo language
+                },
+                function(response){
+                    r(response);
+
+                },
+                function(response){
+
+                    setInputError($("input[name='username']")[0],Locale.get('user','username','taken'));
+
+                }
+                );
+
+
             }
 
 
-
-            r(data);
 
         });
 

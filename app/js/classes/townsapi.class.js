@@ -15,7 +15,7 @@ TownsAPI=function(url=''){
 
 /**
  * @private
- * @param uri
+ * @param uri //todo this param should be with /
  * @param method
  * @param data
  * @param callback_success
