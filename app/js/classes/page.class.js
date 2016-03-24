@@ -14,13 +14,14 @@
  * @param {function} close_callback
  * @constructor
  */
-Towns.Page=function(uri,title,content,open_callback=false,close_callback=false) {
+Towns.Page=function(uri,title,content,open_callback=false,close_callback=false,format) {
 
     this.uri = uri;
     this.title = title;
     this.content = content;
     this.open_callback = open_callback;
     this.close_callback = close_callback;
+    this.format = format;
 
 };
 
@@ -72,7 +73,7 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
         URI.plugin=false;
         URI.object=false;
         URI.write();
-    });
+    },this.format);
 
 
     if(this.open_callback) {

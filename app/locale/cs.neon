@@ -137,11 +137,35 @@ block_rotation_xz: XZ
 
 
 
-
-
-
-
-
-
-
 ui_menu_nature_main: ui_menu_nature_main
+ui_buttons_register: ui_buttons_register
+page_register: Nový Hráč
+user_basic: Základní
+user_username: Jméno
+user_username_placeholder: Utilius
+user_password: Heslo
+user_password_again: "Heslo ještě jednou"
+user_email: E-mail
+user_email_placeholder: jan.novak@seznam.cz
+user_extended: Další
+user_name: Jméno
+user_surname: Příjmení
+user_birthday: Datum narození
+user_description: Popis
+user_register: Zaregistrovat
+
+
+
+
+
+
+
+
+
+
+
+
+resource_wood: Dřevo
+resource_clay: Hlína
+resource_stone: Kámen
+resource_iron: Železo

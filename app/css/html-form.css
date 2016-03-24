@@ -14,6 +14,22 @@
  * @author Towns.cz
  * @fileOverview Configuration of style
  */
+input[type="submit"] {
+  display: inline-block;
+  border: none;
+  display: block;
+  padding: 0 10px;
+  margin: 10px auto;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: #0098ff;
+  color: white;
+  cursor: pointer; }
+  input[type="submit"]:hover {
+    background-color: black; }
+
 input.range-number {
   margin: 0px;
   vertical-align: middle; }
@@ -23,3 +39,11 @@ input[type="range"].range-number {
 
 input[type="number"].range-number {
   width: 40px; }
+
+/*
+
+todo style of invalid/valid fields
+input:valid :not(input[type="submit"]) {
+  background-color: #ddffdd;
+}
+*/

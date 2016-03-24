@@ -34,9 +34,34 @@ UI.popupWindowTitle = function(title){
 UI.popupWindowContent = function(content){
 
     $('.popup-window .content').html(content);
+
+    setTimeout(
+        function(){
+            $('.popup-window .content').find("[autofocus]").focus();
+        },IMMEDIATELY_MS
+    );
+
     uiScript();
 
 };
+
+
+/**
+ * Changes format of opened popup window
+ * @param format NORMAL, SMALL
+ */
+UI.popupWindowSetFormat = function(format='NORMAL'){
+
+    $('.popup-window').removeClass('popup-window-small');
+
+    if(format=="SMALL"){
+
+        $('.popup-window').addClass('popup-window-small');
+
+    }
+
+};
+
 
 
 /**
@@ -45,7 +70,7 @@ UI.popupWindowContent = function(content){
  * @param content
  * @param close_callback
  */
-UI.popupWindowOpen = function(title,content,close_callback=false){
+UI.popupWindowOpen = function(title,content,close_callback=false,format){
 
     if(window_opened){
         UI.popupWindowClose(false);
@@ -55,6 +80,9 @@ UI.popupWindowOpen = function(title,content,close_callback=false){
     if(close_callback){
         UI.popupWindowCloseCallback=close_callback;
     }
+
+
+    UI.popupWindowSetFormat(format);
 
     UI.popupWindowTitle(title);
     UI.popupWindowContent(content);

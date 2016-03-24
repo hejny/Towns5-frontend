@@ -8,6 +8,11 @@
 
 
 
+input[type="submit"]{
+  @include button-text(40px);
+}
+
+
 input.range-number{
   margin:0px;
   vertical-align: middle;
@@ -23,3 +28,12 @@ input[type="number"].range-number{
   width: 40px;
 
 }
+
+
+/*
+
+todo style of invalid/valid fields
+input:valid :not(input[type="submit"]) {
+  background-color: #ddffdd;
+}
+*/

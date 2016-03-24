@@ -462,6 +462,8 @@ function tidyHTML($buffer) {
 
         <li class="menu-list-item menu-list-item-registration">
             <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" page="register"><?=locale('ui buttons register')?></a><!--todo refactor atribute content to ?page-->
+
         </li>
 
 
@@ -504,7 +506,7 @@ function tidyHTML($buffer) {
 
 
 
-<div class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></div>
+<iv class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></iv>
 <div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
     <div class="header"><?= htmlspecialchars($inner_window['header']) ?></div>
     <div class="content"><?= ($inner_window['content']) ?></div>
