@@ -11,7 +11,7 @@
 var loadObjectPrototypes=function(callback=false){
 
 
-    townsAPI.get('objects/prototypes',{},function(response){
+    townsAPI.get('objects/prototypes',{},{},function(response){
 
         //r('LOADED prototypes');
 
