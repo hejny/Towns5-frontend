@@ -463,6 +463,7 @@ function tidyHTML($buffer) {
         <li class="menu-list-item menu-list-item-registration">
             <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
             <a class="js-popup-window-open" page="register"><?=locale('ui buttons register')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open" page="login"><?=locale('ui buttons login')?></a><!--todo refactor atribute content to ?page-->
 
         </li>
 

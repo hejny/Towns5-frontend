@@ -93,13 +93,12 @@ TownsAPIOffline.prototype.query = function(uri,query_data,method,data,headers,ca
  *
  * @param uri
  * @param data
- * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPIOffline.prototype.get = function(uri,query_data,headers,callback_success,callback_error){
-    return this.query(uri,query_data,'GET',{},headers,callback_success,callback_error);
+TownsAPIOffline.prototype.get = function(uri,query_data,callback_success,callback_error){
+    return this.query(uri,query_data,'GET',{},{},callback_success,callback_error);
 
 
 };
@@ -108,14 +107,13 @@ TownsAPIOffline.prototype.get = function(uri,query_data,headers,callback_success
  *
  * @param uri
  * @param data
- * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPIOffline.prototype.post = function(uri,object,headers,callback_success,callback_error){
+TownsAPIOffline.prototype.post = function(uri,object,callback_success,callback_error){
 
-    return this.query(uri,{},'POST',object,{},headers,callback_success,callback_error);
+    return this.query(uri,{},'POST',object,{},{},callback_success,callback_error);
 
 
 };

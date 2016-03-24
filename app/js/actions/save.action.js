@@ -27,7 +27,7 @@ function saveObject(object){//todo delete this and use direct API
         }
 
 
-        townsAPI.post('objects',object,{},function(response){
+        townsAPI.post('objects',object,function(response){
 
             object.id=response.objectId;
             r('object was send to server',object);

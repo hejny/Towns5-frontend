@@ -107,14 +107,13 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
  *
  * @param uri
  * @param data
- * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.get = function(uri,query_data,headers,callback_success,callback_error){
+TownsAPI.prototype.get = function(uri,query_data,callback_success,callback_error){
 
-    return this.query(uri,query_data,'GET',{},headers,callback_success,callback_error);
+    return this.query(uri,query_data,'GET',{},{},callback_success,callback_error);
 
 };
 
@@ -122,12 +121,11 @@ TownsAPI.prototype.get = function(uri,query_data,headers,callback_success,callba
  *
  * @param uri
  * @param data
- * @param headers
  * @param callback_success
  * @param callback_error
  * @returns {object} jQuery $.ajax
  */
-TownsAPI.prototype.post = function(uri,object,headers,callback_success,callback_error){
+TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
 
     var callback_success_wrapped;
 
@@ -161,7 +159,7 @@ TownsAPI.prototype.post = function(uri,object,headers,callback_success,callback_
 
 
     //r('API',JSON.stringify(object));
-    return this.query(uri,{},'POST',object,headers,callback_success_wrapped,callback_error);
+    return this.query(uri,{},'POST',object,{},callback_success_wrapped,callback_error);
 
 
 };
