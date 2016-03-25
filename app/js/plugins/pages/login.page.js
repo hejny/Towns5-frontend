@@ -24,6 +24,11 @@ T.Plugins.install(new T.Page(
 
     <table>
 
+
+        <tr>
+            <td class="messages" colspan="2"></td>
+        </tr>
+
         <tr>
             <td>*`+Locale.get('user','username')+`:</td>
             <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="xxx" required autofocus></td>
@@ -36,7 +41,9 @@ T.Plugins.install(new T.Page(
         </tr>
 
         <tr>
-            <td colspan="2"><input type="submit" value="`+Locale.get('user','register')+`"></td>
+            <td colspan="2">
+            <button>`+Locale.get('user','login')+`</button>
+            </td>
         </tr>
 
     </table>
@@ -50,6 +57,10 @@ T.Plugins.install(new T.Page(
 
 
 
+        $('#login-form').find('button').click(function(){
+            $('#login-form').trigger('submit');
+        });
+
 
         $('#login-form').submit(function(e){
 
@@ -60,9 +71,7 @@ T.Plugins.install(new T.Page(
             //todo form to json
             $(this).find('input').each(function(){
 
-
                 if($(this).attr('type')=='submit')return;
-                //r(this);
 
                 var key=$(this).attr('name');
                 key=key.split('-').join('_');
@@ -74,6 +83,8 @@ T.Plugins.install(new T.Page(
             });
 
 
+
+            $('#login-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
 
@@ -89,8 +100,10 @@ T.Plugins.install(new T.Page(
                 },
                 function(response){
 
-                    setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
-                    setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));
+                    $('#login-form').find('.messages').html('<div class="error">'+Locale.get('wrong auth')+'</div>');
+
+                    //setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
+                    //setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));
 
                 }
             );
