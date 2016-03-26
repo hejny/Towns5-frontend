@@ -222,7 +222,7 @@ $(function(){
                  }*/
 
 
-                tmp.design.data.rotation=360-rot+45;
+                tmp.design.data.rotation=rot-45;//360-rot+45;
 
 
                 //delete tmp.rot;
