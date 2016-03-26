@@ -38,8 +38,8 @@ function buildingStart(prototypeId){
     $('#selecting-distance-ctl').show();//showing toolbar control
     $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
     //showing buttons used by actual tool
-    if(building.subtype!='wall')$('#selecting-distance-right').show();
-    if(building.subtype!='wall')$('#selecting-distance-left').show();
+    if(dragging_subtypes.indexOf(building.subtype)==-1)$('#selecting-distance-right').show();
+    if(dragging_subtypes.indexOf(building.subtype)==-1)$('#selecting-distance-left').show();
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();
     $('#selecting-distance-close').show();
