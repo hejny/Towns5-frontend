@@ -25,6 +25,7 @@ ui_menu_nature_neutralize: Původní stav
 ui_menu_buildings: Budovy
 ui_menu_buildings_main: Základni
 ui_menu_buildings_wall: Hradby
+ui_menu_buildings_path: Cesty
 ui_menu_buildings_block: Bloky
 ui_menu_buildings_dismantle: Zbourat
 
@@ -169,4 +170,6 @@ resource_wood: Dřevo
 resource_clay: Hlína
 resource_stone: Kámen
 resource_iron: Železo
+
+
 ui_buttons_login: ui_buttons_login
