@@ -16,7 +16,7 @@ var resources = new Resources({
 $(function(){
 
 
-    $('#resources').html(resources.toHTML());//todo maybe sync resources with callback
+    //$('#resources').html(resources.toHTML());//todo maybe sync resources with callback
 
 
 });

@@ -5,5 +5,5 @@
 //======================================================================================================================
 
 
-townsAPI = new TownsAPI(TOWNS_API_URL);
-//townsAPI = new TownsAPIOffline();
+//townsAPI = new TownsAPI(TOWNS_API_URL);
+townsAPI = new TownsAPIOffline();
