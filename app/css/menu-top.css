@@ -91,7 +91,8 @@
 .menu-list-item:last-of-type > a {
   border: none; }
 
-.menu-list-item-registration > a, .menu-list-item-registration:hover > a {
+.menu-list-item-registration > a,
+.menu-list-item-registration:hover > a {
   display: block;
   color: white;
   background-color: #0098ff;
