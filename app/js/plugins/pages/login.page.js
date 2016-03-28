@@ -88,19 +88,28 @@ T.Plugins.install(new T.Page(
 
 
 
-            townsAPI.get('auth',{
+            townsAPI.post('auth',{
                     "username": data.username,
                     "password": data.password
                 },
                 function(response){
 
-                    r(response);
+
+                    townsAPI.token=response['x-auth'];
+                    $('#login-form').find('.messages').html('<div class="success">'+Locale.get('auth correct')+'</div>');
+                    //r(response);
+
+
+                    townsAPI.isLogged(function(user){r(user);});
 
 
                 },
                 function(response){
 
-                    $('#login-form').find('.messages').html('<div class="error">'+Locale.get('wrong auth')+'</div>');
+                    $('#login-form').find('.messages').html('<div class="error">'+Locale.get('auth wrong')+'</div>');
+
+                    townsAPI.token=false;
+                    townsAPI.isLogged(function(user){r(user);});
 
                     //setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
                     //setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));

@@ -4,12 +4,34 @@
  */
 //======================================================================================================================token
 
-TownsAPI=function(url=''){
+//todo headers
+TownsAPI=function(url='',token=false){
 
     this.online=true;
     this.url=url;
+    this.token=token;
 
 };
+
+//======================================================================================================================
+
+
+TownsAPI.prototype.isLogged = function(callback){
+    return this.query('auth',{},'GET',{},{},
+    function(response){
+        if(isDefined(response.status)){
+            callback(true)
+        }else{
+            callback(false)
+        }
+    },
+    function(response){
+        //r(response);
+        callback(false);
+    }
+    );
+};
+
 
 //======================================================================================================================
 
@@ -26,7 +48,10 @@ TownsAPI=function(url=''){
 TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_success=false,callback_error=false){
 
     //r(this.url+uri);
-    r(data);
+    //r(data);
+
+    if(this.token)headers['x-auth']=this.token;
+
 
     var query_data_string='';
     var query_separator='?';
@@ -47,6 +72,7 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
 
     }
 
+    //r(headers);
 
     var request = $.ajax({
         type: method,
@@ -58,6 +84,8 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
         dataType: 'json',
         timeout: 7000
     });
+
+    //r(request);
 
     //r('sended');
 
