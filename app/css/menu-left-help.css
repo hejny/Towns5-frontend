@@ -45,7 +45,9 @@
   width: 300px;
   height: 200px; }
 
-#popup-action .content h2, #popup-action .content p, #popup-action .content button {
+#popup-action .content h2,
+#popup-action .content p,
+#popup-action .content button {
   text-align: center;
   padding: 10px;
   margin: 0; }

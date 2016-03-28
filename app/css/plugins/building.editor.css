@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
  * @author Towns.cz
  * @fileOverview Style of story editor
@@ -32,18 +33,18 @@
 
 .model-dir-particles:before {
   font-family: FontAwesome;
-  content: "\f1b3";
+  content: "";
   padding-left: 10px;
   padding-right: 10px; }
 
 .model-dir-shape:before {
   font-family: FontAwesome;
-  content: "\f1b2";
+  content: "";
   padding-left: 10px;
   padding-right: 10px; }
 
 .model-dir-link:before {
   font-family: FontAwesome;
-  content: "\f0c1";
+  content: "";
   padding-left: 10px;
   padding-right: 10px; }

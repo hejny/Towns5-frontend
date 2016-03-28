@@ -60,7 +60,7 @@ gulp.task('default', function() {
 //======================================================================================================================
 
 gulp.task('develop', function() {
-    browserSync.read({
+    browserSync.init({
         proxy: "towns.local"
     });
 
