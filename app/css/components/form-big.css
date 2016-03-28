@@ -1,0 +1,49 @@
+/**
+ * @author Towns.cz
+ * @fileOverview XML feed in project-style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.form-big {
+  width: 100%;
+  text-align: center; }
+
+.form-big table {
+  display: inline-block;
+  /*margin-left: auto;
+  margin-right: auto;*/
+  width: auto;
+  /*max-width:100%;*/
+  text-align: left; }
+
+.form-big input {
+  display: inline-block;
+  width: 200px;
+  /*max-width:100%;*/
+  font-size: 1.3em;
+  border: 2px solid #cccccc; }
+
+.form-big input[type="submit"] {
+  width: auto;
+  font-size: 1em;
+  border: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.form-big input, textarea {
+  display: inline-block;
+  /*width:300px;
+  max-width:100%;*/
+  border: 2px solid #cccccc;
+  resize: none; }
