@@ -173,3 +173,5 @@ resource_iron: Železo
 
 
 ui_buttons_login: ui_buttons_login
+ui_user_logout: ui_user_logout
+ui_user: ui_user
