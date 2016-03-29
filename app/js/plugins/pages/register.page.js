@@ -20,7 +20,7 @@ T.Plugins.install(new T.Page(
 
 
 
- <form id="login-form" class="form-big">
+ <form id="register-form" class="form-big">
 
     <table>
 
@@ -32,23 +32,23 @@ T.Plugins.install(new T.Page(
 
         <tr>
             <td>*`+Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="xxx" required autofocus autocomplete="off"></td>
+            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="" autofocus autocomplete="off"></td>
         </tr>
 
 
         <tr>
             <td>*`+Locale.get('user','password')+`:</td>
-            <td><input type="text" name="password" autocomplete="off" required></td>
+            <td><input type="password" name="password" autocomplete="off"></td>
         </tr>
         <tr>
             <td>*`+Locale.get('user','password','again')+`:</td>
-            <td><input type="text" name="password-again" autocomplete="off" required></td>
+            <td><input type="password" name="password-again" autocomplete="off"></td>
         </tr>
 
 
         <tr>
             <td>`+Locale.get('user','email')+`:</td>
-            <td><input type="email" name="username" placeholder="`+Locale.get('user','email','placeholder')+`" value="aa@bb" autocomplete="on"></td>
+            <td><input type="email" name="email" placeholder="`+Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
         </tr>
 
 
@@ -82,7 +82,9 @@ T.Plugins.install(new T.Page(
         `*/+`
 
         <tr>
-            <td colspan="2"><input type="submit" value="`+Locale.get('user','register')+`"></td>
+            <td colspan="2">
+                <button style="width: 150px;">`+Locale.get('user','register')+`</button>
+            </td>
         </tr>
 
 
@@ -105,7 +107,7 @@ T.Plugins.install(new T.Page(
 `
 ,function(){
 
-        $('#login-form').find('input').change(function(e){
+        $('#register-form').find('input').change(function(e){
 
             r('changed');
             unsetInputError(this);
@@ -113,8 +115,12 @@ T.Plugins.install(new T.Page(
         });
 
 
+        $('#register-form').find('button').click(function(){
+            $('#register-form').trigger('submit');
+        });
+        
 
-        $('#login-form').submit(function(e){
+        $('#register-form').submit(function(e){
 
             e.preventDefault();
 
@@ -137,15 +143,44 @@ T.Plugins.install(new T.Page(
             });
 
 
+            //---------------------------------------------
+            if(data.username.trim().length==0){
+
+
+                setInputError($("input[name='username']")[0],Locale.get('user','username'));
+
+
+            }else
+            //---------------------------------------------
+            if(!validateEmail(data.email)){
+
+
+                setInputError($("input[name='email']")[0],Locale.get('user','email'));
+
+
+            }else
+            //---------------------------------------------
+            if(data.password.length==0){
+
+                setInputError($("input[name='password']")[0],Locale.get('user','password'));
+
+            }else
+            //---------------------------------------------
             if(data.password!==data.password_again){
 
 
                 setInputError($("input[name='password-again']")[0],Locale.get('user','password','again','notsame'));
 
 
-            }else{
+            }else
+            //---------------------------------------------Register!
+            if(true){
 
 
+
+                $('#register-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+                
+                
 
                 var password=data.password;
                 delete data.password;
@@ -160,10 +195,39 @@ T.Plugins.install(new T.Page(
                     "language" : "cs"//todo language
                 },
                 function(response){
-                    r(response);
+
+
+                    townsAPI.post('auth',{
+                            "username": data.username,
+                            "password": password
+                        },
+                        function(response){
+
+                            $('#register-form').find('button').html(Locale.get('user','login'));
+
+                            Storage.save('token',response['x-auth']);
+                            townsAPI.token=response['x-auth'];
+                            
+
+                            UI.popupWindowClose();
+                            UI.message(Locale.get('registered as')+' '+data.username,'success');
+                            UI.logged();
+
+
+                        },
+                        function(response){
+
+                            throw new Error('Cant login after registration.');
+
+                        }
+                    );
+                    
+                    
 
                 },
                 function(response){
+
+                    $('#login-form').find('button').html(Locale.get('user','register'));
 
                     setInputError($("input[name='username']")[0],Locale.get('user','username','taken'));
 
@@ -171,6 +235,7 @@ T.Plugins.install(new T.Page(
                 );
 
 
+                //---------------------------------------------
             }
 
 
