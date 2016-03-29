@@ -480,15 +480,13 @@ function tidyHTML($buffer) {
             <i id="server-ok" class="fa fa-check-circle"></i>
             <i id="server-error" style="display: none;" class="fa fa-exclamation-triangle"></i>
 
-
-
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon logged-in" style="display:none"
-            onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}"
-        ><!--faa-parent animated-hover-->
-            <i class="fa fa-sign-out"></i>
+        <li class="menu-list-item menu-list-item-icon js-popup-user-open logged-in" style="display:none"><!--faa-parent animated-hover-->
+
+            <i class="fa fa-user"></i>
+
         </li>
 
 
@@ -536,7 +534,7 @@ function tidyHTML($buffer) {
 
 
 
-<div class="popup-notification">
+<div class="popup-notification"><!--todo create class popup-top-->
     <div class="arrow"></div>
     <div class="header"></div>
     <div class="content" id="notifications">
@@ -560,6 +558,26 @@ function tidyHTML($buffer) {
         <a href="#"><?=locale('ui server')?></a>
     </div>
 </div>
+
+
+
+<div class="popup-user">
+    <div class="arrow"></div>
+    <div class="header"></div>
+    <div class="content" id="user">
+
+
+        <button onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}">
+            <?=locale('ui user logout')?>
+        </button>
+
+
+    </div>
+    <div class="footer">
+        <a href="#"><?=locale('ui user')?></a>
+    </div>
+</div>
+
 
 
 </body>
