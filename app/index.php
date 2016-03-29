@@ -389,14 +389,14 @@ function tidyHTML($buffer) {
 
     <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
     <div class="menu-logo">
-        <img class="js-popup-window-open" content="home" src="/media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
+        <img class="js-popup-window-open" page="home" src="/media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
 
     </div>
 
 
     <ul class="menu-list menu-list-left">
 
-        <li class="menu-list-item">
+        <li class="menu-list-item logged-in" style="display:none">
             <a><?=locale('ui menu nature')?></a>
 
             <ul class="menu-dlist">
@@ -404,7 +404,7 @@ function tidyHTML($buffer) {
             </ul>
         </li>
 
-        <li class="menu-list-item">
+        <li class="menu-list-item logged-in" style="display:none">
             <a><?=locale('ui menu buildings')?></a>
 
             <ul class="menu-dlist">
@@ -416,7 +416,7 @@ function tidyHTML($buffer) {
             </ul>
         </li>
 
-        <li class="menu-list-item">
+        <li class="menu-list-item logged-in" style="display:none">
             <a><?=locale('ui menu stories')?></a>
 
             <ul class="menu-dlist">
@@ -462,9 +462,9 @@ function tidyHTML($buffer) {
         </li>
 
         <li class="menu-list-item menu-list-item-registration">
-            <a class="js-popup-window-open" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
-            <a class="js-popup-window-open" page="register"><?=locale('ui buttons register')?></a><!--todo refactor atribute content to ?page-->
-            <a class="js-popup-window-open" page="login"><?=locale('ui buttons login')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open logged-out" style="display:none" page="home"><?=locale('ui buttons about game')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open logged-out" style="display:none" page="register"><?=locale('ui buttons register')?></a><!--todo refactor atribute content to ?page-->
+            <a class="js-popup-window-open logged-out" style="display:none" page="login"><?=locale('ui buttons login')?></a><!--todo refactor atribute content to ?page-->
 
         </li>
 
@@ -484,6 +484,12 @@ function tidyHTML($buffer) {
 
         </li>
 
+
+        <li class="menu-list-item menu-list-item-icon logged-in" style="display:none"
+            onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}"
+        ><!--faa-parent animated-hover-->
+            <i class="fa fa-sign-out"></i>
+        </li>
 
 
 

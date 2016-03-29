@@ -158,3 +158,28 @@ UI.message = function(text,type){
 
 
 
+UI.logged = function(){
+
+    townsAPI.isLogged(function(is){
+
+        //alert(is);
+        if(is){
+
+            $('.logged-in').stop().fadeIn();
+            $('.logged-out').stop().fadeOut();
+
+        }else{
+
+            $('.logged-in').stop().fadeOut();
+            $('.logged-out').stop().fadeIn();
+
+        }
+
+    });
+
+};
+
+
+
+
+

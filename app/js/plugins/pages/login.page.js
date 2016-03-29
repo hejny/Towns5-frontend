@@ -42,7 +42,7 @@ T.Plugins.install(new T.Page(
 
         <tr>
             <td colspan="2">
-            <button>`+Locale.get('user','login')+`</button>
+            <button style="width: 150px;">`+Locale.get('user','login')+`</button>
             </td>
         </tr>
 
@@ -83,8 +83,8 @@ T.Plugins.install(new T.Page(
             });
 
 
-
             $('#login-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+
 
 
 
@@ -94,22 +94,30 @@ T.Plugins.install(new T.Page(
                 },
                 function(response){
 
+                    $('#login-form').find('button').html(Locale.get('user','login'));
 
+                    Storage.save('token',response['x-auth']);
                     townsAPI.token=response['x-auth'];
-                    $('#login-form').find('.messages').html('<div class="success">'+Locale.get('auth correct')+'</div>');
+                    //$('#login-form').find('.messages').html('<div class="success">'+Locale.get('auth correct')+'</div>');
                     //r(response);
 
-
-                    townsAPI.isLogged(function(user){r(user);});
+                    UI.popupWindowClose();
+                    UI.message(Locale.get('logged as')+' '+data.username,'success');
+                    UI.logged();
+                    //townsAPI.isLogged(function(user){r(user);});
 
 
                 },
                 function(response){
 
+                    $('#login-form').find('button').html(Locale.get('user','login'));
+
+
                     $('#login-form').find('.messages').html('<div class="error">'+Locale.get('auth wrong')+'</div>');
 
                     townsAPI.token=false;
-                    townsAPI.isLogged(function(user){r(user);});
+                    UI.logged();
+                    //townsAPI.isLogged(function(user){r(user);});
 
                     //setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
                     //setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));
