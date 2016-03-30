@@ -24,7 +24,8 @@
   width: 400px;
   height: 500px;
   color: black;
-  overflow: hidden; }
+  overflow: hidden;
+  text-align: center; }
 
 .menu-top-popup .arrow {
   margin-left: 370px;
@@ -87,3 +88,35 @@
 
 .menu-top-popup .footer a:hover {
   text-decoration: underline; }
+
+.menu-top-popup .item {
+  display: block;
+  width: calc(100% - 20px);
+  min-height: 30px;
+  padding: 10px;
+  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-decoration: none;
+  color: #000000; }
+
+.menu-top-popup .item:nth-child(odd) {
+  background: rgba(146, 146, 146, 0.1); }
+
+.menu-top-popup .item:nth-child(even) {
+  background: rgba(10, 10, 10, 0.1); }
+
+.menu-top-popup .item:hover {
+  background: rgba(10, 50, 150, 0.1); }
+
+.menu-top-popup .user-image {
+  width: 150px;
+  width: 150px;
+  border-radius: 200px;
+  margin: 20px;
+  margin-bottom: 0px; }
+
+.menu-top-popup .user-name {
+  color: #333333;
+  margin-top: 0px;
+  margin: 20px; }
