@@ -28,6 +28,6 @@ $.get(feed_url, function (data) {
     });
 
 
-    $("#notifications").html(html);
+    $('#menu-top-popup-notifications').find('.content').html(html);
     uiScript();
 });

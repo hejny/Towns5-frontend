@@ -469,12 +469,12 @@ function tidyHTML($buffer) {
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon js-popup-notification-open faa-parent animated-hover">
+        <li class="menu-list-item menu-list-item-icon js-menu-top-popup-open faa-parent animated-hover" page="notifications" >
             <i class="fa fa-flag fa-lg faa-shake"></i>
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon js-popup-server-open faa-parent animated-hover">
+        <li class="menu-list-item menu-list-item-icon faa-parent animated-hover">
 
             <i id="server-loading" style="display: none;" class="fa fa-spinner faa-spin animated"></i>
             <i id="server-ok" class="fa fa-check-circle"></i>
@@ -483,7 +483,7 @@ function tidyHTML($buffer) {
         </li>
 
 
-        <li class="menu-list-item menu-list-item-icon js-popup-user-open logged-in" style="display:none"><!--faa-parent animated-hover-->
+        <li class="menu-list-item menu-list-item-icon js-menu-top-popup-open logged-in" page="user" style="display:none"><!--faa-parent animated-hover-->
 
             <i class="fa fa-user"></i>
 
@@ -534,43 +534,31 @@ function tidyHTML($buffer) {
 
 
 
-<div class="popup-notification"><!--todo create class popup-top-->
+<?php
+
+$menu_top_popups = array('notifications'/*,'server'*/,'user');
+
+foreach($menu_top_popups as $menu_top_popup){
+?>
+
+
+<div class="menu-top-popup" id="menu-top-popup-<?=$menu_top_popup?>"><!--todo  unify ui names-->
     <div class="arrow"></div>
     <div class="header"></div>
-    <div class="content" id="notifications">
+    <div class="content">
 
 
     </div>
     <div class="footer">
-        <a href="#"><?=locale('ui notifications all')?></a>
+        <a href="#"><?=locale('ui menu top popup '.$menu_top_popup.' footer')?></a>
     </div>
 </div>
 
 
-<div class="popup-server">
-    <div class="arrow"></div>
-    <div class="header"></div>
-    <div class="content" id="server">
+<?php
+}
+?>
 
-
-    </div>
-    <div class="footer">
-        <a href="#"><?=locale('ui server')?></a>
-    </div>
-</div>
-
-
-
-<div class="popup-user">
-    <div class="arrow"></div>
-    <div class="header"></div>
-    <div class="content" id="user">
-
-    </div>
-    <div class="footer">
-        <a href="#"><?=locale('ui user')?></a>
-    </div>
-</div>
 
 
 
