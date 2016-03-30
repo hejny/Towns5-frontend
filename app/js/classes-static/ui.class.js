@@ -190,8 +190,9 @@ UI.logged = function(){
                     var email_md5=md5(response.profile.email);
                     var user_profile_html = `
 
-                    <h1>`+response.profile.username+`</h1>
-                    <img src="https://1.gravatar.com/avatar/`+email_md5+`?s=200&r=pg&d=mm">
+                    <img class="user-image" src="https://1.gravatar.com/avatar/`+email_md5+`?s=200&r=pg&d=mm">
+                    <h1 class="user-name">`+response.profile.username+`</h1>
+
 
                     `;
 
