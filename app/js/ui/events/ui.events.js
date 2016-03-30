@@ -183,6 +183,11 @@ window.uiScript = function(){
 
         var page=$(this).attr('page');
 
+
+        var left = $(this).position().left-360;
+        $('#menu-top-popup-'+page).css('left',left);
+
+
         $('.menu-top-popup').not('#menu-top-popup-'+page).hide();
         $('#menu-top-popup-'+page).toggle();
 
