@@ -31,6 +31,19 @@ button{
   @include button-text(40px);
 }
 
+button.pale{
+  background-color: $button-text-color-pale;//todo is it best solution?
+
+  &:hover{
+
+    background-color: lighten($button-text-color-pale,13%);
+
+  }
+
+}
+
+
+
 
 .button-icon{
 

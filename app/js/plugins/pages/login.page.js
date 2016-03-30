@@ -31,13 +31,13 @@ T.Plugins.install(new T.Page(
 
         <tr>
             <td>*`+Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="xxx" required autofocus></td>
+            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" required autofocus></td>
         </tr>
 
 
         <tr>
             <td>*`+Locale.get('user','password')+`:</td>
-            <td><input type="text" name="password" required></td>
+            <td><input type="password" name="password" required></td>
         </tr>
 
         <tr>

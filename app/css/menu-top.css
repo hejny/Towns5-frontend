@@ -57,9 +57,12 @@
 
 .menu-list-item {
   float: left;
-  display: block;
+  display: inline-block;
   list-style: none;
   position: relative; }
+
+.menu-list-item button {
+  display: inline-block; }
 
 .menu-list-item > a {
   display: block;

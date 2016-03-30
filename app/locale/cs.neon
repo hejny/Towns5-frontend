@@ -39,7 +39,13 @@ ui_menu_develop_locale_write: Lokalizace
 ui_menu_develop_window: Do nového okna
 
 ui_buttons_about_game: O hře
-ui_notifications_all: Všetky notifikácie
+ui_buttons_register: Začít hrát
+ui_buttons_login: Přihlásit se
+
+ui_user_logout: Odhlásit se
+
+ui_menu_top_popup_notifications_footer: Všetky notifikácie
+ui_menu_top_popup_user_footer: Přihlášený hráč
 
 
 
@@ -137,13 +143,10 @@ block_rotation_xz: XZ
 
 
 
-
-ui_menu_nature_main: ui_menu_nature_main
-ui_buttons_register: ui_buttons_register
 page_register: Nový Hráč
 user_basic: Základní
 user_username: Jméno
-user_username_placeholder: Utilius
+user_username_placeholder: " "
 user_password: Heslo
 user_password_again: "Heslo ještě jednou"
 user_email: E-mail
@@ -172,8 +175,10 @@ resource_stone: Kámen
 resource_iron: Železo
 
 
-ui_buttons_login: ui_buttons_login
-ui_user_logout: ui_user_logout
-ui_user: ui_user
-ui_menu_top_popup_notifications_footer: ui_menu_top_popup_notifications_footer
-ui_menu_top_popup_user_footer: ui_menu_top_popup_user_footer
+
+
+
+
+
+
+ui_menu_nature_main: ui_menu_nature_main

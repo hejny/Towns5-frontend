@@ -49,7 +49,11 @@
   color: #cccccc;
   float: right;
   margin-right: 5px;
+
+  //width:500px;
+
   //border: 2px solid #00aaff;
+
 }
 
 #resources {
@@ -73,9 +77,15 @@
 
 .menu-list-item {
   float: left;
-  display: block;
+  display: inline-block;
   list-style: none;
   position: relative;
+}
+
+.menu-list-item button{
+
+  display: inline-block;
+
 }
 
 .menu-list-item > a {
@@ -132,6 +142,12 @@
 .menu-list-item-registration > a:hover {
   background-color: #007fe6;
 }
+
+
+
+
+
+
 
 .menu-list-item-icon {
   display: block;
