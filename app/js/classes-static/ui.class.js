@@ -155,9 +155,9 @@ UI.message = function(text,type){
 };
 
 
-
-
-
+/**
+ * Change UI after login / logout / register
+ */
 UI.logged = function(){
 
     townsAPI.isLogged(function(is){
@@ -165,10 +165,58 @@ UI.logged = function(){
         //alert(is);
         if(is){
 
+
+            var decoded_token = jwt_decode(townsAPI.token);
+            //r(decoded_token);
+
+            UI.message(Locale.get('logged in as')+' '+decoded_token.username,'success');
+
+
+            var user_html=`
+            <div id="user-profile"></div>
+            <button onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}">
+                `+Locale.get('ui user logout')+`
+            </button>`;
+
+            $('#user').html(user_html);
+
+
+            townsAPI.get(
+                'users/'+decoded_token.id
+                ,{}
+                ,function(response){
+
+
+                    var email_md5=md5(response.profile.email);
+                    var user_profile_html = `
+
+                    <h1>`+response.profile.username+`</h1>
+                    <img src="https://1.gravatar.com/avatar/`+email_md5+`?s=200&r=pg&d=mm">
+
+                    `;
+
+                    $('#user-profile').html(user_profile_html);
+
+                }
+                ,function(){
+
+                    throw new Error('Cant get user info after login.');
+
+                }
+            );
+
+
+
+
+
+
+
             $('.logged-in').stop().fadeIn();
             $('.logged-out').stop().fadeOut();
 
         }else{
+
+            UI.message(Locale.get('logged out'),'info');
 
             $('.logged-in').stop().fadeOut();
             $('.logged-out').stop().fadeIn();

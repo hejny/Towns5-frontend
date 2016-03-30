@@ -566,12 +566,6 @@ function tidyHTML($buffer) {
     <div class="header"></div>
     <div class="content" id="user">
 
-
-        <button onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}">
-            <?=locale('ui user logout')?>
-        </button>
-
-
     </div>
     <div class="footer">
         <a href="#"><?=locale('ui user')?></a>

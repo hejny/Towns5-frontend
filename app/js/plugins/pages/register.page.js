@@ -210,7 +210,6 @@ T.Plugins.install(new T.Page(
                             
 
                             UI.popupWindowClose();
-                            UI.message(Locale.get('registered as')+' '+data.username,'success');
                             UI.logged();
 
 
