@@ -178,16 +178,14 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-notification-open').unbind('click').on('click', function(event){
-        event.stopPropagation();
+    $('.js-menu-top-popup-open').unbind('click').on('click', function(event){
+        event.stopPropagation();//todo wtf?
 
+        var page=$(this).attr('page');
 
-        //$('.popup-notification').hide();
-        $('.popup-server').hide();
-        $('.popup-user').hide();
+        $('.menu-top-popup').not('#menu-top-popup-'+page).hide();
+        $('#menu-top-popup-'+page).toggle();
 
-
-        $('.popup-notification').toggle();
     });
 
     // kliknutie na otvorený popup-notification neurobí nič
@@ -198,51 +196,12 @@ window.uiScript = function(){
 
     //------------------------------------
 
-    // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-server-open').unbind('click').on('click', function(event){
-
-        return;//todo create content of server popup
-
-        event.stopPropagation();
-        //$('.popup-notification').hide();
-        $('.popup-server').toggle();
-    });
-
-    // kliknutie na otvorený popup-notification neurobí nič
-    $('.popup-server').unbind('click').on('click', function(event){
-        event.stopPropagation();
-    });
-
-
-    //------------------------------------
-
-    //todo create class popup-top
-
-    // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-user-open').unbind('click').on('click', function(event){
-        event.stopPropagation();
-
-        $('.popup-notification').hide();
-        $('.popup-server').hide();
-        //$('.popup-user').hide();
-
-        $('.popup-user').toggle();
-    });
-
-    // kliknutie na otvorený popup-notification neurobí nič
-    $('.popup-user').unbind('click').on('click', function(event){
-        event.stopPropagation();
-    });
-
-
-    //------------------------------------
-
 
     // kliknutie na document schová oba
     $(document).unbind('click').on('click', function(){
-        $('.popup-notification').hide();
-        $('.popup-server').hide();
-        $('.popup-user').hide();
+
+        $('.menu-top-popup').hide();
+
     });
 
 

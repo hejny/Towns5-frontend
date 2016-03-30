@@ -178,7 +178,7 @@ UI.logged = function(){
                 `+Locale.get('ui user logout')+`
             </button>`;
 
-            $('#user').html(user_html);
+            $('#menu-top-popup-user').find('.content').html(user_html);
 
 
             townsAPI.get(

@@ -1,14 +1,15 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Style for server popup
-//todo refactor to servers
+ * @fileOverview Style for top menu popup
  */
 //======================================================================================================================
+
+
 @import 'config';
 @import 'mixins';
 
 
-.popup-user {
+.menu-top-popup {
   display: none;
   z-index: 4000;
   position: fixed;
@@ -21,8 +22,8 @@
 }
 
 
-.popup-user .arrow {
-  margin-left: 370px;
+.menu-top-popup .arrow {
+  margin-left: 340px;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -33,7 +34,7 @@
   border-bottom-color: rgba(255, 255, 255, 0.85);
 }
 
-.popup-user .header {
+.menu-top-popup .header {
   height: 9px;
   line-height: 9px;
   text-align: center;
@@ -46,7 +47,7 @@
   border-top-right-radius: 3px;
 }
 
-.popup-user .content {
+.menu-top-popup .content {
   width: auto;
   height: 440px;
   box-sizing: border-box;
@@ -56,23 +57,23 @@
   overflow-y: auto;
 }
 
-.popup-user .content p { /* todo: nespraviť z toho a ??? */
+.menu-top-popup .content p { /* todo: nespraviť z toho a ??? */
   padding: 10px;
   margin: 0 auto;
   cursor: pointer;
   border-bottom: 1px solid #bababa;
 }
 
-.popup-user .content p:last-of-type {
+.menu-top-popup .content p:last-of-type {
   border: none;
 }
 
 
-.popup-user .content p:hover {
+.menu-top-popup .content p:hover {
   background-color: #fff;
 }
 
-.popup-user .footer {
+.menu-top-popup .footer {
   height: 29px;
   line-height: 29px;
   text-align: center;
@@ -85,12 +86,12 @@
   border-bottom-right-radius: 3px;
 }
 
-.popup-user .footer a {
+.menu-top-popup .footer a {
   color: black;
   text-decoration: none;
 }
 
-.popup-user .footer a:hover {
+.menu-top-popup .footer a:hover {
   text-decoration: underline;
 }
 
