@@ -102,7 +102,6 @@ T.Plugins.install(new T.Page(
                     //r(response);
 
                     UI.popupWindowClose();
-                    UI.message(Locale.get('logged as')+' '+data.username,'success');
                     UI.logged();
                     //townsAPI.isLogged(function(user){r(user);});
 
