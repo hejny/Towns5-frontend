@@ -217,7 +217,7 @@ UI.logged = function(){
 
         }else{
 
-            UI.message(Locale.get('logged out'),'info');
+            //UI.message(Locale.get('logged out'),'info');
 
             $('.logged-in').stop().fadeOut();
             $('.logged-out').stop().fadeIn();
