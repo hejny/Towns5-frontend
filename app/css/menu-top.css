@@ -22,9 +22,8 @@
   right: 0;
   height: 60px;
   width: 100%;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.85);
-  /*border-bottom: 1px solid black;*/ }
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95));
+  box-shadow: black 0px 0px 2px; }
 
 .menu-logo {
   float: left;
