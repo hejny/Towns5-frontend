@@ -1,4 +1,5 @@
 
+
 *desktop.ini
 
 /nbproject
@@ -38,3 +39,7 @@ npm-debug.log
 /app-dist/
 documentation
 asd.*
+
+
+/towns-shared
+/towns-shared/*

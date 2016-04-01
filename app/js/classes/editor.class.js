@@ -7,26 +7,32 @@
 
 /**
  * Creates object editor
- * @param title
- * @param content
- * @param open_callback
- * @param default_object
+ * @param {string} uri
+ * @param {object} conditions of opened object
+ * @param {string} title
+ * @param {string} content
+ * @param {function} open_callback
+ * @param {function} default_object
  * @constructor
  */
-var Editor = function(title,content,open_callback,default_object){
+Towns.Editor = function(uri,conditions,title,content,open_callback,default_object){
+
+    this.uri=uri;
+    this.conditions=conditions;
 
     var self=this;
-    this.page = new Page(
+    this.page = new Towns.Page(
+        uri,
         title,
         `
         <form id="editor-object-header">
             <input type="text" id="editor-object-name" value="" placeholder="{{`+default_object.type+` `+default_object.subtype+` name placeholder}}">
 
 
-            <div class="mini-button"  id="editor-object-duplicate" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
+            <div class="button-icon"  id="editor-object-duplicate" title="{{`+default_object.type+` `+default_object.subtype+` delete}}"><i class="fa fa-clone"></i></div>
 
 
-            <div class="mini-button"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
+            <div class="button-icon"  id="editor-object-delete" title="{{`+default_object.type+` `+default_object.subtype+` duplicate}}"><i class="fa fa-trash-o"></i></div>
 
 
         </form>
@@ -51,7 +57,16 @@ var Editor = function(title,content,open_callback,default_object){
                 buildingStart(object_prototypes[i].id);
 
 
-                townsAPI.post('objects/prototypes',object_prototypes[i],function(errors){
+                townsAPI.post('objects/prototypes',object_prototypes[i]
+                    ,function(response){
+
+
+                        objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
+                        buildingStart(object_prototypes[i].id);
+
+
+                    }
+                    ,function(errors){
 
                     self.open(0,object_prototypes[i].id,errors);
                 });
@@ -85,10 +100,13 @@ var Editor = function(title,content,open_callback,default_object){
 
 /**
  * Open editor
- * @param {number} collection 0=object_prototypes, 0=objects_external
+ * @param {number} collection 0=object_prototypes, 1=objects_external
  * @param {string} id
  */
-Editor.prototype.open = function(collection,id,errors=false){
+Towns.Editor.prototype.open = function(collection,id,errors=false){
+
+    //r('Towns.Editor');
+
 
     this.opened = {
         collection: collection
@@ -109,13 +127,14 @@ Editor.prototype.open = function(collection,id,errors=false){
             r('Creating new object prototype '+this.opened.object.name+'.');
 
 
-        }/*else
+        }else
         if(collection==1){
 
-            objects_external.push(this.opened.object)
-            r('Creating new object '+this.opened.object.name+'.');
+            /*objects_external.push(this.opened.object)
+            r('Creating new object '+this.opened.object.name+'.');*/
+            throw new Error('In objects can not be created new object without prototype.');
 
-        }*/else{
+        }else{
             throw new Error(''+collection+' is invalid identificator of collection!');
         }
 
@@ -132,17 +151,21 @@ Editor.prototype.open = function(collection,id,errors=false){
             r('Opening object prototype '+this.opened.object.name+'.');
 
 
-        }/*else
+        }else
         if(collection==1){
 
+            r(objects_external,id);
             this.opened.object = ArrayFunctions.id2item(objects_external,id);
             r('Opening object '+this.opened.object.name+'.');
 
-        }*/else{
+        }else{
             throw new Error(''+collection+' is invalid identificator of collection!');
         }
 
     }
+
+
+    URI.object=this.opened.object.id;
 
 
     var editor=this;

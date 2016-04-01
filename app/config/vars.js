@@ -5,7 +5,8 @@
 //======================================================================================================================
 //CONSTANTS
 
-var TOWNS_API_URL='http://localhost:3000/';
+//var TOWNS_API_URL='http://localhost:3000/';
+var TOWNS_API_URL='http://alpha.towns.cz:4001/';
 
 
 var IMMEDIATELY_MS = 100;
@@ -32,8 +33,12 @@ var objects_external_move=[];//Moving objects
 
 
 
-var selecting_distance_canvas;
-var selecting_distance_canvas_ctx;
+var selecting_distance_2d_canvas;//todo refactor selecting distance to ?tool
+var selecting_distance_2d_canvas_ctx;
+
+var selecting_distance_3d_canvas;
+var selecting_distance_3d_canvas_gl;
+var selecting_distance_3d_canvas_webgl;
 
 //-------------------------
 
@@ -98,7 +103,12 @@ var map_zoom_delta=0;
 var map_rotation_delta=0;
 var map_slope_delta=0;
 
-var map_x_delta=0;
+
+var map_x=false;//todo Static object Map
+var map_y=false;
+
+
+var map_x_delta=0;//todo refactor delete all delta
 var map_y_delta=0;
 var map_size_delta=0;
 
@@ -150,7 +160,7 @@ var moving=false;
 var blockedTerrains=[1,11,5];
 
 
-var appDir = (environment=='production')?'app-dist':'app';
+var appDir = (environment=='production')?'/app-dist':'/app';
 
 
 var feed_url='http://blog.towns.cz/feed/';

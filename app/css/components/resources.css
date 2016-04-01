@@ -1,0 +1,34 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Resources toHTML
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.resources {
+  padding: 0px;
+  margin: 4px;
+  text-align: center; }
+
+.resources div {
+  display: inline-block;
+  font-weight: 500;
+  margin-left: 4px; }
+
+.resources div:first-child {
+  margin-left: 0px; }
+
+.resources div img {
+  width: 25px;
+  height: 25px;
+  margin-right: 2px;
+  vertical-align: middle; }

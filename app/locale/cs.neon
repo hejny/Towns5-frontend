@@ -13,7 +13,6 @@ ui_tool_controls_minus: Zmenšit
 ui_tool_controls_left: Otočit doleva
 ui_tool_controls_right: Otočit doprava
 ui_tool_controls_color: Barvy
-ui_tool_controls_blocks: Upravit blok
 ui_tool_controls_close: Zavřít
 
 
@@ -26,6 +25,7 @@ ui_menu_nature_neutralize: Původní stav
 ui_menu_buildings: Budovy
 ui_menu_buildings_main: Základni
 ui_menu_buildings_wall: Hradby
+ui_menu_buildings_path: Cesty
 ui_menu_buildings_block: Bloky
 ui_menu_buildings_dismantle: Zbourat
 
@@ -36,9 +36,16 @@ ui_menu_develop: Vývojář
 ui_menu_develop_info: 'Tyto funkce jsou vývojářské nástroje, které nebudou moct běžní hráči využívat.'
 ui_menu_develop_screenshot: Screenshot
 ui_menu_develop_locale_write: Lokalizace
+ui_menu_develop_window: Do nového okna
 
 ui_buttons_about_game: O hře
-ui_notifications_all: Všetky notifikácie
+ui_buttons_register: Začít hrát
+ui_buttons_login: Přihlásit se
+
+ui_user_logout: Odhlásit se
+
+ui_menu_top_popup_notifications_footer: Všetky notifikácie
+ui_menu_top_popup_user_footer: Přihlášený hráč
 
 
 
@@ -47,7 +54,22 @@ towns_logo: logo
 
 
 
+ui_map_controls_plus: Přiblížit
+ui_map_controls_minus: Oddálit
+ui_map_controls_left: Otočit doleva
+ui_map_controls_right: Otočit doprava
 
+
+
+
+ui_macros_create_building: Vytvořit budovu
+ui_macros_create_building_block: Vytvořit blok
+
+
+
+
+
+ui_server: Načítání ze serveru
 
 
 
@@ -65,6 +87,20 @@ home_news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
 projects: "Podívej se, na čem právě pracujeme:"
 projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
 
+
+
+
+plugin_building_viewer_open_building_block_view: Zobrazit blok
+plugin_profile_viewer_open_building_block_view: Profil bloku
+building_block_view_description: "Vyber, jakým způsobem chceš blok zobrazit:"
+plugin_building_block_editor_open_building_block_edit: Upravit blok
+building_block_edit_description: "Vyber, jakým způsobem chceš blok upravit:"
+building_block_clone: Klonovat
+building_block_dismantle: Rozebrat
+building_block_clone_description: none
+building_block_dismantle_description: none
+building_block_view: Zobrazit
+building_block_edit: Upravit
 
 
 
@@ -89,8 +125,60 @@ block_size_z: Z
 block_rotation: Otočení
 block_rotation_xy: XY
 block_rotation_xz: XZ
-ui_map_controls_plus: ui_map_controls_plus
-ui_map_controls_minus: ui_map_controls_minus
-ui_map_controls_left: ui_map_controls_left
-ui_map_controls_right: ui_map_controls_right
-ui_changes_push: ui_changes_push
+
+
+
+
+
+
+
+
+
+#---------------------------NEW
+
+
+
+
+
+
+
+
+page_register: Nový Hráč
+user_basic: Základní
+user_username: Jméno
+user_username_placeholder: " "
+user_password: Heslo
+user_password_again: "Heslo ještě jednou"
+user_email: E-mail
+user_email_placeholder: jan.novak@seznam.cz
+user_extended: Další
+user_name: Jméno
+user_surname: Příjmení
+user_birthday: Datum narození
+user_description: Popis
+user_register: Zaregistrovat
+
+
+
+
+
+
+
+
+
+
+
+
+resource_wood: Dřevo
+resource_clay: Hlína
+resource_stone: Kámen
+resource_iron: Železo
+
+
+
+
+
+
+
+
+ui_menu_nature_main: ui_menu_nature_main

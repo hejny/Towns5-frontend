@@ -26,3 +26,22 @@
 
 .cleaner {
   clear: both; }
+
+/*.selected{ todo should it exists
+  border: 2px solid #0aaaf1;
+}*/
+/*.logged-out{
+  display:none!important;
+}
+.logged-in{
+  display:none!important;
+}*/
+.width-middle {
+  min-width: 150px; }
+
+.full {
+  width: 100%;
+  height: 100%; }
+
+.full_width {
+  width: 100%; }

@@ -46,9 +46,7 @@ $(function(){
                 tmp.y=mapPos.y;
 
 
-                tmp.design.data.compileRotationSize();
-
-
+                //tmp.design.data.compileRotationSize();
 
                 /*if(tmp.subtype=='block'){
                  for(var i in tmp.design.data.particles){
@@ -57,10 +55,11 @@ $(function(){
                  }*/
 
 
-                create(tmp);
+                create(tmp,function(){
+                    Map.loadMap()
+                });
 
 
-                Map.loadMap();
                 buildingUpdate();
 
                 //mapSpecialCursorStop();
@@ -130,40 +129,6 @@ $(function(){
             }
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainNeutralizing
-            if(terrainNeutralizing !== false){
-
-                //todo sounds ion.sound.play("door_bump");
-
-                $('#loading').hide();
-
-
-                mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
-
-
-                for(var i=map_terrain_changes.length-1;i>=0;i--){
-
-
-                    if(Math.xy2dist(map_terrain_changes[i][0]-mapPos.x,map_terrain_changes[i][1]-mapPos.y)<=selecting_distance_fields){
-
-                        //r('splicing '+i);
-
-                        map_terrain_changes.splice(i,1);//todo existuje pouze funkce na zniceni prvku bez jeho vraceni?
-
-                    }
-
-                }
-
-                saveMapTerrainChangesToStorage();
-                Map.loadMap();
-
-
-                return;
-
-
-            }
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++storyWriting
             if(storyWriting !== false){
 
@@ -175,7 +140,7 @@ $(function(){
                 var id=create(storyWriting);
 
                 map_selected_ids=[id];
-                window_open('story_editor');
+                Towns.Plugins.open('story-editor',1,id);
 
                 mapSpecialCursorStop();
                 hideLeftMenu();
@@ -256,7 +221,7 @@ $(function(){
                 if (selected_object.type == 'story') {
                     //~~~~~~~~~
 
-                    window_open('story');
+                    Towns.Plugins.open('story');
 
                     //~~~~~~~~~
                 }else{

@@ -5,8 +5,7 @@
 //======================================================================================================================
 
 
-function saveObject(object){//todo refactor this should not be in this file
-
+function saveObject(object){//todo delete this and use direct API
 
     var i = ArrayFunctions.id2i(objects_external,object.id);
 

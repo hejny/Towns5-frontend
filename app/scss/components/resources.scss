@@ -1,0 +1,46 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Resources toHTML
+ */
+//======================================================================================================================
+@import '../config';
+@import '../mixins';
+
+
+.resources{
+
+  //border: 2px solid #00aaff;
+
+  padding: 0px;
+  margin: 4px;
+
+  text-align: center;
+
+}
+
+.resources div{
+
+  display: inline-block;
+
+  //border: 2px solid #00aaff;
+  //font-size: 1.1em;
+  font-weight: 500;
+
+  margin-left: 4px;
+
+}
+
+.resources div:first-child{
+  margin-left: 0px;
+}
+
+.resources div img{
+
+  width: 25px;
+  height: 25px;
+
+  margin-right: 2px;
+
+  vertical-align: middle;
+
+}
