@@ -8,8 +8,8 @@
 
 T.Plugins.install(new T.Page(
     'home',
-    'Towns 5',
-    `
+    ['O hře','Autoři','Technologie'],
+    [`
 
 
   <h2 style="font-size:1.1em;text-align: center;">
@@ -166,5 +166,8 @@ T.Plugins.install(new T.Page(
 
 <iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>
 
-`
+`,
+`hovno`,
+`hovno hovno`
+]
 ));

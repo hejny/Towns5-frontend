@@ -22,7 +22,7 @@ UI.focusOnMap = function(){
  */
 UI.popupWindowTitle = function(title){
 
-    $('.popup-window .header').text(title);//todo refactor html class header to title
+    $('.popup-window .header').html(title);//todo refactor html class header to title
 
 };
 

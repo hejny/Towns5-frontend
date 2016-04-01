@@ -45,6 +45,20 @@
     background-color: rgba(255, 255, 255, 0.85);
     text-align: center;
     border-bottom: 1px solid #bababa; }
+    .popup-window .header ul {
+      margin: 0px;
+      padding: 0px; }
+    .popup-window .header ul li {
+      display: inline-block;
+      list-style: none;
+      width: 150px;
+      margin: 0px;
+      padding: 2px;
+      border-right: 1px solid #bababa; }
+    .popup-window .header ul li:last-child {
+      border-right: none; }
+    .popup-window .header ul .selected {
+      font-weight: bold; }
   .popup-window .content {
     position: absolute;
     top: 40px;
@@ -57,10 +71,13 @@
     background-color: white; }
   .popup-window .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    height: 20px;
-    width: 20px;
+    top: 0px;
+    right: 0px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer; }
 
 .popup-window-small {

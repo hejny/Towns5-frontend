@@ -61,8 +61,11 @@ URI.read = function(){
 
     }else{
 
-        map_x=(Math.random()-0.5)*1000000;
-        map_y=(Math.random()-0.5)*1000000;
+        map_x=20601;
+        map_y=378552;
+
+        //map_x=(Math.random()-0.5)*1000000;
+        //map_y=(Math.random()-0.5)*1000000;
 
     }
 

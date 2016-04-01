@@ -27,9 +27,9 @@
 .cleaner {
   clear: both; }
 
-.selected {
-  border: 2px solid #0aaaf1; }
-
+/*.selected{ todo should it exists
+  border: 2px solid #0aaaf1;
+}*/
 /*.logged-out{
   display:none!important;
 }
