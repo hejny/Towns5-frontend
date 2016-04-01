@@ -8,15 +8,19 @@
 
 T.Plugins.install(new T.Page(
     'home',
-    ['O hře','Autoři','Technologie'],
+    ['O hře','Autoři'/*,'Technologie'*/],
     [`
 
 
   <h2 style="font-size:1.1em;text-align: center;">
-<img src="media/image/icons/logo.png" alt="{{towns logo}}" width="100"/><br/>
+<img src="/media/image/icons/logo.png" alt="{{towns logo}}" width="150"/><br/>
 {{home info}}</h2>
 
 
+
+
+
+<hr>
 
 <p style="text-align: center;">
   {{home info subtitle}}
@@ -40,10 +44,10 @@ T.Plugins.install(new T.Page(
 
       <p style="text-align: center;">
         <b>{{form mail}}:</b>
-        <input type="text" value="@" name="sp_email"/>
+        <input type="email" value="@" name="sp_email" style="width: 150px;"/>
 
         <b>{{form your name}}:</b>
-        <input type="text" value="" name="sp_firstname"/>
+        <input type="text" value="" name="sp_firstname" style="width: 150px;"/>
 
         <input value="{{form send}}" class="sendpress-submit" type="submit" id="submit" name="submit">
       </p>
@@ -95,79 +99,54 @@ T.Plugins.install(new T.Page(
 </p>
 
 
-<hr>
 
-
-<p style="text-align: center;">
-  <b>{{home news from game}}</b>
-</p>
-
-<div id="feed" class="feed"></div>
-
-  <script>
-
-
-    $.get(feed_url, function (data) {
-
-
-
-      var html='',
-          limit=4;
-
-      $(data).find("item").each(function () {
-          if(limit<=0)return;
-          limit--;
-
-          var el = $(this);
-
-          /*r("title      : " + el.find("title").text());
-          r("author     : " + el.find("author").text());
-          r("description: " + el.find("description").text());*/
-
-
-
-         var authorname=el.find("creator").text();
-
-
-          var author = false;
-
-          authors.forEach(function(author_){
-            if(author_.name==authorname){
-              author=author_;
-            }
-          });
-
-
-
-          html+=[
-            '<a class="towns-window" href="'+el.find("link").text()+'" title="'+el.find("title").text()+'" target="_blank">',
-              '<div class="feed_item">',
-                '<div class="feed_title">'+el.find("title").text()+'</div>',
-                '<div class="feed_description">',
-                  author?'<img src="http://projects.towns.cz/authors/'+author.nick+'.jpg" alt="'+author.name+'" title="'+author.name+'" width="40" class="feed_author" />':'',
-                  el.find("description").text(),
-                '</div>',
-              '</div>',
-            '</a>'].join('');
-
-      });
-
-      $("#feed").html(html);
-      uiScript();
-    });
-  </script>
-
-  <hr>
-
-<p style="text-align: center;">
-  <b>{{projects}}</b><br>
-  {{projects subtitle}}
-</p>
-
-<iframe src="http://projects.towns.cz/?only=1&amp;width=100%" width="100%" height="1500" frameborder="0" scrolling="0"></iframe>
 
 `,
-`hovno`,
-`hovno hovno`
+`
+
+
+<style>
+
+
+
+</style>
+
+
+<div class="profile author">
+    <img src="https://scontent-frt3-1.xx.fbcdn.net/hphotos-xfp1/v/t1.0-9/12347866_10205519225966134_3259010699440494329_n.jpg?oh=eb14ea4bf817af9c4b868005fc102394&oe=5786495E" alt="Pavol Hejný">
+    <h2 class="name">Pavol Hejný</h2>
+    <a href="http://pavolhejny.com" class="suburl" target="_blank">pavolhejny.com&nbsp;&nbsp;<i class="fa fa-external-link"></i></a>
+    <div class="subname">Frontend</div>
+
+    <!--<p class="description"</p>-->
+</div>
+
+
+<div class="profile author">
+    <img src="https://scontent-frt3-1.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/1535506_10200690395020795_267029065_n.jpg?oh=177aac618924a811ec916d6bb9cd673a&oe=577F1A2C" alt="Štefan Kecskés">
+    <h2 class="name">Štefan Kecskés</h2>
+    <a href="http://skey.uk" class="suburl" target="_blank">skey.uk&nbsp;&nbsp;<i class="fa fa-external-link"></i></a>
+    <div class="subname">Backend</div>
+    <!--<p class="description"></p>-->
+</div>
+
+
+
+<div class="profile co-author">
+    <img src="http://www.petrofcik.eu/assets/img/matus-petrofcik-350x350.jpg" alt="Matúš Petrofčík">
+    <h2 class="name">Matúš Petrofčík</h2>
+    <a href="http://www.petrofcik.eu/" class="suburl" target="_blank">petrofcik.eu&nbsp;&nbsp;<i class="fa fa-external-link"></i></a>
+    <div class="subname">Design</div>
+
+</div>
+
+
+
+
+
+
+
+`,
+//`hovno hovno`
 ]
 ));
