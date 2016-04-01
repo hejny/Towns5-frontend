@@ -549,7 +549,7 @@ function tidyHTML($buffer) {
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Window popup|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <iv class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></iv>
     <div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
-        <div class="header"><?= htmlspecialchars($inner_window['header']) ?></div>
+        <div class="header"></div>
         <div class="content"><?= ($inner_window['content']) ?></div>
 
 
