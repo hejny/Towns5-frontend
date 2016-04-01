@@ -21,13 +21,13 @@ $.get(feed_url, function (data) {
         var el = $(this);
 
         html+=[
-            '<a class="towns-window" href="' +el.find("link").text()+ '" title="'  +el.find("title").text()+  '" target="_blank">',
+            '<a class="item" href="' +el.find("link").text()+ '" title="'  +el.find("title").text()+  '" target="_blank">',
             el.find("title").text()
         ].join('');
 
     });
 
 
-    $("#notifications").html(html);
+    $('#menu-top-popup-notifications').find('.content').html(html);
     uiScript();
 });

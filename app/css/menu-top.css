@@ -22,9 +22,8 @@
   right: 0;
   height: 60px;
   width: 100%;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.85);
-  /*border-bottom: 1px solid black;*/ }
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95));
+  box-shadow: black 0px 0px 2px; }
 
 .menu-logo {
   float: left;
@@ -49,11 +48,20 @@
   float: right;
   margin-right: 5px; }
 
+#resources {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
 .menu-list-item {
   float: left;
-  display: block;
+  display: inline-block;
   list-style: none;
   position: relative; }
+
+.menu-list-item button {
+  display: inline-block; }
 
 .menu-list-item > a {
   display: block;
@@ -85,7 +93,8 @@
 .menu-list-item:last-of-type > a {
   border: none; }
 
-.menu-list-item-registration > a, .menu-list-item-registration:hover > a {
+.menu-list-item-registration > a,
+.menu-list-item-registration:hover > a {
   display: block;
   color: white;
   background-color: #0098ff;

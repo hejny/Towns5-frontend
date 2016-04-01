@@ -2,43 +2,6 @@
  * @author ©Towns.cz
  * @fileOverview Left tool menu for terrain changing
  */
-//======================================================================================================================
-//NEUTRALIZE
-
-
-
-function terrainNeutralizeStart(){
-
-    mapSpecialCursorStop();
-    mapSpecialCursorStart();
-
-    updateSelectingDistance();
-
-
-    terrainNeutralizing=true;
-
-
-    $('#selecting-distance-ctl').css('background','');
-
-
-    $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
-    //showing buttons used by actual tool
-    $('#selecting-distance-plus').show();
-    $('#selecting-distance-minus').show();
-    $('#selecting-distance-close').show();
-
-
-
-    $('#selecting-distance').show();
-}
-
-function terrainNeutralizeStop(){
-
-    terrainNeutralizing=false;
-
-}
-
 //======================================================================================================================objectMenuTerrainChange
 //CHANGE
 
@@ -74,7 +37,7 @@ function terrainChangeStart(prototypeId){
 
 
     $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .mini-button').hide();//hiding all buttons
+    $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
     //showing buttons used by actual tool
     $('#selecting-distance-plus').show();
     $('#selecting-distance-minus').show();

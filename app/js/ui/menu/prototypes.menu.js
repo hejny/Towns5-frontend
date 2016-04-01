@@ -16,7 +16,7 @@ function objectPrototypesMenu(type,subtype=false){
     //------------------------Extra buttons
     if(type=='building' && subtype=='block'){
         object_menu_html+=Templates.objectMenu({
-            icon: 'media/image/icons/add.svg',
+            icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
             content: content,
@@ -26,11 +26,11 @@ function objectPrototypesMenu(type,subtype=false){
 
     if(type=='building' && subtype=='main'){
         object_menu_html+=Templates.objectMenu({
-            icon: 'media/image/icons/add.svg',
+            icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
             content: content,
-            action: `mapSpecialCursorStop();window_open('building_editor');`
+            action: `mapSpecialCursorStop();Towns.Plugins.Pages.open('building_editor');`
         });
     }
     //------------------------.
@@ -56,8 +56,12 @@ function objectPrototypesMenu(type,subtype=false){
             if(object.type=='building'){
 
                 icon=object.design.data.createIcon(50);
-                content='popis budovy';
+                //r(icon);
+                //content='popis budovy';
                 action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
+
+
+                content+=game.getObjectPrice(object).toHTML();
 
             }
             //------------------------
@@ -79,6 +83,30 @@ function objectPrototypesMenu(type,subtype=false){
                 action='storyWritingStart(\''+object.id+'\');';
 
             }
+            //------------------------
+
+
+
+
+            //------------------------Viewers, Editors
+            ['view','edit'].forEach(function(action){
+
+
+                var possible =Towns.Plugins.search(action,object);
+                possible=possible.map(function(item){
+                    return(`<button onclick="Towns.Plugins.open('`+item+`',0,'`+object.id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
+                });
+                possible=possible.join('');
+
+                content+=possible;
+                /*objectmenu+=Templates.objectMenu({
+                    icon: '/media/image/icons/'+action+'.svg',
+                    icon_size: 0.8,
+                    title: Locale.get(object.type,object.subtype,action),
+                    content: Locale.get(object.type,object.subtype,action,'description')+possible
+                });*/
+
+            });
             //------------------------
 
 

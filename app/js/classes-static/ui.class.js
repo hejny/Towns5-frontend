@@ -22,7 +22,7 @@ UI.focusOnMap = function(){
  */
 UI.popupWindowTitle = function(title){
 
-    $('.popup-window .header').text(title);//todo refactor html class header to title
+    $('.popup-window .header').html(title);//todo refactor html class header to title
 
 };
 
@@ -34,9 +34,34 @@ UI.popupWindowTitle = function(title){
 UI.popupWindowContent = function(content){
 
     $('.popup-window .content').html(content);
+
+    setTimeout(
+        function(){
+            $('.popup-window .content').find("[autofocus]").focus();
+        },IMMEDIATELY_MS
+    );
+
     uiScript();
 
 };
+
+
+/**
+ * Changes format of opened popup window
+ * @param format NORMAL, SMALL
+ */
+UI.popupWindowSetFormat = function(format='NORMAL'){
+
+    $('.popup-window').removeClass('popup-window-small');
+
+    if(format=="SMALL"){
+
+        $('.popup-window').addClass('popup-window-small');
+
+    }
+
+};
+
 
 
 /**
@@ -45,7 +70,7 @@ UI.popupWindowContent = function(content){
  * @param content
  * @param close_callback
  */
-UI.popupWindowOpen = function(title,content,close_callback=false){
+UI.popupWindowOpen = function(title,content,close_callback=false,format){
 
     if(window_opened){
         UI.popupWindowClose(false);
@@ -53,8 +78,11 @@ UI.popupWindowOpen = function(title,content,close_callback=false){
 
 
     if(close_callback){
-        UI.popupCloseCallback=close_callback;
+        UI.popupWindowCloseCallback=close_callback;
     }
+
+
+    UI.popupWindowSetFormat(format);
 
     UI.popupWindowTitle(title);
     UI.popupWindowContent(content);
@@ -125,3 +153,82 @@ UI.message = function(text,type){
     $('#message').fadeOut(MESSAGE_MS);//todo UX?
 
 };
+
+
+/**
+ * Change UI after login / logout / register
+ */
+UI.logged = function(){
+
+    townsAPI.isLogged(function(is){
+
+        //alert(is);
+        if(is){
+
+
+            var decoded_token = jwt_decode(townsAPI.token);
+            //r(decoded_token);
+
+            UI.message(Locale.get('logged in as')+' '+decoded_token.username,'success');
+
+
+            var user_html=`
+            <div id="user-profile"></div>
+            <button onclick="if(confirm(Locale.get('logout','confirm'))){townsAPI.token=false;Storage.delete('token');UI.logged();}">
+                `+Locale.get('ui user logout')+`
+            </button>`;
+
+            $('#menu-top-popup-user').find('.content').html(user_html);
+
+
+            townsAPI.get(
+                'users/'+decoded_token.id
+                ,{}
+                ,function(response){
+
+
+                    var email_md5=md5(response.profile.email);
+                    var user_profile_html = `
+
+                    <img class="user-image" src="https://1.gravatar.com/avatar/`+email_md5+`?s=200&r=pg&d=mm">
+                    <h1 class="user-name">`+response.profile.username+`</h1>
+
+
+                    `;
+
+                    $('#user-profile').html(user_profile_html);
+
+                }
+                ,function(){
+
+                    throw new Error('Cant get user info after login.');
+
+                }
+            );
+
+
+
+
+
+
+
+            $('.logged-in').stop().fadeIn();
+            $('.logged-out').stop().fadeOut();
+
+        }else{
+
+            //UI.message(Locale.get('logged out'),'info');
+
+            $('.logged-in').stop().fadeOut();
+            $('.logged-out').stop().fadeIn();
+
+        }
+
+    });
+
+};
+
+
+
+
+

@@ -89,8 +89,10 @@ https://trello.com/b/d2b6mY6s/frontend
 5. Create directory cache with mod 0777
 
 
+6. Create directory or symlink with project towns-shared in root
 
-6. Run gulp!
+
+7. Run gulp!
 
 
 	gulp

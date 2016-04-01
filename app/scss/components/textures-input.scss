@@ -1,0 +1,52 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Resources toHTML
+ */
+//======================================================================================================================
+@import '../config';
+@import '../mixins';
+
+
+.textures-input{
+
+  //border: 2px solid #00aaff;
+
+  padding: 0px;
+  margin: 4px;
+
+  text-align: center;
+
+}
+
+
+.textures-input label img{
+
+  width: 31px;
+  height: 31px;
+
+  border: 2px solid #eee;
+
+}
+
+
+
+.textures-input label{
+  display: inline-block;
+}
+
+.textures-input input[type="radio"]{
+  display: none;
+}
+
+input[type="radio"]:checked+label img{
+
+  border: 2px solid #00152b;
+
+  box-shadow: #e3a45a 0px 0px 5px;
+
+}
+
+
+
+
+

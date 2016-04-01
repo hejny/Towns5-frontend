@@ -18,8 +18,10 @@
 #selecting-distance {
   position: absolute;
   z-index: 3500;
-  cursor: crosshair;
-  /*border: 2px solid rgba(100,100,100,0.5);*/ }
+  cursor: crosshair; }
+
+#selecting-distance canvas {
+  position: absolute; }
 
 #selecting-distance-ctl {
   position: absolute;
@@ -40,7 +42,7 @@
   box-shadow: #000000 0 0 3px 0;
   border-radius: 3px;*/
   z-index: 3600; }
-  #map-ctl .mini-button {
+  #map-ctl .button-icon {
     display: block;
     width: 15px;
     height: 15px;
@@ -55,8 +57,7 @@
   box-shadow: #000000 0 0 3px 0;
   border-radius: 3px;*/
   z-index: 3600; }
-  #macros .mini-button {
-    display: block;
+  #macros .button-icon {
     border: none;
     display: inline-block;
     margin: 2px;
@@ -72,26 +73,7 @@
     vertical-align: middle;
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    cursor: pointer; }
-    #macros .mini-button:hover {
+    cursor: pointer;
+    display: block; }
+    #macros .button-icon:hover {
       background-color: rgba(0, 0, 0, 0.65); }
-
-.mini-button {
-  border: none;
-  display: inline-block;
-  margin: 2px;
-  padding: 10px;
-  font-weight: 600;
-  width: 26px;
-  height: 26px;
-  font-size: 21px;
-  border: 2px solid rgba(68, 68, 68, 0.5);
-  border-radius: 3px;
-  text-shadow: #000011;
-  text-align: center;
-  vertical-align: middle;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  cursor: pointer; }
-  .mini-button:hover {
-    background-color: rgba(0, 0, 0, 0.65); }

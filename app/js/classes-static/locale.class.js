@@ -14,13 +14,18 @@ Locale.keys_write=[];
 
 /**
  * @param {string} key
+ * @param {string} key2
+ * ...
  * @return {string} message
  */
-Locale.get = function(key){
+Locale.get = function(){//todo refactor useges use more params not ' '
+
+    var key = [].slice.call(arguments).join(' ');
 
     if(!is(key))return 'MESSAGE';
 
     key=key.split(' ').join('_');
+    key=key.split('-').join('_');
 
 
     var message;

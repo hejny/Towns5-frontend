@@ -1,0 +1,50 @@
+@charset "UTF-8";
+/**
+ * @author Towns.cz
+ * @fileOverview Style of story editor
+  todo maybe refactor rename to inner-page-story-editor.scss
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+#block-choose .model-dir {
+  margin-left: 18px;
+  border-left: 2px solid #968896;
+  padding-top: 10px;
+  margin-bottom: 10px; }
+
+.model-dir-label {
+  /*width: 150px;
+  max-width: 100%;
+  overflow: hidden;*/
+  background-color: rgba(100, 100, 100, 0.02); }
+
+.model-dir-selected {
+  font-weight: 800; }
+
+.model-dir-particles:before {
+  font-family: FontAwesome;
+  content: "";
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.model-dir-shape:before {
+  font-family: FontAwesome;
+  content: "";
+  padding-left: 10px;
+  padding-right: 10px; }
+
+.model-dir-link:before {
+  font-family: FontAwesome;
+  content: "";
+  padding-left: 10px;
+  padding-right: 10px; }

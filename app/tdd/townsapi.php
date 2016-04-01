@@ -1,6 +1,6 @@
 <?php
 $title='model';
-$inits=array('townsapi.init.js');
+$inits=array('townsapi.read.js');
 require('init.php');
 ?>
 
@@ -48,7 +48,8 @@ require('init.php');
             "x":-417.438363739129,
             "y":646.7402827420082
 
-        }
+        },
+
 
         ,function(response){
 

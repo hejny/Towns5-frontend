@@ -49,6 +49,18 @@ Storage.save = function(key,value){
 
 };
 
+
+/**
+ * @static
+ * @param {string} key
+ */
+Storage.delete = function(key){
+
+    localStorage.removeItem(key)
+
+};
+
+
 /**
  * @static
  * Clean whole storage

@@ -100,7 +100,24 @@ window.uiScript = function(){
 
             var offset=$(this).offset();
 
-            $('#popup-action').css('top',offset.top);
+
+            var max_top=Math.toInt($( window ).height())-Math.toInt($( '#popup-action' ).height())-20;
+
+            var top=Math.toInt(offset.top);
+            if(top>max_top)top=max_top;
+
+            var arrow_top=Math.toInt(offset.top)-top+20;
+
+            if(arrow_top<Math.toInt($( '#popup-action' ).height())){
+                $('#popup-action .arrow').css('margin-top',arrow_top).css('visibility','visible');
+            }else{
+                $('#popup-action .arrow').css('visibility','hidden');
+            }
+
+            $('#popup-action').css('top',top);
+
+
+
             $('#popup-action .content').html(html);
 
             $('#popup-action').stop();
@@ -117,9 +134,18 @@ window.uiScript = function(){
 
     });
 
-    $('.js-popup-action-open').unbind('mouseleave').on('mouseleave', function(e){
+    $('.js-popup-action-open, #popup-action').unbind('mouseleave').on('mouseleave', function(e){
         $('#popup-action').fadeOut(200);
     });
+
+
+    $('#popup-action').unbind('mouseenter').on('mouseenter', function(e){
+        $('#popup-action').stop();
+        $('#popup-action').css('opacity',1);
+        $('#popup-action').show();
+    });
+
+
 
 
 
@@ -131,12 +157,8 @@ window.uiScript = function(){
     // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
     $('.js-popup-window-open').unbind('click').on('click', function(){
 
-
         var page=$(this).attr('page');
-        //r(page,Pages);
-        Pages[page].open();
-
-
+        Towns.Plugins.open(page);
 
     });
 
@@ -156,10 +178,19 @@ window.uiScript = function(){
 
 
     // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-notification-open').unbind('click').on('click', function(event){
-        event.stopPropagation();
-        $('.popup-server').hide();
-        $('.popup-notification').toggle();
+    $('.js-menu-top-popup-open').unbind('click').on('click', function(event){
+        event.stopPropagation();//todo wtf?
+
+        var page=$(this).attr('page');
+
+
+        var left = $(this).position().left-360;
+        $('#menu-top-popup-'+page).css('left',left);
+
+
+        $('.menu-top-popup').not('#menu-top-popup-'+page).hide();
+        $('#menu-top-popup-'+page).toggle();
+
     });
 
     // kliknutie na otvorený popup-notification neurobí nič
@@ -170,26 +201,12 @@ window.uiScript = function(){
 
     //------------------------------------
 
-    // kliknutie na js-popup-notification-open trigger zobrazí popup-notification
-    $('.js-popup-server-open').unbind('click').on('click', function(event){
-        event.stopPropagation();
-        $('.popup-notification').hide();
-        $('.popup-server').toggle();
-    });
-
-    // kliknutie na otvorený popup-notification neurobí nič
-    $('.popup-server').unbind('click').on('click', function(event){
-        event.stopPropagation();
-    });
-
-
-    //------------------------------------
-
 
     // kliknutie na document schová oba
     $(document).unbind('click').on('click', function(){
-        $('.popup-notification').hide();
-        $('.popup-server').hide();
+
+        $('.menu-top-popup').hide();
+
     });
 
 
@@ -221,7 +238,7 @@ window.uiScript = function(){
 
     //==================================================================================================================selecting_distance Click
 
-    $('#selecting-distance-ctl .mini-button').off();
+    $('#selecting-distance-ctl .button-icon').off();
 
 
     //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
@@ -235,14 +252,14 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingUpdate();
+            buildingRedraw();
         }else{
             selecting_distance+=100;
             updateSelectingDistance();
         }
     });
 
-    $('#selecting-distance-minus').unbind('click').click(function(){
+    $('#selecting-distance-minus').unbind('click').click(function(){//todo refactor move to separate toolbox file
 
         //todo sounds ion.sound.play("door_bump");
 
@@ -253,7 +270,7 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingUpdate();
+            buildingRedraw();
         }else{
             selecting_distance-=100;
             updateSelectingDistance();
@@ -263,25 +280,14 @@ window.uiScript = function(){
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation+=10;
-        buildingUpdate();
+        buildingRedraw();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation-=10;
-        buildingUpdate();
+        buildingRedraw();
     });
-
-    $('#selecting-distance-color').unbind('click').click(function(){
-        $('#color-ctl').toggle();
-
-    });
-
-
-    $('#selecting-distance-editor').unbind('click').click(function(){
-        Editors.block_editor.open(0,building.id);
-    });
-
 
     $('#selecting-distance-close').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
@@ -341,7 +347,6 @@ window.mapSpecialCursorStop = function(){
     buildingStop();
     dismantlingStop();
     terrainChangeStop();
-    terrainNeutralizeStop();
     storyWritingStop();
 };
 
@@ -383,7 +388,7 @@ $(function(){
     uiScript();
 
     /*if(environment!='develop')
-    window_open('projects');*/
+    Towns.Plugins.Pages.open('projects');*/
 
 
 });

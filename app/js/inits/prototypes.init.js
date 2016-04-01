@@ -24,7 +24,7 @@ var loadObjectPrototypes=function(callback=false){
             object_prototype.id=object_prototype._id;
 
 
-            object_prototypes.push(object_prototype);//todo refactor init object or new object
+            object_prototypes.push(object_prototype);//todo refactor read object or new object
 
         });
 

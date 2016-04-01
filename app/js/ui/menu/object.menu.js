@@ -17,7 +17,7 @@ function objectMenu(){
 
         var id=map_selected_ids[0];
 
-        var i=ArrayFunctions.id2i(map_data,id);
+        var object=ArrayFunctions.id2item(objects_external,id);
 
 
         var objectmenu='';
@@ -25,38 +25,44 @@ function objectMenu(){
         var icon,content;
 
 
+
+
+        ['view','edit'].forEach(function(action){
+
+
+            var possible =Towns.Plugins.search(action,ArrayFunctions.id2item(objects_external,id));
+            possible=possible.map(function(item){
+                return(`<button onclick="Towns.Plugins.open('`+item+`',1,'`+id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
+            });
+            possible=possible.join('');
+            objectmenu+=Templates.objectMenu({
+                icon: '/media/image/icons/'+action+'.svg',
+                icon_size: 0.8,
+                title: Locale.get(object.type,object.subtype,action),
+                content: Locale.get(object.type,object.subtype,action,'description')+possible
+            });
+
+        });
+
+
+
         objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/dismantle.svg',
+            icon: '/media/image/icons/clone.svg',
             icon_size: 0.8,
-            title: Locale.get('dismantle building'),
-            content: Locale.get('dismantle building description'),
+            title: Locale.get(object.type,object.subtype,'clone'),
+            content:Locale.get(object.type,object.subtype,'clone','description'),
+            action: 'buildingStart(\''+object._prototypeId+'\');'
+        });
+
+
+        objectmenu+=Templates.objectMenu({
+            icon: '/media/image/icons/dismantle.svg',
+            icon_size: 0.8,
+            title: Locale.get(object.type,object.subtype,'dismantle'),
+            content: Locale.get(object.type,object.subtype,'dismantle','description'),
             action: 'dismantleUI(\''+id+'\');'
         });
 
-        objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/define_building_main.svg.svg',
-            icon_size: 0.8,
-            title: Locale.get('define prototype building main'),
-            content: Locale.get('define prototype building main description'),
-            action: 'definePrototypeUI(map_data[ArrayFunctions.id2i(map_data,'+id+')]);'
-        });
-
-        objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/define_building_wall.svg',
-            icon_size: 0.8,
-            title: Locale.get('define prototype building wall'),
-            content: Locale.get('define prototype building wall description'),
-            action: 'definePrototypeUI(map_data[ArrayFunctions.id2i(map_data,'+id+')],\'wall\');'
-        });
-
-
-        objectmenu+=Templates.objectMenu({
-            icon: 'media/image/icons/source.svg',
-            icon_size: 0.8,
-            title: Locale.get('object json'),
-            content: Locale.get('object json description'),
-            action: 'window_open(\'object_json\')'
-        });
 
 
 

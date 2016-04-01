@@ -1,12 +1,15 @@
 /**
  * @author Towns.cz
- * @fileOverview  Building walls by dragging
+ * @fileOverview  Building walls and paths by dragging
  */
 //======================================================================================================================
 
 
 
-var buildingByDraggingPath=false;
+var dragging_subtypes=['wall','path'];//todo refactor move to vars
+
+
+var buildingByDraggingPath=false;//todo refactor rename
 var buildingByDraggingRange=false;
 //todo sjednotit nazyvani uhlu v rad a deg
 
@@ -22,7 +25,7 @@ $(function(){
         //if (buildingByDragging === false)r('buildingByDragging === false');
 
         if (building === false)return;
-        if (building.subtype!='wall')return;
+        if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
         //-------------------Convert mouse positions to map positions
@@ -93,7 +96,7 @@ $(function(){
         r('mouseDown');
 
         if (building == false)return;
-        if (building.subtype!='wall'){
+        if (dragging_subtypes.indexOf(building.subtype)==-1){
 
 
             var map_click_x=(e.clientX-(window_width/2));
@@ -219,7 +222,7 @@ $(function(){
                  }*/
 
 
-                tmp.design.data.rotation=360-rot+45;
+                tmp.design.data.rotation=rot-45;//360-rot+45;
 
 
                 //delete tmp.rot;
@@ -260,7 +263,7 @@ $(function(){
     var mouseUp=function (e) {
 
         if (building == false)return;
-        if (building.subtype!='wall')return;
+        if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
         buildingLoop();

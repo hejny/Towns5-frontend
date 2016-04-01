@@ -1,24 +1,30 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates Class Page
+ * @fileOverview Creates Class Towns.Page
  */
 //======================================================================================================================
 
 
 /**
  * Creates page
- * @param title
- * @param content
- * @param open_callback
- * @param close_callback
+ * @param {string} uri
+ * @param {string|Array} title(s)
+ * @param {string|Array} content(s)
+ * @param {function} open_callback
+ * @param {function} close_callback
  * @constructor
  */
-var Page=function(title,content,open_callback=false,close_callback=false) {
+Towns.Page=function(uri,title,content,open_callback=false,close_callback=false,format) {
 
-    this.title = title;
-    this.content = content;
+    if(typeof title=='string')title=[title];
+    if(typeof content=='string')content=[content];
+
+    this.uri = uri;
+    this.titles = title;
+    this.contents = content;
     this.open_callback = open_callback;
     this.close_callback = close_callback;
+    this.format = format;
 
 };
 
@@ -26,14 +32,55 @@ var Page=function(title,content,open_callback=false,close_callback=false) {
 /**
  * Open page in popup window
  */
-Page.prototype.open = function(additional_callback=false,additional_parameters=false){
-
-    var title=this.title;
-    var content=this.content;
+Towns.Page.prototype.open = function(additional_callback=false,additional_parameters=false){
 
 
-    if(!is(title))title='';
-    if(!is(content))content='';
+    //--------------------------------------------title
+    if(this.titles.length==1){
+
+        var title=this.titles[0];
+
+    }else{
+
+
+        var title=this.titles.map(
+            function(title,i){
+
+                title = title.text2html();
+                title = '<li child="'+i+'">'+title+'</li>';//todo use XML namespaces
+
+                return(title);
+
+            }
+        ).join('');
+        title='<ul id="page-choose">'+title+'</ul>';
+
+    }
+    //--------------------------------------------
+
+
+    //--------------------------------------------content
+    if(this.contents.length==1){
+
+        var content=this.contents[0];
+
+    }else{
+
+
+        var content=this.contents.map(
+            function(content,i){
+
+                content = '<article class="page-child" id="page-child-'+i+'" style="display: none;">'+content+'</article>';//todo use XML namespaces
+
+                return(content);
+
+            }
+        ).join('');
+
+
+    }
+
+    //-----------------
 
     content=content.split('{{');
 
@@ -50,11 +97,56 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
 
     }
     content=content.join('');
+    //--------------------------------------------
 
 
-    UI.popupWindowOpen(title,content);
+
+    URI.plugin=this.uri;
+    URI.write();
+
 
     var self=this;
+
+    //--------------------------------------------UI.popupWindowOpen
+    UI.popupWindowOpen(title,content,function(){
+
+        if(self.close_callback){
+            self.close_callback();
+        }
+
+        URI.plugin=false;
+        URI.object=false;
+        URI.write();
+    },this.format);
+    //--------------------------------------------
+
+
+    //--------------------------------------------Subpage controler
+    if(this.titles.length!=1) {
+
+        $('#page-choose li:nth-child(1)').addClass('selected');
+        $('#page-child-0').show();
+
+        $('#page-choose li').click(function () {
+
+            $(this).parent().find('.selected').removeClass('selected');
+            $(this).addClass('selected');
+
+
+            var page_child = $(this).attr('child');
+
+            //todo effects
+            $('.page-child').not('#page-child-' + page_child).hide(/*"slide", { direction: "left" }, 1000*/);//.hide();
+            $('#page-child-' + page_child).show(/*"slide", { direction: "right" }, 1000*/);
+
+
+        });
+
+    }
+    //--------------------------------------------
+
+
+
     if(this.open_callback) {
         setTimeout(function () {
             self.open_callback();
@@ -68,18 +160,8 @@ Page.prototype.open = function(additional_callback=false,additional_parameters=f
     }
 
 
-
-    if(this.close_callback) {
+    /*if(this.close_callback) {
         UI.popupWindowCloseCallback=this.close_callback;
-    }
+    }*/
 
-};
-
-/**
- * Close popup window and run close callback
- * Wrapper for UI.popupWindowClose
- * @static
- */
-Page.close = function(){
-        UI.popupWindowClose();
 };
