@@ -65,7 +65,7 @@ HtmlForm.addRangeNumber = function(unbind_input=true){
 
         input_range.after(input_number);
 
-        delete input_number;
+        //todo strict mode//delete input_number;
 
 
     });

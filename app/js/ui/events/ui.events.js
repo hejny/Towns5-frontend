@@ -387,8 +387,8 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    /*if(environment!='develop')
-    Towns.Plugins.Pages.open('projects');*/
+    if(environment!='develop')
+    Towns.Plugins.open('home');
 
 
 });

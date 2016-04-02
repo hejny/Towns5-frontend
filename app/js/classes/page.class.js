@@ -14,7 +14,7 @@
  * @param {function} close_callback
  * @constructor
  */
-Towns.Page=function(uri,title,content,open_callback=false,close_callback=false,format) {
+Towns.Page=function(uri,title,content,open_callback=false,close_callback=false,format='NORMAL') {
 
     if(typeof title=='string')title=[title];
     if(typeof content=='string')content=[content];

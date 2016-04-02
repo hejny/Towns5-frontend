@@ -32,7 +32,7 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
 
 
     var particlesLinear=this_.getLinearParticles();
-    delete this_;
+    //todo strict mode//delete this_;
 
     //---------------------------------------------Convert particles to Towns4 3DModel Array
 
