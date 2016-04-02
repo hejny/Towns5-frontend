@@ -32,23 +32,23 @@ T.Plugins.install(new T.Page(
 
         <tr>
             <td>*`+Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="" autofocus autocomplete="off"></td>
+            <td><input class="js-townsapi-online" type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="" autofocus autocomplete="off"></td>
         </tr>
 
 
         <tr>
             <td>*`+Locale.get('user','password')+`:</td>
-            <td><input type="password" name="password" autocomplete="off"></td>
+            <td><input class="js-townsapi-online" type="password" name="password" autocomplete="off"></td>
         </tr>
         <tr>
             <td>*`+Locale.get('user','password','again')+`:</td>
-            <td><input type="password" name="password-again" autocomplete="off"></td>
+            <td><input class="js-townsapi-online" type="password" name="password-again" autocomplete="off"></td>
         </tr>
 
 
         <tr>
             <td>`+Locale.get('user','email')+`:</td>
-            <td><input type="email" name="email" placeholder="`+Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
+            <td><input class="js-townsapi-online" type="email" name="email" placeholder="`+Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
         </tr>
 
 

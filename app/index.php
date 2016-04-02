@@ -343,11 +343,23 @@ function tidyHTML($buffer) {
 
 
     <!--Example of user prompt-->
-    <div id="eu_cookies">
-        <div id="eu_cookies_inner">
+    <div id="eu-cookies">
+        <div class="inner">
             <?=locale('ui prompts cookies')?>
 
             <button class="micro-button"><?=locale('ui buttons agree')?></button>
+        </div>
+    </div>
+
+
+
+    <div id="townsapi-offline">
+        <div class="inner">
+            <?=locale('ui warnings offline')?>
+
+            <button class="micro-button" id="townsapi-reconnect"><?=locale('ui buttons reconnect')?></button>
+            <button class="micro-button js-popup-window-open" page="offline"><?=locale('ui buttons offline')?></button>
+
         </div>
     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -495,8 +507,8 @@ function tidyHTML($buffer) {
 
             <li class="menu-list-item">
                 <button class="width-middle pale js-popup-window-open logged-out" style="display:none" page="home"><?=locale('ui buttons about game')?></button><!--todo refactor atribute content to ?page-->
-                <button class="width-middle js-popup-window-open logged-out" style="display:none" page="register"><?=locale('ui buttons register')?></button><!--todo refactor atribute content to ?page-->
-                <button class="width-middle pale js-popup-window-open logged-out" style="display:none" page="login"><?=locale('ui buttons login')?></button><!--todo refactor atribute content to ?page-->
+                <button class="width-middle js-popup-window-open logged-out js-townsapi-online" style="display:none" page="register"><?=locale('ui buttons register')?></button><!--todo refactor atribute content to ?page-->
+                <button class="width-middle pale js-popup-window-open logged-out js-townsapi-online" style="display:none" page="login"><?=locale('ui buttons login')?></button><!--todo refactor atribute content to ?page-->
 
             </li>
 

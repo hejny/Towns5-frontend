@@ -313,6 +313,30 @@ window.uiScript = function(){
 
 
     //==================================================================================================================
+
+
+    /*r(townsAPI.online);
+    if(townsAPI.online){
+
+        $('input.js-townsapi-online').prop('disabled',false);
+        $('button.js-townsapi-online').animate({opacity:1});
+
+    }else{
+
+        $('input.js-townsapi-online').prop('disabled',true);
+        $('button.js-townsapi-online').animate({opacity:0.4});
+
+    }*/
+
+
+
+
+
+    //==================================================================================================================
+
+
+
+
 };
 
 

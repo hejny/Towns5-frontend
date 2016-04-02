@@ -31,7 +31,7 @@
   background-color: #ff0000;
   padding: 4px; }
 
-#eu_cookies {
+#eu-cookies {
   z-index: 3800;
   display: none;
   position: fixed;
@@ -41,17 +41,32 @@
   width: 100%;
   text-align: center; }
 
-#eu_cookies_inner {
+#eu-cookies .inner {
   display: inline-block;
   border-radius: 3px;
   background-color: rgba(30, 150, 150, 0.8);
+  padding: 4px; }
+
+#townsapi-offline {
+  z-index: 3800;
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  text-align: center; }
+
+#townsapi-offline .inner {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: rgba(255, 150, 43, 0.8);
   padding: 4px; }
 
 .micro-button {
   border: none;
   display: inline-block;
   margin: 2px;
-  padding: 10px;
   font-weight: 600;
   font-size: 0.8em;
   border-radius: 3px;

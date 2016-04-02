@@ -7,15 +7,101 @@
 //todo headers
 TownsAPI=function(url='',token=false){
 
-    this.online=true;
+    this.online=false;
     this.url=url;
     this.token=token;
 
+    //Empty query to check if the API is online
+    this.query('',{},'GET',{},{});
+
+
 };
+
 
 //======================================================================================================================
 
 
+//todo jsdoc
+TownsAPI.prototype.setOnline = function(online){
+
+
+    var self=this;
+
+    this.online=online;
+
+    if(online){
+
+        $('#townsapi-offline').stop().fadeOut();//todo refactor DI HTML divs or !!!BETTER!!! DI calbacks online, offline and loading
+
+        $('#server-loading').hide();
+        $('#server-ok').show();
+        $('#server-error').hide();
+
+        $('button.js-townsapi-online').animate({opacity:1});
+
+
+    }else{
+
+        $('#townsapi-offline').stop().fadeIn();
+
+        $('#server-loading').hide();
+        $('#server-ok').hide();
+        $('#server-error').show();
+
+        $('button.js-townsapi-online').animate({opacity:0.4});
+
+
+        var townsapi_reconnect=$('#townsapi-reconnect');
+
+        if(townsapi_reconnect.hasClass('js-running'))return;
+
+        townsapi_reconnect.unbind('click').bind('click',function(){
+
+            clearInterval(interval);
+            townsapi_reconnect.removeClass('js-running');
+
+            $(this).html(Locale.get('ui buttons reconnecting').text2html()+'&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
+
+            //Empty query to check if the API is online
+            self.query('',{},'GET',{},{});//todo duplicate
+
+
+        });
+
+        var counter=15;
+
+        townsapi_reconnect.html(Locale.get('ui buttons reconnect').text2html()+'&nbsp(<span class="js-counter">'+counter+'</span>)');
+        townsapi_reconnect.addClass('js-running');
+
+
+        var townsapi_reconnect_counter = townsapi_reconnect.find('.js-counter');
+
+        var interval = setInterval(function(){
+
+            counter--;
+            r(counter);
+
+            if(counter>0){
+
+                townsapi_reconnect_counter.text(counter);
+
+            }else{
+
+                townsapi_reconnect.trigger('click');
+
+            }
+
+
+        },1000);
+    }
+
+};
+
+
+//======================================================================================================================
+
+
+//todo jsdoc
 TownsAPI.prototype.isLogged = function(callback){
     return this.query('auth',{},'GET',{},{},
     function(response){
@@ -49,6 +135,7 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
 
     //r(this.url+uri);
     //r(data);
+    var self=this;
 
     if(this.token)headers['x-auth']=this.token;
 
@@ -96,9 +183,7 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
 
     request.done(function( response ){
 
-        $('#server-loading').hide();
-        $('#server-ok').show();
-        $('#server-error').hide();
+        self.setOnline(true);
 
         if(callback_success)
             callback_success(response);
@@ -107,20 +192,34 @@ TownsAPI.prototype.query = function(uri,query_data,method,data,headers,callback_
 
     request.fail(function( jqXHR, textStatus ) {
 
-        $('#server-loading').hide();
-        $('#server-ok').hide();
-        $('#server-error').show();
+        //r(jqXHR.status,jqXHR);
+
+        if(jqXHR.status===0 && textStatus==='error'){
+
+            self.setOnline(false);
 
 
-        if(callback_error)
-            callback_error(jqXHR.responseJSON);
-        //r('error');
-        //throw new Error(textStatus);
+            if(callback_success)
+                callback_success([]);
+
+
+        }else{
+
+            self.setOnline(true);
+
+            if(callback_error)
+                callback_error(jqXHR.responseJSON);
+            //r('error');
+            //throw new Error(textStatus);
+
+
+
+        }
 
     });
 
 
-    r('sended');
+    //r('sended');
     //----------------------
 
     return(request);

@@ -62,28 +62,31 @@ Map.loadMapRequestCallback=function(res){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Load server Objects to Local objects
 
-    if(townsAPI.online) {
-
-        objects_external = [];
-
-        res.forEach(function (serverObject) {
+    //if(townsAPI.online) {
 
 
-            if (['building', 'story', 'terrain'].indexOf(serverObject.type) != -1) {//todo here should be all type of objects - terrain
+    objects_external = [];
+
+    res.forEach(function (serverObject) {
 
 
-                var serverObjectCopy = deepCopyObject(serverObject);//todo read object
-
-                serverObjectCopy.id = serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
-
-                objects_external.push(serverObjectCopy);
+        if (['building', 'story', 'terrain'].indexOf(serverObject.type) != -1) {//todo here should be all type of objects - terrain
 
 
-            }
+            var serverObjectCopy = deepCopyObject(serverObject);//todo read object
+
+            serverObjectCopy.id = serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
+
+            objects_external.push(serverObjectCopy);
 
 
-        });
-    }
+        }
+
+
+    });
+
+
+    //}
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Create map_data and map_bg_data from local objects
 
