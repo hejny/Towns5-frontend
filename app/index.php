@@ -102,7 +102,7 @@ $page['meta_og'] = [
 
 $inner_window=[];
 
-if($config['app']['environment'] == "production"/** or true/**/){
+if($config['app']['environment'] == "production" and false){
 
     $inner_page='home';
     $inner_page_content=file_get_contents(__DIR__.'/js/ui/pages/'.$inner_page.'.page.js');
@@ -286,10 +286,13 @@ function tidyHTML($buffer) {
         //-----------------------------------------------------
 
     }else{
-        ?>
+        echo '<script src="/app-dist/js/towns.min.js"></script>'."\r\n    ";
+        echo '<link rel="stylesheet" href="/app-dist/css/towns.min.css" async/>'."\r\n";
+
+        /*?>
             <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
             <script src="/app-dist/js/towns.min.js" async></script>
-        <?php
+        <?php*/
     }
     //--------------------------------
 

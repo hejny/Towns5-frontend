@@ -70,7 +70,7 @@ UI.popupWindowSetFormat = function(format='NORMAL'){
  * @param content
  * @param close_callback
  */
-UI.popupWindowOpen = function(title,content,close_callback=false,format){
+UI.popupWindowOpen = function(title,content,close_callback=false,format='NORMAL'){
 
     if(window_opened){
         UI.popupWindowClose(false);

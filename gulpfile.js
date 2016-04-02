@@ -10,10 +10,10 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     imagemin = require('gulp-imagemin'),
     cache = require('gulp-cache'),
-//jsdoc = require("gulp-jsdoc"),
+    //jsdoc = require("gulp-jsdoc"),
     rename = require('gulp-rename'),
     del = require('del'),
-    babel = require("gulp-babel"),
+    es6transpiler = require('gulp-es6-transpiler'),
     browserSync = require('browser-sync').create(),
     sass        = require('gulp-sass');
 
@@ -187,8 +187,11 @@ gulp.task('production-scripts', function() {
         .pipe(concat('towns.js'))
         //.pipe(gulp.dest('app-dist'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(babel())
-        //.pipe(uglify())//todo minification not working
+        .pipe(es6transpiler({
+            "disallowUnknownReferences": false,
+            "disallowDuplicated": false
+        }))
+        //.pipe(uglify())
         .pipe(gulp.dest('app-dist/js'));
 });
 
@@ -198,7 +201,7 @@ gulp.task('production-styles', function () {
         .pipe(sass())
         .pipe(concat('towns.css'))
         .pipe(rename({suffix: '.min'}))
-        .pipe(minifyCss({compatibility: 'ie8'}))
+        .pipe(minifyCss({compatibility: 'ie8',keepSpecialComments : false}))
         .pipe(gulp.dest('app-dist/css'));
 });
 

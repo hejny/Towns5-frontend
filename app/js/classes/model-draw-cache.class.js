@@ -154,7 +154,7 @@ Model.prototype.createCacheLocalImage = function(size, rotation, slope){
                 //r(self);
                 var webGL = self.create3D(gl, size, 250, 250, rotation, slope, false, true);
                 webGL = null;//removes unused webGL container
-                delete webGL;
+                //todo strict mode//delete webGL;
 
 
             }, 'webgl');
