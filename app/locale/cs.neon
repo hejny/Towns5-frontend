@@ -162,13 +162,6 @@ user_register: Zaregistrovat
 
 
 
-
-
-
-
-
-
-
 resource_wood: Dřevo
 resource_clay: Hlína
 resource_stone: Kámen
@@ -176,9 +169,22 @@ resource_iron: Železo
 
 
 
+ui_warnings_offline: Nastala chyba při připojování k serveru
+ui_buttons_reconnect: Zkusit znovu
+ui_buttons_reconnecting: Připojování
+ui_buttons_offline: Informace
+page_offline: Chyba serveru
 
 
 
 
 
-ui_menu_nature_main: ui_menu_nature_main
+
+#todo move
+page_login: Přihlásit se
+ui_menu_nature_main: Základní
+
+
+
+
+
