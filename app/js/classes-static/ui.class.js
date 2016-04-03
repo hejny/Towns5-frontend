@@ -165,6 +165,11 @@ UI.logged = function(){
         //alert(is);
         if(is){
 
+            $('.logged-in').stop().fadeIn();
+            $('.logged-out').stop().fadeOut();
+
+
+
 
             var decoded_token = jwt_decode(townsAPI.token);
             //r(decoded_token);
@@ -187,6 +192,13 @@ UI.logged = function(){
                 ,function(response){
 
 
+                    if(!window.is(response.profile)){
+
+                        r('Cant get user profile after login.');//todo better
+                        return;
+
+                    }
+
                     var email_md5=md5(response.profile.email);
                     var user_profile_html = `
 
@@ -207,13 +219,6 @@ UI.logged = function(){
             );
 
 
-
-
-
-
-
-            $('.logged-in').stop().fadeIn();
-            $('.logged-out').stop().fadeOut();
 
         }else{
 
