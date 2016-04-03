@@ -192,3 +192,27 @@ ui_menu_nature_main: Základní
 page_feedback: Zpětná vazba
 send: Odeslat
 feedback_success: Děkujeme za zpětnou vazbu.
+
+
+
+
+
+plugin_building_viewer_open_building_main_view: Náhled
+plugin_profile_viewer_open_building_main_view: Profil
+plugin_building_editor_open_building_main_edit: Editor
+plugin_json_viewer_open_building_main_view: JSON
+
+plugin_building_viewer_open_building_wall_view: Náhled
+plugin_profile_viewer_open_building_wall_view: Profil
+plugin_building_editor_open_building_wall_edit: Editor
+plugin_json_viewer_open_building_wall_view: JSON
+
+plugin_building_viewer_open_building_path_view: Náhled
+plugin_profile_viewer_open_building_path_view: Profil
+plugin_building_editor_open_building_path_edit: Editor
+plugin_json_viewer_open_building_path_view: JSON
+
+plugin_building_viewer_open_building_block_view: Náhled
+plugin_profile_viewer_open_building_block_view: Profil
+plugin_building_editor_open_building_block_edit: Editor
+plugin_json_viewer_open_building_block_view: JSON

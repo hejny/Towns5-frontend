@@ -1,36 +1,28 @@
 <?php
 //todo headers
 
-
-
 header('Content-Type: application/json');
+
+
+//error_reporting(E_ALL);
 error_reporting(0);
 
-$_POST['email'];
-$_POST['text'];
+$email=$_POST['email'];
+$text=$_POST['text'];
 
 
 $from='feedback@towns.cz';
 $to='ph@towns.cz';
 $subject='New feedback';
-$text='From:  '.$_POST['email']."\r\nText:".$_POST['text'];
+$text='From:  '.$email."\r\nText:".$text;
 
 
-if(
+$status=array();
 
-    file_put_contents('../../messages/'.date('l jS \of F Y h:i:s A').'.txt',$text)
+$status['file']=file_put_contents('../../messages/'.date('l jS \of F Y h:i:s A').'.txt',$text);
+$status['mail']=mail($to,$subject,$text/*,'From: '.$from*/);
 
-    or
 
-    mail($to,$subject,$text,'From: '.$from)
 
-){
-
-    echo(json_encode(array('ok'=>true)));
-
-}else{
-    echo(json_encode(array('error'=>true)));
-
-}
-
+echo(json_encode($status));
 
