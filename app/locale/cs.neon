@@ -90,17 +90,17 @@ projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj
 
 
 
-plugin_building_viewer_open_building_block_view: Zobrazit blok
-plugin_profile_viewer_open_building_block_view: Profil bloku
-building_block_view_description: "Vyber, jakým způsobem chceš blok zobrazit:"
-plugin_building_block_editor_open_building_block_edit: Upravit blok
-building_block_edit_description: "Vyber, jakým způsobem chceš blok upravit:"
-building_block_clone: Klonovat
-building_block_dismantle: Rozebrat
-building_block_clone_description: none
-building_block_dismantle_description: none
-building_block_view: Zobrazit
-building_block_edit: Upravit
+#plugin_building_viewer_open_building_block_view: Zobrazit blok
+#plugin_profile_viewer_open_building_block_view: Profil bloku
+#building_block_view_description: "Vyber, jakým způsobem chceš blok zobrazit:"
+#plugin_building_block_editor_open_building_block_edit: Upravit blok
+#building_block_edit_description: "Vyber, jakým způsobem chceš blok upravit:"
+#building_block_clone: Klonovat
+#building_block_dismantle: Rozebrat
+#building_block_clone_description: none
+#building_block_dismantle_description: none
+#building_block_view: Zobrazit
+#building_block_edit: Upravit
 
 
 
