@@ -167,17 +167,44 @@ $(function(){
             var buildingByDraggingEndX = buildingByDraggingPath[ii][0];
             var buildingByDraggingEndY = buildingByDraggingPath[ii][1];
 
+
+            var buildingByDraggingPlusX = buildingByDraggingEndX-buildingByDraggingStartX;
+            var buildingByDraggingPlusY = buildingByDraggingEndY-buildingByDraggingStartY;
+
+
+            var buildingByDraggingPlusDistDeg = Math.xy2distDeg(
+                buildingByDraggingPlusX,
+                buildingByDraggingPlusY
+            );
+
+
+            buildingByDraggingPlusDistDeg.dist=Math.round(buildingByDraggingPlusDistDeg.dist/2)*2;
+            buildingByDraggingPlusDistDeg.deg=Math.round(buildingByDraggingPlusDistDeg.deg/15)*15;
+
+
+
+            var buildingByDraggingPlusXY = Math.distDeg2xy(
+                buildingByDraggingPlusDistDeg.dist,
+                buildingByDraggingPlusDistDeg.deg
+            );
+
+
+            buildingByDraggingEndX = buildingByDraggingStartX + buildingByDraggingPlusXY.x;
+            buildingByDraggingEndY = buildingByDraggingStartY + buildingByDraggingPlusXY.y;
+
+
             //r(buildingByDraggingPath);
 
 
-            var distance = Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+            var distance = buildingByDraggingPlusDistDeg.dist;//Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
 
             //todo pouzit funkci Math.xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 
 
-            wall_segments =Math.round(distance / (buildingByDraggingRange * map_model_size / 1.11 * building.design.data.size ))
+            wall_segments = Math.floor(distance/2);//todo by constant
+            //Math.floor(distance / (buildingByDraggingRange * map_model_size /*/ 1.11*/ * building.design.data.size ));
 
 
             if(wall_segments!=wall_segments_last){
