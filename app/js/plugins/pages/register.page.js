@@ -211,6 +211,7 @@ T.Plugins.install(new T.Page(
 
                             UI.popupWindowClose();
                             UI.logged();
+                            loadObjectPrototypes();//todo should it be here?
 
 
                         },
