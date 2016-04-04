@@ -13,7 +13,7 @@ var loadObjectPrototypes=function(callback=false){
 
     townsAPI.get('objects/prototypes',{},function(response){
 
-        //r('LOADED prototypes');
+        r('LOADED prototypes');
 
         object_prototypes=[];
 
@@ -32,6 +32,10 @@ var loadObjectPrototypes=function(callback=false){
         if(callback!=false){
             callback();
         }
+
+    },function(){
+
+        r('NOT LOADED prototypes');
 
     });
 
