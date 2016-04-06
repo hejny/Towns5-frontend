@@ -154,32 +154,17 @@ function createTerrain(object,callback){//todo maybe create other
 function createBuilding(object,callback){
 
 
-    //if(forceJoining==false){
+    if (dragging_subtypes.indexOf(building.subtype)==-1){
+
         var join=createNewOrJoin(object);
-    /*}else{
 
+    }else{
 
-        var join=forceJoining;
-
-        var joiningObject=ArrayFunctions.id2item(objects_external,join.id);
-
-
-        join.xy
-            =
-            Math.xyRotate(
-
-                (object.x-joiningObject.x)*100/map_model_size,
-                (object.y-joiningObject.y)*100/map_model_size,
-
-                -45);
-
-
-        //join.xy.x=object.x-joiningObject.x;
-        //join.xy.y=object.y-joiningObject.y;
+        var join=false;
 
     }
 
-    forceJoining=false;*/
+
 
 
     if(join===false) {
