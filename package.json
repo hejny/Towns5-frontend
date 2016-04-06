@@ -2,7 +2,8 @@
   "name": "towns",
   "version": "5.0.0",
   "description": "Browser Game",
-  "author": "Pavol Hejný",
+  "author": "Pavol Hejný <ph@towns.cz> (http://pavolhejny.com)",
+  "private": true,
   "contributors": [
     {
       "name": "Stefan Kecskes",
@@ -19,7 +20,9 @@
     "url": "https://trello.com/townsgame"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "preinstall": "bash ./bin/setup-ssh.sh",
+    "postinstall": "bash ./bin/cleanup-ssh.sh"
   },
   "dependencies": {
     "font-awesome": "~4.4.0",
@@ -35,7 +38,9 @@
     "json-editor": "^0.7.23",
     "jwt-decode": "^2.0.1",
     "markdown": "~0.5.0",
-    "roboto-fontface": "~0.4.2"
+    "roboto-fontface": "~0.4.2",
+    "dotenv": "~2.0.0",
+    "towns5shared": "git+ssh://git@bitbucket.org:towns/towns-shared.git"
   },
   "devDependencies": {
     "browser-sync": "~2.9.8",
