@@ -6,10 +6,10 @@
 @import 'config';
 @import 'mixins';
 
-#message {
+#message-zone {
 
-  z-index:93900;
-  display: none;
+  z-index:4000;
+  display: block;
   position: fixed;
   top: 70px;
   left: 0px;
@@ -21,6 +21,7 @@
 
 }
 
+
 #message_inner {
 
   display: inline-block;
@@ -30,20 +31,6 @@
 
 }
 
-#eu-cookies {
-
-  z-index:3800;
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-
-  text-align: center;
-
-
-}
 
 #eu-cookies .inner {
 
@@ -55,21 +42,6 @@
 }
 
 
-#townsapi-offline {
-
-  z-index:3800;
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-
-  text-align: center;
-
-
-}
-
 #townsapi-offline .inner {
 
   display: inline-block;
@@ -78,6 +50,23 @@
   padding: 4px;
 
 }
+
+
+#compatibility .inner {
+
+  display: inline-block;
+  border-radius: 3px;
+  background-color: rgba(255, 82, 42, 0.8);
+  padding: 4px;
+
+}
+
+
+
+
+
+
+
 
 
 .micro-button{

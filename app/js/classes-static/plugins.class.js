@@ -11,7 +11,7 @@ Towns.Plugins={
 
 
 Towns.Plugins.install = function(plugin){
-    r('Installing plugin '+plugin.uri);
+    r('Plugins: Installing plugin '+plugin.uri);
 
 
     if(
@@ -23,15 +23,16 @@ Towns.Plugins.install = function(plugin){
 
         if(!is(plugin.uri)){
 
-            throw new Error('Plugin must contain uri!');
+            throw new Error('Plugins: Plugin must contain uri!');
         }
 
 
         this.plugins.push(plugin);
 
+
     }else
     {
-        throw new Error('Unknown plugin type.');
+        throw new Error('Plugins: Unknown plugin type.');
     }
 
 
@@ -59,6 +60,7 @@ Towns.Plugins.open = function(uri){
         if(this.plugins[i].uri==uri){
 
 
+            r('Plugins: Opening plugin '+this.plugins[i].uri);
             this.plugins[i].open.apply(this.plugins[i],args);
             return(true);
 
@@ -66,7 +68,7 @@ Towns.Plugins.open = function(uri){
     }
 
 
-    throw new Error('Plugin '+uri+' do not exists.');
+    throw new Error('Plugins: Plugin '+uri+' do not exists.');
 
 };
 

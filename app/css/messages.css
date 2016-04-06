@@ -14,9 +14,9 @@
  * @author Towns.cz
  * @fileOverview Configuration of style
  */
-#message {
-  z-index: 93900;
-  display: none;
+#message-zone {
+  z-index: 4000;
+  display: block;
   position: fixed;
   top: 70px;
   left: 0px;
@@ -31,36 +31,22 @@
   background-color: #ff0000;
   padding: 4px; }
 
-#eu-cookies {
-  z-index: 3800;
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-  text-align: center; }
-
 #eu-cookies .inner {
   display: inline-block;
   border-radius: 3px;
   background-color: rgba(30, 150, 150, 0.8);
   padding: 4px; }
 
-#townsapi-offline {
-  z-index: 3800;
-  display: none;
-  position: fixed;
-  top: 70px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-  text-align: center; }
-
 #townsapi-offline .inner {
   display: inline-block;
   border-radius: 3px;
   background-color: rgba(255, 150, 43, 0.8);
+  padding: 4px; }
+
+#compatibility .inner {
+  display: inline-block;
+  border-radius: 3px;
+  background-color: rgba(255, 82, 42, 0.8);
   padding: 4px; }
 
 .micro-button {

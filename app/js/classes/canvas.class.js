@@ -39,9 +39,13 @@ HTMLCanvasElement.prototype.downloadCanvas = function(){
  */
 function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunction,contextType='2d'){
 
+    if(contextType=='webgl')contextType='experimental-webgl';
+
     var canvas = document.createElement('canvas');
     canvas.width=width;
     canvas.height = height;
+
+    r(contextType);
     var context = canvas.getContext(contextType);
 
     manipulationFunction(context);
