@@ -6,7 +6,8 @@
 //CONSTANTS
 
 //var TOWNS_API_URL='http://localhost:3000/';
-var TOWNS_API_URL='http://alpha.towns.cz:4001/';
+//var TOWNS_API_URL='http://alpha.towns.cz:4001/';
+var TOWNS_API_URL='http://api.towns.cz/';
 
 
 var IMMEDIATELY_MS = 100;
