@@ -50,6 +50,7 @@
     "app/js/ui/menu/*.js",
     "app/js/ui/events/*.js",
     "app/js/actions/*.js",
+
     "app/js/inits/uri.init.js",
     "app/js/inits/townsapi.init.js",
     "app/js/inits/*.js",

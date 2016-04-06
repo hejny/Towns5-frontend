@@ -181,6 +181,7 @@ page_offline: Chyba serveru
 
 
 #todo move
+logged_in_as: Přihlášen jako
 page_login: Přihlásit se
 ui_menu_nature_main: Základní
 
@@ -216,3 +217,13 @@ plugin_building_viewer_open_building_block_view: Náhled
 plugin_profile_viewer_open_building_block_view: Profil
 plugin_building_editor_open_building_block_edit: Editor
 plugin_json_viewer_open_building_block_view: JSON
+
+
+
+ui_warnings_compatibility: "Váš prohlížeč bohužel nepodporuje vše, co Towns ke svému běhu vyžadují."
+ui_buttons_compatibility: Informace
+page_compatibility: Podpora prohlížeče
+compatibility_webgl: 3D grafika WebGL
+compatibility_requestAnimationFrame: Animace
+compatibility_localStorage: LocalStorage
+compatibility_webgl_help: "Prohlížeč nepodporuje 3D grafiku WebGL. Pokud máte prohlížeč Firefox ve většině případů stačí <a href=\"https://support.mozilla.org/kb/refresh-firefox-reset-add-ons-and-settings\" target=\"_blank\">Obnovit Firefox</a>."

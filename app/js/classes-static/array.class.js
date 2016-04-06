@@ -187,4 +187,63 @@ ArrayFunctions.unique = function(array) {
         }
     }
     return r;
-}
+};
+
+
+
+//======================================================================================================================
+
+
+/**
+ * Creates html table from JS array
+ * @param {Array} array array
+ * @param {string} additional_class
+ * @returns {string} html
+ */
+ArrayFunctions.array2table = function(array,additional_class='') {
+    //todo check
+
+    var html='';
+
+    var rows = array.length;
+    var cols_table = array[0].length;//todo is is best solution?
+
+
+    html+='<table class="'+additional_class+'">';
+    for(var row=0;row<rows;row++){
+
+
+        html+='<tr>';
+
+        var cols = array[row].length;
+        var cols_span=cols_table-cols;
+
+        for(var col=0;col<cols;col++){
+
+            if(col==cols-1 && cols_span!==0){
+
+                html+='<td colspan="'+(cols_span+1)+'">';
+
+            }else{
+
+                html+='<td>';
+
+            }
+
+
+            html+=array[row][col];
+            html+='</td>';
+
+
+
+        }
+
+        html+='</tr>';
+
+
+    }
+    html+='</table>';
+
+    return(html);
+
+};

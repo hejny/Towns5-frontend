@@ -339,11 +339,14 @@ function tidyHTML($buffer) {
 
 
 
-    <div id="message"><div id="message_inner"></div></div>
+    <div id="message-zone">
 
 
-    <!--Example of user prompt-->
-    <div id="eu-cookies">
+
+    <div id="message" style="display: none;"><?php /*todo remove inner*/ ?><div id="message_inner"></div></div>
+
+
+    <div id="eu-cookies" style="display: none;">
         <div class="inner">
             <?=locale('ui prompts cookies')?>
 
@@ -352,8 +355,8 @@ function tidyHTML($buffer) {
     </div>
 
 
-
-    <div id="townsapi-offline">
+    <?php /*todo better solution*/ ?>
+    <div id="townsapi-offline" style="display: none;">
         <div class="inner">
             <?=locale('ui warnings offline')?>
 
@@ -361,6 +364,20 @@ function tidyHTML($buffer) {
             <button class="micro-button js-popup-window-open" page="offline"><?=locale('ui buttons offline')?></button>
 
         </div>
+    </div>
+
+
+
+    <div id="compatibility" style="display: none;">
+        <div class="inner">
+            <?=locale('ui warnings compatibility')?>
+
+            <button class="micro-button js-popup-window-open" page="browser-compatibility"><?=locale('ui buttons compatibility')?></button>
+
+        </div>
+    </div>
+
+
     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 

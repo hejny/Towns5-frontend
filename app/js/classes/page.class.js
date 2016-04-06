@@ -149,7 +149,10 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
 
     if(this.open_callback) {
         setTimeout(function () {
-            self.open_callback();
+            self.open_callback($('.popup-window .content')[0]/*
+            todo use this
+            todo better solution
+            */);
         },IMMEDIATELY_MS);
     }
 
