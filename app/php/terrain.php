@@ -6,10 +6,9 @@
 //======================================================================================================================
 
 
-//todo use path like require __DIR__ . '/neon/neon.php';
-require_once('files.lib.php');
-require_once('graphic.lib.php');
-require_once('init.php');
+require_once(__DIR__.'/files.lib.php');
+require_once(__DIR__.'/graphic.lib.php');
+require_once(__DIR__.'/init.php');
 
 
 //----------------------------------------------------------------------------------------------------------------------
