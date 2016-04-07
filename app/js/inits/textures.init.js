@@ -25,7 +25,7 @@ Textures.init = function(files){
 
 
         self.images[key] = new Image();
-        self.images[key].src = "/media/image/textures/"+file;//todo cache optimized
+        self.images[key].src = appDir+"/php/image.php?width=128&file=media/image/textures/"+file;
 
     });
 
