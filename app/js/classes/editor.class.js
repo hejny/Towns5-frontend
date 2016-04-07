@@ -74,14 +74,31 @@ Towns.Editor = function(uri,conditions,title,content,open_callback,default_objec
 
                 r('Updating object prototype '+self.opened.object.name+'.');
 
-            }/*else
+            }else
             if(self.opened.collection==1){
 
+
                 var i = ArrayFunctions.id2item(objects_external,self.opened.object.id);
-                objects_external[i]=deepCopyObject(self.opened.object);
+                objects_external[i]=self.opened.object;//deepCopyObject(self.opened.object);
+
+
+                townsAPI.post('objects/'+objects_external[i].id,objects_external[i]
+                    ,function(response){
+
+                        UI.message(Locale.get('object',objects_external[i].type,'saved'),'success');
+
+                    }
+                    ,function(errors){
+
+                        self.open(0,objects_external[i].id,errors);
+                    });
+
+
                 r('Updating object '+self.opened.object.name+'.');
 
-            }*/
+
+
+            }
 
 
             self.opened=false;
