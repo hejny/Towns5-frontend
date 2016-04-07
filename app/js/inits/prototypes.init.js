@@ -20,7 +20,9 @@ var loadObjectPrototypes=function(callback=false){
         response.forEach(function(object){
 
             var object_prototype=deepCopyObject(object);
-            //object_prototype.prototypeId=object_prototype._id;
+
+
+            object_prototype.prototypeId=object_prototype._id;
             object_prototype.id=object_prototype._id;
 
 
