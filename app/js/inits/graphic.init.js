@@ -7,23 +7,15 @@
 
 var imageLoadTimeout=false;
 
-function imageLoad(){
-    //r('imageLoad');
-
-    all_images_loaded++;
+var imageLoad = function(percent){
 
 
-    //$('#loadbar').html(all_images_bg_loaded+'/'+all_images_bg_count);
-    var percent=Math.floor((all_images_loaded/all_images_count)*100);
-
-    $('#loadbar').html(percent+'%');
+    $('#loadbar').html(Math.floor(percent*100)+'%');
 
 
 
-    if(all_images_loaded >= all_images_count) {
+    if(percent==1) {
 
-
-        r('all graphics loaded',all_images_loaded,all_images_count);
 
         map_loaded=true;
 
@@ -41,21 +33,7 @@ function imageLoad(){
 
     }
 
-}
-
-
-//----------------------------------------------------------------Pocet
-
-//r(terrainCount,seedCount,treeCount,rockCount,rockCountDark);
-//r((terrainCount*seedCount),(treeCount),(rockCount*rockCountDark));
-
-
-var all_images_count=(terrainCount*seedCount)+(treeCount)+(rockCount*rockCountDark);
-var all_images_loaded=0;
-
-
-
-
+};
 
 //----------------------------------------------------------------------------------------------------------------------Frames
 
@@ -70,9 +48,32 @@ var map_buffer =false;
 var map_buffer_ctx =false;
 
 
-var all_images_bg=[];
 var all_images_tree=[];
 var all_images_rock=[];
+
+
+
+
+//----------------------------------------------------------------Podklad
+
+//todo refactor make factory function
+files=[];
+for(var terrain=0;terrain<terrainCount;terrain++) {
+    for (var seed = 0; seed < seedCount; seed++) {
+
+        files['t'+terrain+'s'+seed] = 't' + (terrain+1) + '&seed=' + seed + '&size=220';
+
+
+    }
+}
+
+var Backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=',imageLoad);
+
+//----------------------------------------------------------------
+
+
+
+
 
 $(function() {
 
@@ -87,24 +88,9 @@ $(function() {
 
     canvasResize();
 
-    //----------------------------------------------------------------Podklad
-
-
-    for(var terrain=0;terrain<terrainCount;terrain++) {
-        all_images_bg[terrain] = [];
-        for (var seed = 0; seed < seedCount; seed++) {
-
-
-            all_images_bg[terrain][seed] = new Image();
-            all_images_bg[terrain][seed].src = appDir+'/php/terrain.php?terrain=t' + (terrain+1)/*Teren 0 je temnota*/ + '&seed=' + seed + '&size=220';
-
-            all_images_bg[terrain][seed].onload = imageLoad;
-
-
-        }
-    }
 
     //----------------------------------------------------------------Tree
+
     for (var seed = 0; seed < treeCount; seed++) {
 
 
@@ -112,7 +98,7 @@ $(function() {
         all_images_tree[seed].src = appDir+'/php/treerock.php?type=tree&seed=' + seed + '&width=100';
         //all_images_tree[seed].src = 'ui/image/tree/' + seed + '.png';
 
-        all_images_tree[seed].onload = imageLoad;
+        //all_images_tree[seed].onload = imageLoad;
 
 
     }
@@ -127,7 +113,7 @@ $(function() {
             all_images_rock[seed][dark] = new Image();
             all_images_rock[seed][dark].src = appDir+'/php/treerock.php?type=rock&seed=' + seed + '&width=133&dark=' + Math.round(dark/rockCountDark*rockMaxDark);
 
-            all_images_rock[seed][dark].onload = imageLoad;
+            //all_images_rock[seed][dark].onload = imageLoad;
         }
 
     }
