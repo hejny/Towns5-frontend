@@ -54,7 +54,7 @@ if(!file_exists($cachefile) or isset($_GET['notmp']) or filesize($cachefile)<10 
     //_________________________________________
 }
 
-
+header("Cache-Control: max-age=".(3600*24*100));
 header('Content-Type: image/png');
 readfile($cachefile);
 
