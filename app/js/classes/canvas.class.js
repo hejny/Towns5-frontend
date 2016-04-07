@@ -39,7 +39,7 @@ HTMLCanvasElement.prototype.downloadCanvas = function(){
  */
 function createCanvasViaFunctionAndConvertToSrc(width,height,manipulationFunction,contextType='2d'){
 
-    if(contextType=='webgl')contextType='experimental-webgl';
+    //if(contextType=='webgl')contextType='experimental-webgl';
 
     var canvas = document.createElement('canvas');
     canvas.width=width;
