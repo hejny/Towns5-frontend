@@ -89,7 +89,7 @@ Map.drawMap = function(){
 
                         map_draw.push([
                             'terrain',
-                            all_images_bg[terrain][seed],
+                            Backgrounds.get('t'+terrain+'s'+seed),
                             screen_x,
                             screen_y,
                             screen_y + height / terrain_size - Math.floor(width / 4),

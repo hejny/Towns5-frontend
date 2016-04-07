@@ -3,96 +3,22 @@
  * @fileOverview Load material textures
  */
 //======================================================================================================================
+    
+//todo ImagesCollections.Textures,...
+var Textures= new ImagesCollection({
 
-//todo jsdoc
-var Textures={
-    images: {}
-};
+    shadow: 'shadow.png',
 
+    //todo refactor smart loading file list
+    clay_bricks: 'clay-bricks.jpg',
+    clay_roof: 'clay-roof.jpg',
+    iron_plates: 'iron-plates.jpg',
+    stone_bricks: 'stone-bricks.jpg',
+    stone_plain: 'stone-plain.jpg',
+    wood_boards: 'wood-boards.jpg',
+    wood_raw: 'wood-raw.jpg',
+    wood_fence: 'wood-fence.jpg'
 
-
-//todo jsdoc
-Textures.init = function(files){
-
-    var self=this;
-
-    files.forEach(function(file){
-
-
-        var key = file.split('.');
-        key=key[0];
-        key=key.split('-').join('_');
+},appDir+'/php/image.php?width=128&file=media/image/textures/');
 
 
-        self.images[key] = new Image();
-        self.images[key].src = appDir+"/php/image.php?width=128&file=media/image/textures/"+file;
-
-    });
-
-
-
-};
-
-
-/*//todo jsdoc
-Textures.get = function(key){
-
-    return(this.images[key]);
-
-};*/
-
-
-//todo jsdoc
-Textures.getAll = function(key){
-
-    return(this.images);
-
-};
-
-
-//todo jsdoc
-Textures.getInput = function(NameOfRadios,AdditionalClass=''){
-
-    var html='';
-
-
-    for(var key in this.images){
-
-        html+=`
-            <input type="radio" name="`+NameOfRadios+`" id="`+NameOfRadios+`-`+key+`" value="`+key+`" class="`+AdditionalClass+`" />
-            <label for="`+NameOfRadios+`-`+key+`">
-                <img src="`+this.images[key].src+`">
-            </label>
-            `;
-
-    }
-
-    html='<div class="textures-input">'+html+'</div>';
-
-    //alert(html);//todo purge Towns from commented alert, r, console.log, ect..
-    return(html);
-
-};
-
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-
-//todo maybe create normal class ImagesContainer and use it in terrains and textures
-//todo maybe separate into more files?
-
-var files=[
-    'shadow.png',
-
-    'clay-bricks.jpg',
-    'clay-roof.jpg',
-    'iron-plates.jpg',
-    'stone-bricks.jpg',
-    'stone-plain.jpg',
-    'wood-boards.jpg',
-    'wood-raw.jpg',
-    'wood-fence.jpg'
-];
-
-Textures.init(files);
