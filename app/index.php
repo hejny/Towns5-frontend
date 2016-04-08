@@ -384,7 +384,7 @@ function tidyHTML($buffer) {
 
             Načítání grafických podkladů
 
-            <div class="load-percent"></div>
+            <div class="load-percent">0%</div>
 
         </div>
     </div>

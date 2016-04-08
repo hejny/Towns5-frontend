@@ -64,9 +64,9 @@ MapGenerator.getZ = function(x,y){
     n=(n/2*sign)+0.5;
 
 
-    //n+=Math.round(Math.pow(Math.pow(x,3)+Math.pow(y,3),(1/3)))%4;
-	//n+=Math.round(Math.pow(Math.pow(x,2)+Math.pow(y,2),1.1))%3;
 
+	//return(0.1);//only grass
+	//return(0.2);//only watter
 	return(n);
 
 };
