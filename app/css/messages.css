@@ -49,19 +49,11 @@
   background-color: rgba(255, 82, 42, 0.8);
   padding: 4px; }
 
-.micro-button {
-  border: none;
+#loadbar .inner {
   display: inline-block;
-  margin: 2px;
-  font-weight: 600;
-  font-size: 0.8em;
   border-radius: 3px;
-  text-shadow: #000011;
-  text-align: center;
-  vertical-align: middle;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  cursor: pointer; }
+  background-color: rgba(85, 150, 35, 0.8);
+  padding: 4px; }
 
 .error {
   color: #FFFFFF;

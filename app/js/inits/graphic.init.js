@@ -7,10 +7,12 @@
 
 var imageLoadTimeout=false;
 
+
+
 var imageLoad = function(percent){
 
 
-    $('#loadbar').html(Math.floor(percent*100)+'%');
+    $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
 
 
 
@@ -19,7 +21,7 @@ var imageLoad = function(percent){
 
         map_loaded=true;
 
-        $('#loadbar').remove();
+        $('#loadbar').slideUp();
 
         var objects_external_=objects_external;
 
@@ -34,6 +36,10 @@ var imageLoad = function(percent){
     }
 
 };
+
+
+
+
 
 //----------------------------------------------------------------------------------------------------------------------Frames
 

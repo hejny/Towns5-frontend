@@ -43,6 +43,31 @@ button.pale{
 }
 
 
+.micro-button,.load-percent/*todo maybe better name*/ {
+
+  @include button-text(40px);
+
+  margin: 2px;
+  font-weight: 600;
+  font-size: 0.8em;
+  background-color: rgba(0,0,0,0.5);
+
+}
+
+
+.load-percent/*todo maybe better name*/ {
+
+  &:hover{
+
+    background-color: rgba(0,0,0,0.5);
+
+  }
+
+}
+
+
+
+
 
 
 .button-icon{
@@ -50,6 +75,29 @@ button.pale{
   @include button-icon(26px, $button-icon-color);
 
 }
+
+
+
+
+progress{
+
+
+  display: inline-block;
+
+  //appearance: none;
+  border: none;
+
+  width: 250px;
+  height: 20px;
+
+
+  background-color: #eee;
+  border-radius: 3px;
+
+
+
+}
+
 
 
 

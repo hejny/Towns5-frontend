@@ -378,6 +378,20 @@ function tidyHTML($buffer) {
     </div>
 
 
+
+    <div id="loadbar" style="display: block;">
+        <div class="inner">
+
+            Načítání grafických podkladů
+
+            <div class="load-percent"></div>
+
+        </div>
+    </div>
+
+
+
+
     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
@@ -387,9 +401,6 @@ function tidyHTML($buffer) {
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Map|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <div id="map_drag"></div>
 
-    <div id="loadbar_outer">
-        <div id="loadbar"></div>
-    </div>
 
 
     <canvas id="map_buffer" width="100" height="100"></canvas>
