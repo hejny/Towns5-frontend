@@ -27,7 +27,6 @@ input, textarea {
 button {
   display: inline-block;
   border: none;
-  display: block;
   padding: 0 10px;
   margin: 10px auto;
   height: 40px;
@@ -44,6 +43,28 @@ button.pale {
   background-color: rgba(50, 130, 180, 0.5); }
   button.pale:hover {
     background-color: rgba(88, 162, 209, 0.5); }
+
+.micro-button, .load-percent {
+  display: inline-block;
+  border: none;
+  padding: 0 10px;
+  margin: 10px auto;
+  height: 40px;
+  line-height: 40px;
+  font-size: 16px;
+  border-radius: 3px;
+  background-color: #0098ff;
+  color: white;
+  cursor: pointer;
+  margin: 2px;
+  font-weight: 600;
+  font-size: 0.8em;
+  background-color: rgba(0, 0, 0, 0.5); }
+  .micro-button:hover, .load-percent:hover {
+    background-color: #42b3ff; }
+
+.load-percent:hover {
+  background-color: rgba(0, 0, 0, 0.5); }
 
 .button-icon {
   border: none;
@@ -64,6 +85,14 @@ button.pale {
   cursor: pointer; }
   .button-icon:hover {
     background-color: rgba(0, 0, 0, 0.65); }
+
+progress {
+  display: inline-block;
+  border: none;
+  width: 250px;
+  height: 20px;
+  background-color: #eee;
+  border-radius: 3px; }
 
 table tr th {
   border-bottom: 2px solid rgba(200, 200, 200, 0.3);

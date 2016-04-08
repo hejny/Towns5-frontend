@@ -165,6 +165,9 @@ Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
     $('.moving-object').css( 'top', '+='+deltaY );
 
 
+    $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');//todo cache common JQuery objects in static container
+
+
     if(autoUpdate){
         if(Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
             Map.updateMap();
