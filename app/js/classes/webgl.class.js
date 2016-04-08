@@ -334,7 +334,7 @@ WebGL.prototype.initBuffers = function(polygons) {
 //
 WebGL.prototype.initTextures = function() {
 
-    var textures = Textures.getAll();
+    var textures = ImagesCollections.textures.getAll();
 
     for(var key in textures){
 

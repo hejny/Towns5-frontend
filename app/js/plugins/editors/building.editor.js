@@ -125,7 +125,7 @@ T.Plugins.install(new T.Editor(
   <tr category="material">
     <td colspan="2">
         `+
-        Textures.getInput('material','block-parameter')
+        ImagesCollections.textures.getInput('material','block-parameter')
         +`
     </td>
   </tr>

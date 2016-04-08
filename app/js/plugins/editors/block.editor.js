@@ -79,7 +79,7 @@ T.Plugins.install(new T.Editor(
   <tr>
     <td colspan="2">
         `+
-        Textures.getInput('block-editing-material')
+        ImagesCollections.textures.getInput('block-editing-material')
         +`
     </td>
   </tr>

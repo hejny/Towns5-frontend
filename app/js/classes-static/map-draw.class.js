@@ -89,7 +89,7 @@ Map.drawMap = function(){
 
                         map_draw.push([
                             'terrain',
-                            Backgrounds.get('t'+terrain+'s'+seed),
+                            ImagesCollections.backgrounds.get('t'+terrain+'s'+seed),
                             screen_x,
                             screen_y,
                             screen_y + height / terrain_size - Math.floor(width / 4),
@@ -133,7 +133,7 @@ Map.drawMap = function(){
 
                                 var object_seed = (Math.pow(world_x, 2) + Math.pow(world_y, 2)) % (terrain == 9 ? treeCount : rockCount);
 
-                                var object = (terrain == 9 ? all_images_tree[object_seed] : all_images_rock[object_seed][object_size_seed]);
+                                var object = (terrain == 9 ? ImagesCollections.imageObjects.get('tree'+object_seed) : ImagesCollections.imageObjects.get('rock'+object_seed+'dark'+object_size_seed));
 
                                 var object_id = (terrain == 9 ? 't' : 'r') + world_x + 'x' + world_y + 'y';
 
@@ -227,7 +227,7 @@ Map.drawMap = function(){
     var selecting_distance_pow = 20;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    var object = all_images_rock[0][0];
+    var object = ImagesCollections.imageObjects.get('rock0dark0');//todo refactor delete
     for (var i = 0; i < map_data.length; i++) {
 
 

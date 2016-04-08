@@ -33,9 +33,7 @@ var ImagesCollection = function(files,url='',onload=false){
 
             if(self.onload){
 
-                var percent=self.images_loaded / self.images_count;
-                if(percent>1)percent=1;
-                self.onload(percent);
+                self.onload(self.loaded());
 
             }
 
@@ -45,6 +43,17 @@ var ImagesCollection = function(files,url='',onload=false){
     }
 
 
+
+};
+
+
+
+ImagesCollection.prototype.loaded = function(){
+
+    var percent=this.images_loaded / this.images_count;
+    if(percent>1)percent=1;
+
+    return(percent);
 
 };
 
