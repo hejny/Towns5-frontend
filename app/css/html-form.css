@@ -17,7 +17,6 @@
 input[type="submit"] {
   display: inline-block;
   border: none;
-  display: block;
   padding: 0 10px;
   margin: 10px auto;
   height: 40px;
