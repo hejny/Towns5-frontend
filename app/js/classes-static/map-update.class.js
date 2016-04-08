@@ -79,9 +79,8 @@ Map.updateMap = function(){
         URI.write();
 
         //r(canvas_height,canvas_width,map_field_size,map_zoom_m);
-        map_size=Math.max((canvas_height/80/*1.4*/),(canvas_width/map_field_size/*1.4*/))/map_zoom_m;
+        map_size=Math.min((canvas_height/map_field_size*2),((canvas_width-100)/map_field_size))/map_zoom_m;
         map_size=Math.ceil(map_size/2)*2;
-
 
 
         if(map_size<4)map_size=4;

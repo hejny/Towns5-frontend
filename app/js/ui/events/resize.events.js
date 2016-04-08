@@ -14,8 +14,20 @@ var canvasResize=function(){
     $('#map_drag').attr('width',window_width);
     $('#map_drag').attr('height',window_height);
 
-    canvas_width=window_width*map_canvas_size;
-    canvas_height=window_height*map_canvas_size;
+
+    if(window_height>window_width*2){
+
+        canvas_height=canvas_height*map_canvas_size;
+        canvas_width = canvas_height*2;
+
+    }else{
+
+        canvas_width = window_width*map_canvas_size;
+        canvas_height=canvas_width/2;
+
+    }
+
+    //canvas_width+=500;
 
 
     $('#map_bg').attr('width',canvas_width);
@@ -23,8 +35,8 @@ var canvasResize=function(){
 
     //r(window_width,canvas_width);
 
-    canvas_left=window_width*-((map_canvas_size-1)/2);
-    canvas_top=window_height*-((map_canvas_size-1)/2);
+    canvas_left = (window_width  - canvas_width  )/2;
+    canvas_top  = (window_height - canvas_height )/2;
 
     //r(canvas_left);
 
