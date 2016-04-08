@@ -61,7 +61,7 @@ var map_loaded=false;
 //----
 
 
-var map_canvas_size=1.8;
+var map_canvas_size=2;//1.8;
 var map_zoom=-3;
 //var map_rotation=Math.random()*360;
 var map_slope=27;
