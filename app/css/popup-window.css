@@ -69,6 +69,8 @@
     padding: 20px;
     overflow-y: auto;
     background-color: white; }
+    .popup-window .content img {
+      max-width: 100%; }
   .popup-window .close {
     position: absolute;
     top: 0px;
