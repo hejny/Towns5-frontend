@@ -141,16 +141,21 @@ UI.popupWindowClose = function(dont_run_close_callback=false){
  * @param text
  * @param type error,success,info
  */
-UI.message = function(text,type){
+UI.message = function(text,type='info'){
 
-    //todo [PH] types of message - error, notice,...?
     //todo [PH] play sound here
 
     ion.sound.play("bell_ring");
 
-    $('#message_inner').text(text);
-    $('#message').show();
-    $('#message').fadeOut(MESSAGE_MS);//todo UX?
+    $('#message_inner')
+        .removeClass()//.error, .success, .info, .loading
+        .addClass(type)
+        .text(text);
+
+
+
+    $('#message').stop().show();
+    $('#message').delay(4).fadeOut(MESSAGE_MS);//todo what effect use
 
 };
 

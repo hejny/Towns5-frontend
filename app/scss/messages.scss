@@ -26,7 +26,7 @@
 
   display: inline-block;
   border-radius: 3px;
-  background-color: #ff0000;
+  //background-color: #ff0000;
   padding: 4px;
 
 }
@@ -85,7 +85,7 @@
 
 .success {
   color: #FFFFFF;
-  background-color:  #228855;
+  background-color: #64c74e;
 }
 
 .info {
@@ -98,7 +98,7 @@
   background-color: #444444;
 }
 
-.error, .success, .info, .loading {
+/*.error, .success, .info, .loading {
 
   text-align: center;
   display: block;
@@ -108,4 +108,4 @@
   font-weight: bold;
 
 
-}
+}*/
