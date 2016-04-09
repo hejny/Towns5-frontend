@@ -10,6 +10,21 @@
 var TOWNS_API_URL='http://api.towns.cz/';
 
 
+
+//var TOWNS_CDN_URL='http://localhost/towns/towns-cdn/';
+var TOWNS_CDN_URL='http://cdn.towns.cz/';
+var TOWNS_CDN_FILE_ACCEPTED_TYPES=[
+    'image/jpeg'
+    ,'image/jpg'
+    ,'image/gif'
+    ,'image/png'
+    //todo maybe bmp? sync with towns-cdn
+];
+var TOWNS_CDN_FILE_MAX_SIZE = 7 * Math.pow(1024, 2/*MB*/);
+var TOWNS_CDN_REQUEST_MAX_SIZE = 11047955;
+
+
+
 var IMMEDIATELY_MS = 100;
 var MESSAGE_MS = 2000;
 //todo collect all constants and put it here

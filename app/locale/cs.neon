@@ -227,3 +227,23 @@ compatibility_webgl: 3D grafika WebGL
 compatibility_requestAnimationFrame: Animace
 compatibility_localStorage: LocalStorage
 compatibility_webgl_help: "Prohlížeč nepodporuje 3D grafiku WebGL. Pokud máte prohlížeč Firefox ve většině případů stačí <a href=\"https://support.mozilla.org/kb/refresh-firefox-reset-add-ons-and-settings\" target=\"_blank\">Obnovit Firefox</a>."
+
+
+
+
+
+upload_progress: Nahrávání obrázků na server
+upload_fail: "Omlouváme se, ale obrázky se nepodařilo nahrát."
+upload_success_story: Z vašich obrázků byl vytvořen příběh!
+upload_error_max_requestsize: "Celkově nesmí mít obrázky více než "
+upload_error_max_filesize: "Obrázek nesmí být větší než "
+upload_error_only_images: Na mapu lze zatím nahrát pouze obrázky.
+
+
+
+
+
+
+
+
+
