@@ -91,6 +91,7 @@ Map.loadMapRequestCallback=function(res){
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Create map_data and map_bg_data from local objects
 
     map_data=[];//todo maybe delete and use only local_objects
+    map_data_stories=[];//todo maybe delete and use only local_objects
 
     objects_external.forEach(Map.iterateAndCreateMapData);
 
@@ -178,7 +179,11 @@ Map.loadMapRequestCallback=function(res){
 
     //mapWindow(map_collision_data);
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+    //todo ?DI? what is better $('#map-stories').html(Map.storiesHTML(map_data_stories)); vs. Map.drawMap();
+
+    $('#map-stories').html(Map.storiesHTML(map_data_stories));
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //r('Executing drawMap');
@@ -189,13 +194,20 @@ Map.loadMapRequestCallback=function(res){
 //======================================================================================================================
 
 
-Map.iterateAndCreateMapData=function(object){//todo refactor local_objects
+Map.iterateAndCreateMapData=function(object) {//todo refactor local_objects
 
-    if(object.type!='terrain'){
+    if (object.type == 'building') {
 
         map_data.push(object);
 
-    }else{
+    }else
+    if(object.type == 'story'){
+
+        map_data_stories.push(object);
+
+
+    }else
+    if(object.type == 'terrain'){
 
         var xc=object.x,//center
             yc=object.y,
@@ -231,6 +243,10 @@ Map.iterateAndCreateMapData=function(object){//todo refactor local_objects
 
 
         }
+
+    }else{
+
+        throw new Error('Map.iterateAndCreateMapData: Unknown object type '+object.type+'.');
 
     }
 

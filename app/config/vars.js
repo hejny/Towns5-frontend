@@ -152,6 +152,7 @@ var map_size;
 var map_zoom_m;
 
 var map_data;
+var map_data_stories;//todo maybe refactor names?
 var map_z_data;
 var map_bg_data;
 

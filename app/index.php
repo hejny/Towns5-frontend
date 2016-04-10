@@ -405,6 +405,7 @@ function tidyHTML($buffer) {
 
     <canvas id="map_buffer" width="100" height="100"></canvas>
     <div id="map-move"></div>
+    <div id="map-stories"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 

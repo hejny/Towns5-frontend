@@ -156,15 +156,25 @@ Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
     map_bg_x += deltaX;
     map_bg_y += deltaY;
 
-    $('#map_bg').css('left', map_bg_x);//faster than +=
-    $('#map_bg').css('top', map_bg_y);
+    //todo cache common JQuery objects in static container
+    $('#map_bg')
+        .css('left', map_bg_x)
+        .css('top', map_bg_y)
+    ;
+
+    $('#map-stories')
+        .css('left', map_bg_x)//faster than +=
+        .css('top', map_bg_y)
+    ;
 
 
-    $('.moving-object').css( 'left', '+='+deltaX );
-    $('.moving-object').css( 'top', '+='+deltaY );
+    $('.moving-object')
+        .css( 'left', '+='+deltaX )
+        .css( 'top', '+='+deltaY )
+    ;
 
 
-    $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');//todo cache common JQuery objects in static container
+    $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');
 
 
     if(autoUpdate){

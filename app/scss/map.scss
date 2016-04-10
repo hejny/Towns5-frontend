@@ -17,7 +17,7 @@
 }
 
 
-#map_drag{
+#map_drag{//todo classes should not contain _ but -
   position:absolute;
   width: 100vw;
   height: 100vh;
@@ -32,7 +32,7 @@
 }
 
 
-#map_bg{
+#map_bg{//todo classes should not contain _ but -
 
   @if($debug_lines){
     border: 2px dashed #e255ff;
@@ -48,7 +48,7 @@
 
 }
 
-#loadbar_outer{
+#loadbar_outer{//todo classes should not contain _ but -
   position:absolute;
   width: 100vw;
   height: 100vh;
@@ -65,20 +65,66 @@
 }
 
 
-#map_bg {
+#map_bg {//todo classes should not contain _ but -
   position:absolute;
   top:0px;
   left:0px;
   z-index:1000;
-
 }
-
-#map-move {/*todo all clases with Capital letter*/
+#map-move {
   position:absolute;
   top:0px;
   left:0px;
   z-index:1005;
 
 }
+#map-stories {
+  position:absolute;
+  top:0px;
+  left:0px;
+  z-index:4000;
+}
 
 
+
+
+
+
+
+
+
+.story{
+
+  overflow: hidden;
+
+  background-color: #cccccc;
+  border: 2px solid #444444;
+  box-shadow: #000 0px 0px 15px;
+
+  border-radius: 100px;
+
+
+
+
+  &:hover{
+    border: 2px solid $selected-object-color;
+    box-shadow: $selected-object-color 0px 0px 15px;
+  }
+
+
+
+  font-size: 0.5em;
+
+  p,div{
+
+    margin:0px;
+    padding:0px;
+
+  }
+
+
+  img{
+    max-width: 100%;
+  }
+
+}
