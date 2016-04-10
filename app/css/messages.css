@@ -28,7 +28,6 @@
 #message_inner {
   display: inline-block;
   border-radius: 3px;
-  background-color: #ff0000;
   padding: 4px; }
 
 #eu-cookies .inner {
@@ -61,7 +60,7 @@
 
 .success {
   color: #FFFFFF;
-  background-color: #228855; }
+  background-color: #64c74e; }
 
 .info {
   color: #FFFFFF;
@@ -72,9 +71,14 @@
   color: #FFFFFF;
   background-color: #444444; }
 
-.error, .success, .info, .loading {
+/*.error, .success, .info, .loading {
+
   text-align: center;
   display: block;
   width: 100%;
   padding: 6px;
-  font-weight: bold; }
+
+  font-weight: bold;
+
+
+}*/

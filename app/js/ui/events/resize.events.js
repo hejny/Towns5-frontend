@@ -8,11 +8,16 @@
 //todo create Events static object
 var canvasResize=function(){
 
+    r('Resizing...');
+
+
     window_width=$('body').width();
     window_height=$('body').height();
 
-    $('#map_drag').attr('width',window_width);
-    $('#map_drag').attr('height',window_height);
+    $('#map_drag')
+        .attr('width',window_width)
+        .attr('height',window_height)
+    ;
 
 
     if(window_height>window_width*2){
@@ -27,21 +32,43 @@ var canvasResize=function(){
 
     }
 
-    //canvas_width+=500;
 
 
-    $('#map_bg').attr('width',canvas_width);
-    $('#map_bg').attr('height',canvas_height);
+    $('#map_bg')
+        .attr('width',canvas_width)
+        .attr('height',canvas_height)
+    ;
+    /*$('#map-stories')
+        .attr('width',canvas_width)
+        .attr('height',canvas_height)
+    ;*/
 
-    //r(window_width,canvas_width);
+
+
 
     canvas_left = (window_width  - canvas_width  )/2;
     canvas_top  = (window_height - canvas_height )/2;
 
-    //r(canvas_left);
 
-    $('#map_bg').css('left',canvas_left);
-    $('#map_bg').css('top',canvas_top);
+
+    //----------------Move canvas
+
+    $('#map_bg')
+        .css('left', canvas_left)
+        .css('top', canvas_top)
+    ;
+    //----------------
+
+
+    //----------------Move stories
+
+    $('#map-stories')
+        .css('left', canvas_left)
+        .css('top', canvas_top)
+    ;
+    //----------------
+
+
 
 };
 
