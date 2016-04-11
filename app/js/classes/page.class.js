@@ -101,8 +101,8 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
 
 
 
-    URI.plugin=this.uri;
-    URI.write();
+    T.URI.plugin=this.uri;
+    T.URI.write();
 
 
     var self=this;
@@ -114,9 +114,9 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
             self.close_callback();
         }
 
-        URI.plugin=false;
-        URI.object=false;
-        URI.write();
+        T.URI.plugin=false;
+        T.URI.object=false;
+        T.URI.write();
     },this.format);
     //--------------------------------------------
 

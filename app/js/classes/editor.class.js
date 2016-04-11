@@ -182,7 +182,7 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
     }
 
 
-    URI.object=this.opened.object.id;
+    T.URI.object=this.opened.object.id;
 
 
     var editor=this;

@@ -1,10 +1,10 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates URI
+ * @fileOverview Creates T.URI
  */
 //======================================================================================================================
 
-var URI={
+T.URI={
     'object':'',
     'plugin':'',
     //'position': false
@@ -12,9 +12,9 @@ var URI={
 
 
 /**
- * Initialize URI pathname from location
+ * Initialize T.URI pathname from location
  */
-URI.read = function(){
+T.URI.read = function(){
 
     //-------------------
     var pathname=window.location.pathname;
@@ -37,7 +37,7 @@ URI.read = function(){
         this.object=pathname[1];
     }else
     {
-        throw new Error('URI Pathname can contain max 2 strings.');
+        throw new Error('T.URI Pathname can contain max 2 strings.');
     }
 
     //-------------------
@@ -79,9 +79,9 @@ URI.read = function(){
 
 
 //todo jsdoc
-URI.readAndUpdate = function(){
+T.URI.readAndUpdate = function(){
 
-    r('Reading And Updating URI');
+    r('Reading And Updating T.URI');
     this.read();
     Map.loadMapAsync();
 
@@ -91,7 +91,7 @@ URI.readAndUpdate = function(){
 /**
  * Updates window.location after updating object, plugin or position
  */
-URI.write = function(){
+T.URI.write = function(){
 
     var pathname = '';
     if(this.plugin) pathname += '/'+this.plugin;
@@ -101,7 +101,7 @@ URI.write = function(){
 
 
     if(isDefined(map_x)){
-        //var hash = '#'+Math.round(URI.position.x)+','+Math.round(URI.position.y);
+        //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
         var hash = '#'+Math.round(map_x)+','+Math.round(map_y);
     }else{
         var hash = '';

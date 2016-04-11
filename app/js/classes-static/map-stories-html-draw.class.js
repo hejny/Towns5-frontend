@@ -64,15 +64,26 @@ Map.storiesHTML = function(objects) {
         content = markdown.toHTML(content);
 
 
-        var image = $(content).find('img:first').attr('src');
-
         var text=$(content).text();
-
 
         var length = text.length + 1000*$(content).find('img').length;
 
-
         size=20+Math.pow(length,1/2.62);
+
+
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        var image = $(content).find('img:first').attr('src');
+        if(image){
+
+
+            image = URI(image)
+                .addSearch({ width: Math.floor(size)*2 })
+                //.removeSearch("width")
+                .toString()
+            ;
+
+        }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 

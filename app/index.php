@@ -84,7 +84,7 @@ function locale($key){
 
 
 
-//todo zde by se mela analyzovat URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
+//todo zde by se mela analyzovat T.URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
 
 $page=[];
 $page['title'] = locale('page title');
