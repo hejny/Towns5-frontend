@@ -74,6 +74,9 @@ Map.storiesHTML = function(objects) {
             .css('width', size)
             .css('height', size)
 
+            .attr('id', objects[i].id)
+            .attr('onclick', "map_selected_ids = [$(this).attr('id')];Towns.Plugins.open('story');")
+
 
             .addClass('story')
         ;
