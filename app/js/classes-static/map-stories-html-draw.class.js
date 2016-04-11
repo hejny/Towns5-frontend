@@ -63,16 +63,30 @@ Map.storiesHTML = function(objects) {
         var content=objects[i].content.data;
         content = markdown.toHTML(content);
 
+
+        var image = $(content).find('img:first').attr('src');
+
+        var text=$(content).text();
+
+
+        var length = text.length + 1000*$(content).find('img').length;
+
+
+        size=20+Math.pow(length,1/2.62);
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-        var tag = $('<div>'+content+'</div>')//todo refactor maybe without jQuery?
+        var tag = $('<div>'+text+'</div>')//todo refactor maybe without jQuery?
             .css('position','absolute')
             .css('left',Math.floor(object_screen_x-size/2))
             .css('top', Math.floor(object_screen_y-size/2))
 
-            .css('width', size)
-            .css('height', size)
+            .css('width', Math.floor(size))
+            .css('height', Math.floor(size))
+
+            .css('background', "url('"+image+"')")
+            .css('background-size', "cover")
+            .css('background-color', "#ccc")
 
             .attr('id', objects[i].id)
             .attr('onclick', "map_selected_ids = [$(this).attr('id')];Towns.Plugins.open('story');")
