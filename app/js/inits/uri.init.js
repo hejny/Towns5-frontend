@@ -10,12 +10,12 @@ r('Starting Towns...');
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~location on map
 
 
-URI.read();
+T.URI.read();
 
 
 r('Starting Towns on '+map_x+','+map_y+'.');
-r('Starting Towns with opened object '+URI.object+'.');
-r('Starting Towns with opened plugin '+URI.plugin+'.');
+r('Starting Towns with opened object '+T.URI.object+'.');
+r('Starting Towns with opened plugin '+T.URI.plugin+'.');
 
 
 
@@ -23,7 +23,7 @@ r('Starting Towns with opened plugin '+URI.plugin+'.');
 if ("onhashchange" in window) { // event supported?
     window.onhashchange = function () {
 
-        URI.readAndUpdate();
+        T.URI.readAndUpdate();
 
     }
 }
@@ -35,7 +35,7 @@ else { // event not supported:
             storedHash = window.location.hash;
 
 
-            URI.readAndUpdate();
+            T.URI.readAndUpdate();
 
 
         }
