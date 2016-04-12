@@ -247,3 +247,9 @@ upload_error_only_images: Na mapu lze zatím nahrát pouze obrázky.
 
 
 
+
+story_edit: Upravit příběh
+story_delete: Smazat příběh
+story_delete_prompt: Opravdu chceš smazat příběh?
+story_delete_success: Příběh smazán
+object_story_saved: Příběh uložen

@@ -149,10 +149,10 @@ Towns.Page.prototype.open = function(additional_callback=false,additional_parame
 
     if(this.open_callback) {
         setTimeout(function () {
-            self.open_callback($('.popup-window .content')[0]/*
-            todo use this
-            todo better solution
-            */);
+            self.open_callback($('.popup-window .content')[0]);
+            //todo refactor not DI popup window content but use static container with function T.ui.get();
+
+
         },IMMEDIATELY_MS);
     }
 

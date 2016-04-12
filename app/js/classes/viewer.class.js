@@ -68,7 +68,7 @@ Towns.Viewer.prototype.open = function(collection,id){
 
         //-----------------------------------------
 
-        open_callback(object);
+        open_callback(object,$('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
 
 
         //-----------------------------------------

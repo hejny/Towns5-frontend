@@ -100,7 +100,7 @@ Map.storiesHTML = function(objects) {
             .css('background-color', "#ccc")
 
             .attr('id', objects[i].id)
-            .attr('onclick', "map_selected_ids = [$(this).attr('id')];Towns.Plugins.open('story');")
+            .attr('onclick', "Towns.Plugins.open('story',1,$(this).attr('id'));")
 
 
             .addClass('story')
