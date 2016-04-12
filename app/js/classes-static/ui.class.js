@@ -159,6 +159,23 @@ UI.message = function(text,type='info'){
 
 };
 
+//todo refactor use this below
+/**
+ * @param text
+ */
+UI.message.error = function(text){UI.message(text,'error');};
+/**
+ * @param text
+ */
+UI.message.success = function(text){UI.message(text,'success');};
+/**
+ * @param text
+ */
+UI.message.info = function(text){UI.message(text,'info');};
+
+
+
+
 
 /**
  * Change UI after login / logout / register
