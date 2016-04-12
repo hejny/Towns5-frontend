@@ -55,7 +55,9 @@ Map.updateMap = function(){
 
     if(map_zoom_delta || !map_zoom_m){
         map_zoom_m=Math.pow(2,map_zoom);
-        updateSelectingDistance();
+
+        if(typeof updateSelectingDistance != 'undefined')//todo refactor
+            updateSelectingDistance();
     }
 
     if(map_rotation_delta || !map_rotation_r) {

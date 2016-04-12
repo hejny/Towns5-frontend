@@ -18,7 +18,23 @@ T.Plugins.install(new T.Page(
 
         var content=objects_external[i].content.data;
 
-        content = markdown.toHTML(content);
+        content = $(markdown.toHTML(content));
+
+
+        content.find('img').each(function(){
+
+            var src = $(this).attr('src');
+            src = URI(src)
+                .removeSearch("width")
+                .addSearch({ width: 800/*todo constant maybe POPUP_WINDOW_NORMAL_WIDTH*/ })
+                .toString()
+            ;
+
+            $(this).attr('src',src);
+
+        });
+
+        content=content[0].outerHTML;
 
 
 
