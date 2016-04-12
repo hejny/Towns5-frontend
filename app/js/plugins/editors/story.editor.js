@@ -15,7 +15,7 @@ T.Plugins.install(new T.Editor(
     `
 
         <div id="vertical_separator" style="display: none;"></div>
-        <textarea id="story-content" onkeypress="storyContentReload();" style="display: none;"></textarea>
+        <textarea id="story-content" style="display: none;"></textarea>
         <div id="story-content-html" style="display: none;"></div>
 
     `,function(object){
