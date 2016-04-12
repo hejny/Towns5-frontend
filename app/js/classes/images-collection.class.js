@@ -5,27 +5,45 @@
 //======================================================================================================================
 
 
+/**
+ *
+ * @param {object} files
+ * @param {string} url Prefix of image urls
+ * @constructor
+ */
+var ImagesCollection = function(files,url='') {
 
-//todo jsdoc
-var ImagesCollection = function(files,url='',onload=false){
+    this.images = {};
 
-    var self=this;//todo maybe refactor use thisImageCollection ???
-
-    this.images={};
-    this.onload=onload;
-
-    this.images_loaded=0;
-    this.images_count=0;
+    this.images_loaded = 0;
+    this.images_count = 0;
 
 
-    for(var key in files){
+    this.files = files;
+    this.url = url;
+
+
+};
+
+
+/**
+ * Start loading of images loading
+ * @param {function} onload(percent) Callback on each single image load
+ */
+ImagesCollection.prototype.load = function(onload=false){
+
+    var self = this;//todo maybe refactor use thisImageCollection ???
+    this.onload = onload;
+
+
+    for(var key in this.files){
 
         //r('ImagesCollection: start loading '+url+files[key]);
 
         this.images_count++;
 
         this.images[key] = new Image();
-        this.images[key].src = url+files[key];
+        this.images[key].src = this.url+this.files[key];
         this.images[key].onload = function(){
 
             //r('loaded');

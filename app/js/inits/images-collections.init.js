@@ -8,39 +8,6 @@ var ImagesCollections={};
 
 
 
-
-ImagesCollections.imageLoad = function(){
-
-    var percent = (
-        ImagesCollections.textures.loaded()+
-        ImagesCollections.backgrounds.loaded()+
-        ImagesCollections.imageObjects.loaded()
-    ) / 3;
-
-    /*r(  ImagesCollections.textures.loaded(),
-        ImagesCollections.backgrounds.loaded(),
-        ImagesCollections.imageObjects.loaded(),percent);*/
-
-
-    $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
-
-
-
-    if(percent==1) {
-
-        $('#loadbar').slideUp();
-
-        map_loaded=true;//todo refactor move to static object Map
-
-        Map.updateMap();
-        Map.loadMap();
-
-    }
-
-};
-
-
-
 //----------------------------------------------------------------Textury
 ImagesCollections.textures= new ImagesCollection({
 
@@ -56,7 +23,7 @@ ImagesCollections.textures= new ImagesCollection({
     wood_raw: 'wood-raw.jpg',
     wood_fence: 'wood-fence.jpg'
 
-},appDir+'/php/image.php?width=128&file=media/image/textures/',ImagesCollections.imageLoad);
+},appDir+'/php/image.php?width=128&file=media/image/textures/');
 
 
 
@@ -81,7 +48,7 @@ for(var terrain=0;terrain<terrainCount;terrain++) {
     }
 }
 
-ImagesCollections.backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=',ImagesCollections.imageLoad);
+ImagesCollections.backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
 
 
 
@@ -116,7 +83,51 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 //----------------
 
-ImagesCollections.imageObjects= new ImagesCollection(files,appDir+'/php/treerock.php',ImagesCollections.imageLoad);
+ImagesCollections.imageObjects= new ImagesCollection(files,appDir+'/php/treerock.php');
 
 
 
+//----------------------------------------------------------------Loading callback
+
+
+ImagesCollections.imageLoad = function(){
+
+    var percent = (
+            ImagesCollections.textures.loaded()+
+            ImagesCollections.backgrounds.loaded()+
+            ImagesCollections.imageObjects.loaded()
+        ) / 3;
+
+    /*r(  ImagesCollections.textures.loaded(),
+     ImagesCollections.backgrounds.loaded(),
+     ImagesCollections.imageObjects.loaded(),percent);*/
+
+
+    $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
+
+
+
+    if(percent==1) {
+
+        $('#loadbar').slideUp();
+
+        map_loaded=true;//todo refactor move to static object Map
+
+        Map.updateMap();
+        Map.loadMap();
+
+    }
+
+};
+
+//----------------------------------------------------------------On document ready start loading
+
+$(function(){
+
+    r('Start loading of ImagesCollections...');
+
+    ImagesCollections.textures.load(ImagesCollections.imageLoad);
+    ImagesCollections.backgrounds.load(ImagesCollections.imageLoad);
+    ImagesCollections.imageObjects.load(ImagesCollections.imageLoad);
+
+});
