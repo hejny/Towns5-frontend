@@ -18,20 +18,20 @@ T.Plugins.install(new T.Viewer(
 
     `//todo should js-story-edit be class or id(current) ???
     ,function(object,page){
-    
-    
+
   
         var content=object.content.data;
-    
+
+
+
         content = $(markdown.toHTML(content));
-    
     
         content.find('img').each(function(){
     
             var src = $(this).attr('src');
             src = URI(src)
                 .removeSearch("width")
-                .addSearch({ width: 800/*todo constant maybe POPUP_WINDOW_NORMAL_WIDTH*/ })
+                .addSearch({ width: 800 })//todo constant maybe POPUP_WINDOW_NORMAL_WIDTH
                 .toString()
             ;
     
@@ -40,7 +40,7 @@ T.Plugins.install(new T.Viewer(
         });
     
         content=content.outerHTML();//todo use this
-    
+
     
         $(page).find('article').html(content);
     
