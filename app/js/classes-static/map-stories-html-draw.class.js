@@ -78,8 +78,8 @@ Map.storiesHTML = function(objects) {
 
 
             image = URI(image)
+                .removeSearch("width")
                 .addSearch({ width: Math.floor(size)*2 })
-                //.removeSearch("width")
                 .toString()
             ;
 
