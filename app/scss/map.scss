@@ -66,20 +66,26 @@
 
 
 #map_bg {//todo classes should not contain _ but -
-  position:absolute;
+  position:fixed;//todo use more fixed position
   top:0px;
   left:0px;
   z-index:1000;
 }
 #map-move {
-  position:absolute;
+  position:fixed;
   top:0px;
   left:0px;
   z-index:1005;
 
 }
+#map_buffer {//todo classes should not contain _ but -
+  position:fixed;
+  top:0px;
+  left:0px;
+  z-index:1006;
+}
 #map-stories {
-  position:absolute;
+  position:fixed;
   top:0px;
   left:0px;
   z-index:4000;

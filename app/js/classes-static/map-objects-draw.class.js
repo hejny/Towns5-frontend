@@ -41,8 +41,8 @@ Map.objectsDraw = function(ctx,objects) {
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
 
-        object_screen_x += (canvas_width / 2);
-        object_screen_y += (canvas_height / 2);
+        object_screen_x += (ctx.canvas.width / 2);
+        object_screen_y += (ctx.canvas.height / 2);
 
 
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,7 +78,7 @@ Map.objectsDraw = function(ctx,objects) {
 
     //----------------Clear canvas
 
-    ctx.clearRect(0, 0, window_width, window_height);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     //----------------Drawing... :)
 
