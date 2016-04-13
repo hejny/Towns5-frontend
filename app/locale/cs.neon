@@ -242,14 +242,32 @@ upload_error_only_images: Na mapu lze zatím nahrát pouze obrázky.
 
 
 
-
-
-
-
-
-
 story_edit: Upravit příběh
 story_delete: Smazat příběh
 story_delete_prompt: Opravdu chceš smazat příběh?
 story_delete_success: Příběh smazán
 object_story_saved: Příběh uložen
+building_by_dragging_wall_info: Hradby můžeš stavět tažením na mapě.
+building_by_dragging_path_info: Cesty můžeš stavět tažením na mapě.
+
+building_wall_view: Zobrazit
+building_wall_view_description: "Máš několik možností, jak budovu zobrazit:"
+building_wall_edit: Přestavět
+building_wall_edit_description: "Budovu můžeš přestavět pomocí:"
+building_wall_clone: Klonovat
+building_wall_clone_description: Postavit stejnou budovu někde jinde.
+building_wall_dismantle: Rozebrat
+building_wall_dismantle_description: "Po rozebrání dostaneš zpět část surovin, za které jsi budovu postavil."
+
+
+
+
+
+
+
+
+
+
+
+
+
