@@ -14,7 +14,8 @@ $(function(){
         var map_click_y=(e.clientY-(window_height/2));
         var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-        r('right click on map',mapPos);
+        r('UI Event: contextmenu (this part of code is unused.)');
+        return;
 
 
         map_selected_ids.forEach(function(id){

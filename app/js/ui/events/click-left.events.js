@@ -11,10 +11,18 @@ $(function(){
 
     var mouseClick=function (e) {
 
-        if (building !== false)
-            if (typeof building.res_path!=='undefined')return;
+        /*if (building !== false)
+            if (typeof building.res_path!=='undefined')return;*/
 
-        r('mouseDown');
+        if ($(this).hasClass('js-label-noclick')) {
+
+            $(this).removeClass('js-label-noclick');
+            return;
+
+        }
+
+        r('UI Event: click');
+
 
         $('#loading').css('top', e.clientY-15);
         $('#loading').css('left', e.clientX-10);
@@ -33,6 +41,7 @@ $(function(){
         clearTimeout(clickingTimeout);
         clickingTimeout = setTimeout(function () {
 
+            r('mouseDown: clickingTimeout');
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building
             if(building!==false){
@@ -160,13 +169,15 @@ $(function(){
             //-----------------------------------------Preparing values
 
             var selecting_distance_pow=Math.pow(1.4/*todo constant*/,2);
-            var map_selected_ids_prev = map_selected_ids;
+            var map_selected_ids_prev = map_selected_ids.join(',');
 
             var selected_object=false;
 
             //-----------------------------------------Searching for nearest object
 
             objects_external.forEach(function(object){
+
+                if(object.type!='building')return;//you can select only buildings
 
                 var distance_pow = Math.pow(object.x - mapPos.x, 2) + Math.pow(object.y - mapPos.y, 2);
 
@@ -188,62 +199,40 @@ $(function(){
             });
 
 
-
             //------------------------------------------Processing selection
 
             if(selected_object==false){
                 //~~~~~~~~~~~~~~~~~~~~
+                //todo sounds ion.sound.play("door_bump");
 
                 map_selected_ids=[];
 
-                objectMenu();
-
-                setTimeout(
-                    function(){Map.drawMap();},IMMEDIATELY_MS
-                );
 
                 //~~~~~~~~~~~~~~~~~~~~
 
             }else{
                 //~~~~~~~~~~~~~~~~~~~~
-
                 //todo sounds ion.sound.play("door_bump");
 
                 map_selected_ids=[selected_object.id];
 
 
-                if (map_selected_ids == map_selected_ids_prev) {
-                    map_selected_ids = [];
-                }
-
-
-
-                if (selected_object.type == 'story') {
-                    //~~~~~~~~~
-
-                    Towns.Plugins.open('story');
-
-                    //~~~~~~~~~
-                }else{
-                    //~~~~~~~~~
-                    Map.drawMapAsync();
-                    //~~~~~~~~~
-                }
-
-
-
-                objectMenu();
-
-
-
                 //~~~~~~~~~~~~~~~~~~~~
             }
 
+            //------------------------------------------Redrawing Map and UI if map_selected_ids changed
+
+            //r(map_selected_ids.join(',') +'!='+ map_selected_ids_prev);
+            if (map_selected_ids.join(',') != map_selected_ids_prev) {
+
+                objectMenu();
+                Map.drawMapAsync();
 
 
+            }
 
 
-            //------------------------------------------
+            //------------------------------------------Hide loading icon
 
 
 

@@ -19,17 +19,23 @@ $(function(){
     document.addEventListener("dragover", function(e){
         e.preventDefault();
 
+        r('UI Event: dragover');
+
         $('#map_drag').css('background','rgba(0,0,0,0.5)');
 
     }, false);
     document.addEventListener("dragleave", function(e){
         e.preventDefault();
 
+        r('UI Event: dragleave');
+
         $('#map_drag').css('background','rgba(0,0,0,0)');
 
     }, false);
     document.addEventListener("drop", function(e){
         e.preventDefault();
+
+        r('UI Event: drop');
 
         $('#map_drag').css('background','rgba(0,0,0,0)');
 
@@ -60,7 +66,6 @@ $(function(){
         }
         //-----------------
 
-        r(e);
         //-----------------
         if(story_prototype){
 

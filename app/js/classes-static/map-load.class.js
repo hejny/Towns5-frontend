@@ -179,15 +179,20 @@ Map.loadMapRequestCallback=function(res){
 
     //mapWindow(map_collision_data);
 
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    //r('Executing drawMap');
+    Map.drawMap();
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //todo ?DI? what is better $('#map-stories').html(Map.storiesHTML(map_data_stories)); vs. Map.drawMap();
 
     $('#map-stories').html(Map.storiesHTML(map_data_stories));
+
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //r('Executing drawMap');
-    Map.drawMap();
 
 };
 
