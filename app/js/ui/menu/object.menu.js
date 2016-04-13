@@ -39,7 +39,7 @@ function objectMenu(){
                 icon: '/media/image/icons/'+action+'.svg',
                 icon_size: 0.8,
                 title: Locale.get(object.type,object.subtype,action),
-                content: Locale.get(object.type,object.subtype,action,'description')+possible
+                content: Locale.get(object.type,object.subtype,action,'description')+'<br>'+possible
             });
 
         });

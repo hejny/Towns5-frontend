@@ -301,6 +301,7 @@ $(function(){
 
         buildingLoop();
 
+
         objects_external_buffer.forEach(function(object){
             create(object);
         });
@@ -314,6 +315,15 @@ $(function(){
         Map.loadMap();
         $('#selecting-distance').show();
         bufferDrawEndCtl();
+
+        //------------------------------------------
+        if(objects_external_buffer.length==0){
+            UI.message.info(Locale.get('building by dragging',building.subtype,'info'));
+            buildingStart(building._prototypeId);//todo should it be here _prototypeId
+        }
+        //------------------------------------------
+
+
 
     };
 
