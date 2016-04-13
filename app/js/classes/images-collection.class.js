@@ -99,19 +99,23 @@ ImagesCollection.prototype.getInput = function(NameOfRadios,AdditionalClass=''){
 
     var html='';
 
+    //r(this.files);
 
-    for(var key in this.images){
+    for(var key in this.files){
 
         html+=`
             <input type="radio" name="`+NameOfRadios+`" id="`+NameOfRadios+`-`+key+`" value="`+key+`" class="`+AdditionalClass+`" />
             <label for="`+NameOfRadios+`-`+key+`">
-                <img src="`+this.images[key].src+`">
+                <img src="`+this.url+this.files[key]+`">
             </label>
             `;
 
     }
 
+
     html='<div class="textures-input">'+html+'</div>';
+
+    //r(html);
 
     //alert(html);//todo purge Towns from commented alert, r, console.log, ect..
     return(html);
