@@ -299,6 +299,8 @@ $(function(){
 
         r('UI Event: mouseup');
 
+        var objects_external_buffer_length = objects_external_buffer.length;
+
         buildingLoop();
 
 
@@ -317,7 +319,7 @@ $(function(){
         bufferDrawEndCtl();
 
         //------------------------------------------
-        if(objects_external_buffer.length==0){
+        if(objects_external_buffer_length==0){
             UI.message.info(Locale.get('building by dragging',building.subtype,'info'));
             buildingStart(building._prototypeId);//todo should it be here _prototypeId
         }
