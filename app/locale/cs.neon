@@ -250,6 +250,7 @@ object_story_saved: Příběh uložen
 building_by_dragging_wall_info: Hradby můžeš stavět tažením na mapě.
 building_by_dragging_path_info: Cesty můžeš stavět tažením na mapě.
 
+#todo wildcard in neon
 building_wall_view: Zobrazit
 building_wall_view_description: "Máš několik možností, jak budovu zobrazit:"
 building_wall_edit: Přestavět
