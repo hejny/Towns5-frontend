@@ -28,6 +28,8 @@ $(function(){
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
+        r('UI Event: mousemove');
+
         //-------------------Convert mouse positions to map positions
 
         var map_click_x=(e.clientX-(window_width/2));
@@ -93,9 +95,11 @@ $(function(){
 
     var mouseDown=function (e) {
 
-        r('mouseDown');
-
         if (building == false)return;
+
+        r('UI Event: mousedown');
+
+
         if (dragging_subtypes.indexOf(building.subtype)==-1){
 
 
@@ -292,6 +296,8 @@ $(function(){
         if (building == false)return;
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
+
+        r('UI Event: mouseup');
 
         buildingLoop();
 
