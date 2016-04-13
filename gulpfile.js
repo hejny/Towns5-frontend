@@ -71,7 +71,7 @@ gulp.task('develop', function() {
 
 
     gulp.watch("app/scss/**/*.scss", ['develop-sass']);
-    gulp.watch('app/**/*.{js,php,phtml}').on('change', browserSync.reload);
+    //gulp.watch('app/**/*.{js,php,phtml}').on('change', browserSync.reload);
 
 });
 
