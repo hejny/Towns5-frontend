@@ -24,7 +24,7 @@ $extension=$pathinfo['extension'];
 
 //--------------------------------------------------------------------------------------
 
-$cachefile=files\cacheFile($file,$extension,'image');
+$cachefile=files\cacheFile($file,$extension,$width,'image');
 if(!file_exists($cachefile) or isset($_GET['notmp']) or filesize($cachefile)<10 /** or 1/**/) {
     //_________________________________________
 
