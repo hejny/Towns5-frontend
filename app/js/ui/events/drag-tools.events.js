@@ -54,7 +54,7 @@ $(function(){
                 }
 
 
-                var dist=Math.xy2dist(lastX-mapPos.x,lastY-mapPos.y);
+                var dist=T.Math.xy2dist(lastX-mapPos.x,lastY-mapPos.y);
                 //r(dist,(building.size * map_model_size));
 
 
@@ -176,7 +176,7 @@ $(function(){
             var buildingByDraggingPlusY = buildingByDraggingEndY-buildingByDraggingStartY;
 
 
-            var buildingByDraggingPlusDistDeg = Math.xy2distDeg(
+            var buildingByDraggingPlusDistDeg = T.T.Math.xy2distDeg(
                 buildingByDraggingPlusX,
                 buildingByDraggingPlusY
             );
@@ -187,7 +187,7 @@ $(function(){
 
 
 
-            var buildingByDraggingPlusXY = Math.distDeg2xy(
+            var buildingByDraggingPlusXY = T.Math.distDeg2xy(
                 buildingByDraggingPlusDistDeg.dist,
                 buildingByDraggingPlusDistDeg.deg
             );
@@ -200,9 +200,9 @@ $(function(){
             //r(buildingByDraggingPath);
 
 
-            var distance = buildingByDraggingPlusDistDeg.dist;//Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+            var distance = buildingByDraggingPlusDistDeg.dist;//T.Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
 
-            //todo pouzit funkci Math.xy2distDeg
+            //todo pouzit funkci T.T.Math.xy2distDeg
             var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
             if (rot < 0)rot = rot + 360;
 

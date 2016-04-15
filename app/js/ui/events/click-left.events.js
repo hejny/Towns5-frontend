@@ -90,7 +90,7 @@ $(function(){
                 for(var i=objects_external.length-1;i>=0;i--){
 
                     if(objects_external[i].type=='building'){
-                        if(Math.xy2dist(objects_external[i].x-mapPos.x,objects_external[i].y-mapPos.y)<=selecting_distance_fields){
+                        if(T.Math.xy2dist(objects_external[i].x-mapPos.x,objects_external[i].y-mapPos.y)<=selecting_distance_fields){
 
                             dismantle(objects_external[i].id);
 

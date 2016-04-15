@@ -72,7 +72,7 @@ function createNewOrJoin(object){
             bothDistances=bothDistances/100;//todo better
 
 
-            if((distance=Math.xy2dist(objects_external[i].x-object.x,objects_external[i].y-object.y))<bothDistances*map_model_size){
+            if((distance=T.Math.xy2dist(objects_external[i].x-object.x,objects_external[i].y-object.y))<bothDistances*map_model_size){
 
 
                 distances.push({i: i,distance: distance});
@@ -102,7 +102,7 @@ function createNewOrJoin(object){
 
 
         //todo better
-        var xy=Math.xyRotate(
+        var xy=T.Math.xyRotate(
             (object.x-objects_external[distances[0].i].x)*10,//map_model_size,
             (object.y-objects_external[distances[0].i].y)*10,//map_model_size,
 

@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, shadow=true) {
+T.Game/*todo this should be under other namespace*/.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, shadow=true) {
 
 
     //var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
@@ -90,11 +90,11 @@ Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, se
                 var y = resource.points[resource.polygons[i2][i3]][1];
                 var z = resource.points[resource.polygons[i2][i3]][2];
 
-                /*var DistDeg=Math.xy2distDeg(x,z);//todo all DistDeg via capital
+                /*var DistDeg=T.T.Math.xy2distDeg(x,z);//todo all DistDeg via capital
 
                  DistDeg.deg+=slope;
 
-                 var XY = Math.distDeg2xy(DistDeg.dist,DistDeg.deg);
+                 var XY = T.Math.distDeg2xy(DistDeg.dist,DistDeg.deg);
 
                  x=XY.x;
                  x=XY.y;*/

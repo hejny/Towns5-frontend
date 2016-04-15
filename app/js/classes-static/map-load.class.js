@@ -237,7 +237,7 @@ Map.iterateAndCreateMapData=function(object) {//todo refactor local_objects
 
                 for(var x=xc-size;x<=xc+size;x++){
 
-                    if (Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
+                    if (T.Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
 
                         //r(x,y);
                         map_bg_data[Math.round(y)][Math.round(x)]=object.design.data.image;

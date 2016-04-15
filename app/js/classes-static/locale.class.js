@@ -43,7 +43,7 @@ Locale.get = function(){//todo refactor useges use more params not ' '
             MESSAGES[key]=key;
             Locale.keys_write.push(key);
 
-            var count=Math.toInt($('#locale-write-count').html())+1;
+            var count=T.Math.toInt($('#locale-write-count').html())+1;
             $('#locale-write-count').html(count);
 
 

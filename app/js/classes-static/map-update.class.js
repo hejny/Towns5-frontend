@@ -150,8 +150,8 @@ Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
     //----------------
 
-    var map_bg_x = Math.toInt($('#map_bg').css('left'));
-    var map_bg_y = Math.toInt($('#map_bg').css('top'));
+    var map_bg_x = T.Math.toInt($('#map_bg').css('left'));
+    var map_bg_y = T.Math.toInt($('#map_bg').css('top'));
 
     //console.log($('#map_bg').scss('left'),map_bg_x,map_bg_y);
 
@@ -180,7 +180,7 @@ Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
 
     if(autoUpdate){
-        if(Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
+        if(T.Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
             Map.updateMap();
         }
     }

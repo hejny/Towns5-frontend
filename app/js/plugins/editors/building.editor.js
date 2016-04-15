@@ -249,7 +249,7 @@ T.Plugins.install(new T.Editor(
                         }else
 
                         if ($(this).attr('type') == 'range') {
-                            var value = Math.toFloat($(this).val());
+                            var value = T.Math.toFloat($(this).val());
 
                         }else{
                             var value = $(this).val();
@@ -592,7 +592,7 @@ T.Plugins.install(new T.Editor(
 
                     } else {
 
-                        path = path.split(',').map(Math.toInt);
+                        path = path.split(',').map(T.Math.toInt);
 
                     }
 
@@ -633,7 +633,7 @@ T.Plugins.install(new T.Editor(
         subtype: "main",
         design: {
             type: "model",
-            data: new Model(
+            data: new T.Game.Model(
                 {
                     name:'root',
                     particles: [
