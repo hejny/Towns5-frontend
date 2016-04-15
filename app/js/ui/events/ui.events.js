@@ -101,14 +101,14 @@ window.uiScript = function(){
             var offset=$(this).offset();
 
 
-            var max_top=Math.toInt($( window ).height())-Math.toInt($( '#popup-action' ).height())-20;
+            var max_top=T.Math.toInt($( window ).height())-T.Math.toInt($( '#popup-action' ).height())-20;
 
-            var top=Math.toInt(offset.top);
+            var top=T.Math.toInt(offset.top);
             if(top>max_top)top=max_top;
 
-            var arrow_top=Math.toInt(offset.top)-top+20;
+            var arrow_top=T.Math.toInt(offset.top)-top+20;
 
-            if(arrow_top<Math.toInt($( '#popup-action' ).height())){
+            if(arrow_top<T.Math.toInt($( '#popup-action' ).height())){
                 $('#popup-action .arrow').css('margin-top',arrow_top).css('visibility','visible');
             }else{
                 $('#popup-action .arrow').css('visibility','hidden');

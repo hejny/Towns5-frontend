@@ -30,7 +30,7 @@ function deepCopyObject(oldObject) {
 
     if(is(newObject.design)){
         if(newObject.design.type=='model'){
-            newObject.design.data = new Model(newObject.design.data);
+            newObject.design.data = new T.Game.Model(newObject.design.data);
         }
     }
 

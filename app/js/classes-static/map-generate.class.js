@@ -44,7 +44,7 @@ MapGenerator.getZ = function(x,y){
         x=Math.floor(x/3);
         y=Math.floor(y/3);
 
-        var xy = Math.xyRotate(x,y,57);
+        var xy = T.Math.xyRotate(x,y,57);
 
         x=xy.x;
         y=xy.y;
@@ -58,7 +58,7 @@ MapGenerator.getZ = function(x,y){
 
 
     n=n-0.5;
-    var sign=Math.sign(n);
+    var sign=T.Math.sign(n);
     n=Math.abs(n)*2;
     n=Math.pow(n,1/3);
     n=(n/2*sign)+0.5;

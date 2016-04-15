@@ -34,7 +34,7 @@ function IsImageOk(img) {
  * @param {number} slope 0-90 Angle in degrees
  * todo write
  */
-Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, slope, selected=false, shadow=false,clearBefore=false) {
+T.Game/*todo this should be under other namespace*/.Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, slope, selected=false, shadow=false,clearBefore=false) {
 
     width = 500/*500*2*s*this.size*/;
     height = 500/*500*2*s*this.size*/;
@@ -119,7 +119,7 @@ Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation, s
 
 /** //todo write
  */
-Model.prototype.createCacheLocalImage = function(size, rotation, slope){
+T.Game.Model.prototype.createCacheLocalImage = function(size, rotation, slope){
 
     var self = this;
 
@@ -196,7 +196,7 @@ var BuildingImages={};
  * @param {number} size Size of returned image
  * @returns {string} image data in base64
  */
-Model.prototype.cacheHash = function(size, rotation, slope){
+T.Game.Model.prototype.cacheHash = function(size, rotation, slope){
 
     var rotation=((rotation+this.rotation)%360);
     rotation=Math.round(rotation/15)*15;
@@ -215,7 +215,7 @@ Model.prototype.cacheHash = function(size, rotation, slope){
  * @param {number} size Size of returned image
  * @returns {string} image data in base64
  */
-Model.prototype.createIcon = function(size){
+T.Game.Model.prototype.createIcon = function(size){
 
     var rotation=0;
     var slope=30;

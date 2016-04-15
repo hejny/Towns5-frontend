@@ -10,8 +10,8 @@ header('Content-Type: application/javascript');
 
 $files=
     array_merge(
-        glob(__DIR__.'/../../towns-shared/objects/*/*.js'),
-        glob(__DIR__.'/../../towns-shared/objects/*/*/*.js')
+        glob(__DIR__.'/../../node_modules/towns5shared/objects/*/*.js'),
+        glob(__DIR__.'/../../node_modules/towns5shared/objects/*/*/*.js')
     );
 
 

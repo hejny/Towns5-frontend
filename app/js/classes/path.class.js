@@ -61,7 +61,7 @@ var Path = function (start, end, speed , map, map_topleft) {
                         if(xNext<map_size)/*todo is it OK to use map_size???*/
                         if(yNext<map_size){
 
-                            var distance=Math.xy2dist(yNext-y,xNext-x);
+                            var distance=T.Math.xy2dist(yNext-y,xNext-x);
                             //r(distance,map[y][x] - Math.abs(map[yNext][xNext]),limit);
                             if((map[yNext][xNext]==true || limit<2) /*&& map[y][x] - Math.abs(map[yNext][xNext])>distance*/ ){
 
@@ -179,7 +179,7 @@ var Path = function (start, end, speed , map, map_topleft) {
 
     for(var i=1,l=this.positions.length;i<l;i++){
 
-        var distance=Math.xy2dist(this.positions[i].x-this.positions[i-1].x,this.positions[i].y-this.positions[i-1].y);
+        var distance=T.Math.xy2dist(this.positions[i].x-this.positions[i-1].x,this.positions[i].y-this.positions[i-1].y);
 
         ms+=Math.round(distance*1000/speed);
 
@@ -255,7 +255,7 @@ Path.prototype.rotation = function(){
             var chunkXDelta=this.positions[i+1].x-this.positions[i].x;
             var chunkYDelta=this.positions[i+1].y-this.positions[i].y;
 
-            var chunkDistDeg = Math.xy2distDeg(chunkYDelta,chunkXDelta);
+            var chunkDistDeg = T.T.Math.xy2distDeg(chunkYDelta,chunkXDelta);
             return(chunkDistDeg.deg+90);
 
 

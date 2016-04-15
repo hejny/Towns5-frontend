@@ -40,7 +40,7 @@
     "markdown": "~0.5.0",
     "roboto-fontface": "~0.4.2",
     "dotenv": "~2.0.0",
-    "towns5shared": "git+ssh://git@bitbucket.org:towns/towns-shared.git"
+    "todo-towns5shared": "git+ssh://git@bitbucket.org:towns/towns-shared.git"
   },
   "devDependencies": {
     "browser-sync": "~2.9.8",
