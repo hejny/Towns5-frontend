@@ -147,13 +147,16 @@ var rockMaxDark=50;
 
 //----------------Extended values
 
-var map_size;
+var map_size;/*todo refactor to map_radius*/
+/*todo refactor map_x, map_y to map_center*/
+
+
 
 var map_zoom_m;
 
 var map_data;
 var map_data_stories;//todo maybe refactor names?
-var map_z_data;
+var map_z_data;//todo purge this
 var map_bg_data;
 
 

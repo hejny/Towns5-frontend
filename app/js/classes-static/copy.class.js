@@ -10,7 +10,7 @@
 //todo should it be Copy object with static functions?
 
 
-function deepCopy(oldObject) {
+function deepCopy(oldObject) {//todo maybe test id under prototype exists method clone
 
     if(typeof(oldObject)=='undefined') throw 'You can not copy undefined.';
     if(oldObject==null) throw 'You can not copy null.';
@@ -30,7 +30,7 @@ function deepCopyObject(oldObject) {
 
     if(is(newObject.design)){
         if(newObject.design.type=='model'){
-            newObject.design.data = new T.Game.Model(newObject.design.data);
+            newObject.design.data = new T.Game.Model(newObject.design.data);//todo maybe use clone
         }
     }
 
@@ -47,7 +47,7 @@ function deepCopyModel(oldObject) {
 
     var newObject = deepCopy(oldObject);
 
-    newObject = new Model(newObject);
+    newObject = new T.Game.Model(newObject);//todo maybe use clone
 
     return(newObject);
 

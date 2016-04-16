@@ -40,7 +40,7 @@ T.Game/*todo this should be under other namespace*/.Model.prototype.create3D = f
     //this_.particles
     particlesLinear.forEach(function(particle,particle_i){
 
-        var addResource=ModelParticles.get3D(particle);
+        var addResource= T.Game.ModelParticles.get3D(particle);
 
         //r(addResource);
 
