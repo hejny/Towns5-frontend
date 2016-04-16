@@ -54,13 +54,10 @@ Map.drawMap = function(){
             if (x >= 0 && y >= 0 && x < map_size && y < map_size /*Math.pow(x-(map_size/2),2)+Math.pow(y-(map_size/2),2)<=Math.pow(map_size/2,2)*/) {
 
 
-                var terrain = map_bg_data[y][x] - 1/*Teren 0 je temnota*/;
+                if (map_bg_data[y][x]) {
 
 
-                //r(map_z_data[y][x]);
-
-
-                if (terrain != -1) {
+                    var terrain = map_bg_data[y][x].getCode() - 1/*Teren 0 je temnota*/;
 
 
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;

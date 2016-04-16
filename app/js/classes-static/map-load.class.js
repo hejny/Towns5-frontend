@@ -12,20 +12,12 @@ var map_request_ajax=false;
 
 Map.loadMap = function(){
     r('loadMap');
-    if(isNaN(map_size))throw 'map_size is NaN';
+    if(isNaN(map_size))throw new Error('map_size is NaN');
 
-    var map_xy_data = MapGenerator.getMap(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2)), map_size);
-
-    //console.log(map_data);
-
-    map_z_data = map_xy_data[0];
-    map_bg_data = map_xy_data[1];
-
-    //strict//delete map_xy_data;
-
-    var tmp=Math.round(map_size/2)-2;
+    map_bg_data = Towns.MapGenerator.mapGenerator.getMapCircle({x: map_x,y: map_y}, map_size/2);
 
 
+    //todo refactor purge map_z_data
 
 
 
@@ -39,16 +31,12 @@ Map.loadMap = function(){
         {
             x: Math.round(map_x),
             y: Math.round(map_y),
-            radius: map_size,
+            radius: map_size/2,
             //keys: ,
 
         },//todo range and order by time
         Map.loadMapRequestCallback
     );
-
-
-    //Map.loadMapRequestCallback([]);
-
 
 
 };
@@ -70,7 +58,7 @@ Map.loadMapRequestCallback=function(res){
     res.forEach(function (serverObject) {
 
 
-        if (['building', 'story', 'terrain'].indexOf(serverObject.type) != -1) {//todo here should be all type of objects - terrain
+        if (['building', 'story', 'terrain'/*todo should be terrein here*/].indexOf(serverObject.type) != -1) {
 
 
             var serverObjectCopy = deepCopyObject(serverObject);//todo read object
@@ -93,7 +81,9 @@ Map.loadMapRequestCallback=function(res){
     map_data=[];//todo maybe delete and use only local_objects
     map_data_stories=[];//todo maybe delete and use only local_objects
 
+
     objects_external.forEach(Map.iterateAndCreateMapData);
+
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Count collisions
 
@@ -103,8 +93,15 @@ Map.loadMapRequestCallback=function(res){
 
         if(!is(map_collision_data[y]))map_collision_data[y]=[];
 
+        if(typeof map_bg_data[y][x]=='undefined'){
 
-        if(map_bg_data[y][x]>0 && blockedTerrains.indexOf(map_bg_data[y][x])==-1){
+            map_collision_data[y][x]=true;
+            return;
+
+        }
+
+
+        if(map_bg_data[y][x].getCode()>0 && blockedTerrains.indexOf(map_bg_data[y][x].getCode())==-1){
 
             map_collision_data[y][x]=true;
 
@@ -214,40 +211,28 @@ Map.iterateAndCreateMapData=function(object) {//todo refactor local_objects
     }else
     if(object.type == 'terrain'){
 
-        var xc=object.x,//center
-            yc=object.y,
-            size=Math.ceil(object.design.data.size);
 
-        xc=xc-Math.round(map_x)+Math.floor(map_size/2);
-        yc=yc-Math.round(map_y)+Math.floor(map_size/2);
+        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_size/2));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_size/2));y++){
+
+        if(typeof map_bg_data[y] === 'undefined')continue;
 
 
-        if(
-            xc<0 ||
-            yc<0 ||
-            xc>=map_size ||
-            yc>=map_size
-
-        ){}else{
+        for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_size/2));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_size/2));x++){
 
 
-            //r(xc,yc,size);
+            if(typeof map_bg_data[y][x] === 'undefined')continue;
 
-            for(var y=yc-size;y<=yc+size;y++){
 
-                for(var x=xc-size;x<=xc+size;x++){
+            if (T.Math.xy2dist(x-(map_size/2)+map_x-object.x,y-(map_size/2)+map_y-object.y) <= object.design.data.size) {
 
-                    if (T.Math.xy2dist(x-xc,y-yc) <= object.design.data.size) {
+                map_bg_data[y][x]
+                    =
+                    T.MapGenerator.terrains[object.design.data.image];//todo maybe better
 
-                        //r(x,y);
-                        map_bg_data[Math.round(y)][Math.round(x)]=object.design.data.image;
-
-                    }
-                }
             }
-
-
         }
+        }
+
 
     }else{
 
