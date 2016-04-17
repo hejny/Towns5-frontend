@@ -98,8 +98,13 @@ Map.drawMap = function(){
 
                             drawtype: 'image',
                             data: ImagesCollections.backgrounds.get('t' + (terrain.getCode()) + 's' + seed),
-                            x: screen_x,
-                            y: screen_y,
+
+                            screen_x: screen_x,
+                            screen_y: screen_y,
+
+                            anchor_x: width/2,
+                            anchor_y: height/2,
+
                             width: width,
                             height: height
 
@@ -157,8 +162,8 @@ Map.drawMap = function(){
             map_draw.push({
                 drawtype: 'model',
                 data: map_data[i].design.data,
-                x: object_screen_x,
-                y: object_screen_y,
+                screen_x: object_screen_x,
+                screen_y: object_screen_y,
             });
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -174,8 +179,12 @@ Map.drawMap = function(){
 
                 drawtype: 'image',
                 data:  image,
-                x: object_screen_x,
-                y: object_screen_y,
+
+                screen_x: object_screen_x,
+                screen_y: object_screen_y,
+
+                anchor_x: (image.width/2),
+                anchor_y: (width/2/map_slope_m),
 
                 width: image.width,
                 height: image.height
@@ -226,8 +235,10 @@ Map.drawMap = function(){
                 map_ctx.drawImage(
 
                     map_draw[i].data,
-                    map_draw[i].x-(map_draw[i].width/2),
-                    map_draw[i].y-(map_draw[i].width/2/map_slope_m),
+
+                    map_draw[i].screen_x-map_draw[i].anchor_x,
+                    map_draw[i].screen_y-map_draw[i].anchor_y,
+
                     map_draw[i].width,
                     map_draw[i].height
 
@@ -241,7 +252,7 @@ Map.drawMap = function(){
         } else if (map_draw[i].drawtype == 'model') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~building
 
-            map_draw[i].data.drawCashedAsync(map_ctx, map_zoom_m * map_model_size, map_draw[i].x, map_draw[i].y, map_rotation, map_slope,
+            map_draw[i].data.drawCashedAsync(map_ctx, map_zoom_m * map_model_size, map_draw[i].screen_x, map_draw[i].screen_y, map_rotation, map_slope,
 
                 /*(map_selected_ids.indexOf(map_draw[i][1].id) != -1?true:false)*/false,true
             );
