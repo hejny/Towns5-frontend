@@ -42,7 +42,7 @@ files=[];
 for(var terrain=0;terrain<terrainCount;terrain++) {
     for (var seed = 0; seed < seedCount; seed++) {
 
-        files['t'+terrain+'s'+seed] = 't' + (terrain+1) + '&seed=' + seed + '&size=220';
+        files['t'+terrain+'s'+seed] = 't' + (terrain) + '&seed=' + seed + '&size=220';
 
 
     }

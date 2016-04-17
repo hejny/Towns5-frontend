@@ -57,7 +57,7 @@ Map.drawMap = function(){
                 if (map_bg_data[y][x]) {
 
 
-                    var terrain = map_bg_data[y][x].getCode() - 1/*Teren 0 je temnota*/;
+                    var terrain = map_bg_data[y][x];
 
 
                     var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
@@ -96,7 +96,7 @@ Map.drawMap = function(){
 
                         map_draw.push([
                             'terrain',
-                            ImagesCollections.backgrounds.get('t'+terrain+'s'+seed),
+                            ImagesCollections.backgrounds.get('t'+(terrain.getCode())+'s'+seed),
                             screen_x,
                             screen_y,
                             screen_y + height / terrain_size - Math.floor(width / 4),
@@ -105,9 +105,14 @@ Map.drawMap = function(){
                         ]);
 
 
+                        terrain.getVirtualObjects().forEach(function(virtual_object){
+
+
+                        });
+
                         //----------------------------------------------------------------------------------------------Virtuální objekty
 
-                        if ((terrain == 9 /*&& map_data[y+1][x]!=4 && map_data[y-1][x]!=4 && map_data[y][x+1]!=4 && map_data[y][x-1]!=4*/ ) || terrain == 4) {
+                        /*if ((terrain == 9 ) || terrain == 4) {
 
                             var block_object = false;
                             if (terrain == 9) {
@@ -130,7 +135,6 @@ Map.drawMap = function(){
                                     var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 1.5)) / 10) * map_tree_size_diff + map_tree_size;
                                 } else {
 
-                                    //var size = Math.sin(Math.pow(Math.abs(world_x * world_y), (1 / 2.5)) / 10) * map_rock_size_diff + map_rock_size;
 
                                     var object_size_seed = Math.floor(Math.pow(Math.pow(world_x, 2) + Math.pow(world_y, 2), 1.1)) % rockCountDark;
 
@@ -157,48 +161,16 @@ Map.drawMap = function(){
 
 
                                 object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m /*- 300 / map_slope_n * map_zoom_m*/;
+                                object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m ;
 
 
                                 object_screen_x += (canvas_width / 2);
                                 object_screen_y += (canvas_height / 2);
 
 
-                                /*
-                                 if(map_selecting)
-                                 if(Math.pow(object_screen_x-canvas_mouse_x,2)+Math.pow(object_screen_y-canvas_mouse_y,2)<900){
-
-                                 map_selecting=false;
-
-                                 map_mouse_x=world_x;
-                                 map_mouse_y=world_y;
-                                 //alert(object_id);
-                                 map_selected_ids=[object_id];
-                                 }
-                                 */
-
                                 object_screen_x += (width / 2) - (object_width / 2);
                                 object_screen_y += -(object_height) + (object_width / 4) + (height / 4);
 
-
-                                /*
-                                 if($.inArray(object_id,map_selected_ids)!=-1){
-
-                                 alert('selected'+object_id);
-
-                                 map_draw.push([
-                                 'ellipse',
-                                 ['rgba(50,50,50,0.4)','rgba(0,0,0,0.8)',3],
-                                 object_screen_x,
-                                 object_screen_y+object_height-(object_width/map_slope_m),
-                                 999999,
-                                 object_width,
-                                 object_width/map_slope_m
-
-                                 ]);
-
-                                 }
-                                 */
 
 
                                 map_draw.push([
@@ -215,7 +187,7 @@ Map.drawMap = function(){
 
                             }
 
-                        }
+                        }/**/
                         //----------------------------------------------------------------------------------------------
 
 
