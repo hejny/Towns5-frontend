@@ -83,7 +83,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 //----------------
 
-ImagesCollections.imageObjects= new ImagesCollection(files,appDir+'/php/treerock.php');
+ImagesCollections.objectsNatural= new ImagesCollection(files,appDir+'/php/treerock.php');
 
 
 
@@ -95,12 +95,12 @@ ImagesCollections.imageLoad = function(){
     var percent = (
             ImagesCollections.textures.loaded()+
             ImagesCollections.backgrounds.loaded()+
-            ImagesCollections.imageObjects.loaded()
+            ImagesCollections.objectsNatural.loaded()
         ) / 3;
 
     /*r(  ImagesCollections.textures.loaded(),
      ImagesCollections.backgrounds.loaded(),
-     ImagesCollections.imageObjects.loaded(),percent);*/
+     ImagesCollections.objectsNatural.loaded(),percent);*/
 
 
     $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
@@ -128,6 +128,6 @@ $(function(){
 
     ImagesCollections.textures.load(ImagesCollections.imageLoad);
     ImagesCollections.backgrounds.load(ImagesCollections.imageLoad);
-    ImagesCollections.imageObjects.load(ImagesCollections.imageLoad);
+    ImagesCollections.objectsNatural.load(ImagesCollections.imageLoad);
 
 });
