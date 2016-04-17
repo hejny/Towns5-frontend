@@ -58,8 +58,8 @@ var Path = function (start, end, speed , map, map_topleft) {
                         if(!(xNext==x && yNext==y))
                         if(xNext>=0)
                         if(yNext>=0)
-                        if(xNext<map_size)/*todo is it OK to use map_size???*/
-                        if(yNext<map_size){
+                        if(xNext<(map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                        if(yNext<(map_radius*2)){
 
                             var distance=T.Math.xy2dist(yNext-y,xNext-x);
                             //r(distance,map[y][x] - Math.abs(map[yNext][xNext]),limit);
@@ -130,8 +130,8 @@ var Path = function (start, end, speed , map, map_topleft) {
                 if (xTest != x || yNext != y)
                 if (xTest >= 0)
                 if (yTest >= 0)
-                if (xTest < map_size)/*todo is it OK to use map_size???*/
-                if (yTest < map_size)
+                if (xTest < (map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                if (yTest < (map_radius*2))
                 if (typeof map[yTest][xTest] == 'number') {
 
                     //r(map[y][x] - map[yTest][xTest]);
