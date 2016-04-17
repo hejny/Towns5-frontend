@@ -103,7 +103,7 @@ Map.drawMap = function(){
                             screen_y: screen_y,
 
                             anchor_x: width/2,
-                            anchor_y: height/2,
+                            anchor_y: 0,
 
                             width: width,
                             height: height
@@ -184,7 +184,7 @@ Map.drawMap = function(){
                 screen_y: object_screen_y,
 
                 anchor_x: (image.width/2),
-                anchor_y: (width/2/map_slope_m),
+                anchor_y: height,//-(width/2/map_slope_m),
 
                 width: image.width,
                 height: image.height
@@ -205,9 +205,9 @@ Map.drawMap = function(){
 
     map_draw.sort(function (a, b) {
 
-        if (a.y > b.y) {
+        if (a.screen_y > b.screen_y) {
             return (1);
-        } else if (a.y < b.y) {
+        } else if (a.screen_y < b.screen_y) {
             return (-1);
         } else {
             return (0);
