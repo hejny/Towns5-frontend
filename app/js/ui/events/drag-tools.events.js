@@ -248,7 +248,7 @@ $(function(){
                 tmp.y = buildingByDraggingStartY + (buildingByDraggingEndY - buildingByDraggingStartY) * (i / l);
 
 
-                /*if([0,4,10].indexOf(map_bg_data[Math.round(tmp.y)+Math.floor(map_size/2)][Math.round(tmp.x)+Math.floor(map_size/2)])!=-1){
+                /*if([0,4,10].indexOf(map_bg_data[Math.round(tmp.y)+Math.floor(map_radius)][Math.round(tmp.x)+Math.floor(map_radius)])!=-1){
                  tmp.res=tmp.res_node;
                  }*/
 

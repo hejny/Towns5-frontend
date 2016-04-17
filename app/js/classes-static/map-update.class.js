@@ -23,7 +23,7 @@ Map.updateMap = function(){
 
     map_x+=map_x_delta*ms/1000;
     map_y+=map_y_delta*ms/1000;
-    map_size+=map_size_delta;//Tady se ms neuplatnuji
+    map_radius+=map_radius_delta;//Tady se ms neuplatnuji
 
 
 
@@ -36,7 +36,7 @@ Map.updateMap = function(){
 
     map_x=Math.round(map_x*100)/100;
     map_y=Math.round(map_y*100)/100;
-    map_size=Math.round(map_size);
+    map_radius=Math.round(map_radius);
 
     //----------------bounds
 
@@ -74,24 +74,23 @@ Map.updateMap = function(){
     }
 
 
-    if(map_x_delta || map_y_delta || map_size_delta || map_zoom_delta || map_rotation_delta || !is(map_size)){
+    if(map_x_delta || map_y_delta || map_radius_delta || map_zoom_delta || map_rotation_delta || !is((map_radius*2))){
 
 
         //T.URI.position=new Position(map_x,map_y);
         T.URI.write();
 
         //r(canvas_height,canvas_width,map_field_size,map_zoom_m);
-        map_size=Math.min((canvas_height/map_field_size*2),((canvas_width-100)/map_field_size))/map_zoom_m;
-        map_size=Math.ceil(map_size/2)*2;
+        map_radius=Math.min((canvas_height/map_field_size),((canvas_width-100)/map_field_size/2))/map_zoom_m;
+        map_radius=Math.ceil(map_radius);
 
+        //todo maybe min_map_radius
+        if(map_radius>max_map_radius)map_radius=max_map_radius;
 
-        if(map_size<4)map_size=4;
-        if(map_size>max_map_size)map_size=max_map_size;
-
-        //console.log(map_size);
+        //console.log((map_radius*2));
 
         //console.log('loadMap');
-        if(isNaN(map_size))throw 'map_size is NaN after updateMap and before loadMap';
+        if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN after updateMap and before loadMap';
         Map.loadMapAsync();
 
     }
@@ -106,7 +105,7 @@ Map.updateMap = function(){
     map_slope_delta=0;
     map_x_delta=0;
     map_y_delta=0;
-    map_size_delta=0;
+    map_radius_delta=0;
 
     //----------------
 

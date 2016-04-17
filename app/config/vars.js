@@ -107,7 +107,7 @@ var map_model_size=2,
 var map_rotation=45;
 
 
-var max_map_size=180;//180;
+var max_map_radius=90;//180;
 
 var selecting_distance=1000;
 var selecting_distance_fields=0;
@@ -126,7 +126,7 @@ var map_y=false;
 
 var map_x_delta=0;//todo refactor delete all delta
 var map_y_delta=0;
-var map_size_delta=0;
+var map_radius_delta=0;
 
 //----------------
 
@@ -147,7 +147,7 @@ var rockMaxDark=50;
 
 //----------------Extended values
 
-var map_size;/*todo refactor to map_radius*/
+var map_radius;
 /*todo refactor map_x, map_y to map_center*/
 
 

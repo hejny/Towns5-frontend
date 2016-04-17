@@ -45,7 +45,7 @@ function mapWindow(map){
     size=2;
 
 
-    var src=createCanvasViaFunctionAndConvertToSrc(map_size*size,map_size*size,function(ctx){
+    var src=createCanvasViaFunctionAndConvertToSrc((map_radius*2)*size,(map_radius*2)*size,function(ctx){
 
 
 

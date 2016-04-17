@@ -35,7 +35,7 @@ $(function(){
 
             try {
 
-                objects_external[i].path=new Path(position,mapPos,6,map_collision_data,new Position(Math.round(map_x-(map_size/2)), Math.round(map_y-(map_size/2))));
+                objects_external[i].path=new Path(position,mapPos,6,map_collision_data,new Position(Math.round(map_x-(map_radius)), Math.round(map_y-(map_radius))));
 
             }catch(error) {
 

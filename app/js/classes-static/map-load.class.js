@@ -12,9 +12,9 @@ var map_request_ajax=false;
 
 Map.loadMap = function(){
     r('loadMap');
-    if(isNaN(map_size))throw new Error('map_size is NaN');
+    if(isNaN((map_radius*2)))throw new Error('(map_radius*2) is NaN');
 
-    map_bg_data = Towns.MapGenerator.mapGenerator.getMapCircle({x: map_x,y: map_y}, map_size/2);
+    map_bg_data = Towns.MapGenerator.mapGenerator.getMapCircle({x: map_x,y: map_y}, map_radius);
 
 
     //todo refactor purge map_z_data
@@ -31,7 +31,7 @@ Map.loadMap = function(){
         {
             x: Math.round(map_x),
             y: Math.round(map_y),
-            radius: map_size/2,
+            radius: map_radius,
             //keys: ,
 
         },//todo range and order by time
@@ -121,13 +121,13 @@ Map.loadMapRequestCallback=function(res){
 
     map_data.forEach(function(object){
 
-        var x=Math.round(object.x)-Math.round(map_x-(map_size/2));
-        var y=Math.round(object.y)-Math.round(map_y-(map_size/2));
+        var x=Math.round(object.x)-Math.round(map_x-(map_radius));
+        var y=Math.round(object.y)-Math.round(map_y-(map_radius));
 
         if(x>=0)
             if(y>=0)
-                if(x<map_size)/*todo is it OK to use map_size???*/
-                    if(y<map_size)
+                if(x<(map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                    if(y<(map_radius*2))
                         map_collision_data[y][x]=false;
 
 
@@ -146,8 +146,8 @@ Map.loadMapRequestCallback=function(res){
 
                     if(xNext>=0)
                         if(yNext>=0)
-                            if(xNext<map_size)/*todo is it OK to use map_size???*/
-                                if(yNext<map_size)
+                            if(xNext<(map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                                if(yNext<(map_radius*2))
                                     if(xNext==x?yNext!=y:yNext==y)
                                         if(map_collision_data[yNext][xNext]==true){
 
@@ -212,18 +212,18 @@ Map.iterateAndCreateMapData=function(object) {//todo refactor local_objects
     if(object.type == 'terrain'){
 
 
-        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_size/2));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_size/2));y++){
+        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_radius));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_radius));y++){
 
         if(typeof map_bg_data[y] === 'undefined')continue;
 
 
-        for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_size/2));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_size/2));x++){
+        for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_radius));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_radius));x++){
 
 
             if(typeof map_bg_data[y][x] === 'undefined')continue;
 
 
-            if (T.Math.xy2dist(x-(map_size/2)+map_x-object.x,y-(map_size/2)+map_y-object.y) <= object.design.data.size) {
+            if (T.Math.xy2dist(x-(map_radius)+map_x-object.x,y-(map_radius)+map_y-object.y) <= object.design.data.size) {
 
                 map_bg_data[y][x]
                     =

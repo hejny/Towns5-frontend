@@ -14,7 +14,7 @@ Map.drawMap = function(){
     //r(map_ctx);
     if (map_ctx == false)return;
     //r('drawMap');
-    if(isNaN(map_size))throw 'map_size is NaN';
+    if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN';
     t('drawMap start');
 
 
@@ -46,12 +46,12 @@ Map.drawMap = function(){
     //t('Terrains start');
 
 
-    for (var y = 0; y < map_size; y++) {
-        for (var x = 0; x < map_size; x++) {
+    for (var y = 0; y < (map_radius*2); y++) {
+        for (var x = 0; x < (map_radius*2); x++) {
 
 
             //r('Terrains process');
-            if (x >= 0 && y >= 0 && x < map_size && y < map_size /*Math.pow(x-(map_size/2),2)+Math.pow(y-(map_size/2),2)<=Math.pow(map_size/2,2)*/) {
+            if (x >= 0 && y >= 0 && x < (map_radius*2) && y < (map_radius*2) /*Math.pow(x-(map_radius),2)+Math.pow(y-(map_radius),2)<=Math.pow(map_radius,2)*/) {
 
 
                 if (map_bg_data[y][x]) {
@@ -60,11 +60,11 @@ Map.drawMap = function(){
                     var terrain = map_bg_data[y][x];
 
 
-                    var xc = x - map_x + Math.round(map_x) - (map_size - 1) / 2;
-                    var yc = y - map_y + Math.round(map_y) - (map_size - 1) / 2;
+                    var xc = x - map_x + Math.round(map_x) - ((map_radius*2) - 1) / 2;
+                    var yc = y - map_y + Math.round(map_y) - ((map_radius*2) - 1) / 2;
 
-                    var world_x = x + Math.round(map_x) - Math.round(map_size / 2);
-                    var world_y = y + Math.round(map_y) - Math.round(map_size / 2);
+                    var world_x = x + Math.round(map_x) - Math.round((map_radius*2) / 2);
+                    var world_y = y + Math.round(map_y) - Math.round((map_radius*2) / 2);
 
 
                     var terrain_size = Math.cos((world_x * world_y) % 100) / 2 / 4 + 1;
