@@ -132,7 +132,7 @@ Map.drawMap = function(){
     var selecting_distance_pow = 20;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    var object = ImagesCollections.imageObjects.get('rock0dark0');//todo refactor delete
+    var object = ImagesCollections.objectsNatural.get('rock0dark0');//todo refactor delete
     for (var i = 0; i < map_data.length; i++) {
 
 
@@ -166,6 +166,22 @@ Map.drawMap = function(){
         }else
         if(map_data[i].type=='natural'){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+            var image = ImagesCollections.objectsNatural.get(map_data[i].design.data.image);
+
+
+            map_draw.push({
+
+                drawtype: 'image',
+                data:  image,
+                x: object_screen_x,
+                y: object_screen_y,
+
+                width: image.width,
+                height: image.height
+
+
+            });
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         }
