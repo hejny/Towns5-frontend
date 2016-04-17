@@ -132,7 +132,7 @@ var map_size_delta=0;
 
 var map_selected_ids = [];
 
-var terrainCount=13;
+var terrainCount=14;
 
 
 //----------------

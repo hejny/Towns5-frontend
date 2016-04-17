@@ -79,6 +79,7 @@ ImagesCollection.prototype.loaded = function(){
 
 ImagesCollection.prototype.get = function(key){
 
+    if(typeof this.images[key]==='undefined')throw new Error('In this collection is not image with key '+key);
     return(this.images[key]);
 
 };
