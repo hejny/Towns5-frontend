@@ -154,10 +154,13 @@ var map_radius;
 
 var map_zoom_m;
 
-var map_data;
+var map_data_buildings;//todo maybe refactor names?
 var map_data_stories;//todo maybe refactor names?
+var map_data_terrains;//todo maybe refactor names?
+
+
 var map_z_data;//todo purge this
-var map_bg_data;
+var map_bg_data;//todo purge this
 
 
 var map_collision_data=[[false]];

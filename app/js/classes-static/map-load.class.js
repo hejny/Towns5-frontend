@@ -14,11 +14,8 @@ Map.loadMap = function(){
     r('loadMap');
     if(isNaN((map_radius*2)))throw new Error('(map_radius*2) is NaN');
 
-    map_bg_data = Towns.MapGenerator.mapGenerator.getMapCircle({x: map_x,y: map_y}, map_radius);
 
-
-    //todo refactor purge map_z_data
-
+    //todo refactor purge map_z_data and map_bg_data
 
 
     if(map_request_ajax){
@@ -78,18 +75,43 @@ Map.loadMapRequestCallback=function(res){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Create map_data and map_bg_data from local objects
 
-    map_data=[];//todo maybe delete and use only local_objects
-    map_data_stories=[];//todo maybe delete and use only local_objects
+    map_data_buildings=[];
+    map_data_stories=[];
+    map_data_terrains = Towns.MapGenerator.mapGenerator.getMap({x: map_x,y: map_y}, map_radius);
 
 
-    objects_external.forEach(Map.iterateAndCreateMapData);
+    objects_external.forEach(function(object) {//todo refactor local_objects
+
+
+        if (object.type == 'building') {
+
+            map_data_buildings.push(object);
+
+        }else
+        if(object.type == 'story'){
+
+            map_data_stories.push(object);
+
+
+        }else
+        if(object.type == 'terrain'){
+
+
+            map_data_terrains.push(object);
+
+
+
+        }
+
+
+    });
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Count collisions
 
     //~~~~~~~~~~~~~Terrains
 
-    ArrayFunctions.iterate2D(map_bg_data,function(y,x){
+    /*ArrayFunctions.iterate2D(map_bg_data,function(y,x){
 
         if(!is(map_collision_data[y]))map_collision_data[y]=[];
 
@@ -112,30 +134,29 @@ Map.loadMapRequestCallback=function(res){
         }
 
 
-    });
+    });*/
 
     //~~~~~~~~~~~~~Objects
 
 
-    /*r(map_collision_data);*/
-
-    map_data.forEach(function(object){
+    /*map_data.forEach(function(object){
 
         var x=Math.round(object.x)-Math.round(map_x-(map_radius));
         var y=Math.round(object.y)-Math.round(map_y-(map_radius));
 
         if(x>=0)
             if(y>=0)
-                if(x<(map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                if(x<(map_radius*2))
                     if(y<(map_radius*2))
                         map_collision_data[y][x]=false;
 
 
-    });
+    });*/
+
     //~~~~~~~~~~~~~zones
 
 
-    ArrayFunctions.iterate2D(map_collision_data,function(y,x){
+    /*ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
         if(map_collision_data[y][x]==false){
 
@@ -146,7 +167,7 @@ Map.loadMapRequestCallback=function(res){
 
                     if(xNext>=0)
                         if(yNext>=0)
-                            if(xNext<(map_radius*2))/*todo is it OK to use (map_radius*2)???*/
+                            if(xNext<(map_radius*2))
                                 if(yNext<(map_radius*2))
                                     if(xNext==x?yNext!=y:yNext==y)
                                         if(map_collision_data[yNext][xNext]==true){
@@ -161,15 +182,15 @@ Map.loadMapRequestCallback=function(res){
 
         }
 
-    });
+    });*/
 
 
 
-    ArrayFunctions.iterate2D(map_collision_data,function(y,x){
+    /*ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
         if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
 
-    });
+    });*/
 
     //~~~~~~~~~~~~~
 
@@ -195,52 +216,6 @@ Map.loadMapRequestCallback=function(res){
 
 //======================================================================================================================
 
-
-Map.iterateAndCreateMapData=function(object) {//todo refactor local_objects
-
-    if (object.type == 'building') {
-
-        map_data.push(object);
-
-    }else
-    if(object.type == 'story'){
-
-        map_data_stories.push(object);
-
-
-    }else
-    if(object.type == 'terrain'){
-
-
-        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_radius));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_radius));y++){
-
-        if(typeof map_bg_data[y] === 'undefined')continue;
-
-
-        for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_radius));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_radius));x++){
-
-
-            if(typeof map_bg_data[y][x] === 'undefined')continue;
-
-
-            if (T.Math.xy2dist(x-(map_radius)+map_x-object.x,y-(map_radius)+map_y-object.y) <= object.design.data.size) {
-
-                map_bg_data[y][x]
-                    =
-                    T.MapGenerator.terrains[object.design.data.image];//todo maybe better
-
-            }
-        }
-        }
-
-
-    }else{
-
-        throw new Error('Map.iterateAndCreateMapData: Unknown object type '+object.type+'.');
-
-    }
-
-};
 
 
 //======================================================================================================================

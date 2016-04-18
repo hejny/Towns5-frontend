@@ -38,12 +38,57 @@ Map.drawMap = function(){
     var map_draw = [];
 
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Virtual objects
-
+    //todo refactor should it be here?
     var selecting_distance_pow = selecting_distance * map_zoom_m;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    //t('Terrains start');
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_terrains
+
+    /**/
+
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Generate map_array
+    //--------------------------Create empty array
+    var map_array=[];
+    for (var y = 0; y < (map_radius*2); y++) {
+        map_array[y]=[];
+        for (var x = 0; x < (map_radius * 2); x++) {
+            map_array[y][x]=false;
+        }
+    }
+
+    //--------------------------
+
+    //--------------------------Fill array
+
+    map_data_terrains.forEach(function(object){
+
+
+        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_radius));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_radius));y++){
+
+            if(typeof map_array[y] === 'undefined')continue;
+
+
+            for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_radius));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_radius));x++){
+
+
+                if(typeof map_array[y][x] === 'undefined')continue;
+
+
+                if (T.Math.xy2dist(x-map_radius+map_x-object.x,y-map_radius+map_y-object.y) <= object.design.data.size) {
+
+                    map_array[y][x]
+                        =
+                        T.MapGenerator.terrains[object.design.data.image];//todo maybe better
+
+                }
+            }
+        }
+
+    });
+    //--------------------------
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw map_array
+
 
 
     for (var y = 0; y < (map_radius*2); y++) {
@@ -54,10 +99,10 @@ Map.drawMap = function(){
             if (x >= 0 && y >= 0 && x < (map_radius*2) && y < (map_radius*2) /*Math.pow(x-(map_radius),2)+Math.pow(y-(map_radius),2)<=Math.pow(map_radius,2)*/) {
 
 
-                if (map_bg_data[y][x]) {
+                if (map_array[y][x]) {
 
 
-                    var terrain = map_bg_data[y][x];
+                    var terrain = map_array[y][x];
 
 
                     var xc = x - map_x + Math.round(map_x) - ((map_radius*2) - 1) / 2;
@@ -112,14 +157,14 @@ Map.drawMap = function(){
                         });
 
 
-                        terrain.getVirtualObjects(new Position(world_x,world_y)).forEach(function(virtual_object){
+                        /*terrain.getVirtualObjects(new Position(world_x,world_y)).forEach(function(virtual_object){
 
 
                             map_data.push(deepCopyObject(virtual_object));
 
 
 
-                        });
+                        });*/
 
                         //----------------------------------------------------------------------------------------------
 
@@ -132,21 +177,19 @@ Map.drawMap = function(){
 
         }
     }
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_buildings
 
     var selecting_distance_pow = 20;
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
     var object = ImagesCollections.objectsNatural.get('rock0dark0');//todo refactor delete
-    for (var i = 0; i < map_data.length; i++) {
+
+    map_data_buildings.forEach(function(object){
 
 
 
-        var object_id = map_data[i].id;
-
-
-        object_xc = map_data[i].x - map_x;
-        object_yc = map_data[i].y - map_y;
+        object_xc = object.x - map_x;
+        object_yc = object.y - map_y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
@@ -156,12 +199,12 @@ Map.drawMap = function(){
         object_screen_y += (canvas_height / 2);
 
 
-        if(map_data[i].type=='building'){
+        if(object.type=='building'){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
             map_draw.push({
                 drawtype: 'model',
-                data: map_data[i].design.data,
+                data: object.design.data,
                 screen_x: object_screen_x,
                 screen_y: object_screen_y,
             });
@@ -169,10 +212,10 @@ Map.drawMap = function(){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         }else
-        if(map_data[i].type=='natural'){
+        if(object.type=='natural'){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            var image = ImagesCollections.objectsNatural.get(map_data[i].design.data.image);
+            var image = ImagesCollections.objectsNatural.get(object.design.data.image);
 
 
             map_draw.push({
@@ -198,7 +241,10 @@ Map.drawMap = function(){
 
         //-----------------------------------------
 
-    }
+    });
+
+
+
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
 
