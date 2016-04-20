@@ -48,14 +48,14 @@ Towns.Viewer.prototype.open = function(collection,id){
 
     if(collection==0){
 
-        this.opened.object = ArrayFunctions.id2item(object_prototypes,id);
+        this.opened.object = object_prototypes.getById(id);//ArrayFunctions.id2item(object_prototypes,id);
         r('Opening object prototype '+this.opened.object.name+'.');
 
 
     }else
      if(collection==1){
 
-         this.opened.object = ArrayFunctions.id2item(objects_external,id);
+         this.opened.object = objects_external.getById(id);//ArrayFunctions.id2item(objects_external,id);
          r('Opening object '+this.opened.object.name+'.');
 
      }else{

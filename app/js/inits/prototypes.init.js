@@ -15,7 +15,7 @@ var loadObjectPrototypes=function(callback=false){
 
         r('LOADED prototypes');
 
-        object_prototypes=[];
+        object_prototypes = new T.Objects.Array();
 
         response.forEach(function(object){
 

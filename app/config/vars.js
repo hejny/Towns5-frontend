@@ -39,7 +39,7 @@ var Editors={};
 
 
 
-var object_prototypes=[];
+var object_prototypes = new T.Objects.Array();
 
 
 
