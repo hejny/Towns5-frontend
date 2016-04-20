@@ -61,7 +61,7 @@ function objectPrototypesMenu(type,subtype=false){
                 action='buildingStart(\''+object.id+'\');';//todo refactor all object.id to object._id
 
 
-                content+=game.getObjectPrice(object).toHTML();
+                content+=T.World.game.getObjectPrice(object).toHTML();
 
             }
             //------------------------
