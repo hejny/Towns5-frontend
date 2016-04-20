@@ -135,10 +135,9 @@ Map.drawMap = function(){
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_buildings
 
-    var selecting_distance_pow = 20;
+    var selecting_distance_pow = 20;//todo should it be here?
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-    var object = ImagesCollections.objectsNatural.get('rock0dark0');//todo refactor delete
 
     map_data_buildings.forEach(function(object){
 
@@ -173,6 +172,10 @@ Map.drawMap = function(){
 
             var image = ImagesCollections.objectsNatural.get(object.design.data.image);
 
+            var size = object.design.data.size || 1;
+
+            var width=map_field_size*map_zoom_m*3*size;
+            var height=image.height/image.width*width;
 
             map_draw.push({
 
@@ -182,11 +185,11 @@ Map.drawMap = function(){
                 screen_x: object_screen_x,
                 screen_y: object_screen_y,
 
-                anchor_x: (image.width/2),
-                anchor_y: height*2,//-(width/2/map_slope_m),
+                anchor_x: width/2,
+                anchor_y: height-(width/2/map_slope_m),
 
-                width: image.width,
-                height: image.height
+                width: width,
+                height: height
 
 
             });
@@ -235,6 +238,8 @@ Map.drawMap = function(){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~image
             try {
                 map_ctx.drawImage(
+
+                    //todo refactor: maybe map_zoom_m should be applied here
 
                     map_draw[i].data,
 

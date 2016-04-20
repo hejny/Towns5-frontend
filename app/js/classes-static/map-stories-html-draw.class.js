@@ -7,44 +7,23 @@
 
 /**
  * Render objects as HTML
- * @param {array} objects
+ * @param {T.Objects.Array} objects
  * @return {string} html code
  */
 Map.storiesHTML = function(objects) {
 
-    //r(objects);
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort objects
-
-    /*map_draw.sort(function (a, b) {
-
-        if (a[4] > b[4]) {
-            return (1);
-        } else if (a[4] < b[4]) {
-            return (-1);
-        } else {
-            return (0);
-        }
-
-    });*/
-
-
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Material objects
-
-
-    //---------------empty
+    //---------------empty html
 
     var html='';
 
 
     //---------------Drawing... :)
 
-    for (var i = 0; i < objects.length; i++) {
+    objects.forEach(function(object){
 
 
-        object_xc = objects[i].x - map_x;
-        object_yc = objects[i].y - map_y;
+        object_xc = object.x - map_x;
+        object_yc = object.y - map_y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
@@ -60,7 +39,7 @@ Map.storiesHTML = function(objects) {
 
         var size=30;
 
-        var content=objects[i].content.data;
+        var content=object.content.data;
         content = markdown.toHTML(content);
 
 
@@ -99,7 +78,7 @@ Map.storiesHTML = function(objects) {
             .css('background-size', "cover")
             .css('background-color', "#ccc")
 
-            .attr('id', objects[i].id)
+            .attr('id', object.id)
             .attr('onclick', "Towns.Plugins.open('story',1,$(this).attr('id'));")
 
 
@@ -114,7 +93,7 @@ Map.storiesHTML = function(objects) {
 
         //-----------------------------------------
 
-    }
+    });
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
