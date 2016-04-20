@@ -68,40 +68,13 @@ Map.loadMapRequestCallback=function(response){
 
     //----------------------------------Create map_data and map_bg_data from objects_external
 
-    map_data_buildings = new T.Objects.Array();
-    map_data_stories = new T.Objects.Array();
-    map_data_terrains = new T.Objects.Array();
-
-
-    objects_external.forEach(function(object) {
-
-
-        if (object.type == 'building' || object.type == 'natural') {
-
-            map_data_buildings.push(object);
-
-        }else
-        if(object.type == 'story'){
-
-            map_data_stories.push(object);
-
-
-        }else
-        if(object.type == 'terrain'){
-
-
-            map_data_terrains.push(object);
-
-
-        }
-
-
-    });
+    map_data_buildings = objects_external.filterTypes('building','natural');
+    map_data_stories   = objects_external.filterTypes('story');
+    map_data_terrains  = objects_external.filterTypes('terrain');
 
     //----------------------------------
 
     map_array = map_data_terrains.getMapArray({x:Math.floor(map_x),y:Math.floor(map_y)},map_radius);
-
 
     //----------------------------------
 
