@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Game/*todo this should be under other namespace*/.Resources.prototype.toHTML = function(){
+T.Resources.prototype.toHTML = function(){
 
     var strings = [];
 

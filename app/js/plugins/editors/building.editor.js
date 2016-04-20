@@ -633,7 +633,7 @@ T.Plugins.install(new T.Editor(
         subtype: "main",
         design: {
             type: "model",
-            data: new T.Game.Model(
+            data: new T.Model(
                 {
                     name:'root',
                     particles: [

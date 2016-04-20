@@ -41,49 +41,42 @@ Map.loadMap = function(){
 
 //======================================================================================================================
 
-Map.loadMapRequestCallback=function(res){
+Map.loadMapRequestCallback=function(response){
 
     r('Loaded from Towns API');
 
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Load server Objects to Local objects
-
-    //if(townsAPI.online) {
+    //----------------------------------Load object from response to objects_external todo in future maybe delete this part
 
 
-    objects_external = [];
-
-    res.forEach(function (serverObject) {
-
-
-        if (['building', 'story', 'terrain'/*todo should be terrein here*/].indexOf(serverObject.type) != -1) {
+    objects_external = new T.Objects.Array();//todo use this in frontend
+    response.forEach(function (serverObject) {
 
 
             var serverObjectCopy = deepCopyObject(serverObject);//todo read object
-
             serverObjectCopy.id = serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
 
             objects_external.push(serverObjectCopy);
 
 
-        }
-
-
     });
 
-
-    //}
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Create map_data and map_bg_data from local objects
-
-    map_data_buildings=[];
-    map_data_stories=[];
-    map_data_terrains = Towns.MapGenerator.mapGenerator.getMap({x: map_x,y: map_y}, map_radius);
+    //----------------------------------Create map_data and map_bg_data from local objects
 
 
-    objects_external.forEach(function(object) {//todo refactor local_objects
+    T.World.mapGenerator.completeObjects(objects_external, {x:Math.floor(map_x),y: Math.floor(map_y)}, map_radius);
 
 
-        if (object.type == 'building') {
+    //----------------------------------Create map_data and map_bg_data from objects_external
+
+    map_data_buildings = new T.Objects.Array();
+    map_data_stories = new T.Objects.Array();
+    map_data_terrains = new T.Objects.Array();
+
+
+    objects_external.forEach(function(object) {
+
+
+        if (object.type == 'building' || object.type == 'natural') {
 
             map_data_buildings.push(object);
 
@@ -100,12 +93,17 @@ Map.loadMapRequestCallback=function(res){
             map_data_terrains.push(object);
 
 
-
         }
 
 
     });
 
+    //----------------------------------
+
+    map_array = map_data_terrains.getMapArray({x:Math.floor(map_x),y:Math.floor(map_y)},map_radius);
+
+
+    //----------------------------------
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Count collisions
 
@@ -213,9 +211,6 @@ Map.loadMapRequestCallback=function(res){
 
 
 };
-
-//======================================================================================================================
-
 
 
 //======================================================================================================================
