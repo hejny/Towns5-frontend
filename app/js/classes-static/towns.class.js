@@ -5,6 +5,12 @@
 //======================================================================================================================
 
 
-var Towns={};
+var global = window;
+global.Towns = {};
+
+
+var Towns=global.Towns;
 var T=Towns;
 
+
+var module={};

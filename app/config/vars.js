@@ -154,9 +154,12 @@ var map_radius;
 
 var map_zoom_m;
 
-var map_data_buildings;//todo maybe refactor names?
+
+var map_data_buildings;//todo maybe refactor names or put into instance?
 var map_data_stories;//todo maybe refactor names?
 var map_data_terrains;//todo maybe refactor names?
+var map_array;//todo maybe refactor names?
+
 
 
 var map_z_data;//todo purge this

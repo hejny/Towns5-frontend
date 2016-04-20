@@ -193,7 +193,7 @@ T.Plugins.install(new T.Editor(
         subtype: "block",
         design: {
             type: "model",
-            data: new T.Game.Model({
+            data: new T.Model({
                 particles: [
                     {
                         shape:{

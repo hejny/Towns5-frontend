@@ -45,134 +45,90 @@ Map.drawMap = function(){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_terrains
 
-    /**/
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Generate map_array
-    //--------------------------Create empty array
-    var map_array=[];
-    for (var y = 0; y < (map_radius*2); y++) {
-        map_array[y]=[];
-        for (var x = 0; x < (map_radius * 2); x++) {
-            map_array[y][x]=false;
-        }
-    }
-
-    //--------------------------
-
-    //--------------------------Fill array
-
-    map_data_terrains.forEach(function(object){
-
-
-        for(var y=Math.floor(object.y-map_y-object.design.data.size+(map_radius));y<=Math.ceil(object.y-map_y+object.design.data.size+(map_radius));y++){
-
-            if(typeof map_array[y] === 'undefined')continue;
-
-
-            for(var x=Math.floor(object.x-map_x-object.design.data.size+(map_radius));x<=Math.ceil(object.x-map_x+object.design.data.size+(map_radius));x++){
-
-
-                if(typeof map_array[y][x] === 'undefined')continue;
-
-
-                if (T.Math.xy2dist(x-map_radius+map_x-object.x,y-map_radius+map_y-object.y) <= object.design.data.size) {
-
-                    map_array[y][x]
-                        =
-                        T.MapGenerator.terrains[object.design.data.image];//todo maybe better
-
-                }
-            }
-        }
-
-    });
-    //--------------------------
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Draw map_array
-
-
 
     for (var y = 0; y < (map_radius*2); y++) {
         for (var x = 0; x < (map_radius*2); x++) {
 
 
-            //r('Terrains process');
-            if (x >= 0 && y >= 0 && x < (map_radius*2) && y < (map_radius*2) /*Math.pow(x-(map_radius),2)+Math.pow(y-(map_radius),2)<=Math.pow(map_radius,2)*/) {
+             if (map_array[y][x]) {
 
 
-                if (map_array[y][x]) {
+                var terrain = map_array[y][x];
 
 
-                    var terrain = map_array[y][x];
+                var world_x = x + Math.floor(map_x) - map_radius;
+                var world_y = y + Math.floor(map_y) - map_radius;
 
 
-                    var xc = x - map_x + Math.round(map_x) - ((map_radius*2) - 1) / 2;
-                    var yc = y - map_y + Math.round(map_y) - ((map_radius*2) - 1) / 2;
-
-                    var world_x = x + Math.round(map_x) - Math.round((map_radius*2) / 2);
-                    var world_y = y + Math.round(map_y) - Math.round((map_radius*2) / 2);
+                var xc = world_x - map_x;
+                var yc = world_y - map_y;
 
 
-                    var terrain_size = Math.cos((world_x * world_y) % 100) / 2 / 4 + 1;
+                //var xc = x - ( map_x - Math.floor(map_x)) - map_radius;
+                //var yc = y - ( map_y - Math.floor(map_y)) - map_radius;
 
 
-                    var width = Math.ceil(map_field_size * terrain_size * 3 * map_zoom_m);
-                    var height = Math.ceil(width * terrain_size /* map_zoom_m*/);
+                var terrain_size = 1;//Math.cos((world_x * world_y) % 100) / 2 / 4 + 1;
 
 
-                    var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
-                    var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+                var width = Math.ceil(map_field_size * terrain_size * 3 * map_zoom_m);
+                var height = Math.ceil(width * terrain_size );
 
 
-                    screen_x += (canvas_width / 2);
-                    screen_y += (canvas_height / 2)/* - (height / 2)*/;
+                var screen_x = ((map_rotation_cos * xc - map_rotation_sin * yc ) * map_field_size ) * map_zoom_m;
+                var screen_y = ((map_rotation_sin * xc + map_rotation_cos * yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
 
-                    //------------------------------------------
-
-
-                    if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (map_field_size * terrain_size)) {
-
-                        //----------------------------------------------------------------------------------------------
-
-                        var seed = Math.abs(world_x * world_y - 1) % seedCount;
-
-                        //-----
-
-
-                        map_draw.push({
-
-                            drawtype: 'image',
-                            data: ImagesCollections.backgrounds.get('t' + (terrain.getCode()) + 's' + seed),
-
-                            screen_x: screen_x,
-                            screen_y: screen_y,
-
-                            anchor_x: width/2,
-                            anchor_y: 0,
-
-                            width: width,
-                            height: height
-
-
-                        });
-
-
-                        /*terrain.getVirtualObjects(new Position(world_x,world_y)).forEach(function(virtual_object){
-
-
-                            map_data.push(deepCopyObject(virtual_object));
+                screen_x += (canvas_width / 2);
+                screen_y += (canvas_height / 2);
 
 
 
-                        });*/
-
-                        //----------------------------------------------------------------------------------------------
+                //------------------------------------------
 
 
-                    }
+                if (screen_x > -(width / 2) && screen_y > -(height / 2) && screen_x < canvas_width && screen_y < canvas_height + (map_field_size * terrain_size)) {
+
+                    //----------------------------------------------------------------------------------------------
+
+                    var seed = Math.abs(world_x * world_y - 1) % seedCount;
+
+                    //-----
+
+
+                    map_draw.push({
+
+                        drawtype: 'image',
+                        data: ImagesCollections.backgrounds.get('t' + (terrain.getCode()) + 's' + seed),
+
+                        screen_x: screen_x,
+                        screen_y: screen_y,
+
+                        anchor_x: width/2,
+                        anchor_y: 0,
+
+                        width: width,
+                        height: height
+
+
+                    });
+
+
+                    /*terrain.getVirtualObjects(new Position(world_x,world_y)).forEach(function(virtual_object){
+
+
+                        map_data.push(deepCopyObject(virtual_object));
+
+
+
+                    });*/
+
+                    //----------------------------------------------------------------------------------------------
 
 
                 }
+
+
             }
 
         }
@@ -188,11 +144,11 @@ Map.drawMap = function(){
 
 
 
-        object_xc = object.x - map_x;
-        object_yc = object.y - map_y;
+        var object_xc = object.x - map_x;
+        var object_yc = object.y - map_y;
 
-        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+        var object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        var object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
 
         object_screen_x += (canvas_width / 2);
@@ -227,7 +183,7 @@ Map.drawMap = function(){
                 screen_y: object_screen_y,
 
                 anchor_x: (image.width/2),
-                anchor_y: height,//-(width/2/map_slope_m),
+                anchor_y: height*2,//-(width/2/map_slope_m),
 
                 width: image.width,
                 height: image.height

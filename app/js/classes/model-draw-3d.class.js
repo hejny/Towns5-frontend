@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Game/*todo this should be under other namespace*/.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, shadow=true) {
+T.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, shadow=true) {
 
 
     //var slope_m = Math.abs(Math.sin(slope / 180 * Math.PI));
@@ -40,7 +40,7 @@ T.Game/*todo this should be under other namespace*/.Model.prototype.create3D = f
     //this_.particles
     particlesLinear.forEach(function(particle,particle_i){
 
-        var addResource= T.Game.ModelParticles.get3D(particle);
+        var addResource= T.Model.Particles.get3D(particle);
 
         //r(addResource);
 
