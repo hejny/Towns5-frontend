@@ -68,7 +68,8 @@ Map.drawMap = function(){
                 //var yc = y - ( map_y - Math.floor(map_y)) - map_radius;
 
 
-                var terrain_size = 1;//Math.cos((world_x * world_y) % 100) / 2 / 4 + 1;
+                //var terrain_size = 1;
+                var terrain_size = Math.cos((world_x * world_y) % 100) / 2 / 4 + 1;
 
 
                 var width = Math.ceil(map_field_size * terrain_size * 3 * map_zoom_m);
@@ -114,14 +115,6 @@ Map.drawMap = function(){
                     });
 
 
-                    /*terrain.getVirtualObjects(new Position(world_x,world_y)).forEach(function(virtual_object){
-
-
-                        map_data.push(deepCopyObject(virtual_object));
-
-
-
-                    });*/
 
                     //----------------------------------------------------------------------------------------------
 
