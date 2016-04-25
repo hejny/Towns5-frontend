@@ -51,19 +51,10 @@ $(function(){
         //-----------------
 
 
-        //-----------------todo make this as function in aArrayFunctions
-        var story_prototype=false;
-        for(var i= 0,l=object_prototypes.length;i<l;i++){
+        //-----------------
 
-            if(object_prototypes[i].type=='story'){
+        var story_prototype = object_prototypes.filterTypes('story').getAll()[0];
 
-                var story_prototype=deepCopy(object_prototypes[i]);
-                break;
-
-            }
-
-
-        }
         //-----------------
 
         //-----------------

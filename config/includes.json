@@ -17,13 +17,8 @@
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
 
 
-
-    "app/js/classes-static/towns.class.js",
-
-
-    "node_modules/towns5shared/js/*.js",
-    "node_modules/towns5shared/js/*/*.js",
-
+    "app/js/classes-static/global.class.js",
+    "node_modules/towns5shared/build/towns-shared.js",
 
 
     {"develop": "app/config/develop.js"},

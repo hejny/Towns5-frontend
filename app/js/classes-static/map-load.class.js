@@ -35,6 +35,8 @@ Map.loadMap = function(){
         Map.loadMapRequestCallback
     );
 
+    tstart('loading map');
+
 
 };
 
@@ -43,12 +45,12 @@ Map.loadMap = function(){
 
 Map.loadMapRequestCallback=function(response){
 
-    r('Loaded from Towns API');
+    tend('loading map');
 
     //----------------------------------Load object from response to objects_external todo in future maybe delete this part
 
 
-    objects_external = new T.Objects.Array();//todo use this in frontend
+    /*objects_external = new T.Objects.Array();//todo use this in frontend
     response.forEach(function (serverObject) {
 
 
@@ -58,23 +60,31 @@ Map.loadMapRequestCallback=function(response){
             objects_external.push(serverObjectCopy);
 
 
-    });
+    });*/
 
     //----------------------------------Create map_data and map_bg_data from local objects
 
+    tstart('generating map');
 
-    T.World.mapGenerator.completeObjects(objects_external, {x:Math.floor(map_x),y: Math.floor(map_y)}, map_radius);
-
+    tstart('getCompleteObjects');
+    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response), new T.Position(Math.floor(map_x),Math.floor(map_y)), map_radius);
+    tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
 
+    tstart('filterTypes');
     map_data_buildings = objects_external.filterTypes('building','natural');
     map_data_stories   = objects_external.filterTypes('story');
     map_data_terrains  = objects_external.filterTypes('terrain');
+    tend('filterTypes');
 
     //----------------------------------
 
-    map_array = map_data_terrains.getMapArray({x:Math.floor(map_x),y:Math.floor(map_y)},map_radius);
+    tstart('getMapOfTerrainCodes');
+    map_array = map_data_terrains.getMapOfTerrainCodes(new T.Position(Math.floor(map_x),Math.floor(map_y)),map_radius);
+    tend('getMapOfTerrainCodes');
+
+    tend('generating map');
 
     //----------------------------------
 
@@ -171,14 +181,17 @@ Map.loadMapRequestCallback=function(response){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //r('Executing drawMap');
+    tstart('Map.drawMap');
     Map.drawMap();
+    tend('Map.drawMap');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     //todo ?DI? what is better $('#map-stories').html(Map.storiesHTML(map_data_stories)); vs. Map.drawMap();
 
+    tstart('Map.storiesHTML');
     $('#map-stories').html(Map.storiesHTML(map_data_stories));
+    tend('Map.storiesHTML');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

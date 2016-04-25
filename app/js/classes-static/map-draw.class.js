@@ -53,7 +53,6 @@ Map.drawMap = function(){
              if (map_array[y][x]) {
 
 
-                var terrain = map_array[y][x];
 
 
                 var world_x = x + Math.floor(map_x) - map_radius;
@@ -100,7 +99,7 @@ Map.drawMap = function(){
                     map_draw.push({
 
                         drawtype: 'image',
-                        data: ImagesCollections.backgrounds.get('t' + (terrain.getCode()) + 's' + seed),
+                        data: ImagesCollections.backgrounds.get('t' + (map_array[y][x]) + 's' + seed),
 
                         screen_x: screen_x,
                         screen_y: screen_y,
@@ -152,7 +151,7 @@ Map.drawMap = function(){
 
             map_draw.push({
                 drawtype: 'model',
-                data: object.design.data,
+                data: object.getModel(),
                 screen_x: object_screen_x,
                 screen_y: object_screen_y,
             });
@@ -163,7 +162,8 @@ Map.drawMap = function(){
         if(object.type=='natural'){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-            var image = ImagesCollections.objectsNatural.get(object.design.data.image);
+
+            var image = ImagesCollections.objectsNatural.get(object.getCode());
 
             var size = object.design.data.size || 1;
 
