@@ -11,7 +11,7 @@ function terrainChangeStart(prototypeId){
 
     updateSelectingDistance();
 
-    terrainChanging=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId));
+    terrainChanging=deepCopyObject(object_prototypes.getById(prototypeId));
 
     /*terrainChanging={
         "type": "terrain",

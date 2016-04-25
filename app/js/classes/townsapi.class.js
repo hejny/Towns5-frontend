@@ -264,8 +264,7 @@ TownsAPI.prototype.post = function(uri,object,callback_success,callback_error){
             r('Updating object prototype id after server response from '+object.id+' to '+response.prototypeId);
 
 
-            var i=ArrayFunctions.id2i(object_prototypes,object.id);
-            object_prototypes[i].id=response.prototypeId;
+            object_prototypes.setById(response.prototypeId,response);
 
             if(callback_success)
                 callback_success(response);

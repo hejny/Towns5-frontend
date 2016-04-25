@@ -11,7 +11,7 @@ function storyWritingStart(prototypeId){
     mapSpecialCursorStart();
 
 
-    storyWriting=deepCopyObject(ArrayFunctions.id2item(object_prototypes,prototypeId));
+    storyWriting=deepCopyObject(object_prototypes.getById(prototypeId));
 
     $('#map_drag').css('cursor','Crosshair');
 

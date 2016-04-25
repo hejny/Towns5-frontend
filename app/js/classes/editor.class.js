@@ -47,28 +47,25 @@ Towns.Editor = function(uri,conditions,title,content,open_callback,default_objec
 
             if(self.opened.collection==0){
 
-                var i = ArrayFunctions.id2item(object_prototypes,self.opened.object.id);
-                object_prototypes[i]=self.opened.object;
-
-                r(object_prototypes[i]);
+                object_prototypes.setById(self.opened.object.id,self.opened.object);
 
 
-                objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
-                buildingStart(object_prototypes[i].id);
+                objectPrototypesMenu(self.opened.object,self.opened.object.subtype);
+                buildingStart(self.opened.object.id);
 
 
-                townsAPI.post('objects/prototypes',object_prototypes[i]
+                townsAPI.post('objects/prototypes',self.opened.object
                     ,function(response){
 
 
-                        objectPrototypesMenu(object_prototypes[i].type,object_prototypes[i].subtype);
-                        buildingStart(object_prototypes[i].id);
+                        objectPrototypesMenu(self.opened.object.type,self.opened.object.subtype);
+                        buildingStart(self.opened.object.id);
 
 
                     }
                     ,function(errors){
 
-                    self.open(0,object_prototypes[i].id,errors);
+                    self.open(0,self.opened.object.id,errors);
                 });
 
 
@@ -78,19 +75,18 @@ Towns.Editor = function(uri,conditions,title,content,open_callback,default_objec
             if(self.opened.collection==1){
 
 
-                var i = ArrayFunctions.id2item(objects_external,self.opened.object.id);
-                objects_external[i]=self.opened.object;//deepCopyObject(self.opened.object);
+                objects_external.setById(self.opened.object.id,self.opened.object);
 
 
-                townsAPI.post('objects/'+objects_external[i].id,objects_external[i]
+                townsAPI.post('objects/'+self.opened.object.id,self.opened.object
                     ,function(response){
 
-                        UI.message(Locale.get('object',objects_external[i].type,'saved'),'success');
+                        UI.message(Locale.get('object',self.opened.object.type,'saved'),'success');
 
                     }
                     ,function(errors){
 
-                        self.open(0,objects_external[i].id,errors);
+                        self.open(0,self.opened.object.id,errors);
                     });
 
 
@@ -164,7 +160,7 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
 
         if(collection==0){
 
-            this.opened.object = ArrayFunctions.id2item(object_prototypes,id);
+            this.opened.object = object_prototypes.getById(id);
             r('Opening object prototype '+this.opened.object.name+'.');
 
 
@@ -227,7 +223,7 @@ Towns.Editor.prototype.open = function(collection,id,errors=false){
                 //todo maybe create action DELETE prototype?
                 if(confirm(Locale.get('delete prototype '+object.type+' '+object.subtype+' confirm'))){//todo create better confirm
 
-                    ArrayFunctions.idRemove(object_prototypes,object.id);
+                    object_prototypes.removeId(object.id);
 
                     mapSpecialCursorStop();
                     objectPrototypesMenu(object.type,object.subtype);

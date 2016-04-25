@@ -19,22 +19,30 @@ if(environment=='production'){
 
 //======================================================================================================================
 
-var lastMs=0;
-function t(flag){
+var t = function(){};//todo refactor delete
+
+
+var timings={};
+function tstart(flag){
     if(environment=='production')return;
 
     var actualDate=new Date();
     var actualMs=actualDate.getTime();
 
 
-    var deltaMs=actualMs-lastMs;
-    r(flag+' '+deltaMs);
-
-    lastMs=actualMs;
+    timings[flag]=actualMs;
 
 }
-t('start timing');
+function tend(flag){
+    if(environment=='production')return;
 
+    var actualDate=new Date();
+    var actualMs=actualDate.getTime();
+
+
+    r('TIMING '+flag+": "+(actualMs-timings[flag]));
+
+}
 
 //======================================================================================================================
 

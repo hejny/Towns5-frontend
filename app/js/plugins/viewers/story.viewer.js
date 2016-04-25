@@ -19,12 +19,11 @@ T.Plugins.install(new T.Viewer(
     `//todo should js-story-edit be class or id(current) ???
     ,function(object,page){
 
-  
-        var content=object.content.data;
+
+        r(object);
 
 
-
-        content = $(markdown.toHTML(content));
+        var content = $(markdown.toHTML(object.getMarkdown()));
     
         content.find('img').each(function(){
     

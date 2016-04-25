@@ -1,16 +1,9 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates Towns namespace
+ * @fileOverview Towns shared compatibility
  */
 //======================================================================================================================
 
 
 var global = window;
-global.Towns = {};
-
-
-var Towns=global.Towns;
-var T=Towns;
-
-
 var module={};
