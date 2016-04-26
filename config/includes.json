@@ -16,6 +16,7 @@
     "node_modules/markdown/lib/markdown.js",
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
 
+    "app/global.js",
 
     "app/js/classes-static/global.class.js",
     "node_modules/towns5shared/build/towns-shared.js",
@@ -25,22 +26,13 @@
     {"production": "app/config/production.js"},
     "app/config/vars.js",
 
-    "app/js/webgl/*.js",
-    "app/js/functions/*.js",
-    "app/js/classes/model.class.js",
-    "app/js/classes/*.js",
-    "app/js/classes-static/map.class.js",
-    "app/js/classes-static/*.js",
-    "app/js/ui/pages/*.js",
-    "app/js/ui/editors/*.js",
-    "app/js/ui/menu/*.js",
-    "app/js/ui/events/*.js",
-    "app/js/actions/*.js",
 
-    "app/js/inits/uri.init.js",
-    "app/js/inits/townsapi.init.js",
-    "app/js/inits/*.js",
-    "app/js/plugins/*/*.js"
+    "app/js/*.js",
+    "app/js/*/*.js",
+    "app/js/*/*/*.js",
+    "node_modules/towns-frontend-plugins/*/*.js"
+
+
 
 
   ],

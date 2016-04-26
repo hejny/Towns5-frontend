@@ -1,0 +1,66 @@
+/**
+ * @author Towns.cz
+ * @fileOverview todo
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.profile {
+  display: inline-block;
+  width: calc( 50% - 50px);
+  padding: 20px;
+  text-align: center; }
+  .profile img {
+    width: 180px;
+    height: 180px;
+    border-radius: 200px;
+    box-shadow: #0b0c0d 0 0 5px; }
+  .profile .name {
+    display: block;
+    margin: 0px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    font-weight: normal;
+    font-size: 1.7em; }
+  .profile .suburl {
+    display: block;
+    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    text-decoration: none;
+    color: #888;
+    font-weight: normal;
+    font-size: 1em; }
+  .profile .subname {
+    display: block;
+    margin: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 1.3em; }
+  .profile .description {
+    display: block;
+    margin: 0px;
+    padding: 0px;
+    font-weight: normal;
+    font-size: 1em; }
+  .profile.co-author {
+    transform: scale(0.8);
+    /*img{
+
+      width: 100px;
+      height: 100px;
+
+
+    }*/ }
