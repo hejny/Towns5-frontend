@@ -24,6 +24,7 @@ npm-debug.log
 
 
 #todo is it needed? /app/scss/*.scss
+/messages
 
 
 
@@ -37,10 +38,13 @@ npm-debug.log
 
 /app/test/*
 
-/app-dist/
+/app-build/
 documentation
 asd.*
 
 
 /towns-shared
 /towns-shared/*
+
+
+/config/app.json

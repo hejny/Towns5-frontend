@@ -186,10 +186,10 @@ var moving=false;
 var blockedTerrains=[1,11,5];
 
 
-var appDir = (environment=='production')?'/app-dist':'/app';
+var appDir = (environment=='production')?'/app-build':'/app';
 
 
-var feed_url='http://blog.towns.cz/feed/';
+//var feed_url='http://blog.towns.cz/feed/';
 
 
 var authors=[//todo better

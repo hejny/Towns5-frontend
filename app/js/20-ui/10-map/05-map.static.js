@@ -46,7 +46,7 @@ Map.mouseCenterPos2MapPos = function(map_click_x,map_click_y) {
     map_click_x+=map_x;
     map_click_y+=map_y;
 
-    return(new Position(map_click_x,map_click_y));
+    return(new T.Position(map_click_x,map_click_y));
 
 
 };
@@ -69,7 +69,7 @@ Map.mapPos2MouseCenterPos = function(map_position_x,map_position_y) {//todo refa
 
 
 
-    return(new Position(object_screen_x,object_screen_y));
+    return(new T.Position(object_screen_x,object_screen_y));
 
 
 };

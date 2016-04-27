@@ -282,9 +282,8 @@ Map.drawMap = function(){
  * @static
  * @param {number} delay ms
  */
-Map.drawMapAsync = function(delay){//todo search where to use this function
+Map.drawMapAsync = function(delay=IMMEDIATELY_MS){//todo search where to use this function
 
-    delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
         function(){Map.drawMap();},delay

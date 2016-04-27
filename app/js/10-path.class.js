@@ -115,7 +115,7 @@ var Path = function (start, end, speed , map, map_topleft) {
     for(var limit=0;limit<20 && !finished;limit++){
 
         if(limit!==0)
-        this.positions.push(new Position(x+map_topleft.x,y+map_topleft.y));
+        this.positions.push(new T.Position(x+map_topleft.x,y+map_topleft.y));
 
         var distance = 0,
             xNext = false,
@@ -218,7 +218,7 @@ Path.prototype.recount = function(){
             var chunkXDelta=this.positions[i+1].x-this.positions[i].x;
             var chunkYDelta=this.positions[i+1].y-this.positions[i].y;
 
-            return(new Position(this.positions[i].x+(chunkXDelta*chunkProgress),this.positions[i].y+(chunkYDelta*chunkProgress)));
+            return(new T.Position(this.positions[i].x+(chunkXDelta*chunkProgress),this.positions[i].y+(chunkYDelta*chunkProgress)));
 
 
 

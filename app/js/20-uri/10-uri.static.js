@@ -48,7 +48,7 @@ T.URI.read = function(){
 
     if(hash.length==2){
 
-        var position=new Position(T.Math.toFloat(hash[0]),T.Math.toFloat(hash[1]));
+        var position=new T.Position(T.Math.toFloat(hash[0]),T.Math.toFloat(hash[1]));
     }
 
     //-------------------
