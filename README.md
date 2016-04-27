@@ -95,15 +95,23 @@ https://trello.com/b/d2b6mY6s/frontend
 
 ## Deploy
 
-1) In config/app.json should be "environment": "production"
+1) Pull repository
+
+2) In config/app.json should be "environment": "production"
 	
-2) Install npm packeges
+3) Directory cache and messages should have mod 0777
+	
+4) Install npm packeges
+
 	npm install
 	
-//3) todo tests
+//5) todo tests
 	
-4) Build app
+	
+6) Build app
+
 	gulp production
+	
 	
 
 ## Testovanie
