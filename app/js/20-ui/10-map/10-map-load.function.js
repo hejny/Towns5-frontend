@@ -202,9 +202,8 @@ Map.loadMapRequestCallback=function(response){
 //======================================================================================================================
 
 
-Map.loadMapAsync = function(delay) {//todo search where to use this function
+Map.loadMapAsync = function(delay=IMMEDIATELY_MS) {//todo search where to use this function
 
-    delay=cParam(delay,IMMEDIATELY_MS);
 
     setTimeout(
         function(){Map.loadMap();},delay

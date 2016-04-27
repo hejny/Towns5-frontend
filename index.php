@@ -40,5 +40,5 @@ if(isset($_GET['production'])){
 if(isset($config['app']['environment']) && in_array($config['app']['environment'], ["develop", "test"])){
     require('app/index.php');
 } else {
-    require('app-dist/index.php');
+    require('app-build/index.php');
 }

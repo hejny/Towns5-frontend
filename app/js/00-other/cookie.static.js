@@ -13,8 +13,7 @@ function changelanguage(language){
 }
 //======================================================================================================================
 
-function setCookie(cname, cvalue, exdays) {
-    exdays=cParam(exdays,356*5);
+function setCookie(cname, cvalue, exdays=(356*5)) {
 
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));

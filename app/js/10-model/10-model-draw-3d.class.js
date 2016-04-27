@@ -99,7 +99,7 @@ T.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, 
                  x=XY.x;
                  x=XY.y;*/
 
-                var position3D=new Position3D(x,y,z);
+                var position3D=new T.Position3D(x,y,z);
                 polygon3D.push(position3D);
 
             }

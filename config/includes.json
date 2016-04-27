@@ -19,7 +19,7 @@
     "app/global.js",
 
     "app/js/classes-static/global.class.js",
-    "node_modules/towns5shared/build/towns-shared.js",
+    "node_modules/towns-shared/build/towns-shared.js",
 
 
     {"develop": "app/config/develop.js"},
@@ -30,7 +30,7 @@
     "app/js/*.js",
     "app/js/*/*.js",
     "app/js/*/*/*.js",
-    "node_modules/towns-frontend-plugins/*/*.js"
+    "app/plugins/*/*.js"
 
 
 

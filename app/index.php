@@ -223,7 +223,7 @@ function tidyHTML($buffer) {
     <script>
         var language='<?=$language?>';
     </script>
-    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-dist')?>/php/locale.php?language=<?=$language?>"></script>
+    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-build')?>/php/locale.php?language=<?=$language?>"></script>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
@@ -286,12 +286,12 @@ function tidyHTML($buffer) {
         //-----------------------------------------------------
 
     }else{
-        echo '<script src="/app-dist/js/towns.min.js"></script>'."\r\n    ";
-        echo '<link rel="stylesheet" href="/app-dist/css/towns.min.css" async/>'."\r\n";
+        echo '<script src="/app-build/js/towns.min.js"></script>'."\r\n    ";
+        echo '<link rel="stylesheet" href="/app-build/css/towns.min.css" async/>'."\r\n";
 
         /*?>
-            <link rel="stylesheet" type="text/css" href="/app-dist/css/towns.min.css"/>
-            <script src="/app-dist/js/towns.min.js" async></script>
+            <link rel="stylesheet" type="text/css" href="/app-build/css/towns.min.css"/>
+            <script src="/app-build/js/towns.min.js" async></script>
         <?php*/
     }
     //--------------------------------
@@ -406,6 +406,7 @@ function tidyHTML($buffer) {
     <canvas id="map_buffer" width="100" height="100"></canvas>
     <div id="map-move"></div>
     <div id="map-stories"></div>
+    <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
@@ -544,9 +545,9 @@ function tidyHTML($buffer) {
             </li>
 
 
-            <li class="menu-list-item menu-list-item-icon js-menu-top-popup-open faa-parent animated-hover" page="notifications" >
+            <?php /*<li class="menu-list-item menu-list-item-icon js-menu-top-popup-open faa-parent animated-hover" page="notifications" >
                 <i class="fa fa-flag fa-lg faa-shake"></i>
-            </li>
+            </li>*/ ?>
 
 
             <li class="menu-list-item menu-list-item-icon faa-parent animated-hover">
@@ -593,7 +594,7 @@ function tidyHTML($buffer) {
 
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Window popup|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <iv class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></iv>
+    <div class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></div>
     <div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
         <div class="header"></div>
         <div class="content"><?= ($inner_window['content']) ?></div>
@@ -620,7 +621,7 @@ function tidyHTML($buffer) {
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Top menu popup|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <?php
 
-    $menu_top_popups = array('notifications'/*,'server'*/,'user');
+    $menu_top_popups = array(/*'notifications','server',*/'user');
 
     foreach($menu_top_popups as $menu_top_popup){
     ?>

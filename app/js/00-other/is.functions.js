@@ -50,17 +50,3 @@ function is(val){
 
 }
 
-//--------------------cParam
-
-function cParam(value,def){
-
-    if(typeof value==='undefined'){
-        return(def);
-    }else{
-        return(value);
-    }
-
-}
-
-
-

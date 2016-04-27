@@ -1,21 +1,17 @@
-
-
-
-
-var gulp = require('gulp'),
-    fs = require('fs'),
-    uglify = require('gulp-uglify'),
-    jshint = require('gulp-jshint'),
-    minifyCss = require('gulp-minify-css'),
-    concat = require('gulp-concat'),
-    imagemin = require('gulp-imagemin'),
-    cache = require('gulp-cache'),
-    //jsdoc = require("gulp-jsdoc"),
-    rename = require('gulp-rename'),
-    del = require('del'),
-    es6transpiler = require('gulp-es6-transpiler'),
-    browserSync = require('browser-sync').create(),
-    sass        = require('gulp-sass');
+var gulp = require('gulp');
+var fs = require('fs');
+var uglify = require('gulp-uglify');
+var jshint = require('gulp-jshint');
+var minifyCss = require('gulp-minify-css');
+var concat = require('gulp-concat');
+var imagemin = require('gulp-imagemin');
+var cache = require('gulp-cache');
+var jsdoc = require('gulp-jsdoc3');
+var rename = require('gulp-rename');
+var del = require('del');
+var es6transpiler = require('gulp-es6-transpiler');
+var browserSync = require('browser-sync').create();
+var sass        = require('gulp-sass');
 
 
 
@@ -28,18 +24,86 @@ fs.readdirSync("./config").forEach(function(file) {
     }
 });
 
+
+//------------------------------------
+
+
+var _tmp=[];
+for(i=0,l=config.includes.js.length;i<l;i++){
+
+    if(typeof config.includes.js[i] != 'string'){
+
+        for(var key in config.includes.js[i]){
+            if(key==/*config.app.environment*/'production'){
+
+                _tmp.push(config.includes.js[i][key]);
+
+            }
+        }
+
+    }else{
+        _tmp.push(config.includes.js[i]);
+    }
+
+
+}
+config.includes.js =_tmp;
+config.includes.js_no_modules = config.includes.js.filter(function(file){
+    return(file.search('node_modules')==-1);
+});
+
+//======================================================================================================================Test
+
 // Lint - testovanie
 gulp.task("test", function() {
-    gulp.src("app/js/*.js")
-        .pipe(jshint())
+    gulp.src(config.includes.js_no_modules)
+        .pipe(jshint({esversion:6}))
         .pipe(jshint.reporter("default"));
 });
 
-// Dokumentácia
-gulp.task("documentation", function() {
-    gulp.src("app/js/*.js")
-        .pipe(jsdoc('documentation/'));
+//======================================================================================================================Documentation
+
+
+gulp.task('documentation', function (callback) {
+
+    var documentation_config = {
+        "tags": {
+            "allowUnknownTags": true
+        },
+        "source": {
+            "excludePattern": "(^|\\/|\\\\)_"
+        },
+        "opts": {
+            "destination": "./documentation"
+        },
+        "plugins": [
+            "plugins/markdown"
+        ],
+        "templates": {
+            "cleverLinks": false,
+            "monospaceLinks": false,
+            "default": {
+                "outputSourceFiles": true
+            },
+            "path": "ink-docstrap",
+            "theme": "cerulean",
+            "navType": "vertical",
+            "linenums": true,
+            "dateFormat": "MMMM Do YYYY, h:mm:ss a"
+        }
+    };
+
+
+    console.log(config.includes.js_no_modules);
+    gulp.src(config.includes.js_no_modules/*, {read: false}*/)
+        .pipe(jsdoc(documentation_config,callback));
+
+
 });
+
+
+//======================================================================================================================Default
+
 
 // Starter Buildu
 gulp.task('default', function() {
@@ -57,7 +121,7 @@ gulp.task('default', function() {
 });
 
 
-//======================================================================================================================
+//======================================================================================================================Develop
 
 gulp.task('develop', function() {
     browserSync.init({
@@ -96,8 +160,9 @@ gulp.task('develop-sass', function() {
 });
 
 
-//======================================================================================================================
+//======================================================================================================================Build
 
+gulp.task('build', ['production']);//alias
 
 // Vycisti production adresar a zacni Produkcny Build
 gulp.task('production', ['production-clean'], function() {
@@ -107,12 +172,12 @@ gulp.task('production', ['production-clean'], function() {
 // Vymazanie production suborov pred buildom
 gulp.task('production-clean', function() {
     del([
-        'app-dist/index.php',
-        'app-dist/scss/*',
-        //'app-dist/media/image',
-        //'app-dist/media/sound',
-        'app-dist/js/*',
-        'app-dist/fonts/*'
+        'app-build/index.php',
+        'app-build/scss/*',
+        //'app-build/media/image',
+        //'app-build/media/sound',
+        'app-build/js/*',
+        'app-build/fonts/*'
     ])
 });
 
@@ -135,13 +200,13 @@ gulp.task('production-build', [
 // Index.php pre produkcny build
 gulp.task('production-index', function () {
     gulp.src('app/*.php')
-        .pipe(gulp.dest('app-dist/'));
+        .pipe(gulp.dest('app-build/'));
 
     gulp.src('app/php/neon/*.php')//todo better solution for php subdirs
-        .pipe(gulp.dest('app-dist/php/neon/'));
+        .pipe(gulp.dest('app-build/php/neon/'));
 
     gulp.src('app/php/neon/Neon/*.php')
-        .pipe(gulp.dest('app-dist/php/neon/Neon/'));
+        .pipe(gulp.dest('app-build/php/neon/Neon/'));
 
 
 });
@@ -150,49 +215,25 @@ gulp.task('production-index', function () {
 // Index.php pre produkcny build
 gulp.task('production-locale', function () {
     gulp.src('app/locale/*.neon')
-        .pipe(gulp.dest('app-dist/locale/'));
+        .pipe(gulp.dest('app-build/locale/'));
 
 
 });
 
-
-var _tmp=[];
-for(i=0,l=config.includes.js.length;i<l;i++){
-
-    if(typeof config.includes.js[i] != 'string'){
-
-        for(var key in config.includes.js[i]){
-            if(key==/*config.app.environment*/'production'){
-
-                _tmp.push(config.includes.js[i][key]);
-
-            }
-        }
-
-    }else{
-        _tmp.push(config.includes.js[i]);
-    }
-
-
-}
-config.includes.js =_tmp;
-delete _tmp;
-
-//console.log(config.includes['js']);
 
 
 // Scripts
 gulp.task('production-scripts', function() {
     gulp.src(config.includes.js)
         .pipe(concat('towns.js'))
-        //.pipe(gulp.dest('app-dist'))
+        //.pipe(gulp.dest('app-build'))
         .pipe(rename({suffix: '.min'}))
         .pipe(es6transpiler({
             "disallowUnknownReferences": false,
             "disallowDuplicated": false
         }))
         //.pipe(uglify())
-        .pipe(gulp.dest('app-dist/js'));
+        .pipe(gulp.dest('app-build/js'));
 });
 
 // Styly
@@ -202,7 +243,7 @@ gulp.task('production-styles', function () {
         .pipe(concat('towns.css'))
         .pipe(rename({suffix: '.min'}))
         .pipe(minifyCss({compatibility: 'ie8',keepSpecialComments : false}))
-        .pipe(gulp.dest('app-dist/css'));
+        .pipe(gulp.dest('app-build/css'));
 });
 
 // Obrazky - nateraz neaktivne //todo use in app
@@ -210,14 +251,14 @@ gulp.task('production-images', function () {
     gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
         //.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true, multipass: true }))
-        .pipe(gulp.dest('app-dist/media/image'));
+        .pipe(gulp.dest('app-build/media/image'));
 });
 
 
 // Zvuky - nateraz neaktivne
 gulp.task('production-sound', function () {
     gulp.src('media/sound/*')
-        .pipe(gulp.dest('app-dist/media/sound'));
+        .pipe(gulp.dest('app-build/media/sound'));
 });
 
 // Priprav fonty pre produkčný build
@@ -225,12 +266,12 @@ gulp.task('production-fonts', function () {
     gulp.src([
         'node_modules/roboto-fontface/fonts/*',
         'node_modules/font-awesome/fonts/*'])
-        .pipe(gulp.dest('app-dist/fonts/'));
+        .pipe(gulp.dest('app-build/fonts/'));
 });
 
 // Priprav php pre produkčný build
 gulp.task('production-php', function () {
     gulp.src([
         'app/php/*'])
-        .pipe(gulp.dest('app-dist/php/'));
+        .pipe(gulp.dest('app-build/php/'));
 });
