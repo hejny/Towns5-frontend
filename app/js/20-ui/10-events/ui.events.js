@@ -252,7 +252,7 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingRedraw();
+            T.UI.Menu.Building.redraw();
         }else{
             selecting_distance+=100;
             updateSelectingDistance();
@@ -270,7 +270,7 @@ window.uiScript = function(){
 
             r(building.design.data.size);
 
-            buildingRedraw();
+            T.UI.Menu.Building.redraw();
         }else{
             selecting_distance-=100;
             updateSelectingDistance();
@@ -280,13 +280,13 @@ window.uiScript = function(){
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation+=10;
-        buildingRedraw();
+        T.UI.Menu.Building.redraw();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
         building.design.data.rotation-=10;
-        buildingRedraw();
+        T.UI.Menu.Building.redraw();
     });
 
     $('#selecting-distance-close').unbind('click').click(function(){
@@ -368,10 +368,10 @@ window.mapSpecialCursorStop = function(){
     $('#selecting-distance').hide();
     $('.active').removeClass('active');
 
-    buildingStop();
-    dismantlingStop();
-    terrainChangeStop();
-    storyWritingStop();
+    T.UI.Menu.Building.stop();
+    T.UI.Menu.Building.dismantlingStop();
+    T.UI.Menu.Terrains.stop();
+    T.UI.Menu.Story.stop();
 };
 
 //======================================================================================================================

@@ -3,39 +3,44 @@
  * @fileOverview Left tool menu shown to create story.
  */
 //======================================================================================================================
+T.setNamespace('T.UI.Menu');
 
 
-function storyWritingStart(prototypeId){
-
-    mapSpecialCursorStop();
-    mapSpecialCursorStart();
+T.UI.Menu.Story = class {
 
 
-    storyWriting=T.User.object_prototypes.getById(prototypeId).clone();
+    static start(prototypeId) {
 
-    $('#map_drag').css('cursor','Crosshair');
-
-
-    $('#selecting-distance-ctl').css('background','');//neutral background
-    $('#selecting-distance-ctl').show();//showing toolbar control
-    $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
-    //showing buttons used by actual tool
-    $('#selecting-distance-close').show();
+        mapSpecialCursorStop();
+        mapSpecialCursorStart();
 
 
-}
+        storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
+
+        $('#map_drag').css('cursor', 'Crosshair');
 
 
-//todo in doc this funcs. dont use directly only via mapSpecialCursorStop();
-function storyWritingStop(){
+        $('#selecting-distance-ctl').css('background', '');//neutral background
+        $('#selecting-distance-ctl').show();//showing toolbar control
+        $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
+        //showing buttons used by actual tool
+        $('#selecting-distance-close').show();
 
 
-    $('#selecting-distance-ctl').hide();
-
-    $('#map_drag').css('cursor','Auto');
-    storyWriting=false;
-
-}
+    }
 
 
+    //todo in doc this funcs. dont use directly only via mapSpecialCursorStop();
+    static stop() {
+
+
+        $('#selecting-distance-ctl').hide();
+
+        $('#map_drag').css('cursor', 'Auto');
+        storyWriting = false;
+
+    }
+
+
+};
 

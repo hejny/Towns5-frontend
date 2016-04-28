@@ -37,7 +37,7 @@ $(function(){
             //r(building.rot);
 
 
-            buildingUpdate();
+            T.UI.Menu.Building.update();
 
         }else
         {
