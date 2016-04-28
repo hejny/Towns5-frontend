@@ -82,7 +82,7 @@ T.Plugins.Editor = class {
                     T.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
                         , function (response) {
 
-                            T.UI.message(Locale.get('object', self.opened.object.type, 'saved'), 'success');
+                            T.UI.message(T.Locale.get('object', self.opened.object.type, 'saved'), 'success');
 
                         }
                         , function (errors) {
@@ -215,7 +215,7 @@ T.Plugins.Editor = class {
                     r('Deleting object prototype ' + object.name + '.');
 
                     //todo maybe create action DELETE prototype?
-                    if (confirm(Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+                    if (confirm(T.Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
 
                         T.User.object_prototypes.removeId(object.id);
 
@@ -241,7 +241,7 @@ T.Plugins.Editor = class {
                     r('Duplicating object prototype ' + object.name + '.');
 
                     //todo maybe create action DUPLICATE prototype?
-                    if (confirm(Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+                    if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
 
                         var object_duplicate = editor.opened.object.clone();
                         object_duplicate.id = generateID();

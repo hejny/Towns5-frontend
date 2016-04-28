@@ -1,15 +1,15 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates object Storage with static methods
+ * @fileOverview Creates object T.Storage with static methods
  */
 //======================================================================================================================
 
 
 
 /**
- * Wrapper for LocalStorage
+ * Wrapper for LocalT.Storage
  */
-var Storage=class {
+T.Storage=class {
 
 
     /**
@@ -20,7 +20,7 @@ var Storage=class {
      */
     static load(key, def = false) {
 
-        var value = localStorage.getItem(key) || def;
+        var value = localT.Storage.getItem(key) || def;
         return (value);
 
     };
@@ -33,7 +33,7 @@ var Storage=class {
      */
     static is(key) {
 
-        var value = localStorage.getItem(key) || false;
+        var value = localT.Storage.getItem(key) || false;
         return (is(value));
 
     };
@@ -46,7 +46,7 @@ var Storage=class {
      */
     static save(key, value) {
 
-        localStorage.setItem(key, value)
+        localT.Storage.setItem(key, value)
 
     };
 
@@ -57,7 +57,7 @@ var Storage=class {
      */
     static delete(key) {
 
-        localStorage.removeItem(key)
+        localT.Storage.removeItem(key)
 
     };
 
@@ -68,7 +68,7 @@ var Storage=class {
      */
     static restart() {
 
-        localStorage.clear();
+        localT.Storage.clear();
 
     };
 

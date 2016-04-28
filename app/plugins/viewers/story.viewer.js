@@ -52,17 +52,17 @@ T.Plugins.install(new T.Plugins.Viewer(
     
         $(page).find('#js-story-delete').click(function(e){
 
-            if(confirm(Locale.get('story','delete','prompt'))){
+            if(confirm(T.Locale.get('story','delete','prompt'))){
                 T.UI.popupWindowClose();
                 T.TownsAPI.townsAPI.delete('objects/'+object.id
                     ,function(){
 
-                        T.UI.message.success(Locale.get('story','delete','success'));
+                        T.UI.message.success(T.Locale.get('story','delete','success'));
 
                     }
                     ,function(e){
 
-                        T.UI.message.error(Locale.get('story','delete','error'));
+                        T.UI.message.error(T.Locale.get('story','delete','error'));
 
                     }
                 );//todo smarter deleting of objects

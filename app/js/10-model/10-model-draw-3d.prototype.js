@@ -120,7 +120,7 @@ T.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, 
     ];
 
 
-    return new WebGL(gl,polygons3D,rotations,shadow);
+    return new T.WebGL(gl,polygons3D,rotations,shadow);
 
 
     //-------------------------------------

@@ -148,7 +148,7 @@ T.Plugins.install(new T.Plugins.Editor(
     `,function(object) {
 
 
-        var model_canvas = new ModelCanvas('model-canvas', object.design.data, 380, 600);
+        var model_canvas = new T.ModelCanvas('model-canvas', object.design.data, 380, 600);
 
         var block_selected_path = [0],
             block_selected = false,
@@ -163,7 +163,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             block_selected_path = path;
 
-            block_selected = object.design.data.filterPath(block_selected_path);
+            block_selected = object.design.data.filterT.Path(block_selected_path);
 
 
             //var particle=ModelParticles.cParams(object.design.data.particles[blockChoose_i]);
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Plugins.Editor(
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('name').split('-');
-                var actual = T.ArrayFunctions.filterPath(block_selected, path);
+                var actual = T.ArrayFunctions.filterT.Path(block_selected, path);
 
 
                 if (isDefined(actual) && typeof actual!='object') {
@@ -264,7 +264,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                         var path = $(this).attr('name').split('-');
-                        T.ArrayFunctions.filterPath(block_selected, path, value);
+                        T.ArrayFunctions.filterT.Path(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
 
@@ -340,7 +340,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                 //-----------------------Block
-                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
 
                 icon.click(function () {
 
@@ -368,7 +368,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Group
-                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
 
                 icon.click(function () {
 
@@ -389,7 +389,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Link
-                var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
 
                 icon.click(function () {
 
@@ -412,14 +412,14 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 if(block_selected_path.length!=0){
                 //-----------------------ungroup
-                    var icon = $(`<div class="block-button button-icon" title="` + Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
+                    var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
 
                     icon.click(function () {
 
 
                         var i = block_selected_path.pop();
 
-                        var parent = object.design.data.filterPath(block_selected_path);
+                        var parent = object.design.data.filterT.Path(block_selected_path);
 
 
                         block_selected.particles.forEach(function (particle) {
@@ -445,7 +445,7 @@ T.Plugins.install(new T.Plugins.Editor(
             //-----------------------
 
             //-----------------------group
-            var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
+            var icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
 
             icon.click(function () {
 
@@ -479,13 +479,13 @@ T.Plugins.install(new T.Plugins.Editor(
 
             if (block_selected_path.length != 0) {
 
-                var icon = $(`<div class="block-button button-icon" title="`+Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
+                var icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
 
                 icon.click(function () {
 
                     var i = block_selected_path.pop();
 
-                    var parent = object.design.data.filterPath(block_selected_path);
+                    var parent = object.design.data.filterT.Path(block_selected_path);
 
                     parent.particles.splice(i, i + 1);
 
@@ -537,14 +537,14 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     $('#' + html_id_i).addClass('model-dir-shape');
                     $('#' + html_id_i).addClass('model-dir-label');
-                    name = Locale.get('model dir shape');
+                    name = T.Locale.get('model dir shape');
 
                 } else
                 //---------------------------link
                 if (isDefined(particle.link)) {
                     $('#' + html_id_i).addClass('model-dir-link');
                     $('#' + html_id_i).addClass('model-dir-label');
-                    name = Locale.get('model dir shape');
+                    name = T.Locale.get('model dir shape');
 
 
                 } else
@@ -638,7 +638,7 @@ T.Plugins.install(new T.Plugins.Editor(
                     name:'root',
                     particles: [
                         {
-                            name: Locale.get('shape cube'),
+                            name: T.Locale.get('shape cube'),
                             shape:{
                                 type: 'prism',
                                 n:4,
@@ -651,7 +651,7 @@ T.Plugins.install(new T.Plugins.Editor(
                             size: {x:40,y:40,z:40},
                             rotation: 0
                         }/*,{
-                            link: Locale.get('shape cube'),
+                            link: T.Locale.get('shape cube'),
                             position: {x:0,y:0,z:40},
                             //size: 0.7,
                             rotation: 45

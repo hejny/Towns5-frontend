@@ -13,7 +13,7 @@ var Compatibility=class {
         compatibility = {
             webgl: null,
             requestAnimationFrame: null,
-            localStorage: null
+            localT.Storage: null
         };
 
         var ok = true;
@@ -34,7 +34,7 @@ var Compatibility=class {
 
 
     /**
-     * Check if browser supports WebGL rendring context
+     * Check if browser supports T.WebGL rendring context
      * @returns {boolean}
      */
     static webgl() {
@@ -60,8 +60,8 @@ var Compatibility=class {
 
                 console.log('No webgl context');
 
-                if (!window.WebGLRenderingContext) {
-                    console.log('No WebGLRenderingContext');
+                if (!window.T.WebGLRenderingContext) {
+                    console.log('No T.WebGLRenderingContext');
                 }
 
                 support = false;
@@ -91,13 +91,13 @@ var Compatibility=class {
 
 
     /**
-     * Check if browser supports localStorage
+     * Check if browser supports localT.Storage
      * @returns {boolean}
      */
-    static localStorage() {
+    static localT.Storage() {
         try {
-            localStorage.setItem('test', 'test');
-            localStorage.removeItem('test');
+            localT.Storage.setItem('test', 'test');
+            localT.Storage.removeItem('test');
             return true;
         } catch (e) {
             return false;

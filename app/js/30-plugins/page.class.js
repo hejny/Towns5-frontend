@@ -93,7 +93,7 @@ T.Plugins.Page = class {
             content[i] = content[i].split('}}');
 
 
-            content[i][0] = Locale.get(content[i][0]);
+            content[i][0] = T.Locale.get(content[i][0]);
             content[i] = content[i].join('');
 
 

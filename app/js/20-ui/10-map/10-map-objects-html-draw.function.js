@@ -22,7 +22,7 @@ Map.objectsHTML = function(objects) {
     for (var i = 0; i < objects.length; i++) {
 
         //-----------------------------------------
-        if (Path.is(objects[i].path)) {
+        if (T.Path.is(objects[i].path)) {
 
             var position = objects[i].path.recount();
 

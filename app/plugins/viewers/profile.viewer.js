@@ -23,11 +23,11 @@ T.Plugins.install(new T.Plugins.Viewer(
     ,function(object){
 
 
-        new ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
+        new T.ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
 
 
         var price = game.getObjectPrice(object).toHTML();
-        var maxlife = game.getObjectMaxLife(object).toLocaleString();
+        var maxlife = game.getObjectMaxLife(object).toT.LocaleString();
 
 
         var html='<table  class="full_width">';
@@ -35,18 +35,18 @@ T.Plugins.install(new T.Plugins.Viewer(
 
 
         html+='<tr><th colspan="2"><h2>'+object.name+'</h2></th></tr>';
-        html+='<tr><td>'+Locale.get('object','price')+'</td><td>'+price+'</td></tr>';
-        html+='<tr><td>'+Locale.get('object','maxlife')+'</td><td>'+maxlife+'</td></tr>';
+        html+='<tr><td>'+T.Locale.get('object','price')+'</td><td>'+price+'</td></tr>';
+        html+='<tr><td>'+T.Locale.get('object','maxlife')+'</td><td>'+maxlife+'</td></tr>';
 
 
 
         object.actions.forEach(function(action){
 
-            html+='<tr><th colspan="2">'+Locale.get('action',action.type)+'</th></tr>';
+            html+='<tr><th colspan="2">'+T.Locale.get('action',action.type)+'</th></tr>';
 
             for(var key in action.params){
 
-                html+='<tr><td>'+Locale.get('action',action.type,key)+'</td><td>'+action.params[key].toLocaleString()+'</td></tr>';
+                html+='<tr><td>'+T.Locale.get('action',action.type,key)+'</td><td>'+action.params[key].toT.LocaleString()+'</td></tr>';
 
             }
 

@@ -285,6 +285,6 @@ function definePrototype(objectReference,forceSubtype){
 function definePrototypeT.UI(objectReference,forceSubtype){
 
     definePrototype(objectReference,forceSubtype);
-    message(Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
+    message(T.Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
 
 }

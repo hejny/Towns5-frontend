@@ -11,7 +11,7 @@
 
 T.Plugins.install(new T.Plugins.Page(
     'feedback',
-    Locale.get('page','feedback'),
+    T.Locale.get('page','feedback'),
     `
 
 
@@ -22,7 +22,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
         <tr>
-            <td>`+Locale.get('user','email')+`:</td>
+            <td>`+T.Locale.get('user','email')+`:</td>
             <td><input style="width: 100%;" type="email" name="email"  autofocus></td>
         </tr>
 
@@ -33,7 +33,7 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td colspan="2">
-            <button style="width: 150px;">`+Locale.get('send')+`</button>
+            <button style="width: 150px;">`+T.Locale.get('send')+`</button>
             </td>
         </tr>
 
@@ -74,7 +74,7 @@ T.Plugins.install(new T.Plugins.Page(
             });
 
 
-            $('#feedback-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+            $('#feedback-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
             r(data);
@@ -85,9 +85,9 @@ T.Plugins.install(new T.Plugins.Page(
             );
             request.done(function( response ){
 
-                $('#login-form').find('button').html(Locale.get('send'));
+                $('#login-form').find('button').html(T.Locale.get('send'));
                 T.UI.popupWindowClose();
-                T.UI.message(Locale.get('feedback','success'),'success');
+                T.UI.message(T.Locale.get('feedback','success'),'success');
 
             });
             request.fail(function( response ){

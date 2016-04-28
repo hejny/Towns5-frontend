@@ -77,13 +77,13 @@ $(function(){
 
                 if(TOWNS_CDN_FILE_ACCEPTED_TYPES.indexOf(files[i].type)==-1){
 
-                    T.UI.message(Locale.get('upload error only images'),'error');
+                    T.UI.message(T.Locale.get('upload error only images'),'error');
                     throw new Error('Not allowed filetype.');
                 }
 
                 if(files[i].size>TOWNS_CDN_FILE_MAX_SIZE){
 
-                    T.UI.message(Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE),'error');
+                    T.UI.message(T.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE),'error');
                     throw new Error('File too big');
                 }
 
@@ -98,7 +98,7 @@ $(function(){
 
             if(request_size>TOWNS_CDN_REQUEST_MAX_SIZE){
 
-                T.UI.message(Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE),'error');
+                T.UI.message(T.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE),'error');
                 throw new Error('Request too big');
 
             }
@@ -114,7 +114,7 @@ $(function(){
                 if (event.lengthComputable) {
                     var complete = (event.loaded / event.total * 100 | 0);
 
-                    T.UI.message(Locale.get('upload progress')+' '+complete+'%','info');
+                    T.UI.message(T.Locale.get('upload progress')+' '+complete+'%','info');
 
                 }
 
@@ -152,11 +152,11 @@ $(function(){
 
 
                         console.log('all done: ' + xhr.status);
-                        T.UI.message(Locale.get('upload success story'),'success');
+                        T.UI.message(T.Locale.get('upload success story'),'success');
 
                     }catch(e){
 
-                        T.UI.message(Locale.get('upload fail'),'error');
+                        T.UI.message(T.Locale.get('upload fail'),'error');
 
                     }
 
@@ -164,7 +164,7 @@ $(function(){
                 } else {
 
                     console.log('Something went terribly wrong...');
-                    T.UI.message(Locale.get('upload fail'),'error');
+                    T.UI.message(T.Locale.get('upload fail'),'error');
 
                 }
             };

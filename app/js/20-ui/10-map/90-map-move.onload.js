@@ -13,7 +13,7 @@ function orderMoveAndNormal(){
     //Standing object put into objects_external;
     objects_external_move=objects_external_move.filter(function(object){
 
-        if(!Path.is(object.path)){
+        if(!T.Path.is(object.path)){
 
             objects_external.push(object);
             change=true;
@@ -29,7 +29,7 @@ function orderMoveAndNormal(){
     //Moving object put into objects_external_move;
     objects_external=objects_external.filter(function(object){
 
-        if(Path.is(object.path)){
+        if(T.Path.is(object.path)){
 
             objects_external_move.push(object);
             change=true;

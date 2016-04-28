@@ -1,12 +1,11 @@
 /**
  * @author Towns.cz
- * @fileOverview Creates object Locale with static methods
+ * @fileOverview Creates object T.Locale with static methods
  */
 //======================================================================================================================
 
 
-//todo ?? maybe rename to Messages or Locale.Messages???
-var Locale=class {//set en, cs here
+T.Locale=class {//create instances with en, cs here
     
 
 
@@ -39,14 +38,14 @@ var Locale=class {//set en, cs here
             if (environment == 'develop') {
 
                 MESSAGES[key] = key;
-                Locale.keys_write.push(key);
+                T.Locale.keys_write.push(key);
 
                 var count = T.Math.toInt($('#locale-write-count').html()) + 1;
                 $('#locale-write-count').html(count);
 
 
-                clearTimeout(Locale.keys_write_interval);
-                Locale.keys_write_interval = setTimeout(function () {
+                clearTimeout(T.Locale.keys_write_interval);
+                T.Locale.keys_write_interval = setTimeout(function () {
 
                     $('#menu-list-item-data').effect('shake');
 

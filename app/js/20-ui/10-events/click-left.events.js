@@ -149,7 +149,7 @@ $(function(){
                 var id=create(storyWriting);
 
                 map_selected_ids=[id];
-                Towns.Plugins.open('story-editor',1,id);
+                T.Plugins.open('story-editor',1,id);
 
                 mapSpecialCursorStop();
                 hideLeftMenu();

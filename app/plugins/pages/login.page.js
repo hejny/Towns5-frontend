@@ -11,7 +11,7 @@
 
 T.Plugins.install(new T.Plugins.Page(
     'login',
-    Locale.get('page','login'),
+    T.Locale.get('page','login'),
     `
 
 
@@ -30,19 +30,19 @@ T.Plugins.install(new T.Plugins.Page(
         </tr>
 
         <tr>
-            <td>*`+Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" required autofocus></td>
+            <td>*`+T.Locale.get('user','username')+`:</td>
+            <td><input type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" required autofocus></td>
         </tr>
 
 
         <tr>
-            <td>*`+Locale.get('user','password')+`:</td>
+            <td>*`+T.Locale.get('user','password')+`:</td>
             <td><input type="password" name="password" required></td>
         </tr>
 
         <tr>
             <td colspan="2">
-            <button style="width: 150px;">`+Locale.get('user','login')+`</button>
+            <button style="width: 150px;">`+T.Locale.get('user','login')+`</button>
             </td>
         </tr>
 
@@ -83,7 +83,7 @@ T.Plugins.install(new T.Plugins.Page(
             });
 
 
-            $('#login-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+            $('#login-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
 
@@ -94,11 +94,11 @@ T.Plugins.install(new T.Plugins.Page(
                 },
                 function(response){
 
-                    $('#login-form').find('button').html(Locale.get('user','login'));
+                    $('#login-form').find('button').html(T.Locale.get('user','login'));
 
                     Storage.save('token',response['x-auth']);
                     T.TownsAPI.townsAPI.token=response['x-auth'];
-                    //$('#login-form').find('.messages').html('<div class="success">'+Locale.get('auth correct')+'</div>');
+                    //$('#login-form').find('.messages').html('<div class="success">'+T.Locale.get('auth correct')+'</div>');
                     //r(response);
 
                     T.UI.popupWindowClose();
@@ -111,17 +111,17 @@ T.Plugins.install(new T.Plugins.Page(
                 },
                 function(response){
 
-                    $('#login-form').find('button').html(Locale.get('user','login'));
+                    $('#login-form').find('button').html(T.Locale.get('user','login'));
 
 
-                    $('#login-form').find('.messages').html('<div class="error">'+Locale.get('auth wrong')+'</div>');
+                    $('#login-form').find('.messages').html('<div class="error">'+T.Locale.get('auth wrong')+'</div>');
 
                     T.TownsAPI.townsAPI.token=false;
                     T.UI.logged();
                     //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
-                    //setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
-                    //setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));
+                    //setInputError($("input[name='username']")[0],T.Locale.get('user','username','wrong'));
+                    //setInputError($("input[name='username']")[0],T.Locale.get('user','password','wrong'));
 
                 }
             );
