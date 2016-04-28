@@ -5,120 +5,120 @@
 //======================================================================================================================
 
 
-/**
- *
- * @param {object} files
- * @param {string} url Prefix of image urls
- * @constructor
- */
-var ImagesCollection = function(files,url='') {
-
-    this.images = {};
-
-    this.images_loaded = 0;
-    this.images_count = 0;
+var ImagesCollection = class {
 
 
-    this.files = files;
-    this.url = url;
+    /**
+     *
+     * @param {object} files
+     * @param {string} url Prefix of image urls
+     * @constructor
+     */
+    constructor(files, url = '') {
+
+        this.images = {};
+
+        this.images_loaded = 0;
+        this.images_count = 0;
 
 
-};
+        this.files = files;
+        this.url = url;
 
 
-/**
- * Start loading of images loading
- * @param {function} onload(percent) Callback on each single image load
- */
-ImagesCollection.prototype.load = function(onload=false){
-
-    var self = this;//todo maybe refactor use thisImageCollection ???
-    this.onload = onload;
+    };
 
 
-    for(var key in this.files){
+    /**
+     * Start loading of images loading
+     * @param {function} onload(percent) Callback on each single image load
+     */
+    load(onload = false) {
 
-        //r('ImagesCollection: start loading '+url+files[key]);
-
-        this.images_count++;
-
-        this.images[key] = new Image();
-        this.images[key].src = this.url+this.files[key];
-        this.images[key].onload = function(){
-
-            //r('loaded');
-            self.images_loaded++;
-
-            if(self.onload){
-
-                self.onload(self.loaded());
-
-            }
+        var self = this;//todo maybe refactor use thisImageCollection ???
+        this.onload = onload;
 
 
-        };
+        for (var key in this.files) {
 
-    }
+            //r('ImagesCollection: start loading '+url+files[key]);
 
+            this.images_count++;
 
+            this.images[key] = new Image();
+            this.images[key].src = this.url + this.files[key];
+            this.images[key].onload = function () {
 
-};
+                //r('loaded');
+                self.images_loaded++;
 
+                if (self.onload) {
 
+                    self.onload(self.loaded());
 
-ImagesCollection.prototype.loaded = function(){
-
-    var percent=this.images_loaded / this.images_count;
-    if(percent>1)percent=1;
-
-    return(percent);
-
-};
-
-
-
-ImagesCollection.prototype.get = function(key){
-
-    if(typeof this.images[key]==='undefined')throw new Error('In this collection is not image with key '+key);
-    return(this.images[key]);
-
-};
+                }
 
 
+            };
 
-//todo jsdoc
-ImagesCollection.prototype.getAll = function(key){
-
-    return(this.images);
-
-};
+        }
 
 
+    };
 
-//todo jsdoc
-ImagesCollection.prototype.getInput = function(NameOfRadios,AdditionalClass=''){
 
-    var html='';
+    loaded() {
 
-    //r(this.files);
+        var percent = this.images_loaded / this.images_count;
+        if (percent > 1)percent = 1;
 
-    for(var key in this.files){
+        return (percent);
 
-        html+=`
-            <input type="radio" name="`+NameOfRadios+`" id="`+NameOfRadios+`-`+key+`" value="`+key+`" class="`+AdditionalClass+`" />
-            <label for="`+NameOfRadios+`-`+key+`">
-                <img src="`+this.url+this.files[key]+`">
+    };
+
+
+    get(key) {
+
+        if (typeof this.images[key] === 'undefined')throw new Error('In this collection is not image with key ' + key);
+        return (this.images[key]);
+
+    };
+
+
+    //todo jsdoc
+    getAll(key) {
+
+        return (this.images);
+
+    };
+
+
+    //todo jsdoc
+    getInput(NameOfRadios, AdditionalClass = '') {
+
+        var html = '';
+
+        //r(this.files);
+
+        for (var key in this.files) {
+
+            html += `
+            <input type="radio" name="` + NameOfRadios + `" id="` + NameOfRadios + `-` + key + `" value="` + key + `" class="` + AdditionalClass + `" />
+            <label for="` + NameOfRadios + `-` + key + `">
+                <img src="` + this.url + this.files[key] + `">
             </label>
             `;
 
-    }
+        }
 
 
-    html='<div class="textures-input">'+html+'</div>';
+        html = '<div class="textures-input">' + html + '</div>';
 
-    //r(html);
+        //r(html);
 
-    //alert(html);//todo purge Towns from commented alert, r, console.log, ect..
-    return(html);
+        //alert(html);//todo purge Towns from commented alert, r, console.log, ect..
+        return (html);
+
+    };
 
 };
