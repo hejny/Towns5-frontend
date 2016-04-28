@@ -42,4 +42,4 @@ T.UI.Map.MapBuffer = class {
 
     }
 
-}
+};

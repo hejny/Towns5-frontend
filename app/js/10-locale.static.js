@@ -59,7 +59,7 @@ T.Locale=class {//create instances with en, cs here
 
         return (message);
 
-    };
+    }
 
 };
 

@@ -143,7 +143,7 @@ T.ModelCanvas = class {
 
         this.setModel(model);
 
-    };
+    }
 
 
 
@@ -152,7 +152,7 @@ T.ModelCanvas = class {
         this.model = model;
         this.redraw();
 
-    };
+    }
 
 
 
@@ -181,7 +181,7 @@ T.ModelCanvas = class {
 
          }*/
 
-    };
+    }
 
 
 
@@ -194,7 +194,7 @@ T.ModelCanvas = class {
             }, ms
         );
 
-    };
+    }
 
 
 };

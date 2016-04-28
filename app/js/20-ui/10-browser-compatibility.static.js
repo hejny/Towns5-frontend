@@ -30,7 +30,7 @@ T.UI.Compatibility = class {
         else
             return compatibility;
 
-    };
+    }
 
 
     /**
@@ -74,7 +74,7 @@ T.UI.Compatibility = class {
         }
 
         return support;
-    };
+    }
 
 
     /**
@@ -87,7 +87,7 @@ T.UI.Compatibility = class {
         } else {
             return false;
         }
-    };
+    }
 
 
     /**
@@ -102,7 +102,7 @@ T.UI.Compatibility = class {
         } catch (e) {
             return false;
         }
-    };
+    }
 
 
 };

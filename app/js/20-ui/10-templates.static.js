@@ -53,7 +53,7 @@ T.Templates=class {
 
 
         return '<div class="action-wrapper">' + inner[0].outerHTML + '</div>';
-    };
+    }
 
 
 };

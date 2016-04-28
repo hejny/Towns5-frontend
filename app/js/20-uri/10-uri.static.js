@@ -68,7 +68,7 @@ T.URI=class {
 
         //-------------------
 
-    };
+    }
 
 
     static readAndUpdate() {
@@ -77,7 +77,7 @@ T.URI=class {
         this.read();
         T.UI.Map.loadMapAsync();
 
-    };
+    }
 
 
     /**
@@ -102,7 +102,7 @@ T.URI=class {
 
         window.history.pushState('', "Towns", window.location.origin + pathname + hash);
 
-    };
+    }
 
 
 };

@@ -25,7 +25,7 @@ if ("onhashchange" in window) { // event supported?
 
         T.URI.readAndUpdate();
 
-    }
+    };
 }
 else { // event not supported:
 

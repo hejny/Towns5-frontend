@@ -57,7 +57,7 @@ config.includes.js_no_modules = config.includes.js.filter(function(file){
 // Lint - testovanie
 gulp.task("test", function() {
     gulp.src(config.includes.js_no_modules)
-        .pipe(jshint({esversion:6}))
+        .pipe(jshint({esversion:6,laxcomma:true}))
         .pipe(jshint.reporter("default"));
 });
 

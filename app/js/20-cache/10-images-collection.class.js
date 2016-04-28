@@ -28,7 +28,7 @@ T.Cache.ImagesCollection = class {
         this.url = url;
 
 
-    };
+    }
 
 
     /**
@@ -66,7 +66,7 @@ T.Cache.ImagesCollection = class {
         }
 
 
-    };
+    }
 
 
     loaded() {
@@ -76,7 +76,7 @@ T.Cache.ImagesCollection = class {
 
         return (percent);
 
-    };
+    }
 
 
     get(key) {
@@ -84,7 +84,7 @@ T.Cache.ImagesCollection = class {
         if (typeof this.images[key] === 'undefined')throw new Error('In this collection is not image with key ' + key);
         return (this.images[key]);
 
-    };
+    }
 
 
     //todo jsdoc
@@ -92,7 +92,7 @@ T.Cache.ImagesCollection = class {
 
         return (this.images);
 
-    };
+    }
 
 
     //todo jsdoc
@@ -121,6 +121,6 @@ T.Cache.ImagesCollection = class {
         //alert(html);//todo purge Towns from commented alert, r, console.log, ect..
         return (html);
 
-    };
+    }
 
 };

@@ -34,7 +34,7 @@ T.Plugins.Viewer = class {
 
         this.opened = false;
 
-    };
+    }
 
 
     /**
@@ -78,6 +78,6 @@ T.Plugins.Viewer = class {
         }, [this.open_callback, this.opened.object]);
 
 
-    };
+    }
 
 };
