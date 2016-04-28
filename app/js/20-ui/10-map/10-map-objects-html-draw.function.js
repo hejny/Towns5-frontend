@@ -10,7 +10,7 @@
  * @param {array} objects
  * @return {string} html code
  */
-Map.objectsHTML = function(objects) {
+T.UI.Map.objectsHTML = function(objects) {
 
     //r('objectsDraw',objects.length,objects);
 
@@ -145,7 +145,7 @@ Map.objectsHTML = function(objects) {
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    if(notMoving)orderMoveAndNormal();
+    if(notMoving)T.UI.Map.MapMove.orderMoveAndNormal();
 
     return(html);
 

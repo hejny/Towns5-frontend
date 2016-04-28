@@ -12,7 +12,7 @@ $(function(){
 
         var map_click_x=(e.clientX-(window_width/2));
         var map_click_y=(e.clientY-(window_height/2));
-        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         r('T.UI Event: contextmenu (this part of code is unused.)');
         return;
@@ -49,7 +49,7 @@ $(function(){
         });
 
 
-        orderMoveAndNormal();
+        T.UI.Map.MapMove.orderMoveAndNormal();
 
 
 

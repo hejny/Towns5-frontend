@@ -109,24 +109,24 @@ $(function(){
             //r(keys_);
 
             if ($.inArray('up', keys_) != -1) {
-                Map.mapMove(0,30);
+                T.UI.Map.mapMove(0,30);
                 moving=true;
             }
 
 
             if ($.inArray('down', keys_) != -1) {
-                Map.mapMove(0,-30);
+                T.UI.Map.mapMove(0,-30);
                 moving=true;
             }
 
             if ($.inArray('left', keys_) != -1) {
-                Map.mapMove(30,0);
+                T.UI.Map.mapMove(30,0);
                 moving=true;
             }
 
 
             if ($.inArray('right', keys_) != -1) {
-                Map.mapMove(-30,0);
+                T.UI.Map.mapMove(-30,0);
                 moving=true;
             }
 
@@ -138,7 +138,7 @@ $(function(){
                             if ($.inArray('right', keys_) == -1){
                                 moving=false;
                                 //alert('stop moving by keys');
-                                Map.updateMap();
+                                T.UI.Map.updateMap();
                             }
 
 

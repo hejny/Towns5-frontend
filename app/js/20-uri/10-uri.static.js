@@ -78,7 +78,7 @@ T.URI=class {
 
         r('Reading And Updating T.URI');
         this.read();
-        Map.loadMapAsync();
+        T.UI.Map.loadMapAsync();
 
     };
 

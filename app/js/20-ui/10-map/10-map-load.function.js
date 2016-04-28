@@ -10,7 +10,7 @@
 var map_request_ajax=false;
 
 
-Map.loadMap = function(){
+T.UI.Map.loadMap = function(){
     r('loadMap');
     if(isNaN((map_radius*2)))throw new Error('(map_radius*2) is NaN');
 
@@ -32,7 +32,7 @@ Map.loadMap = function(){
             //keys: ,
 
         },//todo range and order by time
-        Map.loadMapRequestCallback
+        T.UI.Map.loadMapRequestCallback
     );
 
     tstart('loading map');
@@ -43,7 +43,7 @@ Map.loadMap = function(){
 
 //======================================================================================================================
 
-Map.loadMapRequestCallback=function(response){
+T.UI.Map.loadMapRequestCallback=function(response){
 
     tend('loading map');
 
@@ -181,17 +181,17 @@ Map.loadMapRequestCallback=function(response){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    tstart('Map.drawMap');
-    Map.drawMap();
-    tend('Map.drawMap');
+    tstart('T.UI.Map.drawMap');
+    T.UI.Map.drawMap();
+    tend('T.UI.Map.drawMap');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    //todo ?DI? what is better $('#map-stories').html(Map.storiesHTML(map_data_stories)); vs. Map.drawMap();
+    //todo ?DI? what is better $('#map-stories').html(T.UI.Map.storiesHTML(map_data_stories)); vs. T.UI.Map.drawMap();
 
-    tstart('Map.storiesHTML');
-    $('#map-stories').html(Map.storiesHTML(map_data_stories));
-    tend('Map.storiesHTML');
+    tstart('T.UI.Map.storiesHTML');
+    $('#map-stories').html(T.UI.Map.storiesHTML(map_data_stories));
+    tend('T.UI.Map.storiesHTML');
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -202,10 +202,10 @@ Map.loadMapRequestCallback=function(response){
 //======================================================================================================================
 
 
-Map.loadMapAsync = function(delay=IMMEDIATELY_MS) {//todo search where to use this function
+T.UI.Map.loadMapAsync = function(delay=IMMEDIATELY_MS) {//todo search where to use this function
 
 
     setTimeout(
-        function(){Map.loadMap();},delay
+        function(){T.UI.Map.loadMap();},delay
     );
 };

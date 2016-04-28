@@ -35,7 +35,7 @@ $(function(){
 
         var map_click_x=(e.clientX-(window_width/2));
         var map_click_y=(e.clientY-(window_height/2));
-        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
 
         clearTimeout(clickingTimeout);
@@ -65,7 +65,7 @@ $(function(){
 
 
                 create(tmp,function(){
-                    Map.loadMap()
+                    T.UI.Map.loadMap()
                 });
 
 
@@ -100,7 +100,7 @@ $(function(){
                 }
 
 
-                Map.loadMap();
+                T.UI.Map.loadMap();
 
 
                 if(terrainChanging == false){
@@ -129,7 +129,7 @@ $(function(){
                 create(terrainChanging);
 
                 //saveObjectsInternal();
-                Map.loadMap();
+                T.UI.Map.loadMap();
 
 
                 return;
@@ -155,7 +155,7 @@ $(function(){
                 hideLeftMenu();
 
 
-                Map.loadMapAsync(1000);
+                T.UI.Map.loadMapAsync(1000);
 
 
                 return;
@@ -226,7 +226,7 @@ $(function(){
             if (map_selected_ids.join(',') != map_selected_ids_prev) {
 
                 T.UI.Menu.Object.menu();
-                Map.drawMapAsync();
+                T.UI.Map.drawMapAsync();
 
 
             }

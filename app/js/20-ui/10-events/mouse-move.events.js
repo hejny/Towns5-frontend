@@ -79,7 +79,7 @@ $(function(){
                 if(BorderMoveDelay_<0){
 
                     r('border moving');
-                    Map.mapMove(BorderMoveX,BorderMoveY,true);
+                    T.UI.Map.mapMove(BorderMoveX,BorderMoveY,true);
                     BorderMoveQ=true;
                 }
 
@@ -135,7 +135,7 @@ $(function(){
         if(BorderMoveX==0 && BorderMoveY==0 && BorderMoveQ){
             BorderMoveQ=false;
             BorderMoveDelay_=BorderMoveDelay;
-            Map.updateMap();
+            T.UI.Map.updateMap();
         }
 
 
@@ -157,7 +157,7 @@ $(function(){
 
                     var map_click_x=(e.clientX-(window_width/2));
                     var map_click_y=(e.clientY-(window_height/2));
-                    var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+                    var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                     building.x=mapPos.x;
                     building.y=mapPos.y;

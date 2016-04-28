@@ -10,7 +10,7 @@
  * @param {T.Objects.Array} objects
  * @return {string} html code
  */
-Map.storiesHTML = function(objects) {
+T.UI.Map.storiesHTML = function(objects) {
 
     //---------------empty html
 

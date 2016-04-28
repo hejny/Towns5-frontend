@@ -10,7 +10,7 @@
  * @param ctx
  * @param {array} objects
  */
-Map.objectsDraw = function(ctx,objects) {
+T.UI.Map.objectsDraw = function(ctx,objects) {
 
     //r('objectsDraw',objects.length,objects);
 
