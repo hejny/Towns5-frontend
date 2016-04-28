@@ -6,7 +6,7 @@
 
 
 
-T.Plugins.install(new T.Editor(
+T.Plugins.install(new T.Plugins.Editor(
     'story-editor',
     {
         type: 'story'

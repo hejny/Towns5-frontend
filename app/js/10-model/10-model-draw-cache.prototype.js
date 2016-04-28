@@ -3,6 +3,8 @@
  * @fileOverview Creates method draw in Class Model
  */
 //======================================================================================================================
+//todo maybe in 2d canvas
+
 
 /**
  * Draw model on canvas

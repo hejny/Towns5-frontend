@@ -48,7 +48,7 @@ function loginFormSubmit(){
             }else{
 
 
-                UI.popupWindowClose();
+                T.UI.popupWindowClose();
 
             }
 

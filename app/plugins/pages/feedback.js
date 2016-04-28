@@ -9,7 +9,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'feedback',
     Locale.get('page','feedback'),
     `
@@ -86,8 +86,8 @@ T.Plugins.install(new T.Page(
             request.done(function( response ){
 
                 $('#login-form').find('button').html(Locale.get('send'));
-                UI.popupWindowClose();
-                UI.message(Locale.get('feedback','success'),'success');
+                T.UI.popupWindowClose();
+                T.UI.message(Locale.get('feedback','success'),'success');
 
             });
             request.fail(function( response ){

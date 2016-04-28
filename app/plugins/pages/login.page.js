@@ -9,7 +9,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'login',
     Locale.get('page','login'),
     `
@@ -88,7 +88,7 @@ T.Plugins.install(new T.Page(
 
 
 
-            townsAPI.post('auth',{
+            T.TownsAPI.townsAPI.post('auth',{
                     "username": data.username,
                     "password": data.password
                 },
@@ -97,15 +97,15 @@ T.Plugins.install(new T.Page(
                     $('#login-form').find('button').html(Locale.get('user','login'));
 
                     Storage.save('token',response['x-auth']);
-                    townsAPI.token=response['x-auth'];
+                    T.TownsAPI.townsAPI.token=response['x-auth'];
                     //$('#login-form').find('.messages').html('<div class="success">'+Locale.get('auth correct')+'</div>');
                     //r(response);
 
-                    UI.popupWindowClose();
-                    UI.logged();
+                    T.UI.popupWindowClose();
+                    T.UI.logged();
                     loadObjectPrototypes();//todo should it be here?
 
-                    //townsAPI.isLogged(function(user){r(user);});
+                    //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
 
                 },
@@ -116,9 +116,9 @@ T.Plugins.install(new T.Page(
 
                     $('#login-form').find('.messages').html('<div class="error">'+Locale.get('auth wrong')+'</div>');
 
-                    townsAPI.token=false;
-                    UI.logged();
-                    //townsAPI.isLogged(function(user){r(user);});
+                    T.TownsAPI.townsAPI.token=false;
+                    T.UI.logged();
+                    //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
                     //setInputError($("input[name='username']")[0],Locale.get('user','username','wrong'));
                     //setInputError($("input[name='username']")[0],Locale.get('user','password','wrong'));

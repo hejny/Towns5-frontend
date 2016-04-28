@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Viewer(
+T.Plugins.install(new T.Plugins.Viewer(
     'building-viewer'
     ,{
         type: 'building'

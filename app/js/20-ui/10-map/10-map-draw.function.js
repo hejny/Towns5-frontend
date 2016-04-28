@@ -99,7 +99,7 @@ Map.drawMap = function(){
                     map_draw.push({
 
                         drawtype: 'image',
-                        data: ImagesCollections.backgrounds.get('t' + (map_array[y][x]) + 's' + seed),
+                        data: T.Cache.backgrounds.get('t' + (map_array[y][x]) + 's' + seed),
 
                         screen_x: screen_x,
                         screen_y: screen_y,
@@ -163,7 +163,7 @@ Map.drawMap = function(){
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-            var image = ImagesCollections.objectsNatural.get(object.getCode());
+            var image = T.Cache.objectsNatural.get(object.getCode());
 
             var size = object.design.data.size || 1;
 

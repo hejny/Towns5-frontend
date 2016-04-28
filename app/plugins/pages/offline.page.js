@@ -6,7 +6,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'offline',
     Locale.get('page','offline'),
     `

@@ -8,7 +8,7 @@
 //todo create Events static object
 var canvasResize=function(){
 
-    r('UI Event: resize');
+    r('T.UI Event: resize');
 
 
     window_width=$('body').width();

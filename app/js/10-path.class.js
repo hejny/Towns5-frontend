@@ -33,7 +33,7 @@ var Path = class {
 
         //--------------
 
-        ArrayFunctions.iterate2D(map, function (y, x) {
+        T.ArrayFunctions.iterate2D(map, function (y, x) {
             if (map[y][x] != false)
                 map[y][x] = true;
         });
@@ -48,7 +48,7 @@ var Path = class {
         for (var limit = 0; limit < 100 && !finished; limit++) {
 
 
-            ArrayFunctions.iterate2D(map, function (y, x) {
+            T.ArrayFunctions.iterate2D(map, function (y, x) {
 
                 if (typeof map[y][x] == 'number' && map[y][x] >= 0) {
 
@@ -85,7 +85,7 @@ var Path = class {
 
             });
 
-            ArrayFunctions.iterate2D(map, function (y, x) {
+            T.ArrayFunctions.iterate2D(map, function (y, x) {
                 if (typeof map[y][x] == 'number')
                     map[y][x] = Math.abs(map[y][x]);
             });

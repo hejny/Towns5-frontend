@@ -202,11 +202,11 @@ function createBuilding(object,callback){
         objects_external[join.i].subtype='main';
 
 
-        townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
+        T.TownsAPI.townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
 
-            townsAPI.delete('objects/'+objects_external[join.i].id,function(){
+            T.TownsAPI.townsAPI.delete('objects/'+objects_external[join.i].id,function(){
 
-                townsAPI.post('objects',{
+                T.TownsAPI.townsAPI.post('objects',{
                     prototypeId: response.prototypeId,
                     x: objects_external[join.i].x,
                     y: objects_external[join.i].y
@@ -275,14 +275,14 @@ function definePrototype(objectReference,forceSubtype){
     }
 
     r(object);
-    object_prototypes.push(object);
+    T.User.object_prototypes.push(object);
 
 
 }
 
 //======================================================================================================================
 
-function definePrototypeUI(objectReference,forceSubtype){
+function definePrototypeT.UI(objectReference,forceSubtype){
 
     definePrototype(objectReference,forceSubtype);
     message(Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');

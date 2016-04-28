@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Editor(
+T.Plugins.install(new T.Plugins.Editor(
     'building-editor',
     {
         type: 'building',
@@ -125,7 +125,7 @@ T.Plugins.install(new T.Editor(
   <tr category="material">
     <td colspan="2">
         `+
-        ImagesCollections.textures.getInput('material','block-parameter')
+        T.Cache.textures.getInput('material','block-parameter')
         +`
     </td>
   </tr>
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Editor(
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('name').split('-');
-                var actual = ArrayFunctions.filterPath(block_selected, path);
+                var actual = T.ArrayFunctions.filterPath(block_selected, path);
 
 
                 if (isDefined(actual) && typeof actual!='object') {
@@ -264,7 +264,7 @@ T.Plugins.install(new T.Editor(
 
 
                         var path = $(this).attr('name').split('-');
-                        ArrayFunctions.filterPath(block_selected, path, value);
+                        T.ArrayFunctions.filterPath(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
 
@@ -296,7 +296,7 @@ T.Plugins.install(new T.Editor(
 
             //------------------------Hiding whole categoryies
 
-            categoryies = ArrayFunctions.unique(categoryies);
+            categoryies = T.ArrayFunctions.unique(categoryies);
 
             categoryies.forEach(function(category){
 

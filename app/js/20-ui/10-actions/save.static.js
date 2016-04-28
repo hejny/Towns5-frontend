@@ -7,7 +7,7 @@
 
 function saveObject(object){//todo delete this and use direct API
 
-    var i = ArrayFunctions.id2i(objects_external,object.id);
+    var i = T.ArrayFunctions.id2i(objects_external,object.id);
 
 
     //----------------Sending to API
@@ -27,7 +27,7 @@ function saveObject(object){//todo delete this and use direct API
         }
 
 
-        townsAPI.post('objects',object,function(response){
+        T.TownsAPI.townsAPI.post('objects',object,function(response){
 
             object.id=response.objectId;
             r('object was send to server',object);
@@ -44,7 +44,7 @@ function saveObject(object){//todo delete this and use direct API
         if(i==-1)throw Error('Object do not exists.');
 
 
-        townsAPI.delete('objects/'+objects_external[i].id,function(response){
+        T.TownsAPI.townsAPI.delete('objects/'+objects_external[i].id,function(response){
 
             r('object '+objects_external[i].id+' was deleted in server');
 

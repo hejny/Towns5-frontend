@@ -21,7 +21,7 @@ $(function(){
 
         }
 
-        r('UI Event: click');
+        r('T.UI Event: click');
 
 
         $('#loading').css('top', e.clientY-15);
@@ -220,7 +220,7 @@ $(function(){
                 //~~~~~~~~~~~~~~~~~~~~
             }
 
-            //------------------------------------------Redrawing Map and UI if map_selected_ids changed
+            //------------------------------------------Redrawing Map and T.UI if map_selected_ids changed
 
             //r(map_selected_ids.join(',') +'!='+ map_selected_ids_prev);
             if (map_selected_ids.join(',') != map_selected_ids_prev) {

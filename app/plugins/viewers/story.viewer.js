@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Viewer(
+T.Plugins.install(new T.Plugins.Viewer(
     'story'
     ,{
         type: 'story'
@@ -53,16 +53,16 @@ T.Plugins.install(new T.Viewer(
         $(page).find('#js-story-delete').click(function(e){
 
             if(confirm(Locale.get('story','delete','prompt'))){
-                UI.popupWindowClose();
-                townsAPI.delete('objects/'+object.id
+                T.UI.popupWindowClose();
+                T.TownsAPI.townsAPI.delete('objects/'+object.id
                     ,function(){
 
-                        UI.message.success(Locale.get('story','delete','success'));
+                        T.UI.message.success(Locale.get('story','delete','success'));
 
                     }
                     ,function(e){
 
-                        UI.message.error(Locale.get('story','delete','error'));
+                        T.UI.message.error(Locale.get('story','delete','error'));
 
                     }
                 );//todo smarter deleting of objects
@@ -71,7 +71,7 @@ T.Plugins.install(new T.Viewer(
         });
     
     
-        UI.popupWindowTitle(object.name);
+        T.UI.popupWindowTitle(object.name);
     
     
     

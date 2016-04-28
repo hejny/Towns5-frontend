@@ -39,7 +39,7 @@
 
     r(map);
 
-    ArrayFunctions.iterate2D(map[1],function(y,x){
+    T.ArrayFunctions.iterate2D(map[1],function(y,x){
 
 
         ctx1.fillStyle = MapGenerator.terrainColor(map[1][y][x]);
@@ -53,7 +53,7 @@
     //--------------------
 
     var map=MapGenerator.getMap(123456,-1234,300,false);
-    ArrayFunctions.iterate2D(map[1],function(y,x){
+    T.ArrayFunctions.iterate2D(map[1],function(y,x){
         ctx2.fillStyle = MapGenerator.terrainColor(map[1][y][x]);
         ctx2.fillRect (x, y,x+size, y+size);
 
@@ -63,7 +63,7 @@
     var map_y=(Math.random()-0.5)*1000000;
 
     var map=MapGenerator.getMap(map_x,map_y,600,false);
-    ArrayFunctions.iterate2D(map[1],function(y,x){
+    T.ArrayFunctions.iterate2D(map[1],function(y,x){
         ctx3.fillStyle = MapGenerator.terrainColor(map[1][y][x]);
         ctx3.fillRect (x, y,x+size, y+size);
 

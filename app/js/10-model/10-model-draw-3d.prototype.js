@@ -3,7 +3,7 @@
  * @fileOverview Creates method draw3D in Class Model
  */
 //======================================================================================================================
-
+//todo maybe in 2d canvas
 
 T.Model.prototype.create3D = function(gl, s, x_begin, y_begin, rotation, slope, selected=false, shadow=true) {
 

@@ -6,13 +6,15 @@
 //======================================================================================================================
 
 
-var resources = new T.Resources({
+T.User.resources = new T.Resources({
     'wood':   10000,
     'clay':   10000,
     'stone':  10000,
     'iron':   10000
 });
 
+
+//todo movo to other file
 $(function(){
 
 

@@ -3,9 +3,11 @@
  * @fileOverview Loading and storing images from external URLs
  */
 //======================================================================================================================
+T.setNamespace('Cache');
 
 
-var ImagesCollection = class {
+
+T.Cache.ImagesCollection = class {
 
 
     /**

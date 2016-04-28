@@ -1,15 +1,13 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates object ArrayFunctions with static methods
+ * @fileOverview Creates object T.ArrayFunctions with static methods
  */
 //======================================================================================================================
 
+T.ArrayFunctions=class{
 
-//Doing this as Array.prototype causes for in loop issues
-var ArrayFunctions={};
+};
 
-
-//======================================================================================================================
 
 /**
  * @static
@@ -18,7 +16,7 @@ var ArrayFunctions={};
  * @param {*} id Searched ID
  * @returns {number} Key of object with this ID, -1 if not exist
  */
-ArrayFunctions.id2i = function(array,id){
+T.ArrayFunctions.id2i = function(array,id){
 
     for(var i in array){
         if(array[i].id==id)return i;
@@ -38,7 +36,7 @@ ArrayFunctions.id2i = function(array,id){
  * @param {string} error_message when iten not exists
  * @returns {object} Object with this ID, null if not exist
  */
-ArrayFunctions.id2item = function(array,id,error_message=false){
+T.ArrayFunctions.id2item = function(array,id,error_message=false){
 
     for(var i in array){
         if(array[i].id==id)return array[i];
@@ -62,7 +60,7 @@ ArrayFunctions.id2item = function(array,id,error_message=false){
  * @param {*} id Searched ID
  * @returns {boolean}
  */
-ArrayFunctions.idRemove = function(array,id){//todo refactor use this not splice
+T.ArrayFunctions.idRemove = function(array,id){//todo refactor use this not splice
 
     for(var i in array){
         if(array[i].id==id){
@@ -85,7 +83,7 @@ ArrayFunctions.idRemove = function(array,id){//todo refactor use this not splice
  * @param array
  * @param {function} callback
  */
-ArrayFunctions.iterate2D = function(array,callback){
+T.ArrayFunctions.iterate2D = function(array,callback){
 
     //r(array);
 
@@ -108,7 +106,7 @@ ArrayFunctions.iterate2D = function(array,callback){
  * @param to
  * @return {array} Removed items
  */
-ArrayFunctions.removeItems = function(array,from, to) {
+T.ArrayFunctions.removeItems = function(array,from, to) {
     var rest = array.slice((to || from) + 1 || array.length);
     array.length = from < 0 ? array.length + from : from;
     return array.push.apply(array, rest);
@@ -118,12 +116,12 @@ ArrayFunctions.removeItems = function(array,from, to) {
 //======================================================================================================================
 
 
-/** todo should it be under ArrayFunctions
+/** todo should it be under T.ArrayFunctions
  *
  * @param {object} obect
  * @param {array} path
  */
-ArrayFunctions.filterPath = function(object,path,setValue){
+T.ArrayFunctions.filterPath = function(object,path,setValue){
 
 
     if(!is(object)){//todo should it be here?
@@ -176,7 +174,7 @@ ArrayFunctions.filterPath = function(object,path,setValue){
  * @param {Array} array
  * @returns {Array} Array containing only unique values
  */
-ArrayFunctions.unique = function(array) {
+T.ArrayFunctions.unique = function(array) {
     var n = {},r=[];
     for(var i = 0; i < array.length; i++)
     {
@@ -200,7 +198,7 @@ ArrayFunctions.unique = function(array) {
  * @param {string} additional_class
  * @returns {string} html
  */
-ArrayFunctions.array2table = function(array,additional_class='') {
+T.ArrayFunctions.array2table = function(array,additional_class='') {
     //todo check
 
     var html='';
