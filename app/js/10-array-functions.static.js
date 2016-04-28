@@ -136,7 +136,7 @@ T.ArrayFunctions=class {
         }
 
 
-        for (path_i in path) {
+        for(var path_i in path) {
 
             var object_key = path[path_i];
 

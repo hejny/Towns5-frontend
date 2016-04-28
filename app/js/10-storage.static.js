@@ -23,7 +23,7 @@ T.Storage=class {
         var value = localStorage.getItem(key) || def;
         return (value);
 
-    };
+    }
 
     /**
      * @static
@@ -36,7 +36,7 @@ T.Storage=class {
         var value = localStorage.getItem(key) || false;
         return (is(value));
 
-    };
+    }
 
 
     /**
@@ -48,7 +48,7 @@ T.Storage=class {
 
         localStorage.setItem(key, value)
 
-    };
+    }
 
 
     /**
@@ -59,7 +59,7 @@ T.Storage=class {
 
         localStorage.removeItem(key)
 
-    };
+    }
 
 
     /**
@@ -70,7 +70,7 @@ T.Storage=class {
 
         localStorage.clear();
 
-    };
+    }
 
 
 };

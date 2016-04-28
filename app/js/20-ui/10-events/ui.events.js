@@ -164,12 +164,12 @@ window.uiScript = function(){
 
     // kliknutie na overlay schová overlay a popup-window
     $('.overlay').unbind('click').on('click', function(){
-        T.UI.popupWindow.close()
+        T.UI.popupWindow.close();
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
     $('.js-popup-window-close').unbind('click').on('click', function(){
-        T.UI.popupWindow.close()
+        T.UI.popupWindow.close();
     });
 
 

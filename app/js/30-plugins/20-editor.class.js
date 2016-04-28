@@ -108,7 +108,7 @@ T.Plugins.Editor = class {
 
         this.opened = false;
 
-    };
+    }
 
 
     /**
@@ -268,6 +268,6 @@ T.Plugins.Editor = class {
         }, [this.open_callback, this.opened.object]);
 
 
-    };
+    }
 
 };

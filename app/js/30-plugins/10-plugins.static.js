@@ -31,15 +31,14 @@ T.Plugins=class {
             throw new Error('Plugins: Unknown plugin type.');
         }
 
-
-    };
+    }
 
 
 
 
     static uninstall(id) {
         //todo
-    };
+    }
 
 
 
@@ -66,7 +65,7 @@ T.Plugins=class {
 
         throw new Error('Plugins: Plugin ' + uri + ' do not exists.');
 
-    };
+    }
 
 
     static search(action, object) {
@@ -99,7 +98,7 @@ T.Plugins=class {
 
         return (possible);
 
-    };
+    }
 
 
 };

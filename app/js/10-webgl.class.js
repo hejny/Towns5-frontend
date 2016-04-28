@@ -62,7 +62,7 @@ T.WebGL = class {
             //setInterval(drawScene, 15);
         }
 
-    };
+    }
 
     //
     // initBuffers
@@ -341,9 +341,9 @@ T.WebGL = class {
 
 
         }
-        ;
 
-    };
+
+    }
 
 
     handleTextureLoaded(image, texture) {
@@ -475,7 +475,7 @@ T.WebGL = class {
          this.lastCubeUpdateTime = currentTime;*/
 
 
-    };
+    }
 
     //
     // initShaders
@@ -510,7 +510,7 @@ T.WebGL = class {
 
         this.vertexNormalAttribute = this.gl.getAttribLocation(this.shaderProgram, "aVertexNormal");
         this.gl.enableVertexAttribArray(this.vertexNormalAttribute);
-    };
+    }
 
     //
     // getShader
@@ -586,22 +586,22 @@ T.WebGL = class {
         }
 
         return shader;
-    };
+    }
 
     //
     // Matrix utility functions
     //
     loadIdentity() {
         this.mvMatrix = Matrix.I(4);
-    };
+    }
 
     multMatrix(m) {
         this.mvMatrix = this.mvMatrix.x(m);
-    };
+    }
 
     mvTranslate(v) {
         this.multMatrix(Matrix.Translation($V([v[0], v[1], v[2]])).ensure4x4());
-    };
+    }
 
     setMatrixUniforms() {
         var pUniform = this.gl.getUniformLocation(this.shaderProgram, "uPMatrix");
@@ -614,7 +614,7 @@ T.WebGL = class {
         normalMatrix = normalMatrix.transpose();
         var nUniform = this.gl.getUniformLocation(this.shaderProgram, "uNormalMatrix");
         this.gl.uniformMatrix4fv(nUniform, false, new Float32Array(normalMatrix.flatten()));
-    };
+    }
 
 
     mvPushMatrix(m) {
@@ -624,7 +624,7 @@ T.WebGL = class {
         } else {
             this.mvMatrixStack.push(this.mvMatrix.dup());
         }
-    };
+    }
 
     mvPopMatrix() {
         if (!this.mvMatrixStack.length) {
@@ -632,13 +632,13 @@ T.WebGL = class {
         }
         this.mvMatrix = this.mvMatrixStack.pop();
         return this.mvMatrix;
-    };
+    }
 
     mvRotate(angle, v) {
         var inRadians = angle * Math.PI / 180.0;
         var m = Matrix.Rotation(inRadians, $V([v[0], v[1], v[2]])).ensure4x4();
         this.multMatrix(m);
-    };
+    }
 
 };
 

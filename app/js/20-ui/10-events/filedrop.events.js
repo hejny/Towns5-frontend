@@ -185,7 +185,7 @@ $(function(){
 
 
 
-        r(mapPos,e)
+        r(mapPos,e);
 
 
 

@@ -15,7 +15,7 @@ T.UI.popupWindow = class {
 
         $('.popup-window .header').html(title);//todo refactor html class header to title
 
-    };
+    }
 
 
     /**
@@ -34,7 +34,7 @@ T.UI.popupWindow = class {
 
         uiScript();
 
-    };
+    }
 
 
     /**
@@ -51,7 +51,7 @@ T.UI.popupWindow = class {
 
         }
 
-    };
+    }
 
 
     /**
@@ -124,7 +124,7 @@ T.UI.popupWindow = class {
         //-------------------------------------------
 
 
-    };
+    }
 
 
 };

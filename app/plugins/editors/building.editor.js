@@ -565,10 +565,10 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                 if (is(particle.name)) {
-                    name = particle.name
+                    name = particle.name;
                 }else
                 if (is(particle.link)) {
-                    name = particle.link
+                    name = particle.link;
                 }
 
                 $('#' + html_id_i).html(name);

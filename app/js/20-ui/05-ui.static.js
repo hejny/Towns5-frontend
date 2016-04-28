@@ -13,7 +13,7 @@ T.UI=class {
      */
     static focusOnMap() {
         return (!(window_opened || ['INPUT', 'TEXTAREA'].indexOf(document.activeElement.tagName) != -1));
-    };
+    }
 
     
     
@@ -37,7 +37,7 @@ T.UI=class {
         $('#message').stop().show();
         $('#message').delay(4).fadeOut(MESSAGE_MS);//todo what effect use
 
-    };
+    }
 
     
     //todo refactor use this below
@@ -46,21 +46,23 @@ T.UI=class {
      */
     static error(text) {
         T.UI.message(text, 'error');
-    };
+    }
+
+
     /**
      * @param text
      */
     static success(text) {
         T.UI.message(text, 'success');
-    };
-    
-    
+    }
+
+
     /**
      * @param text
      */
     static info(text) {
         T.UI.message(text, 'info');
-    };
+    }
 
 
     /**
@@ -136,7 +138,7 @@ T.UI=class {
 
         });
 
-    };
+    }
 
 
 };

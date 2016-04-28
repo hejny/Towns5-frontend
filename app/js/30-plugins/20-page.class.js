@@ -29,7 +29,7 @@ T.Plugins.Page = class {
         this.close_callback = close_callback;
         this.format = format;
 
-    };
+    }
 
 
     /**
@@ -167,7 +167,7 @@ T.Plugins.Page = class {
          T.UI.popupWindow.closeCallback=this.close_callback;
          }*/
 
-    };
+    }
 
 
 };
