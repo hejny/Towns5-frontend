@@ -20,7 +20,7 @@ T.Storage=class {
      */
     static load(key, def = false) {
 
-        var value = localT.Storage.getItem(key) || def;
+        var value = localStorage.getItem(key) || def;
         return (value);
 
     };
@@ -33,7 +33,7 @@ T.Storage=class {
      */
     static is(key) {
 
-        var value = localT.Storage.getItem(key) || false;
+        var value = localStorage.getItem(key) || false;
         return (is(value));
 
     };
@@ -46,7 +46,7 @@ T.Storage=class {
      */
     static save(key, value) {
 
-        localT.Storage.setItem(key, value)
+        localStorage.setItem(key, value)
 
     };
 
@@ -57,7 +57,7 @@ T.Storage=class {
      */
     static delete(key) {
 
-        localT.Storage.removeItem(key)
+        localStorage.removeItem(key)
 
     };
 
@@ -68,7 +68,7 @@ T.Storage=class {
      */
     static restart() {
 
-        localT.Storage.clear();
+        localStorage.clear();
 
     };
 

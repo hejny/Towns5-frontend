@@ -291,7 +291,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             //------------------------
 
-            HtmlForm.addRangeNumber(false);
+            T.UI.Html.Form.addRangeNumber(false);
 
 
             //------------------------Hiding whole categoryies

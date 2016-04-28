@@ -15,7 +15,7 @@ function objectPrototypesMenu(type,subtype=false){
 
     //------------------------Extra buttons
     if(type=='building' && subtype=='block'){
-        object_menu_html+=Templates.objectMenu({
+        object_menu_html+=T.Templates.objectMenu({
             icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
@@ -25,7 +25,7 @@ function objectPrototypesMenu(type,subtype=false){
     }
 
     if(type=='building' && subtype=='main'){
-        object_menu_html+=Templates.objectMenu({
+        object_menu_html+=T.Templates.objectMenu({
             icon: '/media/image/icons/add.svg',
             icon_size: 0.55,
             title: '',
@@ -99,7 +99,7 @@ function objectPrototypesMenu(type,subtype=false){
                 possible=possible.join('');
 
                 content+=possible;
-                /*objectmenu+=Templates.objectMenu({
+                /*objectmenu+=T.Templates.objectMenu({
                     icon: '/media/image/icons/'+action+'.svg',
                     icon_size: 0.8,
                     title: T.Locale.get(object.type,object.subtype,action),
@@ -110,7 +110,7 @@ function objectPrototypesMenu(type,subtype=false){
             //------------------------
 
 
-            object_menu_html+=Templates.objectMenu({
+            object_menu_html+=T.Templates.objectMenu({
                 icon: icon,
                 icon_size: icon_size,
                 selectable: true,

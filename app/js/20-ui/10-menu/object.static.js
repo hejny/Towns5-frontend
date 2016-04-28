@@ -35,7 +35,7 @@ function objectMenu(){
                 return(`<button onclick="T.Plugins.open('`+item+`',1,'`+id+`')">`+T.Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
             });
             possible=possible.join('');
-            objectmenu+=Templates.objectMenu({
+            objectmenu+=T.Templates.objectMenu({
                 icon: '/media/image/icons/'+action+'.svg',
                 icon_size: 0.8,
                 title: T.Locale.get(object.type,object.subtype,action),
@@ -46,7 +46,7 @@ function objectMenu(){
 
 
 
-        objectmenu+=Templates.objectMenu({
+        objectmenu+=T.Templates.objectMenu({
             icon: '/media/image/icons/clone.svg',
             icon_size: 0.8,
             title: T.Locale.get(object.type,object.subtype,'clone'),
@@ -55,12 +55,12 @@ function objectMenu(){
         });
 
 
-        objectmenu+=Templates.objectMenu({
+        objectmenu+=T.Templates.objectMenu({
             icon: '/media/image/icons/dismantle.svg',
             icon_size: 0.8,
             title: T.Locale.get(object.type,object.subtype,'dismantle'),
             content: T.Locale.get(object.type,object.subtype,'dismantle','description'),
-            action: 'dismantleT.UI(\''+id+'\');'
+            action: 'dismantleUI(\''+id+'\');'
         });
 
 

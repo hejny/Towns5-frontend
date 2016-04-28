@@ -3,6 +3,8 @@
  * @fileOverview Building and creating objects functions
  */
 //======================================================================================================================
+//todo create T.UI.Actions or solve actions in towns-shared
+
 
 
 function generateID(){
@@ -282,7 +284,7 @@ function definePrototype(objectReference,forceSubtype){
 
 //======================================================================================================================
 
-function definePrototypeT.UI(objectReference,forceSubtype){
+function definePrototypeUI(objectReference,forceSubtype){
 
     definePrototype(objectReference,forceSubtype);
     message(T.Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');

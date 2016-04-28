@@ -3,6 +3,7 @@
  * @fileOverview Load object data from T.Storage
  */
 //======================================================================================================================
+//todo create T.UI.Actions or solve actions in towns-shared
 
 
 function saveObject(object){//todo delete this and use direct API

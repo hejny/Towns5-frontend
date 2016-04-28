@@ -100,7 +100,7 @@ T.Plugins.install(new T.Plugins.Editor(
     `,function(object){
 
 
-        HtmlForm.addRangeNumber(false);
+        T.UI.Html.Form.addRangeNumber(false);
 
 
         var model_canvas= new T.ModelCanvas('model-canvas',object.design.data,380,600);

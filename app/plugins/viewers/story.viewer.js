@@ -53,7 +53,7 @@ T.Plugins.install(new T.Plugins.Viewer(
         $(page).find('#js-story-delete').click(function(e){
 
             if(confirm(T.Locale.get('story','delete','prompt'))){
-                T.UI.popupWindowClose();
+                T.UI.popupWindow.close();
                 T.TownsAPI.townsAPI.delete('objects/'+object.id
                     ,function(){
 
@@ -71,7 +71,7 @@ T.Plugins.install(new T.Plugins.Viewer(
         });
     
     
-        T.UI.popupWindowTitle(object.name);
+        T.UI.popupWindow.setTitle(object.name);
     
     
     
