@@ -26,7 +26,7 @@ function dismantleUI(id){
     if(confirm(T.Locale.get('dismantle '+T.ArrayFunctions.id2item(objects_external,id).type+' confirm'))){//todo create better confirm
 
         dismantle(id);
-        Map.loadMapAsync();
+        T.UI.Map.loadMapAsync();
         hideLeftMenu();
         T.UI.popupWindow.close();
 

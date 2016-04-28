@@ -35,7 +35,7 @@ $(function(){
         var map_click_x=(e.clientX-(window_width/2));
         var map_click_y=(e.clientY-(window_height/2));
 
-        var mapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         //-------------------
 
@@ -108,7 +108,7 @@ $(function(){
 
 
 
-            var forceJoiningMapPos=Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+            var forceJoiningMapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
 
             var building_test=building.clone();
@@ -119,7 +119,7 @@ $(function(){
 
             if(T.UI.Menu.Building.forceJoining!=false){
                 map_selected_ids=[T.UI.Menu.Building.forceJoining.id];
-                //Map.drawMapAsync();
+                //T.UI.Map.drawMapAsync();
             }
 
 
@@ -133,8 +133,8 @@ $(function(){
             buildingByDraggingPath=[];
             mouseMove(e);
 
-            bufferDrawStartCtl();
-            $('#selecting-distance').hide();//todo [PH] ? Do bufferDrawStartCtl
+            T.UI.Map.MapBuffer.start();
+            $('#selecting-distance').hide();//todo [PH] ? Do T.UI.Map.MapBuffer.start
             requestAnimationFrame(buildingLoop);
 
 
@@ -271,7 +271,7 @@ $(function(){
 
         try{
 
-            bufferDrawCtl();
+            T.UI.Map.MapBuffer.tick();
 
         }catch(e){
 
@@ -314,9 +314,9 @@ $(function(){
         buildingByDraggingPath=false;
 
 
-        Map.loadMap();
+        T.UI.Map.loadMap();
         $('#selecting-distance').show();
-        bufferDrawEndCtl();
+        T.UI.Map.MapBuffer.stop();
 
         //------------------------------------------
         if(objects_external_buffer_length==0){

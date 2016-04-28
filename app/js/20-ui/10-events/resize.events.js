@@ -76,6 +76,6 @@ var canvasResize=function(){
 $( window ).resize(Interval.debounce(function() {
 
     canvasResize();
-    Map.drawMap();
+    T.UI.Map.drawMap();
 
 },500));

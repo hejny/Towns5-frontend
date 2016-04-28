@@ -9,7 +9,7 @@ $(function(){
     $('#map-plus').click(function(){
 
         map_zoom_delta=0.5;
-        Map.updateMap();
+        T.UI.Map.updateMap();
 
     });
 
@@ -17,7 +17,7 @@ $(function(){
     $('#map-minus').click(function(){
 
         map_zoom_delta=-0.5;
-        Map.updateMap();
+        T.UI.Map.updateMap();
 
     });
 
@@ -25,14 +25,14 @@ $(function(){
     $('#map-left').click(function(){
 
         map_rotation_delta=15;
-        Map.updateMap();
+        T.UI.Map.updateMap();
 
     });
 
     $('#map-right').click(function(){
 
         map_rotation_delta=-15;
-        Map.updateMap();
+        T.UI.Map.updateMap();
 
     });
 

@@ -9,7 +9,7 @@
  * Draw the map on canvas
  * @static
  */
-Map.drawMap = function(){
+T.UI.Map.drawMap = function(){
 
     //r(map_ctx);
     if (map_ctx == false)return;
@@ -282,10 +282,10 @@ Map.drawMap = function(){
  * @static
  * @param {number} delay ms
  */
-Map.drawMapAsync = function(delay=IMMEDIATELY_MS){//todo search where to use this function
+T.UI.Map.drawMapAsync = function(delay=IMMEDIATELY_MS){//todo search where to use this function
 
 
     setTimeout(
-        function(){Map.drawMap();},delay
+        function(){T.UI.Map.drawMap();},delay
     );
 };

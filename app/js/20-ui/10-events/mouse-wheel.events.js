@@ -53,7 +53,7 @@ $(function(){
 
 
 
-        Map.updateMap();
+        T.UI.Map.updateMap();
 
 
     };

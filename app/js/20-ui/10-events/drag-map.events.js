@@ -38,7 +38,7 @@ $(function(){
             $(this).css('left', first_offset.left);
             $(this).css('top', first_offset.top);
 
-            Map.updateMap();
+            T.UI.Map.updateMap();
 
 
         },
@@ -54,7 +54,7 @@ $(function(){
 
             last_offset = current_offset;
 
-            Map.mapMove(deltaX,deltaY);
+            T.UI.Map.mapMove(deltaX,deltaY);
 
 
         }

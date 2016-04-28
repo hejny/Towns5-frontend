@@ -10,7 +10,7 @@
  * @static
  * @param ms @deprecated
  */
-Map.updateMap = function(){
+T.UI.Map.updateMap = function(){
 
     r('updateMap');
     var ms=1000;
@@ -91,7 +91,7 @@ Map.updateMap = function(){
 
         //console.log('loadMap');
         if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN after updateMap and before loadMap';
-        Map.loadMapAsync();
+        T.UI.Map.loadMapAsync();
 
     }
 
@@ -124,7 +124,7 @@ Map.updateMap = function(){
 //======================================================================================================================
 
 
-Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
+T.UI.Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
     //----------------
 
@@ -180,7 +180,7 @@ Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
     if(autoUpdate){
         if(T.Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
-            Map.updateMap();
+            T.UI.Map.updateMap();
         }
     }
 
