@@ -6,7 +6,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'home',
     ['O hře','Autoři'/*,'Technologie'*/],
     [`

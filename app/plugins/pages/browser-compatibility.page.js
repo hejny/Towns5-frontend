@@ -6,7 +6,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'browser-compatibility',
     Locale.get('page','compatibility'),
     ``
@@ -47,7 +47,7 @@ T.Plugins.install(new T.Page(
         }
 
 
-        $(page).html(ArrayFunctions.array2table(table,'full'));
+        $(page).html(T.ArrayFunctions.array2table(table,'full'));
 
 
 

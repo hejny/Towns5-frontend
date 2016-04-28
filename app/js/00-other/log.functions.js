@@ -57,7 +57,7 @@ function mapWindow(map){
 
 
 
-        ArrayFunctions.iterate2D(map,function(y,x){
+        T.ArrayFunctions.iterate2D(map,function(y,x){
 
             if(typeof map[y][x]=='number'){
 

@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Editor(
+T.Plugins.install(new T.Plugins.Editor(
     'building-block-editor',
     {
       type: 'building',
@@ -79,7 +79,7 @@ T.Plugins.install(new T.Editor(
   <tr>
     <td colspan="2">
         `+
-        ImagesCollections.textures.getInput('block-editing-material')
+        T.Cache.textures.getInput('block-editing-material')
         +`
     </td>
   </tr>

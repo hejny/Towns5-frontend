@@ -28,7 +28,7 @@ $(function(){
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
-        r('UI Event: mousemove');
+        r('T.UI Event: mousemove');
 
         //-------------------Convert mouse positions to map positions
 
@@ -97,7 +97,7 @@ $(function(){
 
         if (building == false)return;
 
-        r('UI Event: mousedown');
+        r('T.UI Event: mousedown');
 
 
         if (dragging_subtypes.indexOf(building.subtype)==-1){
@@ -297,7 +297,7 @@ $(function(){
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
-        r('UI Event: mouseup');
+        r('T.UI Event: mouseup');
 
         var objects_external_buffer_length = objects_external_buffer.length;
 
@@ -320,7 +320,7 @@ $(function(){
 
         //------------------------------------------
         if(objects_external_buffer_length==0){
-            UI.message.info(Locale.get('building by dragging',building.subtype,'info'));
+            T.UI.message.info(Locale.get('building by dragging',building.subtype,'info'));
             buildingStart(building._prototypeId);//todo should it be here _prototypeId
         }
         //------------------------------------------

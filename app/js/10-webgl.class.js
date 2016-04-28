@@ -332,7 +332,7 @@ var WebGL = class {
     //
     initTextures() {
 
-        var textures = ImagesCollections.textures.getAll();
+        var textures = T.Cache.textures.getAll();
 
         for (var key in textures) {
 

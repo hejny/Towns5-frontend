@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Towns.Editor = class {
+T.Plugins.Editor = class {
 
 
     /**
@@ -49,14 +49,14 @@ Towns.Editor = class {
 
                 if (self.opened.collection == 0) {
 
-                    object_prototypes.setById(self.opened.object.id, self.opened.object);
+                    T.User.object_prototypes.setById(self.opened.object.id, self.opened.object);
 
 
                     objectPrototypesMenu(self.opened.object, self.opened.object.subtype);
                     buildingStart(self.opened.object.id);
 
 
-                    townsAPI.post('objects/prototypes', self.opened.object
+                    T.TownsAPI.townsAPI.post('objects/prototypes', self.opened.object
                         , function (response) {
 
 
@@ -79,10 +79,10 @@ Towns.Editor = class {
                     objects_external.setById(self.opened.object.id, self.opened.object);
 
 
-                    townsAPI.post('objects/' + self.opened.object.id, self.opened.object
+                    T.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
                         , function (response) {
 
-                            UI.message(Locale.get('object', self.opened.object.type, 'saved'), 'success');
+                            T.UI.message(Locale.get('object', self.opened.object.type, 'saved'), 'success');
 
                         }
                         , function (errors) {
@@ -113,7 +113,7 @@ Towns.Editor = class {
 
     /**
      * Open editor
-     * @param {number} collection 0=object_prototypes, 1=objects_external
+     * @param {number} collection 0=T.User.object_prototypes, 1=objects_external
      * @param {string} id
      */
     open(collection, id, errors = false) {
@@ -134,7 +134,7 @@ Towns.Editor = class {
 
             if (collection == 0) {
 
-                object_prototypes.push(this.opened.object);
+                T.User.object_prototypes.push(this.opened.object);
                 objectPrototypesMenu(this.opened.object.type, this.opened.object.subtype);
 
                 r('Creating new object prototype ' + this.opened.object.name + '.');
@@ -155,14 +155,14 @@ Towns.Editor = class {
 
             if (collection == 0) {
 
-                this.opened.object = object_prototypes.getById(id);
+                this.opened.object = T.User.object_prototypes.getById(id);
                 r('Opening object prototype ' + this.opened.object.name + '.');
 
 
             } else if (collection == 1) {
 
                 r(objects_external, id);
-                this.opened.object = ArrayFunctions.id2item(objects_external, id);
+                this.opened.object = T.ArrayFunctions.id2item(objects_external, id);
                 r('Opening object ' + this.opened.object.name + '.');
 
             } else {
@@ -189,7 +189,7 @@ Towns.Editor = class {
 
                 //r(errors);
                 for (key in errors.message) {
-                    //UI.message(errors.message[key].message,'error');
+                    //T.UI.message(errors.message[key].message,'error');
 
                     $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');
                 }
@@ -217,12 +217,12 @@ Towns.Editor = class {
                     //todo maybe create action DELETE prototype?
                     if (confirm(Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
 
-                        object_prototypes.removeId(object.id);
+                        T.User.object_prototypes.removeId(object.id);
 
                         mapSpecialCursorStop();
                         objectPrototypesMenu(object.type, object.subtype);
 
-                        UI.popupWindowClose(true);
+                        T.UI.popupWindowClose(true);
 
                     }
 
@@ -246,11 +246,11 @@ Towns.Editor = class {
                         var object_duplicate = editor.opened.object.clone();
                         object_duplicate.id = generateID();
 
-                        object_prototypes.push(object_duplicate);
+                        T.User.object_prototypes.push(object_duplicate);
 
                         //r('Opening duplicated object prototype '+object.name+'.');
                         //r(object_duplicate);
-                        UI.popupWindowClose();
+                        T.UI.popupWindowClose();
                         editor.open(0, object_duplicate.id);
 
                     }

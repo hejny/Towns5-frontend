@@ -23,7 +23,7 @@ Map.loadMap = function(){
     }
 
 
-    map_request_ajax=townsAPI.get(
+    map_request_ajax=T.TownsAPI.townsAPI.get(
         'objects',
         {
             x: Math.round(map_x),
@@ -92,7 +92,7 @@ Map.loadMapRequestCallback=function(response){
 
     //~~~~~~~~~~~~~Terrains
 
-    /*ArrayFunctions.iterate2D(map_bg_data,function(y,x){
+    /*T.ArrayFunctions.iterate2D(map_bg_data,function(y,x){
 
         if(!is(map_collision_data[y]))map_collision_data[y]=[];
 
@@ -137,7 +137,7 @@ Map.loadMapRequestCallback=function(response){
     //~~~~~~~~~~~~~zones
 
 
-    /*ArrayFunctions.iterate2D(map_collision_data,function(y,x){
+    /*T.ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
         if(map_collision_data[y][x]==false){
 
@@ -167,7 +167,7 @@ Map.loadMapRequestCallback=function(response){
 
 
 
-    /*ArrayFunctions.iterate2D(map_collision_data,function(y,x){
+    /*T.ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
         if(map_collision_data[y][x]==-1)map_collision_data[y][x]=false;
 

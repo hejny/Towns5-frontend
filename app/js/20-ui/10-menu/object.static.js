@@ -17,7 +17,7 @@ function objectMenu(){
 
         var id=map_selected_ids[0];
 
-        var object=ArrayFunctions.id2item(objects_external,id);
+        var object=T.ArrayFunctions.id2item(objects_external,id);
 
 
         var objectmenu='';
@@ -30,7 +30,7 @@ function objectMenu(){
         ['view','edit'].forEach(function(action){
 
 
-            var possible =Towns.Plugins.search(action,ArrayFunctions.id2item(objects_external,id));
+            var possible =Towns.Plugins.search(action,T.ArrayFunctions.id2item(objects_external,id));
             possible=possible.map(function(item){
                 return(`<button onclick="Towns.Plugins.open('`+item+`',1,'`+id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
             });
@@ -60,7 +60,7 @@ function objectMenu(){
             icon_size: 0.8,
             title: Locale.get(object.type,object.subtype,'dismantle'),
             content: Locale.get(object.type,object.subtype,'dismantle','description'),
-            action: 'dismantleUI(\''+id+'\');'
+            action: 'dismantleT.UI(\''+id+'\');'
         });
 
 

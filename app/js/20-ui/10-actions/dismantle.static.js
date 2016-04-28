@@ -20,15 +20,15 @@ function dismantle(id){
 
 
 
-//todo create static class fro actions and UI actions
-function dismantleUI(id){
+//todo create static class fro actions and T.UI actions
+function dismantleT.UI(id){
 
-    if(confirm(Locale.get('dismantle '+ArrayFunctions.id2item(objects_external,id).type+' confirm'))){//todo create better confirm
+    if(confirm(Locale.get('dismantle '+T.ArrayFunctions.id2item(objects_external,id).type+' confirm'))){//todo create better confirm
 
         dismantle(id);
         Map.loadMapAsync();
         hideLeftMenu();
-        UI.popupWindowClose();
+        T.UI.popupWindowClose();
 
     }
 

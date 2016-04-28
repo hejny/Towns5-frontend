@@ -23,7 +23,7 @@ $(function(){
 });
 
 //======================================================================================================================
-//UISCRIPT
+//T.UISCRIPT
 
 window.uiScript = function(){
 
@@ -164,12 +164,12 @@ window.uiScript = function(){
 
     // kliknutie na overlay schová overlay a popup-window
     $('.overlay').unbind('click').on('click', function(){
-        UI.popupWindowClose()
+        T.UI.popupWindowClose()
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
     $('.js-popup-window-close').unbind('click').on('click', function(){
-        UI.popupWindowClose()
+        T.UI.popupWindowClose()
     });
 
 
@@ -307,7 +307,7 @@ window.uiScript = function(){
 
 
         var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
-        UI.popupWindowOpen($(this).attr('title'),html);
+        T.UI.popupWindowOpen($(this).attr('title'),html);
 
     });
 
@@ -315,8 +315,8 @@ window.uiScript = function(){
     //==================================================================================================================
 
 
-    /*r(townsAPI.online);
-    if(townsAPI.online){
+    /*r(T.TownsAPI.townsAPI.online);
+    if(T.TownsAPI.townsAPI.online){
 
         $('input.js-townsapi-online').prop('disabled',false);
         $('button.js-townsapi-online').animate({opacity:1});

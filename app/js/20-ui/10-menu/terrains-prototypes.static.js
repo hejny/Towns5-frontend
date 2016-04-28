@@ -11,7 +11,7 @@ function terrainChangeStart(prototypeId){
 
     updateSelectingDistance();
 
-    terrainChanging=object_prototypes.getById(prototypeId).clone();
+    terrainChanging=T.User.object_prototypes.getById(prototypeId).clone();
 
     /*terrainChanging={
         "type": "terrain",

@@ -6,8 +6,7 @@
 
 
 
-
-var TownsAPI = class {
+T.TownsAPI = class {
 
 
     constructor(url = '', token = false) {
@@ -269,7 +268,7 @@ var TownsAPI = class {
                 r('Updating object prototype id after server response from ' + object.id + ' to ' + response.prototypeId);
 
 
-                object_prototypes.setById(response.prototypeId, response);
+                T.User.object_prototypes.setById(response.prototypeId, response);
 
                 if (callback_success)
                     callback_success(response);

@@ -20,7 +20,7 @@ $(function(){
         'scroll': false,
         'start': function () {
 
-            r('UI Event: drag start');
+            r('T.UI Event: drag start');
 
             $(this).addClass('js-label-noclick');//todo should it has this name
 
@@ -31,7 +31,7 @@ $(function(){
         },
         'stop': function () {
 
-            r('UI Event: drag stop');
+            r('T.UI Event: drag stop');
 
             //todo sounds ion.sound.play("door_bump");
 
@@ -44,7 +44,7 @@ $(function(){
         },
         'drag': function (e) {
 
-            r('UI Event: dragging');
+            r('T.UI Event: dragging');
 
             current_offset = $(this).offset();
 

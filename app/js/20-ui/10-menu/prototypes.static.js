@@ -36,7 +36,7 @@ function objectPrototypesMenu(type,subtype=false){
     //------------------------.
 
 
-    object_prototypes.forEach(function(object){
+    T.User.object_prototypes.forEach(function(object){
 
 
         if(object.type==type && (!is(subtype) || object.subtype==subtype)){

@@ -9,7 +9,7 @@
 
 
 
-T.Plugins.install(new T.Page(
+T.Plugins.install(new T.Plugins.Page(
     'register',
     Locale.get('page','register'),
     `
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Page(
                 delete data.password;
                 delete data.password_again;
 
-                townsAPI.post('users',{
+                T.TownsAPI.townsAPI.post('users',{
                     "profile": data,
                     "login_methods": {
                         password
@@ -197,7 +197,7 @@ T.Plugins.install(new T.Page(
                 function(response){
 
 
-                    townsAPI.post('auth',{
+                    T.TownsAPI.townsAPI.post('auth',{
                             "username": data.username,
                             "password": password
                         },
@@ -206,11 +206,11 @@ T.Plugins.install(new T.Page(
                             $('#register-form').find('button').html(Locale.get('user','login'));
 
                             Storage.save('token',response['x-auth']);
-                            townsAPI.token=response['x-auth'];
+                            T.TownsAPI.townsAPI.token=response['x-auth'];
                             
 
-                            UI.popupWindowClose();
-                            UI.logged();
+                            T.UI.popupWindowClose();
+                            T.UI.logged();
                             loadObjectPrototypes();//todo should it be here?
 
 

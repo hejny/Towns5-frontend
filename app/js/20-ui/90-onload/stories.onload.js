@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-townsAPI.get('stories',{latest:true},function(result){
+T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
 
     console.log(result);
 

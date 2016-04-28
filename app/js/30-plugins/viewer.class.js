@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Towns.Viewer = class {
+T.Plugins.Viewer = class {
 
 
     /**
@@ -39,7 +39,7 @@ Towns.Viewer = class {
 
     /**
      * Open viewer
-     * @param {number} collection 0=object_prototypes, 1=objects_external
+     * @param {number} collection 0=T.User.object_prototypes, 1=objects_external
      * @param {string} id
      */
     open(collection, id) {
@@ -51,13 +51,13 @@ Towns.Viewer = class {
 
         if (collection == 0) {
 
-            this.opened.object = object_prototypes.getById(id);//ArrayFunctions.id2item(object_prototypes,id);
+            this.opened.object = T.User.object_prototypes.getById(id);//T.ArrayFunctions.id2item(T.User.object_prototypes,id);
             r('Opening object prototype ' + this.opened.object.name + '.');
 
 
         } else if (collection == 1) {
 
-            this.opened.object = objects_external.getById(id);//ArrayFunctions.id2item(objects_external,id);
+            this.opened.object = objects_external.getById(id);//T.ArrayFunctions.id2item(objects_external,id);
             r('Opening object ' + this.opened.object.name + '.');
 
         } else {

@@ -9,7 +9,7 @@ $(function(){
     mouseWheel=function (e) {
 
         //e.preDefault();
-        r('UI Event: mousewheel');
+        r('T.UI Event: mousewheel');
 
         if(specialCursor==true && building==false){
 

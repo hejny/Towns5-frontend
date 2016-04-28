@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-Towns.Page = class {
+T.Plugins.Page = class {
 
 
     /**
@@ -108,8 +108,8 @@ Towns.Page = class {
 
         var self = this;
 
-        //--------------------------------------------UI.popupWindowOpen
-        UI.popupWindowOpen(title, content, function () {
+        //--------------------------------------------T.UI.popupWindowOpen
+        T.UI.popupWindowOpen(title, content, function () {
 
             if (self.close_callback) {
                 self.close_callback();
@@ -164,7 +164,7 @@ Towns.Page = class {
 
 
         /*if(this.close_callback) {
-         UI.popupWindowCloseCallback=this.close_callback;
+         T.UI.popupWindowCloseCallback=this.close_callback;
          }*/
 
     };

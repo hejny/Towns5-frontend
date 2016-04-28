@@ -4,12 +4,11 @@
  */
 //======================================================================================================================
 
-var ImagesCollections={};
 
 
 
 //----------------------------------------------------------------Textury
-ImagesCollections.textures= new ImagesCollection({
+T.Cache.textures= new ImagesCollection({
 
     shadow: 'shadow.png',
 
@@ -30,7 +29,7 @@ ImagesCollections.textures= new ImagesCollection({
 
 //----------------------------------------------------------------Podklad
 
-/*todo maybe ArrayFunctions.multipleFor(
+/*todo maybe T.ArrayFunctions.multipleFor(
  [[0,terrainCount],[0,seedCount]]
  ,function(terrain,seed){
 
@@ -48,7 +47,7 @@ for(var terrain=0;terrain<terrainCount;terrain++) {
     }
 }
 
-ImagesCollections.backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
+T.Cache.backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
 
 
 
@@ -83,24 +82,24 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 //----------------
 
-ImagesCollections.objectsNatural= new ImagesCollection(files,appDir+'/php/treerock.php');
+T.Cache.objectsNatural= new ImagesCollection(files,appDir+'/php/treerock.php');
 
 
 
 //----------------------------------------------------------------Loading callback
 
 
-ImagesCollections.imageLoad = function(){
+T.Cache.imageLoad = function(){
 
     var percent = (
-            ImagesCollections.textures.loaded()+
-            ImagesCollections.backgrounds.loaded()+
-            ImagesCollections.objectsNatural.loaded()
+            T.Cache.textures.loaded()+
+            T.Cache.backgrounds.loaded()+
+            T.Cache.objectsNatural.loaded()
         ) / 3;
 
-    /*r(  ImagesCollections.textures.loaded(),
-     ImagesCollections.backgrounds.loaded(),
-     ImagesCollections.objectsNatural.loaded(),percent);*/
+    /*r(  T.Cache.textures.loaded(),
+     T.Cache.backgrounds.loaded(),
+     T.Cache.objectsNatural.loaded(),percent);*/
 
 
     $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
@@ -126,8 +125,8 @@ $(function(){
 
     r('Start loading of ImagesCollections...');
 
-    ImagesCollections.textures.load(ImagesCollections.imageLoad);
-    ImagesCollections.backgrounds.load(ImagesCollections.imageLoad);
-    ImagesCollections.objectsNatural.load(ImagesCollections.imageLoad);
+    T.Cache.textures.load(T.Cache.imageLoad);
+    T.Cache.backgrounds.load(T.Cache.imageLoad);
+    T.Cache.objectsNatural.load(T.Cache.imageLoad);
 
 });

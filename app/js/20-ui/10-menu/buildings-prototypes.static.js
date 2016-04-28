@@ -7,18 +7,18 @@
 
 
 
-//todo refactor all names unique to object_prototypes
+//todo refactor all names unique to T.User.object_prototypes
 //======================================================================================================================buildingStart
 
 var forceJoining=false;
 
 
-//BUILDING
+//BT.UILDING
 function buildingStart(prototypeId){
 
     mapSpecialCursorStart();
 
-    building=object_prototypes.getById(prototypeId).clone();
+    building=T.User.object_prototypes.getById(prototypeId).clone();
 
     building.prototypeId=prototypeId;//todo should it be here?
     //r('buildingStart',building);
@@ -64,7 +64,7 @@ function buildingRedraw() {
     //$('#selecting-distance').scss('border',2);
 
 
-    //selecting_distance_3D_webgl = /*building*/object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
+    //selecting_distance_3D_webgl = /*building*/T.User.object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
 
 
     $(selecting_distance_2d_canvas).hide();

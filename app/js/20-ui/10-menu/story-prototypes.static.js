@@ -11,7 +11,7 @@ function storyWritingStart(prototypeId){
     mapSpecialCursorStart();
 
 
-    storyWriting=object_prototypes.getById(prototypeId).clone();
+    storyWriting=T.User.object_prototypes.getById(prototypeId).clone();
 
     $('#map_drag').css('cursor','Crosshair');
 

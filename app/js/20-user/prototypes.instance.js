@@ -1,21 +1,20 @@
 /**
  * @author ©Towns.cz
  * @fileOverview Load objects prototypes
- * todo load from API
  */
 //======================================================================================================================
 
 
 
 
-var loadObjectPrototypes=function(callback=false){
+T.User.loadObjectPrototypes=function(callback=false){
 
 
-    townsAPI.get('objects/prototypes',{},function(response){
+    T.TownsAPI.townsAPI.get('objects/prototypes',{},function(response){
 
         r('LOADED prototypes');
 
-        object_prototypes = new T.Objects.Array();
+        T.User.object_prototypes = new T.Objects.Array();
 
         response.forEach(function(object){
 
@@ -26,7 +25,7 @@ var loadObjectPrototypes=function(callback=false){
             object_prototype.id=object_prototype._id;
 
 
-            object_prototypes.push(object_prototype);//todo refactor read object or new object
+            T.User.object_prototypes.push(object_prototype);//todo refactor read object or new object
 
         });
 
@@ -47,4 +46,4 @@ var loadObjectPrototypes=function(callback=false){
 
 
 
-loadObjectPrototypes();
+T.User.loadObjectPrototypes();//todo movo to other file
