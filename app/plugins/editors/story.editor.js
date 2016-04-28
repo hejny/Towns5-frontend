@@ -11,7 +11,7 @@ T.Plugins.install(new T.Plugins.Editor(
     {
         type: 'story'
     },
-    Locale.get('story editor'),
+    T.Locale.get('story editor'),
     `
 
         <div id="vertical_separator" style="display: none;"></div>

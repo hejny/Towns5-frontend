@@ -22,7 +22,7 @@ T.Plugins.install(new T.Plugins.Viewer(
     ,function(object){
 
 
-        new ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
+        new T.ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
 
 
     }

@@ -103,7 +103,7 @@ T.Plugins.install(new T.Plugins.Editor(
         HtmlForm.addRangeNumber(false);
 
 
-        var model_canvas= new ModelCanvas('model-canvas',object.design.data,380,600);
+        var model_canvas= new T.ModelCanvas('model-canvas',object.design.data,380,600);
 
         var particle=ModelParticles.cParams(object.design.data.particles[0]);
 

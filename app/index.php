@@ -447,10 +447,10 @@ function tidyHTML($buffer) {
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Shortcut plugins|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <div id="macros">
 
-        <!--<div onclick="objectPrototypesMenu('building','main');Towns.Plugins.open('building-editor',0,-1);return false;" class="button-icon" title="<?/*=locale('ui macros create building')*/?>"><i class="fa fa-building-o"></i></div>
+        <!--<div onclick="objectPrototypesMenu('building','main');T.Plugins.open('building-editor',0,-1);return false;" class="button-icon" title="<?/*=locale('ui macros create building')*/?>"><i class="fa fa-building-o"></i></div>
 
 
-        <div onclick="objectPrototypesMenu('building','wall');Towns.Plugins.open('building-block-editor',0,-1);return false;" class="button-icon" title="<?/*=locale('ui macros create building block')*/?>"><i class="fa fa-cube"></i></div>-->
+        <div onclick="objectPrototypesMenu('building','wall');T.Plugins.open('building-block-editor',0,-1);return false;" class="button-icon" title="<?/*=locale('ui macros create building block')*/?>"><i class="fa fa-cube"></i></div>-->
 
         <div class="button-icon js-popup-window-open" page="feedback"><i class="fa fa-comment"></i></div>
 

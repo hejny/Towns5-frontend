@@ -1,11 +1,11 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates Class Path
+ * @fileOverview Creates Class T.Path
  */
 //======================================================================================================================
 
 
-var Path = class {
+T.Path = class {
 
 
     /**
@@ -291,7 +291,7 @@ var Path = class {
 
     /**
      * @static
-     * @param {object} Path
+     * @param {object} T.Path
      * @return {boolean} true = inserted object is path and it is in progress
      */
     static is(path) {

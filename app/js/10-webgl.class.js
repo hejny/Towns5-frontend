@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-var WebGL = class {
+T.WebGL = class {
 
 
     constructor(gl, polygons, rotations, shadow = false) {
@@ -288,7 +288,7 @@ var WebGL = class {
         this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.cubeVerticesBuffer);
 
 
-        // Now pass the list of vertices into WebGL to build the shape. We
+        // Now pass the list of vertices into T.WebGL to build the shape. We
         // do this by creating a Float32Array from the JavaScript array,
         // then use it to fill the current vertex buffer.
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.vertices), this.gl.STATIC_DRAW);
@@ -480,7 +480,7 @@ var WebGL = class {
     //
     // initShaders
     //
-    // Initialize the shaders, so WebGL knows how to light our scene.
+    // Initialize the shaders, so T.WebGL knows how to light our scene.
     //
     initShaders() {
 

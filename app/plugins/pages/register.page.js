@@ -11,7 +11,7 @@
 
 T.Plugins.install(new T.Plugins.Page(
     'register',
-    Locale.get('page','register'),
+    T.Locale.get('page','register'),
     `
 
 
@@ -26,54 +26,54 @@ T.Plugins.install(new T.Plugins.Page(
 
         `/*+`
         <tr>
-            <th colspan="2">`+Locale.get('user','basic')+`</th>
+            <th colspan="2">`+T.Locale.get('user','basic')+`</th>
         </tr>
         `*/+`
 
         <tr>
-            <td>*`+Locale.get('user','username')+`:</td>
-            <td><input class="js-townsapi-online" type="text" name="username" placeholder="`+Locale.get('user','username','placeholder')+`" value="" autofocus autocomplete="off"></td>
+            <td>*`+T.Locale.get('user','username')+`:</td>
+            <td><input class="js-townsapi-online" type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" value="" autofocus autocomplete="off"></td>
         </tr>
 
 
         <tr>
-            <td>*`+Locale.get('user','password')+`:</td>
+            <td>*`+T.Locale.get('user','password')+`:</td>
             <td><input class="js-townsapi-online" type="password" name="password" autocomplete="off"></td>
         </tr>
         <tr>
-            <td>*`+Locale.get('user','password','again')+`:</td>
+            <td>*`+T.Locale.get('user','password','again')+`:</td>
             <td><input class="js-townsapi-online" type="password" name="password-again" autocomplete="off"></td>
         </tr>
 
 
         <tr>
-            <td>`+Locale.get('user','email')+`:</td>
-            <td><input class="js-townsapi-online" type="email" name="email" placeholder="`+Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
+            <td>`+T.Locale.get('user','email')+`:</td>
+            <td><input class="js-townsapi-online" type="email" name="email" placeholder="`+T.Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
         </tr>
 
 
 
         `/*+`
         <tr>
-            <th colspan="2">`+Locale.get('user','extended')+`</th>
+            <th colspan="2">`+T.Locale.get('user','extended')+`</th>
         </tr>
 
         <tr>
-            <td>`+Locale.get('user','name')+`:</td>
+            <td>`+T.Locale.get('user','name')+`:</td>
             <td><input type="text" name="name"></td>
         </tr>
         <tr>
-            <td>`+Locale.get('user','surname')+`:</td>
+            <td>`+T.Locale.get('user','surname')+`:</td>
             <td><input type="text" name="surname"></td>
         </tr>
 
         <tr>
-            <td>`+Locale.get('user','birthday')+`:c</td>
+            <td>`+T.Locale.get('user','birthday')+`:c</td>
             <td><input type="date" name="birthday"></td>
         </tr>
 
         <tr>
-            <th colspan="2">`+Locale.get('user','description')+`</th>
+            <th colspan="2">`+T.Locale.get('user','description')+`</th>
         </tr>
         <tr>
             <td colspan="2"><textarea name="description" class="full"></textarea></td>
@@ -83,7 +83,7 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td colspan="2">
-                <button style="width: 150px;">`+Locale.get('user','register')+`</button>
+                <button style="width: 150px;">`+T.Locale.get('user','register')+`</button>
             </td>
         </tr>
 
@@ -147,7 +147,7 @@ T.Plugins.install(new T.Plugins.Page(
             if(data.username.trim().length==0){
 
 
-                setInputError($("input[name='username']")[0],Locale.get('user','username'));
+                setInputError($("input[name='username']")[0],T.Locale.get('user','username'));
 
 
             }else
@@ -155,21 +155,21 @@ T.Plugins.install(new T.Plugins.Page(
             if(!validateEmail(data.email)){
 
 
-                setInputError($("input[name='email']")[0],Locale.get('user','email'));
+                setInputError($("input[name='email']")[0],T.Locale.get('user','email'));
 
 
             }else
             //---------------------------------------------
             if(data.password.length==0){
 
-                setInputError($("input[name='password']")[0],Locale.get('user','password'));
+                setInputError($("input[name='password']")[0],T.Locale.get('user','password'));
 
             }else
             //---------------------------------------------
             if(data.password!==data.password_again){
 
 
-                setInputError($("input[name='password-again']")[0],Locale.get('user','password','again','notsame'));
+                setInputError($("input[name='password-again']")[0],T.Locale.get('user','password','again','notsame'));
 
 
             }else
@@ -178,7 +178,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-                $('#register-form').find('button').html(Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+                $('#register-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
                 
                 
 
@@ -203,7 +203,7 @@ T.Plugins.install(new T.Plugins.Page(
                         },
                         function(response){
 
-                            $('#register-form').find('button').html(Locale.get('user','login'));
+                            $('#register-form').find('button').html(T.Locale.get('user','login'));
 
                             Storage.save('token',response['x-auth']);
                             T.TownsAPI.townsAPI.token=response['x-auth'];
@@ -227,9 +227,9 @@ T.Plugins.install(new T.Plugins.Page(
                 },
                 function(response){
 
-                    $('#login-form').find('button').html(Locale.get('user','register'));
+                    $('#login-form').find('button').html(T.Locale.get('user','register'));
 
-                    setInputError($("input[name='username']")[0],Locale.get('user','username','taken'));
+                    setInputError($("input[name='username']")[0],T.Locale.get('user','username','taken'));
 
                 }
                 );

@@ -80,13 +80,13 @@ var T.UI=class {
                 var decoded_token = jwt_decode(T.TownsAPI.townsAPI.token);
                 //r(decoded_token);
 
-                T.UI.message(Locale.get('logged in as') + ' ' + decoded_token.username, 'success');
+                T.UI.message(T.Locale.get('logged in as') + ' ' + decoded_token.username, 'success');
 
 
                 var user_html = `
             <div id="user-profile"></div>
-            <button onclick="if(confirm(Locale.get('logout','confirm'))){T.TownsAPI.townsAPI.token=false;Storage.delete('token');T.UI.logged();}">
-                ` + Locale.get('ui user logout') + `
+            <button onclick="if(confirm(T.Locale.get('logout','confirm'))){T.TownsAPI.townsAPI.token=false;T.Storage.delete('token');T.UI.logged();}">
+                ` + T.Locale.get('ui user logout') + `
             </button>`;
 
                 $('#menu-top-popup-user').find('.content').html(user_html);
@@ -127,7 +127,7 @@ var T.UI=class {
 
             } else {
 
-                //T.UI.message(Locale.get('logged out'),'info');
+                //T.UI.message(T.Locale.get('logged out'),'info');
 
                 $('.logged-in').stop().fadeOut();
                 $('.logged-out').stop().fadeIn();

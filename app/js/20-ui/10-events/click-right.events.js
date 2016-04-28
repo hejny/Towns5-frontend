@@ -22,7 +22,7 @@ $(function(){
 
             var i=T.ArrayFunctions.id2i(objects_external,id);
 
-            if(Path.is(objects_external[i].path)){
+            if(T.Path.is(objects_external[i].path)){
                 var position=objects_external[i].path.recount();
             }else{
                 var position=new T.Position(objects_external[i].x,objects_external[i].y);
@@ -35,7 +35,7 @@ $(function(){
 
             try {
 
-                objects_external[i].path=new Path(position,mapPos,6,map_collision_data,new T.Position(Math.round(map_x-(map_radius)), Math.round(map_y-(map_radius))));
+                objects_external[i].path=new T.Path(position,mapPos,6,map_collision_data,new T.Position(Math.round(map_x-(map_radius)), Math.round(map_y-(map_radius))));
 
             }catch(error) {
 

@@ -35,7 +35,7 @@ function deepCopyObject(oldObject) {
     }
 
     if(is(newObject.path))
-        newObject.path = new Path(newObject.path);
+        newObject.path = new T.Path(newObject.path);
 
     return(newObject);
 

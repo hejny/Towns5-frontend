@@ -158,7 +158,7 @@ window.uiScript = function(){
     $('.js-popup-window-open').unbind('click').on('click', function(){
 
         var page=$(this).attr('page');
-        Towns.Plugins.open(page);
+        T.Plugins.open(page);
 
     });
 
@@ -412,7 +412,7 @@ $(function(){
     uiScript();
 
     if(environment!='develop')
-    Towns.Plugins.open('home');
+    T.Plugins.open('home');
 
 
 });

@@ -8,7 +8,7 @@
 
 T.Plugins.install(new T.Plugins.Page(
     'browser-compatibility',
-    Locale.get('page','compatibility'),
+    T.Locale.get('page','compatibility'),
     ``
     ,function(page){
 
@@ -33,14 +33,14 @@ T.Plugins.install(new T.Plugins.Page(
 
             }
 
-            row.push('<h3>'+Locale.get('compatibility',key).text2html()+'</h3>');
+            row.push('<h3>'+T.Locale.get('compatibility',key).text2html()+'</h3>');
 
 
             table.push(row);
 
 
             if(!compatibility[key]){
-                table.push([Locale.get('compatibility',key,'help')]);
+                table.push([T.Locale.get('compatibility',key,'help')]);
             }
 
 

@@ -30,7 +30,7 @@ function objectPrototypesMenu(type,subtype=false){
             icon_size: 0.55,
             title: '',
             content: content,
-            action: `mapSpecialCursorStop();Towns.Plugins.Pages.open('building_editor');`
+            action: `mapSpecialCursorStop();T.Plugins.Pages.open('building_editor');`
         });
     }
     //------------------------.
@@ -92,9 +92,9 @@ function objectPrototypesMenu(type,subtype=false){
             ['view','edit'].forEach(function(action){
 
 
-                var possible =Towns.Plugins.search(action,object);
+                var possible =T.Plugins.search(action,object);
                 possible=possible.map(function(item){
-                    return(`<button onclick="Towns.Plugins.open('`+item+`',0,'`+object.id+`')">`+Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
+                    return(`<button onclick="T.Plugins.open('`+item+`',0,'`+object.id+`')">`+T.Locale.get('plugin',item,'open',object.type,object.subtype,action)+`</button>`);
                 });
                 possible=possible.join('');
 
@@ -102,8 +102,8 @@ function objectPrototypesMenu(type,subtype=false){
                 /*objectmenu+=Templates.objectMenu({
                     icon: '/media/image/icons/'+action+'.svg',
                     icon_size: 0.8,
-                    title: Locale.get(object.type,object.subtype,action),
-                    content: Locale.get(object.type,object.subtype,action,'description')+possible
+                    title: T.Locale.get(object.type,object.subtype,action),
+                    content: T.Locale.get(object.type,object.subtype,action,'description')+possible
                 });*/
 
             });

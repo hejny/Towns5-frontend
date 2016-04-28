@@ -64,7 +64,7 @@ T.TownsAPI = class {
                 clearInterval(interval);
                 townsapi_reconnect.removeClass('js-running');
 
-                $(this).html(Locale.get('ui buttons reconnecting').text2html() + '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
+                $(this).html(T.Locale.get('ui buttons reconnecting').text2html() + '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
 
                 //Empty query to check if the API is online
                 self.query('', {}, 'GET', {}, {});//todo duplicate
@@ -74,7 +74,7 @@ T.TownsAPI = class {
 
             var counter = 15;
 
-            townsapi_reconnect.html(Locale.get('ui buttons reconnect').text2html() + '&nbsp(<span class="js-counter">' + counter + '</span>)');
+            townsapi_reconnect.html(T.Locale.get('ui buttons reconnect').text2html() + '&nbsp(<span class="js-counter">' + counter + '</span>)');
             townsapi_reconnect.addClass('js-running');
 
 

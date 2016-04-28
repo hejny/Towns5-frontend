@@ -33,7 +33,7 @@ T.URI=class {
             this.plugin = pathname[0];
             this.object = pathname[1];
         } else {
-            throw new Error('T.URI Pathname can contain max 2 strings.');
+            throw new Error('T.URI T.Pathname can contain max 2 strings.');
         }
 
         //-------------------

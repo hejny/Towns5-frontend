@@ -1,6 +1,6 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Load object data from Storage
+ * @fileOverview Load object data from T.Storage
  */
 //======================================================================================================================
 
