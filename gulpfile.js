@@ -63,6 +63,25 @@ gulp.task("test", function() {
 
 //======================================================================================================================Documentation
 
+deleteFolderRecursive = function(path) {
+    var files = [];
+    if( fs.existsSync(path) ) {
+        files = fs.readdirSync(path);
+        files.forEach(function(file,index){
+            var curPath = path + "/" + file;
+            if(fs.lstatSync(curPath).isDirectory()) { // recurse
+                deleteFolderRecursive(curPath);
+            } else { // delete file
+                fs.unlinkSync(curPath);
+            }
+        });
+        fs.rmdirSync(path);
+    }
+};
+
+
+//-------------------
+
 
 gulp.task('documentation', function (callback) {
 
@@ -93,8 +112,9 @@ gulp.task('documentation', function (callback) {
         }
     };
 
+    deleteFolderRecursive('./documentation');
 
-    console.log(config.includes.js_no_modules);
+
     gulp.src(config.includes.js_no_modules/*, {read: false}*/)
         .pipe(jsdoc(documentation_config,callback));
 
