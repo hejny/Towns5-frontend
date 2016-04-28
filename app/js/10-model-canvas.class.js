@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-var T.ModelCanvas = class {
+T.ModelCanvas = class {
 
 
     constructor(id, model, width, height, rotation = map_rotation, zoom = 0, x = 0, y = 0, slope = map_slope) {//todo delete simple in usages - deleted param
@@ -175,7 +175,7 @@ var T.ModelCanvas = class {
 
 
          //r(this);
-         var block_choosen=this.model.filterT.PathSiblings(this.selected_path);
+         var block_choosen=this.model.filterPathSiblings(this.selected_path);
 
          block_choosen.draw3D(this.gl, size, this.x+(this.width/2), this.y+(this.height*(2/3)), this.rotation, this.slope, false, true, this.simple);
 

@@ -6,10 +6,6 @@
 
 
 T.Plugins=class {
-    static plugins = [];
-
-
-
 
     static install(plugin) {
         r('Plugins: Installing plugin ' + plugin.uri);
@@ -53,7 +49,7 @@ T.Plugins=class {
         var args = [].slice.call(arguments).splice(1);
         //r(args);
 
-        for (i in this.plugins) {
+        for (var i in this.plugins) {
 
             //r(this.plugins[i].uri,uri);
 
@@ -107,3 +103,5 @@ T.Plugins=class {
 
 
 };
+
+T.Plugins.plugins = [];//todo better

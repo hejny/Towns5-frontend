@@ -6,7 +6,7 @@
 
 $(function(){
 
-    window.terrainChanging=false;
+    window.T.UI.Menu.terrainChanging=false;
     window.building=false;
     window.selecting_offset={x: 0,y: 0};
 

@@ -3,7 +3,7 @@
  * @fileOverview Left tool menu shown when user select building.
  */
 //======================================================================================================================
-T.setNamespace('T.UI.Menu');
+T.setNamespace('UI.Menu');
 
 
 T.UI.Menu.Object = class {

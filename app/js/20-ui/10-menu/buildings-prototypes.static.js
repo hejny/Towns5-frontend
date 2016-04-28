@@ -1,15 +1,13 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Left tool menu creating and dismantling buildings
+ * @fileOverview Left tool menu creating and T.UI.Menu.dismantling buildings
  */
 //======================================================================================================================
-T.setNamespace('T.UI.Menu');
+T.setNamespace('UI.Menu');
 
 
 T.UI.Menu.Building = class {
 
-
-    static forceJoining = false;
 
 
     static start(prototypeId) {
@@ -137,7 +135,7 @@ T.UI.Menu.Building = class {
 
     }
 
-    //======================================================================================================================T.UI.Menu.Building.dismantlingStart
+    //======================================================================================================================T.UI.Menu.Building.T.UI.Menu.dismantlingStart
     //DISMANTLING
 
 
@@ -149,7 +147,7 @@ T.UI.Menu.Building = class {
 
         updateSelectingDistance();
 
-        dismantling = true;
+        T.UI.Menu.dismantling = true;
 
         $('#selecting-distance-ctl').css('background', '');
         $('#selecting-distance-ctl').css('background-size', 'cover');
@@ -169,10 +167,13 @@ T.UI.Menu.Building = class {
 
     static dismantlingStop() {
 
-        dismantling = false;
+        T.UI.Menu.dismantling = false;
 
 
     }
 
 
 };
+
+
+T.UI.Menu.Building.forceJoining = false;//todo better

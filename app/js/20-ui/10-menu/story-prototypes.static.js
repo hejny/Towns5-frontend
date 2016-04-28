@@ -3,7 +3,7 @@
  * @fileOverview Left tool menu shown to create story.
  */
 //======================================================================================================================
-T.setNamespace('T.UI.Menu');
+T.setNamespace('UI.Menu');
 
 
 T.UI.Menu.Story = class {
@@ -15,7 +15,7 @@ T.UI.Menu.Story = class {
         mapSpecialCursorStart();
 
 
-        storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
+        T.UI.Menu.storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
 
         $('#map_drag').css('cursor', 'Crosshair');
 
@@ -37,7 +37,7 @@ T.UI.Menu.Story = class {
         $('#selecting-distance-ctl').hide();
 
         $('#map_drag').css('cursor', 'Auto');
-        storyWriting = false;
+        T.UI.Menu.storyWriting = false;
 
     }
 

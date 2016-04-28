@@ -23,7 +23,7 @@ T.Plugins.Viewer = class {
         this.conditions = conditions;
 
         var self = this;
-        this.page = new Towns.Page(
+        this.page = new T.Plugins.Page(
             uri,
             title,
             content

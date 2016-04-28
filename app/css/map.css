@@ -65,6 +65,12 @@
   left: 0px;
   z-index: 4000; }
 
+#map-out {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 4500; }
+
 .story {
   overflow: hidden;
   background-color: #ccc;

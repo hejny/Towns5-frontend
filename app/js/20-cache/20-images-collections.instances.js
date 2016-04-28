@@ -8,7 +8,7 @@
 
 
 //----------------------------------------------------------------Textury
-T.Cache.textures= new ImagesCollection({
+T.Cache.textures= new T.Cache.ImagesCollection({
 
     shadow: 'shadow.png',
 
@@ -47,7 +47,7 @@ for(var terrain=0;terrain<terrainCount;terrain++) {
     }
 }
 
-T.Cache.backgrounds= new ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
+T.Cache.backgrounds= new T.Cache.ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
 
 
 
@@ -82,7 +82,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 //----------------
 
-T.Cache.objectsNatural= new ImagesCollection(files,appDir+'/php/treerock.php');
+T.Cache.objectsNatural= new T.Cache.ImagesCollection(files,appDir+'/php/treerock.php');
 
 
 

@@ -3,8 +3,7 @@
  * @fileOverview HTML form functions
  */
 //======================================================================================================================
-T.setNamespace('T.UI.Html');
-
+T.setNamespace('UI.Html');
 
 
 

@@ -1,6 +1,6 @@
 /**
  * @author Towns.cz
- * @fileOverview  Click on map - call the action eg. selecting, building, dismantling,...
+ * @fileOverview  Click on map - call the action eg. selecting, building, T.UI.Menu.dismantling,...
  */
 //======================================================================================================================
 
@@ -79,8 +79,8 @@ $(function(){
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++dismantling
-            if(dismantling !== false){
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++T.UI.Menu.dismantling
+            if(T.UI.Menu.dismantling !== false){
 
                 //todo sounds ion.sound.play("door_bump");
 
@@ -103,7 +103,7 @@ $(function(){
                 T.UI.Map.loadMap();
 
 
-                if(terrainChanging == false){
+                if(T.UI.Menu.terrainChanging == false){
                     return;
                 }
 
@@ -112,8 +112,8 @@ $(function(){
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++terrainChanging
-            if(terrainChanging !== false){
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++T.UI.Menu.terrainChanging
+            if(T.UI.Menu.terrainChanging !== false){
 
                 //todo sounds ion.sound.play("door_bump");
 
@@ -123,10 +123,10 @@ $(function(){
                 /*mapPos.y=(mapPos.y)+2;/*todo Better solution ?*/
 
 
-                terrainChanging.design.data.size=selecting_distance_fields;
-                terrainChanging.x=mapPos.x;
-                terrainChanging.y=mapPos.y;
-                create(terrainChanging);
+                T.UI.Menu.terrainChanging.design.data.size=selecting_distance_fields;
+                T.UI.Menu.terrainChanging.x=mapPos.x;
+                T.UI.Menu.terrainChanging.y=mapPos.y;
+                create(T.UI.Menu.terrainChanging);
 
                 //saveObjectsInternal();
                 T.UI.Map.loadMap();
@@ -138,15 +138,15 @@ $(function(){
             }
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++storyWriting
-            if(storyWriting !== false){
+            //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++T.UI.Menu.storyWriting
+            if(T.UI.Menu.storyWriting !== false){
 
 
                 $('#loading').hide();
 
-                storyWriting.x=mapPos.x;
-                storyWriting.y=mapPos.y;
-                var id=create(storyWriting);
+                T.UI.Menu.storyWriting.x=mapPos.x;
+                T.UI.Menu.storyWriting.y=mapPos.y;
+                var id=create(T.UI.Menu.storyWriting);
 
                 map_selected_ids=[id];
                 T.Plugins.open('story-editor',1,id);
