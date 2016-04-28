@@ -3,7 +3,7 @@
  * @fileOverview Left tool menu shown to create story.
  */
 //======================================================================================================================
-T.setNamespace('T.UI.Menu');
+T.setNamespace('UI.Menu');
 
 
 T.UI.Menu.Prototypes = class {

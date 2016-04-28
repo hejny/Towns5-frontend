@@ -62,3 +62,5 @@ T.Locale=class {//create instances with en, cs here
     };
 
 };
+
+T.Locale.keys_write = [];//todo better

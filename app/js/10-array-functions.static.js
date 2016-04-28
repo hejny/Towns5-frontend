@@ -123,16 +123,16 @@ T.ArrayFunctions=class {
      * @param {object} obect
      * @param {array} path
      */
-    static filterT.Path(object, path, setValue) {
+    static filterPath(object, path, setValue) {
 
 
         if (!is(object)) {//todo should it be here?
-            throw new Error('filterT.Path: Object is undefined.');
+            throw new Error('filterPath: Object is undefined.');
         }
 
         if (!is(path.forEach)) {
             r(path);
-            throw new Error('filterT.Path: T.Path is not correct array.');
+            throw new Error('filterPath: T.Path is not correct array.');
         }
 
 
@@ -145,7 +145,7 @@ T.ArrayFunctions=class {
                 if (typeof object[object_key] == 'undefined') {
 
                     return (undefined);
-                    //throw new Error('filterT.Path: Key \''+object_key+'\' in path in object is undefined');
+                    //throw new Error('filterPath: Key \''+object_key+'\' in path in object is undefined');
                 }
 
                 object = object[object_key];

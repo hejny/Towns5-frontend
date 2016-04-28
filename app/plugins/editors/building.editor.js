@@ -163,7 +163,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             block_selected_path = path;
 
-            block_selected = object.design.data.filterT.Path(block_selected_path);
+            block_selected = object.design.data.filterPath(block_selected_path);
 
 
             //var particle=ModelParticles.cParams(object.design.data.particles[blockChoose_i]);
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Plugins.Editor(
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('name').split('-');
-                var actual = T.ArrayFunctions.filterT.Path(block_selected, path);
+                var actual = T.ArrayFunctions.filterPath(block_selected, path);
 
 
                 if (isDefined(actual) && typeof actual!='object') {
@@ -264,7 +264,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                         var path = $(this).attr('name').split('-');
-                        T.ArrayFunctions.filterT.Path(block_selected, path, value);
+                        T.ArrayFunctions.filterPath(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
 
@@ -419,7 +419,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                         var i = block_selected_path.pop();
 
-                        var parent = object.design.data.filterT.Path(block_selected_path);
+                        var parent = object.design.data.filterPath(block_selected_path);
 
 
                         block_selected.particles.forEach(function (particle) {
@@ -485,7 +485,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     var i = block_selected_path.pop();
 
-                    var parent = object.design.data.filterT.Path(block_selected_path);
+                    var parent = object.design.data.filterPath(block_selected_path);
 
                     parent.particles.splice(i, i + 1);
 

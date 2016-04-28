@@ -24,7 +24,7 @@ T.Plugins.Editor = class {
         this.conditions = conditions;
 
         var self = this;
-        this.page = new Towns.Page(
+        this.page = new T.Plugins.Page(
             uri,
             title,
             `

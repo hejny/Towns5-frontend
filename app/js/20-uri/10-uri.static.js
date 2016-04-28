@@ -5,9 +5,6 @@
 //======================================================================================================================
 
 T.URI=class {
-    static object = '';
-    static plugin = '';
-
 
     /**
      * Initialize T.URI pathname from location
@@ -109,3 +106,7 @@ T.URI=class {
 
 
 };
+
+
+T.URI.object = '';//todo better
+T.URI.plugin = '';

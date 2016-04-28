@@ -16,7 +16,7 @@ T.Templates=class {
      * @param {object} params
      * @return {string} html
      */
-    static T.UI.Menu.Object.menu(params) {
+    static menu(params) {
 
         if (!is(params.icon_size))params.icon_size = 1;
         params.icon_size = Math.round(params.icon_size * 100);
