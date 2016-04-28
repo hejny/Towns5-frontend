@@ -209,7 +209,7 @@ T.Plugins.install(new T.Plugins.Page(
                             T.TownsAPI.townsAPI.token=response['x-auth'];
                             
 
-                            T.UI.popupWindowClose();
+                            T.UI.popupWindow.close();
                             T.UI.logged();
                             loadObjectPrototypes();//todo should it be here?
 

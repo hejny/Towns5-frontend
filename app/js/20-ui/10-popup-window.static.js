@@ -4,14 +4,14 @@
  */
 //======================================================================================================================
 
-T.UI = class {
+T.UI.popupWindow = class {
 
 
     /**
      * Changes title of opened popup window
      * @param title
      */
-    static popupWindowTitle(title) {
+    static setTitle(title) {
 
         $('.popup-window .header').html(title);//todo refactor html class header to title
 
@@ -22,7 +22,7 @@ T.UI = class {
      * Changes content of opened popup window
      * @param content
      */
-    static popupWindowContent(content) {
+    static setContent(content) {
 
         $('.popup-window .content').html(content);
 
@@ -41,7 +41,7 @@ T.UI = class {
      * Changes format of opened popup window
      * @param format NORMAL, SMALL
      */
-    static popupWindowSetFormat(format = 'NORMAL') {
+    static setFormat(format = 'NORMAL') {
 
         $('.popup-window').removeClass('popup-window-small');
 
@@ -60,22 +60,22 @@ T.UI = class {
      * @param content
      * @param close_callback
      */
-    static popupWindowOpen(title, content, close_callback = false, format = 'NORMAL') {
+    static open(title, content, close_callback = false, format = 'NORMAL') {
 
         if (window_opened) {
-            T.UI.popupWindowClose(false);
+            T.UI.popupWindow.close(false);
         }
 
 
         if (close_callback) {
-            T.UI.popupWindowCloseCallback = close_callback;
+            T.UI.popupWindow.closeCallback = close_callback;
         }
 
 
-        T.UI.popupWindowSetFormat(format);
+        T.UI.popupWindow.setFormat(format);
 
-        T.UI.popupWindowTitle(title);
-        T.UI.popupWindowContent(content);
+        T.UI.popupWindow.setTitle(title);
+        T.UI.popupWindow.setContent(content);
 
         $('.overlay').show();
         $('.popup-window').show();
@@ -96,7 +96,7 @@ T.UI = class {
      * Close popup window and run close callback
      * @param {boolean} dont_run_close_callback
      */
-    static popupWindowClose(dont_run_close_callback = false) {
+    static close(dont_run_close_callback = false) {
 
         //-------------------------------------------Play sound
         //todo sounds ion.sound.play("door_bump");
@@ -113,13 +113,13 @@ T.UI = class {
 
 
         //-------------------------------------------Run close callback
-        if (T.UI.popupWindowCloseCallback) {
+        if (T.UI.popupWindow.closeCallback) {
 
             if (dont_run_close_callback === false) {
-                T.UI.popupWindowCloseCallback();
+                T.UI.popupWindow.closeCallback();
             }
 
-            delete T.UI.popupWindowCloseCallback;
+            delete T.UI.popupWindow.closeCallback;
         }
         //-------------------------------------------
 

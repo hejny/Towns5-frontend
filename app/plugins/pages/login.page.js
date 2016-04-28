@@ -101,7 +101,7 @@ T.Plugins.install(new T.Plugins.Page(
                     //$('#login-form').find('.messages').html('<div class="success">'+T.Locale.get('auth correct')+'</div>');
                     //r(response);
 
-                    T.UI.popupWindowClose();
+                    T.UI.popupWindow.close();
                     T.UI.logged();
                     loadObjectPrototypes();//todo should it be here?
 

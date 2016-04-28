@@ -1,13 +1,13 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates object Templates with static methods
+ * @fileOverview Creates object T.Templates with static methods
  */
 //======================================================================================================================
 
 /**
  * Container of html templates
  */
-var Templates=class {
+T.Templates=class {
 
 
     /**

@@ -108,8 +108,8 @@ T.Plugins.Page = class {
 
         var self = this;
 
-        //--------------------------------------------T.UI.popupWindowOpen
-        T.UI.popupWindowOpen(title, content, function () {
+        //--------------------------------------------T.UI.popupWindow.open
+        T.UI.popupWindow.open(title, content, function () {
 
             if (self.close_callback) {
                 self.close_callback();
@@ -164,7 +164,7 @@ T.Plugins.Page = class {
 
 
         /*if(this.close_callback) {
-         T.UI.popupWindowCloseCallback=this.close_callback;
+         T.UI.popupWindow.closeCallback=this.close_callback;
          }*/
 
     };

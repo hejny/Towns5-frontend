@@ -3,6 +3,8 @@
  * @fileOverview Login / Register functions
  */
 //======================================================================================================================
+//todo create T.UI.Actions or solve actions in towns-shared
+
 
 
 //todo udelat funkci login jako login(username,password)
@@ -48,7 +50,7 @@ function loginFormSubmit(){
             }else{
 
 
-                T.UI.popupWindowClose();
+                T.UI.popupWindow.close();
 
             }
 

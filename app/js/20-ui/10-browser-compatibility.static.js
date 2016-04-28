@@ -1,6 +1,6 @@
 //todo headers
 
-var Compatibility=class {
+T.UI.Compatibility = class {
 
 
     /**
@@ -13,7 +13,7 @@ var Compatibility=class {
         compatibility = {
             webgl: null,
             requestAnimationFrame: null,
-            localT.Storage: null
+            localStorage: null
         };
 
         var ok = true;
@@ -91,13 +91,13 @@ var Compatibility=class {
 
 
     /**
-     * Check if browser supports localT.Storage
+     * Check if browser supports localStorage
      * @returns {boolean}
      */
-    static localT.Storage() {
+    static localStorage() {
         try {
-            localT.Storage.setItem('test', 'test');
-            localT.Storage.removeItem('test');
+            localStorage.setItem('test', 'test');
+            localStorage.removeItem('test');
             return true;
         } catch (e) {
             return false;

@@ -222,7 +222,7 @@ T.Plugins.Editor = class {
                         mapSpecialCursorStop();
                         objectPrototypesMenu(object.type, object.subtype);
 
-                        T.UI.popupWindowClose(true);
+                        T.UI.popupWindow.close(true);
 
                     }
 
@@ -250,7 +250,7 @@ T.Plugins.Editor = class {
 
                         //r('Opening duplicated object prototype '+object.name+'.');
                         //r(object_duplicate);
-                        T.UI.popupWindowClose();
+                        T.UI.popupWindow.close();
                         editor.open(0, object_duplicate.id);
 
                     }
