@@ -52,16 +52,16 @@ T.Plugins.Editor = class {
                     T.User.object_prototypes.setById(self.opened.object.id, self.opened.object);
 
 
-                    objectPrototypesMenu(self.opened.object, self.opened.object.subtype);
-                    buildingStart(self.opened.object.id);
+                    T.UI.Menu.Prototypes.menu(self.opened.object, self.opened.object.subtype);
+                    T.UI.Menu.Building.start(self.opened.object.id);
 
 
                     T.TownsAPI.townsAPI.post('objects/prototypes', self.opened.object
                         , function (response) {
 
 
-                            objectPrototypesMenu(self.opened.object.type, self.opened.object.subtype);
-                            buildingStart(self.opened.object.id);
+                            T.UI.Menu.Prototypes.menu(self.opened.object.type, self.opened.object.subtype);
+                            T.UI.Menu.Building.start(self.opened.object.id);
 
 
                         }
@@ -135,7 +135,7 @@ T.Plugins.Editor = class {
             if (collection == 0) {
 
                 T.User.object_prototypes.push(this.opened.object);
-                objectPrototypesMenu(this.opened.object.type, this.opened.object.subtype);
+                T.UI.Menu.Prototypes.menu(this.opened.object.type, this.opened.object.subtype);
 
                 r('Creating new object prototype ' + this.opened.object.name + '.');
 
@@ -220,7 +220,7 @@ T.Plugins.Editor = class {
                         T.User.object_prototypes.removeId(object.id);
 
                         mapSpecialCursorStop();
-                        objectPrototypesMenu(object.type, object.subtype);
+                        T.UI.Menu.Prototypes.menu(object.type, object.subtype);
 
                         T.UI.popupWindow.close(true);
 

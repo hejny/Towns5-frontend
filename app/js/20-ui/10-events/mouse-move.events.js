@@ -162,7 +162,7 @@ $(function(){
                     building.x=mapPos.x;
                     building.y=mapPos.y;
 
-                    buildingUpdate();
+                    T.UI.Menu.Building.update();
 
                 }
             }

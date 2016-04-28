@@ -69,7 +69,7 @@ $(function(){
                 });
 
 
-                buildingUpdate();
+                T.UI.Menu.Building.update();
 
                 //mapSpecialCursorStop();
 
@@ -225,7 +225,7 @@ $(function(){
             //r(map_selected_ids.join(',') +'!='+ map_selected_ids_prev);
             if (map_selected_ids.join(',') != map_selected_ids_prev) {
 
-                objectMenu();
+                T.UI.Menu.Object.menu();
                 Map.drawMapAsync();
 
 

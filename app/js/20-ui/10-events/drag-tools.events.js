@@ -9,7 +9,7 @@
 var dragging_subtypes=['wall','path'];//todo refactor move to vars
 
 
-var buildingByDraggingT.Path=false;//todo refactor rename
+var buildingByDraggingPath=false;//todo refactor rename
 var buildingByDraggingRange=false;
 //todo sjednotit nazyvani uhlu v rad a deg
 
@@ -26,7 +26,7 @@ $(function(){
 
         if (building === false)return;
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
-        if (buildingByDraggingT.Path === false)return;
+        if (buildingByDraggingPath === false)return;
 
         r('T.UI Event: mousemove');
 
@@ -39,18 +39,18 @@ $(function(){
 
         //-------------------
 
-        if(buildingByDraggingT.Path.length>0){
+        if(buildingByDraggingPath.length>0){
 
 
             if(false){
 
 
-                if(buildingByDraggingT.Path.length>1) {
-                    var lastX = buildingByDraggingT.Path[buildingByDraggingT.Path.length - 2][0],
-                        lastY = buildingByDraggingT.Path[buildingByDraggingT.Path.length - 2][1];
+                if(buildingByDraggingPath.length>1) {
+                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0],
+                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
                 }else{
-                    var lastX = buildingByDraggingT.Path[buildingByDraggingT.Path.length - 1][0],
-                        lastY = buildingByDraggingT.Path[buildingByDraggingT.Path.length - 1][1];
+                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0],
+                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
                 }
 
 
@@ -61,18 +61,18 @@ $(function(){
                 if(dist>(building.size * map_model_size)){
 
                     //r('newpoint');
-                    buildingByDraggingT.Path.push([mapPos.x,mapPos.y]);
+                    buildingByDraggingPath.push([mapPos.x,mapPos.y]);
 
                 }else{
 
                     //r('aacpoint');
-                    buildingByDraggingT.Path[buildingByDraggingT.Path.length-1]=([mapPos.x,mapPos.y]);
+                    buildingByDraggingPath[buildingByDraggingPath.length-1]=([mapPos.x,mapPos.y]);
 
                 }
 
             }else{
 
-                buildingByDraggingT.Path[1]=[mapPos.x,mapPos.y];
+                buildingByDraggingPath[1]=[mapPos.x,mapPos.y];
 
             }
 
@@ -81,7 +81,7 @@ $(function(){
 
 
             //r('startpoint');
-            buildingByDraggingT.Path=[[mapPos.x,mapPos.y]];
+            buildingByDraggingPath=[[mapPos.x,mapPos.y]];
 
         }
 
@@ -115,10 +115,10 @@ $(function(){
             building_test.x = forceJoiningMapPos.x;
             building_test.y = forceJoiningMapPos.y;
 
-            forceJoining=createNewOrJoin(building_test);
+            T.UI.Menu.Building.forceJoining=createNewOrJoin(building_test);
 
-            if(forceJoining!=false){
-                map_selected_ids=[forceJoining.id];
+            if(T.UI.Menu.Building.forceJoining!=false){
+                map_selected_ids=[T.UI.Menu.Building.forceJoining.id];
                 //Map.drawMapAsync();
             }
 
@@ -130,7 +130,7 @@ $(function(){
             buildingByDraggingRange = building.design.data.range('x')/100*2;//todo better
 
 
-            buildingByDraggingT.Path=[];
+            buildingByDraggingPath=[];
             mouseMove(e);
 
             bufferDrawStartCtl();
@@ -153,23 +153,23 @@ $(function(){
     var buildingLoop=function (e) {
 
         if (building == false)return;
-        if (buildingByDraggingT.Path === false)return;
+        if (buildingByDraggingPath === false)return;
 
         //------------------------------------------------------
 
         objects_external_buffer=[];
 
 
-        //r(buildingByDraggingT.Path);
-        for(var ii=1,ll=buildingByDraggingT.Path.length;ii<ll;ii++) {
+        //r(buildingByDraggingPath);
+        for(var ii=1,ll=buildingByDraggingPath.length;ii<ll;ii++) {
 
 
-            var buildingByDraggingStartX = buildingByDraggingT.Path[ii-1][0];
-            var buildingByDraggingStartY = buildingByDraggingT.Path[ii-1][1];
+            var buildingByDraggingStartX = buildingByDraggingPath[ii-1][0];
+            var buildingByDraggingStartY = buildingByDraggingPath[ii-1][1];
 
 
-            var buildingByDraggingEndX = buildingByDraggingT.Path[ii][0];
-            var buildingByDraggingEndY = buildingByDraggingT.Path[ii][1];
+            var buildingByDraggingEndX = buildingByDraggingPath[ii][0];
+            var buildingByDraggingEndY = buildingByDraggingPath[ii][1];
 
 
             var buildingByDraggingPlusX = buildingByDraggingEndX-buildingByDraggingStartX;
@@ -197,7 +197,7 @@ $(function(){
             buildingByDraggingEndY = buildingByDraggingStartY + buildingByDraggingPlusXY.y;
 
 
-            //r(buildingByDraggingT.Path);
+            //r(buildingByDraggingPath);
 
 
             var distance = buildingByDraggingPlusDistDeg.dist;//T.Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
@@ -295,7 +295,7 @@ $(function(){
 
         if (building == false)return;
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
-        if (buildingByDraggingT.Path === false)return;
+        if (buildingByDraggingPath === false)return;
 
         r('T.UI Event: mouseup');
 
@@ -311,7 +311,7 @@ $(function(){
         objects_external_buffer=[];
 
 
-        buildingByDraggingT.Path=false;
+        buildingByDraggingPath=false;
 
 
         Map.loadMap();
@@ -321,7 +321,7 @@ $(function(){
         //------------------------------------------
         if(objects_external_buffer_length==0){
             T.UI.message.info(T.Locale.get('building by dragging',building.subtype,'info'));
-            buildingStart(building._prototypeId);//todo should it be here _prototypeId
+            T.UI.Menu.Building.start(building._prototypeId);//todo should it be here _prototypeId
         }
         //------------------------------------------
 
