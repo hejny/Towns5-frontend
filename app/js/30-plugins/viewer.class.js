@@ -5,76 +5,79 @@
 //======================================================================================================================
 
 
-/**
- * Creates object viewer
- * @param {string} uri
- * @param {object} conditions of opened object
- * @param {string} title
- * @param {string} content
- * @param {function} open_callback
- * @constructor
- */
-Towns.Viewer = function(uri,conditions,title,content,open_callback){
-
-    this.uri=uri;
-    this.conditions=conditions;
-
-    var self=this;
-    this.page = new Towns.Page(
-        uri,
-        title,
-        content
-    );
+Towns.Viewer = class {
 
 
-    this.open_callback=open_callback;
+    /**
+     * Creates object viewer
+     * @param {string} uri
+     * @param {object} conditions of opened object
+     * @param {string} title
+     * @param {string} content
+     * @param {function} open_callback
+     * @constructor
+     */
+    constructor(uri, conditions, title, content, open_callback) {
 
-    this.opened=false;
+        this.uri = uri;
+        this.conditions = conditions;
 
-};
+        var self = this;
+        this.page = new Towns.Page(
+            uri,
+            title,
+            content
+        );
 
 
-/**
- * Open viewer
- * @param {number} collection 0=object_prototypes, 1=objects_external
- * @param {string} id
- */
-Towns.Viewer.prototype.open = function(collection,id){
+        this.open_callback = open_callback;
 
-    this.opened = {
-        collection: collection
+        this.opened = false;
+
     };
 
 
-    if(collection==0){
+    /**
+     * Open viewer
+     * @param {number} collection 0=object_prototypes, 1=objects_external
+     * @param {string} id
+     */
+    open(collection, id) {
 
-        this.opened.object = object_prototypes.getById(id);//ArrayFunctions.id2item(object_prototypes,id);
-        r('Opening object prototype '+this.opened.object.name+'.');
-
-
-    }else
-     if(collection==1){
-
-         this.opened.object = objects_external.getById(id);//ArrayFunctions.id2item(objects_external,id);
-         r('Opening object '+this.opened.object.name+'.');
-
-     }else{
-        throw new Error(''+collection+' is invalid identificator of collection!');
-    }
+        this.opened = {
+            collection: collection
+        };
 
 
-    var viewer=this;
-    this.page.open(function(open_callback,object){
+        if (collection == 0) {
 
-        //-----------------------------------------
-
-        open_callback(object,$('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
+            this.opened.object = object_prototypes.getById(id);//ArrayFunctions.id2item(object_prototypes,id);
+            r('Opening object prototype ' + this.opened.object.name + '.');
 
 
-        //-----------------------------------------
+        } else if (collection == 1) {
 
-    },[this.open_callback,this.opened.object]);
+            this.opened.object = objects_external.getById(id);//ArrayFunctions.id2item(objects_external,id);
+            r('Opening object ' + this.opened.object.name + '.');
 
+        } else {
+            throw new Error('' + collection + ' is invalid identificator of collection!');
+        }
+
+
+        var viewer = this;
+        this.page.open(function (open_callback, object) {
+
+            //-----------------------------------------
+
+            open_callback(object, $('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
+
+
+            //-----------------------------------------
+
+        }, [this.open_callback, this.opened.object]);
+
+
+    };
 
 };
-
