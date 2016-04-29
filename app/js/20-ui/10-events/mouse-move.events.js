@@ -157,7 +157,7 @@ $(function(){
 
                     var map_click_x=(e.clientX-(window_width/2));
                     var map_click_y=(e.clientY-(window_height/2));
-                    var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+                    var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
                     building.x=mapPos.x;
                     building.y=mapPos.y;

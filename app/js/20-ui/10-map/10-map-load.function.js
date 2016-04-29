@@ -3,7 +3,7 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-
+T.setNamespace('UI.Map');
 
 
 //todo refactor this should not be here
@@ -26,8 +26,8 @@ T.UI.Map.loadMap = function(){
     map_request_ajax=T.TownsAPI.townsAPI.get(
         'objects',
         {
-            x: Math.round(map_x),
-            y: Math.round(map_y),
+            x: Math.round(T.UI.Map.map_center.x),
+            y: Math.round(T.UI.Map.map_center.y),
             radius: map_radius,
             //keys: ,
 
@@ -67,7 +67,7 @@ T.UI.Map.loadMapRequestCallback=function(response){
     tstart('generating map');
 
     tstart('getCompleteObjects');
-    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response), new T.Position(Math.floor(map_x),Math.floor(map_y)), map_radius);
+    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response), new T.Position(Math.floor(T.UI.Map.map_center.x),Math.floor(T.UI.Map.map_center.y)), map_radius);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
@@ -81,7 +81,7 @@ T.UI.Map.loadMapRequestCallback=function(response){
     //----------------------------------
 
     tstart('getMapOfTerrainCodes');
-    map_array = map_data_terrains.getMapOfTerrainCodes(new T.Position(Math.floor(map_x),Math.floor(map_y)),map_radius);
+    map_array = map_data_terrains.getMapOfTerrainCodes(new T.Position(Math.floor(T.UI.Map.map_center.x),Math.floor(T.UI.Map.map_center.y)),map_radius);
     tend('getMapOfTerrainCodes');
 
     tend('generating map');
@@ -122,8 +122,8 @@ T.UI.Map.loadMapRequestCallback=function(response){
 
     /*map_data.forEach(function(object){
 
-        var x=Math.round(object.x)-Math.round(map_x-(map_radius));
-        var y=Math.round(object.y)-Math.round(map_y-(map_radius));
+        var x=Math.round(object.x)-Math.round(T.UI.Map.map_center.x-(map_radius));
+        var y=Math.round(object.y)-Math.round(T.UI.Map.map_center.y-(map_radius));
 
         if(x>=0)
             if(y>=0)

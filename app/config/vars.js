@@ -114,9 +114,10 @@ var map_zoom_delta=0;
 var map_rotation_delta=0;
 var map_slope_delta=0;
 
+T.setNamespace('UI.Map');
 
-var map_x=false;//todo Static object Map
-var map_y=false;
+T.UI.Map.map_center = new T.Position(0,0);//todo Static object Map
+
 
 
 var map_x_delta=0;//todo refactor delete all delta
@@ -143,7 +144,7 @@ var rockMaxDark=50;
 //----------------Extended values
 
 var map_radius;
-/*todo refactor map_x, map_y to map_center*/
+/*todo refactor T.UI.Map.map_center.x, T.UI.Map.map_center.y to map_center*/
 
 
 

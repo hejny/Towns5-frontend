@@ -3,7 +3,7 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-
+T.setNamespace('UI.Map');
 
 /**
  * Updates map position, zoom, ect. and run DrawMap
@@ -21,8 +21,8 @@ T.UI.Map.updateMap = function(){
     map_rotation+=map_rotation_delta*ms/1000;
     map_slope+=map_slope_delta*ms/1000;
 
-    map_x+=map_x_delta*ms/1000;
-    map_y+=map_y_delta*ms/1000;
+    T.UI.Map.map_center.x+=map_x_delta*ms/1000;
+    T.UI.Map.map_center.y+=map_y_delta*ms/1000;
     map_radius+=map_radius_delta;//Tady se ms neuplatnuji
 
 
@@ -34,8 +34,8 @@ T.UI.Map.updateMap = function(){
     map_rotation=Math.round(map_rotation*10)/10;
     map_slope=Math.round(map_slope*10)/10;
 
-    map_x=Math.round(map_x*100)/100;
-    map_y=Math.round(map_y*100)/100;
+    T.UI.Map.map_center.x=Math.round(T.UI.Map.map_center.x*100)/100;
+    T.UI.Map.map_center.y=Math.round(T.UI.Map.map_center.y*100)/100;
     map_radius=Math.round(map_radius);
 
     //----------------bounds
@@ -77,7 +77,7 @@ T.UI.Map.updateMap = function(){
     if(map_x_delta || map_y_delta || map_radius_delta || map_zoom_delta || map_rotation_delta || !is((map_radius*2))){
 
 
-        //T.URI.position=new T.Position(map_x,map_y);
+        //T.URI.position=new T.Position(T.UI.Map.map_center.x,T.UI.Map.map_center.y);
         T.URI.write();
 
         //r(canvas_height,canvas_width,map_field_size,map_zoom_m);
@@ -143,8 +143,8 @@ T.UI.Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
     map_y_delta+=y_delta/100000;
 
 
-    map_x+=x_delta;
-    map_y+=y_delta;
+    T.UI.Map.map_center.x+=x_delta;
+    T.UI.Map.map_center.y+=y_delta;
 
 
     //----------------

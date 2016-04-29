@@ -13,7 +13,7 @@ r('Starting Towns...');
 T.URI.read();
 
 
-r('Starting Towns on '+map_x+','+map_y+'.');
+r('Starting Towns on '+T.UI.Map.map_center.x+','+T.UI.Map.map_center.y+'.');
 r('Starting Towns with opened object '+T.URI.object+'.');
 r('Starting Towns with opened plugin '+T.URI.plugin+'.');
 

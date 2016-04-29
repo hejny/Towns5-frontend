@@ -3,6 +3,9 @@
  * @fileOverview Creates User interface functions
  */
 //======================================================================================================================
+T.setNamespace('UI');
+
+
 
 T.UI.popupWindow = class {
 

@@ -210,7 +210,7 @@ T.Plugins.install(new T.Plugins.Page(
                             
 
                             T.UI.popupWindow.close();
-                            T.UI.logged();
+                            T.UI.Status.logged();
                             loadObjectPrototypes();//todo should it be here?
 
 

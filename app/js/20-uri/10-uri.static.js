@@ -49,20 +49,20 @@ T.URI=class {
 
         if (is(position)) {
 
-            map_x = position.x;//todo Static object Map
-            map_y = position.y;
+            T.UI.Map.map_center.x = position.x;//todo Static object Map
+            T.UI.Map.map_center.y = position.y;
 
         } else {
 
-            map_x = 20601;
-            map_y = 378552;
+            T.UI.Map.map_center.x = 20601;
+            T.UI.Map.map_center.y = 378552;
 
-            //map_x=(Math.random()-0.5)*1000000;
-            //map_y=(Math.random()-0.5)*1000000;
+            //T.UI.Map.map_center.x=(Math.random()-0.5)*1000000;
+            //T.UI.Map.map_center.y=(Math.random()-0.5)*1000000;
 
         }
 
-        if (isNaN(map_x) || isNaN(map_y)) {
+        if (isNaN(T.UI.Map.map_center.x) || isNaN(T.UI.Map.map_center.y)) {
             throw new Error('Map x or y is NaN.');
         }
 
@@ -92,9 +92,9 @@ T.URI=class {
         if (pathname == '') pathname = '/';
 
 
-        if (isDefined(map_x)) {
+        if (isDefined(T.UI.Map.map_center.x)) {
             //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
-            var hash = '#' + Math.round(map_x) + ',' + Math.round(map_y);
+            var hash = '#' + Math.round(T.UI.Map.map_center.x) + ',' + Math.round(T.UI.Map.map_center.y);
         } else {
             var hash = '';
         }

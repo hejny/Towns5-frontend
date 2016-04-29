@@ -1,4 +1,10 @@
-//todo headers
+/**
+ * @author ©Towns.cz
+ * @fileOverview Creates class T.UI.Compatibility
+ */
+//======================================================================================================================
+T.setNamespace('UI');
+
 
 T.UI.Compatibility = class {
 

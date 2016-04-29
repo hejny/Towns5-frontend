@@ -3,6 +3,7 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
+T.setNamespace('UI.Map');
 
 
 /**
@@ -22,8 +23,8 @@ T.UI.Map.storiesHTML = function(objects) {
     objects.forEach(function(object){
 
 
-        object_xc = object.x - map_x;
-        object_yc = object.y - map_y;
+        object_xc = object.x - T.UI.Map.map_center.x;
+        object_yc = object.y - T.UI.Map.map_center.y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
