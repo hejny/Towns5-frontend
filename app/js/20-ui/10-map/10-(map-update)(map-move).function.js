@@ -93,6 +93,7 @@ T.UI.Map.updateMap = function(){
         if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN after updateMap and before loadMap';
         T.UI.Map.loadMapAsync();
 
+
     }
 
 
@@ -176,6 +177,9 @@ T.UI.Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
 
 
     $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');
+
+
+    T.UI.Map.mapOutRefresh();
 
 
     if(autoUpdate){
