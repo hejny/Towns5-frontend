@@ -44,23 +44,22 @@ T.UI.Map.Coords = class{
 
     }
 
-//======================================================================================================================
+    //======================================================================================================================
 
 
-    //todo maybe refactor to positon
-    static mapPos2MouseCenterPos(map_position_x,map_position_y) {//todo refactor use this function in all mapDraws
+    static convertPositionToMouseCenterPosition(position) {
 
 
-        object_xc = map_position_x - T.UI.Map.map_center.x;
-        object_yc = map_position_y - T.UI.Map.map_center.y;
+        var object_xc = position.x - T.UI.Map.map_center.x;
+        var object_yc = position.y - T.UI.Map.map_center.y;
 
-        object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
-        object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
+        var object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
+        var object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
         object_screen_x += (window_width / 2);
         object_screen_y += (window_height/ 2);
 
-        return(new T.Position(object_screen_x,object_screen_y));
+        return(new T.Position(object_screen_x,object_screen_y));//todo create Class MouseCenterPosition
 
     }
 
