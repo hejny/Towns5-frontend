@@ -87,7 +87,7 @@ T.Plugins.install(new T.Plugins.Page(
 
                 $('#login-form').find('button').html(T.Locale.get('send'));
                 T.UI.popupWindow.close();
-                T.UI.message(T.Locale.get('feedback','success'),'success');
+                T.UI.Messages.message(T.Locale.get('feedback','success'),'success');
 
             });
             request.fail(function( response ){

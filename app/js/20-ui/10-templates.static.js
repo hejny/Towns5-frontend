@@ -3,6 +3,10 @@
  * @fileOverview Creates object T.Templates with static methods
  */
 //======================================================================================================================
+T.setNamespace('UI');
+
+
+
 
 /**
  * Container of html templates

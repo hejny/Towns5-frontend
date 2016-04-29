@@ -26,8 +26,8 @@ function create(object,callback=false){
     var x=Math.round(object.x);
     var y=Math.round(object.y);
 
-    x=x-Math.round(map_x)+map_radius;
-    y=y-Math.round(map_y)+map_radius;
+    x=x-Math.round(T.UI.Map.map_center.x)+map_radius;
+    y=y-Math.round(T.UI.Map.map_center.y)+map_radius;
 
 
     /*if([1/!*,5*!/,11].indexOf(map_bg_data[y][x])!==-1){

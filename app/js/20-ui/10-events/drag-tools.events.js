@@ -35,7 +35,7 @@ $(function(){
         var map_click_x=(e.clientX-(window_width/2));
         var map_click_y=(e.clientY-(window_height/2));
 
-        var mapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+        var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         //-------------------
 
@@ -108,7 +108,7 @@ $(function(){
 
 
 
-            var forceJoiningMapPos=T.UI.Map.mouseCenterPos2MapPos(map_click_x,map_click_y);
+            var forceJoiningMapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
 
             var building_test=building.clone();
@@ -320,7 +320,7 @@ $(function(){
 
         //------------------------------------------
         if(objects_external_buffer_length==0){
-            T.UI.message.info(T.Locale.get('building by dragging',building.subtype,'info'));
+            T.UI.Messages.message.info(T.Locale.get('building by dragging',building.subtype,'info'));
             T.UI.Menu.Building.start(building._prototypeId);//todo should it be here _prototypeId
         }
         //------------------------------------------

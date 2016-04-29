@@ -102,7 +102,7 @@ T.Plugins.install(new T.Plugins.Page(
                     //r(response);
 
                     T.UI.popupWindow.close();
-                    T.UI.logged();
+                    T.UI.Status.logged();
                     loadObjectPrototypes();//todo should it be here?
 
                     //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
@@ -117,7 +117,7 @@ T.Plugins.install(new T.Plugins.Page(
                     $('#login-form').find('.messages').html('<div class="error">'+T.Locale.get('auth wrong')+'</div>');
 
                     T.TownsAPI.townsAPI.token=false;
-                    T.UI.logged();
+                    T.UI.Status.logged();
                     //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
                     //setInputError($("input[name='username']")[0],T.Locale.get('user','username','wrong'));

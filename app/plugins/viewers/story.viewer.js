@@ -57,12 +57,12 @@ T.Plugins.install(new T.Plugins.Viewer(
                 T.TownsAPI.townsAPI.delete('objects/'+object.id
                     ,function(){
 
-                        T.UI.message.success(T.Locale.get('story','delete','success'));
+                        T.UI.Messages.message.success(T.Locale.get('story','delete','success'));
 
                     }
                     ,function(e){
 
-                        T.UI.message.error(T.Locale.get('story','delete','error'));
+                        T.UI.Messages.message.error(T.Locale.get('story','delete','error'));
 
                     }
                 );//todo smarter deleting of objects

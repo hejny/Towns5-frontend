@@ -11,6 +11,6 @@ T.TownsAPI.townsAPI = new T.TownsAPI(TOWNS_API_URL,T.Storage.load('token'));
 
 $(function(){//todo maybe in other file
 
-    T.UI.logged();
+    T.UI.Status.logged();
 
 });
