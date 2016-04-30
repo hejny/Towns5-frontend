@@ -49,8 +49,7 @@ $(function(){
 
 
     //----------------------
-
-    var BorderMoveRegion=100;
+    /*var BorderMoveRegion=100;
     var BorderMoveSpeed=30;
     var BorderMoveDelay=600;
 
@@ -103,14 +102,14 @@ $(function(){
 
         BorderMoveX=0;BorderMoveY=0;
 
-    });
+    });*/
 
 
     var mouseMove=function (e) {
         //r('mouseMove');
 
 
-
+        /*
         if(e.clientX<BorderMoveRegion){
             BorderMoveX=BorderMoveSpeed;//r('set borders');
         }else
@@ -136,7 +135,7 @@ $(function(){
             BorderMoveQ=false;
             BorderMoveDelay_=BorderMoveDelay;
             T.UI.Map.updateMap();
-        }
+        }*/
 
 
 
