@@ -43,11 +43,11 @@ T.Plugins.Editor = class {
             false,
             function () {
 
-                if (self.opened == false)
+                if (self.opened === false)
                     throw new Error('Editor error - missing object identificator!');
 
 
-                if (self.opened.collection == 0) {
+                if (self.opened.collection === 0) {
 
                     T.User.object_prototypes.setById(self.opened.object.id, self.opened.object);
 
@@ -132,7 +132,7 @@ T.Plugins.Editor = class {
             this.opened.object.id = generateID();
 
 
-            if (collection == 0) {
+            if (collection === 0) {
 
                 T.User.object_prototypes.push(this.opened.object);
                 T.UI.Menu.Prototypes.menu(this.opened.object.type, this.opened.object.subtype);
@@ -153,7 +153,7 @@ T.Plugins.Editor = class {
 
         } else {
 
-            if (collection == 0) {
+            if (collection === 0) {
 
                 this.opened.object = T.User.object_prototypes.getById(id);
                 r('Opening object prototype ' + this.opened.object.name + '.');
@@ -210,7 +210,7 @@ T.Plugins.Editor = class {
 
             //-----------------Delete
             $('#editor-object-delete').click(function () {
-                if (editor.opened.collection == 0) {
+                if (editor.opened.collection === 0) {
 
                     r('Deleting object prototype ' + object.name + '.');
 
@@ -236,7 +236,7 @@ T.Plugins.Editor = class {
 
             //-----------------Duplicate
             $('#editor-object-duplicate').click(function () {
-                if (editor.opened.collection == 0) {
+                if (editor.opened.collection === 0) {
 
                     r('Duplicating object prototype ' + object.name + '.');
 

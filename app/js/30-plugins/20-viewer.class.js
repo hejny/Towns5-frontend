@@ -49,7 +49,7 @@ T.Plugins.Viewer = class {
         };
 
 
-        if (collection == 0) {
+        if (collection === 0) {
 
             this.opened.object = T.User.object_prototypes.getById(id);//T.ArrayFunctions.id2item(T.User.object_prototypes,id);
             r('Opening object prototype ' + this.opened.object.name + '.');

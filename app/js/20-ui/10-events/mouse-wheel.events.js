@@ -11,7 +11,7 @@ $(function(){
         //e.preDefault();
         r('T.UI Event: mousewheel');
 
-        if(specialCursor==true && building==false){
+        if(specialCursor=== true && building=== false){
 
             if(e.deltaY>0){
                 //todo sounds ion.sound.play("door_bump");
@@ -24,7 +24,7 @@ $(function(){
 
 
         }else
-        if(building!==false){
+        if(building!== false){
 
             if(e.deltaY>0){
                 //todo sounds ion.sound.play("door_bump");

@@ -63,14 +63,14 @@ $(function(){
     setInterval(
         function () {
 
-            //if (buildingByDraggingStartX === false)return; todo opravdu?
+            //if (buildingByDraggingStartX ==== false)return; todo opravdu?
 
             //r(touchScreen);
             //if (touchScreen)return; //todo Funguje to?
             if (window_opened)return;
 
 
-            if(BorderMoveX!==0 || BorderMoveY!==0){
+            if(BorderMoveX!== 0 || BorderMoveY!== 0){
 
                 BorderMoveDelay_-=100;
 
@@ -131,7 +131,7 @@ $(function(){
         }
 
 
-        if(BorderMoveX==0 && BorderMoveY==0 && BorderMoveQ){
+        if(BorderMoveX=== 0 && BorderMoveY=== 0 && BorderMoveQ){
             BorderMoveQ=false;
             BorderMoveDelay_=BorderMoveDelay;
             T.UI.Map.updateMap();
@@ -148,7 +148,7 @@ $(function(){
 
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building
-            if(building!==false){
+            if(building!== false){
                 if(building.subtype!=='wall'){
 
                     //r('preview');

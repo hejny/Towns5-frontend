@@ -21,8 +21,8 @@ $(function(){
     var mouseMove=function (e) {
 
         //r('mouseMove',building,buildingByDragging);
-        //if (building === false)r('building === false');
-        //if (buildingByDragging === false)r('buildingByDragging === false');
+        //if (building ==== false)r('building ==== false');
+        //if (buildingByDragging ==== false)r('buildingByDragging ==== false');
 
         if (building === false)return;
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
@@ -95,7 +95,7 @@ $(function(){
 
     var mouseDown=function (e) {
 
-        if (building == false)return;
+        if (building === false)return;
 
         r('T.UI Event: mousedown');
 
@@ -117,7 +117,7 @@ $(function(){
 
             T.UI.Menu.Building.forceJoining=createNewOrJoin(building_test);
 
-            if(T.UI.Menu.Building.forceJoining!=false){
+            if(T.UI.Menu.Building.forceJoining!== false){
                 map_selected_ids=[T.UI.Menu.Building.forceJoining.id];
                 //T.UI.Map.drawMapAsync();
             }
@@ -152,7 +152,7 @@ $(function(){
 
     var buildingLoop=function (e) {
 
-        if (building == false)return;
+        if (building === false)return;
         if (buildingByDraggingPath === false)return;
 
         //------------------------------------------------------
@@ -232,7 +232,7 @@ $(function(){
 
                  tmp.rot = rot;
 
-                 if (ii==1 && i == 0) {
+                 if (ii==1 && i === 0) {
                  tmp.res = tmp.res_node;
                  } else if (ii==ll-1 && i == l) {
                  tmp.res = tmp.res_node;
@@ -293,7 +293,7 @@ $(function(){
 
     var mouseUp=function (e) {
 
-        if (building == false)return;
+        if (building === false)return;
         if (dragging_subtypes.indexOf(building.subtype)==-1)return;
         if (buildingByDraggingPath === false)return;
 
@@ -319,7 +319,7 @@ $(function(){
         T.UI.Map.MapBuffer.stop();
 
         //------------------------------------------
-        if(objects_external_buffer_length==0){
+        if(objects_external_buffer_length=== 0){
             T.UI.Messages.message.info(T.Locale.get('building by dragging',building.subtype,'info'));
             T.UI.Menu.Building.start(building._prototypeId);//todo should it be here _prototypeId
         }

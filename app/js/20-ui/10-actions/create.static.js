@@ -169,7 +169,7 @@ function createBuilding(object,callback){
 
 
 
-    if(join===false) {
+    if(join=== false) {
         //------------------------------------------------------------Normal building
         r('createBuilding: Normal building');
 

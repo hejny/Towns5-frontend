@@ -30,7 +30,7 @@ T.User.loadObjectPrototypes=function(callback=false){
         });
 
 
-        if(callback!=false){
+        if(callback!== false){
             callback();
         }
 

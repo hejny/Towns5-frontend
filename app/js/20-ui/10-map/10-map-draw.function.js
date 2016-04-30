@@ -12,7 +12,7 @@ T.setNamespace('UI.Map');
 T.UI.Map.drawMap = function(){
 
     //r(map_ctx);
-    if (map_ctx == false)return;
+    if (map_ctx === false)return;
     //r('drawMap');
     if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN';
     t('drawMap start');

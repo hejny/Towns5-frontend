@@ -65,7 +65,7 @@ function mapWindow(map){
                     g = map[y][x]*5,
                     b = map[y][x]*5;
 
-            }else if(map[y][x]==true){
+            }else if(map[y][x]=== true){
                 var r = 255,
                     g = 255,
                     b = 255;

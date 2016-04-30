@@ -139,7 +139,7 @@ T.UI.Map.loadMapRequestCallback=function(response){
 
     /*T.ArrayFunctions.iterate2D(map_collision_data,function(y,x){
 
-        if(map_collision_data[y][x]==false){
+        if(map_collision_data[y][x]==== false){
 
 
             for(var yNext=y-1;yNext<=y+1;yNext++){
@@ -151,7 +151,7 @@ T.UI.Map.loadMapRequestCallback=function(response){
                             if(xNext<(map_radius*2))
                                 if(yNext<(map_radius*2))
                                     if(xNext==x?yNext!=y:yNext==y)
-                                        if(map_collision_data[yNext][xNext]==true){
+                                        if(map_collision_data[yNext][xNext]=== true){
 
                                             map_collision_data[yNext][xNext]=-1;
                                         }

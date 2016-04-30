@@ -304,14 +304,14 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 $('[category="'+category+'"]').each(function(){
 
-                    if($(this).find('th').length!=0)return;
+                    if($(this).find('th').length!== 0)return;
 
                     if($(this).is(':visible'))hide_category = false;
 
                 }).each(function(){
 
 
-                    if($(this).find('th').length==0)return;
+                    if($(this).find('th').length=== 0)return;
 
                     if(hide_category){
                         $(this).hide();
@@ -410,7 +410,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
 
-                if(block_selected_path.length!=0){
+                if(block_selected_path.length!== 0){
                 //-----------------------ungroup
                     var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
 
@@ -477,7 +477,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             //-----------------------Delete
 
-            if (block_selected_path.length != 0) {
+            if (block_selected_path.length !== 0) {
 
                 var icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
 

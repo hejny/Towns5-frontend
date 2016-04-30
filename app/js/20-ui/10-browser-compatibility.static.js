@@ -27,7 +27,7 @@ T.UI.Compatibility = class {
         for (var key in compatibility) {
 
             compatibility[key] = this[key]();
-            if (compatibility[key] == false)ok = false;
+            if (compatibility[key] === false)ok = false;
 
         }
 
