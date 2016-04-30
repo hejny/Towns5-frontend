@@ -44,13 +44,14 @@ $(function(){
 
             if(false){
 
+                var lastX,lastY;
 
                 if(buildingByDraggingPath.length>1) {
-                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0],
-                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
+                    lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0];
+                    lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
                 }else{
-                    var lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0],
-                        lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
+                    lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0];
+                    lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
                 }
 
 

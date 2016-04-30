@@ -219,21 +219,23 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     //todo multiple events eg. change and keypress
                     //-------------------------------------------Setting changing event
+                    var event;
+
                     if ($(this).attr('type') == 'range') {
-                        var event = 'input';
+                        event = 'input';
 
                     }else
                     if($(this).attr('type') == 'checkbox'){
 
-                        var event = 'click';
+                        event = 'click';
 
                     }else
                     if($(this).attr('type') == 'radio'){
 
-                        var event = 'click';
+                        event = 'click';
 
                     }else{
-                        var event = 'change';
+                        event = 'change';
                     }
                     //-------------------------------------------
 
@@ -368,7 +370,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Group
-                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
 
                 icon.click(function () {
 
@@ -389,7 +391,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Link
-                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
 
                 icon.click(function () {
 
@@ -412,7 +414,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 if(block_selected_path.length!== 0){
                 //-----------------------ungroup
-                    var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
+                    icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
 
                     icon.click(function () {
 
@@ -445,7 +447,7 @@ T.Plugins.install(new T.Plugins.Editor(
             //-----------------------
 
             //-----------------------group
-            var icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
+            icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
 
             icon.click(function () {
 

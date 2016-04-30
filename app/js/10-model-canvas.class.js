@@ -160,10 +160,12 @@ T.ModelCanvas = class {
 
         var size = Math.pow(Math.E, this.zoom) / 2;//todo maybe better
 
+        var selected;
+
         if (this.selected_path instanceof Array && this.selected_path.length === 0) {
-            var selected = true;
+            selected = true;
         } else {
-            var selected = false;
+            selected = false;
         }
 
 

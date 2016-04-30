@@ -86,7 +86,7 @@ T.UI.Map.objectsDraw = function(ctx,objects) {
 
     //lastY=0;
 
-    for (var i = 0; i < map_draw.length; i++) {
+    for (i = 0; i < map_draw.length; i++) {
 
         if (map_draw[i][0] == 'building') {
 

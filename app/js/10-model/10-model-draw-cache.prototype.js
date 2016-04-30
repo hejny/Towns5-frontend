@@ -180,10 +180,10 @@ var BuildingImages={};
  */
 T.Model.prototype.cacheHash = function(size, rotation, slope){
 
-    var rotation=((rotation+this.rotation)%360);
+    rotation=((rotation+this.rotation)%360);
     rotation=Math.round(rotation/15)*15;
     
-    var size=(size+this.size);
+    size=(size+this.size);
     size=Math.round(size/0.1)*0.1;
 
     var hash = md5(JSON.stringify(this.particles)+' '+rotation+' '+size);
