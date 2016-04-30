@@ -47,7 +47,7 @@ T.UI.Map.Coords = class{
     //======================================================================================================================
 
 
-    static convertPositionToMouseCenterPosition(position) {
+    static convertPositionToPxlCenterPosition(position) {
 
 
         var object_xc = position.x - T.UI.Map.map_center.x;
@@ -56,12 +56,39 @@ T.UI.Map.Coords = class{
         var object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         var object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;
 
-        object_screen_x += (window_width / 2);
-        object_screen_y += (window_height/ 2);
 
-        return(new T.Position(object_screen_x,object_screen_y));//todo create Class MouseCenterPosition
+        return(new T.Position(object_screen_x,object_screen_y));
+
 
     }
+
+
+
+
+    static convertPositionToScreenPosition(position) {
+
+
+        var position = this.convertPositionToPxlCenterPosition(position);
+
+        position.x += (window_width / 2);
+        position.y += (window_height/ 2);
+
+        return(position);
+
+    }
+
+
+    static convertPositionToCanvasPosition(position) {
+
+        var position = this.convertPositionToPxlCenterPosition(position);
+
+        position.x += (canvas_width / 2);
+        position.y += (canvas_height/ 2);
+
+        return(position);
+
+    }
+
 
 };
 

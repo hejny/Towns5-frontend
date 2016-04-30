@@ -152,14 +152,22 @@ T.TownsAPI = class {
             var value = query_data[key];
 
             if (value instanceof Array) {
-                value = value.join(',');
+                for(var i=0,l=value.length;i<l;i++){
+
+                    query_data_string += query_separator + key + '[]=' + value[i];
+                    query_separator = '&';
+
+                }
+            }else{
+
+                value = encodeURIComponent(value);
+
+                query_data_string += query_separator + key + '=' + value;
+
+                query_separator = '&';
+
             }
 
-            value = encodeURIComponent(value);
-
-            query_data_string += query_separator + key + '=' + value;
-
-            query_separator = '&';
 
         }
 

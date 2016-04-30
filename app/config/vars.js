@@ -127,6 +127,7 @@ var map_radius_delta=0;
 //----------------
 
 var map_selected_ids = [];
+//var map_out_ids = [];
 
 var terrainCount=14;
 

@@ -9,66 +9,148 @@ $(function(){
 
     T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
 
-        console.log(stories);
+        //console.log(stories);
 
         var html = '';
 
 
         var stories=new T.Objects.Array(result);//todo refactor TownsAPI should return T.Objects.Array
-        stories.forEach(function(story){
+        //stories.forEach(function(story){map_out_ids.push(story.id);});
 
-            html+='<div class="story" t:position="'+story.getPosition()+'">'/*+story.getPosition()*/+'xx</div>';//
 
+        var $stories_html=$(T.UI.Map.storiesHTML(stories));
+        $stories_html.each(function () {
+            $(this).css('border','3px solid #FB9500');
         });
 
+        //$stories_html.find('.story').append('<i class="fa fa-arrow-up" aria-hidden="true"></i>');
+        //r($stories_html);
 
-
-
-        $('#map-out').html(html);
+        $('#map-out').html($stories_html.outerHTML());
 
 
         T.UI.Map.mapOutRefresh = function(){
+
+
+            //return;
+
+
+            var bounds={
+                top: 60,
+                bottom: window_height,
+                left: 0,
+                right: window_width-60
+            };
+
 
             //var map_center = T.UI.Map.map_center;
             //var map_center_ = map_center.clone().multiply(-1);
 
             $("#map-out").find('.story').each(function () {
 
-                var position = new T.Position($(this).attr('t:position'));
+                var $this=$(this);
+
+                var width = parseInt($this.css('width'));
+                var height = parseInt($this.css('height'));
+
+                var position = new T.Position($this.attr('t:position'));
+                var anchor = new T.Position($this.attr('t:anchor'));
 
                 /*var positionPolar = position.plus(map_center_).getPositionPolar();
                 positionPolar.distance = positionPolar.distance*0.9;
                 position = positionPolar.getPosition().plus(map_center);*/
 
 
-                mouseCenterposition = T.UI.Map.Coords.convertPositionToMouseCenterPosition(position);
+                screenPosition = T.UI.Map.Coords.convertPositionToScreenPosition(position);
+                screenPosition.x-=anchor.x;
+                screenPosition.y-=anchor.y;
 
 
-                if(mouseCenterposition.y<60){
 
-                    /*(
-                    (window_height/2)-mouseCenterposition.y
-                        /
-                    (window_height/2)-60
-                    )*/
+                var out = false;
 
-                    mouseCenterposition.y=60;
+                //----------------------------------
+                if(screenPosition.y<bounds.top){out = true;
+
+                    screenPosition.x= T.Math.proportions(
+
+                        screenPosition.y,
+                        bounds.top,
+                        (window_height/2),
+                        screenPosition.x,
+                        (window_width/2)
+
+                    );
+
+                    screenPosition.y=bounds.top;
+
+                }else
+                if(screenPosition.y>bounds.bottom-height){out = true;
+
+                    screenPosition.x= T.Math.proportions(
+
+                        screenPosition.y,
+                        bounds.bottom-height,
+                        (window_height/2),
+                        screenPosition.x,
+                        (window_width/2)
+
+                    );
+
+                    screenPosition.y=bounds.bottom-height;
+                }
+                //------------
+                if(screenPosition.x<bounds.left){out = true;
+
+                    screenPosition.x= T.Math.proportions(
+
+                        screenPosition.x,
+                        bounds.left,
+                        (window_width/2),
+                        screenPosition.y,
+                        (window_height/2)
+
+                    );
+
+                    screenPosition.x=bounds.left;
+
+                }else
+                if(screenPosition.x>bounds.right-width){out = true;
+
+                    screenPosition.x= T.Math.proportions(
+
+                        screenPosition.x,
+                        bounds.right-width,
+                        (window_width/2),
+                        screenPosition.y,
+                        (window_height/2)
+
+                    );
+
+                    screenPosition.x=bounds.right-width;
+
+                }
+                //----------------------------------
+
+                if(out){
+
+                    $this
+                        .css('position', 'fixed')
+                        .css('left', screenPosition.x)
+                        .css('top', screenPosition.y)
+
+
+
+
+                        .show()
+                    ;
+
+                }else{
+
+                    $this.hide();
+
                 }
 
-                if(mouseCenterposition.x<0){
-                    mouseCenterposition.x=0;
-                }
-
-
-
-                $(this)
-                    .css('position', 'fixed')
-                    .css('left', mouseCenterposition.x)
-                    .css('top', mouseCenterposition.y)
-                ;
-
-
-                //r(mouseCenterposition);
 
 
             });

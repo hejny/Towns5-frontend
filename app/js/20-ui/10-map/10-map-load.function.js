@@ -28,8 +28,8 @@ T.UI.Map.loadMap = function(){
         {
             x: Math.round(T.UI.Map.map_center.x),
             y: Math.round(T.UI.Map.map_center.y),
-            radius: map_radius,
-            //keys: ,
+            radius: map_radius
+            //not: map_out_ids
 
         },//todo range and order by time
         T.UI.Map.loadMapRequestCallback
