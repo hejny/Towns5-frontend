@@ -92,7 +92,7 @@ T.UI.popupWindow = class {
 
         window_opened = true;
 
-    };
+    }
 
 
     /**

@@ -454,7 +454,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 inner_block=deepCopy(block_selected);
 
-                for(key in block_selected){
+                for(var key in block_selected){
                     delete block_selected[key];
                 }
 
@@ -588,7 +588,7 @@ T.Plugins.install(new T.Plugins.Editor(
                     $(this).addClass('model-dir-selected');
 
                     var path = $(this).attr('path');
-                    if (path == '') {
+                    if (path === '') {
 
                         path = [];
 

@@ -20,7 +20,7 @@ function loginFormSubmit(){
 
 
 
-    if(username==''){
+    if(username===''){
         $('#login-error').removeClass();
         $('#login-error').addClass('error');
         $('#login-error').text('!Username');

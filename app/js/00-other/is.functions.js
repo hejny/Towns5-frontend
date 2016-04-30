@@ -36,7 +36,7 @@ function is(val){
 
     if(typeof(val)==='number' && isNaN(val))return false;
     if(val===null)return false;
-    if(val=== 0)return false
+    if(val=== 0)return false;
 
     if(val==='')return false;
 

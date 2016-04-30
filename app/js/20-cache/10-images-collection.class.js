@@ -40,6 +40,19 @@ T.Cache.ImagesCollection = class {
         var self = this;//todo maybe refactor use thisImageCollection ???
         this.onload = onload;
 
+        var onload_callback = function () {
+
+            //r('loaded');
+            self.images_loaded++;
+
+            if (self.onload) {
+
+                self.onload(self.loaded());
+
+            }
+
+
+        };
 
         for (var key in this.files) {
 
@@ -49,19 +62,7 @@ T.Cache.ImagesCollection = class {
 
             this.images[key] = new Image();
             this.images[key].src = this.url + this.files[key];
-            this.images[key].onload = function () {
-
-                //r('loaded');
-                self.images_loaded++;
-
-                if (self.onload) {
-
-                    self.onload(self.loaded());
-
-                }
-
-
-            };
+            this.images[key].onload = onload_callback;
 
         }
 

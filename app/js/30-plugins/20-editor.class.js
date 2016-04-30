@@ -188,7 +188,7 @@ T.Plugins.Editor = class {
             if (errors) {
 
                 //r(errors);
-                for (key in errors.message) {
+                for (var key in errors.message) {
                     //T.UI.Messages.message(errors.message[key].message,'error');
 
                     $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');

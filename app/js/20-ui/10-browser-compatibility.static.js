@@ -46,10 +46,11 @@ T.UI.Compatibility = class {
     static webgl() {
 
         var support = true;
+        var $canvas;
 
         try {
 
-            var $canvas = $('<canvas />');
+            $canvas = $('<canvas />');
             $('body').append($canvas);
             var canvas = $canvas[0];
 
