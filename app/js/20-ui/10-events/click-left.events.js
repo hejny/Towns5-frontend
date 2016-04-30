@@ -44,7 +44,7 @@ $(function(){
             r('mouseDown: clickingTimeout');
 
             //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++Building
-            if(building!==false){
+            if(building!== false){
 
                 $('#loading').hide();
 
@@ -103,7 +103,7 @@ $(function(){
                 T.UI.Map.loadMap();
 
 
-                if(T.UI.Menu.terrainChanging == false){
+                if(T.UI.Menu.terrainChanging === false){
                     return;
                 }
 
@@ -201,7 +201,7 @@ $(function(){
 
             //------------------------------------------Processing selection
 
-            if(selected_object==false){
+            if(selected_object=== false){
                 //~~~~~~~~~~~~~~~~~~~~
                 //todo sounds ion.sound.play("door_bump");
 

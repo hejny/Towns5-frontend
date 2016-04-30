@@ -75,7 +75,7 @@ T.Plugins.install(new T.Plugins.Page(
             success: function(data) {
 
               $("#sendpress_loading").hide();
-              if(data.success==true){
+              if(data.success=== true){
                 $("#sendpress")[0].reset();
                 $("#sendpress_success").show();
 

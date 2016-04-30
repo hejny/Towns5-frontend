@@ -53,7 +53,7 @@ window.uiScript = function(){
         if($(this).attr('selectable')=='1') {
 
 
-            if ($(this).hasClass('active') == false) {
+            if ($(this).hasClass('active') === false) {
                 //---------------------------------Označení nástroje
                 r('Označení nástroje');
 

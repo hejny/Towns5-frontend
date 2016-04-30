@@ -144,7 +144,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
             //---------------------------------------------
-            if(data.username.trim().length==0){
+            if(data.username.trim().length=== 0){
 
 
                 setInputError($("input[name='username']")[0],T.Locale.get('user','username'));
@@ -160,7 +160,7 @@ T.Plugins.install(new T.Plugins.Page(
 
             }else
             //---------------------------------------------
-            if(data.password.length==0){
+            if(data.password.length=== 0){
 
                 setInputError($("input[name='password']")[0],T.Locale.get('user','password'));
 

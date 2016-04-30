@@ -131,7 +131,7 @@ $(function(){
             }
 
 
-            if(moving===true)
+            if(moving=== true)
                 if ($.inArray('up', keys_) == -1)
                     if ($.inArray('down', keys_) == -1)
                         if ($.inArray('left', keys_) == -1)

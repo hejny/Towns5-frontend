@@ -77,7 +77,7 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
             ctx.fill();
 
         if(is(polygon.line))
-        if(polygon.line.width!==0)
+        if(polygon.line.width!== 0)
             ctx.stroke();
 
     });
@@ -98,7 +98,7 @@ CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
     var w = this.canvas.width;
     var h = this.canvas.height;
 
-    if(w==0 || h==0)return;
+    if(w=== 0 || h=== 0)return;
 
     try{
 
@@ -122,7 +122,7 @@ CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
         if(imageData.data[i]==oldColor.r &&
             imageData.data[i+1]==oldColor.g &&
             imageData.data[i+2]==oldColor.b &&
-            (imageData.data[i+3]==oldColor.a || oldColor.a===false)
+            (imageData.data[i+3]==oldColor.a || oldColor.a=== false)
         ){
             // change to your new rgba
             imageData.data[i]=newColor.r;
@@ -152,7 +152,7 @@ CanvasRenderingContext2D.prototype.newcolorImage = function(newColor){//todo ref
     var w = this.canvas.width;
     var h = this.canvas.height;
 
-    if(w==0 || h==0)return;
+    if(w=== 0 || h=== 0)return;
 
     try{
 
@@ -198,7 +198,7 @@ CanvasRenderingContext2D.prototype.multiplyAlphaImage = function(k){
     var w = this.canvas.width;
     var h = this.canvas.height;
 
-    if(w==0 || h==0)return;
+    if(w=== 0 || h=== 0)return;
 
     try{
 
@@ -251,7 +251,7 @@ CanvasRenderingContext2D.prototype.blur = function( radius, iterations=1 ) {
     var width=canvas.width;
     var height=canvas.height;
 
-    if(width==0 || height==0)return;
+    if(width=== 0 || height=== 0)return;
 
     var imageData;
 

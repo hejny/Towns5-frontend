@@ -4,7 +4,7 @@
 $(function(){
 
 
-    if(T.UI.Compatibility.check()!==true){
+    if(T.UI.Compatibility.check()!== true){
 
         $('#compatibility').show();
 
