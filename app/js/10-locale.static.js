@@ -25,15 +25,11 @@ T.Locale=class {//create instances with en, cs here
         key = key.split('-').join('_');
 
 
-        var message;
+        if (typeof MESSAGES[key] !== 'undefined') {
 
-        try {
-            eval('message=MESSAGES.' + key + ';');
-        }
-        catch (err) {
-        }
+            return (MESSAGES[key]);
 
-        if (!is(message)) {
+        } else {
 
             if (environment == 'develop') {
 
@@ -54,13 +50,14 @@ T.Locale=class {//create instances with en, cs here
 
             }
 
-            message = key;
-        }
+            return (key);
 
-        return (message);
+        }
 
     }
 
+
 };
+
 
 T.Locale.keys_write = [];//todo better
