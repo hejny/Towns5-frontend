@@ -127,7 +127,7 @@ T.UI.Map.drawMap = function(){
     }
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_buildings
 
-    var selecting_distance_pow = 20;//todo should it be here?
+    selecting_distance_pow = 20;//todo should it be here?
     selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
 

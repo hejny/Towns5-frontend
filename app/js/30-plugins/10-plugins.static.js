@@ -83,7 +83,7 @@ T.Plugins=class {
                 for (key in this.plugins[i].conditions) {
 
                     if (object[key] != this.plugins[i].conditions[key]) {
-                        var is_possible = false;
+                        is_possible = false;
                         break;
                     }
 

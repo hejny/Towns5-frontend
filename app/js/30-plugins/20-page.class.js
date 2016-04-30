@@ -39,14 +39,16 @@ T.Plugins.Page = class {
 
 
         //--------------------------------------------title
+        var title;
+
         if (this.titles.length == 1) {
 
-            var title = this.titles[0];
+            title = this.titles[0];
 
         } else {
 
 
-            var title = this.titles.map(
+            title = this.titles.map(
                 function (title, i) {
 
                     title = title.text2html();
@@ -63,14 +65,16 @@ T.Plugins.Page = class {
 
 
         //--------------------------------------------content
+        var content;
+
         if (this.contents.length == 1) {
 
-            var content = this.contents[0];
+            content = this.contents[0];
 
         } else {
 
 
-            var content = this.contents.map(
+            content = this.contents.map(
                 function (content, i) {
 
                     content = '<article class="page-child" id="page-child-' + i + '" style="display: none;">' + content + '</article>';//todo use XML namespaces

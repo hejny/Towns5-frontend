@@ -15,7 +15,7 @@ $(function(){
         var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
         r('T.UI Event: contextmenu (this part of code is unused.)');
-        return;
+        /*return;
 
 
         map_selected_ids.forEach(function(id){
@@ -51,7 +51,7 @@ $(function(){
 
         T.UI.Map.MapMove.orderMoveAndNormal();
 
-
+        */
 
     };
 

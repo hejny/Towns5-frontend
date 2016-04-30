@@ -155,14 +155,15 @@ function createTerrain(object,callback){//todo maybe create other
 
 function createBuilding(object,callback){
 
+    var join;
 
     if (dragging_subtypes.indexOf(building.subtype)==-1){
 
-        var join=createNewOrJoin(object);
+        join=createNewOrJoin(object);
 
     }else{
 
-        var join=false;
+        join=false;
 
     }
 

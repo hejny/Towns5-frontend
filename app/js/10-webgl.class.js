@@ -696,15 +696,18 @@ T.WebGL = class {
 
 // augment Sylvester some
 Matrix.Translation = function (v) {
+
+    var r;
+
     if (v.elements.length == 2) {
-        var r = Matrix.I(3);
+        r = Matrix.I(3);
         r.elements[2][0] = v.elements[0];
         r.elements[2][1] = v.elements[1];
         return r;
     }
 
     if (v.elements.length == 3) {
-        var r = Matrix.I(4);
+        r = Matrix.I(4);
         r.elements[0][3] = v.elements[0];
         r.elements[1][3] = v.elements[1];
         r.elements[2][3] = v.elements[2];
@@ -712,7 +715,7 @@ Matrix.Translation = function (v) {
     }
 
     throw "Invalid length for Translation";
-}
+};
 
 Matrix.prototype.flatten = function () {
     var result = [];
@@ -720,11 +723,12 @@ Matrix.prototype.flatten = function () {
         return [];
 
 
-    for (var j = 0; j < this.elements[0].length; j++)
-        for (var i = 0; i < this.elements.length; i++)
+    var i,j;
+    for (j = 0; j < this.elements[0].length; j++)
+        for (i = 0; i < this.elements.length; i++)
             result.push(this.elements[i][j]);
     return result;
-}
+};
 
 Matrix.prototype.ensure4x4 = function () {
     if (this.elements.length == 4 &&

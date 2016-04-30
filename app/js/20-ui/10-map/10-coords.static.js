@@ -68,7 +68,7 @@ T.UI.Map.Coords = class{
     static convertPositionToScreenPosition(position) {
 
 
-        var position = this.convertPositionToPxlCenterPosition(position);
+        position = this.convertPositionToPxlCenterPosition(position);
 
         position.x += (window_width / 2);
         position.y += (window_height/ 2);
@@ -80,7 +80,7 @@ T.UI.Map.Coords = class{
 
     static convertPositionToCanvasPosition(position) {
 
-        var position = this.convertPositionToPxlCenterPosition(position);
+        position = this.convertPositionToPxlCenterPosition(position);
 
         position.x += (canvas_width / 2);
         position.y += (canvas_height/ 2);

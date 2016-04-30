@@ -91,12 +91,13 @@ T.URI=class {
 
         if (pathname == '') pathname = '/';
 
+        var hash;
 
         if (isDefined(T.UI.Map.map_center.x)) {
             //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
-            var hash = '#' + Math.round(T.UI.Map.map_center.x) + ',' + Math.round(T.UI.Map.map_center.y);
+            hash = '#' + Math.round(T.UI.Map.map_center.x) + ',' + Math.round(T.UI.Map.map_center.y);
         } else {
-            var hash = '';
+            hash = '';
         }
 
 
