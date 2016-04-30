@@ -46,7 +46,7 @@ T.Storage=class {
      */
     static save(key, value) {
 
-        localStorage.setItem(key, value)
+        localStorage.setItem(key, value);
 
     }
 
@@ -57,7 +57,7 @@ T.Storage=class {
      */
     static delete(key) {
 
-        localStorage.removeItem(key)
+        localStorage.removeItem(key);
 
     }
 

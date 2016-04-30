@@ -6,6 +6,7 @@
 /*! URI.js v1.17.1 http://medialize.github.io/URI.js/ */
 /* build contains: IPv6.js, punycode.js, SecondLevelDomains.js, URI.js */
 
+/* jshint ignore:start */
 
 
 (function(k,n){"object"===typeof exports?module.exports=n():"function"===typeof define&&define.amd?define(n):k.IPv6=n(k)})(this,function(k){var n=k&&k.IPv6;return{best:function(g){g=g.toLowerCase().split(":");var f=g.length,d=8;""===g[0]&&""===g[1]&&""===g[2]?(g.shift(),g.shift()):""===g[0]&&""===g[1]?g.shift():""===g[f-1]&&""===g[f-2]&&g.pop();f=g.length;-1!==g[f-1].indexOf(".")&&(d=7);var h;for(h=0;h<f&&""!==g[h];h++);if(h<d)for(g.splice(h,1,"0000");g.length<d;)g.splice(h,0,"0000");for(h=0;h<d;h++){for(var f=
@@ -85,3 +86,8 @@
         c.protocol===e.protocol&&(c.protocol=null);if(c.username===e.username&&c.password===e.password&&null===c.protocol&&null===c.username&&null===c.password&&c.hostname===e.hostname&&c.port===e.port)c.hostname=null,c.port=null;else return b.build();if(f===a)return c.path="",b.build();f=d.commonPath(f,a);if(!f)return b.build();e=e.path.substring(f.length).replace(/[^\/]*$/,"").replace(/.*?\//g,"../");c.path=e+c.path.substring(f.length)||"./";return b.build()};e.equals=function(a){var b=this.clone();a=new d(a);
         var c={},e={},f={},g;b.normalize();a.normalize();if(b.toString()===a.toString())return!0;c=b.query();e=a.query();b.query("");a.query("");if(b.toString()!==a.toString()||c.length!==e.length)return!1;c=d.parseQuery(c,this._parts.escapeQuerySpace);e=d.parseQuery(e,this._parts.escapeQuerySpace);for(g in c)if(r.call(c,g)){if(!p(c[g])){if(c[g]!==e[g])return!1}else if(!B(c[g],e[g]))return!1;f[g]=!0}for(g in e)if(r.call(e,g)&&!f[g])return!1;return!0};e.duplicateQueryParameters=function(a){this._parts.duplicateQueryParameters=
         !!a;return this};e.escapeQuerySpace=function(a){this._parts.escapeQuerySpace=!!a;return this};return d});
+
+
+
+/* jshint ignore:end */
+

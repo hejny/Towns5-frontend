@@ -14,7 +14,7 @@
  * @param {number} height
  */
 CanvasRenderingContext2D.prototype.drawEllipse = function( x, y, width, height) {
-    var kappa = .5522848,
+    var kappa = 0.5522848,
         ox = (width / 2) * kappa, // control point offset horizontal
         oy = (height / 2) * kappa, // control point offset vertical
         xe = x + width,           // x-end
@@ -100,10 +100,12 @@ CanvasRenderingContext2D.prototype.recolorImage = function(oldColor,newColor){
 
     if(w=== 0 || h=== 0)return;
 
+    var imageData;
+
     try{
 
         // pull the entire image into an array of pixel data
-        var imageData = this.getImageData(0, 0, w, h);
+        imageData = this.getImageData(0, 0, w, h);
 
 
     }catch(error){
@@ -154,10 +156,12 @@ CanvasRenderingContext2D.prototype.newcolorImage = function(newColor){//todo ref
 
     if(w=== 0 || h=== 0)return;
 
+    var imageData;
+
     try{
 
         // pull the entire image into an array of pixel data
-        var imageData = this.getImageData(0, 0, w, h);
+        imageData = this.getImageData(0, 0, w, h);
 
 
     }catch(error){
@@ -200,10 +204,12 @@ CanvasRenderingContext2D.prototype.multiplyAlphaImage = function(k){
 
     if(w=== 0 || h=== 0)return;
 
+    var imageData;
+
     try{
 
         // pull the entire image into an array of pixel data
-        var imageData = this.getImageData(0, 0, w, h);
+        imageData = this.getImageData(0, 0, w, h);
 
 
     }catch(error){
@@ -269,7 +275,6 @@ CanvasRenderingContext2D.prototype.blur = function( radius, iterations=1 ) {
             } catch(e) {
                 alert("Cannot access local image");
                 throw new Error("unable to access local image data: " + e);
-                return;
             }
         }
     } catch(e) {
@@ -410,7 +415,7 @@ CanvasRenderingContext2D.prototype.blur = function( radius, iterations=1 ) {
                     pixels[p+1] = ((g_sum * mul_sum) >>> shg_sum ) * pa;
                     pixels[p+2] = ((b_sum * mul_sum) >>> shg_sum ) * pa;
                 } else {
-                    pixels[p] = pixels[p+1] = pixels[p+2] = 0
+                    pixels[p] = pixels[p+1] = pixels[p+2] = 0;
                 }
 
                 p = ( x + (( ( p = y + radiusPlus1) < heightMinus1 ? p : heightMinus1 ) * width )) << 2;

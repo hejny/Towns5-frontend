@@ -110,9 +110,9 @@ T.TownsAPI = class {
         return this.query('auth', {}, 'GET', {}, {},
             function (response) {
                 if (isDefined(response.status)) {
-                    callback(true)
+                    callback(true);
                 } else {
-                    callback(false)
+                    callback(false);
                 }
             },
             function (response) {

@@ -179,11 +179,14 @@ T.WebGL = class {
                 var i = self.vertices.length / 3;
 
 
+                var vector_normal;
+
+
                 if (polygon.shape.length >= 3 && material == 'solid') {
 
                     var vector_ab = {};
                     var vector_ac = {};
-                    var vector_normal = {};
+                    vector_normal = {};
 
                     vector_ab.x = polygon.shape[0].x - polygon.shape[1].x;
                     vector_ab.y = polygon.shape[0].y - polygon.shape[1].y;
@@ -321,7 +324,7 @@ T.WebGL = class {
             new Uint16Array(this.cubeVertexIndices), this.gl.STATIC_DRAW);
 
 
-    };
+    }
 
     //
     // initTextures
@@ -353,7 +356,7 @@ T.WebGL = class {
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MIN_FILTER, this.gl.LINEAR_MIPMAP_NEAREST);
         this.gl.generateMipmap(this.gl.TEXTURE_2D);
         this.gl.bindTexture(this.gl.TEXTURE_2D, null);
-    };
+    }
 
     //
     // drawScene
@@ -647,26 +650,26 @@ T.WebGL = class {
 //=========================================================================================================================================================================
 //sylvester.js
 
+/* jshint ignore:start */
 
     eval(
 
     function(p, a, c, k, e, r) {
         e = function (c) {
-            return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36))
+            return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) : c.toString(36));
         };
         if (!''.replace(/^/, String)) {
             while (c--)r[e(c)] = k[c] || e(c);
             k = [function (e) {
-                return r[e]
+                return r[e];
             }];
             e = function () {
-                return '\\w+'
+                return '\\w+';
             };
-            c = 1
+            c = 1;
         }
-        ;
         while (c--)if (k[c])p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
-        return p
+        return p;
     }
 
 (
@@ -685,9 +688,9 @@ T.WebGL = class {
     0
 , {
 }
-))
+));
 
-
+/* jshint ignore:end */
 
 
 //=========================================================================================================================================================================
@@ -748,7 +751,7 @@ Matrix.prototype.ensure4x4 = function () {
         }
     }
 
-    for (var i = this.elements.length; i < 4; i++) {
+    for (i = this.elements.length; i < 4; i++) {
         if (i === 0)
             this.elements.push([1, 0, 0, 0]);
         else if (i == 1)
@@ -778,12 +781,13 @@ Vector.prototype.flatten = function () {
 
 function mht(m) {
     var s = "";
+    var i;
     if (m.length == 16) {
-        for (var i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
             s += "<span style='font-family: monospace'>[" + m[i * 4 + 0].toFixed(4) + "," + m[i * 4 + 1].toFixed(4) + "," + m[i * 4 + 2].toFixed(4) + "," + m[i * 4 + 3].toFixed(4) + "]</span><br>";
         }
     } else if (m.length == 9) {
-        for (var i = 0; i < 3; i++) {
+        for (i = 0; i < 3; i++) {
             s += "<span style='font-family: monospace'>[" + m[i * 3 + 0].toFixed(4) + "," + m[i * 3 + 1].toFixed(4) + "," + m[i * 3 + 2].toFixed(4) + "]</font><br>";
         }
     } else {

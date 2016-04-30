@@ -39,9 +39,11 @@ T.URI=class {
         hash = hash.substring(1);
         hash = hash.split(',');
 
+        var position;
+
         if (hash.length == 2) {
 
-            var position = new T.Position(T.Math.toFloat(hash[0]), T.Math.toFloat(hash[1]));
+            position = new T.Position(T.Math.toFloat(hash[0]), T.Math.toFloat(hash[1]));
         }
 
         //-------------------
@@ -89,7 +91,7 @@ T.URI=class {
         if (this.plugin) pathname += '/' + this.plugin;
         if (this.object) pathname += '/' + this.object;
 
-        if (pathname == '') pathname = '/';
+        if (pathname === '') pathname = '/';
 
         var hash;
 

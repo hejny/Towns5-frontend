@@ -71,6 +71,7 @@ T.Plugins=class {
     static search(action, object) {
 
         var possible = [];
+        var i,key;
 
         for (i in this.plugins) {
 
