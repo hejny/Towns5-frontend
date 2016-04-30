@@ -23,7 +23,7 @@ T.UI.Map.storiesHTML = function(objects) {
     objects.forEach(function(object){
 
 
-        object_xc = object.x - T.UI.Map.map_center.x;
+        /*object_xc = object.x - T.UI.Map.map_center.x;
         object_yc = object.y - T.UI.Map.map_center.y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
@@ -31,8 +31,11 @@ T.UI.Map.storiesHTML = function(objects) {
 
 
         object_screen_x += (canvas_width / 2);
-        object_screen_y += (canvas_height / 2);
+        object_screen_y += (canvas_height / 2);*/
 
+
+
+        var canvasPosition = T.UI.Map.Coords.convertPositionToCanvasPosition(object.getPosition());
 
 
 
@@ -66,11 +69,14 @@ T.UI.Map.storiesHTML = function(objects) {
         }
         //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+        var anchor = new T.Position(size/2,size/2);
 
-        var tag = $('<div>'+text+'</div>')//todo refactor maybe without jQuery?
+
+        var tag = $('<div t:position="'+object.getPosition()+'" t:anchor="'+anchor+'">'+text+'</div>')//todo refactor maybe without jQuery?
+
             .css('position','absolute')
-            .css('left',Math.floor(object_screen_x-size/2))
-            .css('top', Math.floor(object_screen_y-size/2))
+            .css('left',Math.floor(canvasPosition.x-anchor.x))
+            .css('top', Math.floor(canvasPosition.y-anchor.y))
 
             .css('width', Math.floor(size))
             .css('height', Math.floor(size))
