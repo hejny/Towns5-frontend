@@ -274,7 +274,7 @@ $(function(){
 
             T.UI.Map.MapBuffer.tick();
 
-        }catch(e){
+        }catch(error){
 
             //todo IndexSizeError: Index or size is negative or greater than the allowed amount
 

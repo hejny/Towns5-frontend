@@ -58,7 +58,9 @@ window.uiScript = function(){
                 r('Označení nástroje');
 
                 $(this).addClass('active');
+                /* jshint ignore:start */
                 eval($(this).attr('action'));
+                /* jshint ignore:end */
 
                 //---------------------------------
             } else {
@@ -73,7 +75,9 @@ window.uiScript = function(){
 
         }else{
 
+            /* jshint ignore:start */
             eval($(this).attr('action'));
+            /* jshint ignore:end */
 
         }
 

@@ -65,7 +65,7 @@ $(function(){
 
 
                 create(tmp,function(){
-                    T.UI.Map.loadMap()
+                    T.UI.Map.loadMap();
                 });
 
 

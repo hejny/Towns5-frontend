@@ -125,8 +125,8 @@ T.Plugins.install(new T.Plugins.Editor(
   <tr category="material">
     <td colspan="2">
         `+
-        T.Cache.textures.getInput('material','block-parameter')
-        +`
+        T.Cache.textures.getInput('material','block-parameter')+
+        `
     </td>
   </tr>
 
@@ -238,23 +238,24 @@ T.Plugins.install(new T.Plugins.Editor(
                         event = 'change';
                     }
                     //-------------------------------------------
+                    var value;
 
                     $(this).unbind(event).bind(event, function () {
 
                         //-------------------------------------------Putting value from HTML inputs to var value
                         if ($(this).attr('type') == 'checkbox') {
-                            var value = $(this).is(':checked');
+                            value  = $(this).is(':checked');
                         }else
 
                         if ($(this).attr('type') == 'checkbox') {
-                            var value = $(this).attr('value');
+                            value = $(this).attr('value');
                         }else
 
                         if ($(this).attr('type') == 'range') {
-                            var value = T.Math.toFloat($(this).val());
+                            value = T.Math.toFloat($(this).val());
 
                         }else{
-                            var value = $(this).val();
+                            value = $(this).val();
                         }
                         //-------------------------------------------
 
@@ -337,12 +338,13 @@ T.Plugins.install(new T.Plugins.Editor(
 
             //-----------------------New
 
+            var icon;
 
             if(isDefined(block_selected.particles)) {
 
 
                 //-----------------------Block
-                var icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
 
                 icon.click(function () {
 
@@ -481,7 +483,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             if (block_selected_path.length !== 0) {
 
-                var icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
 
                 icon.click(function () {
 
@@ -515,6 +517,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             particles.forEach(function (particle, i) {
 
+                var path_new;
 
                 if (path == -1) {
 
@@ -522,7 +525,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 } else {
 
-                    var path_new = deepCopy(path);
+                    path_new = deepCopy(path);
                     path_new.push(i);
 
                 }

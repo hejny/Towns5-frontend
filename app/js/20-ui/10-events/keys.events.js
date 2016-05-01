@@ -81,6 +81,8 @@ $(function(){
     });
 
 
+
+
     setInterval(
         function () {
 
@@ -90,20 +92,21 @@ $(function(){
 
             var keys_ = [];
 
-            for (var i = 0; i < keys.length; i++) {
 
-                $.each(controls, function (keyname, val) {
-                    //console.log(keyname);
+            for(var key in controls){
 
-                    if ($.inArray(keys[i], val) != -1) {
-                        keys_.push(keyname);
+                for (var i = 0, l=keys.length; i < l; i++) {
+
+                    if (controls[key].indexOf(keys[i]) != -1) {
+                        keys_.push(key);
 
                     }
 
-
-                });
+                }
 
             }
+
+
 
 
             //r(keys_);

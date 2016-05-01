@@ -24,11 +24,11 @@ T.Plugins.install(new T.Plugins.Page(
 
     <table>
 
-        `/*+`
+        `+/*+`
         <tr>
             <th colspan="2">`+T.Locale.get('user','basic')+`</th>
         </tr>
-        `*/+`
+        `*/`
 
         <tr>
             <td>*`+T.Locale.get('user','username')+`:</td>
@@ -53,7 +53,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-        `/*+`
+        `+/*+`
         <tr>
             <th colspan="2">`+T.Locale.get('user','extended')+`</th>
         </tr>
@@ -79,7 +79,7 @@ T.Plugins.install(new T.Plugins.Page(
             <td colspan="2"><textarea name="description" class="full"></textarea></td>
         </tr>
 
-        `*/+`
+        `*/`
 
         <tr>
             <td colspan="2">
