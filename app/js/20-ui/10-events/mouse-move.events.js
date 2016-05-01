@@ -142,8 +142,8 @@ $(function(){
         if(specialCursor) {
 
 
-            $('#selecting-distance').css('left', e.clientX - selecting_offset['x']);
-            $('#selecting-distance').css('top', e.clientY - selecting_offset['y']);
+            $('#selecting-distance').css('left', e.clientX - selecting_offset.x);
+            $('#selecting-distance').css('top', e.clientY - selecting_offset.y);
             $('#selecting-distance').attr('joinmoved', '1');//todo refactor better solution
 
 
