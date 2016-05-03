@@ -112,7 +112,7 @@ $(function(){
             //r(keys_);
 
             if ($.inArray('up', keys_) != -1) {
-                T.UI.Map.mapMove(0,30);
+                T.UI.Map.mapMove(0,30,true);
                 moving=true;
             }
 

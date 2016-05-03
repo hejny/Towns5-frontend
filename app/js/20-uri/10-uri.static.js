@@ -56,8 +56,8 @@ T.URI=class {
 
         } else {
 
-            T.UI.Map.map_center.x = 20601;
-            T.UI.Map.map_center.y = 378552;
+            T.UI.Map.map_center.x = 2962;
+            T.UI.Map.map_center.y = 1976;
 
             //T.UI.Map.map_center.x=(Math.random()-0.5)*1000000;
             //T.UI.Map.map_center.y=(Math.random()-0.5)*1000000;

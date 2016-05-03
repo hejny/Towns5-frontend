@@ -47,3 +47,13 @@
   max-width:100%;*/
   border: 2px solid #cccccc;
   resize: none; }
+
+.big-component {
+  font-size: 1.3em; }
+
+.form-big-component {
+  display: inline-block;
+  width: 200px;
+  /*max-width:100%;*/
+  font-size: 1.3em;
+  border: 2px solid #cccccc; }
