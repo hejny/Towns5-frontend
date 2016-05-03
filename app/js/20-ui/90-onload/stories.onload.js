@@ -4,6 +4,7 @@
  */
 //======================================================================================================================
 
+/*
 $(function(){
 
 
@@ -55,10 +56,6 @@ $(function(){
 
                 var position = new T.Position($this.attr('t:position'));
                 var anchor = new T.Position($this.attr('t:anchor'));
-
-                /*var positionPolar = position.plus(map_center_).getPositionPolar();
-                positionPolar.distance = positionPolar.distance*0.9;
-                position = positionPolar.getPosition().plus(map_center);*/
 
 
                 screenPosition = T.UI.Map.Coords.convertPositionToScreenPosition(position);
@@ -165,3 +162,5 @@ $(function(){
 
 
 });
+*/
+

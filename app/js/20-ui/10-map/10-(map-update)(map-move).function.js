@@ -74,7 +74,7 @@ T.UI.Map.updateMap = function(){
     }
 
 
-    if(map_x_delta || map_y_delta || map_radius_delta || map_zoom_delta || map_rotation_delta || !is((map_radius*2))){
+    if(map_x_delta || map_y_delta || map_radius_delta || map_zoom_delta || map_rotation_delta || !is(map_radius)){
 
 
         //T.URI.position=new T.Position(T.UI.Map.map_center.x,T.UI.Map.map_center.y);
@@ -179,7 +179,8 @@ T.UI.Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
     $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');
 
 
-    T.UI.Map.mapOutRefresh();
+    //if(T.UI.Map.mapOutRefresh)
+    //T.UI.Map.mapOutRefresh();
 
 
     if(autoUpdate){

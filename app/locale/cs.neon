@@ -75,17 +75,17 @@ ui_server: Načítání ze serveru
 
 
 home_info: "Vytváříme kreativní hru, kde si můžeš vyrobit naprosto cokoliv od vzhledu jednotlivých budov až po celé státy a impéria, také můžeš psát příběhy a tím tvořit její historii."
-home_info_subtitle: "Tato aplikace je pouze malá ukázka toho, co máme rozpracované.<br> Právě teď připravujeme novou verzi hry. Svět z Towns 4 bude převeden do nové verze.<br>Až budeme mít hotovo můžeme ti poslat email:"
+home_info_subtitle: "Tato aplikace je pouze malá ukázka toho, co máme rozpracované.<br>Až budeme mít hotovo můžeme ti poslat email:"
 loading: Načítání...
 home_subscribe_success: "Děkujeme, až bude hra připravena pošleme ti mail."
 home_subscribe_error: "Něco se nezdařilo, buď máme chybu na serveru nebo jsi zadal chybný mail, každopádně nás můžeš sledovat přes"
 form_mail: E-mail
 form_your_name: Tvé jméno
 form_send: Odeslat
-home_subscribe: Nebo se můžeš přihlásit k odběru novinek přes
-home_news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
-projects: "Podívej se, na čem právě pracujeme:"
-projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
+#home_subscribe: Nebo se můžeš přihlásit k odběru novinek přes
+#home_news_from_game: "Podívej se na nejnovější novinky z vývoje hry:"
+#projects: "Podívej se, na čem právě pracujeme:"
+#projects_subtitle: "Káždý projekt si můžeš rozkliknout a napsat nám svůj názor, za který budeme moc rádi:"
 
 
 
@@ -272,3 +272,7 @@ building_wall_dismantle_description: "Po rozebrání dostaneš zpět část suro
 
 
 
+
+news_type_video: Video
+news_type_wiki: Wiki
+news_type_story: Příběh ve hře

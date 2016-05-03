@@ -65,6 +65,8 @@
 
 
 
+
+
 .form-big input[type="submit"]{
 
   width:auto;
@@ -90,5 +92,25 @@
 
   resize: none;
 
+
+}
+
+
+
+
+.big-component {//todo better
+  font-size: 1.3em;
+
+}
+.form-big-component {//todo better
+
+  display: inline-block;
+
+  width:200px;
+  /*max-width:100%;*/
+
+  font-size: 1.3em;
+
+  border: 2px solid #cccccc;
 
 }

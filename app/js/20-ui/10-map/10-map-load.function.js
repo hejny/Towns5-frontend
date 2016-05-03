@@ -35,6 +35,8 @@ T.UI.Map.loadMap = function(){
         T.UI.Map.loadMapRequestCallback
     );
 
+    //T.UI.Map.loadMapRequestCallback([]);
+
     tstart('loading map');
 
 
@@ -64,10 +66,14 @@ T.UI.Map.loadMapRequestCallback=function(response){
 
     //----------------------------------Create map_data and map_bg_data from local objects
 
+
     tstart('generating map');
 
+    var map_center_floor = new T.Position(Math.floor(T.UI.Map.map_center.x),Math.floor(T.UI.Map.map_center.y));
+
+
     tstart('getCompleteObjects');
-    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response), new T.Position(Math.floor(T.UI.Map.map_center.x),Math.floor(T.UI.Map.map_center.y)), map_radius);
+    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response),map_center_floor,map_radius,true/*,T.UI.Map.map_center_last*/);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
@@ -81,8 +87,12 @@ T.UI.Map.loadMapRequestCallback=function(response){
     //----------------------------------
 
     tstart('getMapOfTerrainCodes');
-    map_array = map_data_terrains.getMapOfTerrainCodes(new T.Position(Math.floor(T.UI.Map.map_center.x),Math.floor(T.UI.Map.map_center.y)),map_radius);
+    map_array = map_data_terrains.getMapOfTerrainCodes(map_center_floor,map_radius);
     tend('getMapOfTerrainCodes');
+
+
+    T.UI.Map.map_center_last = T.UI.Map.map_center.clone();
+
 
     tend('generating map');
 

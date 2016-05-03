@@ -18,8 +18,8 @@
 
     "app/global.js",
 
-    "app/js/classes-static/global.class.js",
-    "node_modules/towns-shared/build/towns-shared.js",
+    "node_modules/towns-shared/js/*.js",
+    "node_modules/towns-shared/js/*/*.js",
 
 
     {"develop": "app/config/develop.js"},
