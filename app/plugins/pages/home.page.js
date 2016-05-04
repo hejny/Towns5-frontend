@@ -171,7 +171,7 @@ function(page){
             }
         });
 
-        news_=news_.slice(0,8);
+        news_=news_.slice(0,16);
 
         news_.forEach(function(item){
 
@@ -189,9 +189,13 @@ function(page){
 
             }
 
+            if(!item.image){
+                item.onclick='';
+            }
+
             item_html+=`
             <li>
-                <a href="`+item.link+`" target="`+item.target+`">
+                <a href="`+item.link+`" target="`+item.target+`" onclick="`+item.onclick+`">
                     <img src="`+item.image+`">
                     <h2 class="title">`+item.title+`</h2>
                     <p class="type">`+ T.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
@@ -214,8 +218,12 @@ function(page){
 
     T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
 
+        var stories = new T.Objects.Array(result);
 
-        result.forEach(function(story){
+        stories.forEach(function(story){
+
+            objects_external.update(story);
+
 
 
             var content=story.content.data;
@@ -228,7 +236,7 @@ function(page){
 
                 image = URI(image)
                     .removeSearch("width")
-                    .addSearch({width: 50})
+                    .addSearch({width: 100})
                     .toString()
                 ;
 
@@ -238,6 +246,7 @@ function(page){
             news.push({
                 type: 'story',
                 link: '#'+story.x+','+story.y,
+                onclick: "T.Plugins.open('story',1,'"+story.id+"');",
                 image: image,
                 title: story.name,
                 date: new Date(story.start_time),
