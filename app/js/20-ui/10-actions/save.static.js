@@ -6,57 +6,23 @@
 //todo create T.UI.Actions or solve actions in towns-shared
 
 
-function saveObject(object){//todo delete this and use direct API
+function saveObject(object,callback){
 
-    var i = T.ArrayFunctions.id2i(objects_external,object.id);
+    r(object);
+    objects_external.update(object);//Create new
 
+    T.TownsAPI.townsAPI.post('objects',object,function(response){
 
-    //----------------Sending to API
+        object.id=response.objectId;
+        r('object was send to server',object);
 
-
-    if(!is(object.stop_time)){
-        //-------------------------------Update or create new
-
-
-
-        if(i==-1){
-            r('saveObject: Creating new object');
-            objects_external.push(object);//Create new
-        }else{
-            r('saveObject: Updating existing object');
-            objects_external[i]=object;//Update
-        }
+        if(callback)callback(object.id);
 
 
-        T.TownsAPI.townsAPI.post('objects',object,function(response){
 
-            object.id=response.objectId;
-            r('object was send to server',object);
+    });
 
-
-        });
-
-        //-------------------------------
-    }else{
-        //-------------------------------Delete
-
-        r('saveObject: Deleting object');
-
-        if(i==-1)throw Error('Object do not exists.');
-
-
-        T.TownsAPI.townsAPI.delete('objects/'+objects_external[i].id,function(response){
-
-            r('object '+objects_external[i].id+' was deleted in server');
-
-        });
-
-        objects_external.splice(i,1);
-
-        //-------------------------------
-    }
-    //----------------
-
+    //-------------------------------
 
 
 }

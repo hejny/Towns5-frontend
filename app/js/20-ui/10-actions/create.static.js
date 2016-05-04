@@ -10,7 +10,7 @@
 function generateID(){
     //todo here should we generate object IDs
 
-    return(Math.round(Math.random()*1000000000));
+    return('tmp'+Math.round(Math.random()*1000000000));
 
 }
 
@@ -142,9 +142,8 @@ function createNewOrJoin(object){
 function createTerrain(object,callback){//todo maybe create other
 
     object.id=generateID();
-    saveObject(object.clone());//todo refactor
+    saveObject(object.clone(),callback);//todo refactor
 
-    if(callback)callback();
 
     return(object.id);
 
@@ -182,9 +181,8 @@ function createBuilding(object,callback){
         }
 
 
-        saveObject(object);//todo refactor
+        saveObject(object,callback);//todo refactor
 
-        if(callback)callback();
 
         return(object.id);
 
@@ -249,9 +247,8 @@ function createBuilding(object,callback){
 function createStory(object,callback){
 
     object.id=generateID();
-    saveObject(object.clone());//todo refactor
+    saveObject(object.clone(),callback);//todo refactor
 
-    if(callback)callback();
 
     return(object.id);
 

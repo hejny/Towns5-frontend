@@ -162,7 +162,7 @@ T.Plugins.Editor = class {
             } else if (collection == 1) {
 
                 r(objects_external, id);
-                this.opened.object = T.ArrayFunctions.id2item(objects_external, id);
+                this.opened.object = objects_external.getById(id);
                 r('Opening object ' + this.opened.object.name + '.');
 
             } else {
