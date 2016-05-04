@@ -246,9 +246,13 @@ function createBuilding(object,callback){
 
 function createStory(object,callback){
 
+    object=object.clone();
     object.id=generateID();
-    saveObject(object.clone(),callback);//todo refactor
 
+    objects_external.update(object);
+
+    //callback(object.id);
+    saveObject(object,callback);//todo refactor
 
     return(object.id);
 

@@ -331,6 +331,18 @@ function tidyHTML($buffer) {
 
 
 
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Tracking|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <script type="text/javascript">
+        window.smartlook||(function(d) {
+            var o=smartlook=function(){ o.api.push(arguments)},s=d.getElementsByTagName('script')[0];
+            var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+            c.charset='utf-8';c.src='//rec.getsmartlook.com/bundle.js';s.parentNode.insertBefore(c,s);
+        })(document);
+        smartlook('init', '1c0e43faacf49eba3de68d138e0d42646399d313');
+    </script>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Messages|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <div id="loading">
@@ -498,7 +510,7 @@ function tidyHTML($buffer) {
                 <ul class="menu-dlist">
                     <li class="menu-dlist-item">
 
-                        <a onclick="T.UI.Menu.Prototypes.menu('story');return false;"><?=locale('ui menu stories write')?></a>
+                        <a onclick="T.UI.Menu.Story.start(T.User.object_prototypes.filterTypes('story').getAll()[0].id);T.UI.Messages.info(T.Locale.get('story hint'));return false;"><?=locale('ui menu stories write')?></a>
 
 
 

@@ -8,12 +8,14 @@
 
 function saveObject(object,callback){
 
-    r(object);
     objects_external.update(object);//Create new
 
     T.TownsAPI.townsAPI.post('objects',object,function(response){
 
+        object = objects_external.getById(object.id)
+
         object.id=response.objectId;
+
         r('object was send to server',object);
 
         if(callback)callback(object.id);

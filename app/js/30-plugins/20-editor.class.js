@@ -87,6 +87,7 @@ T.Plugins.Editor = class {
                         }
                         , function (errors) {
 
+                            r(self.opened);
                             self.open(0, self.opened.object.id, errors);
                         });
 
@@ -97,7 +98,7 @@ T.Plugins.Editor = class {
                 }
 
 
-                self.opened = false;
+                //todo self.opened = false;
 
             }
         );
@@ -161,7 +162,6 @@ T.Plugins.Editor = class {
 
             } else if (collection == 1) {
 
-                r(objects_external, id);
                 this.opened.object = objects_external.getById(id);
                 r('Opening object ' + this.opened.object.name + '.');
 
