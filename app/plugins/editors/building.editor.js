@@ -163,7 +163,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             block_selected_path = path;
 
-            block_selected = object.design.data.filterPath(block_selected_path);
+            block_selected = object.getModel().filterPath(block_selected_path);
 
 
             //var particle=ModelParticles.cParams(object.design.data.particles[blockChoose_i]);
@@ -423,7 +423,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                         var i = block_selected_path.pop();
 
-                        var parent = object.design.data.filterPath(block_selected_path);
+                        var parent = object.getModel().filterPath(block_selected_path);
 
 
                         block_selected.particles.forEach(function (particle) {
@@ -489,7 +489,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     var i = block_selected_path.pop();
 
-                    var parent = object.design.data.filterPath(block_selected_path);
+                    var parent = object.getModel().filterPath(block_selected_path);
 
                     parent.particles.splice(i, i + 1);
 

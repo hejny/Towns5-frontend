@@ -105,7 +105,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
         var model_canvas= new T.ModelCanvas('model-canvas',object.design.data,380,600);
 
-        var particle=ModelParticles.cParams(object.design.data.particles[0]);
+        var particle=ModelParticles.cParams(object.getModel().particles[0]);
 
         $('#block-editing-shape-n').val(particle.shape.n);
 
@@ -133,21 +133,21 @@ T.Plugins.install(new T.Plugins.Editor(
 
         $('#block-editing-form').find('input').mousemove(function(){
 
-                object.design.data.particles[0].shape.n = T.Math.toInt($('#block-editing-shape-n').val());
+                object.getModel().particles[0].shape.n = T.Math.toInt($('#block-editing-shape-n').val());
 
-                object.design.data.particles[0].shape.top = T.Math.toFloat($('#block-editing-shape-top').val());
-                object.design.data.particles[0].shape.bottom = T.Math.toFloat($('#block-editing-shape-bottom').val());
+                object.getModel().particles[0].shape.top = T.Math.toFloat($('#block-editing-shape-top').val());
+                object.getModel().particles[0].shape.bottom = T.Math.toFloat($('#block-editing-shape-bottom').val());
 
-                object.design.data.particles[0].skew={z:{}};
-                object.design.data.particles[0].skew.z.x = T.Math.toFloat($('#block-editing-skew-z-x').val());
-                object.design.data.particles[0].skew.z.y = T.Math.toFloat($('#block-editing-skew-z-y').val());
+                object.getModel().particles[0].skew={z:{}};
+                object.getModel().particles[0].skew.z.x = T.Math.toFloat($('#block-editing-skew-z-x').val());
+                object.getModel().particles[0].skew.z.y = T.Math.toFloat($('#block-editing-skew-z-y').val());
 
 
-                object.design.data.particles[0].size.x = T.Math.toInt($('#block-editing-size-x').val());
-                object.design.data.particles[0].size.y = T.Math.toInt($('#block-editing-size-y').val());
-                object.design.data.particles[0].size.z = T.Math.toInt($('#block-editing-size-z').val());
+                object.getModel().particles[0].size.x = T.Math.toInt($('#block-editing-size-x').val());
+                object.getModel().particles[0].size.y = T.Math.toInt($('#block-editing-size-y').val());
+                object.getModel().particles[0].size.z = T.Math.toInt($('#block-editing-size-z').val());
 
-                object.design.data.particles[0].rotation = T.Math.toInt($('#block-editing-rotation').val());
+                object.getModel().particles[0].rotation = T.Math.toInt($('#block-editing-rotation').val());
 
 
                 model_canvas.setModel(object.design.data);
@@ -157,7 +157,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
         $('#block-editing-shape-rotated').click(function(){
 
-            object.design.data.particles[0].shape.rotated = $('#block-editing-shape-rotated').is(':checked');
+            object.getModel().particles[0].shape.rotated = $('#block-editing-shape-rotated').is(':checked');
 
             model_canvas.setModel(object.design.data);
 
@@ -167,7 +167,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
         $('#block-editing-material').change(function(){
 
-            object.design.data.particles[0].color = $('#block-editing-color').val();
+            object.getModel().particles[0].color = $('#block-editing-color').val();
             model_canvas.setModel(object.design.data);
 
 
@@ -177,7 +177,7 @@ T.Plugins.install(new T.Plugins.Editor(
         $("input[name='block-editing-material']").click(function() {
 
             r(this.value);
-            object.design.data.particles[0].material=this.value;
+            object.getModel().particles[0].material=this.value;
             model_canvas.setModel(object.design.data);
 
         });

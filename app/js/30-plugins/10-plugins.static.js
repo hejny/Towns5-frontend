@@ -76,8 +76,8 @@ T.Plugins=class {
         for (i in this.plugins) {
 
             if (
-                (action == 'edit' && this.plugins[i] instanceof Towns.Editor) ||
-                (action == 'view' && this.plugins[i] instanceof Towns.Viewer)
+                (action == 'edit' && this.plugins[i] instanceof T.Plugins.Editor) ||
+                (action == 'view' && this.plugins[i] instanceof T.Plugins.Viewer)
             ) {
 
                 var is_possible = true;

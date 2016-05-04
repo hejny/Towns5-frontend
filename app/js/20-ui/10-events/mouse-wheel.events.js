@@ -28,10 +28,10 @@ $(function(){
 
             if(e.deltaY>0){
                 //todo sounds ion.sound.play("door_bump");
-                building.design.data.rotation+=10;
+                building.getModel().rotation+=10;
             }else{
                 //todo sounds ion.sound.play("door_bump");
-                building.design.data.rotation-=10;
+                building.getModel().rotation-=10;
             }
 
             //r(building.rot);

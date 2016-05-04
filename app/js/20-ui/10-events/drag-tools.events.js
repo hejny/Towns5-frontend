@@ -128,7 +128,7 @@ $(function(){
         }else{
 
 
-            buildingByDraggingRange = building.design.data.range('x')/100*2;//todo better
+            buildingByDraggingRange = building.getModel().range('x')/100*2;//todo better
 
 
             buildingByDraggingPath=[];
@@ -177,7 +177,7 @@ $(function(){
             var buildingByDraggingPlusY = buildingByDraggingEndY-buildingByDraggingStartY;
 
 
-            var buildingByDraggingPlusDistDeg = T.T.Math.xy2distDeg(
+            var buildingByDraggingPlusDistDeg = T.Math.xy2distDeg(
                 buildingByDraggingPlusX,
                 buildingByDraggingPlusY
             );
@@ -254,7 +254,7 @@ $(function(){
                  }*/
 
 
-                tmp.design.data.rotation=rot-45;//360-rot+45;
+                tmp.getModel().rotation=rot-45;//360-rot+45;
 
 
                 //delete tmp.rot;

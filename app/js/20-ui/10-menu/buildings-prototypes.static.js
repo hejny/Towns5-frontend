@@ -50,8 +50,8 @@ T.UI.Menu.Building = class {
     static redraw() {
 
 
-        selecting_size = {x: 200, y: 200};
-        selecting_offset = {x: 100, y: 100};
+        window.selecting_size = {x: 200, y: 200};
+        window.selecting_offset = {x: 100, y: 100};
 
 
         $('#selecting-distance').attr('width', selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
@@ -71,7 +71,7 @@ T.UI.Menu.Building = class {
 
         selecting_distance_3d_canvas_gl = selecting_distance_3d_canvas.getContext('webgl');
 
-        selecting_distance_3d_canvas_webgl = building.design.data.create3D(selecting_distance_3d_canvas_gl, map_zoom_m * 2, 150, 150, 0, 30, true, false);
+        selecting_distance_3d_canvas_webgl = building.getModel().create3D(selecting_distance_3d_canvas_gl, map_zoom_m * 2, 150, 150, 0, 30, true, false);
 
 
     }
@@ -84,7 +84,7 @@ T.UI.Menu.Building = class {
         //r('T.UI.Menu.Building.update');
 
 
-        selecting_distance_3d_canvas_webgl.rotations[1].deg = -building.design.data.rotation + 45 + map_rotation;//todo better solution than 45
+        selecting_distance_3d_canvas_webgl.rotations[1].deg = -building.getModel().rotation + 45 + map_rotation;//todo better solution than 45
         selecting_distance_3d_canvas_webgl.drawScene();
 
 
@@ -107,7 +107,7 @@ T.UI.Menu.Building = class {
             //$(selecting_distance_3d_canvas).css('filter','contrast(150%)');
 
 
-            var model_z = building.design.data.joinModelZ(
+            var model_z = building.getModel().joinModelZ(
                 building.design.data,
                 join.xy.x,
                 join.xy.y

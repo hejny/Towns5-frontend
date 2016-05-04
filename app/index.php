@@ -476,7 +476,7 @@ function tidyHTML($buffer) {
                 <a><?=locale('ui menu nature')?></a>
 
                 <ul class="menu-dlist">
-                    <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('terrain');return false;"><?=locale('ui menu nature main')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('terrain');return false;"><?=locale('ui menu nature main')?></a></li>
                 </ul>
             </li>
 
@@ -484,10 +484,10 @@ function tidyHTML($buffer) {
                 <a><?=locale('ui menu buildings')?></a>
 
                 <ul class="menu-dlist">
-                    <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','main');return false;"><?=locale('ui menu buildings main')?></a></li>
-                    <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
-                    <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','path');return false;"><?=locale('ui menu buildings path')?></a></li>
-                    <li class="menu-dlist-item"><a onclick="objectPrototypesMenu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','main');return false;"><?=locale('ui menu buildings main')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','path');return false;"><?=locale('ui menu buildings path')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>
                     <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
                 </ul>
             </li>
@@ -498,7 +498,7 @@ function tidyHTML($buffer) {
                 <ul class="menu-dlist">
                     <li class="menu-dlist-item">
 
-                        <a onclick="objectPrototypesMenu('story');return false;"><?=locale('ui menu stories write')?></a>
+                        <a onclick="T.UI.Menu.Prototypes.menu('story');return false;"><?=locale('ui menu stories write')?></a>
 
 
 

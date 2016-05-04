@@ -7,8 +7,9 @@ T.setNamespace('User');
 
 
 
-T.User.loadObjectPrototypes=function(callback=false){
+T.User.loadObjectPrototypes=function(attempt){
 
+    attempt++;
 
     T.TownsAPI.townsAPI.get('objects/prototypes',{},function(response){
 
@@ -30,13 +31,21 @@ T.User.loadObjectPrototypes=function(callback=false){
         });
 
 
-        if(callback!== false){
-            callback();
-        }
-
     },function(){
 
-        r('NOT LOADED prototypes');
+
+        if(attempt<5){
+
+            T.User.loadObjectPrototypes(attempt);
+            throw new Error('Cant load objects prototypes, loading again.');
+
+        }else{
+
+            throw new Error('Cant load objects prototypes.');
+
+        }
+
+
 
     });
 
@@ -46,4 +55,4 @@ T.User.loadObjectPrototypes=function(callback=false){
 
 
 
-T.User.loadObjectPrototypes();//todo movo to other file
+T.User.loadObjectPrototypes(0);//todo move to other file

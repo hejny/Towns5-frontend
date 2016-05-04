@@ -34,7 +34,7 @@ T.UI.Map.objectsHTML = function(objects) {
 
 
             //var model_moving=deepCopyModel(objects[i].design.data);//Model.rewriteRot(objects[i].res,objects[i].path.rotation());
-            objects[i].design.data.rotation=objects[i].path.rotation();
+            objects[i].getModel().rotation=objects[i].path.rotation();
 
 
         }else{
@@ -125,7 +125,7 @@ T.UI.Map.objectsHTML = function(objects) {
         if (draw_item[0] == 'building') {
 
             var img = new Image(x_size/*todo refactor*/, y_size);
-            img.src = draw_item[1].design.data.createSrc( map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope,
+            img.src = draw_item[1].getModel().createSrc( map_zoom_m * map_model_size, x_begin, y_begin, x_size, y_size, -map_rotation, map_slope,
                 (map_selected_ids.indexOf(draw_item[1].id) != -1?true:false)
 
             );/*todo cache SRCs*/

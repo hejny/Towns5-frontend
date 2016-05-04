@@ -251,10 +251,10 @@ window.uiScript = function(){
     //todo sounds ion.sound.play("door_bump");
 
         if(building){
-            building.design.data.size+=0.1;
-            if(building.design.data.size>2.5)building.design.data.size=2.5;//todo funkce pro bounds
+            building.getModel().size+=0.1;
+            if(building.getModel().size>2.5)building.getModel().size=2.5;//todo funkce pro bounds
 
-            r(building.design.data.size);
+            r(building.getModel().size);
 
             T.UI.Menu.Building.redraw();
         }else{
@@ -269,10 +269,10 @@ window.uiScript = function(){
 
 
         if(building){
-            building.design.data.size-=0.1;
-            if(building.design.data.size<0.5)building.design.data.size=0.5;
+            building.getModel().size-=0.1;
+            if(building.getModel().size<0.5)building.getModel().size=0.5;
 
-            r(building.design.data.size);
+            r(building.getModel().size);
 
             T.UI.Menu.Building.redraw();
         }else{
@@ -283,13 +283,13 @@ window.uiScript = function(){
 
     $('#selecting-distance-left').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.design.data.rotation+=10;
+        building.getModel().rotation+=10;
         T.UI.Menu.Building.redraw();
     });
 
     $('#selecting-distance-right').unbind('click').click(function(){
         //todo sounds ion.sound.play("door_bump");
-        building.design.data.rotation-=10;
+        building.getModel().rotation-=10;
         T.UI.Menu.Building.redraw();
     });
 

@@ -68,8 +68,8 @@ function createNewOrJoin(object){
 
             var bothDistances=0;
 
-            bothDistances+=objects_external[i].design.data.range('xy');
-            bothDistances+=object.design.data.range('xy');
+            bothDistances+=objects_external[i].getModel().range('xy');
+            bothDistances+=object.getModel().range('xy');
 
             bothDistances=bothDistances/100;//todo better
 
@@ -195,7 +195,7 @@ function createBuilding(object,callback){
         r(join.xy);
 
 
-        objects_external[join.i].design.data.joinModel(
+        objects_external[join.i].getModel().joinModel(
                     object.design.data,
                     join.xy.x,
                     join.xy.y
