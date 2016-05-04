@@ -488,7 +488,7 @@ function tidyHTML($buffer) {
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','path');return false;"><?=locale('ui menu buildings path')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>
-                    <li class="menu-dlist-item"><a onclick="dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Building.dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
                 </ul>
             </li>
 

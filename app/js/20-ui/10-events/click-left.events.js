@@ -86,13 +86,14 @@ $(function(){
 
                 $('#loading').hide();
 
+                var objects_external_raw=objects_external.getAll();
 
-                for(var i=objects_external.length-1;i>=0;i--){
+                for(var i=objects_external_raw.length-1;i>=0;i--){
 
-                    if(objects_external[i].type=='building'){
-                        if(T.Math.xy2dist(objects_external[i].x-mapPos.x,objects_external[i].y-mapPos.y)<=selecting_distance_fields){
+                    if(objects_external_raw[i].type=='building'){
+                        if(T.Math.xy2dist(objects_external_raw[i].x-mapPos.x,objects_external_raw[i].y-mapPos.y)<=selecting_distance_fields){
 
-                            dismantle(objects_external[i].id);
+                            dismantle(objects_external_raw[i].id);
 
                         }
                     }
@@ -146,17 +147,22 @@ $(function(){
 
                 T.UI.Menu.storyWriting.x=mapPos.x;
                 T.UI.Menu.storyWriting.y=mapPos.y;
-                var id=create(T.UI.Menu.storyWriting);
 
-                map_selected_ids=[id];
-                T.Plugins.open('story-editor',1,id);
+                var tmpid=create(T.UI.Menu.storyWriting,function(id){
+
+                    //T.Plugins.open('story-editor',1,id);
+
+                });
+
+                T.Plugins.open('story-editor',1,tmpid);
+
+                //map_selected_ids=[id];
+
 
                 mapSpecialCursorStop();
                 hideLeftMenu();
 
-
-                T.UI.Map.loadMapAsync(1000);
-
+                //T.UI.Map.loadMapAsync(1000);
 
                 return;
 

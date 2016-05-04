@@ -10,10 +10,16 @@
 function dismantle(id){
 
 
-    saveObject({
-        id: id,
-        stop_time: true//todo is thare a better solution?
+    r('saveObject: Deleting object');
+
+
+    T.TownsAPI.townsAPI.delete('objects/'+id,function(response){
+
+        r('object '+id+' was deleted in server');
+
     });
+
+    objects_external.removeId(id);
 
 
 }
