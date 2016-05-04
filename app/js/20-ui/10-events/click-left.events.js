@@ -148,19 +148,22 @@ $(function(){
                 T.UI.Menu.storyWriting.x=mapPos.x;
                 T.UI.Menu.storyWriting.y=mapPos.y;
 
-                var tmpid=create(T.UI.Menu.storyWriting,function(id){
 
-                    //T.Plugins.open('story-editor',1,id);
+                create(T.UI.Menu.storyWriting,function(id){
+
+                    T.Plugins.open('story-editor',1,id);
+
+
 
                 });
 
-                T.Plugins.open('story-editor',1,tmpid);
-
+                //T.Plugins.open('story-editor',1,tmpid);
                 //map_selected_ids=[id];
 
 
                 mapSpecialCursorStop();
                 hideLeftMenu();
+
 
                 //T.UI.Map.loadMapAsync(1000);
 

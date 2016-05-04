@@ -7,7 +7,9 @@
 
 T.Plugins.install(new T.Plugins.Viewer(
     'profile-viewer'
-    ,{}
+    ,{
+        type: 'building'
+    }
     ,'Profil'
     ,`
 
