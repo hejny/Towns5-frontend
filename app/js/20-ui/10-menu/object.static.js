@@ -38,7 +38,7 @@ T.UI.Menu.Object = class {
                     return (`<button onclick="T.Plugins.open('` + item + `',1,'` + id + `')">` + T.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
                 });
                 possible = possible.join('');
-                objectmenu += T.Templates.T.UI.Menu.Object.menu({
+                objectmenu += T.Templates.menu({
                     icon: '/media/image/icons/' + action + '.svg',
                     icon_size: 0.8,
                     title: T.Locale.get(object.type, object.subtype, action),
@@ -48,7 +48,7 @@ T.UI.Menu.Object = class {
             });
 
 
-            objectmenu += T.Templates.T.UI.Menu.Object.menu({
+            objectmenu += T.Templates.menu({
                 icon: '/media/image/icons/clone.svg',
                 icon_size: 0.8,
                 title: T.Locale.get(object.type, object.subtype, 'clone'),
@@ -57,7 +57,7 @@ T.UI.Menu.Object = class {
             });
 
 
-            objectmenu += T.Templates.T.UI.Menu.Object.menu({
+            objectmenu += T.Templates.menu({
                 icon: '/media/image/icons/dismantle.svg',
                 icon_size: 0.8,
                 title: T.Locale.get(object.type, object.subtype, 'dismantle'),

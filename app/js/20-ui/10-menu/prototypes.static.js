@@ -17,7 +17,7 @@ T.UI.Menu.Prototypes = class {
 
         //------------------------Extra buttons
         if (type == 'building' && subtype == 'block') {
-            object_menu_html += T.Templates.T.UI.Menu.Object.menu({
+            object_menu_html += T.Templates.menu({
                 icon: '/media/image/icons/add.svg',
                 icon_size: 0.55,
                 title: '',
@@ -27,7 +27,7 @@ T.UI.Menu.Prototypes = class {
         }
 
         if (type == 'building' && subtype == 'main') {
-            object_menu_html += T.Templates.T.UI.Menu.Object.menu({
+            object_menu_html += T.Templates.menu({
                 icon: '/media/image/icons/add.svg',
                 icon_size: 0.55,
                 title: '',
@@ -57,7 +57,7 @@ T.UI.Menu.Prototypes = class {
                 //------------------------building
                 if (object.type == 'building') {
 
-                    icon = object.design.data.createIcon(50);
+                    icon = object.getModel().createIcon(50);
                     //r(icon);
                     //content='popis budovy';
                     action = 'T.UI.Menu.Building.start(\'' + object.id + '\');';//todo refactor all object.id to object._id
@@ -110,7 +110,7 @@ T.UI.Menu.Prototypes = class {
                 //------------------------
 
 
-                object_menu_html += T.Templates.T.UI.Menu.Object.menu({
+                object_menu_html += T.Templates.menu({
                     icon: icon,
                     icon_size: icon_size,
                     selectable: true,
