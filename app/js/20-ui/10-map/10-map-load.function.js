@@ -37,7 +37,7 @@ T.UI.Map.loadMap = function(from_server=false){
             },//todo range and order by time
             function(response){
 
-                objects_server=response;
+                objects_server=new T.Objects.Array(response);
                 T.UI.Map.loadMapRequestCallback();
 
             }
@@ -69,7 +69,7 @@ T.UI.Map.loadMapRequestCallback=function(){
 
 
     tstart('getCompleteObjects');
-    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(objects_server),map_center_floor,map_radius,true/*,T.UI.Map.map_center_last*/);
+    objects_external = T.World.mapGenerator.getCompleteObjects(objects_server,map_center_floor,map_radius,true/*,T.UI.Map.map_center_last*/);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
