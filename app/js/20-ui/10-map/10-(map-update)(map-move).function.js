@@ -10,7 +10,7 @@ T.setNamespace('UI.Map');
  * @static
  * @param ms @deprecated
  */
-T.UI.Map.updateMap = function(){
+T.UI.Map.updateMap = function(from_server=false){
 
     r('updateMap');
     var ms=1000;
@@ -91,7 +91,7 @@ T.UI.Map.updateMap = function(){
 
         //console.log('loadMap');
         if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN after updateMap and before loadMap';
-        T.UI.Map.loadMapAsync();
+        T.UI.Map.loadMap/*Async*/(from_server);
 
 
     }
