@@ -10,34 +10,46 @@ T.setNamespace('UI.Map');
 var map_request_ajax=false;
 
 
-T.UI.Map.loadMap = function(){
-    r('loadMap');
+T.UI.Map.loadMap = function(from_server=false){
+
+
     if(isNaN((map_radius*2)))throw new Error('(map_radius*2) is NaN');
 
 
-    //todo refactor purge map_z_data and map_bg_data
+    if(from_server) {
+
+        r('Loading map from server.');
 
 
-    if(map_request_ajax){
-        map_request_ajax.abort();
+        if (map_request_ajax) {
+            map_request_ajax.abort();
+        }
+
+
+        map_request_ajax = T.TownsAPI.townsAPI.get(
+            'objects',
+            {
+                x: Math.round(T.UI.Map.map_center.x),
+                y: Math.round(T.UI.Map.map_center.y),
+                radius: map_radius*3//todo to constant
+                //not: map_out_ids
+
+            },//todo range and order by time
+            function(response){
+
+                objects_server=response;
+                T.UI.Map.loadMapRequestCallback();
+
+            }
+        );
+
+    }else{
+
+        r('Loading map from only local.');
+
+        T.UI.Map.loadMapRequestCallback();
+
     }
-
-
-    map_request_ajax=T.TownsAPI.townsAPI.get(
-        'objects',
-        {
-            x: Math.round(T.UI.Map.map_center.x),
-            y: Math.round(T.UI.Map.map_center.y),
-            radius: map_radius
-            //not: map_out_ids
-
-        },//todo range and order by time
-        T.UI.Map.loadMapRequestCallback
-    );
-
-    //T.UI.Map.loadMapRequestCallback([]);
-
-    tstart('loading map');
 
 
 };
@@ -45,24 +57,8 @@ T.UI.Map.loadMap = function(){
 
 //======================================================================================================================
 
-T.UI.Map.loadMapRequestCallback=function(response){
+T.UI.Map.loadMapRequestCallback=function(){
 
-    tend('loading map');
-
-    //----------------------------------Load object from response to objects_external todo in future maybe delete this part
-
-
-    /*objects_external = new T.Objects.Array();//todo use this in frontend
-    response.forEach(function (serverObject) {
-
-
-            var serverObjectCopy = deepCopyObject(serverObject);//todo read object
-            serverObjectCopy.id = serverObjectCopy._id;//todo refactor all object.id to object._id and delete this row
-
-            objects_external.push(serverObjectCopy);
-
-
-    });*/
 
     //----------------------------------Create map_data and map_bg_data from local objects
 
@@ -73,7 +69,7 @@ T.UI.Map.loadMapRequestCallback=function(response){
 
 
     tstart('getCompleteObjects');
-    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(response),map_center_floor,map_radius,true/*,T.UI.Map.map_center_last*/);
+    objects_external = T.World.mapGenerator.getCompleteObjects(new T.Objects.Array(objects_server),map_center_floor,map_radius,true/*,T.UI.Map.map_center_last*/);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external

@@ -38,6 +38,7 @@ var Editors={};
 
 
 
+var objects_server=new T.Objects.Array([]);
 var objects_external=new T.Objects.Array([]);
 var objects_external_buffer=[];//Preview eg. walls
 var objects_external_move=[];//Moving objects
@@ -157,10 +158,6 @@ var map_data_stories;//todo maybe refactor names?
 var map_data_terrains;//todo maybe refactor names?
 var map_array;//todo maybe refactor names?
 
-
-
-var map_z_data;//todo purge this
-var map_bg_data;//todo purge this
 
 
 var map_collision_data=[[false]];
