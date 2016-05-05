@@ -100,6 +100,14 @@ T.URI=class {
 
             if(this.plugin){
 
+                if(!T.Plugins.is(this.plugin)){
+
+                    T.UI.popupWindow.open(T.Locale.get('page','404','title'), T.Locale.get('page','404','content'), false, 'SMALL');
+                    return;
+
+                }
+
+
                 if(this.object){
 
                     r('Reading And Updating T.URI - Opening plugin with object');
