@@ -21,7 +21,7 @@ $(function(){
 
         var $stories_html=$(T.UI.Map.storiesHTML(stories));
         $stories_html.each(function () {
-            $(this).css('border','3px solid #FB9500');
+            $(this).css('border','3px solid #ff0000');
         });
 
         //$stories_html.find('.story').append('<i class="fa fa-arrow-up" aria-hidden="true"></i>');
@@ -162,5 +162,5 @@ $(function(){
 
 
 });
-*/
+/**/
 

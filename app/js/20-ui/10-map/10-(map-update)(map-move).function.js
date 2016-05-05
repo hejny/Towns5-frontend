@@ -179,9 +179,6 @@ T.UI.Map.mapMove = function(deltaX,deltaY,autoUpdate=false) {
     $('body').css('background-position',map_bg_x+'px '+map_bg_y+'px');
 
 
-    //if(T.UI.Map.mapOutRefresh)
-    //T.UI.Map.mapOutRefresh();
-
 
     if(autoUpdate){
         if(T.Math.xy2dist(map_bg_x-canvas_left,map_bg_y-canvas_top)>600){
