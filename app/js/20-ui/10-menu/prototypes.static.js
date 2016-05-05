@@ -22,11 +22,11 @@ T.UI.Menu.Prototypes = class {
                 icon_size: 0.55,
                 title: '',
                 content: content,
-                action: `mapSpecialCursorStop();Editors.block_editor.open(0,-1);`
+                action: `mapSpecialCursorStop();T.Plugins.open('building-block-editor',0,-1);`
             });
         }
 
-        if (type == 'building' && subtype == 'main') {
+        /*if (type == 'building' && subtype == 'main') {
             object_menu_html += T.Templates.menu({
                 icon: '/media/image/icons/add.svg',
                 icon_size: 0.55,
@@ -34,7 +34,7 @@ T.UI.Menu.Prototypes = class {
                 content: content,
                 action: `mapSpecialCursorStop();T.Plugins.Pages.open('building_editor');`
             });
-        }
+        }*/
         //------------------------.
 
 

@@ -105,7 +105,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
         var model_canvas= new T.ModelCanvas('model-canvas',object.design.data,380,600);
 
-        var particle=ModelParticles.cParams(object.getModel().particles[0]);
+        var particle= T.Model.Particles.addMissingParams(object.getModel().particles[0]);
 
         $('#block-editing-shape-n').val(particle.shape.n);
 
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
     },
-    {
+    new T.Objects.Building({
 
         name: "",
         type: "building",
@@ -210,7 +210,7 @@ T.Plugins.install(new T.Plugins.Editor(
             })
 
         }
-    }
+    })
 
 
 

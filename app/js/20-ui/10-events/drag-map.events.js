@@ -38,6 +38,9 @@ $(function(){
             $(this).css('left', first_offset.left);
             $(this).css('top', first_offset.top);
 
+
+            //if(T.UI.Map.mapOutRefresh)T.UI.Map.mapOutRefresh();
+
             T.UI.Map.updateMap();
 
 

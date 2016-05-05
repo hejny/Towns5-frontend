@@ -499,7 +499,7 @@ function tidyHTML($buffer) {
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','main');return false;"><?=locale('ui menu buildings main')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','wall');return false;"><?=locale('ui menu buildings wall')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','path');return false;"><?=locale('ui menu buildings path')?></a></li>
-                    <li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>
+                    <!--<li class="menu-dlist-item"><a onclick="T.UI.Menu.Prototypes.menu('building','block');return false;"><?=locale('ui menu buildings block')?></a></li>-->
                     <li class="menu-dlist-item"><a onclick="T.UI.Menu.Building.dismantlingStart();return false;"><?=locale('ui menu buildings dismantle')?></a></li>
                 </ul>
             </li>
@@ -519,6 +519,7 @@ function tidyHTML($buffer) {
             </li>
 
 
+            <?php if (isset($config['app']['environment']) && $config['app']['environment'] != "production"): ?>
             <li class="menu-list-item" id="menu-list-item-data">
                 <a><?=locale('ui menu develop')?></a>
 
@@ -534,7 +535,7 @@ function tidyHTML($buffer) {
 
                 </ul>
             </li>
-
+            <?php endif; ?>
 
 
 
