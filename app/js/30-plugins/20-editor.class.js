@@ -172,6 +172,7 @@ T.Plugins.Editor = class {
         }
 
 
+
         T.URI.object = this.opened.object.id;
 
 
@@ -179,6 +180,7 @@ T.Plugins.Editor = class {
         this.page.open(function (open_callback, object) {
 
             //-----------------------------------------
+
 
             open_callback(object);
 
