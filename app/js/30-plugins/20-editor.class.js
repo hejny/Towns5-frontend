@@ -118,13 +118,113 @@ T.Plugins.Editor = class {
      * @param {string} id
      */
     open(collection, id, errors = false) {
-
-        //r('Towns.Editor');
-
+        var editor = this;
 
         this.opened = {
             collection: collection
         };
+
+
+
+        var object_ready = function() {
+
+            T.URI.object = editor.opened.object.id;
+
+
+            editor.page.open(function (open_callback, object) {
+
+                //-----------------------------------------
+
+
+                open_callback(object);
+
+
+                //-----------------------------------------Errors
+
+                if (errors) {
+
+                    //r(errors);
+                    for (var key in errors.message) {
+                        //T.UI.Messages.message(errors.message[key].message,'error');
+
+                        $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');
+                    }
+
+
+                }
+
+                //-----------------------------------------Editor header
+
+                //-----------------Name
+                //--------Init name
+                $('#editor-object-name').val(object.name);
+                //--------Update name
+                $('#editor-object-name').change(function () {
+                    object.name = $('#editor-object-name').val();
+                });
+                //-----------------
+
+                //-----------------Delete
+                $('#editor-object-delete').click(function () {
+                    if (editor.opened.collection === 0) {
+
+                        r('Deleting object prototype ' + object.name + '.');
+
+                        //todo maybe create action DELETE prototype?
+                        if (confirm(T.Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+
+                            T.User.object_prototypes.removeId(object.id);
+
+                            mapSpecialCursorStop();
+                            T.UI.Menu.Prototypes.menu(object.type, object.subtype);
+
+                            T.UI.popupWindow.close(true);
+
+                        }
+
+
+                    } else {
+                        throw new Error('' + collection + ' is invalid identificator of collection!');
+                    }
+                });
+                //-----------------
+
+
+                //-----------------Duplicate
+                $('#editor-object-duplicate').click(function () {
+                    if (editor.opened.collection === 0) {
+
+                        r('Duplicating object prototype ' + object.name + '.');
+
+                        //todo maybe create action DUPLICATE prototype?
+                        if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+
+                            var object_duplicate = editor.opened.object.clone();
+                            object_duplicate.id = generateID();
+
+                            T.User.object_prototypes.push(object_duplicate);
+
+                            //r('Opening duplicated object prototype '+object.name+'.');
+                            //r(object_duplicate);
+                            T.UI.popupWindow.close();
+                            editor.open(0, object_duplicate.id);
+
+                        }
+
+
+                    } else {
+                        throw new Error('' + collection + ' is invalid identificator of collection!');
+                    }
+                });
+                //-----------------
+
+
+                //-----------------------------------------
+
+            }, [editor.open_callback, editor.opened.object]);
+
+        };
+
 
 
         if (id == -1) {
@@ -140,12 +240,16 @@ T.Plugins.Editor = class {
 
                 r('Creating new object prototype ' + this.opened.object.name + '.');
 
+                object_ready();
 
             } else if (collection == 1) {
 
                 /*objects_external.push(this.opened.object)
                  r('Creating new object '+this.opened.object.name+'.');*/
                 throw new Error('In objects can not be created new object without prototype.');
+
+                object_ready();
+
 
             } else {
                 throw new Error('' + collection + ' is invalid identificator of collection!');
@@ -159,11 +263,36 @@ T.Plugins.Editor = class {
                 this.opened.object = T.User.object_prototypes.getById(id);
                 r('Opening object prototype ' + this.opened.object.name + '.');
 
+                object_ready();
+
 
             } else if (collection == 1) {
 
                 this.opened.object = objects_external.getById(id);
-                r('Opening object ' + this.opened.object.name + '.');
+
+                if (editor.opened.object) {
+
+                    r('Opening object ' + this.opened.object.name + '.');
+                    object_ready();
+
+                } else {
+
+
+                    T.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
+
+                        editor.opened.object = T.Objects.Array.initInstance(response);
+
+                        r('Opening object ' + editor.opened.object.name + ' loaded from API.');
+                        object_ready();
+
+                    },function(){
+
+                        T.UI.popupWindow.open('404', 'not found', false, 'SMALL');
+
+                    });
+
+
+                }
 
             } else {
                 throw new Error('' + collection + ' is invalid identificator of collection!');
@@ -173,101 +302,6 @@ T.Plugins.Editor = class {
 
 
 
-        T.URI.object = this.opened.object.id;
-
-
-        var editor = this;
-        this.page.open(function (open_callback, object) {
-
-            //-----------------------------------------
-
-
-            open_callback(object);
-
-
-            //-----------------------------------------Errors
-
-            if (errors) {
-
-                //r(errors);
-                for (var key in errors.message) {
-                    //T.UI.Messages.message(errors.message[key].message,'error');
-
-                    $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');
-                }
-
-
-            }
-
-            //-----------------------------------------Editor header
-
-            //-----------------Name
-            //--------Init name
-            $('#editor-object-name').val(object.name);
-            //--------Update name
-            $('#editor-object-name').change(function () {
-                object.name = $('#editor-object-name').val();
-            });
-            //-----------------
-
-            //-----------------Delete
-            $('#editor-object-delete').click(function () {
-                if (editor.opened.collection === 0) {
-
-                    r('Deleting object prototype ' + object.name + '.');
-
-                    //todo maybe create action DELETE prototype?
-                    if (confirm(T.Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
-
-                        T.User.object_prototypes.removeId(object.id);
-
-                        mapSpecialCursorStop();
-                        T.UI.Menu.Prototypes.menu(object.type, object.subtype);
-
-                        T.UI.popupWindow.close(true);
-
-                    }
-
-
-                } else {
-                    throw new Error('' + collection + ' is invalid identificator of collection!');
-                }
-            });
-            //-----------------
-
-
-            //-----------------Duplicate
-            $('#editor-object-duplicate').click(function () {
-                if (editor.opened.collection === 0) {
-
-                    r('Duplicating object prototype ' + object.name + '.');
-
-                    //todo maybe create action DUPLICATE prototype?
-                    if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
-
-                        var object_duplicate = editor.opened.object.clone();
-                        object_duplicate.id = generateID();
-
-                        T.User.object_prototypes.push(object_duplicate);
-
-                        //r('Opening duplicated object prototype '+object.name+'.');
-                        //r(object_duplicate);
-                        T.UI.popupWindow.close();
-                        editor.open(0, object_duplicate.id);
-
-                    }
-
-
-                } else {
-                    throw new Error('' + collection + ' is invalid identificator of collection!');
-                }
-            });
-            //-----------------
-
-
-            //-----------------------------------------
-
-        }, [this.open_callback, this.opened.object]);
 
 
     }
