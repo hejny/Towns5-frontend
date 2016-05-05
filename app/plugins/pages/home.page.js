@@ -19,8 +19,10 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
+<div style="width: 100%; height: 10px;margin-bottom:30px; border-bottom: 2px solid #999; text-align: center">
+</div>
 
-<hr>
+
 
 <p style="text-align: center;">
   {{home info subtitle}}
@@ -59,8 +61,12 @@ T.Plugins.install(new T.Plugins.Page(
   </form>
 
 
+<div style="width: 100%; height: 10px;margin-bottom:30px; border-bottom: 2px solid #999; text-align: center">
+    <span style="font-size:1.2em;background-color: #fff; padding: 0 10px;">
+        {{home news info}}
+    </span>
+</div>
 
-<hr>
 
 
 <ul class="news">
@@ -153,9 +159,11 @@ function(page){
     //---------------------------------------------------------News
 
     var news=[];
+    news_active_loaders=3;
     var news_draw=function(){
 
-        //r(news);
+        news_active_loaders--;
+        if(news_active_loaders>0)return;
 
         var html='',item_html,news_;
 
