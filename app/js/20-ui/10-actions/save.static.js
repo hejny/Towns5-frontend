@@ -30,5 +30,26 @@ function saveObject(object,callback){
 }
 
 
+function deleteObject(id,callback){
 
+    objects_server.removeId(id);//Create new
+
+    T.TownsAPI.townsAPI.delete('objects/'+id,function(response){
+
+        r('object was deleted on server',response);
+
+        if(callback)callback(true);
+
+    },function(response){
+
+        r('object was NOT deleted on server',response);
+
+        if(callback)callback(false);
+
+    });
+
+    //-------------------------------
+
+
+}
 //todo dismantle or delete
