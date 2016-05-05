@@ -89,7 +89,7 @@ T.URI=class {
 
         var pathname = '';
         if (this.plugin) pathname += '/' + this.plugin;
-        if (this.object) pathname += '/' + this.object;
+        if (this.object && this.plugin) pathname += '/' + this.object;
 
         if (pathname === '') pathname = '/';
 

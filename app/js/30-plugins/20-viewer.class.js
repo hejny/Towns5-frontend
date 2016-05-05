@@ -65,10 +65,15 @@ T.Plugins.Viewer = class {
         }
 
 
+
+        T.URI.object = this.opened.object.id;
+
+
         var viewer = this;
         this.page.open(function (open_callback, object) {
 
             //-----------------------------------------
+
 
             open_callback(object, $('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
 

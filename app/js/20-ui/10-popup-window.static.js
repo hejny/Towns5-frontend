@@ -66,7 +66,7 @@ T.UI.popupWindow = class {
     static open(title, content, close_callback = false, format = 'NORMAL') {
 
         if (window_opened) {
-            T.UI.popupWindow.close(false);
+            T.UI.popupWindow.close();
         }
 
 

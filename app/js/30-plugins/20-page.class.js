@@ -115,13 +115,20 @@ T.Plugins.Page = class {
         //--------------------------------------------T.UI.popupWindow.open
         T.UI.popupWindow.open(title, content, function () {
 
+            r('closing page');
+
             if (self.close_callback) {
                 self.close_callback();
             }
 
-            T.URI.plugin = false;
-            T.URI.object = false;
-            T.URI.write();
+
+            if(self.uri==T.URI.plugin){
+                T.URI.plugin = false;
+                T.URI.object = false;
+                T.URI.write();
+            }
+
+
         }, this.format);
         //--------------------------------------------
 
