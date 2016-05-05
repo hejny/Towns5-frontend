@@ -54,15 +54,15 @@ T.Plugins.install(new T.Plugins.Viewer(
 
             if(confirm(T.Locale.get('story','delete','prompt'))){
                 T.UI.popupWindow.close();
-                T.TownsAPI.townsAPI.delete('objects/'+object.id
-                    ,function(){
+                deleteObject(object.id
+                    ,function(result){
 
-                        T.UI.Messages.message.success(T.Locale.get('story','delete','success'));
+                        if(result){
+                            T.UI.Messages.message.success(T.Locale.get('story','delete','success'));
+                        }else{
+                            T.UI.Messages.message.error(T.Locale.get('story','delete','error'));
+                        }
 
-                    }
-                    ,function(e){
-
-                        T.UI.Messages.message.error(T.Locale.get('story','delete','error'));
 
                     }
                 );//todo smarter deleting of objects

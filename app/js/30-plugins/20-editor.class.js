@@ -76,7 +76,8 @@ T.Plugins.Editor = class {
                 } else if (self.opened.collection == 1) {
 
 
-                    objects_external.setById(self.opened.object.id, self.opened.object);
+                    //todo refactor make by saveObject
+                    objects_server.update(self.opened.object);
 
 
                     T.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
