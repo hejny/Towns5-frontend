@@ -61,7 +61,7 @@ T.Plugins.install(new T.Plugins.Page(
   </form>
 
 
-<div style="width: 100%; height: 10px;margin-bottom:30px; border-bottom: 2px solid #999; text-align: center">
+<div style="width: 100%; height: 10px;margin-top:20px;margin-bottom:50px; border-bottom: 2px solid #999; text-align: center">
     <span style="font-size:1.2em;background-color: #fff; padding: 0 10px;">
         {{home news info}}
     </span>
