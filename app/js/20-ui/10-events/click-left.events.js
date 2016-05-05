@@ -66,7 +66,7 @@ $(function(){
 
                 create(tmp,function(){
 
-                    T.UI.Map.loadMap(false);
+                    T.UI.Map.loadMap();
 
                 });
 
@@ -129,10 +129,12 @@ $(function(){
                 T.UI.Menu.terrainChanging.design.data.size=selecting_distance_fields;
                 T.UI.Menu.terrainChanging.x=mapPos.x;
                 T.UI.Menu.terrainChanging.y=mapPos.y;
-                create(T.UI.Menu.terrainChanging);
+                create(T.UI.Menu.terrainChanging,function(){
 
-                //saveObjectsInternal();
-                T.UI.Map.loadMap();
+                    T.UI.Map.loadMap();
+
+                });
+
 
 
                 return;

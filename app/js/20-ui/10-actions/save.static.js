@@ -8,11 +8,11 @@
 
 function saveObject(object,callback){
 
-    objects_external.update(object);//Create new
+    objects_server.update(object);//Create new
 
     T.TownsAPI.townsAPI.post('objects',object,function(response){
 
-        object = objects_external.getById(object.id)
+        object = objects_server.getById(object.id)
 
         object.id=response.objectId;
 
@@ -28,3 +28,7 @@ function saveObject(object,callback){
 
 
 }
+
+
+
+//todo dismantle or delete
