@@ -531,7 +531,7 @@ function tidyHTML($buffer) {
                     <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu develop screenshot')?></a></li>
                     <li class="menu-dlist-item"><a class="js-popup-window-open" page="locale-write"><?=locale('ui menu develop locale write')?> (<span id="locale-write-count">0</span>)</a></li>
                     <li class="menu-dlist-item"><a onclick="window.open( './', 'Towns', 'channelmode=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, titlebar=no, width=800, height=600, left=100, top=100' );"><?=locale('ui menu develop window')?></a></li>
-
+                    <li class="menu-dlist-item"><a class="js-popup-window-open" page="deleting"><?=locale('ui menu develop deleting')?></a></li>
 
                 </ul>
             </li>
