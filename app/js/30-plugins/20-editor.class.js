@@ -287,7 +287,7 @@ T.Plugins.Editor = class {
 
                     },function(){
 
-                        T.UI.popupWindow.open('404', 'not found', false, 'SMALL');
+                        T.UI.popupWindow.open(T.Locale.get('page','404','title'), T.Locale.get('page','404','content'), false, 'SMALL');
 
                     });
 

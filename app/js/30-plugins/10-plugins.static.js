@@ -68,6 +68,19 @@ T.Plugins=class {
     }
 
 
+    static is(uri) {
+
+        for (var i in this.plugins) {
+            if (this.plugins[i].uri == uri) {
+                return (true);
+            }
+        }
+
+        return (false);
+
+    }
+
+
     static search(action, object) {
 
         var possible = [];
