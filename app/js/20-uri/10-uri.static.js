@@ -24,13 +24,17 @@ T.URI=class {
 
          });*/
 
+        this.object = false;
+        this.object = false;
+
+
         if (pathname.length == 1) {
-            this.object = pathname[0];
+            this.plugin = pathname[0];
         } else if (pathname.length == 2) {
             this.plugin = pathname[0];
             this.object = pathname[1];
         } else {
-            throw new Error('T.URI T.Pathname can contain max 2 strings.');
+            /*throw new Error*/r('T.URI T.Pathname can contain max 2 strings.');
         }
 
         //-------------------
@@ -75,9 +79,49 @@ T.URI=class {
 
     static readAndUpdate() {
 
+
+        var position_last = T.UI.Map.map_center.toString();
+        var plugin_last = this.plugin;
+        var object_last = this.object;
+
         r('Reading And Updating T.URI');
         this.read();
-        T.UI.Map.loadMapAsync();
+
+
+
+        if(position_last !== T.UI.Map.map_center.toString()){
+            r('Reading And Updating T.URI - Position was changed');
+            T.UI.Map.loadMapAsync();
+        }
+
+
+
+        if(plugin_last !== this.plugin || object_last !== this.object){
+
+            if(this.plugin){
+
+                if(this.object){
+
+                    r('Reading And Updating T.URI - Opening plugin with object');
+                    T.Plugins.open(this.plugin,1,this.object);
+                }else{
+
+                    r('Reading And Updating T.URI - Opening plugin without object');
+                    T.Plugins.open(this.plugin);
+                }
+
+            }else{
+
+                r('Reading And Updating T.URI - Closing window');
+                T.UI.popupWindow.close();
+
+            }
+
+
+
+
+        }
+
 
     }
 

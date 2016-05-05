@@ -277,3 +277,5 @@ news_type_video: Video
 news_type_wiki: Wiki
 news_type_story: Příběh ve hře
 story_hint: Kliknutím na mapu vytvoříš příběh.
+page_404_title: Nenalezeno
+page_404_content: "Odkaz byl přesunut, smazán nebo neexistuje."
