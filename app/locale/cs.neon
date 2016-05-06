@@ -282,3 +282,13 @@ page_404_content: "Odkaz byl přesunut, smazán nebo neexistuje."
 home_news_info: Co je nového?
 ui_menu_develop_deleting: ui_menu_develop_deleting
 page_deleting: Mazání příběhů
+logout_confirm: Opravdu se chceš odhlásit?
+user_username_taken: Uživatelské jméno je bohužel obsazené.
+auth_wrong: Zadal jsi špatné přihlašovací údaje.
+shape_cube: Krychle
+user_login: Přihlásit se
+upload_only_logged: Nahrávat příběhy na mapu mohou pouze přihlášení uživatelé.
+user_password_again_notsame: Hesla která jsi zadal nejsou stejná.
+user_username_missing: Zadej prosím uživatelské jméno.
+user_email_wrong: Zadej prosím platný email.
+user_password_missing: Zedej prosím heslo.
