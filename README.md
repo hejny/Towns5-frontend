@@ -30,18 +30,12 @@ https://trello.com/b/d2b6mY6s/frontend
 	│   ├── fakeserver.php      <- momentálne php script vracia len fake object.json
 	│   └──                     <- Budúci Node.js api - do té doby budeme využívat Towns4 API
 	├── [app]/                  <- Vyvojove prostredie
-	│   ├── [cofeehtml]/        <- coffeescripty
-	│   ├── [css]/              <- naše štýly (nie css z knižníc)
-	│   ├── [css-lib]/          <- štýly z knižníc (nie naše css)	
-	│   ├── [fonts]/            <- fonty z knižníc (tiež cez gulp)		
-	│   ├── [php]/              <- věci generované cez PHP
-	│   ├── [js]/               <- naše javascripty (nie knižnice)
-	│   ├── [js-lib]/           <- js knižnice (nie naše scripty!!!) (některé ale náma upravené) TODO: [SK]@[PH]: o tomto musime hodit rec. 
-	│   ├── [locale]/           <- jazykové lokalizácie
-	│   ├── [tdd]/              <- 
+	│   ├── //todo
 	│   └── index.php           <- samotné towns HTML
+	├── [app]/      			<- build
 	├── [config]/               <- Konfiguračné súbory
-	│   └── app.json            <- hlavné nastavenie aplikácie
+	│   ├── app.json            <- hlavné nastavenie aplikácie
+	│   └── includes.json       <- Soubory, ze kterých se vytvoři build
 	├── [public]/               <- Produkčné súbory vygenerované gulpom     
 	├── [media]/
 	│   ├── [image]/            <- Všechny obrázky
@@ -98,7 +92,28 @@ https://trello.com/b/d2b6mY6s/frontend
 	gulp
 	
 * * *	
+
+## Deploy
+
+1) Pull repository
+
+2) In config/app.json should be "environment": "production"
 	
+3) Directory cache and messages should have mod 0777
+	
+4) Install npm packeges
+
+	npm install
+	
+//5) todo tests
+	
+	
+6) Build app
+
+	gulp production
+	
+	
+
 ## Testovanie
 
 Testovanie JsHint Gulpom (Ukáže syntaxové chyby v javascriptových knižniciach)
