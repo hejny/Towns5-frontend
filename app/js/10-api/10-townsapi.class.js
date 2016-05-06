@@ -12,6 +12,7 @@ T.TownsAPI = class {
     constructor(url = '', token = false) {
 
         this.online = false;
+        this.logged = false;
         this.url = url;
         this.token = token;
 
@@ -107,16 +108,21 @@ T.TownsAPI = class {
 
     //todo jsdoc
     isLogged(callback) {
+        var self=this;
+
         return this.query('auth', {}, 'GET', {}, {},
             function (response) {
                 if (isDefined(response.status)) {
+                    self.logged=true;
                     callback(true);
                 } else {
+                    self.logged=false;
                     callback(false);
                 }
             },
             function (response) {
                 //r(response);
+                self.logged=false;
                 callback(false);
             }
         );
