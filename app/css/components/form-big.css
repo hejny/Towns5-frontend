@@ -33,7 +33,7 @@
   font-size: 1.3em;
   border: 2px solid #cccccc; }
 
-.form-big input[type="submit"] {
+.form-big input[type="submit"], button {
   width: auto;
   font-size: 1em;
   border: none;

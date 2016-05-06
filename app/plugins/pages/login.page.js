@@ -31,13 +31,13 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td>*`+T.Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" required autofocus></td>
+            <td><input type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" autofocus></td>
         </tr>
 
 
         <tr>
             <td>*`+T.Locale.get('user','password')+`:</td>
-            <td><input type="password" name="password" required></td>
+            <td><input type="password" name="password" ></td>
         </tr>
 
         <tr>
@@ -96,7 +96,7 @@ T.Plugins.install(new T.Plugins.Page(
 
                     $('#login-form').find('button').html(T.Locale.get('user','login'));
 
-                    Storage.save('token',response['x-auth']);
+                    T.Storage.save('token',response['x-auth']);
                     T.TownsAPI.townsAPI.token=response['x-auth'];
                     //$('#login-form').find('.messages').html('<div class="success">'+T.Locale.get('auth correct')+'</div>');
                     //r(response);
@@ -114,7 +114,7 @@ T.Plugins.install(new T.Plugins.Page(
                     $('#login-form').find('button').html(T.Locale.get('user','login'));
 
 
-                    $('#login-form').find('.messages').html('<div class="error">'+T.Locale.get('auth wrong')+'</div>');
+                    $('#login-form').find('.messages').html('<div class="error messagebox">'+T.Locale.get('auth wrong')+'</div>');
 
                     T.TownsAPI.townsAPI.token=false;
                     T.UI.Status.logged();

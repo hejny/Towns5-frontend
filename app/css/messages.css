@@ -71,14 +71,10 @@
   color: #FFFFFF;
   background-color: #444444; }
 
-/*.error, .success, .info, .loading {
-
+.messagebox {
   text-align: center;
   display: block;
   width: 100%;
   padding: 6px;
-
-  font-weight: bold;
-
-
-}*/
+  margin: 4px;
+  border-radius: 3px; }
