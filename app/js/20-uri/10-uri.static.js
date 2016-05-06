@@ -25,7 +25,7 @@ T.URI=class {
          });*/
 
         this.object = false;
-        this.object = false;
+        this.plugin = false;
 
 
         if (pathname.length == 1) {

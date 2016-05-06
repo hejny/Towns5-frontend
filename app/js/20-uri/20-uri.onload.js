@@ -27,6 +27,13 @@ $(function(){
     r('Starting Towns with opened object '+T.URI.object+'.');
     r('Starting Towns with opened plugin '+T.URI.plugin+'.');
 
+    if(environment!='develop' && !T.URI.plugin){
+        T.Plugins.open('home');
+    }
+
+
+
+
 });
 
 

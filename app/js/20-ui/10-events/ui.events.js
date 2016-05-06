@@ -415,8 +415,6 @@ $(function(){
     mapSpecialCursorStop();
     uiScript();
 
-    if(environment!='develop')
-    T.Plugins.open('home');
 
 
 });

@@ -7,73 +7,74 @@
 @import '../mixins';
 
 
+.news{
 
-
-//todo scss style
-ul.news li{
-
-  display:inline-block;
-
-  width: calc(25% - 10px);
-  /*height: 100px;*/
 
   text-align: center;
-  vertical-align: top;
-
-  margin-bottom: 10px;
-  /*border: 1px solid #f00;*/
-
-}
-
-ul.news li a{
-
-  text-decoration: none;
-  color: #000;
-
-}
-
-ul.news li img{
-
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
-
-  //border: 2px solid #4cc;
-
-}
 
 
-ul.news li .title{
+  ul li {
 
+    display: inline-block;
 
-  margin: 0;
+    width: calc(25% - 10px);
+    /*height: 100px;*/
 
-  font-size: 1.1em;
+    text-align: center;
+    vertical-align: top;
 
-}
+    margin-bottom: 10px;
+    /*border: 1px solid #f00;*/
 
-ul.news li .type{
+    a {
 
+      text-decoration: none;
+      color: #000;
 
-  margin: 0;
+    }
 
-  font-size: 0.9em;
-  color: #444;
+    img {
 
-}
+      width: 100px;
+      height: 100px;
+      border-radius: 100px;
 
-ul.news li .type i{
+      //border: 2px solid #4cc;
 
-  margin-left: 5px;
+    }
 
-}
+    .title {
 
-ul.news li .date{
+      margin: 0;
 
+      font-size: 1.1em;
 
-  margin: 0;
+    }
 
-  font-size: 0.9em;
-  color: #44f;
+    .type {
+
+      margin: 0;
+
+      font-size: 0.9em;
+      color: #444;
+
+      i {
+
+        margin-left: 5px;
+
+      }
+    }
+
+    .date {
+
+      margin: 0;
+
+      font-size: 0.9em;
+      color: #44f;
+
+    }
+
+  }
+
 
 }
