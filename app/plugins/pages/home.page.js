@@ -69,10 +69,14 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-<ul class="news">
-</ul>
-
-
+<div class="news">
+    <div style="display: inline-block;color: #a0cadb;" class="la-ball-atom la-3x">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
 
 
 
@@ -217,7 +221,7 @@ function(page){
 
         });
 
-        $(page).find(".news").html(html);
+        $(page).find(".news").html('<ul>'+html+'</ul>');
 
     };
 

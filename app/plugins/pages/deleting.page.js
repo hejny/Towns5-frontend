@@ -13,8 +13,8 @@ T.Plugins.install(new T.Plugins.Page(
     'deleting',
     T.Locale.get('page','deleting'),
     `
-<ul class="news">
-</ul>
+<div class="news">
+</div>
 
 
 `
@@ -78,7 +78,7 @@ T.Plugins.install(new T.Plugins.Page(
 
             });
 
-            $(page).find(".news").html(html);
+            $(page).find(".news").html('<ul>'+html+'</ul>');
         });
 
 

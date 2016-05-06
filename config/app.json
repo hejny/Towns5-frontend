@@ -4,7 +4,7 @@
     "test": "Prostredie v ktorom hru testujeme",
     "production": "Prostredie v ktorom hra bezi na live serveri"
   },
-  "environment": "develop",
+  "environment": "production",
 
   "facebook": {
     "app_id": 408791555870621
