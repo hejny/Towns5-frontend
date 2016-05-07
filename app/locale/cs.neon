@@ -292,3 +292,4 @@ user_password_again_notsame: Hesla která jsi zadal nejsou stejná.
 user_username_missing: Zadej prosím uživatelské jméno.
 user_email_wrong: Zadej prosím platný email.
 user_password_missing: Zedej prosím heslo.
+user_update: Aktualizovat

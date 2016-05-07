@@ -20,7 +20,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
- <form id="register-form" class="form-big">
+ <div id="register-form" class="form-big">
 
     <table>
 
@@ -99,7 +99,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-</form>
+</div>
 
 
 
@@ -112,7 +112,7 @@ T.Plugins.install(new T.Plugins.Page(
 `
 ,function(page){
 
-        $('#register-form').find('input').change(function(e){
+        $(page).find('input').change(function(e){
 
             r('changed');
             unsetInputError(this);
@@ -120,19 +120,14 @@ T.Plugins.install(new T.Plugins.Page(
         });
 
 
-        $('#register-form').find('button').click(function(){
-            $('#register-form').trigger('submit');
-        });
-        
-
-        $('#register-form').submit(function(e){
+        $(page).find('button').click(function(e){
 
             e.preventDefault();
 
             var data={};
 
             //todo form to json
-            $(this).find('input').each(function(){
+            $(page).find('input').each(function(){
 
 
                 if($(this).attr('type')=='submit')return;
