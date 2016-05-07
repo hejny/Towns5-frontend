@@ -26,6 +26,10 @@ T.Plugins.Viewer = class {
         this.page = new T.Plugins.Page(
             uri,
             title,
+            `
+            <div class="button-icon"  id="viewer-object-delete" title="{{object delete}}"><i class="fa fa-trash-o"></i></div>
+            <div class="button-icon"  id="viewer-object-edit" title="{{object edit}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+            `+
             content
         );
 
@@ -63,6 +67,55 @@ T.Plugins.Viewer = class {
                 open_callback(object, $('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
 
                 //-----------------------------------------
+
+
+
+
+
+
+
+                //-----------------Edit
+                $('#viewer-object-edit').click(function(e){
+
+                    if(object.type=='story'){
+
+                        T.Plugins.open('story-editor',1,object.id);//todo better switching between viewers and editors
+
+                    }else{
+                        throw new Error('todo better switching between viewers and editors');
+                    }
+
+
+                });
+                //-----------------
+
+
+                //-----------------Delete
+                $('#viewer-object-delete').click(function(e){
+
+                    if(confirm(T.Locale.get(object.type,'delete','confirm'))){
+                        T.UI.popupWindow.close();
+                        deleteObject(object.id
+                            ,function(result){
+
+                                if(result){
+                                    T.UI.Messages.success(T.Locale.get(object.type,'delete','success'));
+                                }else{
+                                    T.UI.Messages.error(T.Locale.get(object.type,'delete','error'));
+                                }
+
+
+                            }
+                        );//todo smarter deleting of objects
+                    }
+
+                });
+                //-----------------
+
+
+
+
+
 
             }, [viewer.open_callback, viewer.opened.object]);
 

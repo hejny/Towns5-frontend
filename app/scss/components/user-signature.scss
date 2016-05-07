@@ -12,14 +12,14 @@
 
   display: block;
 
-  margin-top: 30px;
+  //margin-top: 30px;
   //border: 2px solid #cc002e;
   background-color: #eee;
   padding: 5px;
 
   border-radius: 3px;
 
-  vertical-align: bottom;
+
 
   min-height: 100px;
 
@@ -32,7 +32,8 @@
 
     width: 80px;
     height: 80px;
-    border-radius: 80px;
+    //border-radius: 80px;
+    border-radius: 3px;
 
     //border: 2px solid #cc002e;
   }
@@ -43,8 +44,8 @@
 
     display: block;
 
-
     width:  100%;
+    min-height:  100px;
     //width:  calc( 100% - 80px - 20px );
     //border: 2px solid #cc002e;
 
@@ -52,18 +53,23 @@
 
     h1{
 
+      vertical-align: middle;
+
       font-size: 1.3em;
       margin: 0px;
-
+      margin-top: 10px;
+      //border: 2px solid #cc002e;
 
 
     }
 
     p{
 
+      vertical-align: middle;
+
       //font-size: 0.9em;
       margin: 0px;
-
+      //border: 2px solid #cc002e;
     }
 
   }

@@ -1,0 +1,39 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Style for window popup
+ */
+//======================================================================================================================
+@import 'config';
+@import 'mixins';
+
+
+.popup-window .content {
+
+
+
+  #viewer-object-delete, #viewer-object-edit {
+
+    display: block;
+    position: absolute;
+    top: 5px;
+  }
+
+  #viewer-object-delete{
+    right: 65px;
+  }
+  #viewer-object-edit{
+    right: 5px;
+  }
+
+
+
+  article { //todo should it be here???
+
+    min-height: calc( 100% - 165px );
+
+  }
+
+
+
+
+}

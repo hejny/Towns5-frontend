@@ -6,56 +6,54 @@
 @import 'config';
 @import 'mixins';
 
-#editor-object-header{
-  display: block;
-  width: 100%;
-  height: 40px;
-  //overflow: hidden;
-  text-align: left;
 
-  //border: 2px solid #ffcccc;
+.popup-window .content {
 
-  .button-icon{
+  #editor-object-header {
+    display: block;
+    width: 100%;
+    height: 40px;
+    //overflow: hidden;
+    text-align: left;
 
-    @include button-icon(15px, $button-icon-color-light);
+    //border: 2px solid #ffcccc;
+
+    .button-icon {
+
+      @include button-icon(15px, $button-icon-color-light);
+
+    }
 
   }
 
-}
-
-
-#editor-object-name{
+  #editor-object-name {
     display: inline-block;
     overflow: hidden;
     width: calc(100% - 0px);
     height: 30px;
     font-size: 1.6em;
-    border: /*2px solid #cccccc*/none;
+    border: /*2px solid #cccccc*/
+            none;
     border-bottom: 2px solid #cccccc;
     z-index: 3;
-}
-
-
-#editor-object-delete, #editor-object-duplicate{
-
-
-  position: relative;
-  top: -50px;
-  left: 675px;
-
-
-
-}
-
-
-#editor-object-errors{
-  width: 100%;
-
-
-  .error{
-
-    color: #000000;
-    background-color: rgba($error-color,0.4);
   }
-}
 
+  #editor-object-delete, #editor-object-duplicate {
+
+    position: relative;
+    top: -50px;
+    left: 675px;
+
+  }
+
+  #editor-object-errors {
+    width: 100%;
+
+    .error {
+
+      color: #000000;
+      background-color: rgba($error-color, 0.4);
+    }
+  }
+
+}
