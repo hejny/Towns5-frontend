@@ -20,7 +20,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
- <form id="login-form" class="form-big">
+ <div id="login-form" class="form-big">
 
     <table>
 
@@ -49,7 +49,7 @@ T.Plugins.install(new T.Plugins.Page(
     </table>
 
 
-</form>
+</div>
 
 
 `
@@ -57,19 +57,14 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-        $('#login-form').find('button').click(function(){
-            $('#login-form').trigger('submit');
-        });
-
-
-        $('#login-form').submit(function(e){
+        $(page).find('button').click(function(e){
 
             e.preventDefault();
 
             var data={};
 
             //todo form to json
-            $(this).find('input').each(function(){
+            $(page).find('input').each(function(){
 
                 if($(this).attr('type')=='submit')return;
 

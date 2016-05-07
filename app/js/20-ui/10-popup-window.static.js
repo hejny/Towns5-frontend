@@ -47,10 +47,16 @@ T.UI.popupWindow = class {
     static setFormat(format = 'NORMAL') {
 
         $('.popup-window').removeClass('popup-window-small');
+        $('.popup-window').removeClass('popup-window-vertical');
 
         if (format == "SMALL") {
 
             $('.popup-window').addClass('popup-window-small');
+
+        }else
+        if (format == "VERTICAL") {
+
+            $('.popup-window').addClass('popup-window-vertical');
 
         }
 
