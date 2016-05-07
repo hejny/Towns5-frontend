@@ -53,7 +53,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 `
-    ,function(){
+    ,function(page){
 
 
 

@@ -14,12 +14,12 @@
  * @author Towns.cz
  * @fileOverview Configuration of style
  */
-#editor-object-header {
+.popup-window .content #editor-object-header {
   display: block;
   width: 100%;
   height: 40px;
   text-align: left; }
-  #editor-object-header .button-icon {
+  .popup-window .content #editor-object-header .button-icon {
     border: none;
     display: inline-block;
     margin: 2px;
@@ -36,10 +36,10 @@
     background-color: rgba(204, 204, 204, 0.5);
     color: #333333;
     cursor: pointer; }
-    #editor-object-header .button-icon:hover {
+    .popup-window .content #editor-object-header .button-icon:hover {
       background-color: rgba(204, 204, 204, 0.65); }
 
-#editor-object-name {
+.popup-window .content #editor-object-name {
   display: inline-block;
   overflow: hidden;
   width: calc(100% - 0px);
@@ -49,13 +49,13 @@
   border-bottom: 2px solid #cccccc;
   z-index: 3; }
 
-#editor-object-delete, #editor-object-duplicate {
+.popup-window .content #editor-object-delete, .popup-window .content #editor-object-duplicate {
   position: relative;
   top: -50px;
   left: 675px; }
 
-#editor-object-errors {
+.popup-window .content #editor-object-errors {
   width: 100%; }
-  #editor-object-errors .error {
+  .popup-window .content #editor-object-errors .error {
     color: #000000;
     background-color: rgba(255, 0, 35, 0.4); }
