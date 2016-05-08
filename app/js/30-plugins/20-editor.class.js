@@ -167,6 +167,7 @@ T.Plugins.Editor = class {
 
                 //-----------------Delete
                 $('#editor-object-delete').click(function () {
+
                     if (editor.opened.collection === 0) {
 
                         r('Deleting object prototype ' + object.name + '.');
@@ -184,31 +185,17 @@ T.Plugins.Editor = class {
                         }
 
 
-                    } else {
-                        throw new Error('' + collection + ' is invalid identificator of collection!');
-                    }
-                });
-                //-----------------
+                    } else
+                    if (editor.opened.collection === 1) {
 
+                        r('Deleting object ' + object.name + '.');
 
-                //-----------------Duplicate
-                $('#editor-object-duplicate').click(function () {
-                    if (editor.opened.collection === 0) {
+                        //todo maybe create action DELETE prototype?
+                        if (confirm(T.Locale.get(object.type,'delete','confirm'))) {//todo create better confirm
 
-                        r('Duplicating object prototype ' + object.name + '.');
+                            deleteObject(object.id);
 
-                        //todo maybe create action DUPLICATE prototype?
-                        if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
-
-                            var object_duplicate = editor.opened.object.clone();
-                            object_duplicate.id = generateID();
-
-                            T.User.object_prototypes.push(object_duplicate);
-
-                            //r('Opening duplicated object prototype '+object.name+'.');
-                            //r(object_duplicate);
-                            T.UI.popupWindow.close();
-                            editor.open(0, object_duplicate.id);
+                            T.UI.popupWindow.close(true);
 
                         }
 
@@ -217,6 +204,44 @@ T.Plugins.Editor = class {
                         throw new Error('' + collection + ' is invalid identificator of collection!');
                     }
                 });
+                //-----------------
+
+
+                //-----------------Duplicate
+                if(collection==0){
+
+                    $('#editor-object-duplicate').show().click(function () {
+                        if (editor.opened.collection === 0) {
+
+                            r('Duplicating object prototype ' + object.name + '.');
+
+                            //todo maybe create action DUPLICATE prototype?
+                            if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+
+                                var object_duplicate = editor.opened.object.clone();
+                                object_duplicate.id = generateID();
+
+                                T.User.object_prototypes.push(object_duplicate);
+
+                                //r('Opening duplicated object prototype '+object.name+'.');
+                                //r(object_duplicate);
+                                T.UI.popupWindow.close();
+                                editor.open(0, object_duplicate.id);
+
+                            }
+
+
+                        } else {
+                            throw new Error('' + collection + ' is invalid identificator of collection!');
+                        }
+                    });
+
+                }else{
+
+                    $('#editor-object-duplicate').hide();
+
+                }
+
                 //-----------------
 
 
