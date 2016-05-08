@@ -45,49 +45,12 @@ T.Plugins.install(new T.Plugins.Viewer(
         $(page).find('article').html(content);
 
 
-        /*T.User = class{
-            constructor(){
-
-            }
-        };*/
-
 
         T.TownsAPI.townsAPI.get('users/'+object.owner,{},function(response){
 
+            var user = new T.User(response);//todo maybe creation of instance should provide TownsAPI
 
-            var name;
-
-            if(response.profile.name || response.profile.surname){
-
-                name = response.profile.name+' '+response.profile.surname;
-
-            }else{
-
-                name = response.profile.username;
-
-            }
-
-
-            var email_md5 = md5(response.profile.email);
-
-
-            var signature_html = `
-
-                <div class="user-signature">
-                    <img class="user-image" src="https://1.gravatar.com/avatar/` + email_md5 + `?s=80&r=pg&d=mm">
-
-                    <div class="user-signature-text">
-                        <h1 class="user-name">`+name+`</h1>
-                        <p>`+response.profile.description.html2text()+`</p>
-                    </div>
-
-                </div>
-
-            `;
-
-
-
-            $(page).find('.author').html(signature_html);
+            $(page).find('.author').html(user.getSignatureHTML());
 
         });
 

@@ -11,25 +11,33 @@
 
 
 
-  #viewer-object-delete, #viewer-object-edit {
+  #viewer-object-delete, #viewer-object-edit, #viewer-object-position {
 
     display: block;
     position: absolute;
     top: 5px;
+
+    @include button-icon(15px, $button-icon-color-light);
+
   }
 
-  #viewer-object-delete{
-    right: 65px;
+
+  #viewer-object-position{
+    right: 95px;
   }
   #viewer-object-edit{
+    right: 50px;
+  }
+  #viewer-object-delete{
     right: 5px;
   }
 
 
 
+
   article { //todo should it be here???
 
-    min-height: calc( 100% - 165px );
+    min-height: calc( 100% - 135px );
 
   }
 

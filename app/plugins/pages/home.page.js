@@ -205,14 +205,30 @@ function(page){
                 item.onclick='';
             }
 
+
+            var a_tag_begin,a_tag_end;
+            if(item.link){
+
+                a_tag_begin = `<a href="`+item.link+`" target="`+item.target+`">`;
+                a_tag_end = `</a>`;
+
+            }else{
+
+                a_tag_begin = '';
+                a_tag_end = '';
+
+            }
+
+
+
             item_html+=`
-            <li>
-                <a href="`+item.link+`" target="`+item.target+`" onclick="`+item.onclick+`">
+            <li onclick="`+item.onclick+`">
+                `+a_tag_begin+`
                     <img src="`+item.image+`">
                     <h2 class="title">`+item.title+`</h2>
                     <p class="type">`+ T.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
                     <p class="date">`+dateToSmartString(item.date)+`</p>
-                </a>
+                `+a_tag_end+`
             </li>
             `;
 
@@ -257,12 +273,12 @@ function(page){
 
             news.push({
                 type: 'story',
-                link: '#'+story.x+','+story.y,
+                //link: '#'+story.x+','+story.y,
                 onclick: "T.Plugins.open('story',1,'"+story.id+"');",
                 image: image,
                 title: story.name,
                 date: new Date(story.start_time),
-                target: '_self'
+                //target: '_self'
             });
 
 

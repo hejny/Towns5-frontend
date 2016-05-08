@@ -293,3 +293,22 @@ user_username_missing: Zadej prosím uživatelské jméno.
 user_email_wrong: Zadej prosím platný email.
 user_password_missing: Zedej prosím heslo.
 user_update: Aktualizovat
+ui_user_settings: Nastavení
+page_user_settings: Nastavení
+user_signature: Podpis
+object_terrain_4: Písek
+object_terrain_2: Dlažba
+object_terrain_1: Moře
+object_terrain_3: Led
+object_terrain_6: Hlína
+object_terrain_5: Kamení
+object_terrain_9: Jarní tráva
+object_terrain_8: Letní tráva
+object_terrain_11: Jezero
+object_terrain_7: Sníh
+object_terrain_10: Les
+object_terrain_13: Podzimní tráva
+object_terrain_12: Tráva
+object_show_on_map: Zobrazit na mapě
+object_edit: Upravit
+object_delete: Smazat

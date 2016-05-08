@@ -38,7 +38,7 @@ T.Cache.textures= new T.Cache.ImagesCollection({
 
 
 files=[];
-for(var terrain=0;terrain<terrainCount;terrain++) {
+for(var terrain=1;terrain<terrainCount+1;terrain++) {
     for (var seed = 0; seed < seedCount; seed++) {
 
         files['t'+terrain+'s'+seed] = 't' + (terrain) + '&seed=' + seed + '&size=220';

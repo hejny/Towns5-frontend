@@ -71,9 +71,15 @@ T.UI.Menu.Prototypes = class {
                 //------------------------terrain
                 if (object.type == 'terrain') {
 
-                    icon = appDir + '/php/terrain.php?raw&size=60&terrain=t' + (object.design.data.image);
+                    if(object.getCode()==14)return;//todo better
+
+                    icon = appDir + '/php/terrain.php?raw&size=60&terrain=t' + (object.getCode());
                     action = 'T.UI.Menu.Terrains.start(\'' + object.id + '\');';
                     icon_size = 1.2;
+
+                    title= T.Locale.get('object terrain',object.getCode());
+                    content+= '<img width="280" height="140" src="'+(appDir + '/php/terrain.php?raw&size=280&terrain=t' + (object.getCode()))+'">';
+                    //content+= T.Locale.get('object terrain',object.getCode(),'description');
 
                 }
                 //------------------------

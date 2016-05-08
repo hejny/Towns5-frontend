@@ -27,8 +27,10 @@ T.Plugins.Viewer = class {
             uri,
             title,
             `
-            <div class="button-icon"  id="viewer-object-delete" title="{{object delete}}"><i class="fa fa-trash-o"></i></div>
+            <div class="button-icon"  id="viewer-object-position" title="{{object show on map}}"><i class="fa fa-map-marker" aria-hidden="true"></i>
+</div>
             <div class="button-icon"  id="viewer-object-edit" title="{{object edit}}"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+            <div class="button-icon"  id="viewer-object-delete" title="{{object delete}}"><i class="fa fa-trash-o"></i></div>
             `+
             content
         );
@@ -71,7 +73,16 @@ T.Plugins.Viewer = class {
 
 
 
+                //-----------------Position
+                $('#viewer-object-position').click(function(e){
 
+                    T.UI.Map.map_center = object.getPosition();
+                    T.UI.Map.loadMap(true);
+                    T.UI.popupWindow.close();
+
+
+                });
+                //-----------------
 
 
                 //-----------------Edit

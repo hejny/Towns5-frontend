@@ -13,7 +13,7 @@ var map_request_ajax=false;
 T.UI.Map.loadMap = function(from_server=false){
 
 
-    if(isNaN((map_radius*2)))throw new Error('(map_radius*2) is NaN');
+    if(isNaN(map_radius))throw new Error('map_radius is NaN');
 
 
     if(from_server) {

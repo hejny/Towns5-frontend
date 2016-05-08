@@ -63,6 +63,12 @@ T.Cache.ImagesCollection = class {
             this.images[key] = new Image();
             this.images[key].src = this.url + this.files[key];
             this.images[key].onload = onload_callback;
+            this.images[key].onerror = function(){
+
+                r(this);
+                throw new Error('Cant load this image!');
+
+            };
 
         }
 

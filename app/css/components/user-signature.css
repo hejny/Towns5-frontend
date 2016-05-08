@@ -1,0 +1,41 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Resources toHTML
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.user-signature {
+  display: block;
+  background-color: #eee;
+  padding: 5px;
+  border-radius: 3px;
+  min-height: 100px; }
+  .user-signature .user-image {
+    display: block;
+    float: left;
+    margin: 10px;
+    width: 80px;
+    height: 80px;
+    border-radius: 3px; }
+  .user-signature .user-signature-text {
+    display: block;
+    width: 100%;
+    min-height: 100px; }
+    .user-signature .user-signature-text h1 {
+      vertical-align: middle;
+      font-size: 1.3em;
+      margin: 0px;
+      margin-top: 10px; }
+    .user-signature .user-signature-text p {
+      vertical-align: middle;
+      margin: 0px; }

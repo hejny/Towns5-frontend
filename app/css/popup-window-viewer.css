@@ -1,0 +1,50 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Style for window popup
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Default styling of HTML components
+ */
+/**
+ * @author Towns.cz
+ * @fileOverview Configuration of style
+ */
+.popup-window .content #viewer-object-delete, .popup-window .content #viewer-object-edit, .popup-window .content #viewer-object-position {
+  display: block;
+  position: absolute;
+  top: 5px;
+  border: none;
+  display: inline-block;
+  margin: 2px;
+  padding: 10px;
+  font-weight: 600;
+  width: 15px;
+  height: 15px;
+  font-size: 12.11538px;
+  border: 2px solid rgba(170, 170, 170, 0.5);
+  border-radius: 3px;
+  text-shadow: #000011;
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(204, 204, 204, 0.5);
+  color: #333333;
+  cursor: pointer; }
+  .popup-window .content #viewer-object-delete:hover, .popup-window .content #viewer-object-edit:hover, .popup-window .content #viewer-object-position:hover {
+    background-color: rgba(204, 204, 204, 0.65); }
+
+.popup-window .content #viewer-object-position {
+  right: 95px; }
+
+.popup-window .content #viewer-object-edit {
+  right: 50px; }
+
+.popup-window .content #viewer-object-delete {
+  right: 5px; }
+
+.popup-window .content article {
+  min-height: calc( 100% - 135px); }
