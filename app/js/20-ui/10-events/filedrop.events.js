@@ -146,7 +146,7 @@ $(function(){
                         for (var key in files_name_key) {
 
                             var filename = files_name_key[key];
-                            story_prototype.content.data+='!['+markdownEscape(filename)+']('+markdownEscape(response[key])+')';
+                            story_prototype.content.data+='!['+markdownEscape(filename)+']('+markdownEscape(response[key])+')\n';
 
                         }
 

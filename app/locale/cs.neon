@@ -312,3 +312,4 @@ object_terrain_12: Tráva
 object_show_on_map: Zobrazit na mapě
 object_edit: Upravit
 object_delete: Smazat
+story_delete_confirm: Opravdu chceš smazat tento příběh?
