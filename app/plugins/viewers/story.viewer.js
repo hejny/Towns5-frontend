@@ -38,6 +38,47 @@ T.Plugins.install(new T.Plugins.Viewer(
             $(this).attr('src',src);
     
         });
+
+
+
+        content.find('a').each(function(){
+
+            $this=$(this);
+
+            var href = $this.attr('href');
+            uri = URI(href);
+
+            if(uri.domain()==''){
+
+                var uri = uri.path();
+                uri=uri.substr(1);
+                uri=uri.split('/');
+
+                var onclick = `T.Plugins.open('`+uri[0]+`',1,'`+uri[1]+`');`;
+
+                $this.attr('href',null);
+                $this.attr('onclick',onclick);
+
+                //r($this);
+
+            }else{
+
+                var html = $this.html();
+                html+='<i class="fa fa-external-link" aria-hidden="true"></i>';
+                $this.html(html);
+
+                $this.attr('target','_blank');
+
+            }
+
+
+
+
+        });
+
+
+
+
     
         content=content.outerHTML();//todo use this
 
