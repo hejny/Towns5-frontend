@@ -72,6 +72,9 @@
     .popup-window .content img {
       max-width: 100%;
       border-radius: 3px; }
+    .popup-window .content a {
+      text-decoration: underline;
+      color: #0b76cc; }
     .popup-window .content .full-loading {
       text-align: center;
       position: absolute;
