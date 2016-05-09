@@ -73,7 +73,7 @@ T.Plugins.install(new T.Plugins.Page(
 
      <tr>
      <td>`+T.Locale.get('user','birthday')+`:</td>
-     <td><input type="date" name="birthday"></td>
+     <td><input type="text" name="birthday"></td>
      </tr>
 
      <tr>

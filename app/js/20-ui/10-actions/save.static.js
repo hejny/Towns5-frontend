@@ -12,7 +12,7 @@ function saveObject(object,callback){
 
     T.TownsAPI.townsAPI.post('objects',object,function(response){
 
-        object = objects_server.getById(object.id)
+        object = objects_server.getById(object.id);
 
         object.id=response.objectId;
 

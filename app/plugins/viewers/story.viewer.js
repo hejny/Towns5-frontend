@@ -46,15 +46,16 @@ T.Plugins.install(new T.Plugins.Viewer(
             $this=$(this);
 
             var href = $this.attr('href');
-            uri = URI(href);
+            var uri = URI(href);
 
-            if(uri.domain()==''){
 
-                var uri = uri.path();
-                uri=uri.substr(1);
-                uri=uri.split('/');
+            if(uri.domain()===''){
 
-                var onclick = `T.Plugins.open('`+uri[0]+`',1,'`+uri[1]+`');`;
+                var path = uri.path();
+                path=path.substr(1);
+                path=path.split('/');
+
+                var onclick = `T.Plugins.open('`+path[0]+`',1,'`+path[1]+`');`;
 
                 $this.attr('href',null);
                 $this.attr('onclick',onclick);

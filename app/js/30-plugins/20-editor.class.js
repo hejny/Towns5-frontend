@@ -208,7 +208,7 @@ T.Plugins.Editor = class {
 
 
                 //-----------------Duplicate
-                if(collection==0){
+                if(collection===0){
 
                     $('#editor-object-duplicate').show().click(function () {
                         if (editor.opened.collection === 0) {
@@ -274,7 +274,7 @@ T.Plugins.Editor = class {
                  r('Creating new object '+this.opened.object.name+'.');*/
                 throw new Error('In objects can not be created new object without prototype.');
 
-                object_ready();
+                //object_ready();
 
 
             } else {
