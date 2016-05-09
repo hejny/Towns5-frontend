@@ -79,7 +79,6 @@ T.URI=class {
 
     static readAndUpdate() {
 
-
         var position_last = T.UI.Map.map_center.toString();
         var plugin_last = this.plugin;
         var object_last = this.object;
@@ -139,6 +138,8 @@ T.URI=class {
      */
     static write() {
 
+        T.URI.writed++;
+
         var pathname = '';
         if (this.plugin) pathname += '/' + this.plugin;
         if (this.object && this.plugin) pathname += '/' + this.object;
@@ -165,3 +166,4 @@ T.URI=class {
 
 T.URI.object = '';//todo better
 T.URI.plugin = '';
+T.URI.writed = 0;

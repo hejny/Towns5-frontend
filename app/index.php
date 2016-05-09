@@ -613,6 +613,7 @@ function tidyHTML($buffer) {
         <div class="content"><?= ($inner_window['content']) ?></div>
 
 
+        <div class="back js-popup-window-back" style="display: none;" onclick="window.history.back();"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
         <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>
     </div>
     <?php if($inner_window['content']):/*todo this JS is duplicite*/ ?>

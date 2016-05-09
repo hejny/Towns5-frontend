@@ -29,6 +29,9 @@ T.Plugins.Page = class {
         this.close_callback = close_callback;
         this.format = format;
 
+
+        this.storage = {};
+
     }
 
 
@@ -160,7 +163,8 @@ T.Plugins.Page = class {
 
         if (this.open_callback) {
             setTimeout(function () {
-                self.open_callback($('.popup-window .content')[0]);
+
+                self.open_callback($('.popup-window .content')[0],self.storage);
                 //todo refactor not DI popup window content but use static container with function T.ui.get();
 
 

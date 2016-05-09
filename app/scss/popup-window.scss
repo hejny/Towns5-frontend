@@ -134,10 +134,9 @@
 
   }
 
-  .close {
+  .close,.back {
     position: absolute;
     top: 0px;
-    right: 0px;
     height: 40px;
     width: 40px;
 
@@ -145,10 +144,18 @@
     align-items: center;
     justify-content: center;
 
-
-
     cursor: pointer;
   }
+
+  .close {
+    right: 0px;
+  }
+
+  .back {
+    left: 0px;
+  }
+
+
 
 
 }

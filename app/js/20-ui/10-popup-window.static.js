@@ -86,6 +86,16 @@ T.UI.popupWindow = class {
         T.UI.popupWindow.setTitle(title);
         T.UI.popupWindow.setContent(content);
 
+
+        r(T.URI.writed);
+        if(T.URI.writed>1){
+
+            $('.js-popup-window-back').show();
+
+        }
+
+
+
         $('.overlay').show();
         $('.popup-window').show();
 

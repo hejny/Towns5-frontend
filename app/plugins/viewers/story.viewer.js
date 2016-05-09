@@ -68,6 +68,7 @@ T.Plugins.install(new T.Plugins.Viewer(
                 $this.html(html);
 
                 $this.attr('target','_blank');
+                $this.attr('rel','nofollow');
 
             }
 
