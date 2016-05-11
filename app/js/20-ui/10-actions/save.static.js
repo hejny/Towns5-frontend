@@ -8,7 +8,8 @@
 
 function saveObject(object,callback){
 
-    objects_server.update(object);//Create new
+    //objects_server.update(object);//Create new
+    objects_server.push(object);
 
     T.TownsAPI.townsAPI.post('objects',object,function(response){
 

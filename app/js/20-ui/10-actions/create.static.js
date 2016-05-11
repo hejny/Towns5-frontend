@@ -142,8 +142,9 @@ function createNewOrJoin(object){
 function createTerrain(object,callback){//todo maybe create other
 
     object.id=generateID();
-    saveObject(object.clone(),callback);//todo refactor
+    saveObject(object.clone());//todo refactor
 
+    if(callback)callback();
 
     return(object.id);
 
@@ -181,7 +182,9 @@ function createBuilding(object,callback){
         }
 
 
-        saveObject(object,callback);//todo refactor
+        saveObject(object);
+
+        if(callback)callback();
 
 
         return(object.id);
