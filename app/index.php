@@ -87,6 +87,7 @@ function locale($key){
 $page=[];
 $page['title'] = locale('page title');
 $page['description'] = locale('page description');
+$page['type'] = 'game';
 $inner_window=[];
 
 
@@ -122,6 +123,20 @@ if($uri[0]=='story'){
 
         $story_html = \Michelf\Markdown::defaultTransform($story_json['content']['data']);
 
+        //-----------
+        function removeqsvar($url, $varname) {
+            return preg_replace('/([?&])'.$varname.'=[^&]+(&|$)/','$1',$url);
+        }
+        //-----------
+
+
+        //-----------
+        $xpath = new DOMXPath(@DOMDocument::loadHTML($story_html));
+        $img_src = $xpath->evaluate("string(//img/@src)");
+        $img_src = removeqsvar($img_src,'width');
+        $img_src = $img_src.'&width=1200';
+        //-----------
+
 
         //-----------
         $doc = new DOMDocument();
@@ -131,8 +146,9 @@ if($uri[0]=='story'){
 
 
             $old_src = $tag->getAttribute('src');
-            $new_src_url = $old_src.'&width=800';
-            $tag->setAttribute('src', $new_src_url);
+            $new_src = removeqsvar($old_src,'width');
+            $new_src = $new_src.'&width=800';
+            $tag->setAttribute('src', $new_src);
         }
         $story_html = $doc->saveHTML();
         //-----------
@@ -140,10 +156,7 @@ if($uri[0]=='story'){
 
         //todo links
 
-        //-----------
-        $xpath = new DOMXPath(@DOMDocument::loadHTML($story_html));
-        $img_src = $xpath->evaluate("string(//img/@src)");
-        //-----------
+
 
 
         $inner_window['display'] = 'block';
@@ -151,10 +164,11 @@ if($uri[0]=='story'){
         $inner_window['content'] = $story_html;
 
 
-        //todo description
 
         $page['title'] = $inner_window['header'].' | '.$page['title'];
+        $page['description'] = trim(strip_tags($inner_window['content']));
         $page['image'] = $img_src;
+        $page['type'] = 'article';
 
         http_response_code(200);
 
@@ -189,16 +203,12 @@ if($uri[0]=='story'){
 //----------------------------------------------------------------------------------------------------------------------
 
 
-
-
-
-
 $page['meta_og'] = [
     'site_name' => $page['title'],
     'title' => $page['title'],
     'description' => $page['description'],
-    'type' => 'game',
-    //'url' =>
+    'type' => $page['type'],
+    'url' => 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],//todo better
     'image' => $page['image']
 ];
 

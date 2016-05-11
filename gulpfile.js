@@ -219,15 +219,8 @@ gulp.task('production-build', [
 
 // Index.php pre produkcny build
 gulp.task('production-index', function () {
-    gulp.src('app/*.php')
+    gulp.src('app/**/*.php')
         .pipe(gulp.dest('app-build/'));
-
-    gulp.src('app/php/neon/*.php')//todo better solution for php subdirs
-        .pipe(gulp.dest('app-build/php/neon/'));
-
-    gulp.src('app/php/neon/Neon/*.php')
-        .pipe(gulp.dest('app-build/php/neon/Neon/'));
-
 
 });
 
