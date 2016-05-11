@@ -84,79 +84,123 @@ function locale($key){
 
 
 
-//todo zde by se mela analyzovat T.URI - poslat dotaz do towns API a pote naplnit informace nize podle toho.
-
 $page=[];
 $page['title'] = locale('page title');
 $page['description'] = locale('page description');
-$page['meta_og'] = [
-    'site_name' => locale('page title'),
-    'title' => $page['title'],
-    'description' => $page['description'],
-    'type' => 'game'
-    //'url' =>
-    //'image' =>
-];
-
-
-
 $inner_window=[];
 
-if($config['app']['environment'] == "production" and false){
 
-    $inner_page='home';
-    $inner_page_content=file_get_contents(__DIR__.'/js/ui/pages/'.$inner_page.'.page.js');
 
-    function getFromJs($content,$val,$quote){
-        $pos=strpos($content,$val);
-        $content=substr($content,$pos);
-        $pos=strpos($content,$quote);
-        $content=substr($content,$pos+1);
-        $pos=strpos($content,$quote);
-        $content=substr($content,0,$pos);
-        return $content;
+
+//----------------------------------------------------------------------------------------------------------------------Opened
+
+$uri = $_SERVER['REQUEST_URI'];
+$uri = trim($uri,'/');
+$uri = explode('/',$uri);
+
+
+if($uri[0]=='story'){
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~story
+
+    //Set stream options
+    $opts = array(
+        'http' => array('ignore_errors' => true)
+    );
+
+    //Create the stream context
+    $context = stream_context_create($opts);
+
+    $story_json = file_get_contents($config['app']['towns']['url'].'/objects/'.$uri[1], false, $context);
+    $story_json = json_decode($story_json,true);
+
+    //print_r($story_json);
+
+    if($story_json['status']!='error'){
+
+        require_once(__DIR__ . '/php/markdown/Markdown.inc.php');
+
+
+        $story_html = \Michelf\Markdown::defaultTransform($story_json['content']['data']);
+
+
+        //-----------
+        $doc = new DOMDocument();
+        $doc->loadHTML($story_html);
+        $tags = $doc->getElementsByTagName('img');
+        foreach ($tags as $tag) {
+
+
+            $old_src = $tag->getAttribute('src');
+            $new_src_url = $old_src.'&width=800';
+            $tag->setAttribute('src', $new_src_url);
+        }
+        $story_html = $doc->saveHTML();
+        //-----------
+
+
+        //todo links
+
+        //-----------
+        $xpath = new DOMXPath(@DOMDocument::loadHTML($story_html));
+        $img_src = $xpath->evaluate("string(//img/@src)");
+        //-----------
+
+
+        $inner_window['display'] = 'block';
+        $inner_window['header'] = $story_json['name'];
+        $inner_window['content'] = $story_html;
+
+
+        //todo description
+
+        $page['title'] = $inner_window['header'].' | '.$page['title'];
+        $page['image'] = $img_src;
+
+        http_response_code(200);
+
+    }else{
+
+
+
+
+
+        $inner_window['display'] = 'block';
+        $inner_window['header'] = locale('page 404 title');
+        $inner_window['content'] = locale('page 404 content');
+        http_response_code(404);
+
+
     }
 
 
-    $inner_window['header']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.header','\'');
-    $inner_window['content']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.content','`');
-    //$inner_window['openJS']=getFromJs($inner_page_content,'Pages.'.$inner_page.'.openJS','`');
 
 
-    $inner_window['content']=explode('{{', $inner_window['content']);
-
-
-    for($i=1;$i<count($inner_window['content']);$i++){
-
-
-        $inner_window['content'][$i]=explode('}}',$inner_window['content'][$i]);
-
-
-
-
-        $inner_window['content'][$i][0]=locale($inner_window['content'][$i][0]);
-        $inner_window['content'][$i]=implode('',$inner_window['content'][$i]);
-
-
-    }
-    $inner_window['content']=implode('', $inner_window['content']);
-
-
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }else{
-
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~NONE
 
     $inner_window['display'] = 'none';
     $inner_window['header'] = '';
     $inner_window['content'] = '';
-    //$inner_window['openJS'] = '';
+    http_response_code(200);
 
+    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
+//----------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-http_response_code(200);
+
+$page['meta_og'] = [
+    'site_name' => $page['title'],
+    'title' => $page['title'],
+    'description' => $page['description'],
+    'type' => 'game',
+    //'url' =>
+    'image' => $page['image']
+];
 
 
 
@@ -208,7 +252,7 @@ function tidyHTML($buffer) {
     //--------------------------------Open Graph informace
 
     foreach ($page['meta_og'] as $key => $value) {
-        echo('<meta property="fb:' . addslashes($key) . '" content="' . addslashes($value) . '" >'."\r\n    ");
+        echo('<meta property="og:' . addslashes($key) . '" content="' . addslashes($value) . '" >'."\r\n    ");
 
     }
 
@@ -221,10 +265,20 @@ function tidyHTML($buffer) {
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Language|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <script>
-        var language='<?=$language?>';
+        var language='<?=$language?>';//todo capital letters
     </script>
     <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-build')?>/php/locale.php?language=<?=$language?>"></script>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Towns API|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <script>
+        var TOWNS_API_URL='<?=$config['app']['towns']['url']?>';
+    </script>
+    <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
 
 
 
@@ -609,8 +663,8 @@ function tidyHTML($buffer) {
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Window popup|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <div class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></div>
     <div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
-        <div class="header"></div>
-        <div class="content"><?= ($inner_window['content']) ?></div>
+        <div class="header"><?=htmlspecialchars($inner_window['header'])?></div>
+        <div class="content"><?=$inner_window['content']?></div>
 
 
         <div class="back js-popup-window-back" style="display: none;" onclick="window.history.back();"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>

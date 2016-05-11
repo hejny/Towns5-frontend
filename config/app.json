@@ -6,6 +6,10 @@
   },
   "environment": "develop",
 
+  "towns":{
+    "url": "http://api.towns.cz/"
+  },
+
   "facebook": {
     "app_id": 408791555870621
   },

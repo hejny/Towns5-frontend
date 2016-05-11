@@ -5,11 +5,6 @@
 //======================================================================================================================
 //CONSTANTS
 
-//var TOWNS_API_URL='http://localhost:3000/';
-//var TOWNS_API_URL='http://alpha.towns.cz:4001/';
-var TOWNS_API_URL='http://api.towns.cz/';
-
-
 
 //var TOWNS_CDN_URL='http://localhost/towns/towns-cdn/';
 var TOWNS_CDN_URL='http://cdn.towns.cz/';
