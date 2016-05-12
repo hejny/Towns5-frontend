@@ -11,6 +11,20 @@
 error_reporting(E_ALL & ~E_NOTICE);
 
 
+function curPageURL() {
+    $pageURL = 'http';
+    if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+    $pageURL .= "://";
+    if ($_SERVER["SERVER_PORT"] != "80") {
+        $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
+    } else {
+        $pageURL .= $_SERVER["SERVER_NAME"];
+    }
+    return $pageURL;
+}
+define('PAGE_URL',curPageURL());
+
+
 //----------------------------------------load $language and $MESSAGES
 
 
@@ -84,22 +98,76 @@ function locale($key){
 
 
 
+//---------------------------------------------------------------------------------URI
+
+$uri = $_SERVER['REQUEST_URI'];
+$uri = explode('?',$uri,2);
+$uri=$uri[0];
+$uri = trim($uri,'/');
+$uri = explode('/',$uri);
+//---------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------Search engine
+if(count($uri)==1 && $uri[0]=='robots.txt'){
+    header('Content-Type: text/plain');
+
+    echo("User-agent: *\n");
+    echo("Allow: /story/*\n");
+    echo("Sitemap: ".PAGE_URL."/sitemap.xml\n");
+    exit;
+
+}else
+if(count($uri)==1 && $uri[0]=='sitemap.xml'){
+
+    $stories_json = file_get_contents($config['app']['towns']['url'].'/stories?latest=true&limit=500');
+    $stories_json = json_decode($stories_json,true);
+
+
+    $xml = new SimpleXMLElement('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
+
+    foreach($stories_json as $story){
+
+        //print_r($story);
+        $track = $xml->addChild('url');
+        $track->addChild('loc', PAGE_URL.'/story/'.$story['_id']);
+        $track->addChild('lastmod', $story['start_time']);
+    }
+
+
+    header('Content-Type: text/xml');
+
+    if(!isset($_GET['pretty'])){
+
+        echo($xml->asXML());
+
+    }else{
+
+        $dom = new DOMDocument("1.0");
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = true;
+        $dom->loadXML($xml->asXML());
+        echo $dom->saveXML();
+
+    }
+
+    exit;
+
+}
+//---------------------------------------------------------------------------------
+
+
+
+//---------------------------------------------------------------------------------Default
 $page=[];
 $page['title'] = locale('page title');
 $page['description'] = locale('page description');
 $page['type'] = 'game';
 $inner_window=[];
+//---------------------------------------------------------------------------------
 
 
-
-
-//----------------------------------------------------------------------------------------------------------------------Opened
-
-$uri = $_SERVER['REQUEST_URI'];
-$uri = trim($uri,'/');
-$uri = explode('/',$uri);
-
-
+//---------------------------------------------------------------------------------Opened object
 if($uri[0]=='story'){
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~story
 
@@ -208,7 +276,7 @@ $page['meta_og'] = [
     'title' => $page['title'],
     'description' => $page['description'],
     'type' => $page['type'],
-    'url' => 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],//todo better
+    'url' => PAGE_URL.$_SERVER["REQUEST_URI"],
     'image' => $page['image']
 ];
 
