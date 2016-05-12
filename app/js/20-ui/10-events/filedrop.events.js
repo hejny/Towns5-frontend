@@ -74,6 +74,8 @@ $(function(){
         //-----------------
         if(story_prototype){
 
+            story_prototype = story_prototype.clone();
+
             story_prototype.x=mapPos.x;
             story_prototype.y=mapPos.y;
 
@@ -82,6 +84,9 @@ $(function(){
 
             // fetch FileList object
             var files = e.target.files || e.dataTransfer.files;
+
+            //r(files);
+            if(files.length==0)return;
 
             // process all File objects
             var formData = new FormData();
@@ -109,6 +114,8 @@ $(function(){
                 files_name_key[key] = files[i].name;
 
             }
+
+            //r(files_name_key);
 
             if(request_size>TOWNS_CDN_REQUEST_MAX_SIZE){
 
@@ -140,7 +147,6 @@ $(function(){
                     try{
 
                         var response=(JSON.parse(xhr.response));
-
 
 
                         for (var key in files_name_key) {
