@@ -1,0 +1,43 @@
+/**
+ * @author Towns.cz
+ * @fileOverview Image holder in story view
+ */
+//======================================================================================================================
+@import '../config';
+@import '../mixins';
+
+
+
+.image-holder{
+
+  //border: 2px solid #cc0000;
+  max-width: 100%;
+
+  text-align: right;
+
+  img{
+
+    width: 100%;
+    border-radius: 3px;
+
+  }
+
+
+
+  a{
+
+
+    display: block;
+
+    margin-top: -45px;
+    margin-right: 5px;
+
+    font-size: 30px;
+    color: rgba(255, 255, 255, 0.3)!important;
+
+    //border: 2px solid #cc0000;
+  }
+
+
+
+}

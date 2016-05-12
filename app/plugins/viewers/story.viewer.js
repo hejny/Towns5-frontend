@@ -45,22 +45,9 @@ T.Plugins.install(new T.Plugins.Viewer(
 
 
         var content = $(markdown.toHTML(object.getMarkdown()));
-    
-        content.find('img').each(function(){
-    
-            var src = $(this).attr('src');
-            src = URI(src)
-                .removeSearch("width")
-                .addSearch({ width: 800 })//todo constant maybe POPUP_WINDOW_NORMAL_WIDTH
-                .toString()
-            ;
-    
-            $(this).attr('src',src);
-    
-        });
 
 
-
+        //-----------------------------------------------------------------------Links
         content.find('a').each(function(){
 
             $this=$(this);
@@ -97,9 +84,50 @@ T.Plugins.install(new T.Plugins.Viewer(
 
 
         });
+        //-----------------------------------------------------------------------
+
+
+        //-----------------------------------------------------------------------Images
+        content.find('img').each(function(){
+
+            var $this = $(this);
+            var src = $this.attr('src');
+
+            //---------------------
+
+            var src_uri = URI(src)
+                .removeSearch("width");
+            var src_normal = src_uri.addSearch({ width: 800 }).toString();//todo constant maybe POPUP_WINDOW_NORMAL_WIDTH
+            var src_full = src;//src_uri.removeSearch("width").toString();
+
+            //---------------------
+
+            var $image;
+            $image = $('<img/>');
+            $image.attr('src',src_normal);
+
+            var $zoom;
+            $zoom = $('<a></a>');
+            $zoom.attr('href',src_full);
+            //$download.attr('download','aaa.jpg');
+            $zoom.attr('target','_blank');
+            $zoom.html('<i class="fa fa-search-plus" aria-hidden="true"></i>');
 
 
 
+            var $image_holder;
+            $image_holder = $('<div></div>');
+            $image_holder.addClass('image-holder');
+            $image_holder.append($image);
+            $image_holder.append($zoom);
+
+            //---------------------
+
+            $this.replaceWith($image_holder);
+
+
+        });
+        //-----------------------------------------------------------------------
 
     
         content=content.outerHTML();//todo use this
