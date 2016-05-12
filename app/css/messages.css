@@ -31,39 +31,25 @@
   padding: 4px;
   margin: 4px; }
 
-#eu-cookies .inner {
-  display: inline-block;
-  border-radius: 3px;
-  background-color: rgba(30, 150, 150, 0.8);
-  padding: 4px; }
-
-#townsapi-offline .inner {
-  display: inline-block;
-  border-radius: 3px;
-  background-color: rgba(255, 150, 43, 0.8);
-  padding: 4px; }
-
-#compatibility .inner {
-  display: inline-block;
-  border-radius: 3px;
-  background-color: rgba(255, 82, 42, 0.8);
-  padding: 4px; }
-
 .error {
-  color: #FFFFFF;
+  color: #fff;
   background-color: #FF0000; }
 
 .success {
-  color: #FFFFFF;
+  color: #fff;
   background-color: #64c74e; }
 
 .info {
-  color: #FFFFFF;
+  color: #fff;
   background-color: #444488; }
+
+.warning {
+  color: #000;
+  background-color: #ffcc1b; }
 
 .loading {
   /*todo jak tohle nazyvat*/
-  color: #FFFFFF;
+  color: #fff;
   background-color: #444444; }
 
 .messagebox {

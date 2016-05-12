@@ -10,16 +10,33 @@ T.setNamespace('UI');
 T.UI.Message=class {
 
 
-    constructor(text, type = 'info'){
+    constructor(text, type = 'INFO',additional=false){
 
         //todo [PH] play sound here
         //ion.sound.play("bell_ring");
 
         this.$element = $('<div class="message"></div>')
-            .addClass(type)
+            .addClass(type.toLowerCase())
             .text(text);
 
-        $('#message-zone').append(this.$element);
+
+        if(additional){
+
+            this.$element.append(additional);
+
+        }
+
+        if(!text && !additional){
+            this.$element.hide();
+        }
+
+        var self=this;
+
+
+        $(function(){
+            $('#message-zone').append(self.$element);
+        });
+
 
     }
 
@@ -30,7 +47,9 @@ T.UI.Message=class {
 
         return setTimeout(function(){
 
-            self.$element.remove();
+            $(function() {
+                self.$element.remove();
+            });
             //self.$element.fadeOut(MESSAGE_FADEOUT, function() {$( this ).remove();});
 
         },s*1000);
@@ -42,15 +61,16 @@ T.UI.Message=class {
     text(text,type){
 
         if(text) {
-            this.$element.text(text);
+            this.$element.text(text).show();
         }
 
         if(type){
             this.$element.removeClass('error');
             this.$element.removeClass('success');
             this.$element.removeClass('info');
+            this.$element.removeClass('warning');
 
-            this.$element.addClass(type);
+            this.$element.addClass(type.toLowerCase());
         }
 
         return this;
@@ -64,7 +84,7 @@ T.UI.Message=class {
      * @returns {T.UI.Message} message
      */
     static error(text) {
-        var message = new T.UI.Message(text, 'error');
+        var message = new T.UI.Message(text, 'ERROR');
         if(text)message.close();
         return message;
     }
@@ -75,7 +95,7 @@ T.UI.Message=class {
      * @returns {T.UI.Message} message
      */
     static success(text) {
-        var message = new T.UI.Message(text, 'success');
+        var message = new T.UI.Message(text, 'SUCCESS');
         if(text)message.close();
         return message;
     }
@@ -86,10 +106,13 @@ T.UI.Message=class {
      * @returns {T.UI.Message} message
      */
     static info(text) {
-        var message = new T.UI.Message(text, 'info');
+        var message = new T.UI.Message(text, 'INFO');
         if(text)message.close();
         return message;
     }
+
+
+    //todo warning
 
 
 

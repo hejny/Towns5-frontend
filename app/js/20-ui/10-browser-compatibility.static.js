@@ -6,7 +6,7 @@
 T.setNamespace('UI');
 
 
-T.UI.Compatibility = class {
+T.UI.Compatibility = class {//todo maybe this should be directly under UI?
 
 
     /**
@@ -16,7 +16,7 @@ T.UI.Compatibility = class {
      */
     static check(simple = true) {
 
-        compatibility = {
+        var compatibility = {
             webgl: null,
             requestAnimationFrame: null,
             localStorage: null
@@ -89,6 +89,7 @@ T.UI.Compatibility = class {
      * @returns {boolean}
      */
     static requestAnimationFrame() {
+
         if (window.requestAnimationFrame) {
             return true;
         } else {

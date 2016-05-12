@@ -44,7 +44,7 @@ button.pale {
   button.pale:hover {
     background-color: rgba(88, 162, 209, 0.5); }
 
-.micro-button, .load-percent {
+.micro-button {
   display: inline-block;
   border: none;
   padding: 0 10px;
@@ -60,7 +60,7 @@ button.pale {
   font-weight: 600;
   font-size: 0.8em;
   background-color: rgba(0, 0, 0, 0.5); }
-  .micro-button:hover, .load-percent:hover {
+  .micro-button:hover {
     background-color: #42b3ff; }
 
 .load-percent:hover {

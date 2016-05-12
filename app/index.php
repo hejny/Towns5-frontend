@@ -483,44 +483,7 @@ function tidyHTML($buffer) {
 
 
 
-    <div id="message-zone">
-
-
-
-    <div id="eu-cookies" style="display: none;">
-        <div class="inner">
-            <?=locale('ui prompts cookies')?>
-
-            <button class="micro-button"><?=locale('ui buttons agree')?></button>
-        </div>
-    </div>
-
-
-    <?php /*todo better solution*/ ?>
-    <div id="townsapi-offline" style="display: none;">
-        <div class="inner">
-            <?=locale('ui warnings offline')?>
-
-            <button class="micro-button" id="townsapi-reconnect"><?=locale('ui buttons reconnect')?></button>
-            <button class="micro-button js-popup-window-open" page="offline"><?=locale('ui buttons offline')?></button>
-
-        </div>
-    </div>
-
-
-
-    <div id="compatibility" style="display: none;">
-        <div class="inner">
-            <?=locale('ui warnings compatibility')?>
-
-            <button class="micro-button js-popup-window-open" page="browser-compatibility"><?=locale('ui buttons compatibility')?></button>
-
-        </div>
-    </div>
-
-
-
-     </div>
+    <div id="message-zone"></div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 

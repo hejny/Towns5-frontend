@@ -13,7 +13,7 @@ T.Plugins.install(new T.Plugins.Page(
     ,function(page){
 
 
-        compatibility = Compatibility.check(false);
+        compatibility = T.UI.Compatibility.check(false);
 
 
         table=[];

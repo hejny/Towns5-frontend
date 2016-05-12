@@ -36,7 +36,13 @@ T.TownsAPI = class {
 
         if (online) {
 
-            $('#townsapi-offline').stop().fadeOut();//todo refactor DI HTML divs or !!!BETTER!!! DI calbacks online, offline and loading
+            if(typeof this.message !== 'undefined'){
+                r('cloooooooooooooooooooooooooooooooooooooooooooooooooooe');
+                this.message.close(0);
+                this.message = undefined;
+            }
+
+
 
             $('#server-loading').hide();
             $('#server-ok').show();
@@ -47,7 +53,29 @@ T.TownsAPI = class {
 
         } else {
 
-            $('#townsapi-offline').stop().fadeIn();
+
+            /*<div id="townsapi-offline" style="display: none;">
+                <div class="inner">
+                    <?=locale('ui warnings offline')?>
+
+                    <button class="micro-button" id="townsapi-reconnect"><?=locale('ui buttons reconnect')?></button>
+                    <button class="micro-button js-popup-window-open" page="offline"><?=locale('ui buttons offline')?></button>
+
+                </div>
+            </div>*/
+
+
+            if(typeof this.message === 'undefined') {
+                this.message = new T.UI.Message(
+                    T.Locale.get('ui', 'warnings', 'offline'), 'ERROR',
+                    `
+                        <button class="micro-button" id="townsapi-reconnect">`+(T.Locale.get('ui','buttons','reconnect'))+`</button>
+                        <button class="micro-button js-popup-window-open" page="offline">`+(T.Locale.get('ui','buttons','offline'))+`</button>
+                    `
+                );
+
+
+            }
 
             $('#server-loading').hide();
             $('#server-ok').hide();

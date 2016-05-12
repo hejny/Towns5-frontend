@@ -10,15 +10,16 @@
 $(function(){
 
     if(document.cookie.indexOf('eu_cookies=1')==-1){
-        $('#eu_cookies').show();
+
+
+        T.UI.cookie_message = new T.UI.Message(
+            T.Locale.get('ui','prompts','cookies'),'WARNING',
+            `<button class="micro-button" onclick="setCookie('eu_cookies',1);T.UI.cookie_message.close(0);" >` + T.Locale.get('ui','buttons','agree')+`</button>`
+        );
+
+
     }
 
-
-    $('#eu_cookies').click(function() {
-
-        setCookie('eu_cookies',1);
-        $('#eu_cookies').hide();
-    });
 
 });
 
