@@ -37,7 +37,6 @@ T.TownsAPI = class {
         if (online) {
 
             if(typeof this.message !== 'undefined'){
-                r('cloooooooooooooooooooooooooooooooooooooooooooooooooooe');
                 this.message.close(0);
                 this.message = undefined;
             }
@@ -70,7 +69,7 @@ T.TownsAPI = class {
                     T.Locale.get('ui', 'warnings', 'offline'), 'ERROR',
                     `
                         <button class="micro-button" id="townsapi-reconnect">`+(T.Locale.get('ui','buttons','reconnect'))+`</button>
-                        <button class="micro-button js-popup-window-open" page="offline">`+(T.Locale.get('ui','buttons','offline'))+`</button>
+                        <button class="micro-button" onclick="T.Plugins.open('offline')">`+(T.Locale.get('ui','buttons','offline'))+`</button>
                     `
                 );
 
