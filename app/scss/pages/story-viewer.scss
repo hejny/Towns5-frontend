@@ -1,0 +1,20 @@
+/**
+ * @author Towns.cz
+ * @fileOverview todo
+ */
+//======================================================================================================================
+@import '../config';
+@import '../mixins';
+
+
+
+.sharing{
+
+  float: right;
+
+  //border: 2px solid #00aaff;
+
+  padding: 10px;
+  filter: grayscale(50%);
+
+}

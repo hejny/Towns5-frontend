@@ -17,7 +17,7 @@
 .popup-window .content #viewer-object-delete, .popup-window .content #viewer-object-edit, .popup-window .content #viewer-object-position {
   display: block;
   position: absolute;
-  top: 5px;
+  top: 25px;
   border: none;
   display: inline-block;
   margin: 2px;
@@ -38,13 +38,16 @@
     background-color: rgba(204, 204, 204, 0.65); }
 
 .popup-window .content #viewer-object-position {
-  right: 95px; }
+  right: 115px; }
 
 .popup-window .content #viewer-object-edit {
-  right: 50px; }
+  right: 70px; }
 
 .popup-window .content #viewer-object-delete {
-  right: 5px; }
+  right: 25px; }
 
 .popup-window .content article {
   min-height: calc( 100% - 135px); }
+  .popup-window .content article p {
+    margin: 0;
+    margin-bottom: 20; }

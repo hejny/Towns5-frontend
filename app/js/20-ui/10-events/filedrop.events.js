@@ -86,7 +86,10 @@ $(function(){
             var files = e.target.files || e.dataTransfer.files;
 
             //r(files);
-            if(files.length==0)return;
+            if(files.length==0){
+                r('Shit dropped.');
+                return;
+            }
 
             // process all File objects
             var formData = new FormData();

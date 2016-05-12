@@ -14,7 +14,27 @@ T.Plugins.install(new T.Plugins.Viewer(
     ,`
         <article></article>
 
+
+
         <div class="author">
+
+            <div class="sharing">
+                <!-- AddToAny BEGIN -->
+                <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+                <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+                <a class="a2a_button_facebook"></a>
+                <a class="a2a_button_twitter"></a>
+                </div>
+                <script>
+                var a2a_config = a2a_config || {};
+                a2a_config.onclick = 1;
+                a2a_config.locale = language;
+                </script>
+                <script async src="https://static.addtoany.com/menu/page.js"></script>
+                <!-- AddToAny END -->
+            </div>
+
+
         </div>
 
     `//todo should js-story-edit be class or id(current) ???
@@ -93,7 +113,7 @@ T.Plugins.install(new T.Plugins.Viewer(
 
             var user = new T.User(response);//todo maybe creation of instance should provide TownsAPI
 
-            $(page).find('.author').html(user.getSignatureHTML());
+            $(page).find('.author').append(user.getSignatureHTML());
 
         });
 

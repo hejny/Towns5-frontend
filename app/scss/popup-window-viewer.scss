@@ -14,8 +14,11 @@
   #viewer-object-delete, #viewer-object-edit, #viewer-object-position {
 
     display: block;
+
+    //float: right;
+
     position: absolute;
-    top: 5px;
+    top: 25px;
 
     @include button-icon(15px, $button-icon-color-light);
 
@@ -23,13 +26,13 @@
 
 
   #viewer-object-position{
-    right: 95px;
+    right: 115px;
   }
   #viewer-object-edit{
-    right: 50px;
+    right: 70px;
   }
   #viewer-object-delete{
-    right: 5px;
+    right: 25px;
   }
 
 
@@ -37,7 +40,13 @@
 
   article { //todo should it be here???
 
+    //border: 2px solid #00aaff;
     min-height: calc( 100% - 135px );
+
+    p{
+      margin:0;
+      margin-bottom:20;
+    }
 
   }
 
