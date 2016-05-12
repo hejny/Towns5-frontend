@@ -16,6 +16,12 @@ T.UI.popupWindow = class {
      */
     static setTitle(title) {
 
+        if(title && title.substr(0,1)!='<'){
+            document.title = title+' | '+T.Locale.get('page','title');
+        }else{
+            document.title = T.Locale.get('page','title');
+        }
+
         $('.popup-window .header').html(title);//todo refactor html class header to title
 
     }
@@ -95,7 +101,6 @@ T.UI.popupWindow = class {
         }
 
 
-
         $('.overlay').show();
         $('.popup-window').show();
 
@@ -122,6 +127,8 @@ T.UI.popupWindow = class {
         //-------------------------------------------
 
         //-------------------------------------------Hide popup window
+        document.title = T.Locale.get('page','title');
+
         $('.overlay').hide();
         $('.popup-window').hide();
 
