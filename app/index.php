@@ -520,20 +520,7 @@ function tidyHTML($buffer) {
 
 
 
-    <div id="loadbar" style="display: block;">
-        <div class="inner">
-
-            Načítání grafických podkladů
-
-            <div class="load-percent">0%</div>
-
-        </div>
-    </div>
-
-
-
-
-    </div>
+     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 

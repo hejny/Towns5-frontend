@@ -102,13 +102,13 @@ T.Cache.imageLoad = function(){
      T.Cache.objectsNatural.loaded(),percent);*/
 
 
-    $('#loadbar').find('.load-percent').text(Math.floor(percent*100)+'%');
+    T.Cache.message.text(T.Locale.get('loading of graphic')+' '+Math.floor(percent*100)+'%');
 
 
 
     if(percent==1) {
 
-        $('#loadbar').slideUp();
+        T.Cache.message.close();
 
         map_loaded=true;//todo refactor move to static object Map
 
@@ -124,6 +124,10 @@ T.Cache.imageLoad = function(){
 $(function(){
 
     r('Start loading of ImagesCollections...');
+
+
+    T.Cache.message = T.UI.Message.info();
+
 
     T.Cache.textures.load(T.Cache.imageLoad);
     T.Cache.backgrounds.load(T.Cache.imageLoad);

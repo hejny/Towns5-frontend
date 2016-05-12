@@ -24,50 +24,70 @@ T.UI.Message=class {
     }
 
 
-    hide(s){
+    close(s=MESSAGE_DURATION){
 
         var self=this;
 
-        setTimeout(function(){
+        return setTimeout(function(){
 
             self.$element.remove();
             //self.$element.fadeOut(MESSAGE_FADEOUT, function() {$( this ).remove();});
 
         },s*1000);
+
+
     }
 
 
+    text(text,type){
+
+        if(text) {
+            this.$element.text(text);
+        }
+
+        if(type){
+            this.$element.removeClass('error');
+            this.$element.removeClass('success');
+            this.$element.removeClass('info');
+
+            this.$element.addClass(type);
+        }
+
+        return this;
+    }
 
 
 
     /**
      *
-     * @param text
+     * @param {string} text
      * @returns {T.UI.Message} message
      */
     static error(text) {
         var message = new T.UI.Message(text, 'error');
-        message.hide(MESSAGE_DURATION);
+        if(text)message.close();
         return message;
     }
 
 
     /**
-     * @param text
+     * @param {string} text
+     * @returns {T.UI.Message} message
      */
     static success(text) {
         var message = new T.UI.Message(text, 'success');
-        message.hide(MESSAGE_DURATION);
+        if(text)message.close();
         return message;
     }
 
 
     /**
-     * @param text
+     * @param {string} text
+     * @returns {T.UI.Message} message
      */
     static info(text) {
         var message = new T.UI.Message(text, 'info');
-        message.hide(MESSAGE_DURATION);
+        if(text)message.close();
         return message;
     }
 
@@ -77,11 +97,11 @@ T.UI.Message=class {
 
 
 
-setInterval(function(){
+/*setInterval(function(){
 
     var error = T.UI.Message.error('hláška'+Math.random());
 
     error.hide(Math.random()*10);
     r(error);
 
-},1000);
+},1000);/**/

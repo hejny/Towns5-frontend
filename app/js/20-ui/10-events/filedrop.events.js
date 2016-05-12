@@ -130,12 +130,16 @@ $(function(){
             xhr.open('POST', TOWNS_CDN_URL);
 
 
+
+            var message = T.UI.Message.info();
+
+
             xhr.upload.onprogress = function (event) {
 
                 if (event.lengthComputable) {
                     var complete = (event.loaded / event.total * 100 | 0);
 
-                    T.UI.Message.info(T.Locale.get('upload progress')+' '+complete+'%');
+                    message.text(T.Locale.get('upload progress')+' '+complete+'%');
 
                 }
 
@@ -172,11 +176,12 @@ $(function(){
 
 
                         console.log('all done: ' + xhr.status);
-                        T.UI.Message.success(T.Locale.get('upload success story'));
+                        r(message);
+                        message.text(T.Locale.get('upload success story'),'success').close();
 
                     }catch(e){
 
-                        T.UI.Message.error(T.Locale.get('upload fail'));
+                        message.text(T.Locale.get('upload fail'),'error').close();
 
                     }
 
@@ -184,7 +189,7 @@ $(function(){
                 } else {
 
                     console.log('Something went terribly wrong...');
-                    T.UI.Message.error(T.Locale.get('upload fail'));
+                    message.text(T.Locale.get('upload fail'),'error').close();
 
                 }
             };
