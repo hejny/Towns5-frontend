@@ -487,9 +487,6 @@ function tidyHTML($buffer) {
 
 
 
-    <div id="message" style="display: none;"><?php /*todo remove inner*/ ?><div id="message_inner"></div></div>
-
-
     <div id="eu-cookies" style="display: none;">
         <div class="inner">
             <?=locale('ui prompts cookies')?>
@@ -642,7 +639,7 @@ function tidyHTML($buffer) {
                 <ul class="menu-dlist">
                     <li class="menu-dlist-item">
 
-                        <a onclick="T.UI.Menu.Story.start(T.User.object_prototypes.filterTypes('story').getAll()[0].id);T.UI.Messages.info(T.Locale.get('story hint'));return false;"><?=locale('ui menu stories write')?></a>
+                        <a onclick="T.UI.Menu.Story.start(T.User.object_prototypes.filterTypes('story').getAll()[0].id);T.UI.Message.info(T.Locale.get('story hint'));return false;"><?=locale('ui menu stories write')?></a>
 
 
 

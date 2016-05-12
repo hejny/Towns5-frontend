@@ -83,7 +83,7 @@ T.Plugins.Editor = class {
                     T.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
                         , function (response) {
 
-                            T.UI.Messages.message(T.Locale.get('object', self.opened.object.type, 'saved'), 'success');
+                            T.UI.Message.success(T.Locale.get('object', self.opened.object.type, 'saved'));
 
                         }
                         , function (errors) {
@@ -146,7 +146,7 @@ T.Plugins.Editor = class {
 
                     //r(errors);
                     for (var key in errors.message) {
-                        //T.UI.Messages.message(errors.message[key].message,'error');
+                        //T.UI.Message.message(errors.message[key].message,'error');
 
                         $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');
                     }

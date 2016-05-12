@@ -110,9 +110,9 @@ T.Plugins.Viewer = class {
                             ,function(result){
 
                                 if(result){
-                                    T.UI.Messages.success(T.Locale.get(object.type,'delete','success'));
+                                    T.UI.Message.success(T.Locale.get(object.type,'delete','success'));
                                 }else{
-                                    T.UI.Messages.error(T.Locale.get(object.type,'delete','error'));
+                                    T.UI.Message.error(T.Locale.get(object.type,'delete','error'));
                                 }
 
 

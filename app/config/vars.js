@@ -21,7 +21,8 @@ var TOWNS_CDN_REQUEST_MAX_SIZE = 11047955;
 
 
 var IMMEDIATELY_MS = 100;
-var MESSAGE_MS = 2000;
+var MESSAGE_FADEOUT = 2000;
+var MESSAGE_DURATION = 2000;
 //todo collect all constants and put it here
 
 //======================================================================================================================

@@ -47,7 +47,7 @@ $(function(){
 
         if(T.TownsAPI.townsAPI.logged===false){
 
-            T.UI.Messages.error(T.Locale.get('upload only logged'));
+            T.UI.Message.error(T.Locale.get('upload only logged'));
             return;
 
         }
@@ -96,13 +96,13 @@ $(function(){
 
                 if(TOWNS_CDN_FILE_ACCEPTED_TYPES.indexOf(files[i].type)==-1){
 
-                    T.UI.Messages.message(T.Locale.get('upload error only images'),'error');
+                    T.UI.Message.error(T.Locale.get('upload error only images'));
                     throw new Error('Not allowed filetype.');
                 }
 
                 if(files[i].size>TOWNS_CDN_FILE_MAX_SIZE){
 
-                    T.UI.Messages.message(T.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE),'error');
+                    T.UI.Message.error(T.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE));
                     throw new Error('File too big');
                 }
 
@@ -119,7 +119,7 @@ $(function(){
 
             if(request_size>TOWNS_CDN_REQUEST_MAX_SIZE){
 
-                T.UI.Messages.message(T.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE),'error');
+                T.UI.Message.error(T.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE));
                 throw new Error('Request too big');
 
             }
@@ -135,7 +135,7 @@ $(function(){
                 if (event.lengthComputable) {
                     var complete = (event.loaded / event.total * 100 | 0);
 
-                    T.UI.Messages.message(T.Locale.get('upload progress')+' '+complete+'%','info');
+                    T.UI.Message.info(T.Locale.get('upload progress')+' '+complete+'%');
 
                 }
 
@@ -172,11 +172,11 @@ $(function(){
 
 
                         console.log('all done: ' + xhr.status);
-                        T.UI.Messages.message(T.Locale.get('upload success story'),'success');
+                        T.UI.Message.success(T.Locale.get('upload success story'));
 
                     }catch(e){
 
-                        T.UI.Messages.message(T.Locale.get('upload fail'),'error');
+                        T.UI.Message.error(T.Locale.get('upload fail'));
 
                     }
 
@@ -184,7 +184,7 @@ $(function(){
                 } else {
 
                     console.log('Something went terribly wrong...');
-                    T.UI.Messages.message(T.Locale.get('upload fail'),'error');
+                    T.UI.Message.error(T.Locale.get('upload fail'));
 
                 }
             };

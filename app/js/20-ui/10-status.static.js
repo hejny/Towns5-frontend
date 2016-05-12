@@ -40,7 +40,7 @@ T.UI.Status=class {
                 var decoded_token = jwt_decode(T.TownsAPI.townsAPI.token);
                 //r(decoded_token);
 
-                T.UI.Messages.message(T.Locale.get('logged in as') + ' ' + decoded_token.username, 'success');
+                T.UI.Message.success(T.Locale.get('logged in as') + ' ' + decoded_token.username);
 
 
                 var user_html = `
@@ -98,7 +98,7 @@ T.UI.Status=class {
 
             } else {
 
-                //T.UI.Messages.message(T.Locale.get('logged out'),'info');
+                //T.UI.Message.message(T.Locale.get('logged out'),'info');
 
                 $('.logged-in').stop().fadeOut();
                 $('.logged-out').stop().fadeIn();

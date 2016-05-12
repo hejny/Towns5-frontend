@@ -321,7 +321,7 @@ $(function(){
 
         //------------------------------------------
         if(objects_external_buffer_length=== 0){
-            T.UI.Messages.message.info(T.Locale.get('building by dragging',building.subtype,'info'));
+            T.UI.Message.info(T.Locale.get('building by dragging',building.subtype,'info'));
             T.UI.Menu.Building.start(building._prototypeId);//todo should it be here _prototypeId
         }
         //------------------------------------------

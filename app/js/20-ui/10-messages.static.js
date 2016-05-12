@@ -7,39 +7,48 @@ T.setNamespace('UI');
 
 
 
-T.UI.Messages=class {
+T.UI.Message=class {
 
 
-
-
-    /**
-     * @param text
-     * @param type error,success,info
-     */
-    static message(text, type = 'info') {
+    constructor(text, type = 'info'){
 
         //todo [PH] play sound here
+        //ion.sound.play("bell_ring");
 
-        ion.sound.play("bell_ring");
-
-        $('#message_inner')
-            .removeClass()//.error, .success, .info, .loading
+        this.$element = $('<div class="message"></div>')
             .addClass(type)
             .text(text);
 
-
-        $('#message').stop().show();
-        $('#message').delay(4).fadeOut(MESSAGE_MS);//todo what effect use
+        $('#message-zone').append(this.$element);
 
     }
 
-    
-    //todo refactor use this below
+
+    hide(s){
+
+        var self=this;
+
+        setTimeout(function(){
+
+            self.$element.remove();
+            //self.$element.fadeOut(MESSAGE_FADEOUT, function() {$( this ).remove();});
+
+        },s*1000);
+    }
+
+
+
+
+
     /**
+     *
      * @param text
+     * @returns {T.UI.Message} message
      */
     static error(text) {
-        T.UI.Messages.message(text, 'error');
+        var message = new T.UI.Message(text, 'error');
+        message.hide(MESSAGE_DURATION);
+        return message;
     }
 
 
@@ -47,7 +56,9 @@ T.UI.Messages=class {
      * @param text
      */
     static success(text) {
-        T.UI.Messages.message(text, 'success');
+        var message = new T.UI.Message(text, 'success');
+        message.hide(MESSAGE_DURATION);
+        return message;
     }
 
 
@@ -55,9 +66,22 @@ T.UI.Messages=class {
      * @param text
      */
     static info(text) {
-        T.UI.Messages.message(text, 'info');
+        var message = new T.UI.Message(text, 'info');
+        message.hide(MESSAGE_DURATION);
+        return message;
     }
 
 
 
 };
+
+
+
+setInterval(function(){
+
+    var error = T.UI.Message.error('hláška'+Math.random());
+
+    error.hide(Math.random()*10);
+    r(error);
+
+},1000);
