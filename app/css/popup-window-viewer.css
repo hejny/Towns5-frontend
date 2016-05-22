@@ -48,6 +48,5 @@
 
 .popup-window .content article {
   min-height: calc( 100% - 135px); }
-  .popup-window .content article p {
-    margin: 0;
-    margin-bottom: 20; }
+  .popup-window .content article p:first-child {
+    margin: 0px; }

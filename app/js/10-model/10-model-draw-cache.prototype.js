@@ -64,7 +64,7 @@ T.Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation,
 
                 ctx_.drawImage(image,0,0,width,height);
                 ctx_.blur(5,1);
-                ctx_.newcolorImage(hexToRgb('0098FF'));
+                ctx_.newcolorImage(T.Color.createFromHex(/*'0098FF'*/'FBA01B'));
                 ctx_.multiplyAlphaImage(2);
 
 

@@ -20,6 +20,7 @@
 
     "node_modules/towns-shared/js/*.js",
     "node_modules/towns-shared/js/*/*.js",
+    "node_modules/towns-shared/js/*/*/*.js",
 
 
     {"develop": "app/config/develop.js"},

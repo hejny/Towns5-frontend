@@ -1,0 +1,41 @@
+/**
+ * @author Towns.cz
+ * @fileOverview XML feed in project-style
+ */
+//======================================================================================================================
+@import '../config';
+@import '../mixins';
+
+
+
+
+
+.object-building-profile{
+
+  display: inline-block;
+  width: 300px;
+
+  background: rgba(100,100,100,0.1);
+  border-radius: 3px;
+
+}
+.object-building-profile h2{
+  text-align: center;
+}
+
+
+
+.action-ability-profile{
+
+  background: rgba(100,100,100,0.1);
+  border-radius: 3px;
+
+  width: 100%;
+
+}
+
+.action-ability-profile th{
+
+  background: rgba(100,100,100,0.1);
+
+}

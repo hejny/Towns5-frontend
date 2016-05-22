@@ -14,26 +14,23 @@ $(function(){
         var map_click_y=(e.clientY-(window_height/2));
         var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
 
-        r('T.UI Event: contextmenu (this part of code is unused.)');
-        /*return;
+        r('T.UI Event: contextmenu');
+
 
 
         map_selected_ids.forEach(function(id){
 
-            var i=T.ArrayFunctions.id2i(objects_external,id);
 
-            if(T.Path.is(objects_external[i].path)){
-                var position=objects_external[i].path.recount();
-            }else{
-                var position=new T.Position(objects_external[i].x,objects_external[i].y);
-            }
+            var object = objects_external.getById(id);
 
 
-            objects_external[i].x=position.x;
-            objects_external[i].y=position.y;
+            result = T.World.game.createActionExecute('move')(object,[mapPos]/*,objects_nearby,resources*/);
 
 
-            try {
+            r(object);
+
+
+            /*try {
 
                 objects_external[i].path=new T.Path(position,mapPos,6,map_collision_data,new T.Position(Math.round(T.UI.Map.map_center.x-(map_radius)), Math.round(T.UI.Map.map_center.y-(map_radius))));
 
@@ -41,7 +38,10 @@ $(function(){
 
                 message(error,'error');
 
-            }
+            }*/
+
+
+
 
 
 
@@ -51,7 +51,8 @@ $(function(){
 
         T.UI.Map.MapMove.orderMoveAndNormal();
 
-        */
+
+
 
     };
 

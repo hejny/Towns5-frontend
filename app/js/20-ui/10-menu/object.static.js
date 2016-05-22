@@ -21,15 +21,14 @@ T.UI.Menu.Object = class {
             //--------------------------------------------------
 
             var id = map_selected_ids[0];
-
-            var object = T.ArrayFunctions.id2item(objects_external, id);
+            var object = objects_external.getById(id);
 
 
             var objectmenu = '';
 
             var icon, content;
 
-
+            /*
             ['view', 'edit'].forEach(function (action) {
 
 
@@ -46,6 +45,7 @@ T.UI.Menu.Object = class {
                 });
 
             });
+            /**/
 
 
             objectmenu += T.Templates.menu({

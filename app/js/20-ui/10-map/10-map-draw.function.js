@@ -151,7 +151,7 @@ T.UI.Map.drawMap = function(){
 
             map_draw.push({
                 drawtype: 'model',
-                data: object.getModel(),
+                data: object,
                 screen_x: object_screen_x,
                 screen_y: object_screen_y,
             });
@@ -252,9 +252,9 @@ T.UI.Map.drawMap = function(){
         } else if (map_draw[i].drawtype == 'model') {
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~building
 
-            map_draw[i].data.drawCashedAsync(map_ctx, map_zoom_m * map_model_size, map_draw[i].screen_x, map_draw[i].screen_y, map_rotation, map_slope,
+            map_draw[i].data.getModel().drawCashedAsync(map_ctx, map_zoom_m * map_model_size, map_draw[i].screen_x, map_draw[i].screen_y, map_rotation, map_slope,
 
-                /*(map_selected_ids.indexOf(map_draw[i][1].id) != -1?true:false)*/false,true
+                (map_selected_ids.indexOf(map_draw[i].data.id) != -1?true:false),true
             );
 
             //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
