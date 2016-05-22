@@ -12,14 +12,16 @@ T.UI.Map.MapMove = class {
     /*todo For Ctl and other non-draw functions create new file*/
     static orderMoveAndNormal() {
 
+        r('orderMoveAndNormal');
+
         var change = false;
 
         //Standing object put into objects_external;
-        objects_external_move = objects_external_move.filter(function (object) {
+        objects_server_move = objects_server_move.filter(function (object) {
 
-            if (!T.Path.is(object.path)) {
+            if (!object.isMoving()) {
 
-                objects_external.push(object);
+                objects_server.getAll().push(object);
                 change = true;
                 return false;
 
@@ -30,12 +32,16 @@ T.UI.Map.MapMove = class {
         });
 
 
-        //Moving object put into objects_external_move;
-        objects_external = objects_external.filter(function (object) {
+        r(objects_external);
+        //Moving object put into objects_server_move;
+        objects_server = objects_external.filter(function (object) {
 
-            if (T.Path.is(object.path)) {
+            //r(object);
+            if (object.isMoving()) {
 
-                objects_external_move.push(object);
+                r(object);
+
+                objects_server_move.getAll().push(object);
                 change = true;
                 return false;
 
@@ -45,6 +51,7 @@ T.UI.Map.MapMove = class {
 
         });
 
+        r(change);
 
         if (change)T.UI.Map.loadMap();
 
@@ -54,7 +61,7 @@ T.UI.Map.MapMove = class {
 
     static draw() {
 
-        $('#map-move').html(T.UI.Map.objectsHTML(objects_external_move));
+        $('#map-move').html(T.UI.Map.objectsHTML(objects_server_move));
         //r($('#map-move').html());
 
 

@@ -134,7 +134,7 @@ T.UI.Map.drawMap = function(){
     map_data_buildings.forEach(function(object){
 
 
-
+        ///todo dynamic position   //var position = object.getPosition();
         var object_xc = object.x - T.UI.Map.map_center.x;
         var object_yc = object.y - T.UI.Map.map_center.y;
 

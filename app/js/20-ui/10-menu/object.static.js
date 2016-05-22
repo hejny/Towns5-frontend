@@ -28,7 +28,7 @@ T.UI.Menu.Object = class {
 
             var icon, content;
 
-            /*
+
             ['view', 'edit'].forEach(function (action) {
 
 

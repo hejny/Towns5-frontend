@@ -36,8 +36,8 @@ var Editors={};
 
 var objects_server=new T.Objects.Array([]);
 var objects_external=new T.Objects.Array([]);
-var objects_external_buffer=[];//Preview eg. walls
-var objects_external_move=[];//Moving objects
+var objects_external_buffer=[];//Preview eg. walls//todo new T.Objects.Array([]);
+var objects_server_move=new T.Objects.Array([]);//Moving objects
 
 
 

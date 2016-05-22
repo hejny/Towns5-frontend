@@ -26,7 +26,7 @@ $(function(){
 
             try {
 
-                result = T.World.game.createActionExecute('move')(object,[mapPos]/*,objects_nearby,resources*/);
+                var result = T.World.game.createActionExecute('move')(object,[mapPos]/*,objects_nearby,resources*/);
 
             }catch(error) {
 
