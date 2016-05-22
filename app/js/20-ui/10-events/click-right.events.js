@@ -24,10 +24,16 @@ $(function(){
             var object = objects_external.getById(id);
 
 
-            result = T.World.game.createActionExecute('move')(object,[mapPos]/*,objects_nearby,resources*/);
+            try {
 
+                result = T.World.game.createActionExecute('move')(object,[mapPos]/*,objects_nearby,resources*/);
 
-            r(object);
+            }catch(error) {
+
+                T.UI.Message.error(error.message,'error');
+
+            }
+
 
 
             /*try {
