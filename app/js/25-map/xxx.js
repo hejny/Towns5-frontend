@@ -61,74 +61,26 @@ $(function(){
          },50);*/
 
 
-        var tree = new Tree(20, 5, 1, scene, shadowGenerator);
-        tree.position.x = 20;
-        tree.position.y = 5;
-        tree.position.z = 0;
 
 
         setTimeout(function(){
 
-
-            var building = T.User.object_prototypes.filterTypes('building').getAll()[0];
-
-            /*var  draw= function(model) {
-
-                var linear_particles = model.getLinearParticles();
-
-                r(linear_particles);
-
-                linear_particles.forEach(function(particle){
-
-                    /*{
-                        "name":"",
-                        "shape":{
-                            "type":"prism",
-                            "n":6,
-                            "top":1,
-                            "bottom":1,
-                            "rotated":false
-                        },
-                        "material":"wood_raw",
-                        "position":{"x":0,"y":0,"z":35},
-                        "size":{"x":5,"y":15,"z":5},
-                        "rotation":0,
-                        "skew":{"z":{"x":0,"y":0}}
-                    }* /
-
-                    if(particle.shape.type==='prism'){
+            var buildings = T.User.object_prototypes.filterTypes('building').getAll();
 
 
-                        var shape = BABYLON.Mesh.CreateCylinder("cylinder", 1,particle.shape.top, particle.shape.bottom, particle.shape.n, 1, scene, false);
-                        shape.arc= 0.5;
-                        shape.position = new BABYLON.Vector3(particle.position.x,particle.position.z,particle.position.y);
-
-                        shape.material = new BABYLON.StandardMaterial("Mat", scene);
-                        shape.material.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/crate.png", scene);
-                        shape.material.diffuseTexture.hasAlpha = true;
-
-
-                    }
-
-
-
-
-                });
-
-
-
-
-
-            };*/
-
-            //draw(building.getModel());
-
-            var model = new Model(building.getModel(), scene, shadowGenerator);
+            var model = new Model(buildings[0].getModel(), scene, shadowGenerator);
             model.position.x = -10;
             model.position.y = 5;
             model.position.z = 5;
-
             model.rotation.x = Math.PI/10;
+
+
+
+            var model = new Model(buildings[3].getModel(), scene, shadowGenerator);
+            model.position.x = 20;
+            model.position.y = 0;
+            model.position.z = -20;
+            model.rotation.y = Math.PI/10;
 
 
             //r(T.User.object_prototypes);
@@ -149,6 +101,16 @@ $(function(){
 
 
 
+        //When pointer down event is raised
+        scene.onPointerDown = function (evt, pickResult) {
+            // if the click hits the ground object, we change the impact position
+            /*if (pickResult.hit) {
+                impact.position.x = pickResult.pickedPoint.x;
+                impact.position.y = pickResult.pickedPoint.y;
+            }*/
+
+            r(pickResult);
+        };
 
 
 
@@ -168,7 +130,7 @@ $(function(){
 
 
 
-        var knot = BABYLON.Mesh.CreateTorusKnot("knot", 2, 0.5, 128, 64, 2, 3, scene);
+        /*var knot = BABYLON.Mesh.CreateTorusKnot("knot", 2, 0.5, 128, 64, 2, 3, scene);
         shadowGenerator.getShadowMap().renderList.push(knot);
         // Animations
         var beta = 5;
@@ -179,12 +141,12 @@ $(function(){
             knot.position = new BABYLON.Vector3(Math.cos(beta) * 30, 10, Math.sin(beta) * 30);
             beta += 0.02;
 
-        });
+        });*/
 
 
 
 
-        var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 3, 3, 3, 7, 1, scene, false);
+        /*var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 3, 3, 3, 7, 1, scene, false);
         cylinder.arc= 0.5;
         cylinder.position = new BABYLON.Vector3((Math.random()*100-50), Math.random()*10, (Math.random()*100-50));
 
@@ -192,10 +154,6 @@ $(function(){
 
         var torus = BABYLON.Mesh.CreateTorus("torus", 4, 2, 30, scene, false);
         shadowGenerator.getShadowMap().renderList.push(torus);
-
-
-
-
         // Animations
         var alpha = 0;
         scene.registerBeforeRender(function () {
@@ -205,7 +163,7 @@ $(function(){
             torus.position = new BABYLON.Vector3(Math.cos(alpha) * 30, 10, Math.sin(alpha) * 30);
             alpha += 0.01;
 
-        });
+        });*/
 
 
 

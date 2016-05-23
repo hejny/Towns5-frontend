@@ -3,7 +3,7 @@
 
 
 
-Model = function(model, scene, sd) {
+Model = function(model, scene, shadowGenerator) {
 
    var  sizeBranch=20, sizeTrunk=5, radius=1;
 
@@ -35,11 +35,12 @@ Model = function(model, scene, sd) {
          }*/
 
 
-        var mat = new BABYLON.StandardMaterial("mat1", scene);
-        mat.alpha = 1.0;
-        mat.diffuseColor = new BABYLON.Color3(0.5, 0.5, 1.0);
-        mat.backFaceCulling = false;
-        mat.wireframe = true;
+
+
+        //Creation of a material with an image texture
+        var material = new BABYLON.StandardMaterial("texture3", scene);
+        material.diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+
 
 
 
@@ -64,7 +65,7 @@ Model = function(model, scene, sd) {
 
             var x__, y__, z__;
 
-            for (var n = 0; n < particle.shape.n; n++) {
+            for (var n = 0; n<=particle.shape.n; n++) {
 
 
                 //--------
@@ -82,8 +83,8 @@ Model = function(model, scene, sd) {
 
                     if (!is(particle.shape.rotated)) {
 
-                        x__ = 0.5 * x_ * Math.cos(n / particle.shape.n * Math.PI * 2 + T.Math.deg2rad(180 + 180 / particle.shape.n)) * base + x_ * (level * particle.skew.z.x);
-                        y__ = 0.5 * y_ * Math.sin(n / particle.shape.n * Math.PI * 2 + T.Math.deg2rad(180 + 180 / particle.shape.n)) * base + y_ * (level * particle.skew.z.y);
+                        x__ = 0.5 * x_ * Math.cos(-n / particle.shape.n * Math.PI * 2 + T.Math.deg2rad(180 + 180 / particle.shape.n)) * base + x_ * (level * particle.skew.z.x);
+                        y__ = 0.5 * y_ * Math.sin(-n / particle.shape.n * Math.PI * 2 + T.Math.deg2rad(180 + 180 / particle.shape.n)) * base + y_ * (level * particle.skew.z.y);
                         z__ = z_ * level;
 
                     } else {
@@ -163,8 +164,9 @@ Model = function(model, scene, sd) {
             ribbon.position.x = x;
             ribbon.position.y = z;
             ribbon.position.z = y;
-            ribbon.material = mat;
+            ribbon.material = material;
 
+            shadowGenerator.getShadowMap().renderList.push(ribbon);
 
 
             //-------------------------------------------------------------------
