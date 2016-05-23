@@ -360,6 +360,13 @@ function tidyHTML($buffer) {
 
 
 
+    <!--todo install as npm package-->
+    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
+    <script src="http://www.babylonjs.com/cannon.js"></script>
+    <script src="http://www.babylonjs.com/oimo.js"></script>
+    <script src="http://www.babylonjs.com/babylon.js"></script>
+
+
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Libraries|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <?php
@@ -490,6 +497,7 @@ function tidyHTML($buffer) {
 
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Map|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <!--todo delete
     <div id="map_drag"></div>
 
 
@@ -499,6 +507,23 @@ function tidyHTML($buffer) {
     <div id="map-stories"></div>
     <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
+    <canvas id="map-canvas-new"></canvas>
+    <div id="fps"></div>
+
+    <style>
+        #map-canvas-new {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            /*border: 2px solid #000;*/
+        }
+
+        #fps {
+            position: fixed;
+            top:60px;
+            right:20px;
+        }
+    </style>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
@@ -506,10 +531,11 @@ function tidyHTML($buffer) {
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Tool control|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+    <!--todo delete
     <div id="selecting-distance">
         <canvas id="selecting-distance-2d" width="100" height="50"></canvas>
         <canvas id="selecting-distance-3d" width="100" height="50"></canvas>
-    </div>
+    </div>-->
 
     <div id="selecting-distance-ctl" style="display: none;">
         <div id="selecting-distance-plus" class="button-icon" title="<?=locale('ui tool controls plus')?>"><i class="fa fa-plus"></i></div>
@@ -524,12 +550,12 @@ function tidyHTML($buffer) {
 
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Map control|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <div id="map-ctl">
+    <!--<div id="map-ctl">
         <div id="map-plus" class="button-icon" title="<?=locale('ui map controls plus')?>"><i class="fa fa-plus"></i></div>
         <div id="map-minus" class="button-icon" title="<?=locale('ui map controls minus')?>"><i class="fa fa-minus"></i></div>
         <div id="map-left" class="button-icon" title="<?=locale('ui map controls left')?>"><i class="fa fa-undo"></i></i></div>
         <div id="map-right" class="button-icon" title="<?=locale('ui map controls right')?>"><i class="fa fa-repeat"></i></i></div>
-    </div>
+    </div>-->
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
