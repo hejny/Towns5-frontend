@@ -3,12 +3,12 @@
 
 
 
-Model = function(model, scene, shadowGenerator) {
+Model = function(name, model, scene, shadowGenerator) {
 
    var  sizeBranch=20, sizeTrunk=5, radius=1;
 
     // Call the super class BABYLON.Mesh
-    BABYLON.Mesh.call(this, "tree", scene);
+    BABYLON.Mesh.call(this, name, scene);
 
     this._init(sizeBranch);
 
@@ -49,8 +49,8 @@ Model = function(model, scene, shadowGenerator) {
         if (particle.shape.type == 'prism') {
 
 
-            var path1=[];
-            var path2=[];
+            var path_bottom=[];
+            var path_top=[];
 
             //-------------------------------------------------------------------prism
 
@@ -103,6 +103,9 @@ Model = function(model, scene, shadowGenerator) {
 
                             );
 
+
+                        z__-=z_/2;
+
                     }
 
 
@@ -123,10 +126,13 @@ Model = function(model, scene, shadowGenerator) {
 
 
                     if (level === 0) {
-                        path1.push( new BABYLON.Vector3(x__, z__, y__) );
+
+                        path_bottom.push( new BABYLON.Vector3(x__, z__, y__) );
 
                     } else {
-                        path2.push( new BABYLON.Vector3(x__, z__, y__) );
+
+                        path_top.push( new BABYLON.Vector3(x__, z__, y__) );
+
                     }
 
 
@@ -157,16 +163,58 @@ Model = function(model, scene, shadowGenerator) {
             }
 
 
+            if(is(particle.shape.rotated)) {
+                z+=z_/2;
+            }
 
 
-            var ribbon = BABYLON.Mesh.CreateRibbon("ribbon", [path1, path2], false, false, 0, scene);
-            ribbon.parent = whole;
-            ribbon.position.x = x;
-            ribbon.position.y = z;
-            ribbon.position.z = y;
-            ribbon.material = material;
+            var particle_ribbon = BABYLON.Mesh.CreateRibbon("ribbon", [path_bottom, path_top], false, false, 0, scene);
+            particle_ribbon.parent = whole;
+            particle_ribbon.position.x = x;
+            particle_ribbon.position.y = z;
+            particle_ribbon.position.z = y;
+            particle_ribbon.material = material;
+            shadowGenerator.getShadowMap().renderList.push(particle_ribbon);
 
-            shadowGenerator.getShadowMap().renderList.push(ribbon);
+
+            if(particle.name=='wheel'){
+                scene.registerBeforeRender(function () {
+                    particle_ribbon.rotation.x += 0.02;
+                });
+            }
+
+
+            [path_bottom,path_top].forEach(function(path,i){
+
+
+                var small_length = Math.ceil(path.length/2);
+                var path_1 = path.slice(0, small_length);
+                var path_2 = path.slice(small_length);
+                if(path_2.length+1===path_1.length){
+                    path_2.push(path[0]);
+                }
+                if(i===1){
+                    path_1.reverse();
+                }else{
+                    path_2.reverse();
+                }
+
+
+                var ribbon = BABYLON.Mesh.CreateRibbon("ribbon", [path_2,path_1], false, false, 0, scene);
+                ribbon.parent = particle_ribbon;
+                //ribbon.position.x = x;
+                //ribbon.position.y = z;
+                //ribbon.position.z = y;
+                ribbon.material = material;
+                //shadowGenerator.getShadowMap().renderList.push(ribbon_top);
+
+            });
+
+
+
+
+
+
 
 
             //-------------------------------------------------------------------
