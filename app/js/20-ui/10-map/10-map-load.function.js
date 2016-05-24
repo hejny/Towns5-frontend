@@ -74,23 +74,27 @@ T.UI.Map.loadMapRequestCallback=function(){
 
     //----------------------------------Create map_data and map_bg_data from objects_external
 
-    tstart('filterTypes');
+    /*tstart('filterTypes');//todo purge map_data_buildings, map_data_stories, map_data_terrains, map_array
     map_data_buildings = objects_external.filterTypes('building','natural');
     map_data_stories   = objects_external.filterTypes('story');
     map_data_terrains  = objects_external.filterTypes('terrain');
-    tend('filterTypes');
+    tend('filterTypes');*/
 
     //----------------------------------
 
-    tstart('getMapOfTerrainCodes');
+    /*tstart('getMapOfTerrainCodes');
     map_array = map_data_terrains.getMapOfTerrainCodes(map_center_floor,map_radius);
-    tend('getMapOfTerrainCodes');
+    tend('getMapOfTerrainCodes');*/
 
 
     T.UI.Map.map_center_last = T.UI.Map.map_center.clone();
 
 
     tend('generating map');
+
+
+
+    T.Map.drawMap(objects_external);
 
     //----------------------------------
 
@@ -187,7 +191,7 @@ T.UI.Map.loadMapRequestCallback=function(){
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    tstart('T.UI.Map.drawMap');
+    /*tstart('T.UI.Map.drawMap');
     T.UI.Map.drawMap();
     tend('T.UI.Map.drawMap');
 
@@ -197,7 +201,7 @@ T.UI.Map.loadMapRequestCallback=function(){
 
     tstart('T.UI.Map.storiesHTML');
     $('#map-stories').html(T.UI.Map.storiesHTML(map_data_stories));
-    tend('T.UI.Map.storiesHTML');
+    tend('T.UI.Map.storiesHTML');*/
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

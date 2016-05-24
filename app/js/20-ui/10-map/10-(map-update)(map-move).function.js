@@ -87,10 +87,12 @@ T.UI.Map.updateMap = function(from_server=false){
         //todo maybe min_map_radius
         if(map_radius>max_map_radius)map_radius=max_map_radius;
 
-        //console.log((map_radius*2));
+        map_radius=40;//todo how to solve this in 3d
 
-        //console.log('loadMap');
-        if(isNaN((map_radius*2)))throw '(map_radius*2) is NaN after updateMap and before loadMap';
+
+        if(isNaN(map_radius/1)){
+            throw new Error('map_radius is '+map_radius+' after updateMap and before loadMap');
+        }
         T.UI.Map.loadMap/*Async*/(from_server);
 
 

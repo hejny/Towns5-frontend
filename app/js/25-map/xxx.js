@@ -1,9 +1,16 @@
+T.setNamespace('Map');
+
+var prevent=false;
 
 
-$(function(){
+T.Map.drawMap = function(objects){
 
 
-
+    if(prevent){
+        r('drawMap prevented');
+        return;
+    }
+    prevent=true;
 
 
 
@@ -49,7 +56,7 @@ $(function(){
         //camera.attachControl(canvas, true);
 
         var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI, Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), scene);
-        camera.attachControl(canvas, true);
+        //camera.attachControl(canvas, true);
 
         camera.upperBetaLimit = Math.PI / 2;
 
@@ -116,7 +123,7 @@ $(function(){
 
 
 
-
+        /*
         // Create a sprite manager to optimize GPU ressources
         // Parameters : name, imgUrl, capacity, cellSize, scene
         var spriteManagerTrees = new BABYLON.SpriteManager("treesManager", "/app/php/treerock.php?type=tree&seed=8&width=200", 2000, 400, scene);
@@ -132,17 +139,14 @@ $(function(){
             tree.position.y = Math.random()*100;
             //tree.isPickable = true;
 
-            //Some "dead" trees
-            /*if (Math.round(Math.random() * 5) === 0) {
-                tree.angle = Math.PI * 90 / 180;
-                tree.position.y = -0.3;
-            }*/
         }
 
 
 
 
         /**/
+
+
 
 
         var water = BABYLON.Mesh.CreateGround("water", 100000, 100000, 2, scene);
@@ -158,16 +162,17 @@ $(function(){
         //var size=1+Math.random();
         water.position.x = 0;//*20*size;
         water.position.z = 0;//*20*size;
-        water.position.y = 0;
+
+        water.position.y = -2000;
         water.material = waterMaterial;
         water.isPickable = false;//todo
 
-        water_rad=0;
+        /*water_rad=0;
         scene.registerBeforeRender(function () {
             water.position.y = Math.sin(water_rad)+0.5;
             water_rad+=0.02;
 
-        });
+        });*/
 
 
 
@@ -257,7 +262,7 @@ $(function(){
 
 
 
-
+        /*
         var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "/app/babylon-sample/textures/ring.png", 150, 150, 20, 0, 20, scene, false);
         var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/ground.jpg", scene);
@@ -285,10 +290,59 @@ $(function(){
 
             instance.rotation.y = Math.random() * Math.PI * 2;
 
+        }*/
+
+
+        //-------------
+
+
+        var terrain_managers={};
+        for(var t=1;t<14;t++){
+
+
+            // Create a sprite manager to optimize GPU ressources
+            // Parameters : name, imgUrl, capacity, cellSize, scene
+            terrain_managers['t'+t] = new BABYLON.SpriteManager("terrains_t"+t, "/app/php/terrain.php?size=150&terrain=t"+t, 2000, 150, scene);
+
+
         }
 
+        /*
+        for (var y = -10; y < 10; y++) {
+            for (var x = -10; x < 10; x++) {
+
+                var t = Math.ceil(Math.random()*13);
+
+                var tree = new BABYLON.Sprite("terrain", terrain_managers['t'+t]);
+                tree.size = 20;//*Math.random();
+                tree.position.x = x*10;
+                tree.position.z = y*10;
+
+                tree.position.y = 0;//Math.random()*100;
+                //tree.isPickable = true;
 
 
+            }
+        }*/
+
+
+        var terrains  = objects.filterTypes('terrain');
+
+
+        terrains.forEach(function(terrain){
+
+            var t = terrain.getCode();
+
+            var sprite = new BABYLON.Sprite("terrain", terrain_managers['t'+t]);
+            sprite.size = 20;//*Math.random();
+            sprite.position.x = (terrain.x-T.UI.Map.map_center.x)*15;
+            sprite.position.z = (terrain.y-T.UI.Map.map_center.y)*15;
+
+            sprite.position.y = 0;//Math.random()*100;
+            //tree.isPickable = true;
+
+
+        });
 
 
 
@@ -323,6 +377,7 @@ $(function(){
 
 
 
+        /**
         //When pointer down event is raised
         scene.onPointerDown = function (evt, pickResult) {
             // if the click hits the ground object, we change the impact position
@@ -335,84 +390,129 @@ $(function(){
 
             r(pickResult);
         };
-
-
-
-        /*for(var i=0;i<200;i++){
-
-         //Simple crate
-         var box = new BABYLON.Mesh.CreateBox("crate", 2, scene);
-         box.material = new BABYLON.StandardMaterial("Mat", scene);
-         box.material.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/crate.png", scene);
-         box.material.diffuseTexture.hasAlpha = true;
-         box.position = new BABYLON.Vector3((Math.random()*100-50), Math.random()*10, (Math.random()*100-50));
-
-
-         shadowGenerator.getShadowMap().renderList.push(box);
-
-         }*/
-
-
-
-        /*var knot = BABYLON.Mesh.CreateTorusKnot("knot", 2, 0.5, 128, 64, 2, 3, scene);
-        shadowGenerator.getShadowMap().renderList.push(knot);
-        // Animations
-        var beta = 5;
-        scene.registerBeforeRender(function () {
-            knot.rotation.x += 0.01;
-            knot.rotation.z += 0.02;
-
-            knot.position = new BABYLON.Vector3(Math.cos(beta) * 30, 10, Math.sin(beta) * 30);
-            beta += 0.02;
-
-        });*/
+        /**/
 
 
 
 
-        /*var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 3, 3, 3, 7, 1, scene, false);
-        cylinder.arc= 0.5;
-        cylinder.position = new BABYLON.Vector3((Math.random()*100-50), Math.random()*10, (Math.random()*100-50));
+        //--------------------------------------------------------------------------------------------------------------
+
+        /**/
+
+        // Events
+        var canvas = engine.getRenderingCanvas();
+        var startingPoint;
+        var currentMesh;
+
+        var getGroundPosition = function () {
+            // Use a predicate to get position on the ground
+            var pickinfo = scene.pick(
+                scene.pointerX,
+                scene.pointerY,
+                function (mesh) { return mesh === water; }
+            );
+
+            if (pickinfo.hit) {
+                return pickinfo.pickedPoint;
+            }
+
+            return null;
+        };
+
+        var onPointerDown = function (evt) {
+
+            r(evt);
+
+            if (evt.button !== 0) {
+                return;
+            }
+
+            // check if we are under a mesh
+            var pickInfo = scene.pick(
+                scene.pointerX,
+                scene.pointerY
+                //function (mesh) { return mesh === ground; }
+            );
 
 
-
-        var torus = BABYLON.Mesh.CreateTorus("torus", 4, 2, 30, scene, false);
-        shadowGenerator.getShadowMap().renderList.push(torus);
-        // Animations
-        var alpha = 0;
-        scene.registerBeforeRender(function () {
-            torus.rotation.x += 0.01;
-            torus.rotation.z += 0.02;
-
-            torus.position = new BABYLON.Vector3(Math.cos(alpha) * 30, 10, Math.sin(alpha) * 30);
-            alpha += 0.01;
-
-        });*/
+            r(pickInfo);
 
 
+            if (!pickInfo.hit) {
+
+                currentMesh = pickInfo.pickedMesh;
+                startingPoint = getGroundPosition(evt);
+
+                r(currentMesh,startingPoint);
+
+                /*if (startingPoint) { // we need to disconnect camera from canvas
+                    setTimeout(function () {
+                        camera.detachControl(canvas);
+                    }, 0);
+                }*/
+            }
+        };
+
+        var onPointerUp = function () {
+            if (startingPoint) {
+
+                //camera.attachControl(canvas, true);
+
+                startingPoint = null;
+                return;
+            }
+        };
+
+        var onPointerMove = function (evt) {
+            if (!startingPoint) {
+                return;
+            }
+
+            var current = getGroundPosition(evt);
+
+            if (!current) {
+                return;
+            }
+
+            var diff = startingPoint.subtract(current);
+            //var diff = current.subtract(startingPoint);
+            camera.target.addInPlace(diff);
+
+            startingPoint = current;
+
+        };
+
+        canvas.addEventListener("pointerdown", onPointerDown, false);
+        canvas.addEventListener("pointerup", onPointerUp, false);
+        canvas.addEventListener("pointermove", onPointerMove, false);
+
+        scene.onDispose = function () {
+            canvas.removeEventListener("pointerdown", onPointerDown);
+            canvas.removeEventListener("pointerup", onPointerUp);
+            canvas.removeEventListener("pointermove", onPointerMove);
+        };/**/
+
+        //--------------------------------------------------------------------------------------------------------------
+
+        var mouseWheel = function (e) {
+
+            if(e.deltaY>0){
+
+                camera.target.y -=10;
+
+            }else{
+
+                camera.target.y +=10;
+            }
+
+        };
 
 
+        $(canvas).mousewheel(mouseWheel);
+
+        //--------------------------------------------------------------------------------------------------------------
 
 
-
-
-
-        //Set gravity for the scene (G force like, on Y-axis)
-        //scene.gravity = new BABYLON.Vector3(0, -0.9, 0);
-
-        // Enable Collisions
-        //scene.collisionsEnabled = true;
-
-        //Then apply collisions and gravity to the active camera
-        //camera.checkCollisions = true;
-        //camera.applyGravity = true;
-
-        //Set the ellipsoid around the camera (e.g. your player's size)
-        //camera.ellipsoid = new BABYLON.Vector3(1, 1, 1);
-
-        //finally, say which mesh will be collisionable
-        //ground.checkCollisions = true;
-        //box.checkCollisions = true;
 
         return scene;
     };
@@ -467,4 +567,4 @@ $(function(){
 
 
 
-});
+};
