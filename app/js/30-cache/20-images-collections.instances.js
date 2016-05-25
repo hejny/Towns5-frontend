@@ -47,7 +47,7 @@ for(var terrain=1;terrain<terrainCount+1;terrain++) {
     }
 }
 
-T.Cache.backgrounds= new T.Cache.ImagesCollection(files,appDir+'/php/terrain.php?terrain=');
+T.Cache.backgrounds= new T.Cache.ImagesCollection(files,appDir+'/php/terrain.php?terrain=');//todo refactor rename to terrains
 
 
 

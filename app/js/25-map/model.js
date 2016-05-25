@@ -13,6 +13,7 @@ Model = function(name, model, scene, shadowGenerator) {
     this._init(sizeBranch);
 
     var whole=this;
+    this.rotation.y = Math.PI/4;
 
     var linear_particles = model.getLinearParticles();
 
@@ -124,6 +125,10 @@ Model = function(name, model, scene, shadowGenerator) {
 
 
 
+                    x__=x__*MAP_BUILDING_SIZE;
+                    y__=y__*MAP_BUILDING_SIZE;
+                    z__=z__*MAP_BUILDING_SIZE;
+
 
                     if (level === 0) {
 
@@ -170,18 +175,18 @@ Model = function(name, model, scene, shadowGenerator) {
 
             var particle_ribbon = BABYLON.Mesh.CreateRibbon("ribbon", [path_bottom, path_top], false, false, 0, scene);
             particle_ribbon.parent = whole;
-            particle_ribbon.position.x = x;
-            particle_ribbon.position.y = z;
-            particle_ribbon.position.z = y;
+            particle_ribbon.position.x = x*MAP_BUILDING_SIZE;
+            particle_ribbon.position.y = z*MAP_BUILDING_SIZE;
+            particle_ribbon.position.z = y*MAP_BUILDING_SIZE;
             particle_ribbon.material = material;
             shadowGenerator.getShadowMap().renderList.push(particle_ribbon);
 
 
-            if(particle.name=='wheel'){
+            /*if(particle.name=='wheel'){
                 scene.registerBeforeRender(function () {
                     particle_ribbon.rotation.x += 0.02;
                 });
-            }
+            }*/
 
 
             [path_bottom,path_top].forEach(function(path,i){

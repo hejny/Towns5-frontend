@@ -55,115 +55,93 @@ T.Map.drawMap = function(objects){
         //var camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), scene);
         //camera.attachControl(canvas, true);
 
-        var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI, Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI*(7/4), Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), scene);
         //camera.attachControl(canvas, true);
+
 
         camera.upperBetaLimit = Math.PI / 2;
 
 
-        /*var rad = 0;
-         setInterval(function(){
-
-         var x,y;
-         x = Math.sin(rad);
-         y = Math.cos(rad);
-
-         rad+=0.1;
+        //-----------------------------------------------------------------------------------Constants
+        global.MAP_BUILDING_SIZE = 0.6;
+        //-----------------------------------------------------------------------------------
 
 
-         //camera.fov = Math.random();
-         //camera.mode = 1;
-         camera.target = new BABYLON.Vector3(x*20, 0, y*20);
-         //camera.upVector = new BABYLON.Vector3(-10, 10, 2);
+        //-----------------------------------------------------------------------------------Buildings
+        /**/
+        var buildings  = objects.filterTypes('building');
 
-         },50);*/
+        buildings.forEach(function(building){
 
+            r('Creating building '+building.name);
 
+            var mesh = new Model('building', building.getModel(), scene, shadowGenerator);
 
+            mesh.position.x = (building.x-T.UI.Map.map_center.x)*10;
+            mesh.position.z = -(building.y-T.UI.Map.map_center.y)*10;
 
-        setTimeout(function(){
-
-            var buildings = T.User.object_prototypes.filterTypes('building').getAll();
-
-
-            var katapult = new Model('katapult', buildings[0].getModel(), scene, shadowGenerator);
-
-
-            for(var limit=100;limit>0;limit--) {
-
-                var model = katapult.createInstance('katapult'+limit);
-                model.position.x = Math.random()*1000-500;
-                model.position.y = Math.random()*100;
-                model.position.z = Math.random()*1000-500;
-                model.rotation.x = Math.PI*Math.random() / 10;
-                model.rotation.z = Math.PI*Math.random() / 10;
-
-                model.rotation.y = Math.PI*2*Math.random();
-
-            }
-
-
-
-            /*var model = new Model(buildings[3].getModel(), scene, shadowGenerator);
-            model.position.x = 20;
-            model.position.y = 0;
-            model.position.z = -20;
-            model.rotation.y = Math.PI/10;
-
-
-            scene.registerBeforeRender(function () {
-                model.position.x += 0.02;
-                model.position.z += 0.02;
-            });*/
-
-
-
-        },1000);
-
-
-
-
-        /*
-        // Create a sprite manager to optimize GPU ressources
-        // Parameters : name, imgUrl, capacity, cellSize, scene
-        var spriteManagerTrees = new BABYLON.SpriteManager("treesManager", "/app/php/treerock.php?type=tree&seed=8&width=200", 2000, 400, scene);
-        //var spriteManagerTrees = new BABYLON.SpriteManager("treesManager", "/app/babylon-sample/textures/palm.png", 2000, 800, scene);
-
-        //We create 2000 trees at random positions
-        for (var i = 0; i < 2000; i++) {
-            var tree = new BABYLON.Sprite("tree", spriteManagerTrees);
-            tree.size = 20;
-            tree.position.x = Math.random() * 1000 - 500;
-            tree.position.z = Math.random() * 1000 - 500;
-
-            tree.position.y = Math.random()*100;
+            mesh.position.y = 0;//Math.random()*100;
             //tree.isPickable = true;
 
+
+        });
+        /*for(var limit=100;limit>0;limit--) {
+
+            var model = katapult.createInstance('katapult'+limit);
+            model.position.x = Math.random()*1000-500;
+            model.position.y = Math.random()*100;
+            model.position.z = Math.random()*1000-500;
+            model.rotation.x = Math.PI*Math.random() / 10;
+            model.rotation.z = Math.PI*Math.random() / 10;
+
+            model.rotation.y = Math.PI*2*Math.random();
+
         }
+         */
+        //-----------------------------------------------------------------------------------
 
 
 
 
+
+        //-----------------------------------------------------------------------------------Ground
+        var ground = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, scene);
+
+
+        var ground_material = new BABYLON.StandardMaterial("ground", scene);
+        ground_material.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        ground_material.alpha = 0.3;
+
+        ground.material = ground_material;
+
+
+        ground.position.x = 0;
+        ground.position.z = 0;
+
+        ground.position.y = 0;
+        ground.isPickable = false;
+        //-----------------------------------------------------------------------------------
+
+
+
+        //-----------------------------------------------------------------------------------
         /**/
+        var water = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, scene);
 
-
-
-
-        var water = BABYLON.Mesh.CreateGround("water", 100000, 100000, 2, scene);
 
         var waterMaterial = new BABYLON.StandardMaterial("water", scene);
         //groundMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/ground.jpg", scene);
         waterMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/t1.png", scene);
-        //groundMaterial.diffuseTexture.uScale = 1;
-        //groundMaterial.diffuseTexture.vScale = 1;
+        waterMaterial.diffuseTexture.uScale = 10;
+        waterMaterial.diffuseTexture.vScale = 10;
         //groundMaterial.diffuseTexture.hasAlpha = true;
-        waterMaterial.alpha = 0.9;
+        //waterMaterial.alpha = 1;
         //groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
         //var size=1+Math.random();
         water.position.x = 0;//*20*size;
         water.position.z = 0;//*20*size;
 
-        water.position.y = -2000;
+        water.position.y = -0.5;
         water.material = waterMaterial;
         water.isPickable = false;//todo
 
@@ -173,139 +151,54 @@ T.Map.drawMap = function(objects){
             water_rad+=0.02;
 
         });*/
-
+        //-----------------------------------------------------------------------------------
 
 
 
 
         //-------------
-
-
-
-        /*CreateGroundFromArray = function (width, height, subdivisions, buffer, bufferWidth, bufferHeight) {
-            var vertexData = new BABYLON.VertexData();
-            vertexData.positions = [];
-            vertexData.normals = [];
-            vertexData.indices = [];
-            vertexData.uvs  = [];
-            var row, col;
-            var indicesToSkip = {};
-            var pos = 0;
-            for (row = 0; row <= subdivisions; row++) {
-                for (col = 0; col <= subdivisions; col++) {
-                    if (buffer[pos] * 0.1 === -12345.6) {
-                        indicesToSkip[pos] = true;
-                        vertexData.positions.push(0, 0, 0);
-                        vertexData.uvs.push(0,0);
-                    }else{
-                        // Add  vertex
-                        vertexData.positions.push((col * width) / subdivisions - (width / 2.0), buffer[pos], ((subdivisions - row) * height) / subdivisions - (height / 2.0));
-                        vertexData.uvs.push(col / subdivisions, 1.0 - row / subdivisions);
-                    }
-                    pos++;
-                }
-            }
-            var subdivisionsPlus = subdivisions + 1;
-            for (row = 0; row < subdivisions; row++) {
-                for (col = 0; col < subdivisions; col++) {
-                    var indexA = col + 1 + (row + 1) * subdivisionsPlus;
-                    var indexB = col + 1 + row * subdivisionsPlus;
-                    var indexC = col + row * subdivisionsPlus;
-                    var indexD = col + (row + 1) * subdivisionsPlus;
-                    var indexE = col + row * subdivisionsPlus;
-                    var needsToBeSkipped = false;
-                    if (!!indicesToSkip[indexA])
-                        needsToBeSkipped = true;
-                    else if (!!indicesToSkip[indexB])
-                        needsToBeSkipped = true;
-                    else if (!!indicesToSkip[indexC])
-                        needsToBeSkipped = true;
-                    else if (!!indicesToSkip[indexD])
-                        needsToBeSkipped = true;
-                    else if (!!indicesToSkip[indexE])
-                        needsToBeSkipped = true;
-                    if (!needsToBeSkipped)
-                    {
-                        //Triangle 1 and triangle 2
-
-
-                        vertexData.indices.push(indexA, indexB, indexC, indexD, indexA, indexE);
-                    }
-                }
-            }
-            // Normals
-             BABYLON.VertexData.ComputeNormals(vertexData.positions, vertexData.indices, vertexData.normals);
-            // Result
-              return vertexData;
-        };*/
-
-
-
-
-
-        /*var canvas = document.createElement('canvas');
-        canvas.width  = 500;
-        canvas.height = 500;
-        var ctx = canvas.getContext("2d");
-        ctx.moveTo(0,0);
-        ctx.lineTo(200,100);
-        ctx.stroke();*/
-
-
-        // Ground
-        /*var ground = new BABYLON.Mesh('ground', scene);
-        var vertexData = VertexData.CreateGroundFromHeightMap(2000, 200, 3, 0, 200, buffer, heightMapWidth, heightMapHeight);
-        vertexData.applyToMesh(ground, false);*/
-        //var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", canvas.toDataURL()/*"/app/babylon-sample/textures/heightMap.png"*/, 2000, 2000, 200, 0, 100, scene, false);
-        //var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
-
-
-
 
         /*
-        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "/app/babylon-sample/textures/ring.png", 150, 150, 20, 0, 20, scene, false);
-        var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/ground.jpg", scene);
-        //groundMaterial.diffuseTexture = new BABYLON.Texture("/app/php/terrain.php?raw&terrain=t8", scene);
-        groundMaterial.diffuseTexture.uScale = 100;
-        groundMaterial.diffuseTexture.vScale = 100;
-        //groundMaterial.diffuseTexture.hasAlpha = true;
-        groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-        ground.material = groundMaterial;
-        //var size=1+Math.random();
-        ground.position.x = 0;//*20*size;
-        ground.position.z = 0;//*20*size;
-        ground.position.y = -1;
-
-        //ground.receiveShadows = true;
-
-
-
-        for(var limit=10000;limit>0;limit--) {
-
-            var instance = ground.createInstance('ground');
-
-            instance.position.x = Math.random() * 6000 - 3000;
-            instance.position.z = Math.random() * 6000 - 3000;
-
-            instance.rotation.y = Math.random() * Math.PI * 2;
-
-        }*/
-
-
-        //-------------
-
-
-        var terrain_managers={};
+        //var terrain_managers={};
+        var terrains_mesh_prototypes={};
         for(var t=1;t<14;t++){
 
 
             // Create a sprite manager to optimize GPU ressources
             // Parameters : name, imgUrl, capacity, cellSize, scene
-            terrain_managers['t'+t] = new BABYLON.SpriteManager("terrains_t"+t, "/app/php/terrain.php?size=150&terrain=t"+t, 2000, 150, scene);
+            //terrain_managers['t'+t] = new BABYLON.SpriteManager("terrains_t"+t, "/app/php/terrain.php?size=150&terrain=t"+t, 2000, 150, scene);
 
 
-        }
+
+            //var terrain_mesh = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "/app/babylon-sample/textures/ring.png", 60, 60, 20, 0, 10, scene, false);
+            var terrain_mesh = BABYLON.Mesh.CreateGround("terrain", 90, 90, 2, scene);
+            var terrain_material = new BABYLON.StandardMaterial("terrain", scene);
+            /*terrain_material.diffuseTexture = new BABYLON.Texture("/app/php/terrain.php?size=150&terrain=t"+t, scene);
+            terrain_material.diffuseTexture.uScale = 1;
+            terrain_material.diffuseTexture.vScale = 1;
+            terrain_material.diffuseTexture.hasAlpha = true;* /
+
+            terrain_material.diffuseColor = new BABYLON.Color3(0, 0, 0); // No diffuse color
+            terrain_material.specularColor = new BABYLON.Color3(0, 0, 0); // No specular color
+
+
+            terrain_material.emissiveTexture = new BABYLON.Texture("/app/php/terrain.php?raw&size=150&terrain=t"+t, scene);
+            //terrain_material.ambientTexture.uScale = 1;
+            //terrain_material.ambientTexture.vScale = 1;
+            terrain_material.emissiveTexture.hasAlpha = true;
+
+
+
+            terrain_mesh.material = terrain_material;
+            terrain_mesh.position.x = 0;
+            terrain_mesh.position.z = 0;
+            terrain_mesh.position.y = 0;
+            terrain_mesh.isPickable = false;
+
+            terrains_mesh_prototypes['t'+t] = terrain_mesh;
+
+
+        }*/
 
         /*
         for (var y = -10; y < 10; y++) {
@@ -325,48 +218,85 @@ T.Map.drawMap = function(objects){
             }
         }*/
 
+        var terrain_mesh = BABYLON.Mesh.CreateGround("terrain", 1024, 1024, 2, scene);
+        var terrain_mesh_texture = new BABYLON.DynamicTexture("terrain_mesh_texture", 2048, scene, true);
+        var terrain_mesh_material = new BABYLON.StandardMaterial("terrain", scene);
 
-        var terrains  = objects.filterTypes('terrain');
+        terrain_mesh_material.diffuseColor = new BABYLON.Color4(0, 0, 0, 0.1); // No diffuse color
+        terrain_mesh_material.specularColor = new BABYLON.Color4(0, 0, 0, 0.1); // No specular color
+        //terrain_mesh_material.diffuseTexture =  new BABYLON.Texture("/app/babylon-sample/textures/t1.png", scene);
+        terrain_mesh_material.emissiveTexture = terrain_mesh_texture;
+        terrain_mesh_material.emissiveTexture.uScale = 1;
+        terrain_mesh_material.emissiveTexture.vScale = 1;
+
+        terrain_mesh_material.emissiveTexture.hasAlpha = true;
+        terrain_mesh.material = terrain_mesh_material;
+        terrain_mesh.position.x = 0;
+        terrain_mesh.position.z = 0;
+        terrain_mesh.position.y = 1;
+        terrain_mesh.isPickable = false;
+
+
+
+
+        var ctx = terrain_mesh_texture.getContext();
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(10,10,2048-20,2048-20);
+
+
+        var terrains  = objects.get1x1TerrainObjects();
 
 
         terrains.forEach(function(terrain){
 
             var t = terrain.getCode();
 
+            /*if(t===1 || t===11){
+                return;
+            }*/
+
+
+            ctx.drawImage(
+                T.Cache.backgrounds.get('t'+t+'s1'),
+                (terrain.x-T.UI.Map.map_center.x)/map_radius/2*2048+1024,
+                (terrain.y-T.UI.Map.map_center.y)/map_radius/2*2048+1024,
+                90,90
+            );
+
+
+            /**
+            var terrain_instance = terrains_mesh_prototypes['t'+t].createInstance('terrain');
+            terrain_instance.position.x = (terrain.x-T.UI.Map.map_center.x)*30;
+            terrain_instance.position.z = (terrain.y-T.UI.Map.map_center.y)*30;
+            terrain_instance.position.y = Math.random()*10;
+
+            terrain_instance.rotation.y = Math.random()*Math.PI*2;
+            terrain_instance.isPickable = false;*/
+
+
+
+            /**
             var sprite = new BABYLON.Sprite("terrain", terrain_managers['t'+t]);
-            sprite.size = 20;//*Math.random();
-            sprite.position.x = (terrain.x-T.UI.Map.map_center.x)*15;
-            sprite.position.z = (terrain.y-T.UI.Map.map_center.y)*15;
+
+            sprite.size = 40;//*Math.random();
+            sprite.position.x = (terrain.x-T.UI.Map.map_center.x)*10;
+            sprite.position.z = (terrain.y-T.UI.Map.map_center.y)*10;
 
             sprite.position.y = 0;//Math.random()*100;
             //tree.isPickable = true;
-
+            */
 
         });
 
+
+        terrain_mesh_texture.update();
 
 
         //-------------
 
         /*
         // Ground
-        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "/app/babylon-sample/textures/heightMap2.png", 2000, 2000, 200, 0, 100, scene, false);
-        //var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
 
-
-        var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
-        //groundMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/ground.jpg", scene);
-        groundMaterial.diffuseTexture = new BABYLON.Texture("/app/babylon-sample/textures/ground.jpg", scene);
-        groundMaterial.diffuseTexture.uScale = 100;
-        groundMaterial.diffuseTexture.vScale = 100;
-        //groundMaterial.diffuseTexture.hasAlpha = true;
-        groundMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-        ground.material = groundMaterial;
-        //var size=1+Math.random();
-        ground.position.x = 0;//*20*size;
-        ground.position.z = 0;//*20*size;
-
-        ground.position.y = -1;
 
 
         /**/
@@ -409,10 +339,11 @@ T.Map.drawMap = function(objects){
             var pickinfo = scene.pick(
                 scene.pointerX,
                 scene.pointerY,
-                function (mesh) { return mesh === water; }
+                function (mesh) { return mesh === ground; }
             );
 
             if (pickinfo.hit) {
+                //r(pickinfo);
                 return pickinfo.pickedPoint;
             }
 
@@ -440,10 +371,12 @@ T.Map.drawMap = function(objects){
 
             if (!pickInfo.hit) {
 
+                r('Starting');
+
                 currentMesh = pickInfo.pickedMesh;
                 startingPoint = getGroundPosition(evt);
 
-                r(currentMesh,startingPoint);
+                //r(currentMesh,startingPoint);
 
                 /*if (startingPoint) { // we need to disconnect camera from canvas
                     setTimeout(function () {
@@ -456,12 +389,15 @@ T.Map.drawMap = function(objects){
         var onPointerUp = function () {
             if (startingPoint) {
 
+
+                r('Finito');
                 //camera.attachControl(canvas, true);
 
                 startingPoint = null;
                 return;
             }
         };
+
 
         var onPointerMove = function (evt) {
             if (!startingPoint) {
@@ -474,11 +410,23 @@ T.Map.drawMap = function(objects){
                 return;
             }
 
+            //r(startingPoint.x,current.x);
             var diff = startingPoint.subtract(current);
-            //var diff = current.subtract(startingPoint);
-            camera.target.addInPlace(diff);
+            //camera.target.addInPlace(diff);
 
-            startingPoint = current;
+            //r(diff.x);
+
+
+            camera.target.x+=diff.x;
+            camera.target.z+=diff.z;
+
+
+
+            /*water.position.addInPlace(diff);
+            water.position.addInPlace(diff);
+            */
+
+            //startingPoint = current;
 
         };
 
@@ -486,7 +434,7 @@ T.Map.drawMap = function(objects){
         canvas.addEventListener("pointerup", onPointerUp, false);
         canvas.addEventListener("pointermove", onPointerMove, false);
 
-        scene.onDispose = function () {
+        /*scene.onDispose = function () {
             canvas.removeEventListener("pointerdown", onPointerDown);
             canvas.removeEventListener("pointerup", onPointerUp);
             canvas.removeEventListener("pointermove", onPointerMove);
