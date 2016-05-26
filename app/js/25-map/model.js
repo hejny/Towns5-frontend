@@ -3,7 +3,7 @@
 
 
 
-Model = function(name, model, scene, shadowGenerator) {
+Model = function(name, model, scene, materials, shadowGenerator) {
 
    var  sizeBranch=20, sizeTrunk=5, radius=1;
 
@@ -37,11 +37,18 @@ Model = function(name, model, scene, shadowGenerator) {
 
 
 
+        if(typeof materials[particle.material] === 'undefined') {
 
-        //Creation of a material with an image texture
-        var material = new BABYLON.StandardMaterial("texture3", scene);
-        material.diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+            r('Initializing new material '+particle.material);
 
+            //Creation of a material with an image texture
+            materials[particle.material] = new BABYLON.StandardMaterial("texture3", scene);
+            materials[particle.material].diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+            materials[particle.material].freeze();
+        }
+
+
+        var material = materials[particle.material];
 
 
 
@@ -180,7 +187,7 @@ Model = function(name, model, scene, shadowGenerator) {
             particle_ribbon.position.z = y*MAP_BUILDING_SIZE;
             particle_ribbon.material = material;
             shadowGenerator.getShadowMap().renderList.push(particle_ribbon);
-
+            particle_ribbon.convertToUnIndexedMesh();
 
             /*if(particle.name=='wheel'){
                 scene.registerBeforeRender(function () {
@@ -211,6 +218,7 @@ Model = function(name, model, scene, shadowGenerator) {
                 //ribbon.position.y = z;
                 //ribbon.position.z = y;
                 ribbon.material = material;
+                ribbon.convertToUnIndexedMesh();
                 //shadowGenerator.getShadowMap().renderList.push(ribbon_top);
 
             });

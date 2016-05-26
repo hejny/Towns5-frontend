@@ -13,7 +13,16 @@ var map_request_ajax=false;
 T.UI.Map.loadMap = function(from_server=false){
 
 
+    if(typeof T.UI.Map.scene === 'undefined'){
+        //console.warn('Stopped loading map because of T.UI.Map.scene is '+T.UI.Map.scene);
+        //return;
+
+        T.UI.Map.scene = new T.Map.Scene();
+        r(T.UI.Map.scene);
+
+    }
     if(isNaN(map_radius))throw new Error('map_radius is NaN');
+
 
 
     if(from_server) {
@@ -57,6 +66,8 @@ T.UI.Map.loadMap = function(from_server=false){
 
 //======================================================================================================================
 
+
+
 T.UI.Map.loadMapRequestCallback=function(){
 
 
@@ -93,8 +104,8 @@ T.UI.Map.loadMapRequestCallback=function(){
     tend('generating map');
 
 
-
-    T.Map.drawMap(objects_external);
+    T.UI.Map.scene.update(objects_external);
+    //T.Map.drawMap(objects_external);
 
     //----------------------------------
 
