@@ -25,7 +25,7 @@ T.Map.drawMap = function(objects){
 
 
 
-        var light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(-1, -2, -1), scene);
+        var light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), scene);
         light.position = new BABYLON.Vector3(20, 40, 20);
         light.intensity = 1;
 
@@ -63,6 +63,7 @@ T.Map.drawMap = function(objects){
 
 
         //-----------------------------------------------------------------------------------Constants
+        global.MAP_FIELD_SIZE = 10;
         global.MAP_BUILDING_SIZE = 0.6;
         //-----------------------------------------------------------------------------------
 
@@ -77,10 +78,10 @@ T.Map.drawMap = function(objects){
 
             var mesh = new Model('building', building.getModel(), scene, shadowGenerator);
 
-            mesh.position.x = (building.x-T.UI.Map.map_center.x)*10;
-            mesh.position.z = -(building.y-T.UI.Map.map_center.y)*10;
+            mesh.position.x = (building.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;
+            mesh.position.z = -(building.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
 
-            mesh.position.y = 0;//Math.random()*100;
+            mesh.position.y = 40;//Math.random()*100;
             //tree.isPickable = true;
 
 
@@ -125,7 +126,7 @@ T.Map.drawMap = function(objects){
 
 
         //-----------------------------------------------------------------------------------
-        /**/
+        /**
         var water = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, scene);
 
 
@@ -141,17 +142,20 @@ T.Map.drawMap = function(objects){
         water.position.x = 0;//*20*size;
         water.position.z = 0;//*20*size;
 
-        water.position.y = -0.5;
+        water.position.y = 20;
         water.material = waterMaterial;
         water.isPickable = false;//todo
 
-        /*water_rad=0;
+        /**
+        water_rad=0;
         scene.registerBeforeRender(function () {
-            water.position.y = Math.sin(water_rad)+0.5;
+            water.position.y = Math.sin(water_rad)*5+20;
             water_rad+=0.02;
 
-        });*/
+        });/**/
         //-----------------------------------------------------------------------------------
+
+
 
 
 
@@ -218,78 +222,128 @@ T.Map.drawMap = function(objects){
             }
         }*/
 
-        var terrain_mesh = BABYLON.Mesh.CreateGround("terrain", 1024, 1024, 2, scene);
+
         var terrain_mesh_texture = new BABYLON.DynamicTexture("terrain_mesh_texture", 2048, scene, true);
+        var ctx = terrain_mesh_texture.getContext();
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(10,10,2048-20,2048-20);
+
+
+
+
+        var height_canvas = document.createElement('canvas');
+        var height_canvas_px=2;
+        height_canvas.width = map_radius*2*height_canvas_px;
+        height_canvas.height = map_radius*2*height_canvas_px;
+        var height_canvas_ctx = height_canvas.getContext('2d');
+
+
+
+
+
+        var map_of_terrain_codes  = objects.getMapOfTerrainCodes(T.UI.Map.map_center,map_radius);
+        var terrain_code, z;
+
+        r(map_of_terrain_codes);
+
+
+        for(var y= -map_radius;y<map_radius;y++){
+            for(var x= -map_radius;x<map_radius;x++){
+
+                //r(y+map_radius);
+                terrain_code = map_of_terrain_codes[y+map_radius][x+map_radius];
+
+
+                if(terrain_code===false) {
+                    z = 0;
+                }
+                if(terrain_code===1 || terrain_code===11){
+                    z = 0;
+                }else
+                if(terrain_code===5){
+                    z = 1;
+                }else
+                if(terrain_code===4){
+                    z = 0.15;
+                }else{
+                    z = 0.2;
+                }
+
+                z=Math.floor(z*255);
+
+                height_canvas_ctx.fillStyle="rgb("+z+","+z+","+z+")";
+                height_canvas_ctx.fillRect(
+                    (x+map_radius)*height_canvas_px,
+                    (y+map_radius)*height_canvas_px,
+                    height_canvas_px
+                    ,height_canvas_px
+                );
+
+
+
+                if(terrain_code!==false) {
+
+                    ctx.drawImage(
+                        T.Cache.backgrounds.get('t' + terrain_code + 's1'),
+                        (x ) / map_radius / 2 * 2048 + 1024,
+                        (y ) / map_radius / 2 * 2048 + 1024,
+                        90, 90
+                    );
+
+                }
+
+
+
+            }
+
+
+
+        }
+
+        height_canvas_ctx.blur(2);
+
+
+        terrain_mesh_texture.update();
+
+        //var terrain_mesh = BABYLON.Mesh.CreateGround("terrain", 1024, 1024, 4, scene);
+        //var terrain_mesh = BABYLON.Mesh.CreateRibbon("ribbon", paths, false, false, 0, scene);
+
+
+        var terrain_mesh = CreateGroundFromCanvas("ground", height_canvas, {width: map_radius*2*MAP_FIELD_SIZE, height:map_radius*2*MAP_FIELD_SIZE, subdivisions:80, minHeight:0, maxHeight: 200}, scene);
+
+
+
         var terrain_mesh_material = new BABYLON.StandardMaterial("terrain", scene);
 
+        //terrain_mesh_material.wireframe = true;
+
+
+        /**
+        terrain_mesh_material.diffuseTexture =  terrain_mesh_texture;
+        //terrain_mesh_material.diffuseTexture =  new BABYLON.Texture('/app/babylon-sample/textures/crate.png', scene);
+        terrain_mesh_material.diffuseTexture.uScale = 1;
+        terrain_mesh_material.diffuseTexture.vScale = 1;
+        /**/
+
+        /**/
         terrain_mesh_material.diffuseColor = new BABYLON.Color4(0, 0, 0, 0.1); // No diffuse color
         terrain_mesh_material.specularColor = new BABYLON.Color4(0, 0, 0, 0.1); // No specular color
-        //terrain_mesh_material.diffuseTexture =  new BABYLON.Texture("/app/babylon-sample/textures/t1.png", scene);
         terrain_mesh_material.emissiveTexture = terrain_mesh_texture;
         terrain_mesh_material.emissiveTexture.uScale = 1;
         terrain_mesh_material.emissiveTexture.vScale = 1;
-
         terrain_mesh_material.emissiveTexture.hasAlpha = true;
+        /**/
+
+
+
         terrain_mesh.material = terrain_mesh_material;
         terrain_mesh.position.x = 0;
         terrain_mesh.position.z = 0;
         terrain_mesh.position.y = 1;
         terrain_mesh.isPickable = false;
 
+        terrain_mesh.receiveShadows = true;
 
-
-
-        var ctx = terrain_mesh_texture.getContext();
-        ctx.fillStyle="#FF0000";
-        ctx.fillRect(10,10,2048-20,2048-20);
-
-
-        var terrains  = objects.get1x1TerrainObjects();
-
-
-        terrains.forEach(function(terrain){
-
-            var t = terrain.getCode();
-
-            /*if(t===1 || t===11){
-                return;
-            }*/
-
-
-            ctx.drawImage(
-                T.Cache.backgrounds.get('t'+t+'s1'),
-                (terrain.x-T.UI.Map.map_center.x)/map_radius/2*2048+1024,
-                (terrain.y-T.UI.Map.map_center.y)/map_radius/2*2048+1024,
-                90,90
-            );
-
-
-            /**
-            var terrain_instance = terrains_mesh_prototypes['t'+t].createInstance('terrain');
-            terrain_instance.position.x = (terrain.x-T.UI.Map.map_center.x)*30;
-            terrain_instance.position.z = (terrain.y-T.UI.Map.map_center.y)*30;
-            terrain_instance.position.y = Math.random()*10;
-
-            terrain_instance.rotation.y = Math.random()*Math.PI*2;
-            terrain_instance.isPickable = false;*/
-
-
-
-            /**
-            var sprite = new BABYLON.Sprite("terrain", terrain_managers['t'+t]);
-
-            sprite.size = 40;//*Math.random();
-            sprite.position.x = (terrain.x-T.UI.Map.map_center.x)*10;
-            sprite.position.z = (terrain.y-T.UI.Map.map_center.y)*10;
-
-            sprite.position.y = 0;//Math.random()*100;
-            //tree.isPickable = true;
-            */
-
-        });
-
-
-        terrain_mesh_texture.update();
 
 
         //-------------
@@ -305,6 +359,39 @@ T.Map.drawMap = function(objects){
 
 
 
+        //-----------------------------------------------------------------------------------SkyBox
+        /**
+        var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, scene);
+        var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+        skyboxMaterial.backFaceCulling = false;
+        skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/app/babylon-sample/textures/skybox/skybox", scene);
+        skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+        skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+        skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+        skybox.material = skyboxMaterial;
+         /**/
+        //-----------------------------------------------------------------------------------
+
+
+
+        //-----------------------------------------------------------------------------------Water WORLDMONGER
+        var water = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, scene);
+
+
+
+        var material = new WORLDMONGER.WaterMaterial("water", scene, light);
+        material.refractionTexture.renderList.push(terrain_mesh);
+        material.reflectionTexture.renderList.push(terrain_mesh);
+        //waterMaterial.reflectionTexture.renderList.push(skybox);
+
+        water.position.x = 0;//*20*size;
+        water.position.z = 0;//*20*size;
+
+        water.position.y = 20;
+        water.material = material;
+        water.isPickable = false;//todo
+
+        //-----------------------------------------------------------------------------------
 
 
         /**
@@ -377,13 +464,8 @@ T.Map.drawMap = function(objects){
                 startingPoint = getGroundPosition(evt);
 
                 //r(currentMesh,startingPoint);
-
-                /*if (startingPoint) { // we need to disconnect camera from canvas
-                    setTimeout(function () {
-                        camera.detachControl(canvas);
-                    }, 0);
-                }*/
             }
+
         };
 
         var onPointerUp = function () {
@@ -421,10 +503,6 @@ T.Map.drawMap = function(objects){
             camera.target.z+=diff.z;
 
 
-
-            /*water.position.addInPlace(diff);
-            water.position.addInPlace(diff);
-            */
 
             //startingPoint = current;
 

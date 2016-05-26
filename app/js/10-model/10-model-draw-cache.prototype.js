@@ -103,6 +103,8 @@ T.Model.prototype.drawCashedAsync = function(ctx, s, x_begin, y_begin, rotation,
  */
 T.Model.prototype.createCacheLocalImage = function(size, rotation, slope){
 
+    return(new Image());//todo REMOVE!!!!!!!!
+
     var self = this;
 
     var hash=this.cacheHash(size, rotation, slope);
