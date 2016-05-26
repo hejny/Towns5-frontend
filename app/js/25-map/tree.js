@@ -3,7 +3,7 @@
 
 
 
-Tree = function(sizeBranch, sizeTrunk, radius, scene, sd) {
+Tree = function(sizeBranch, sizeTrunk, radius, scene, materials, sd) {
     // Call the super class BABYLON.Mesh
     BABYLON.Mesh.call(this, "tree", scene);
 

@@ -160,7 +160,61 @@ T.Map.Scene = class{
 
         //--------------------------------------------------------------------------------------------------------------
 
+        self.assets=[];
 
+        var loader = new BABYLON.AssetsManager(self.scene);
+
+        var pos = function(t) {
+
+
+            r('loaded mesh',t);
+
+            t.loadedMeshes.forEach(function(m) {
+
+
+
+                r('loaded mesh',m);
+
+                self.assets.push(m);
+                //m.rotation.x=-Math.PI/2;
+                //m.material=-Math.PI/2;
+
+
+                var instance = m.createInstance('aaa');
+                instance.position = new BABYLON.Vector3(0,100,0);
+
+                instance.scaling.x=3;
+                instance.scaling.y=3;
+                instance.scaling.z=3;
+                /**/
+
+
+            });
+
+        };
+
+
+
+        var bane = loader.addMeshTask("bane", "", "http://towns.local/app/babylon-sample/textures/test/tree4/", "tree1.obj");
+        //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "bane.obj");
+        //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "skull.babylon");
+        bane.onSuccess = pos;
+        bane.onError = function(e){
+
+            r('ERROR loading mesh',e);
+        };
+        /*var batman = loader.addMeshTask("batman", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Batman/", "Batman_Injustice.obj");
+        batman.onSuccess = pos;
+        var penguin = loader.addMeshTask("penguin", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Penguin/", "Penguin.obj");
+        penguin.onSuccess = pos;*/
+
+        loader.onFinish = function() {
+            engine.runRenderLoop(function () {
+                self.scene.render();
+            });
+        };
+
+        loader.load();
         //--------------------------------------------------------------------------------------------------------------
 
 
@@ -545,6 +599,48 @@ T.Map.Scene = class{
         self.water.material.refractionTexture.renderList=[terrain_mesh];
         self.water.material.reflectionTexture.renderList=[terrain_mesh];
         //-----------------------------------------------------------------------------------
+
+
+
+
+        //-----------------------------------------------------------------------------------Naturals = Trees
+        /**/
+        var naturals  = objects.filterTypes('natural');
+
+        //r(naturals);
+        r('all assets',self.assets);
+
+        naturals.forEach(function(natural){
+
+            r('Creating natural '+building.name);
+
+            //var mesh = new Tree(20,60,20, self.scene, self.materials, self.shadow_generator);
+
+
+            var mesh = self.assets[0].createInstance('tree');
+
+            mesh.position.x = (natural.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;
+            mesh.position.z = -(natural.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
+            mesh.position.y = terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
+
+
+            /*BABYLON.SceneLoader.ImportMesh("", "/app/babylon-sample/textures/", "trees.obj", self.scene, function (newMeshes) {
+
+                r(newMeshes);
+
+                // Set the target of the camera to the first imported mesh
+                //camera.target = newMeshes[0];
+
+
+            });*/
+
+
+
+            //tree.isPickable = true;
+
+        });
+        //-----------------------------------------------------------------------------------
+
 
 
 
