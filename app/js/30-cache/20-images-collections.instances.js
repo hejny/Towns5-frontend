@@ -56,6 +56,7 @@ T.Cache.backgrounds= new T.Cache.ImagesCollection(files,appDir+'/php/terrain.php
 
 //----------------------------------------------------------------Tree,Rock
 
+/*
 files=[];
 
 //----------------Tree
@@ -84,7 +85,7 @@ for (var seed = 0; seed < rockCount; seed++) {
 
 T.Cache.objectsNatural= new T.Cache.ImagesCollection(files,appDir+'/php/treerock.php');
 
-
+/**/
 
 //----------------------------------------------------------------Loading callback
 
@@ -93,9 +94,8 @@ T.Cache.imageLoad = function(){
 
     var percent = (
             T.Cache.textures.loaded()+
-            T.Cache.backgrounds.loaded()+
-            T.Cache.objectsNatural.loaded()
-        ) / 3;
+            T.Cache.backgrounds.loaded()
+        ) / 2;
 
     /*r(  T.Cache.textures.loaded(),
      T.Cache.backgrounds.loaded(),
@@ -131,6 +131,5 @@ $(function(){
 
     T.Cache.textures.load(T.Cache.imageLoad);
     T.Cache.backgrounds.load(T.Cache.imageLoad);
-    T.Cache.objectsNatural.load(T.Cache.imageLoad);
 
 });

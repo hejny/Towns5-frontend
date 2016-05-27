@@ -53,18 +53,18 @@ T.Map.Scene = class{
 
 
 
-        // Need a free camera for collisions
-        //var camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
-        //camera.attachControl(canvas, true);
+        // Need a free self.camera for collisions
+        //var self.camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
+        //self.camera.attachControl(canvas, true);
 
-        //var camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
-        //camera.attachControl(canvas, true);
+        //var self.camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
+        //self.camera.attachControl(canvas, true);
 
-        var camera = new BABYLON.ArcRotateCamera("Camera", Math.PI*(7/4), Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
-        //camera.attachControl(canvas, true);
+        self.camera = new BABYLON.ArcRotateCamera("Camera", Math.PI*(7/4), Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
+        //self.camera.attachControl(canvas, true);
 
 
-        camera.upperBetaLimit = Math.PI / 2;
+        self.camera.upperBetaLimit = Math.PI / 2;
 
 
         //-----------------------------------------------------------------------------------Constants
@@ -160,6 +160,7 @@ T.Map.Scene = class{
 
         //--------------------------------------------------------------------------------------------------------------
 
+        self.loaded=false;
         self.assets=[];
 
         var loader = new BABYLON.AssetsManager(self.scene);
@@ -179,7 +180,7 @@ T.Map.Scene = class{
                 //m.rotation.x=-Math.PI/2;
                 //m.material=-Math.PI/2;
 
-
+                /*
                 var instance = m.createInstance('aaa');
                 instance.position = new BABYLON.Vector3(0,100,0);
 
@@ -189,28 +190,33 @@ T.Map.Scene = class{
                 /**/
 
 
+
             });
 
         };
 
 
 
-        var bane = loader.addMeshTask("bane", "", "http://towns.local/app/babylon-sample/textures/test/tree4/", "tree1.obj");
+        var tree = loader.addMeshTask("bane", "", "/media/3d/test/tree4/", "tree1.obj");
         //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "bane.obj");
         //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "skull.babylon");
-        bane.onSuccess = pos;
-        bane.onError = function(e){
+        tree.onSuccess = pos;
+        tree.onError = function(e){
 
             r('ERROR loading mesh',e);
         };
-        /*var batman = loader.addMeshTask("batman", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Batman/", "Batman_Injustice.obj");
-        batman.onSuccess = pos;
-        var penguin = loader.addMeshTask("penguin", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Penguin/", "Penguin.obj");
+        /*var cat = loader.addMeshTask("batman", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Batman/", "Batman_Injustice.obj");
+        cat.onSuccess = pos;
+
+        /*var penguin = loader.addMeshTask("penguin", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Penguin/", "Penguin.obj");
         penguin.onSuccess = pos;*/
 
         loader.onFinish = function() {
             engine.runRenderLoop(function () {
+
                 self.scene.render();
+                self.loaded=true;
+
             });
         };
 
@@ -286,18 +292,22 @@ T.Map.Scene = class{
 
 
                 r('Finito');
-                //camera.attachControl(canvas, true);
+                //self.camera.attachControl(canvas, true);
 
+                //todo Babylon(x,z) Mapping to Towns(x,y) CONSTANTS
                 var moved_by = new T.Position(
                     whole_diff.x/MAP_FIELD_SIZE,
-                    whole_diff.z/MAP_FIELD_SIZE
+                    -whole_diff.z/MAP_FIELD_SIZE
                 );
 
                 T.UI.Map.map_center.plus(moved_by);
+                T.URI.write();
                 startingPoint = null;
 
 
+                T.UI.Map.scene.updatable=true;//todo REMOVE
                 T.UI.Map.loadMap();
+
 
 
                 return;
@@ -319,14 +329,14 @@ T.Map.Scene = class{
 
             //r(startingPoint.x,current.x);
             var diff = startingPoint.subtract(current);
-            //camera.target.addInPlace(diff);
+            //self.camera.target.addInPlace(diff);
 
             whole_diff.x+=diff.x;
             whole_diff.z+=diff.z;
 
 
-            camera.target.x+=diff.x;
-            camera.target.z+=diff.z;
+            self.camera.target.x+=diff.x;
+            self.camera.target.z+=diff.z;
 
 
 
@@ -350,11 +360,11 @@ T.Map.Scene = class{
 
             if(e.deltaY>0){
 
-                camera.target.y -=10;
+                self.camera.target.y -=10;
 
             }else{
 
-                camera.target.y +=10;
+                self.camera.target.y +=10;
             }
 
         };
@@ -380,6 +390,8 @@ T.Map.Scene = class{
 
         this.updatable=true;
 
+        this.prev_meshes=[];
+
     }
 
 
@@ -390,16 +402,22 @@ T.Map.Scene = class{
 
     update(objects) {
 
+        if(!this.loaded)return;
+
         if(!this.updatable)return;
         this.updatable=false;
 
         var self = this;
 
 
+        self.prev_meshes.forEach(function(mesh){
+            mesh.dispose();
+        });
+        self.shadow_generator.getShadowMap().renderList=[];
 
 
-
-
+        self.camera.target.x=100;//todo based on coords mapping
+        self.camera.target.z=-100;
 
 
         //-------------
@@ -533,7 +551,7 @@ T.Map.Scene = class{
                 if(terrain_code!==false) {
 
                     ctx.drawImage(
-                        T.Cache.backgrounds.get('t' + terrain_code + 's1'),
+                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+T.UI.Map.map_center.x,y:y+T.UI.Map.map_center.y})*seedCount)%seedCount),
                         (x ) / map_radius / 2 * 2048 + 1024,
                         (y ) / map_radius / 2 * 2048 + 1024,
                         90, 90
@@ -593,6 +611,7 @@ T.Map.Scene = class{
         terrain_mesh.isPickable = false;
 
         terrain_mesh.receiveShadows = true;
+        self.prev_meshes.push(terrain_mesh);
         //terrain_mesh.convertToUnIndexedMesh();
 
 
@@ -617,19 +636,33 @@ T.Map.Scene = class{
             //var mesh = new Tree(20,60,20, self.scene, self.materials, self.shadow_generator);
 
 
-            var mesh = self.assets[0].createInstance('tree');
+            var mesh = self.assets[1].createInstance('tree');
 
-            mesh.position.x = (natural.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;
+            mesh.position.x = (natural.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
             mesh.position.z = -(natural.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
             mesh.position.y = terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
 
+            var rand = Math.random()-0.5;
+            mesh.scaling.x=3+rand;
+            mesh.scaling.y=3+rand;
+            mesh.scaling.z=3+rand;
+
+
+            mesh.rotation.y=Math.random()*Math.PI*2;
+            mesh.rotation.x=Math.random()*Math.PI/8;
+            mesh.rotation.z=Math.random()*Math.PI/8;
+
+            self.shadow_generator.getShadowMap().renderList.push(mesh);
+
+            //mesh.convertToUnIndexedMesh();
+            self.prev_meshes.push(mesh);
 
             /*BABYLON.SceneLoader.ImportMesh("", "/app/babylon-sample/textures/", "trees.obj", self.scene, function (newMeshes) {
 
                 r(newMeshes);
 
-                // Set the target of the camera to the first imported mesh
-                //camera.target = newMeshes[0];
+                // Set the target of the self.camera to the first imported mesh
+                //self.camera.target = newMeshes[0];
 
 
             });*/
@@ -655,12 +688,11 @@ T.Map.Scene = class{
 
             var mesh = new Model('building', building.getModel(), self.scene, self.materials, self.shadow_generator);
 
-            mesh.position.x = (building.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;
+            mesh.position.x = (building.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
             mesh.position.z = -(building.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
             mesh.position.y = terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
 
-            r(mesh.position.y);
-            r(terrain_mesh);
+            self.prev_meshes.push(mesh);
 
 
             //tree.isPickable = true;

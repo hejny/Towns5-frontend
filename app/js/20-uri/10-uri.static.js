@@ -60,8 +60,8 @@ T.URI=class {
 
         } else {
 
-            T.UI.Map.map_center.x = 2962;
-            T.UI.Map.map_center.y = 1976;
+            T.UI.Map.map_center.x = -1500;
+            T.UI.Map.map_center.y = -2900;
 
             //T.UI.Map.map_center.x=(Math.random()-0.5)*1000000;
             //T.UI.Map.map_center.y=(Math.random()-0.5)*1000000;
@@ -90,7 +90,9 @@ T.URI=class {
 
         if(position_last !== T.UI.Map.map_center.toString()){
             r('Reading And Updating T.URI - Position was changed');
-            T.UI.Map.loadMapAsync();
+
+            T.UI.Map.scene.updatable=true;//todo REMOVE
+            T.UI.Map.loadMapAsync(true);
         }
 
 

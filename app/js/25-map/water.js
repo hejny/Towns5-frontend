@@ -5,7 +5,7 @@ var WORLDMONGER = WORLDMONGER || {};
         BABYLON.Material.call(this, name, scene);
         this.light = light;
 
-        this.bumpTexture = new BABYLON.Texture("/app/babylon-sample/textures/bump.png", scene);
+        this.bumpTexture = new BABYLON.Texture("/media/3d/bump.png", scene);
         this.bumpTexture.uScale = 2;
         this.bumpTexture.vScale = 2;
         this.bumpTexture.wrapU = BABYLON.Texture.MIRROR_ADDRESSMODE;
@@ -65,7 +65,7 @@ var WORLDMONGER = WORLDMONGER || {};
             return false;
         }
 
-        this._effect = engine.createEffect("/app/babylon-sample/textures/water",
+        this._effect = engine.createEffect("/media/3d/water",
             ["position", "normal", "uv"],
             ["worldViewProjection", "world", "view", "vLightPosition", "vEyePosition", "waterColor", "vLevels", "waveData", "windMatrix"],
             ["reflectionSampler", "refractionSampler", "bumpSampler"],
