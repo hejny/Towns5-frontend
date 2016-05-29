@@ -642,15 +642,13 @@ T.Map.Scene = class{
             mesh.position.z = -(natural.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
             mesh.position.y = terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
 
-            var rand = Math.random()-0.5;
-            mesh.scaling.x=3+rand;
-            mesh.scaling.y=3+rand;
-            mesh.scaling.z=3+rand;
+            mesh.scaling.x=natural.design.data.size;
+            mesh.scaling.y=natural.design.data.size;
+            mesh.scaling.z=natural.design.data.size;
 
-
-            mesh.rotation.y=Math.random()*Math.PI*2;
-            mesh.rotation.x=Math.random()*Math.PI/8;
-            mesh.rotation.z=Math.random()*Math.PI/8;
+            mesh.rotation.y=T.Math.deg2rad(natural.design.data.rotation.z);
+            mesh.rotation.x=T.Math.deg2rad(natural.design.data.rotation.x);
+            mesh.rotation.z=T.Math.deg2rad(natural.design.data.rotation.y);
 
             self.shadow_generator.getShadowMap().renderList.push(mesh);
 
