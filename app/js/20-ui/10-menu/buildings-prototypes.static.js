@@ -12,28 +12,49 @@ T.UI.Menu.Building = class {
 
     static start(prototypeId) {
 
+
+        var building = T.User.object_prototypes.getById(prototypeId).clone();
+
+
+        T.UI.Map.scene.attachObjectCreating(building,function(position,rotation,size){
+
+            building.x=position.x;
+            building.y=position.y;
+
+            building.getModel().rotation=rotation;
+            building.getModel().size=size;
+
+            create(building,function(){
+
+
+                r('Building created on server!!!');
+
+            });
+
+
+
+        });
+
+
+
+
+        /*
         mapSpecialCursorStart();
 
         building = T.User.object_prototypes.getById(prototypeId).clone();
 
-        building.prototypeId = prototypeId;//todo should it be here?
-        //r('T.UI.Menu.Building.start',building);
+        building.prototypeId = prototypeId;
 
         T.UI.Menu.Building.forceJoining = false;
 
-        /*selecting_size={x: 300,y: 700};
-         selecting_offset={x: 150,y: 650};*/
 
 
         T.UI.Menu.Building.redraw();
-        //T.UI.Menu.Building.update();
-        //r(building.res);
 
 
         $('#selecting-distance-ctl').css('background', '');//neutral background
         $('#selecting-distance-ctl').show();//showing toolbar control
         $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
-        //showing buttons used by actual tool
         if (dragging_subtypes.indexOf(building.subtype) == -1)$('#selecting-distance-right').show();
         if (dragging_subtypes.indexOf(building.subtype) == -1)$('#selecting-distance-left').show();
         $('#selecting-distance-plus').show();
@@ -42,11 +63,15 @@ T.UI.Menu.Building = class {
 
 
         $('#selecting-distance').show();
+
+        */
+
+
     }
 
 
 
-
+    /*
     static redraw() {
 
 
@@ -56,11 +81,6 @@ T.UI.Menu.Building = class {
 
         $('#selecting-distance').attr('width', selecting_size.x);//todo Jaká by měla být velikost - rozmyslet?
         $('#selecting-distance').attr('height', selecting_size.y);
-
-        //$('#selecting-distance').scss('border',2);
-
-
-        //selecting_distance_3D_webgl = /*building*/T.User.object_prototypes[0].design.data.create3D(selecting_distance_3D_gl, 1/*map_zoom_m/*map_model_size*/, 150, 150, /*map_rotation, map_slope*/0,30 , true, false);
 
 
         $(selecting_distance_2d_canvas).hide();
@@ -81,8 +101,6 @@ T.UI.Menu.Building = class {
 
     static update() {
 
-        //r('T.UI.Menu.Building.update');
-
 
         selecting_distance_3d_canvas_webgl.rotations[1].deg = -building.getModel().rotation + 45 + map_rotation;//todo better solution than 45
         selecting_distance_3d_canvas_webgl.drawScene();
@@ -91,20 +109,16 @@ T.UI.Menu.Building = class {
         var join = createNewOrJoin(building);
 
 
-        if (join === false/* || true*/) {
+        if (join === false) {
             //------------------------------------------------------------Normal building
 
             r(building.rotation);
 
 
-            //$(selecting_distance_3d_canvas).css('filter','contrast(100%)');
-
 
             //------------------------------------------------------------
         } else {
             //------------------------------------------------------------Join buildings
-
-            //$(selecting_distance_3d_canvas).css('filter','contrast(150%)');
 
 
             var model_z = building.getModel().joinModelZ(
@@ -136,7 +150,6 @@ T.UI.Menu.Building = class {
     }
 
     //======================================================================================================================T.UI.Menu.Building.T.UI.Menu.dismantlingStart
-    //DISMANTLING
 
 
 
@@ -171,9 +184,11 @@ T.UI.Menu.Building = class {
 
 
     }
+    /**/
 
 
 };
 
 
-T.UI.Menu.Building.forceJoining = false;//todo better
+//T.UI.Menu.Building.forceJoining = false;//todo better
+

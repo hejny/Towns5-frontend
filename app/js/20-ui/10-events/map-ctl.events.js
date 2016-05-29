@@ -6,35 +6,26 @@
 $(function(){
 
 
-    $('#map-plus').click(function(){
+    $('#map-ctl-move').click(function(){
 
-        map_zoom_delta=0.5;
-        T.UI.Map.updateMap();
-
-    });
-
-
-    $('#map-minus').click(function(){
-
-        map_zoom_delta=-0.5;
-        T.UI.Map.updateMap();
+        T.UI.Map.scene.attachMapMoving();
 
     });
 
 
-    $('#map-left').click(function(){
+    $('#map-ctl-rotate').click(function(){
 
-        map_rotation_delta=15;
-        T.UI.Map.updateMap();
+        T.UI.Map.scene.attachMapRotating();
+
+    });
+
+
+    $('#map-ctl-select').click(function(){
+
+        T.UI.Map.scene.attachMapSelecting();
 
     });
 
-    $('#map-right').click(function(){
-
-        map_rotation_delta=-15;
-        T.UI.Map.updateMap();
-
-    });
 
 
 });

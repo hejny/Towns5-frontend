@@ -11,22 +11,42 @@ T.UI.Menu.Terrains = class {
 
     static start(prototypeId) {
 
-        mapSpecialCursorStart();
+
+        var terrain = T.User.object_prototypes.getById(prototypeId).clone();
+
+
+        T.UI.Map.scene.attachObjectCreating(terrain,function(position,rotation,size){
+
+            terrain.x=position.x;
+            terrain.y=position.y;
+
+            terrain.design.data.size=size;
+
+
+            create(terrain,function(){
+
+
+
+                r('Building created on server!!!');
+
+            });
+
+            T.UI.Map.scene.updatable=true;//todo REMOVE
+            T.UI.Map.loadMap();
+
+
+
+        });
+
+
+
+
+        /*mapSpecialCursorStart();
 
         updateSelectingDistance();
 
         T.UI.Menu.terrainChanging = T.User.object_prototypes.getById(prototypeId).clone();
 
-        /*T.UI.Menu.terrainChanging={
-         "type": "terrain",
-         "design": {
-         "type": "terrain",
-         "data": {
-         "image": terrain,
-         "size": 1//todo maybe this (terrains and buildings) should be radius
-         }
-         }
-         };*/
 
         //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
         if (blockedTerrains.indexOf(T.UI.Menu.terrainChanging) != -1) {
@@ -48,7 +68,7 @@ T.UI.Menu.Terrains = class {
         $('#selecting-distance-close').show();
 
 
-        $('#selecting-distance').show();
+        $('#selecting-distance').show();*/
     }
 
 
