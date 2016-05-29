@@ -158,15 +158,6 @@ window.uiScript = function(){
 
 
 
-
-    // kliknutie na js-popup-window-open trigger zobrazí overlay a popup-window
-    $('.js-popup-window-open').unbind('click').on('click', function(){
-
-        var page=$(this).attr('page');
-        T.Plugins.open(page);
-
-    });
-
     // kliknutie na overlay schová overlay a popup-window
     $('.overlay').unbind('click').on('click', function(){
         T.UI.popupWindow.close();

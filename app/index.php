@@ -569,7 +569,7 @@ function tidyHTML($buffer) {
 
         <div onclick="objectPrototypesMenu('building','wall');T.Plugins.open('building-block-editor',0,-1);return false;" class="button-icon" title="<?/*=locale('ui macros create building block')*/?>"><i class="fa fa-cube"></i></div>-->
 
-        <div class="button-icon js-popup-window-open" page="feedback"><i class="fa fa-comment"></i></div>
+        <div class="button-icon" onclick="T.Plugins.open('feedback')"><i class="fa fa-comment"></i></div>
 
     </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -582,7 +582,7 @@ function tidyHTML($buffer) {
 
         <!--todo [PH] vyřešit nějak lépe lokacizaci v aplikaci-->
         <div class="menu-logo">
-            <img class="js-popup-window-open" page="home" src="/media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
+            <img onclick="T.Plugins.open('home')" src="/media/image/icons/logo.png" alt="<?=locale('ui logo')?>"/>
 
         </div>
 
@@ -634,9 +634,9 @@ function tidyHTML($buffer) {
 
                     <li class="menu-dlist-info"><?=locale('ui menu develop info')?></li>
                     <li class="menu-dlist-item"><a onclick="map_bg.downloadCanvas();"><?=locale('ui menu develop screenshot')?></a></li>
-                    <li class="menu-dlist-item"><a class="js-popup-window-open" page="locale-write"><?=locale('ui menu develop locale write')?> (<span id="locale-write-count">0</span>)</a></li>
+                    <li class="menu-dlist-item"><a onclick="T.Plugins.open('locale-write')"><?=locale('ui menu develop locale write')?> (<span id="locale-write-count">0</span>)</a></li>
                     <li class="menu-dlist-item"><a onclick="window.open( './', 'Towns', 'channelmode=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, titlebar=no, width=800, height=600, left=100, top=100' );"><?=locale('ui menu develop window')?></a></li>
-                    <li class="menu-dlist-item"><a class="js-popup-window-open" page="deleting"><?=locale('ui menu develop deleting')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.Plugins.open('deleting')"><?=locale('ui menu develop deleting')?></a></li>
 
                 </ul>
             </li>
@@ -656,9 +656,9 @@ function tidyHTML($buffer) {
             </li>
 
             <li class="menu-list-item">
-                <button class="width-middle pale js-popup-window-open logged-out" style="display:none" page="home"><?=locale('ui buttons about game')?></button><!--todo refactor atribute content to ?page-->
-                <button class="width-middle js-popup-window-open logged-out js-townsapi-online" style="display:none" page="register"><?=locale('ui buttons register')?></button><!--todo refactor atribute content to ?page-->
-                <button class="width-middle pale js-popup-window-open logged-out js-townsapi-online" style="display:none" page="login"><?=locale('ui buttons login')?></button><!--todo refactor atribute content to ?page-->
+                <button class="width-middle pale logged-out" style="display:none" onclick="T.Plugins.open('home')"><?=locale('ui buttons about game')?></button><!--todo refactor atribute content to ?page-->
+                <button class="width-middle logged-out js-townsapi-online" style="display:none" onclick="T.Plugins.open('register')"><?=locale('ui buttons register')?></button><!--todo refactor atribute content to ?page-->
+                <button class="width-middle pale logged-out js-townsapi-online" style="display:none" onclick="T.Plugins.open('login')"><?=locale('ui buttons login')?></button><!--todo refactor atribute content to ?page-->
 
             </li>
 
