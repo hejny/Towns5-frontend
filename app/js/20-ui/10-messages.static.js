@@ -33,10 +33,8 @@ T.UI.Message=class {
         var self=this;
 
 
-        $(function(){
-            $('#message-zone').append(self.$element);
-        });
 
+        $('#message-zone').append(self.$element);
 
     }
 
