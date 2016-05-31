@@ -104,7 +104,7 @@ T.UI.Map.loadMapRequestCallback=function(){
     tend('generating map');
 
 
-    T.UI.Map.scene.update(objects_external);
+    T.UI.Map.scene.update(objects_external.filterRadius(T.UI.Map.map_center,map_radius));
     //T.Map.drawMap(objects_external);
 
     //----------------------------------

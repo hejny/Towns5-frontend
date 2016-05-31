@@ -132,7 +132,7 @@ T.Map.Scene = class{
         // if the click hits the self.ground_mesh object, we change the impact position
         if (pickResult.hit) {
 
-            //pickResult.pickedMesh.rotation.y += 0.1;
+            pickResult.pickedMesh.rotation.y += 0.1;
             //impact.position.x = pickResult.pickedPoint.x;
             //impact.position.y = pickResult.pickedPoint.y;
         }
@@ -459,7 +459,7 @@ T.Map.Scene = class{
         if (object.type == 'building') {
 
 
-            var mesh = new Model('creating-object', object.getModel(), self.scene, self.materials, self.shadow_generator);
+            var mesh = createModel('creating-object', object.getModel(), self.scene, self.materials, {}, {}, self.shadow_generator);
 
 
 
@@ -884,13 +884,17 @@ T.Map.Scene = class{
 
         //-----------------------------------------------------------------------------------Buildings
         /**/
+
+        var particles_cache={};
+        var models_cache={};
+
         var buildings  = objects.filterTypes('building');
 
         buildings.forEach(function(building){
 
             r('Creating building '+building.name);
 
-            var mesh = new Model('building', building.getModel(), self.scene, self.materials, self.shadow_generator);
+            var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
 
             mesh.position.x = (building.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
             mesh.position.z = -(building.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
