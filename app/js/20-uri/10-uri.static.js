@@ -55,20 +55,20 @@ T.URI=class {
 
         if (is(position)) {
 
-            T.UI.Map.map_center.x = position.x;//todo Static object Map
-            T.UI.Map.map_center.y = position.y;
+            map_center.x = position.x;//todo Static object Map
+            map_center.y = position.y;
 
         } else {
 
-            T.UI.Map.map_center.x = -1500;
-            T.UI.Map.map_center.y = -2900;
+            map_center.x = -1500;
+            map_center.y = -2900;
 
-            //T.UI.Map.map_center.x=(Math.random()-0.5)*1000000;
-            //T.UI.Map.map_center.y=(Math.random()-0.5)*1000000;
+            //map_center.x=(Math.random()-0.5)*1000000;
+            //map_center.y=(Math.random()-0.5)*1000000;
 
         }
 
-        if (isNaN(T.UI.Map.map_center.x) || isNaN(T.UI.Map.map_center.y)) {
+        if (isNaN(map_center.x) || isNaN(map_center.y)) {
             throw new Error('Map x or y is NaN.');
         }
 
@@ -79,7 +79,7 @@ T.URI=class {
 
     static readAndUpdate() {
 
-        var position_last = T.UI.Map.map_center.toString();
+        var position_last = map_center.toString();
         var plugin_last = this.plugin;
         var object_last = this.object;
 
@@ -88,7 +88,7 @@ T.URI=class {
 
 
 
-        if(position_last !== T.UI.Map.map_center.toString()){
+        if(position_last !== map_center.toString()){
             r('Reading And Updating T.URI - Position was changed');
 
             T.UI.Map.scene.updatable=true;//todo REMOVE
@@ -150,9 +150,9 @@ T.URI=class {
 
         var hash;
 
-        if (isDefined(T.UI.Map.map_center.x)) {
+        if (isDefined(map_center.x)) {
             //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
-            hash = '#' + Math.round(T.UI.Map.map_center.x) + ',' + Math.round(T.UI.Map.map_center.y);
+            hash = '#' + Math.round(map_center.x) + ',' + Math.round(map_center.y);
         } else {
             hash = '';
         }

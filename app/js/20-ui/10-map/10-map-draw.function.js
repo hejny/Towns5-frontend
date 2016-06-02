@@ -55,16 +55,16 @@ T.UI.Map.drawMap = function(){
 
 
 
-                var world_x = x + Math.floor(T.UI.Map.map_center.x) - map_radius;
-                var world_y = y + Math.floor(T.UI.Map.map_center.y) - map_radius;
+                var world_x = x + Math.floor(map_center.x) - map_radius;
+                var world_y = y + Math.floor(map_center.y) - map_radius;
 
 
-                var xc = world_x - T.UI.Map.map_center.x;
-                var yc = world_y - T.UI.Map.map_center.y;
+                var xc = world_x - map_center.x;
+                var yc = world_y - map_center.y;
 
 
-                //var xc = x - ( T.UI.Map.map_center.x - Math.floor(T.UI.Map.map_center.x)) - map_radius;
-                //var yc = y - ( T.UI.Map.map_center.y - Math.floor(T.UI.Map.map_center.y)) - map_radius;
+                //var xc = x - ( map_center.x - Math.floor(map_center.x)) - map_radius;
+                //var yc = y - ( map_center.y - Math.floor(map_center.y)) - map_radius;
 
 
                 //var terrain_size = 1;
@@ -135,8 +135,8 @@ T.UI.Map.drawMap = function(){
 
 
         ///todo dynamic position   //var position = object.getPosition();
-        var object_xc = object.x - T.UI.Map.map_center.x;
-        var object_yc = object.y - T.UI.Map.map_center.y;
+        var object_xc = object.x - map_center.x;
+        var object_yc = object.y - map_center.y;
 
         var object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         var object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;

@@ -6,6 +6,27 @@ T.setNamespace('Map');
 T.Map.Scene = class{
 
 
+
+    babylonToPosition(vector3){
+        return(new T.Position(
+            vector3.x/MAP_FIELD_SIZE + map_center.x,
+            -vector3.z/MAP_FIELD_SIZE + map_center.y
+        ));
+
+    }
+
+    positionToBabylon(position,z=0){
+
+        return(new BABYLON.Vector3(
+            (position.x-map_center.x)*MAP_FIELD_SIZE,
+            z,
+            -(position.y-map_center.y)*MAP_FIELD_SIZE
+        ));
+
+    }
+
+
+
     constructor() {
 
 
@@ -15,22 +36,22 @@ T.Map.Scene = class{
         self.materials = {};//cache for materials
 
 
-        var canvas = document.getElementById("map-canvas-new");
-        console.log(canvas);
+        self.canvas = document.getElementById("map-canvas-new");
+        console.log(self.canvas);
 
 
-        var engine = new BABYLON.Engine(canvas, true, null, false);
+        self.engine = new BABYLON.Engine(self.canvas, true, null, false);
 
 
-        self.scene = new BABYLON.Scene(engine);
+        self.scene = new BABYLON.Scene(self.engine);
 
 
-        var light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), self.scene);
-        light.position = new BABYLON.Vector3(20, 40, 20);
-        light.intensity = 1;
+        self.light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), self.scene);
+        //self.light.position = new BABYLON.Vector3(20, 40, 20);
+        self.light.intensity = 1;
 
 
-        self.shadow_generator = new BABYLON.ShadowGenerator(1024, light);
+        self.shadow_generator = new BABYLON.ShadowGenerator(1024, self.light);
         self.shadow_generator.useVarianceShadowMap = true;
         self.shadow_generator.bias = 0.01;
 
@@ -46,13 +67,13 @@ T.Map.Scene = class{
 
         // Need a free self.camera for collisions
         //var self.camera = new BABYLON.FreeCamera("FreeCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
-        //self.camera.attachControl(canvas, true);
+        //self.camera.attachControl(self.canvas, true);
 
         //var self.camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
-        //self.camera.attachControl(canvas, true);
+        //self.camera.attachControl(self.canvas, true);
 
         self.camera = new BABYLON.ArcRotateCamera("Camera", Math.PI * (7 / 4), Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
-        //self.camera.attachControl(canvas, true);
+        //self.camera.attachControl(self.canvas, true);
 
 
         self.camera.upperBetaLimit = Math.PI / 2;
@@ -69,7 +90,7 @@ T.Map.Scene = class{
         self.ground_mesh = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, self.scene);
 
 
-        var ground_mesh_material = new BABYLON.StandardMaterial("self.ground_mesh", self.scene);
+        var ground_mesh_material = new BABYLON.StandardMaterial("ground_mesh", self.scene);
         ground_mesh_material.diffuseColor = new BABYLON.Color3(0, 0, 0);
         ground_mesh_material.alpha = 0.3;
         ground_mesh_material.freeze();
@@ -87,28 +108,32 @@ T.Map.Scene = class{
         //-----------------------------------------------------------------------------------
 
 
-        //ddd
+
+        //-----------------------------------------------------------------------------------Ground 40
+        /*self.ground_40_mesh = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, self.scene);
 
 
-        //-----------------------------------------------------------------------------------SkyBox
-        /**
-         var skybox = BABYLON.Mesh.CreateBox("skyBox", 1000.0, self.scene);
-         var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", self.scene);
-         skyboxMaterial.backFaceCulling = false;
-         skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/app/babylon-sample/textures/skybox/skybox", self.scene);
-         skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-         skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-         skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-         skybox.material = skyboxMaterial;
-         /**/
+        self.ground_40_mesh.material =  new BABYLON.StandardMaterial("red", self.scene);
+        self.ground_40_mesh.diffuseColor = new BABYLON.Color3(0, 0, 1); //Red
+        self.ground_40_mesh.material.alpha = 0.9;
+
+        self.ground_40_mesh.position.x = 0;
+        self.ground_40_mesh.position.z = 0;
+
+        self.ground_40_mesh.position.y = 40;
+        self.ground_40_mesh.isPickable = false;
+
+        self.ground_40_mesh.convertToUnIndexedMesh();*/
         //-----------------------------------------------------------------------------------
+
+
 
 
         //-----------------------------------------------------------------------------------Water WORLDMONGER
         var water = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, self.scene);
 
 
-        var material = new WORLDMONGER.WaterMaterial("water", self.scene, light);
+        var material = new WORLDMONGER.WaterMaterial("water", self.scene, self.light);
         material.freeze();
         //material.refractionTexture.renderList.push(self.terrain_mesh);
         //material.reflectionTexture.renderList.push(self.terrain_mesh);
@@ -196,7 +221,7 @@ T.Map.Scene = class{
          penguin.onSuccess = pos;*/
 
         loader.onFinish = function () {
-            engine.runRenderLoop(function () {
+            self.engine.runRenderLoop(function () {
 
                 self.scene.render();
                 self.loaded = true;
@@ -215,11 +240,7 @@ T.Map.Scene = class{
 
 
         //==============================================================================================================
-
-        /**/
-
-        // Events
-        var canvas = engine.getRenderingCanvas();
+        
 
         self.getPositionOnMesh = function (mesh) {
             // Use a predicate to get position on the self.ground_mesh
@@ -239,24 +260,24 @@ T.Map.Scene = class{
 
 
 
-        canvas.addEventListener("pointerdown", function(event){self.onPointerDown(event);}, false);
-        canvas.addEventListener("pointerup",   function(event){self.onPointerUp(event);}, false);
-        canvas.addEventListener("pointermove", function(event){self.onPointerMove(event);}, false);
-        $(canvas).mousewheel(function(event){self.onMouseWheel(event);});
+        self.canvas.addEventListener("pointerdown", function(event){self.onPointerDown(event);}, false);
+        self.canvas.addEventListener("pointerup",   function(event){self.onPointerUp(event);}, false);
+        self.canvas.addEventListener("pointermove", function(event){self.onPointerMove(event);}, false);
+        $(self.canvas).mousewheel(function(event){self.onMouseWheel(event);});
 
         //--------------------------------------------------------------------------------------------------------------
 
 
 
-        engine.runRenderLoop(function () {
+        self.engine.runRenderLoop(function () {
             self.scene.render();
 
-            $('#fps').html(engine.fps);
+            $('#fps').html(self.engine.fps);
         });
 
         // Resize
         window.addEventListener("resize", function () {
-            engine.resize();
+            self.engine.resize();
         });
 
 
@@ -324,7 +345,7 @@ T.Map.Scene = class{
 
 
                 r('Finito');
-                //self.camera.attachControl(canvas, true);
+                //self.camera.attachControl(self.canvas, true);
 
                 //todo Babylon(x,z) Mapping to Towns(x,y) CONSTANTS
                 var moved_by = new T.Position(
@@ -332,7 +353,7 @@ T.Map.Scene = class{
                     -whole_diff.z/MAP_FIELD_SIZE
                 );
 
-                T.UI.Map.map_center.plus(moved_by);
+                map_center.plus(moved_by);
                 T.URI.write();
                 startingPoint = null;
 
@@ -371,6 +392,8 @@ T.Map.Scene = class{
             self.camera.target.z+=diff.z;
 
 
+            //self.light.position.x+=diff.x;
+            //self.light.position.z+=diff.z;
 
             //startingPoint = current;
 
@@ -473,10 +496,12 @@ T.Map.Scene = class{
 
             self.onPointerUp = function (evt) {
 
-                var position = new T.Position(
-                    mesh.position.x/MAP_FIELD_SIZE+T.UI.Map.map_center.x,
-                    -mesh.position.z/MAP_FIELD_SIZE+T.UI.Map.map_center.y
-                );
+                /*var position = new T.Position(
+                    mesh.position.x/MAP_FIELD_SIZE+map_center.x,
+                    -mesh.position.z/MAP_FIELD_SIZE+map_center.y
+                );*/
+
+                var position = self.babylonToPosition(mesh.position);
 
 
                 this.attachMapDefault();
@@ -529,10 +554,11 @@ T.Map.Scene = class{
 
             self.onPointerUp = function (evt) {
 
-                var position = new T.Position(
-                    self.selection_circle.position.x/MAP_FIELD_SIZE+T.UI.Map.map_center.x,
-                    -self.selection_circle.position.z/MAP_FIELD_SIZE+T.UI.Map.map_center.y
-                );
+                /*var position = new T.Position(
+                    self.selection_circle.position.x/MAP_FIELD_SIZE+map_center.x,
+                    -self.selection_circle.position.z/MAP_FIELD_SIZE+map_center.y
+                );*/
+                var position = self.babylonToPosition(self.selection_circle.position);
 
 
                 this.attachMapDefault();
@@ -604,53 +630,237 @@ T.Map.Scene = class{
 
             };
 
-            /*var terrain = object;
-
-
-            self.onPointerDown = function (evt) {
-
-            };
-
-            self.onPointerUp = function (evt) {
-
-
-
-
-            };
-
-
-            self.from_center_position=new T.Position(0,0);
-
-            self.onPointerMove = function (evt) {
-
-                var scene_position = self.getPositionOnMesh(self.ground_mesh,evt);
-                var position = new T.Position(
-                    scene_position.x/MAP_FIELD_SIZE+map_radius,
-                    -scene_position.z/MAP_FIELD_SIZE+map_radius
-                );
-
-                position.x=Math.round(position.x);
-                position.y=Math.round(position.y);
-
-
-                if(self.from_center_position.x!==position.x || self.from_center_position.y!==position.y) {
-
-                    self.from_center_position = position;
-                    r(position);
-
-                    var map_of_terrain_codes = JSON.parse(JSON.stringify(self.map_of_terrain_codes));
-
-                    map_of_terrain_codes[position.y][position.x] = 5;
-                    self.updateTerrain(map_of_terrain_codes);
-
-                }
-
-
-            };*/
-
 
 
         }
+
+
+    }
+
+
+
+    getArea(){
+
+        var self = this;
+
+
+        var borders = 0;
+
+        var corners=[];
+        [
+
+            [self.canvas.width*(1)+borders,self.canvas.height*(1)+borders],
+            [self.canvas.width*(0)-borders,self.canvas.height*(1)+borders],
+            [self.canvas.width*(0)-borders,self.canvas.height*(0)-borders],
+            [self.canvas.width*(1)+borders,self.canvas.height*(0)-borders]
+
+        ].forEach(function(corner_canvas){
+
+
+            var pickResult = self.scene.pick(
+                corner_canvas[0],
+                corner_canvas[1],
+                function (picked_mesh) { return picked_mesh === self.ground_mesh; }
+            );
+
+
+
+            if (pickResult.hit) {
+
+                var corner_scene={};
+                corner_scene.x = pickResult.pickedPoint.x;
+                corner_scene.z = pickResult.pickedPoint.z;
+
+
+                /*var corner_position= new T.Position(
+                    corner_scene.x/MAP_FIELD_SIZE + map_center.x,
+                    -corner_scene.z/MAP_FIELD_SIZE + map_center.y
+                );*/
+                var corner_position = self.babylonToPosition(corner_scene);
+
+                corners.push(corner_position);
+
+            }else{
+
+                throw new Error('Cant pick scene corner '+corner_canvas[0]);
+
+            }
+
+            //r(corner_canvas,corner_scene);
+
+        });
+
+        var area = new T.Area(...corners);
+
+        return(area);
+
+    }
+
+
+
+
+
+
+    update(all_objects) {
+
+        var self = this;
+
+
+        if(!this.loaded)return;
+
+        if(!this.updatable)return;
+        this.updatable=false;
+
+
+
+        //--------------------------------------Clear scene
+        self.prev_meshes.forEach(function(mesh){
+            mesh.dispose();
+        });
+        self.prev_meshes=[];
+        self.shadow_generator.getShadowMap().renderList=[];
+        //--------------------------------------
+
+
+        //self.light.position = new BABYLON.Vector3(20, 40, 20);
+
+
+        //--------------------------------------Reseting camera
+        self.camera.target.x=100;//todo based on coords mapping
+        self.camera.target.z=-100;
+        //--------------------------------------
+
+
+
+        //--------------------------------------Area
+        var area = this.getArea();
+        r('Scene is rendring this area',area);
+        var objects = all_objects.filterArea(area);
+
+
+        /**
+        var path = [];
+        area.positions.forEach(function(position){
+
+            path.push(self.positionToBabylon(position));
+
+        });
+
+        path.push(self.positionToBabylon(area.positions[0]));
+
+        self.area = BABYLON.Mesh.CreateTube("tube", path, 5, 5, null, 0, self.scene, false, BABYLON.Mesh.FRONTSIDE);
+        self.area.position.x = 0;
+        self.area.position.z = 0;
+        self.area.position.y = 40;
+        self.area.material =  new BABYLON.StandardMaterial("red", self.scene);
+        self.area.material.diffuseColor = new BABYLON.Color3(1, 0, 1); //Red
+        //self.area_circle.material.alpha = 0.3;
+
+        self.prev_meshes.push(self.area);
+        /**/
+        //--------------------------------------
+
+
+
+
+
+        self.map_of_terrain_codes  = objects.getMapOfTerrainCodes(map_center,map_radius);
+        self.updateTerrain(self.map_of_terrain_codes);
+
+
+
+        //-----------------------------------------------------------------------------------Naturals = Trees
+        /**/
+        var naturals  = objects.filterTypes('natural');
+
+        //r(naturals);
+        r('all assets',self.assets);
+
+        naturals.forEach(function(natural){
+
+            r('Creating natural '+building.name);
+
+            //var mesh = new Tree(20,60,20, self.scene, self.materials, self.shadow_generator);
+
+
+            var mesh = self.assets[1].createInstance('tree');
+
+            /*mesh.position.x = (natural.x-map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
+            mesh.position.z = -(natural.y-map_center.y)*MAP_FIELD_SIZE;*/
+
+            mesh.position = self.positionToBabylon(natural);
+            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
+
+
+
+            mesh.scaling.x=natural.design.data.size;
+            mesh.scaling.y=natural.design.data.size;
+            mesh.scaling.z=natural.design.data.size;
+
+            mesh.rotation.y=T.Math.deg2rad(natural.design.data.rotation.z);
+            mesh.rotation.x=T.Math.deg2rad(natural.design.data.rotation.x);
+            mesh.rotation.z=T.Math.deg2rad(natural.design.data.rotation.y);
+
+            self.shadow_generator.getShadowMap().renderList.push(mesh);
+
+            //mesh.convertToUnIndexedMesh();
+            self.prev_meshes.push(mesh);
+
+            /*BABYLON.SceneLoader.ImportMesh("", "/app/babylon-sample/textures/", "trees.obj", self.scene, function (newMeshes) {
+
+                r(newMeshes);
+
+                // Set the target of the self.camera to the first imported mesh
+                //self.camera.target = newMeshes[0];
+
+
+            });*/
+
+
+
+            //tree.isPickable = true;
+
+        });
+        //-----------------------------------------------------------------------------------
+
+
+
+
+
+        //-----------------------------------------------------------------------------------Buildings
+        /**/
+
+        var particles_cache={};
+        var models_cache={};
+
+        var buildings  = objects.filterTypes('building');
+
+        buildings.forEach(function(building){
+
+            r('Creating building '+building.name);
+
+            var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
+
+            /*mesh.position.x = (building.x-map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
+            mesh.position.z = -(building.y-map_center.y)*MAP_FIELD_SIZE;
+            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);*/
+
+            mesh.position = self.positionToBabylon(building);
+            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
+
+
+
+            self.prev_meshes.push(mesh);
+
+
+            //tree.isPickable = true;
+
+
+        });
+
+        //-----------------------------------------------------------------------------------
+
+
 
 
     }
@@ -729,7 +939,7 @@ T.Map.Scene = class{
                 if(terrain_code!==false) {
 
                     ctx.drawImage(
-                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+T.UI.Map.map_center.x,y:y+T.UI.Map.map_center.y})*seedCount)%seedCount),
+                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+map_center.x,y:y+map_center.y})*seedCount)%seedCount),
                         (x ) / map_radius / 2 * 2048 + 1024,
                         (y ) / map_radius / 2 * 2048 + 1024,
                         90, 90
@@ -797,138 +1007,6 @@ T.Map.Scene = class{
         //-----------------------------------------------------------------------------------
 
     }
-
-
-
-
-    update(objects) {
-
-        if(!this.loaded)return;
-
-        if(!this.updatable)return;
-        this.updatable=false;
-
-        var self = this;
-
-
-        self.prev_meshes.forEach(function(mesh){
-            mesh.dispose();
-        });
-        self.shadow_generator.getShadowMap().renderList=[];
-
-
-        self.camera.target.x=100;//todo based on coords mapping
-        self.camera.target.z=-100;
-
-
-
-
-        self.map_of_terrain_codes  = objects.getMapOfTerrainCodes(T.UI.Map.map_center,map_radius);
-        self.updateTerrain(self.map_of_terrain_codes);
-
-
-
-        //-----------------------------------------------------------------------------------Naturals = Trees
-        /**/
-        var naturals  = objects.filterTypes('natural');
-
-        //r(naturals);
-        r('all assets',self.assets);
-
-        naturals.forEach(function(natural){
-
-            r('Creating natural '+building.name);
-
-            //var mesh = new Tree(20,60,20, self.scene, self.materials, self.shadow_generator);
-
-
-            var mesh = self.assets[1].createInstance('tree');
-
-            mesh.position.x = (natural.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
-            mesh.position.z = -(natural.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
-            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
-
-            mesh.scaling.x=natural.design.data.size;
-            mesh.scaling.y=natural.design.data.size;
-            mesh.scaling.z=natural.design.data.size;
-
-            mesh.rotation.y=T.Math.deg2rad(natural.design.data.rotation.z);
-            mesh.rotation.x=T.Math.deg2rad(natural.design.data.rotation.x);
-            mesh.rotation.z=T.Math.deg2rad(natural.design.data.rotation.y);
-
-            self.shadow_generator.getShadowMap().renderList.push(mesh);
-
-            //mesh.convertToUnIndexedMesh();
-            self.prev_meshes.push(mesh);
-
-            /*BABYLON.SceneLoader.ImportMesh("", "/app/babylon-sample/textures/", "trees.obj", self.scene, function (newMeshes) {
-
-                r(newMeshes);
-
-                // Set the target of the self.camera to the first imported mesh
-                //self.camera.target = newMeshes[0];
-
-
-            });*/
-
-
-
-            //tree.isPickable = true;
-
-        });
-        //-----------------------------------------------------------------------------------
-
-
-
-
-
-        //-----------------------------------------------------------------------------------Buildings
-        /**/
-
-        var particles_cache={};
-        var models_cache={};
-
-        var buildings  = objects.filterTypes('building');
-
-        buildings.forEach(function(building){
-
-            r('Creating building '+building.name);
-
-            var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
-
-            mesh.position.x = (building.x-T.UI.Map.map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
-            mesh.position.z = -(building.y-T.UI.Map.map_center.y)*MAP_FIELD_SIZE;
-            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
-
-            self.prev_meshes.push(mesh);
-
-
-            //tree.isPickable = true;
-
-
-        });
-        /*for(var limit=100;limit>0;limit--) {
-
-         var model = katapult.createInstance('katapult'+limit);
-         model.position.x = Math.random()*1000-500;
-         model.position.y = Math.random()*100;
-         model.position.z = Math.random()*1000-500;
-         model.rotation.x = Math.PI*Math.random() / 10;
-         model.rotation.z = Math.PI*Math.random() / 10;
-
-         model.rotation.y = Math.PI*2*Math.random();
-
-         }
-         */
-        //-----------------------------------------------------------------------------------
-
-
-
-
-    };
-
-
-
 
 
 

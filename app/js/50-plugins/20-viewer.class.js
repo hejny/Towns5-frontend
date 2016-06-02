@@ -76,7 +76,7 @@ T.Plugins.Viewer = class {
                 //-----------------Position
                 $('#viewer-object-position').click(function(e){
 
-                    T.UI.Map.map_center = object.getPosition();
+                    map_center = object.getPosition();
                     T.UI.Map.loadMap(true);
                     T.UI.popupWindow.close();
 

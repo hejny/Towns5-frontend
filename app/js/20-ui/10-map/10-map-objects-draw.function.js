@@ -36,8 +36,8 @@ T.UI.Map.objectsDraw = function(ctx,objects) {
         var object_id = objects[i].id;
 
 
-        object_xc = objects[i].x - T.UI.Map.map_center.x;
-        object_yc = objects[i].y - T.UI.Map.map_center.y;
+        object_xc = objects[i].x - map_center.x;
+        object_yc = objects[i].y - map_center.y;
 
         object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;

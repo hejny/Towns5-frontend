@@ -18,9 +18,8 @@
 
     "app/global.js",
 
-    "node_modules/towns-shared/js/*.js",
-    "node_modules/towns-shared/js/*/*.js",
-    "node_modules/towns-shared/js/*/*/*.js",
+
+    "node_modules/towns-shared/build/towns-shared.js",
 
 
     {"develop": "app/config/develop.js"},

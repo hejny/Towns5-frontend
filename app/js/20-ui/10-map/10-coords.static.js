@@ -36,8 +36,8 @@ T.UI.Map.Coords = class{
         map_click_y=Math.sin(map_click_rot)*map_click_dist;
 
 
-        map_click_x+=T.UI.Map.map_center.x;
-        map_click_y+=T.UI.Map.map_center.y;
+        map_click_x+=map_center.x;
+        map_click_y+=map_center.y;
 
         return(new T.Position(map_click_x,map_click_y));
 
@@ -50,8 +50,8 @@ T.UI.Map.Coords = class{
     static convertPositionToPxlCenterPosition(position) {
 
 
-        var object_xc = position.x - T.UI.Map.map_center.x;
-        var object_yc = position.y - T.UI.Map.map_center.y;
+        var object_xc = position.x - map_center.x;
+        var object_yc = position.y - map_center.y;
 
         var object_screen_x = ((map_rotation_cos * object_xc - map_rotation_sin * object_yc ) * map_field_size ) * map_zoom_m;
         var object_screen_y = ((map_rotation_sin * object_xc + map_rotation_cos * object_yc ) * map_field_size ) / map_slope_m * map_zoom_m;

@@ -11,7 +11,7 @@
 HTMLCanvasElement.prototype.downloadCanvas = function(){
 
     r('downloadCanvas');
-    var name='mapX'+Math.round(T.UI.Map.map_center.x)+'Y'+Math.round(T.UI.Map.map_center.y);
+    var name='mapX'+Math.round(map_center.x)+'Y'+Math.round(map_center.y);
     var src=this.toDataURL();
     //download(src,name,'image/png');
 
