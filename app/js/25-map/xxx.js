@@ -837,23 +837,24 @@ T.Map.Scene = class{
 
         buildings.forEach(function(building){
 
-            r('Creating building '+building.name);
-
-            var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
-
-            /*mesh.position.x = (building.x-map_center.x)*MAP_FIELD_SIZE;//todo coords mapping
-            mesh.position.z = -(building.y-map_center.y)*MAP_FIELD_SIZE;
-            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);*/
-
-            mesh.position = self.positionToBabylon(building);
-            mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x,mesh.position.z);
+            //r('Creating building '+building.name);
 
 
+            var position = self.positionToBabylon(building);
+            position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
-            self.prev_meshes.push(mesh);
+            //r(position.y);
+
+            if(position.y>1) {
+
+                var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
 
 
-            //tree.isPickable = true;
+                mesh.position = position;
+
+                self.prev_meshes.push(mesh);
+
+            }
 
 
         });
