@@ -10,6 +10,7 @@ T.setNamespace('UI.Intervals');
 T.UI.Intervals.map_refresh = setInterval(function(){
 
 
+    //todo BETTER SYNC
     T.UI.Map.loadMap(true);
 
 

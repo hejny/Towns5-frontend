@@ -31,7 +31,6 @@ T.UI.Menu.Terrains = class {
 
             });
 
-            T.UI.Map.scene.updatable=true;//todo REMOVE
             T.UI.Map.loadMap();
 
 

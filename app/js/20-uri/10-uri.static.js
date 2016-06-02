@@ -91,8 +91,7 @@ T.URI=class {
         if(position_last !== map_center.toString()){
             r('Reading And Updating T.URI - Position was changed');
 
-            T.UI.Map.scene.updatable=true;//todo REMOVE
-            T.UI.Map.loadMapAsync(true);
+            T.UI.Map.loadMap(true);
         }
 
 

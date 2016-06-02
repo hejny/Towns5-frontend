@@ -172,7 +172,7 @@ $(function(){
 
                             ,function(){
 
-                                T.UI.Map.loadMapAsync();
+                                T.UI.Map.loadMap();
                                 //alert('story created');
 
                             });

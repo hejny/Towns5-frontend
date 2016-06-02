@@ -277,8 +277,6 @@ T.Map.Scene = class{
         });
 
 
-        this.updatable=true;
-
         this.prev_meshes=[];
 
 
@@ -354,7 +352,6 @@ T.Map.Scene = class{
                 startingPoint = null;
 
 
-                T.UI.Map.scene.updatable=true;//todo REMOVE
                 T.UI.Map.loadMap();
 
 
@@ -703,9 +700,6 @@ T.Map.Scene = class{
 
 
         if(!this.loaded)return;
-
-        if(!this.updatable)return;
-        this.updatable=false;
 
 
 

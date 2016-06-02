@@ -218,14 +218,3 @@ T.UI.Map.loadMapRequestCallback=function(){
 
 };
 
-
-//======================================================================================================================
-
-
-T.UI.Map.loadMapAsync = function(delay=IMMEDIATELY_MS) {//todo search where to use this function
-
-
-    setTimeout(
-        function(){T.UI.Map.loadMap();},delay
-    );
-};
