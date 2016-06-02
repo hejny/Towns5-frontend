@@ -852,6 +852,45 @@ T.Map.Scene = class{
 
 
 
+        //-----------------------------------------------------------------------------------Buildings
+        /**/
+
+        var particles_cache={};
+        var models_cache={};
+
+        var stories  = objects.filterTypes('story');
+
+        stories.forEach(function(story){
+
+            r('Creating story '+story.name);
+
+
+            var position = self.positionToBabylon(story);
+            position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
+
+            r(position.y);
+
+            if(position.y>1) {
+
+                var mesh = createStoryMesh('story', story.getMarkdown(), self.scene, self.shadow_generator);
+
+
+                position.y+=30;
+                mesh.position = position;
+
+                self.prev_meshes.push(mesh);
+
+            }
+
+
+        });
+
+        //-----------------------------------------------------------------------------------
+
+
+
+
+
 
     }
 
