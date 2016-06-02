@@ -245,7 +245,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
             shadowGenerator.getShadowMap().renderList.push(model_mesh);
 
             models_cache[model_hash] = model_mesh;
-            r('added to models_cache', model_hash, models_cache);
+            //r('added to models_cache', model_hash, models_cache);
 
 
         } else {

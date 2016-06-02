@@ -521,7 +521,10 @@ function tidyHTML($buffer) {
         #fps {
             position: fixed;
             top:60px;
-            right:20px;
+            right:50px;
+
+            font-size: 2em;
+            color: #ff0906;
         }
     </style>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

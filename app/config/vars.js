@@ -141,7 +141,7 @@ var rockMaxDark=50;
 
 //----------------Extended values
 
-var map_radius;
+var map_radius=40;
 /*todo refactor map_center.x, map_center.y to map_center*/
 
 

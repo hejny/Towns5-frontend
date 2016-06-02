@@ -180,12 +180,8 @@ T.Map.Scene = class{
         var pos = function (t) {
 
 
-            r('loaded mesh', t);
-
             t.loadedMeshes.forEach(function (m) {
 
-
-                r('loaded mesh', m);
 
                 self.assets.push(m);
                 //m.rotation.x=-Math.PI/2;
@@ -272,7 +268,7 @@ T.Map.Scene = class{
         self.engine.runRenderLoop(function () {
             self.scene.render();
 
-            $('#fps').html(self.engine.fps);
+            $('#fps').html(Math.round(self.engine.fps*10)/10);
         });
 
         // Resize
@@ -778,7 +774,6 @@ T.Map.Scene = class{
 
         naturals.forEach(function(natural){
 
-            r('Creating natural '+building.name);
 
             //var mesh = new Tree(20,60,20, self.scene, self.materials, self.shadow_generator);
 
