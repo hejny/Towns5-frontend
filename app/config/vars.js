@@ -172,6 +172,7 @@ var keys=[];
 var moving=false;
 
 
+var dragging_subtypes=['wall','path'];
 
 var blockedTerrains=[1,11,5];
 

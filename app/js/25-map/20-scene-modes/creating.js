@@ -91,7 +91,7 @@ T.Map.Scene.prototype.attachObjectCreating = function(object,callback){
             var position = self.babylonToPosition(self.selection_circle.position);
 
 
-            this.attachMapDefault();
+            //this.attachMapDefault();
             callback(position,0,self.selection_circle_radius);
 
 
