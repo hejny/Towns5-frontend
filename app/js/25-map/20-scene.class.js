@@ -86,7 +86,9 @@ T.Map.Scene = class{
 
         //-----------------------------------------------------------------------------------Constants
         global.MAP_FIELD_SIZE = 10;
-        global.MAP_BUILDING_SIZE = 0.6;
+        global.MAP_BUILDING_SIZE = 0.6;//todo is this used
+
+        global.MAP_SELECTED_FIELDS = 2;
         //-----------------------------------------------------------------------------------
 
 
@@ -519,7 +521,7 @@ T.Map.Scene = class{
                 if(map_selected_ids.indexOf(building.id)!==-1){
 
 
-                    var radius = 1*MAP_FIELD_SIZE;
+                    var radius = MAP_SELECTED_FIELDS*MAP_FIELD_SIZE;
                     self.selected_circle =//todo unite selection circles
                         createGroundRingMesh('tube', radius, 1, position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
 

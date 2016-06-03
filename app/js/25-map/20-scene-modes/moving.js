@@ -47,7 +47,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 self.selected_circle.dispose();
             }
 
-            var radius = 1*MAP_FIELD_SIZE;
+            var radius = MAP_SELECTED_FIELDS*MAP_FIELD_SIZE;
             self.selected_circle =//todo unite selection circles
                 createGroundRingMesh('tube', radius, 1, pickedMesh.position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
 
