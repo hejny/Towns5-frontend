@@ -37,7 +37,6 @@ T.Map.Scene = class{
 
 
         self.canvas = document.getElementById("map-canvas-new");
-        console.log(self.canvas);
 
 
         self.engine = new BABYLON.Engine(self.canvas, true, null, false);
@@ -385,7 +384,6 @@ T.Map.Scene = class{
 
         //--------------------------------------Area
         var area = this.getArea();
-        r('Scene is rendring this area',area);
         var objects = all_objects.filterArea(area);
 
 
@@ -424,8 +422,6 @@ T.Map.Scene = class{
         /**/
         var naturals  = objects.filterTypes('natural');
 
-        //r(naturals);
-        r('all assets',self.assets);
 
         naturals.forEach(function(natural){
 

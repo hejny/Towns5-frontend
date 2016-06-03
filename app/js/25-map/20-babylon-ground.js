@@ -23,8 +23,6 @@ var CreateGroundFromCanvas = function (name, canvas, options, scene) {
     var bufferWidth = canvas.width;
     var bufferHeight = canvas.height;
 
-    r(context,bufferWidth,bufferHeight);
-
     // Create VertexData from map data
     // Cast is due to wrong definition in lib.d.ts from ts 1.3 - https://github.com/Microsoft/TypeScript/issues/949
     var buffer = context.getImageData(0, 0, bufferWidth, bufferHeight).data;
