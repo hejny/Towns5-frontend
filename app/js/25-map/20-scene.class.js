@@ -420,7 +420,7 @@ T.Map.Scene = class{
 
 
 
-        self.map_of_terrain_codes  = objects.getMapOfTerrainCodes(map_center,map_radius);
+        self.map_of_terrain_codes  = objects.getMapOfTerrainCodes(map_center.getFloored(),map_radius);
         self.updateTerrain(self.map_of_terrain_codes);
 
 
@@ -588,7 +588,7 @@ T.Map.Scene = class{
         }
 
 
-        var map_center_floor = new T.Position(Math.floor(map_center.x),Math.floor(map_center.y));//todo better map Math.round to instance of T.Position
+        var map_center_floor = map_center.getFloored();
 
         var terrain_mesh_texture = new BABYLON.DynamicTexture("terrain_mesh_texture", 2048, self.scene, true);
         var ctx = terrain_mesh_texture.getContext();
