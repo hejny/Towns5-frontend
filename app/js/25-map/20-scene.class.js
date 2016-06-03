@@ -47,7 +47,12 @@ T.Map.Scene = class{
 
         self.light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), self.scene);
         //self.light.position = new BABYLON.Vector3(20, 40, 20);
-        self.light.intensity = 1;
+        self.light.intensity = 0.8;
+
+
+        self.light2 = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -2, 0), self.scene);
+        //self.light.position = new BABYLON.Vector3(20, 40, 20);
+        self.light2.intensity = 0.2;
 
 
         self.shadow_generator = new BABYLON.ShadowGenerator(1024, self.light);

@@ -242,7 +242,6 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
             model_mesh = BABYLON.Mesh.MergeMeshes(all_meshes, true);
             model_mesh.convertToUnIndexedMesh();
-            shadowGenerator.getShadowMap().renderList.push(model_mesh);
 
             models_cache[model_hash] = model_mesh;
             //r('added to models_cache', model_hash, models_cache);
@@ -254,7 +253,6 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
             all_meshes.forEach(function (particle_mesh) {
                 particle_mesh.parent = model_mesh;
-                shadowGenerator.getShadowMap().renderList.push(particle_mesh);
             });
 
         }
@@ -269,6 +267,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
     model_mesh.scaling.y = model.size;
     model_mesh.scaling.z = model.size;
 
+    shadowGenerator.getShadowMap().renderList.push(model_mesh);
     //r(model_mesh.rotation.y);
 
     return(model_mesh);
