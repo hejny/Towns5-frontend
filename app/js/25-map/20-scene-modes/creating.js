@@ -4,7 +4,7 @@
  */
 //======================================================================================================================
 
-
+//todo unattach to clearup scene
 T.Map.Scene.prototype.attachObjectCreating = function(object,callback){
 
     var self = this;
@@ -109,36 +109,15 @@ T.Map.Scene.prototype.attachObjectCreating = function(object,callback){
                 self.selection_circle.dispose();
 
             var scene_position = self.getPositionOnMesh(self.terrain_mesh,evt);
-
-
             var radius = self.selection_circle_radius*MAP_FIELD_SIZE;
-            var tes = 20;//Math.round(radius/100);
-            var pi2 = Math.PI * 2;
-            var step = pi2 / tes;
-            var path = [];
-            for (var i = 0; i < pi2; i += step ) {
-                var x = radius * Math.sin(i);
-                var z = radius * Math.cos(i);
-                var y = self.terrain_mesh.getHeightAtCoordinates(x+scene_position.x,z+scene_position.z)+1;
-
-                if(y<20)y=20;//todo water level as constant
-
-                path.push( new BABYLON.Vector3(x, y, z) );
-            }
-            path.push(path[0]);
-
-            // var path_1 = path.slice(0, tes/2).reverse();
-            // var path_2 = path.slice(tes/2+1);
-
-            //r('paths',path_1,path_2);
 
 
-            self.selection_circle = BABYLON.Mesh.CreateTube("tube", path, 1, 5, null, 0, self.scene, false, BABYLON.Mesh.FRONTSIDE);
+            self.selection_circle =
+                createGroundRingMesh('tube', radius, 1, scene_position, self.terrain_mesh,  self.scene , 20 , 5)
+
             self.selection_circle.position.x = scene_position.x;
             self.selection_circle.position.z = scene_position.z;
 
-            //self.selection_circle = BABYLON.Mesh.CreatePath("circle", path, self.scene);
-            //self.selection_circle = BABYLON.Mesh.CreateRibbon("circle", [path_2,path_1], false, false, 0, self.scene);
             self.selection_circle.material = self.selection_circle_material;
 
 

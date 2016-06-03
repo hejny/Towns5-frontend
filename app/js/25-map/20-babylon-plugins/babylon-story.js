@@ -2,7 +2,7 @@
 
 
 
-//todo Also create...Building,Ground...Mesh
+//todo put directly into BABYLON
 //todo shadowGenerator refactor to shadow_generator
 
 createStoryMesh = function(name, markdown, scene, shadowGenerator) {
