@@ -26,6 +26,11 @@ T.Map.Scene = class{
     }
 
 
+    resetCamera(){
+        this.camera.target.x=100;//todo based on coords mapping
+        this.camera.target.z=-100;
+    }
+
 
     constructor() {
 
@@ -389,10 +394,7 @@ T.Map.Scene = class{
         //self.light.position = new BABYLON.Vector3(20, 40, 20);
 
 
-        //--------------------------------------Reseting camera
-        self.camera.target.x=100;//todo based on coords mapping
-        self.camera.target.z=-100;
-        //--------------------------------------
+        self.resetCamera();
 
 
 

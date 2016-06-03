@@ -32,7 +32,7 @@ T.UI.Menu.Object = class {
             ['view', 'edit'].forEach(function (action) {
 
 
-                var possible = T.Plugins.search(action, T.ArrayFunctions.id2item(objects_external, id));
+                var possible = T.Plugins.search(action, object);
                 possible = possible.map(function (item) {
                     return (`<button onclick="T.Plugins.open('` + item + `',1,'` + id + `')">` + T.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
                 });

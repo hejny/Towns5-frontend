@@ -43,6 +43,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
             map_selected_ids=[pickedMesh.name];
 
+
             if(self.selected_circle) {
                 self.selected_circle.dispose();
             }
@@ -54,6 +55,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
             self.prev_meshes.push(self.selected_circle);
             self.selected_circle.material = self.selected_circle_material;
 
+            T.UI.Menu.Object.menu();
 
         }else{
 
@@ -67,6 +69,8 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
             //r(currentMesh,startingPoint);
         }
+
+
 
     };
 
@@ -83,14 +87,30 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 -whole_diff.z/MAP_FIELD_SIZE
             );
 
-            map_center.plus(moved_by);
-            T.URI.write();
+
+
             startingPoint = null;
 
+            if(Math.abs(moved_by.x)+Math.abs(moved_by.x)>1) {
 
-            T.UI.Map.loadMap();
+                map_center.plus(moved_by);
+                T.URI.write();
+
+                T.UI.Map.loadMap();
+
+            }else{
 
 
+                if(self.selected_circle) {
+                    self.selected_circle.dispose();
+                }
+
+                map_selected_ids=[];
+                T.UI.Menu.Object.menu();
+
+                self.resetCamera();
+
+            }
 
             return;
         }
