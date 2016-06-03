@@ -4,7 +4,7 @@
 
 
 
-createModel = function(name, model, scene, materials, particles_cache, models_cache, shadowGenerator) {
+createModel = function(name, model, scene, materials, particles_cache, models_cache, shadow_generator) {
 
     var model_hash = model.getHash();
 
@@ -267,7 +267,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
     model_mesh.scaling.y = model.size;
     model_mesh.scaling.z = model.size;
 
-    shadowGenerator.getShadowMap().renderList.push(model_mesh);
+    shadow_generator.getShadowMap().renderList.push(model_mesh);
     //r(model_mesh.rotation.y);
 
     return(model_mesh);

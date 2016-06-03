@@ -1,6 +1,6 @@
 
 
-createGroundRingMesh = function(name, radius, thick, position, ground_mesh, scene , subdivisions1 , subdivisions2, shadowGenerator) {
+createGroundRingMesh = function(name, radius, thick, position, ground_mesh, scene , subdivisions1 , subdivisions2, shadow_generator) {
 
     var tes = subdivisions1;
     var pi2 = Math.PI * 2;
@@ -24,8 +24,8 @@ createGroundRingMesh = function(name, radius, thick, position, ground_mesh, scen
     ground_ring.position.z = position.z;
 
 
-    if(shadowGenerator)//todo to all meshes
-    shadowGenerator.getShadowMap().renderList.push(ground_ring);
+    if(shadow_generator)//todo to all meshes
+    shadow_generator.getShadowMap().renderList.push(ground_ring);
 
     return(ground_ring);
 
