@@ -86,7 +86,7 @@ T.Map.Scene = class{
 
 
         //-----------------------------------------------------------------------------------Ground
-        self.ground_mesh = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, self.scene);
+        self.ground_mesh = BABYLON.Mesh.CreateGround("water", 50000, 50000, 2, self.scene);
 
 
         var ground_mesh_material = new BABYLON.StandardMaterial("ground_mesh", self.scene);
@@ -129,7 +129,7 @@ T.Map.Scene = class{
 
 
         //-----------------------------------------------------------------------------------Water WORLDMONGER
-        var water = BABYLON.Mesh.CreateGround("water", 5000, 5000, 2, self.scene);
+        var water = BABYLON.Mesh.CreateGround("water", 50000, 50000, 2, self.scene);
 
 
         var material = new WORLDMONGER.WaterMaterial("water", self.scene, self.light);
@@ -304,7 +304,7 @@ T.Map.Scene = class{
         var self = this;
 
 
-        var borders = 0;
+        var borders = 200;
 
         var corners=[];
         [
@@ -588,20 +588,24 @@ T.Map.Scene = class{
         }
 
 
+        var map_center_floor = new T.Position(Math.floor(map_center.x),Math.floor(map_center.y));//todo better map Math.round to instance of T.Position
+
         var terrain_mesh_texture = new BABYLON.DynamicTexture("terrain_mesh_texture", 2048, self.scene, true);
         var ctx = terrain_mesh_texture.getContext();
-        /*ctx.fillStyle="#FF0000";
-         ctx.fillRect(10,10,2048-20,2048-20);*/
+
+        /*ctx.fillStyle="#00ff00";
+        ctx.fillRect(10,10,2048-20,2048-20);
+        ctx.fillStyle="#FF0000";
+        ctx.fillRect(20,20,2048-40,2048-40);*/
 
 
 
 
         var height_canvas = document.createElement('canvas');
-        var height_canvas_px=1;
+        var height_canvas_px=2;//todo as Const
         height_canvas.width = map_radius*2*height_canvas_px;
         height_canvas.height = map_radius*2*height_canvas_px;
         var height_canvas_ctx = height_canvas.getContext('2d');
-
 
 
         var terrain_code, z;
@@ -616,6 +620,10 @@ T.Map.Scene = class{
                 terrain_code = map_of_terrain_codes[y+map_radius][x+map_radius];
 
 
+                if(terrain_code==6){
+                    r(y+map_radius+map_center.y,x+map_radius+map_center.x);
+                }
+
                 if(terrain_code===false) {
                     z = 0;
                 }
@@ -626,7 +634,7 @@ T.Map.Scene = class{
                     z = 0.7;
                 }else
                 if(terrain_code===5){
-                    z = 1;
+                    //z = 0.5+T.Math.randomSeedPosition(4,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2
                 }else
                 if(terrain_code===4){
                     z = 0.15;
@@ -646,13 +654,17 @@ T.Map.Scene = class{
 
 
 
+
+
+
                 if(terrain_code!==false) {
 
                     ctx.drawImage(
-                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+map_center.x,y:y+map_center.y})*seedCount)%seedCount),
+                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})*seedCount)%seedCount),
                         (x ) / map_radius / 2 * 2048 + 1024,
                         (y ) / map_radius / 2 * 2048 + 1024,
-                        90, 90
+                        MAP_FIELD_SIZE*7,//todo as Const
+                        MAP_FIELD_SIZE*7//todo as Const
                     );
 
                 }
@@ -665,7 +677,39 @@ T.Map.Scene = class{
 
         }
 
-        height_canvas_ctx.blur(3);
+        //height_canvas_ctx.canvas.downloadCanvas();
+
+        height_canvas_ctx.blur(3*height_canvas_px);//todo as Const
+
+
+        for(var y= -map_radius;y<map_radius;y++){
+            for(var x= -map_radius;x<map_radius;x++){
+
+                //r(y+map_radius);
+                terrain_code = map_of_terrain_codes[y+map_radius][x+map_radius];
+
+
+                if(terrain_code===5) {
+                    z = 0.5+T.Math.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2;
+
+
+                    z = Math.floor(z * 255);
+
+                    height_canvas_ctx.fillStyle = "rgb(" + z + "," + z + "," + z + ")";
+                    height_canvas_ctx.fillRect(
+                        (x + map_radius) * height_canvas_px,
+                        (y + map_radius) * height_canvas_px,
+                        height_canvas_px
+                        , height_canvas_px
+                    );
+                }
+            }
+
+
+
+        }
+
+        height_canvas_ctx.blur(0.5*height_canvas_px);//todo as Const
 
 
         terrain_mesh_texture.update();
@@ -674,7 +718,13 @@ T.Map.Scene = class{
         //var self.terrain_mesh = BABYLON.Mesh.CreateRibbon("ribbon", paths, false, false, 0, self.scene);
 
 
-        self.terrain_mesh = CreateGroundFromCanvas("self.ground_mesh", height_canvas, {width: map_radius*2*MAP_FIELD_SIZE, height:map_radius*2*MAP_FIELD_SIZE, subdivisions:80, minHeight:0, maxHeight: 200}, self.scene);
+        self.terrain_mesh = CreateGroundFromCanvas("self.ground_mesh", height_canvas, {
+            width: map_radius*2*MAP_FIELD_SIZE,
+            height:map_radius*2*MAP_FIELD_SIZE,
+            subdivisions:height_canvas.width/2,
+            minHeight:0,//todo maybe as Const
+            maxHeight: 200//todo as Const
+        }, self.scene);
 
 
 
@@ -703,9 +753,10 @@ T.Map.Scene = class{
 
         terrain_mesh_material.freeze();
         self.terrain_mesh.material = terrain_mesh_material;
-        self.terrain_mesh.position.x = 0;
-        self.terrain_mesh.position.z = 0;
-        self.terrain_mesh.position.y = 1;
+
+        self.terrain_mesh.position = self.positionToBabylon(map_center_floor);
+        //self.terrain_mesh.position.x=-self.terrain_mesh.position.x;
+        //self.terrain_mesh.position.z=-self.terrain_mesh.position.z;
         self.terrain_mesh.isPickable = false;
 
         self.terrain_mesh.receiveShadows = true;
