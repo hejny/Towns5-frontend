@@ -19,7 +19,7 @@ function dismantle(id){
 //todo create static class fro actions and T.UI actions
 function dismantleUI(id){
 
-    if(confirm(T.Locale.get('deleteObject '+T.ArrayFunctions.id2item(objects_external,id).type+' confirm'))){//todo create better confirm
+    if(confirm(T.Locale.get('delete '+objects_external.getById(id).type+' confirm'))){//todo create better confirm
 
         deleteObject(id);
         T.UI.Map.loadMap();
