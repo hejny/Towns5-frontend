@@ -260,6 +260,9 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
         }
     }
 
+
+    model_mesh.name = name;
+
     model_mesh.rotation.y =-T.Math.deg2rad(model.rotation)+Math.PI/4;
 
     model_mesh.scaling.x = model.size;

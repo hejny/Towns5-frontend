@@ -17,7 +17,6 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
     scene.onPointerDown = function (evt) {
 
-        r(evt);
 
         if (evt.button !== 0) {
             return;
@@ -31,14 +30,26 @@ T.Map.Scene.prototype.attachMapMoving = function(){
         );
 
 
-        r(pickInfo);
+
+        if(pickInfo.hit){
+
+            r('Selecting');
+
+            var pickedMesh = (pickInfo.pickedMesh);
+
+            while(typeof pickedMesh._parentNode!=='undefined'){
+                pickedMesh = pickedMesh._parentNode;
+            }
+
+            r(pickedMesh.name);
 
 
-        if (!pickInfo.hit) {
+        }else{
 
             r('Starting');
 
             whole_diff={x:0,z:0};
+
 
             currentMesh = pickInfo.pickedMesh;
             startingPoint = scene.getPositionOnMesh(scene.ground_mesh,evt);

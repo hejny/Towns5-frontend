@@ -447,6 +447,8 @@ T.Map.Scene = class{
             mesh.rotation.x=T.Math.deg2rad(natural.design.data.rotation.x);
             mesh.rotation.z=T.Math.deg2rad(natural.design.data.rotation.y);
 
+            mesh.isPickable = false;
+
             self.shadow_generator.getShadowMap().renderList.push(mesh);
 
             //mesh.convertToUnIndexedMesh();
@@ -493,7 +495,7 @@ T.Map.Scene = class{
 
             if(position.y>1) {
 
-                var mesh = createModel('building', building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
+                var mesh = createModel(building.id, building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
 
 
                 mesh.position = position;
