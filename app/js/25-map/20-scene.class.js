@@ -169,7 +169,14 @@ T.Map.Scene = class{
 
 
 
-            //--------------------------------------------------------------------------------------------------------------
+        self.selected_circle_material = new BABYLON.StandardMaterial("selected_circle_material", self.scene);
+        self.selected_circle_material.diffuseColor = new BABYLON.Color3(0, 1, 1);
+        self.selected_circle_material.alpha = 0.8;
+
+
+
+
+        //--------------------------------------------------------------------------------------------------------------
 
         self.loaded = false;
         self.assets = [];
@@ -501,6 +508,21 @@ T.Map.Scene = class{
                 mesh.position = position;
 
                 self.prev_meshes.push(mesh);
+
+
+
+                if(map_selected_ids.indexOf(building.id)!==-1){
+
+
+                    var radius = 1*MAP_FIELD_SIZE;
+                    self.selected_circle =//todo unite selection circles
+                        createGroundRingMesh('tube', radius, 1, position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
+
+                    self.prev_meshes.push(self.selected_circle);
+                    self.selected_circle.material = self.selected_circle_material;
+
+
+                }
 
             }
 

@@ -8,14 +8,14 @@
 T.Map.Scene.prototype.attachMapMoving = function(){
 
 
-    var scene = this;//todo different name for Babylon and Towns scene
+    var self = this;//todo different name for Babylon and Towns scene
 
 
     var startingPoint;
     var currentMesh;
 
 
-    scene.onPointerDown = function (evt) {
+    self.onPointerDown = function (evt) {
 
 
         if (evt.button !== 0) {
@@ -23,10 +23,10 @@ T.Map.Scene.prototype.attachMapMoving = function(){
         }
 
         // check if we are under a mesh
-        var pickInfo = scene.scene.pick(
-            scene.scene.pointerX,
-            scene.scene.pointerY
-            //function (mesh) { return mesh === scene.ground_mesh; }
+        var pickInfo = self.scene.pick(
+            self.scene.pointerX,
+            self.scene.pointerY
+            //function (mesh) { return mesh === self.ground_mesh; }
         );
 
 
@@ -41,7 +41,18 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 pickedMesh = pickedMesh._parentNode;
             }
 
-            r(pickedMesh.name);
+            map_selected_ids=[pickedMesh.name];
+
+            if(self.selected_circle) {
+                self.selected_circle.dispose();
+            }
+
+            var radius = 1*MAP_FIELD_SIZE;
+            self.selected_circle =//todo unite selection circles
+                createGroundRingMesh('tube', radius, 1, pickedMesh.position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
+
+            self.prev_meshes.push(self.selected_circle);
+            self.selected_circle.material = self.selected_circle_material;
 
 
         }else{
@@ -52,19 +63,19 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
 
             currentMesh = pickInfo.pickedMesh;
-            startingPoint = scene.getPositionOnMesh(scene.ground_mesh,evt);
+            startingPoint = self.getPositionOnMesh(self.ground_mesh,evt);
 
             //r(currentMesh,startingPoint);
         }
 
     };
 
-    scene.onPointerUp = function (evt) {
+    self.onPointerUp = function (evt) {
         if (startingPoint) {
 
 
             r('Finito');
-            //scene.camera.attachControl(scene.canvas, true);
+            //self.camera.attachControl(self.canvas, true);
 
             //todo Babylon(x,z) Mapping to Towns(x,y) CONSTANTS
             var moved_by = new T.Position(
@@ -87,12 +98,12 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
 
     var whole_diff;
-    scene.onPointerMove = function (evt) {
+    self.onPointerMove = function (evt) {
         if (!startingPoint) {
             return;
         }
 
-        var current = scene.getPositionOnMesh(scene.ground_mesh,evt);
+        var current = self.getPositionOnMesh(self.ground_mesh,evt);
 
         if (!current) {
             return;
@@ -100,33 +111,33 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
         //r(startingPoint.x,current.x);
         var diff = startingPoint.subtract(current);
-        //scene.camera.target.addInPlace(diff);
+        //self.camera.target.addInPlace(diff);
 
         whole_diff.x+=diff.x;
         whole_diff.z+=diff.z;
 
 
-        scene.camera.target.x+=diff.x;
-        scene.camera.target.z+=diff.z;
+        self.camera.target.x+=diff.x;
+        self.camera.target.z+=diff.z;
 
 
-        //scene.light.position.x+=diff.x;
-        //scene.light.position.z+=diff.z;
+        //self.light.position.x+=diff.x;
+        //self.light.position.z+=diff.z;
 
         //startingPoint = current;
 
     };
 
 
-    scene.onMouseWheel = function (e) {
+    self.onMouseWheel = function (e) {
 
         if(e.deltaY>0){
 
-            scene.camera.target.y -=10;
+            self.camera.target.y -=10;
 
         }else{
 
-            scene.camera.target.y +=10;
+            self.camera.target.y +=10;
         }
 
     };
