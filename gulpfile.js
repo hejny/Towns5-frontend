@@ -219,7 +219,7 @@ gulp.task('production-build', [
 
 // Index.php pre produkcny build
 gulp.task('production-index', function () {
-    gulp.src('app/**/*.php')
+    return gulp.src('app/**/*.php')
         .pipe(gulp.dest('app-build/'));
 
 });
@@ -227,7 +227,7 @@ gulp.task('production-index', function () {
 
 // Index.php pre produkcny build
 gulp.task('production-locale', function () {
-    gulp.src('app/locale/*.neon')
+    return gulp.src('app/locale/*.neon')
         .pipe(gulp.dest('app-build/locale/'));
 
 
@@ -237,7 +237,7 @@ gulp.task('production-locale', function () {
 
 // Scripts
 gulp.task('production-scripts', function() {
-    gulp.src(config.includes.js)
+    return gulp.src(config.includes.js)
         .pipe(concat('towns.js'))
         //.pipe(gulp.dest('app-build'))
         .pipe(rename({suffix: '.min'}))
@@ -251,7 +251,7 @@ gulp.task('production-scripts', function() {
 
 // Styly
 gulp.task('production-styles', function () {
-    gulp.src(config.includes.css)
+    return gulp.src(config.includes.css)
         .pipe(sass())
         .pipe(concat('towns.css'))
         .pipe(rename({suffix: '.min'}))
@@ -261,7 +261,7 @@ gulp.task('production-styles', function () {
 
 // Obrazky - nateraz neaktivne //todo use in app
 gulp.task('production-images', function () {
-    gulp.src('media/image/**/*')
+    return gulp.src('media/image/**/*')
         .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true, multipass: true })))
         //.pipe(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true, multipass: true }))
         .pipe(gulp.dest('app-build/media/image'));
@@ -270,13 +270,13 @@ gulp.task('production-images', function () {
 
 // Zvuky - nateraz neaktivne
 gulp.task('production-sound', function () {
-    gulp.src('media/sound/*')
+    return gulp.src('media/sound/*')
         .pipe(gulp.dest('app-build/media/sound'));
 });
 
 // Priprav fonty pre produkčný build
 gulp.task('production-fonts', function () {
-    gulp.src([
+    return gulp.src([
         'node_modules/roboto-fontface/fonts/*',
         'node_modules/font-awesome/fonts/*'])
         .pipe(gulp.dest('app-build/fonts/'));
@@ -284,7 +284,7 @@ gulp.task('production-fonts', function () {
 
 // Priprav php pre produkčný build
 gulp.task('production-php', function () {
-    gulp.src([
+    return gulp.src([
         'app/php/*'])
         .pipe(gulp.dest('app-build/php/'));
 });

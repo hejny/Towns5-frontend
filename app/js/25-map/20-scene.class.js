@@ -362,7 +362,12 @@ T.Map.Scene = class{
 
         });
 
-        var area = new T.Area(...corners);
+        //var area = new T.Area(...corners);
+
+        //todo change to ... when migrate to TS
+        function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+        var area = new (Function.prototype.bind.apply(T.Area, [null].concat(_toConsumableArray(corners))))();
+
 
         return(area);
 
@@ -628,10 +633,6 @@ T.Map.Scene = class{
                 //r(y+map_radius);
                 terrain_code = map_of_terrain_codes[y+map_radius][x+map_radius];
 
-
-                if(terrain_code==6){
-                    r(y+map_radius+map_center.y,x+map_radius+map_center.x);
-                }
 
                 if(terrain_code===false) {
                     z = 0;

@@ -369,6 +369,11 @@ function tidyHTML($buffer) {
 
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Libraries|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+    <script>
+        var global = window;
+        var module={};
+    </script>
+    <!--<script src="/node_modules/towns-shared/build/towns-shared.js"></script>-->
     <?php
     //--------------------------------Includes
     //tady je podminka zda jde o testovaci verzi
