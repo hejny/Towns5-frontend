@@ -157,7 +157,7 @@ function createBuilding(object,callback){
 
     var join;
 
-    if (dragging_subtypes.indexOf(building.subtype)==-1){
+    if (dragging_subtypes.indexOf(object.subtype)==-1){
 
         join=createNewOrJoin(object);
 
