@@ -273,7 +273,7 @@ T.Map.Scene = class{
         };
 
 
-
+        self.unattach = function(){};
         self.canvas.addEventListener("pointerdown", function(event){self.onPointerDown(event);}, false);
         self.canvas.addEventListener("pointerup",   function(event){self.onPointerUp(event);}, false);
         self.canvas.addEventListener("pointermove", function(event){self.onPointerMove(event);}, false);

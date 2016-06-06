@@ -14,6 +14,9 @@ T.Map.Scene.prototype.attachMapMoving = function(){
     var startingPoint;
     var currentMesh;
 
+    self.unattach();
+    self.unattach = function(){};
+
 
     self.onPointerDown = function (evt) {
 

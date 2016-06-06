@@ -9,6 +9,8 @@ T.Map.Scene.prototype.attachMapRotating = function(){
 
     var self = this;
 
+    self.unattach();
+    self.unattach = function(){};
 
     self.pointer_position=null;
 

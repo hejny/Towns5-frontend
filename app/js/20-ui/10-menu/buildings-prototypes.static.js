@@ -16,7 +16,7 @@ T.UI.Menu.Building = class {
         var building = T.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.UI.Map.scene.attachObjectCreating(building,function(position,rotation,size){
+        T.UI.Map.scene.attachObjectCreatingPoint(building,function(position,rotation,size){
 
             building.x=position.x;
             building.y=position.y;

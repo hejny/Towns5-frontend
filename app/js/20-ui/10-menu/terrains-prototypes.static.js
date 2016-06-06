@@ -15,7 +15,7 @@ T.UI.Menu.Terrains = class {
         var terrain = T.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.UI.Map.scene.attachObjectCreating(terrain,function(position,rotation,size){
+        T.UI.Map.scene.attachObjectCreatingCircle(terrain,function(position,rotation,size){
 
             terrain.x=position.x;
             terrain.y=position.y;
