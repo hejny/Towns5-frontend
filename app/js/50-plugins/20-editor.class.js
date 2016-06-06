@@ -177,7 +177,6 @@ T.Plugins.Editor = class {
 
                             T.User.object_prototypes.removeId(object.id);
 
-                            mapSpecialCursorStop();
                             T.UI.Menu.Prototypes.menu(object.type, object.subtype);
 
                             T.UI.popupWindow.close(true);

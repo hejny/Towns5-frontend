@@ -112,7 +112,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 map_selected_ids=[];
                 T.UI.Menu.Object.menu();
 
-                self.resetCamera();
+                self.setCamera();
 
             }
 

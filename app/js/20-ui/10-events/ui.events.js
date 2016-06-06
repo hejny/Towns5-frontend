@@ -69,7 +69,7 @@ window.uiScript = function(){
                 r('Odznačení všeho');
 
                 $('#popup-action').hide();
-                mapSpecialCursorStop();
+
 
                 //---------------------------------
             }
@@ -232,65 +232,6 @@ window.uiScript = function(){
         }
     });
 
-    //==================================================================================================================selecting_distance Click
-
-    $('#selecting-distance-ctl .button-icon').off();
-
-
-    //todo pri klikani na tyhle tlacitka vycentrovat selecting distance
-    $('#selecting-distance-plus').unbind('click').click(function(){
-
-    //todo sounds ion.sound.play("door_bump");
-
-        if(building){
-            building.getModel().size+=0.1;
-            if(building.getModel().size>2.5)building.getModel().size=2.5;//todo funkce pro bounds
-
-            r(building.getModel().size);
-
-            T.UI.Menu.Building.redraw();
-        }else{
-            selecting_distance+=100;
-            updateSelectingDistance();
-        }
-    });
-
-    $('#selecting-distance-minus').unbind('click').click(function(){//todo refactor move to separate toolbox file
-
-        //todo sounds ion.sound.play("door_bump");
-
-
-        if(building){
-            building.getModel().size-=0.1;
-            if(building.getModel().size<0.5)building.getModel().size=0.5;
-
-            r(building.getModel().size);
-
-            T.UI.Menu.Building.redraw();
-        }else{
-            selecting_distance-=100;
-            updateSelectingDistance();
-        }
-    });
-
-    $('#selecting-distance-left').unbind('click').click(function(){
-        //todo sounds ion.sound.play("door_bump");
-        building.getModel().rotation+=10;
-        T.UI.Menu.Building.redraw();
-    });
-
-    $('#selecting-distance-right').unbind('click').click(function(){
-        //todo sounds ion.sound.play("door_bump");
-        building.getModel().rotation-=10;
-        T.UI.Menu.Building.redraw();
-    });
-
-    $('#selecting-distance-close').unbind('click').click(function(){
-        //todo sounds ion.sound.play("door_bump");
-        mapSpecialCursorStop();
-        $('#popup-action').hide();
-    });
-
 
     //==================================================================================================================
 
@@ -336,39 +277,6 @@ window.uiScript = function(){
 };
 
 
-//======================================================================================================================
-//SPECIAL CURSOR
-
-var specialCursor=false;
-
-//----------
-
-window.mapSpecialCursorStart = function(){
-
-    specialCursor=true;
-    $('#map_drag').draggable('disable');
-    map_selected_ids=[];
-
-};
-
-//----------
-
-window.mapSpecialCursorStop = function(){
-
-    specialCursor=false;
-
-    $('#map_drag').draggable('enable');
-
-
-    $('#selecting-distance-ctl').hide();
-    $('#selecting-distance').hide();
-    $('.active').removeClass('active');
-
-    T.UI.Menu.Building.stop();
-    T.UI.Menu.Building.dismantlingStop();
-    T.UI.Menu.Terrains.stop();
-    T.UI.Menu.Story.stop();
-};
 
 //======================================================================================================================
 //LEFT MENU
@@ -403,8 +311,6 @@ window.hideLeftMenu = function(){
 
 $(function(){
 
-
-    mapSpecialCursorStop();
     uiScript();
 
 

@@ -51,7 +51,7 @@ T.Map.Scene.prototype.attachMapRotating = function(){
         self.camera.alpha+=x/-500;
         self.camera.beta+=y/1000;
 
-        self.resetCamera();
+        self.setCamera();
 
         //r(self.camera.beta,self.camera.alpha);
 

@@ -26,10 +26,31 @@ T.Map.Scene = class{
     }
 
 
-    resetCamera(){
+    setCamera(){
 
-        this.camera.target.x=Math.sin(this.camera.alpha);
-        this.camera.target.z=Math.cos(this.camera.alpha);
+        this.camera.target.x=Math.sin(this.camera.alpha)+(this.moved_by.x)*MAP_FIELD_SIZE;
+        this.camera.target.z=Math.cos(this.camera.alpha)-(this.moved_by.y)*MAP_FIELD_SIZE;
+    }
+
+
+
+    moveBy(position){
+
+        r('moveBy');
+
+        this.moved_by.plus(position);
+        this.setCamera();
+
+    }
+
+
+    moveByProcess(){
+
+        map_center.plus(this.moved_by);
+        this.moved_by=new T.Position(0,0);
+
+        T.UI.Map.loadMap();
+
     }
 
 
@@ -49,6 +70,8 @@ T.Map.Scene = class{
 
 
         self.scene = new BABYLON.Scene(self.engine);
+
+        self.moved_by=new T.Position(0,0);
 
 
         self.light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), self.scene);
@@ -400,7 +423,7 @@ T.Map.Scene = class{
         //self.light.position = new BABYLON.Vector3(20, 40, 20);
 
 
-        self.resetCamera();
+        self.setCamera();
 
 
 

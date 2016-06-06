@@ -11,8 +11,7 @@ T.UI.Menu.Story = class {
 
     static start(prototypeId) {
 
-        mapSpecialCursorStop();
-        mapSpecialCursorStart();
+
 
 
         T.UI.Menu.storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
