@@ -27,8 +27,9 @@ T.Map.Scene = class{
 
 
     resetCamera(){
-        this.camera.target.x=100;//todo based on coords mapping
-        this.camera.target.z=-100;
+
+        this.camera.target.x=Math.sin(this.camera.alpha);
+        this.camera.target.z=Math.cos(this.camera.alpha);
     }
 
 

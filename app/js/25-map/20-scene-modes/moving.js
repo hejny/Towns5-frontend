@@ -7,6 +7,7 @@
 
 T.Map.Scene.prototype.attachMapMoving = function(){
 
+    r('attachMapMoving');
 
     var self = this;//todo different name for Babylon and Towns scene
 

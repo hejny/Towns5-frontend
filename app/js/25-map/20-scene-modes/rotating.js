@@ -7,6 +7,8 @@
 
 T.Map.Scene.prototype.attachMapRotating = function(){
 
+    r('attachMapRotating');
+
     var self = this;
 
     self.unattach();
@@ -48,6 +50,8 @@ T.Map.Scene.prototype.attachMapRotating = function(){
 
         self.camera.alpha+=x/-500;
         self.camera.beta+=y/1000;
+
+        self.resetCamera();
 
         //r(self.camera.beta,self.camera.alpha);
 

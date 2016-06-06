@@ -7,6 +7,8 @@
 //todo unattach to clearup scene
 T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
 
+    r('attachObjectCreatingPoint');
+
     var self = this;
 
 

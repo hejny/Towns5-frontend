@@ -3,7 +3,7 @@
  * @fileOverview  Map controls
  */
 //======================================================================================================================
-$(function(){
+document.addEventListener("DOMContentLoaded", function(event) {//todo maybe refactor use this
 
 
     $('#map-ctl-move').click(function(){

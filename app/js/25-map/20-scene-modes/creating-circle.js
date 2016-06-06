@@ -7,6 +7,8 @@
 //todo unattach to clearup scene
 T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
 
+    r('attachObjectCreatingCircle');
+
     var self = this;
 
 
