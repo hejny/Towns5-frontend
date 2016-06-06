@@ -12,7 +12,30 @@ T.UI.Menu.Story = class {
     static start(prototypeId) {
 
 
+        var story = T.User.object_prototypes.getById(prototypeId).clone();
 
+
+        T.UI.Map.scene.attachObjectCreatingPoint(story,function(position,rotation,size){
+
+            story.x=position.x;
+            story.y=position.y;
+
+
+            create(story,function(){
+
+                T.Plugins.open('story-editor',1,story.id);
+
+
+            });
+
+
+
+        });
+
+
+
+
+        /*
 
         T.UI.Menu.storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
 
@@ -23,12 +46,12 @@ T.UI.Menu.Story = class {
         $('#selecting-distance-ctl').show();//showing toolbar control
         $('#selecting-distance-ctl .button-icon').hide();//hiding all buttons
         //showing buttons used by actual tool
-        $('#selecting-distance-close').show();
+        $('#selecting-distance-close').show();*/
 
 
     }
 
-
+    /*
     //todo in doc this funcs. dont use directly only via mapSpecialCursorStop();
     static stop() {
 
@@ -38,7 +61,7 @@ T.UI.Menu.Story = class {
         $('#map_drag').css('cursor', 'Auto');
         T.UI.Menu.storyWriting = false;
 
-    }
+    }*/
 
 
 };

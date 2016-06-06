@@ -12,7 +12,21 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
     var self = this;
 
 
-    var mesh = createModel('creating-object', object.getModel(), self.scene, self.materials, {}, {}, self.shadow_generator);
+    if(object.type==='building'){
+
+        var mesh = createModel('creating-object', object.getModel(), self.scene, self.materials, {}, {}, self.shadow_generator);
+
+
+    }else
+    if(object.type==='story'){
+
+        var mesh = createStoryMesh('creating-object', object.getMarkdown(), self.scene, self.shadow_generator);
+
+    }else{
+
+        throw new Error('attachObjectCreatingPoint can be called only with building or story.');
+
+    }
 
 
 

@@ -45,7 +45,7 @@ T.Plugins.Viewer = class {
 
     /**
      * Open viewer
-     * @param {number} collection 0=T.User.object_prototypes, 1=objects_external
+     * @param {number} collection 0=T.User.object_prototypes, 1=objects_server
      * @param {string} id
      */
     open(collection, id) {
@@ -145,12 +145,12 @@ T.Plugins.Viewer = class {
 
         } else if (collection == 1) {
 
-            viewer.opened.object = objects_external.getById(id);//T.ArrayFunctions.id2item(objects_external,id);
+            viewer.opened.object = objects_server.getById(id);//T.ArrayFunctions.id2item(objects_server,id);
 
             if (viewer.opened.object) {
 
 
-                r('Opening object ' + viewer.opened.object.name + ' directly from objects_external.');
+                r('Opening object ' + viewer.opened.object.name + ' directly from objects_server.');
                 object_ready();
 
 

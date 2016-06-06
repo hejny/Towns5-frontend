@@ -115,7 +115,7 @@ T.Plugins.Editor = class {
 
     /**
      * Open editor
-     * @param {number} collection 0=T.User.object_prototypes, 1=objects_external
+     * @param {number} collection 0=T.User.object_prototypes, 1=objects_server
      * @param {string} id
      */
     open(collection, id, errors = false) {
@@ -269,7 +269,7 @@ T.Plugins.Editor = class {
 
             } else if (collection == 1) {
 
-                /*objects_external.push(this.opened.object)
+                /*objects_server.push(this.opened.object)
                  r('Creating new object '+this.opened.object.name+'.');*/
                 throw new Error('In objects can not be created new object without prototype.');
 
@@ -293,7 +293,7 @@ T.Plugins.Editor = class {
 
             } else if (collection == 1) {
 
-                this.opened.object = objects_external.getById(id);
+                this.opened.object = objects_server.getById(id);
 
                 if (editor.opened.object) {
 

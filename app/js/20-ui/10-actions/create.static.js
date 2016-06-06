@@ -252,7 +252,7 @@ function createStory(object,callback){
     object=object.clone();
     object.id=generateID();
 
-    objects_external.update(object);
+    //objects_server.update(object);
 
     //callback(object.id);
     saveObject(object,callback);//todo refactor
