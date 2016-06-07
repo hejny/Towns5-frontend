@@ -164,8 +164,6 @@ var map_slope_n;
 
 
 var window_opened=false;
-var keys=[];
-var moving=false;
 
 
 var dragging_subtypes=['wall','path'];

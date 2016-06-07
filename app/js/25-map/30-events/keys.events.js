@@ -6,11 +6,11 @@
 
 
 
-var controls={
-    'up':  [38,87],
-    'down':  [40,83],
-    'left':  [37,65],
-    'right':  [39,68]
+var controls_keys={
+    'UP':  [38,87],
+    'DOWN':  [40,83],
+    'LEFT':  [37,65],
+    'RIGHT':  [39,68]
     /*'slopeup':  [88],
      'slopedown':  [67],
      'perspectiveup':  [86],
@@ -40,15 +40,42 @@ window.addEventListener('keydown', function(e) {
 
 //------------------------------------------------------------
 
+var keys=[];
+var moving=false;
+
+
+var controls_down = {
+    update: function () {
+        for (var control in controls_keys) {
+
+            this[control] = false;
+
+            for (var i = 0, l = keys.length; i < l; i++) {
+
+                if(controls_keys[control].indexOf(keys[i]) !== -1) {
+
+                    this[control] = true;
+
+                }
+
+            }
+
+        }
+    }
+};
+
+
+
 
 window.addEventListener('keydown', function(e) {
 
     if(T.UI.Status.focusOnMap()) {
         r('DOWN', e.keyCode);
 
-        if ($.inArray(e.keyCode, keys) == -1) {
+        if (keys.indexOf(e.keyCode) === -1) {
             keys.push(e.keyCode);
 
+            controls_down.update();
             /*if(typeof releaseKeyTimeout!='undefined')
                 clearTimeout(releaseKeyTimeout);
 
@@ -67,11 +94,13 @@ window.addEventListener('keyup', function(e) {
     //if(T.UI.Status.focusOnMap()) {
         r('UP', e.keyCode);
 
-        var i = $.inArray(e.keyCode, keys);
+        var i = keys.indexOf(e.keyCode);
 
 
         if (i != -1) {
             keys.splice(i, 1);
+
+            controls_down.update();
 
         }
     //}
@@ -79,11 +108,8 @@ window.addEventListener('keyup', function(e) {
 });
 
 
-var moving=false;
-
 var last = null;
-var keys_tick =
-function (timestamp) {
+var keys_tick = function (timestamp) {
 
     if (!last) last = timestamp;
     var progress = (timestamp - last)/1000;
@@ -91,61 +117,38 @@ function (timestamp) {
 
     if(window_opened)return;
 
-    //console.log(keys);
-
-    var keys_ = [];
 
 
-    for(var key in controls){
-
-        for (var i = 0, l=keys.length; i < l; i++) {
-
-            if (controls[key].indexOf(keys[i]) != -1) {
-                keys_.push(key);
-
-            }
-
-        }
-
-    }
-
-
-
-
-    if ($.inArray('up', keys_) != -1) {
+    if (controls_down.UP) {
         moving=true;
         T.UI.Map.scene.moveBy(new T.Position(Math.cos(-T.UI.Map.scene.camera.alpha),Math.sin(-T.UI.Map.scene.camera.alpha)).multiply(-20*progress));
     }
 
-    if ($.inArray('down', keys_) != -1) {
+    if (controls_down.DOWN) {
         moving=true;
         T.UI.Map.scene.moveBy(new T.Position(Math.cos(-T.UI.Map.scene.camera.alpha),Math.sin(-T.UI.Map.scene.camera.alpha)).multiply(20*progress));
     }
 
-    if ($.inArray('left', keys_) != -1) {
+    if (controls_down.LEFT) {
         moving=true;
         T.UI.Map.scene.camera.alpha+= T.Math.deg2rad(90*progress);
     }
 
 
-    if ($.inArray('right', keys_) != -1) {
+    if (controls_down.RIGHT) {
         moving=true;
         T.UI.Map.scene.camera.alpha-= T.Math.deg2rad(90*progress);
     }
 
 
-    if(moving=== true)
-        if ($.inArray('up', keys_) == -1)
-            if ($.inArray('down', keys_) == -1)
-                if ($.inArray('left', keys_) == -1)
-                    if ($.inArray('right', keys_) == -1){
-                        moving=false;
-                        //alert('stop moving by keys');
-                        T.UI.Map.scene.moveByProcess();
-                    }
 
+    if (moving=== true && !controls_down.UP &&!controls_down.DOWN &&!controls_down.LEFT &&!controls_down.RIGHT){
 
+        moving=false;
+        //alert('stop moving by keys');
+        T.UI.Map.scene.moveByProcess();
 
+    }
 
 
 
