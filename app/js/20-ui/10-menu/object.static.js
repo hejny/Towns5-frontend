@@ -21,7 +21,12 @@ T.UI.Menu.Object = class {
             //--------------------------------------------------
 
             var id = map_selected_ids[0];
-            var object = objects_external.getById(id);
+            var object = objects_server.getById(id);
+            r(id,object);
+
+            if(!object){
+                throw new Error('Object with selected id '+id+' dont exists in objects_server.');
+            }
 
 
             var objectmenu = '';

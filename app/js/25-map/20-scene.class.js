@@ -402,7 +402,7 @@ T.Map.Scene = class{
 
 
 
-    update(all_objects) {
+    update(objects_to_scene) {
 
         var self = this;
 
@@ -429,7 +429,7 @@ T.Map.Scene = class{
 
         //--------------------------------------Area
         var area = this.getArea();
-        var objects = all_objects.filterArea(area);
+        var objects = objects_to_scene.filterArea(area);
 
 
         /**
@@ -594,7 +594,6 @@ T.Map.Scene = class{
                 var mesh = createStoryMesh('story', story.getMarkdown(), self.scene, self.shadow_generator);
 
 
-                position.y+=30;
                 mesh.position = position;
 
                 self.prev_meshes.push(mesh);

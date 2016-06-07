@@ -30,7 +30,7 @@ T.Plugins.install(new T.Plugins.Page(
 
             stories.forEach(function(story){
 
-                objects_external.update(story);
+                objects_server.update(story);
 
 
 

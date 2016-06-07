@@ -258,7 +258,7 @@ function(page,storage){
 
             stories.forEach(function(story){
 
-                objects_external.update(story);
+                objects_server.update(story);
 
 
 

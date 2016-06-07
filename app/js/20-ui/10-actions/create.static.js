@@ -66,18 +66,18 @@ function createNewOrJoin(object){
     var distance,distances=[];
 
 
-    for (var i = 0,l=objects_external.length; i < l; i++){
-        if(objects_external[i].type=='building'){
+    for (var i = 0,l=objects_server.length; i < l; i++){
+        if(objects_server[i].type=='building'){
 
             var bothDistances=0;
 
-            bothDistances+=objects_external[i].getModel().range('xy');
+            bothDistances+=objects_server[i].getModel().range('xy');
             bothDistances+=object.getModel().range('xy');
 
             bothDistances=bothDistances/100;//todo better
 
 
-            if((distance=T.Math.xy2dist(objects_external[i].x-object.x,objects_external[i].y-object.y))<bothDistances*map_model_size){
+            if((distance=T.Math.xy2dist(objects_server[i].x-object.x,objects_server[i].y-object.y))<bothDistances*map_model_size){
 
 
                 distances.push({i: i,distance: distance});
@@ -108,8 +108,8 @@ function createNewOrJoin(object){
 
         //todo better
         var xy=T.Math.xyRotate(
-            (object.x-objects_external[distances[0].i].x)*10,//map_model_size,
-            (object.y-objects_external[distances[0].i].y)*10,//map_model_size,
+            (object.x-objects_server[distances[0].i].x)*10,//map_model_size,
+            (object.y-objects_server[distances[0].i].y)*10,//map_model_size,
 
             //0
             //2*(map_rotation-45)
@@ -123,7 +123,7 @@ function createNewOrJoin(object){
 
         return {
             'i': distances[0].i,
-            'id': objects_external[distances[0].i].id,
+            'id': objects_server[distances[0].i].id,
             'xy': xy
         };
 
