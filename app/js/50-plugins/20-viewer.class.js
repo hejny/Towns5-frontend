@@ -158,7 +158,7 @@ T.Plugins.Viewer = class {
 
                 T.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
 
-                    viewer.opened.object = T.Objects.Array.initInstance(response);
+                    viewer.opened.object = T.Objects.Object.init(response);
 
                     r('Opening object ' + viewer.opened.object.name + ' loaded from API.');
                     object_ready();

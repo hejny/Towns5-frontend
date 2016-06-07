@@ -11,9 +11,8 @@ function saveObject(object,callback){
     //objects_server.update(object);//Create new
     objects_server.push(object);
 
-    T.TownsAPI.townsAPI.post('objects',object,function(response){
 
-        object = objects_server.getById(object.id);
+    T.TownsAPI.townsAPI.post('objects',object,function(response){
 
         object.id=response.objectId;
 

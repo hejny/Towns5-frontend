@@ -305,7 +305,7 @@ T.Plugins.Editor = class {
 
                     T.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
 
-                        editor.opened.object = T.Objects.Array.initInstance(response);
+                        editor.opened.object = T.Objects.Object.init(response);
 
                         r('Opening object ' + editor.opened.object.name + ' loaded from API.');
                         object_ready();

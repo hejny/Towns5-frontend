@@ -36,10 +36,13 @@ function create(object,callback=false){
 
     var updatedID=false;
 
-    if(object.type=='terrain'){updatedID=createTerrain(object,callback);}else
+    /*if(object.type=='terrain'){updatedID=createTerrain(object,callback);}else
     if(object.type=='building'){updatedID=createBuilding(object,callback);}else
     if(object.type=='story'){updatedID=createStory(object,callback);}else
-    {throw 'Unknown object type';}
+    {throw 'Unknown object type';}*/
+
+    object.id=generateID();
+    saveObject(object,callback);
 
 
 
@@ -49,7 +52,7 @@ function create(object,callback=false){
 
     //---------------------------------------
 
-    return(updatedID);
+    return(object.id);
 
 }
 
@@ -138,7 +141,7 @@ function createNewOrJoin(object){
 
 //==========================================================createTerrain
 
-
+/*
 function createTerrain(object,callback){//todo maybe create other
 
     object.id=generateID();
@@ -260,7 +263,7 @@ function createStory(object,callback){
     return(object.id);
 
 }
-
+*/
 
 //======================================================================================================================
 //==========================================================definePrototype
