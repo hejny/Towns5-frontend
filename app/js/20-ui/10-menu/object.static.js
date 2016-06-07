@@ -22,56 +22,70 @@ T.UI.Menu.Object = class {
 
             var id = map_selected_ids[0];
             var object = objects_server.getById(id);
-            r(id,object);
 
             if(!object){
                 throw new Error('Object with selected id '+id+' dont exists in objects_server.');
             }
 
 
-            var objectmenu = '';
+            if(object.type==='building') {
 
-            var icon, content;
+                var objectmenu = '';
+
+                var icon, content;
 
 
-            ['view', 'edit'].forEach(function (action) {
+                ['view', 'edit'].forEach(function (action) {
 
 
-                var possible = T.Plugins.search(action, object);
-                possible = possible.map(function (item) {
-                    return (`<button onclick="T.Plugins.open('` + item + `',1,'` + id + `')">` + T.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
+                    var possible = T.Plugins.search(action, object);
+                    possible = possible.map(function (item) {
+                        return (`<button onclick="T.Plugins.open('` + item + `',1,'` + id + `')">` + T.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
+                    });
+                    possible = possible.join('');
+                    objectmenu += T.Templates.menu({
+                        icon: '/media/image/icons/' + action + '.svg',
+                        icon_size: 0.8,
+                        title: T.Locale.get(object.type, object.subtype, action),
+                        content: T.Locale.get(object.type, object.subtype, action, 'description') + '<br>' + possible
+                    });
+
                 });
-                possible = possible.join('');
+                /**/
+
+
                 objectmenu += T.Templates.menu({
-                    icon: '/media/image/icons/' + action + '.svg',
+                    icon: '/media/image/icons/clone.svg',
                     icon_size: 0.8,
-                    title: T.Locale.get(object.type, object.subtype, action),
-                    content: T.Locale.get(object.type, object.subtype, action, 'description') + '<br>' + possible
+                    title: T.Locale.get(object.type, object.subtype, 'clone'),
+                    content: T.Locale.get(object.type, object.subtype, 'clone', 'description'),
+                    action: 'T.UI.Menu.Building.start(\'' + object._prototypeId + '\');'
                 });
 
-            });
-            /**/
 
+                objectmenu += T.Templates.menu({
+                    icon: '/media/image/icons/dismantle.svg',
+                    icon_size: 0.8,
+                    title: T.Locale.get(object.type, object.subtype, 'dismantle'),
+                    content: T.Locale.get(object.type, object.subtype, 'dismantle', 'description'),
+                    action: 'dismantleUI(\'' + id + '\');'
+                });
 
-            objectmenu += T.Templates.menu({
-                icon: '/media/image/icons/clone.svg',
-                icon_size: 0.8,
-                title: T.Locale.get(object.type, object.subtype, 'clone'),
-                content: T.Locale.get(object.type, object.subtype, 'clone', 'description'),
-                action: 'T.UI.Menu.Building.start(\'' + object._prototypeId + '\');'
-            });
+                showLeftMenu(objectmenu);
 
+            }else
+            if(object.type==='story'){
 
-            objectmenu += T.Templates.menu({
-                icon: '/media/image/icons/dismantle.svg',
-                icon_size: 0.8,
-                title: T.Locale.get(object.type, object.subtype, 'dismantle'),
-                content: T.Locale.get(object.type, object.subtype, 'dismantle', 'description'),
-                action: 'dismantleUI(\'' + id + '\');'
-            });
+                T.Plugins.open('story',1,object.id);
+                hideLeftMenu();
 
+            }else{
 
-            showLeftMenu(objectmenu);
+                console.warn('Unknown object type '+object.type);
+                hideLeftMenu();
+
+            }
+
 
         } else {
 

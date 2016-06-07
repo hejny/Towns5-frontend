@@ -591,7 +591,7 @@ T.Map.Scene = class{
 
             if(position.y>1) {
 
-                var mesh = createStoryMesh('story', story.getMarkdown(), self.scene, self.shadow_generator);
+                var mesh = createStoryMesh(story.id, story.getMarkdown(), self.scene, self.shadow_generator);
 
 
                 mesh.position = position;
