@@ -21,10 +21,9 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
     self.onPointerDown = function (evt) {
 
-
-        if (evt.button !== 0) {
+        /*if (evt.button !== 0) {
             return;
-        }
+        }*/
 
         // check if we are under a mesh
         var pickInfo = self.scene.pick(

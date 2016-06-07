@@ -16,24 +16,38 @@ T.UI.Menu.Building = class {
         var building = T.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.UI.Map.scene.attachObjectCreatingPoint(building,function(position,rotation,size){
+        if(dragging_subtypes.indexOf(building.subtype)===-1){
 
-            building.x=position.x;
-            building.y=position.y;
+            T.UI.Map.scene.attachObjectCreatingPoint(building,function(position,rotation,size){
 
-            building.getModel().rotation=rotation;
-            building.getModel().size=size;
+                building.x=position.x;
+                building.y=position.y;
 
-            create(building,function(){
+                building.getModel().rotation=rotation;
+                building.getModel().size=size;
+
+                create(building,function(){
 
 
-                r('Building created on server!!!');
+                    r('Building created on server!!!');
+
+                });
+
+
 
             });
 
+        }else{
+
+            T.UI.Map.scene.attachObjectCreatingLine(building,function(positions,rotation,size){
+
+                r('!!!!!!!!!!!!!!!!!!!!!!todo!!!!!!!!!!!!!!!!!!!!!!!!');
+
+            });
+
+        }
 
 
-        });
 
 
 
