@@ -16,6 +16,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
 
         model_mesh = models_cache[model_hash].createInstance('model');
+        model_mesh.material = models_cache[model_hash].material;
 
 
     }else {
@@ -244,12 +245,11 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
             model_mesh.convertToUnIndexedMesh();
 
             models_cache[model_hash] = model_mesh;
-            //r('added to models_cache', model_hash, models_cache);
 
 
         } else {
 
-            model_mesh = BABYLON.Mesh.CreateSphere("model", 16, 2, scene);
+            model_mesh = BABYLON.Mesh.CreateSphere("model", 2, 0, scene);
 
             all_meshes.forEach(function (particle_mesh) {
                 particle_mesh.parent = model_mesh;
