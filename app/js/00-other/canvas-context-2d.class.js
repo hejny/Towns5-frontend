@@ -51,12 +51,12 @@ CanvasRenderingContext2D.prototype.drawPolygons = function(polygons,moveBy={x:0,
 
         if(is(polygon.fill)){
             //r(polygon.fill);
-            ctx.fillStyle = polygon.fill.color.rgb();
+            ctx.fillStyle = polygon.fill.color.getCssColor();
         }
 
 
         if(is(polygon.line)){
-            ctx.strokeStyle = polygon.line.color.rgb();
+            ctx.strokeStyle = polygon.line.color.getCssColor();
             ctx.lineWidth = polygon.line.width;
             ctx.lineJoin = 'round';
         }
