@@ -99,7 +99,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 map_center.plus(moved_by);
                 T.URI.write();
 
-                T.UI.Map.loadMap();
+                T.Map.loadMap();
 
             }else{
 

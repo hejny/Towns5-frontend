@@ -40,11 +40,30 @@ T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
 
     };
 
-    self.selection_circle_material = new BABYLON.StandardMaterial("selection_circle_material", self.scene);
-    self.selection_circle_material.diffuseTexture = new BABYLON.Texture(T.Cache.backgrounds.get('t'+object.getCode()+'s0').src+'&raw', self.scene);
+
+    if(object) {
+
+        self.selection_circle_radius = object.design.data.size;
+
+        self.selection_circle_material = new BABYLON.StandardMaterial("selection_circle_material", self.scene);
+        self.selection_circle_material.diffuseTexture = new BABYLON.Texture(T.Cache.backgrounds.get('t'+object.getCode()+'s0').src+'&raw', self.scene);
+
+    }else{
+
+        self.selection_circle_radius = 1;
+
+        self.selection_circle_material = new BABYLON.StandardMaterial("selection_circle_material", self.scene);
+        self.selection_circle_material.diffuseColor = new BABYLON.Color3(1, 0, 0);
+
+    }
 
 
-    self.selection_circle_radius=object.design.data.size;
+
+
+
+
+
+
 
     self.onPointerMove = function (evt) {
 

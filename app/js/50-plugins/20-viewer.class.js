@@ -79,7 +79,7 @@ T.Plugins.Viewer = class {
                     map_center = object.getPosition();
 
 
-                    T.UI.Map.loadMap(true);
+                    T.Map.loadMap(true);
                     T.UI.popupWindow.close();
 
 

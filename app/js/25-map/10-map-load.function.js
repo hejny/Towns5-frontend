@@ -3,14 +3,14 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-T.setNamespace('UI.Map');
+T.setNamespace('Map');
 
 
 //todo refactor this should not be here
 var map_request_ajax=false;
 
 
-T.UI.Map.loadMap = function(from_server=false){
+T.Map.loadMap = function(from_server=false){
 
 
     if(typeof T.UI.Map.scene === 'undefined'){
@@ -46,7 +46,7 @@ T.UI.Map.loadMap = function(from_server=false){
             function(response){
 
                 objects_server=new T.Objects.Array(response);
-                T.UI.Map.loadMapRequestCallback();
+                T.Map.loadMapRequestCallback();
 
             }
         );
@@ -55,7 +55,7 @@ T.UI.Map.loadMap = function(from_server=false){
 
         r('Loading map from only local.');
 
-        T.UI.Map.loadMapRequestCallback();
+        T.Map.loadMapRequestCallback();
 
     }
 
@@ -67,7 +67,7 @@ T.UI.Map.loadMap = function(from_server=false){
 
 
 
-T.UI.Map.loadMapRequestCallback=function(){
+T.Map.loadMapRequestCallback=function(){
 
 
     //----------------------------------Create map_data and map_bg_data from local objects

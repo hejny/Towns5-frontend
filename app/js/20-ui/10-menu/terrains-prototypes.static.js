@@ -31,7 +31,7 @@ T.UI.Menu.Terrains = class {
 
             });
 
-            T.UI.Map.loadMap();
+            T.Map.loadMap();
 
 
 

@@ -61,7 +61,7 @@ T.Map.Scene = class{
         map_center.plus(this.moved_by);
         this.moved_by=new T.Position(0,0);
 
-        T.UI.Map.loadMap();
+        T.Map.loadMap();
 
     }
 

@@ -22,7 +22,7 @@ function dismantleUI(id){
     if(confirm(T.Locale.get('delete '+objects_server.getById(id).type+' confirm'))){//todo create better confirm
 
         deleteObject(id);
-        T.UI.Map.loadMap();
+        T.Map.loadMap();
         hideLeftMenu();
         T.UI.popupWindow.close();
 

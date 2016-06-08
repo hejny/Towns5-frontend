@@ -112,7 +112,7 @@ T.Cache.imageLoad = function(){
 
         map_loaded=true;//todo refactor move to static object Map
 
-        T.UI.Map.loadMap(true);
+        T.Map.loadMap(true);
 
     }
 

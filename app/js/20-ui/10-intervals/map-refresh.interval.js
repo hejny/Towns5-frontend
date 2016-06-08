@@ -11,7 +11,7 @@ T.UI.Intervals.map_refresh = setInterval(function(){
 
 
     //todo BETTER SYNC
-    T.UI.Map.loadMap(true);
+    T.Map.loadMap(true);
 
 
 },10000);
