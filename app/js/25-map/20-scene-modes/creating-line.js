@@ -11,9 +11,7 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
 
     var self = this;
     self.unattach();
-    self.unattach = function () {
-        //mesh.dispose();
-    };
+    self.unattach = function () {};
 
 
     
@@ -41,7 +39,7 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
         ending_position;
     self.onPointerDown = function (evt) {
 
-        starting_position = self.babylonToPosition(self.getPositionOnMesh(self.ground_mesh,evt));
+        starting_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh,evt));
 
     };
 
@@ -49,7 +47,19 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
     self.onPointerUp = function (evt) {
 
 
-        r(starting_position,ending_position);
+        //r(starting_position,ending_position);
+
+        var position;
+
+        for (var i= 0,l=meshes.length; i < l; i++) {
+            self.prev_meshes.push(meshes[i]);
+
+            position = self.babylonToPosition(meshes[i].position);
+            degrees = self.babylonToRotation(meshes[i].rotation.y);
+            callback(position,degrees,1);
+
+        }
+
 
         starting_position=null;
 
@@ -64,12 +74,12 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
             return;
         }
 
-        ending_position = self.babylonToPosition(self.getPositionOnMesh(self.ground_mesh,evt));
+        ending_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh,evt));
 
 
         var distance = starting_position.getDistance(ending_position);
 
-        var particles = Math.ceil(distance/1.4);
+        var particles = Math.ceil(distance/2);
 
         var i;
         if(meshes.length<particles) {
@@ -80,18 +90,35 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
 
             }
 
+        }else
+        if(meshes.length>particles) {
+
+
+            for (i=particles; i < meshes.length; i++) {
+
+                meshes[i].dispose();
+
+            }
+            meshes.splice(particles,meshes.length-particles);
+
         }
-        
         
 
         var position = starting_position.clone();
-        var diff = ending_position.clone().multiply(-1).plus(starting_position).multiply(-1/particles);
-        
+        var diff_polar = ending_position.clone().multiply(-1).plus(starting_position).getPositionPolar();
+        diff_polar.distance = -1*2;
+        var diff = diff_polar.getPosition();
+
+        var rad = diff_polar.getRadians();
+
+
         var l=meshes.length;
         for (i=0; i < l; i++) {
 
             meshes[i].position=self.positionToBabylon(position);
             meshes[i].position.y = self.terrain_mesh.getHeightAtCoordinates(meshes[i].position.x, meshes[i].position.z);
+
+            meshes[i].rotation.y = rad;
 
             position.plus(diff);
             

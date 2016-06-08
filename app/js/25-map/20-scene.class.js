@@ -26,6 +26,18 @@ T.Map.Scene = class{
     }
 
 
+    rotationToBabylon(degrees){
+        return -T.Math.deg2rad(degrees-45);
+    }
+
+
+    babylonToRotation(radians){
+        return T.Math.rad2deg(-radians)+45;
+    }
+
+
+
+
     setCamera(){
 
         this.camera.target.x=Math.sin(this.camera.alpha)+(this.moved_by.x)*MAP_FIELD_SIZE;
@@ -540,12 +552,19 @@ T.Map.Scene = class{
 
             if(position.y>1) {
 
-                var mesh = createModel(building.id, building.getModel(), self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
+                var model = building.getModel();
 
+                var model_mesh = createModel(building.id, model, self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
 
-                mesh.position = position;
+                model_mesh.rotation.y = self.rotationToBabylon(model.rotation);
 
-                self.prev_meshes.push(mesh);
+                model_mesh.scaling.x = model.size;
+                model_mesh.scaling.y = model.size;
+                model_mesh.scaling.z = model.size;
+
+                model_mesh.position = position;
+
+                self.prev_meshes.push(model_mesh);
 
 
 

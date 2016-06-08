@@ -14,36 +14,34 @@ T.UI.Menu.Building = class {
 
 
         var building = T.User.object_prototypes.getById(prototypeId).clone();
+        var attach_callback = function(position,rotation,size){
+
+            building.x=position.x;
+            building.y=position.y;
+
+            building.getModel().rotation=rotation;
+            building.getModel().size=size;
+
+            create(building,function(){
+
+
+                r('Building created on server!!!');
+
+            });
+
+
+
+        };
+
 
 
         if(dragging_subtypes.indexOf(building.subtype)===-1){
 
-            T.UI.Map.scene.attachObjectCreatingPoint(building,function(position,rotation,size){
-
-                building.x=position.x;
-                building.y=position.y;
-
-                building.getModel().rotation=rotation;
-                building.getModel().size=size;
-
-                create(building,function(){
-
-
-                    r('Building created on server!!!');
-
-                });
-
-
-
-            });
+            T.UI.Map.scene.attachObjectCreatingPoint(building,attach_callback);
 
         }else{
 
-            T.UI.Map.scene.attachObjectCreatingLine(building,function(positions,rotation,size){
-
-                r('!!!!!!!!!!!!!!!!!!!!!!todo!!!!!!!!!!!!!!!!!!!!!!!!');
-
-            });
+            T.UI.Map.scene.attachObjectCreatingLine(building,attach_callback);
 
         }
 
