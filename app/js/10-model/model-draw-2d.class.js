@@ -73,7 +73,10 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
                 addResource.polygons[poly_i][point_i]+=i-1;
             }
 
-            resource.colors.push(/*particle.color*/'cccccc');
+
+            var imgData=ctx.getImageData(10,10,1,1);
+
+            resource.colors.push(T.Cache.textures.getColor(particle.material).clone());
             resource.polygons.push(addResource.polygons[poly_i]);
 
             resource.particles.push(particle_i);
@@ -300,7 +303,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
              }*/
 
             if(is(shader.fill)){
-                color = T.Color.createFromHex(resource['polygons'][i2]['color']);
+                color = resource['polygons'][i2]['color'];
                 draw_polygons[i2].fill={color: shader.fill(color,polygon3D)};
             }
 

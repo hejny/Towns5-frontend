@@ -19,6 +19,7 @@ T.Cache.ImagesCollection = class {
     constructor(files, url = '') {
 
         this.images = {};
+        this.colors = {};
 
         this.images_loaded = 0;
         this.images_count = 0;
@@ -94,6 +95,27 @@ T.Cache.ImagesCollection = class {
         return (this.images[key]);
 
     }
+
+
+    getColor(key) {
+
+        if(this.loaded()!==1){
+            throw new Error('Not yet loaded!');
+        }
+
+        //r(this.colors);
+
+        if (typeof this.colors[key] === 'undefined'){
+
+            var image = this.get(key);
+            this.colors[key] = getAverageRGB(image);
+
+        }
+
+        return(this.colors[key]);
+
+    }
+
 
 
     //todo jsdoc

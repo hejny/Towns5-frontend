@@ -4,14 +4,15 @@
  */
 //======================================================================================================================
 
-
+//todo this viewer should works via BABYLON!
+/*
 T.Plugins.install(new T.Plugins.Viewer(
     'building-viewer'
     ,{
         type: 'building'
     }
     ,'Vzhled budovy'
-    ,/*todo better solution*/`
+    ,/ *todo better solution* /`
     <style>
         .popup-window .content {
             padding: 4px !important;
@@ -29,3 +30,5 @@ T.Plugins.install(new T.Plugins.Viewer(
 
 
 ));
+
+*/
