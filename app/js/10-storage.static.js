@@ -20,7 +20,8 @@ T.Storage=class {
      */
     static load(key, def = false) {
 
-        var value = localStorage.getItem(key) || def;
+        var value = getCookie(key);
+        if(value==='')value=def;
         return (value);
 
     }
@@ -33,8 +34,8 @@ T.Storage=class {
      */
     static is(key) {
 
-        var value = localStorage.getItem(key) || false;
-        return (is(value));
+        var value=getCookie(key);
+        return (value!=='');
 
     }
 
@@ -46,7 +47,7 @@ T.Storage=class {
      */
     static save(key, value) {
 
-        localStorage.setItem(key, value);
+        setCookie(key, value);
 
     }
 
@@ -57,7 +58,7 @@ T.Storage=class {
      */
     static delete(key) {
 
-        localStorage.removeItem(key);
+        setCookie(key, '');
 
     }
 
@@ -68,7 +69,7 @@ T.Storage=class {
      */
     static restart() {
 
-        localStorage.clear();
+        document.cookie = '';
 
     }
 
