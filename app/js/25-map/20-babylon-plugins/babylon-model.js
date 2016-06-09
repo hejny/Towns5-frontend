@@ -6,7 +6,7 @@
 
 createModel = function(name, model, scene, materials, particles_cache, models_cache, shadow_generator) {
 
-    var model_hash = model.getHash();
+    var model_hash = md5(JSON.stringify(model.particles));
 
     //r('models_cache',model_hash,models_cache);
 
@@ -14,6 +14,8 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
     if(typeof models_cache[model_hash]!=='undefined'){
 
+
+        //r('creating from cache '+model_hash,model);
 
         model_mesh = models_cache[model_hash].createInstance('model');
         //model_mesh.material = models_cache[model_hash].material;
@@ -61,11 +63,15 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
                 //Creation of a material with an image texture
                 materials[particle.material] = new BABYLON.StandardMaterial("texture3", scene);
                 materials[particle.material].diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
-                materials[particle.material].freeze();
+                //materials[particle.material].freeze();//todo freeze
             }
-
-
             var material = materials[particle.material];
+
+
+            /*var material = new BABYLON.StandardMaterial("texture3", scene);
+            material.diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+            material.freeze();*/
+
 
 
             particle = T.Model.Particles.addMissingParams(particle);
@@ -74,16 +80,16 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
 
                 var particle_mesh;
-                var particle_key = 'p' + [
+                /*var particle_hash = 'p' + [
                         particle.shape.n,
                         particle.shape.top,
                         particle.shape.bottom,
                         particle.skew.z.x,
                         particle.skew.z.y
-                    ].join('_');
+                    ].join('_');*/
 
 
-                if (typeof particles_cache[particle_key] === 'undefined' || true) {
+                if (/*typeof particles_cache[particle_hash] === 'undefined' || */true) {
 
                     var ribbons = [];
 
@@ -196,14 +202,13 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
                     });
 
                     particle_mesh = BABYLON.Mesh.MergeMeshes(ribbons, true);
-                    particle_mesh.convertToUnIndexedMesh();
+                    //particle_mesh.convertToUnIndexedMesh();
 
-                    particles_cache[particle_key] = particle_mesh;
+                    //particles_cache[particle_hash] = particle_mesh;
 
-                } else {
+                } /*else {
 
-                    particle_mesh = particles_cache[particle_key].createInstance('particle');
-                    particle_mesh.material = particles_cache[particle_key].material;
+                    particle_mesh = particles_cache[particle_hash].createInstance('particle');
                 }
                 /**/
 
@@ -243,17 +248,23 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
         if (homogene) {
 
+            //r('cashing homogene building '+model_hash,linear_particles);
+
             model_mesh = BABYLON.Mesh.MergeMeshes(all_meshes, true);
             //model_mesh.convertToUnIndexedMesh();
 
             models_cache[model_hash] = model_mesh;
 
 
+            model_mesh = models_cache[model_hash].createInstance('model');
+
+
+
         } else {
 
             model_mesh = BABYLON.Mesh.CreateSphere("model", 2, 0, scene);
 
-            all_meshes.forEach(function (particle_mesh) {
+            all_meshes.forEach(function (particle_mesh,i) {
                 particle_mesh.parent = model_mesh;
             });
 

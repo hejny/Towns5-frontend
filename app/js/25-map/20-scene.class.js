@@ -656,6 +656,10 @@ T.Map.Scene = class{
 
         });
 
+
+        r('models_cache',models_cache);
+        r('particles_cache',particles_cache);
+
         //-----------------------------------------------------------------------------------
 
 
