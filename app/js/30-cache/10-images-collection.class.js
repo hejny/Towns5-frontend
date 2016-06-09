@@ -16,7 +16,7 @@ T.Cache.ImagesCollection = class {
      * @param {string} url Prefix of image urls
      * @constructor
      */
-    constructor(files, url = '') {
+    constructor() {
 
         this.images = {};
         this.colors = {};
@@ -25,58 +25,19 @@ T.Cache.ImagesCollection = class {
         this.images_count = 0;
 
 
-        this.files = files;
-        this.url = url;
-
 
     }
 
 
-    /**
-     * Start loading of images loading
-     * @param {function} onload(percent) Callback on each single image load
-     */
-    load(onload = false) {
 
-        var self = this;//todo maybe refactor use thisImageCollection ???
-        this.onload = onload;
+    addImage(name,image){
 
-        var onload_callback = function () {
-
-            //r('loaded');
-            self.images_loaded++;
-
-            if (self.onload) {
-
-                self.onload(self.loaded());
-
-            }
-
-
-        };
-
-        var onerror_callback = function(){
-
-            r(this);
-            throw new Error('Cant load this image!');
-
-        };
-
-
-        for (var key in this.files) {
-
-            //r('ImagesCollection: start loading '+url+files[key]);
-
-            this.images_count++;
-
-            this.images[key] = new Image();
-            this.images[key].src = this.url + this.files[key];
-            this.images[key].onload = onload_callback;
-            this.images[key].onerror = onerror_callback;
-        }
-
+        this.images[name]=image;
+        this.images_loaded ++;
+        this.images_count ++;
 
     }
+
 
 
     loaded() {
@@ -91,7 +52,10 @@ T.Cache.ImagesCollection = class {
 
     get(key) {
 
-        if (typeof this.images[key] === 'undefined')throw new Error('In this collection is not image with key ' + key);
+        if (typeof this.images[key] === 'undefined'){
+            console.log(this.images);
+            throw new Error('In this collection is not image with key ' + key+ '. There are only these keys.');
+        }
         return (this.images[key]);
 
     }

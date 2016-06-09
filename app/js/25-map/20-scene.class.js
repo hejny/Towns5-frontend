@@ -229,9 +229,25 @@ T.Map.Scene = class{
         self.loaded = false;
         self.assets = [];
 
-        var loader = new BABYLON.AssetsManager(self.scene);
+        self.assetsManager = new BABYLON.AssetsManager(self.scene);
 
-        var pos = function (t) {
+
+        var progress = function(){
+
+            var all= 0,loaded=0;
+
+            self.assetsManager._tasks.forEach(function(task){
+                all++;
+                if(task.isCompleted)loaded++;
+            });
+
+            self.engine.loadingUIText = T.Locale.get('loading of graphic')+' '+Math.floor(loaded/all*100)+'%';
+
+        };
+
+        //-------------------------------------------Meshes
+
+        var meshLoad = function (t) {
 
 
             t.loadedMeshes.forEach(function (m) {
@@ -253,41 +269,95 @@ T.Map.Scene = class{
 
             });
 
+
+            progress();
+
+        };
+
+        var tree = self.assetsManager.addMeshTask("bane", "", "/media/3d/test/tree4/", "tree1.obj");
+        tree.onSuccess = meshLoad;
+
+        //-------------------------------------------
+
+        //-------------------------------------------Image Collection
+        T.setNamespace('Cache');
+        T.Cache.backgrounds= new T.Cache.ImagesCollection();//todo maybe refactor to T.Cache.images
+
+        var imageLoad = function (result) {
+            T.Cache.backgrounds.addImage(result.name,result.image);
+            progress();
+        };
+
+        var files=[],name,task;
+        for(var terrain=1;terrain<terrainCount+1;terrain++) {
+            for (var seed = 0; seed < seedCount; seed++) {
+
+                task = self.assetsManager.addImageTask(
+                    't'+terrain+'s'+seed,
+                    appDir+'/php/terrain.php?terrain=t' + (terrain) + '&seed=' + seed + '&size=220'
+                );
+
+                task.onSuccess = imageLoad;
+
+            }
+        }
+        //-------------------------------------------
+        //-------------------------------------------Texture Collection
+
+        T.Cache.textures= new T.Cache.ImagesCollection();
+
+        var texturesLoad = function (result) {
+            T.Cache.textures.addImage(result.name,result.image);
+            progress();
+        };
+
+        var textures = {
+
+            shadow: 'shadow.png',
+
+            //todo refactor smart loading file list
+            clay_bricks: 'clay-bricks.jpg',
+            clay_roof: 'clay-roof.jpg',
+            iron_plates: 'iron-plates.jpg',
+            stone_bricks: 'stone-bricks.jpg',
+            stone_plain: 'stone-plain.jpg',
+            wood_boards: 'wood-boards.jpg',
+            wood_raw: 'wood-raw.jpg',
+            wood_fence: 'wood-fence.jpg'
+
         };
 
 
-        var tree = loader.addMeshTask("bane", "", "/media/3d/test/tree4/", "tree1.obj");
-        //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "bane.obj");
-        //var bane = loader.addMeshTask("bane", "", "/app/babylon-sample/textures/", "skull.babylon");
-        tree.onSuccess = pos;
-        tree.onError = function (e) {
+        for(name in textures){
+            task = self.assetsManager.addImageTask(name,appDir+'/php/image.php?width=128&file=media/image/textures/'+textures[name]);
 
-            r('ERROR loading mesh', e);
-        };
-        /*var cat = loader.addMeshTask("batman", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Batman/", "Batman_Injustice.obj");
-         cat.onSuccess = pos;
+            task.onSuccess = texturesLoad;
 
-         /*var penguin = loader.addMeshTask("penguin", "", "https://dl.dropboxusercontent.com/u/17799537/objFileLoader/Penguin/", "Penguin.obj");
-         penguin.onSuccess = pos;*/
+        }
+        //-------------------------------------------
 
-        loader.onFinish = function () {
+        //-------------------------------------------Finish
+
+
+        self.assetsManager.onFinish = function () {
             self.engine.runRenderLoop(function () {
 
                 self.scene.render();
-                self.loaded = true;
 
             });
+
+            self.loaded = true;
+            T.Map.loadMap(true);
+
         };
 
-        loader.load();
+
+        self.assetsManager.load();
+        //self.engine.hideLoadingUI();
+        self.engine.loadingUIBackgroundColor = "#171e33";
         //--------------------------------------------------------------------------------------------------------------
 
-
-
-        var self = this;
-
-
-
+        r(self.assetsManager);
 
         //==============================================================================================================
         

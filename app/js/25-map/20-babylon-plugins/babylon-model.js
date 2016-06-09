@@ -16,7 +16,8 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
 
         model_mesh = models_cache[model_hash].createInstance('model');
-        model_mesh.material = models_cache[model_hash].material;
+        //model_mesh.material = models_cache[model_hash].material;
+
 
 
     }else {
@@ -202,6 +203,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
                 } else {
 
                     particle_mesh = particles_cache[particle_key].createInstance('particle');
+                    particle_mesh.material = particles_cache[particle_key].material;
                 }
                 /**/
 
@@ -242,7 +244,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
         if (homogene) {
 
             model_mesh = BABYLON.Mesh.MergeMeshes(all_meshes, true);
-            model_mesh.convertToUnIndexedMesh();
+            //model_mesh.convertToUnIndexedMesh();
 
             models_cache[model_hash] = model_mesh;
 
