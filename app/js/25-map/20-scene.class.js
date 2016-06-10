@@ -40,8 +40,8 @@ T.Map.Scene = class{
 
     setCamera(){
 
-        this.camera.target.x=Math.sin(this.camera.alpha)+(this.moved_by.x)*MAP_FIELD_SIZE;
-        this.camera.target.z=Math.cos(this.camera.alpha)-(this.moved_by.y)*MAP_FIELD_SIZE;
+        this.camera.target.x=Math.sin(Math.PI*(3/2)-this.camera.alpha)*-30*MAP_FIELD_SIZE+(this.moved_by.x)*MAP_FIELD_SIZE;
+        this.camera.target.z=Math.cos(Math.PI*(3/2)-this.camera.alpha)*-30*MAP_FIELD_SIZE-(this.moved_by.y)*MAP_FIELD_SIZE;
     }
 
 
@@ -117,12 +117,12 @@ T.Map.Scene = class{
         //var self.camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
         //self.camera.attachControl(self.canvas, true);
 
-        self.camera = new BABYLON.ArcRotateCamera("Camera", Math.PI * (7 / 4), Math.PI / 8, 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
+        self.camera = new BABYLON.ArcRotateCamera("Camera", Math.PI * (7 / 4), T.Math.deg2rad(25), 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
         //self.camera.attachControl(self.canvas, true);
 
 
         self.camera.upperBetaLimit = Math.PI / 2;
-        self.camera.target.y = 300;
+        self.camera.target.y = 450;
 
 
         //-----------------------------------------------------------------------------------Constants
