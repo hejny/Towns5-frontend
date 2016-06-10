@@ -20,7 +20,7 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
     }else
     if(object.type==='story'){
 
-        var mesh = createStoryMesh('creating-object', object.getMarkdown(), self.scene, self.shadow_generator);
+        var mesh = createStoryMesh('creating-object', object, self.scene, self.shadow_generator);
 
     }else{
 

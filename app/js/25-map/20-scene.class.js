@@ -626,13 +626,20 @@ T.Map.Scene = class{
 
                 var model_mesh = createModel(building.id, model, self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
 
+
                 model_mesh.rotation.y = self.rotationToBabylon(model.rotation);
+
+                /*var normal = self.terrain_mesh.getNormalAtCoordinates(position.x,position.z);
+                model_mesh.rotation.z = normal.z*Math.sin(model_mesh.rotation.y);
+                model_mesh.rotation.x = normal.x*Math.cos(model_mesh.rotation.y);*/
+
 
                 model_mesh.scaling.x = model.size;
                 model_mesh.scaling.y = model.size;
                 model_mesh.scaling.z = model.size;
 
                 model_mesh.position = position;
+
 
                 self.prev_meshes.push(model_mesh);
 
@@ -684,7 +691,7 @@ T.Map.Scene = class{
 
             if(position.y>1) {
 
-                var mesh = createStoryMesh(story.id, story.getMarkdown(), self.scene, self.shadow_generator);
+                var mesh = createStoryMesh(story.id, story, self.scene, self.shadow_generator);
 
 
                 mesh.position = position;
@@ -692,6 +699,89 @@ T.Map.Scene = class{
                 self.prev_meshes.push(mesh);
 
             }
+
+
+
+
+
+
+            function getTextWidth(text, font) {
+                // re-use canvas object for better performance
+                var canvas = getTextWidth.canvas || (getTextWidth.canvas = document.createElement("canvas"));
+                var context = canvas.getContext("2d");
+                context.font = font;
+                var metrics = context.measureText(text);
+                return metrics.width;
+            }
+
+
+            var size=15;
+            var size_quality=size*3;
+
+
+            var font= Math.round(size_quality)+"px Verdana";
+            var len = getTextWidth(story.name,font);//todo better
+
+            //-----------------Texture
+            var width = len;
+            var height = size_quality;
+
+            var outputplaneTexture = new BABYLON.DynamicTexture("dynamic texture", {width: width, height: height}, self.scene, true);
+            var ctx = outputplaneTexture.getContext();
+            ctx.imageSmoothingEnabled= false;
+            ctx.font = font;
+            ctx.textAlign = "center";
+
+
+            ctx.fillStyle = "#fff";
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 2;
+
+            ctx.strokeText(story.name, ctx.canvas.width/2, ctx.canvas.height*(3/4));
+            ctx.fillText(story.name, ctx.canvas.width/2, ctx.canvas.height*(3/4));
+            ctx.blur(1);
+
+
+            /*ctx.blur(2);
+            ctx.fillStyle = "#000";
+            ctx.fillText(story.name, ctx.canvas.width/2, ctx.canvas.height*(3/4));*/
+
+            outputplaneTexture.update();
+            //-----------------
+
+
+
+            //-----------------Mesh + Material
+            var outputplane = BABYLON.Mesh.CreateGround(story.id, (size*width)/height ,size,1, self.scene);
+            //outputplane.billboardMode = BABYLON.AbstractMesh.BILLBOARDMODE_ALL;
+            outputplane.material = new BABYLON.StandardMaterial("outputplane", self.scene);
+            outputplane.isPickable = false;
+
+            outputplane.position.x = mesh.position.x;
+            outputplane.position.y = mesh.position.y+40;
+            outputplane.position.z = mesh.position.z;
+
+            outputplane.rotation.y = Math.PI*(3/2)-self.camera.alpha;
+
+
+            outputplane.material.diffuseTexture = outputplaneTexture;
+            outputplane.material.specularColor = new BABYLON.Color3(0, 0, 0);//todo to terrain
+            outputplane.material.emissiveColor = new BABYLON.Color3(1, 1, 1);
+
+            outputplane.material.diffuseTexture.uScale = 1;
+            outputplane.material.diffuseTexture.vScale = 1;
+
+
+
+            outputplaneTexture.hasAlpha = true;
+            //outputplaneTexture.drawText(story.name, 0, 150, font, "white", "transparent");
+            outputplane.material.freeze();
+            outputplane.convertToUnIndexedMesh();
+
+            self.prev_meshes.push(outputplane);
+            //-----------------
+
+
 
 
         });
