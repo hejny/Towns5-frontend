@@ -125,7 +125,7 @@ T.Plugins.install(new T.Plugins.Editor(
   <tr category="material">
     <td colspan="2">
         `+
-        T.Cache.textures.getInput('material','block-parameter')+
+        //todo repair//T.Cache.textures.getInput('material','block-parameter')+
         `
     </td>
   </tr>

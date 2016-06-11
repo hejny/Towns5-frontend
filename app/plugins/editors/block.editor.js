@@ -79,7 +79,7 @@ T.Plugins.install(new T.Plugins.Editor(
   <tr>
     <td colspan="2">
         `+
-        T.Cache.textures.getInput('block-editing-material')+
+        //todo repair//T.Cache.textures.getInput('block-editing-material')+
         `
     </td>
   </tr>

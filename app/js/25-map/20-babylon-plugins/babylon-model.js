@@ -254,7 +254,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
             //model_mesh.convertToUnIndexedMesh();
 
             models_cache[model_hash] = model_mesh;
-
+            model_mesh.position.x=100000;//todo better solution
 
             model_mesh = models_cache[model_hash].createInstance('model');
 

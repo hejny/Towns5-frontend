@@ -360,14 +360,6 @@ function tidyHTML($buffer) {
 
 
 
-    <!--todo install as npm package-->
-    <script src="http://www.babylonjs.com/hand.minified-1.2.js"></script>
-    <script src="http://www.babylonjs.com/cannon.js"></script>
-    <script src="http://www.babylonjs.com/oimo.js"></script>
-    <script src="http://www.babylonjs.com/babylon.js"></script>
-
-
-
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Libraries|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <script>
         var global = window;

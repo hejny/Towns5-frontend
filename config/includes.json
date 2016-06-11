@@ -20,6 +20,9 @@
     "node_modules/towns-shared/build/towns-shared.js",
 
 
+    "app/lib/*.js",
+
+
     {"develop": "app/config/develop.js"},
     {"production": "app/config/production.js"},
     "app/config/vars.js",
