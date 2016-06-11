@@ -39,7 +39,7 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
         ending_position;
     self.onPointerDown = function (evt) {
 
-        starting_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh,evt));
+        starting_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh));
 
     };
 
@@ -74,7 +74,7 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
             return;
         }
 
-        ending_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh,evt));
+        ending_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh));
 
 
         var distance = starting_position.getDistance(ending_position);

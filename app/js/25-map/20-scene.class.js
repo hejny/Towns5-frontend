@@ -362,11 +362,16 @@ T.Map.Scene = class{
         //==============================================================================================================
         
 
-        self.getPositionOnMesh = function (mesh) {
+        self.getPositionOnMesh = function (mesh,x,y) {
             // Use a predicate to get position on the self.ground_mesh
+
+            x = x || self.scene.pointerX;
+            y = y || self.scene.pointerY;
+
+
             var pickinfo = self.scene.pick(
-                self.scene.pointerX,
-                self.scene.pointerY,
+                x,
+                y,
                 function (picked_mesh) { return picked_mesh === mesh; }
             );
 

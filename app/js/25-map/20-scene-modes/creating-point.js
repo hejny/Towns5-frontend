@@ -63,7 +63,7 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
 
     self.onPointerMove = function (evt) {
 
-        var scene_position = self.getPositionOnMesh(self.terrain_mesh,evt);
+        var scene_position = self.getPositionOnMesh(self.terrain_mesh);
 
 
         mesh.position.x=scene_position.x;
