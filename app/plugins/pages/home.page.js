@@ -175,7 +175,9 @@ function(page,storage){
         storage.news_draw=function(){
 
             storage.news_active_loaders--;
-            if(storage.news_active_loaders>0)return;
+
+            //todo show only after complete load?
+            //if(storage.news_active_loaders>0)return;
 
             var html='',item_html,news_;
 
