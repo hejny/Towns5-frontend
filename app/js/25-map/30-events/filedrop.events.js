@@ -57,14 +57,6 @@ document.addEventListener("dragover", function(e){
     //position.y = T.UI.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
 
-    //r(e.clientX,e.clientY);
-    r(
-        Math.round(position.x),
-        Math.round(position.y),
-        Math.round(position.z)
-    );
-
-
     story_prototype_mesh.position = position;
 
 
