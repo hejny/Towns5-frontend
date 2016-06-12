@@ -200,7 +200,7 @@ T.Map.Scene = class{
 
         /**
          //When pointer down event is raised
-         self.scene.onPointerDown = function (evt, pickResult) {
+         self.scene.onLeftDown = function (evt, pickResult) {
         // if the click hits the self.ground_mesh object, we change the impact position
         if (pickResult.hit) {
 
@@ -385,8 +385,35 @@ T.Map.Scene = class{
 
 
         self.unattach = function(){};
-        self.canvas.addEventListener("pointerdown", function(event){self.onPointerDown(event);}, false);
-        self.canvas.addEventListener("pointerup",   function(event){self.onPointerUp(event);}, false);
+
+        //------------------
+        self.canvas.addEventListener("pointerdown", function(event){
+
+            r(event);
+
+            if(event.button==0){
+                self.onLeftDown(event);
+            }else
+            if(event.button==2){
+                self.onRightDown(event);
+            }
+        }, false);
+        //------------------
+
+
+        //------------------
+        self.canvas.addEventListener("pointerup", function(event){
+            if(event.button==0){
+                self.onLeftUp(event);
+            }else
+            if(event.button==2){
+                self.onRightUp(event);
+            }
+        }, false);
+        //------------------
+
+
+
         self.canvas.addEventListener("pointermove", function(event){self.onPointerMove(event);}, false);
         $(self.canvas).mousewheel(function(event){self.onMouseWheel(event);});
 

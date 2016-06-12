@@ -21,11 +21,11 @@ T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
     };
 
 
-    self.onPointerDown = function (evt) {
+    self.onLeftDown = function (evt) {
 
     };
 
-    self.onPointerUp = function (evt) {
+    self.onLeftUp = function (evt) {
 
         /*var position = new T.Position(
          self.selection_circle.position.x/MAP_FIELD_SIZE+map_center.x,

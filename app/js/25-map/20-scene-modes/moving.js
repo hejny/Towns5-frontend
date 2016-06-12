@@ -19,9 +19,10 @@ T.Map.Scene.prototype.attachMapMoving = function(){
     self.unattach = function(){};
 
 
-    self.onPointerDown = function (evt) {
+    self.onLeftDown = function (evt) {
 
-        /*if (evt.button !== 0) {
+
+        /*if (evt.button === 0) {
             return;
         }*/
 
@@ -77,11 +78,10 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
     };
 
-    self.onPointerUp = function (evt) {
+    self.onLeftUp = function (evt) {
         if (startingPoint) {
 
 
-            r('Finito');
             //self.camera.attachControl(self.canvas, true);
 
             //todo Babylon(x,z) Mapping to Towns(x,y) CONSTANTS

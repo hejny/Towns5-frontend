@@ -16,7 +16,7 @@ T.Map.Scene.prototype.attachMapRotating = function(){
 
     self.pointer_position=null;
 
-    self.onPointerDown = function (evt) {
+    self.onLeftDown = function (evt) {
 
         self.pointer_position = {
             x: self.scene.pointerX,
@@ -27,7 +27,7 @@ T.Map.Scene.prototype.attachMapRotating = function(){
 
     };
 
-    self.onPointerUp = function (evt) {
+    self.onLeftUp = function (evt) {
 
         self.pointer_position=null;
 

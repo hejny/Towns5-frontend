@@ -37,14 +37,14 @@ T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
 
     var starting_position=null,
         ending_position;
-    self.onPointerDown = function (evt) {
+    self.onLeftDown = function (evt) {
 
         starting_position = self.babylonToPosition(self.getPositionOnMesh(self.terrain_mesh));
 
     };
 
 
-    self.onPointerUp = function (evt) {
+    self.onLeftUp = function (evt) {
 
 
         //r(starting_position,ending_position);

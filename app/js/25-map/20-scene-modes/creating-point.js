@@ -40,11 +40,11 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
     };
 
 
-    self.onPointerDown = function (evt) {
+    self.onLeftDown = function (evt) {
 
     };
 
-    self.onPointerUp = function (evt) {
+    self.onLeftUp = function (evt) {
 
         /*var position = new T.Position(
          mesh.position.x/MAP_FIELD_SIZE+map_center.x,
