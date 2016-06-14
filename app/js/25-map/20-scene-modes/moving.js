@@ -69,7 +69,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
 
             currentMesh = pickInfo.pickedMesh;
-            startingPoint = self.getPositionOnMesh(self.ground_mesh);
+            startingPoint = self.getPositionOnTerrainMesh();
 
             //r(currentMesh,startingPoint);
         }
@@ -126,7 +126,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
             return;
         }
 
-        var current = self.getPositionOnMesh(self.ground_mesh);
+        var current = self.getPositionOnTerrainMesh();
 
         if (!current) {
             return;
@@ -164,5 +164,18 @@ T.Map.Scene.prototype.attachMapMoving = function(){
         }
 
     };
+
+
+
+
+    self.onRightUp = function (evt) {
+
+
+        var current = self.getPositionOnTerrainMesh();
+
+
+    };
+
+
 
 };

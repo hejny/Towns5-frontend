@@ -70,7 +70,7 @@ T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
         if(self.selection_circle)
             self.selection_circle.dispose();
 
-        var scene_position = self.getPositionOnMesh(self.terrain_mesh);
+        var scene_position = self.getPositionOnTerrainMesh();
         var radius = self.selection_circle_radius*MAP_FIELD_SIZE;
 
 

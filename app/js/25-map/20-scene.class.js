@@ -66,6 +66,43 @@ T.Map.Scene = class{
     }
 
 
+
+
+    getPositionOnMesh(mesh,x,y) {
+        // Use a predicate to get position on the self.ground_mesh
+
+        x = x || this.scene.pointerX;
+        y = y || this.scene.pointerY;
+
+
+        var pickinfo = this.scene.pick(
+            x,
+            y,
+            function (picked_mesh) { return picked_mesh === mesh; }
+        );
+
+        if (pickinfo.hit) {
+            //r(pickinfo);
+            return pickinfo.pickedPoint;
+        }
+
+        return null;
+    }
+
+
+
+    getPositionOnTerrainMesh(x,y) {
+        return this.getPositionOnMesh(this.terrain_mesh,x,y);
+    }
+
+    getPositionOnGroundMesh(x,y) {
+        return this.getPositionOnMesh(this.ground_mesh,x,y);
+    }
+
+
+
+
+
     constructor() {
 
 
@@ -134,6 +171,7 @@ T.Map.Scene = class{
 
 
         //-----------------------------------------------------------------------------------Ground
+        /**/
         self.ground_mesh = BABYLON.Mesh.CreateGround("water", 50000, 50000, 2, self.scene);
 
 
@@ -151,7 +189,7 @@ T.Map.Scene = class{
         self.ground_mesh.position.y = 0;
         self.ground_mesh.isPickable = false;
 
-        self.ground_mesh.convertToUnIndexedMesh();
+        self.ground_mesh.convertToUnIndexedMesh();/**/
         //-----------------------------------------------------------------------------------
 
 
@@ -360,28 +398,6 @@ T.Map.Scene = class{
         //r(self.assetsManager);
 
         //==============================================================================================================
-        
-
-        self.getPositionOnMesh = function (mesh,x,y) {
-            // Use a predicate to get position on the self.ground_mesh
-
-            x = x || self.scene.pointerX;
-            y = y || self.scene.pointerY;
-
-
-            var pickinfo = self.scene.pick(
-                x,
-                y,
-                function (picked_mesh) { return picked_mesh === mesh; }
-            );
-
-            if (pickinfo.hit) {
-                //r(pickinfo);
-                return pickinfo.pickedPoint;
-            }
-
-            return null;
-        };
 
 
         self.unattach = function(){};
