@@ -449,11 +449,32 @@ T.Map.Scene = class{
         });
 
 
-        this.prev_meshes=[];
+        self.prev_meshes=[];
 
 
         this.attachMapDefault();
-        
+
+
+        self.moving_objects = [];
+        //--------------------------------------------------------------------------------------------------------------Moving
+        self.scene.registerBeforeRender(function () {
+
+            self.moving_objects.forEach(function(object_mesh){
+
+
+                var position = self.positionToBabylon(object_mesh.object.getPosition());
+                position.y = self.terrain_mesh.getHeightAtCoordinates(position.x, position.z);
+                object_mesh.mesh.position = position;
+
+
+
+            });
+
+
+        });
+        //--------------------------------------------------------------------------------------------------------------
+
+
     }
 
 
@@ -547,6 +568,7 @@ T.Map.Scene = class{
         });
         self.prev_meshes=[];
         self.shadow_generator.getShadowMap().renderList=[];
+        self.moving_objects=[];
         //--------------------------------------
 
 
@@ -660,10 +682,10 @@ T.Map.Scene = class{
 
         buildings.forEach(function(building){
 
-            //r('Creating building '+building.name);
+            //r('Creating '+(building.isMoving()?'moving':'stable')+' building '+building);
 
 
-            var position = self.positionToBabylon(building);
+            var position = self.positionToBabylon(building.getPosition());
             position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
             //r(position.y);
@@ -673,6 +695,18 @@ T.Map.Scene = class{
                 var model = building.getModel();
 
                 var model_mesh = createModel(building.id, model, self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
+
+
+
+                if(building.isMoving()) {
+                    self.moving_objects.push({
+                        object: building,
+                        mesh: model_mesh
+                    });
+                }
+
+
+
 
 
                 model_mesh.rotation.y = self.rotationToBabylon(model.rotation);

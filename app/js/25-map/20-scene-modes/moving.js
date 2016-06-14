@@ -171,7 +171,29 @@ T.Map.Scene.prototype.attachMapMoving = function(){
     self.onRightUp = function (evt) {
 
 
-        var current = self.getPositionOnTerrainMesh();
+        if(map_selected_ids.length>0){
+
+            var object = objects_server.getById(map_selected_ids[0]);
+
+            var position = self.babylonToPosition(self.getPositionOnTerrainMesh());
+
+
+
+            result = T.World.game.createActionExecute('move')(object,[position]/*,objects_nearby,resources*/);
+
+
+
+            //r(object);
+            //r(object.clone());
+
+
+        }else{
+
+            T.UI.Message.error(T.Locale.get('you must select object before moving'));
+
+        }
+
+
 
 
     };
