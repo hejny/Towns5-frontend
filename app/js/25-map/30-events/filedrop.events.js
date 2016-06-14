@@ -53,7 +53,7 @@ document.addEventListener("dragover", function(e){
     //------------------------------------
 
 
-    var position = T.UI.Map.scene.getPositionOnTerrain(e.clientX,e.clientY);
+    var position = T.UI.Map.scene.getPositionOnTerrainMesh(e.clientX,e.clientY);
     //position.y = T.UI.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
 
