@@ -182,7 +182,10 @@ T.Map.Scene.prototype.attachMapMoving = function(){
             result = T.World.game.createActionExecute('move')(object,[position]/*,objects_nearby,resources*/);
 
 
-
+            self.moving_objects.push({
+                object: object,
+                mesh: self.getMeshById(object.id)
+            });
             //r(object);
             //r(object.clone());
 

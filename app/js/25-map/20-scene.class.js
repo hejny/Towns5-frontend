@@ -100,6 +100,18 @@ T.Map.Scene = class{
     }
 
 
+    getMeshById(id){
+
+
+        for(var i= 0,l=this.prev_meshes.length;i<l;i++){
+            if(this.prev_meshes[i].name==id){
+                return(this.prev_meshes[i]);
+            }
+
+        }
+
+        return(null);
+    }
 
 
 
@@ -465,6 +477,9 @@ T.Map.Scene = class{
                 var position = self.positionToBabylon(object_mesh.object.getPosition());
                 position.y = self.terrain_mesh.getHeightAtCoordinates(position.x, position.z);
                 object_mesh.mesh.position = position;
+
+                object_mesh.mesh.rotation.y=T.Math.deg2rad(object_mesh.object.path.countRotation());
+
 
 
 
