@@ -490,6 +490,19 @@ T.Map.Scene = class{
         //--------------------------------------------------------------------------------------------------------------
 
 
+
+        //--------------------------------------------------------------------------------------------------------------path_material
+        /**/
+        self.path_material =  new BABYLON.StandardMaterial("path_material", self.scene);
+        self.path_material.diffuseColor = new BABYLON.Color3(0.5, 0.5, 0.5); //Red
+        self.path_material.alpha = 0.3;
+        self.path_material.freeze();
+        /**/
+        //--------------------------------------------------------------------------------------------------------------
+
+
+
+
     }
 
 
@@ -718,6 +731,13 @@ T.Map.Scene = class{
                         object: building,
                         mesh: model_mesh
                     });
+
+
+
+
+                    createPathMesh('path',self,building.path);
+
+
                 }
 
 
