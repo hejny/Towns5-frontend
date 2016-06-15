@@ -733,8 +733,6 @@ T.Map.Scene = class{
                     });
 
 
-
-
                     createPathMesh('path',self,building.path);
 
 

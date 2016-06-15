@@ -186,6 +186,11 @@ T.Map.Scene.prototype.attachMapMoving = function(){
                 object: object,
                 mesh: self.getMeshById(object.id)
             });
+
+
+            createPathMesh('path',self,object.path);
+
+
             //r(object);
             //r(object.clone());
 
