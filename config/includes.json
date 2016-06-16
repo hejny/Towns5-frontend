@@ -14,6 +14,8 @@
 
     "node_modules/ion-sound/js/ion.sound.js",
     "node_modules/markdown/lib/markdown.js",
+
+    "node_modules/pathfinding/visual/lib/pathfinding-browser.min.js",
     {"none": "node_modules/json-editor/dist/jsoneditor.js"},
 
 

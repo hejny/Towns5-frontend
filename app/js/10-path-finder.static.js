@@ -21,7 +21,6 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
     var map = objects.getMapOfCollisions(map_center, map_radius);
 
 
-
     var position_start_=position_start.clone().minus(map_center).getFloored();
     var position_end_=position_end.clone().minus(map_center).getFloored();
 
@@ -35,19 +34,58 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
     //mapWindow(map);
 
 
+
+    //--------------
     //r(map,position_end_,map[position_end_.y][position_end_.x]);
-    if(map[position_end_.y][position_end_.x] === false){
+    if(map[position_start_.y][position_start_.x] === 1){
+        throw new Error('Object is blocked');
+    }
+    if(map[position_end_.y][position_end_.x] === 1){
         throw new Error('Destination is blocked');
     }
+    //--------------
 
 
 
 
+
+    var grid = new PF.Grid(map.length, map.length, map);
+    /*r(grid);
+    /*r(typeof map);
+    var grid = new PF.Grid(map);
+    r(grid);*/
+
+    var finder = new PF.AStarFinder({
+        allowDiagonal: true,
+        dontCrossCorners: true
+    });
+    var path_ = finder.findPath(
+        position_start_.x,
+        position_start_.y,
+        position_end_.x ,
+        position_end_.y,
+        grid
+    );
+
+    r(path_);
+    var positions=[];
+
+    path_.forEach(function(position_){
+
+        positions.push(new T.Position(position_[0]+map_center.x-map_radius, position_[1]+map_center.y-map_radius));
+
+    });
+
+    r(positions);
+
+    return(positions);
+
+
+
+    /*
     //var distance,xNe
     // xt,next_y;
     //this.positions = [];
-
-
 
 
 
@@ -81,7 +119,7 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
 
                                 //r(distance,map[y][x] - Math.abs(map[next_y][next_x]),limit);
-                                if ((map[next_y][next_x] === true || limit < 2) /*&& map[y][x] - Math.abs(map[next_y][next_x])>distance*/) {
+                                if ((map[next_y][next_x] === true || limit < 2)) {
 
 
                                     map[next_y][next_x] = map[y][x] +T.Math.xy2dist(next_y - y, next_x - x);
@@ -217,4 +255,6 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
 
     return(positions);
+
+    */
 };
