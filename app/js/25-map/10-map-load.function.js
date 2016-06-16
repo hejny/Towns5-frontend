@@ -64,6 +64,7 @@ T.Map.loadMap = function(from_server=false){
 
 
 //======================================================================================================================
+var objects_in_scene;
 
 
 
@@ -79,7 +80,7 @@ T.Map.loadMapRequestCallback=function(){
 
 
     tstart('getCompleteObjects');
-    var objects_to_scene = T.World.mapGenerator.getCompleteObjects(objects_server,map_center_floor,map_radius,true/*,map_center_last*/);
+    objects_in_scene = T.World.mapGenerator.getCompleteObjects(objects_server,map_center_floor,map_radius,true/*,map_center_last*/);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
@@ -103,7 +104,7 @@ T.Map.loadMapRequestCallback=function(){
     tend('generating map');
 
 
-    T.UI.Map.scene.update(objects_to_scene);
+    T.UI.Map.scene.update(objects_in_scene);
     //T.Map.drawMap(objects_external);
 
     //----------------------------------

@@ -60,20 +60,35 @@ function mapWindow(map){
         T.ArrayFunctions.iterate2D(map,function(y,x){
 
             var r,g,b;
-            if(typeof map[y][x]=='number'){
+            if(typeof map[y][x]==='number'){
 
-                r = 255;
-                g = map[y][x]*5;
-                b = map[y][x]*5;
+
+                if(map[y][x]!==-1){
+
+                    r = 255;
+                    g = map[y][x]*5;
+                    b = map[y][x]*5;
+
+                }else{
+
+                    r = 0;
+                    g = 255;
+                    b = 0;
+
+                }
 
             }else if(map[y][x]=== true){
                 r = 255;
                 g = 255;
                 b = 255;
-            }else{
+            }else if(map[y][x]=== false){
                 r = 0;
                 g = 0;
                 b = 0;
+            }else{
+                r = 0;
+                g = 0;
+                b = 255;
             }
 
 

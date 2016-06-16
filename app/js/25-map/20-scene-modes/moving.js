@@ -178,7 +178,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
             var position = self.babylonToPosition(self.getPositionOnTerrainMesh());
 
 
-            var positions = T.PathFinder(object.getPosition,position,objects_server);
+            var positions = T.PathFinder(object.getPosition(),position,objects_in_scene,map_center,map_radius);
 
 
             result = T.World.game.createActionExecute('move')(object,positions/*,objects_nearby,resources*/);

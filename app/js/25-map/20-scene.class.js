@@ -581,7 +581,7 @@ T.Map.Scene = class{
 
 
 
-    update(objects_to_scene) {
+    update(objects_in_scene) {
 
         var self = this;
 
@@ -609,7 +609,7 @@ T.Map.Scene = class{
 
         //--------------------------------------Area
         var area = this.getArea();
-        var objects = objects_to_scene.filterArea(area);
+        var objects = objects_in_scene.filterArea(area);
 
 
         /**
