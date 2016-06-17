@@ -423,7 +423,7 @@ T.Map.Scene = class{
                 self.onLeftDown(event);
             }else
             if(event.button==2){
-                self.onRightDown(event);
+                //self.onRightDown(event);
             }
         }, false);
         //------------------
@@ -435,10 +435,24 @@ T.Map.Scene = class{
                 self.onLeftUp(event);
             }else
             if(event.button==2){
-                self.onRightUp(event);
+                //self.onRightUp(event);
             }
         }, false);
         //------------------
+
+
+
+        //------------------
+        self.canvas.addEventListener("contextmenu", function(event){
+
+            event.preventDefault();
+
+            self.onRightUp(event);
+            return false;
+
+        }, false);
+        //------------------
+
 
 
 

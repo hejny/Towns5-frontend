@@ -36,12 +36,12 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
 
     //--------------
-    //r(map,position_end_,map[position_end_.y][position_end_.x]);
+    //r(map,position_end_,map[positioon_end_.y][position_end_.x]);
     if(map[position_start_.y][position_start_.x] === 1){
-        throw new Error('Object is blocked');
+        throw new Error('actions move: object is blocked');
     }
     if(map[position_end_.y][position_end_.x] === 1){
-        throw new Error('Destination is blocked');
+        throw new Error('actions move: destination is blocked');
     }
     //--------------
 
@@ -70,7 +70,14 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
     //r(position_start_,position_end_);
 
-    //r(path_);
+    if(path_.length===0){
+
+        throw new Error('actions move:can not find path');
+
+    }
+
+
+
     var positions=[];
 
     path_.forEach(function(position_){

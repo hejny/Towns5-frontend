@@ -23,6 +23,8 @@ T.Locale=class {//create instances with en, cs here
 
         key = key.split(' ').join('_');
         key = key.split('-').join('_');
+        key = key.split(':').join('_');
+        key = key.split('__').join('_');
 
 
         if (typeof MESSAGES[key] !== 'undefined') {

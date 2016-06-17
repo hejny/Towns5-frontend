@@ -178,7 +178,19 @@ T.Map.Scene.prototype.attachMapMoving = function(){
             var position = self.babylonToPosition(self.getPositionOnTerrainMesh());
 
 
-            var positions = T.PathFinder(object.getPosition(),position,objects_in_scene,map_center,map_radius);
+
+            try {
+
+                var positions = T.PathFinder(object.getPosition(),position,objects_in_scene,map_center,map_radius);
+
+            }
+            catch(error) {
+
+                T.UI.Message.error(T.Locale.get(error.message));
+
+            }
+
+
 
 
             result = T.World.game.createActionExecute('move')(object,positions/*,objects_nearby,resources*/);
@@ -199,7 +211,7 @@ T.Map.Scene.prototype.attachMapMoving = function(){
 
         }else{
 
-            T.UI.Message.error(T.Locale.get('you must select object before moving'));
+            T.UI.Message.error(T.Locale.get('actions move: you must select object before moving'));
 
         }
 

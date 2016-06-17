@@ -504,7 +504,7 @@ function tidyHTML($buffer) {
     <div id="map-stories"></div>
     <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
-    <canvas id="map-canvas-new" oncontextmenu="return false;"></canvas>
+    <canvas id="map-canvas-new"></canvas>
     <div id="fps"></div>
 
     <style>
