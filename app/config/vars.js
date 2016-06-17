@@ -168,7 +168,7 @@ var window_opened=false;
 
 var dragging_subtypes=['wall','path'];
 
-var blockedTerrains=[1,11,5];
+//var blockedTerrains=[1,11,5];
 
 
 var appDir = (environment=='production')?'/app-build':'/app';

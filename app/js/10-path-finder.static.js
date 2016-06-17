@@ -19,6 +19,8 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
 
     var map = objects.getMapOfCollisions(map_center, map_radius);
+    //mapWindow(map);
+
 
 
     var position_start_=position_start.clone().minus(map_center).getFloored();
@@ -29,9 +31,6 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
     position_start_.y+=map_radius;
     position_end_.x+=map_radius;
     position_end_.y+=map_radius;
-
-
-    //mapWindow(map);
 
 
 
