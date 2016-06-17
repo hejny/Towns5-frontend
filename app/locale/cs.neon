@@ -318,3 +318,6 @@ loading_of_graphic: Načítání grafických podkladů
 ui_map_controls_move: ui_map_controls_move
 ui_map_controls_rotate: ui_map_controls_rotate
 ui_map_controls_select: ui_map_controls_select
+map_mode_moving: map_mode_moving
+map_mode_rotating: map_mode_rotating
+map_mode_creating: map_mode_creating

@@ -552,11 +552,10 @@ function tidyHTML($buffer) {
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Map control|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <div id="map-ctl">
-            <div id="map-ctl-move" class="button-icon" title="<?=locale('ui map controls move')?>"><i class="fa fa-arrows" aria-hidden="true"></i></div>
-            <div id="map-ctl-rotate" class="button-icon" title="<?=locale('ui map controls rotate')?>"><i class="fa fa-repeat" aria-hidden="true"></i></div>
-            <!--<div id="map-ctl-select" class="button-icon" title="<?/*=locale('ui map controls select')*/?>"><i class="fa fa-mouse-pointer" aria-hidden="true"></i></div>-->
-
-        </div>
+        <div id="map-ctl-creating" class="button-icon disabled" title="<?=locale('map mode creating')?>"><i class="fa fa-paint-brush" aria-hidden="true"></i></div>
+        <div id="map-ctl-moving" class="button-icon" title="<?=locale('map mode moving')?>"><i class="fa fa-arrows" aria-hidden="true"></i></div>
+        <div id="map-ctl-rotating" class="button-icon" title="<?=locale('map mode rotating')?>"><i class="fa fa-repeat" aria-hidden="true"></i></div>
+    </div>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 

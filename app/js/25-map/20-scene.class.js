@@ -541,6 +541,14 @@ T.Map.Scene = class{
 
 
         r('Attaching mode '+mode);
+
+        //--------------------------------------Icon //todo should it be here?
+        var mode_icon = mode.split('_')[0].toLowerCase();
+        $('#map-ctl').find('.button-icon').removeClass('selected');
+        $('#map-ctl-'+mode_icon).addClass('selected');
+        //--------------------------------------
+
+
         attachMode.apply(this,args);
 
     }

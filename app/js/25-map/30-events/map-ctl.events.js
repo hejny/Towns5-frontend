@@ -6,14 +6,14 @@
 document.addEventListener("DOMContentLoaded", function(event) {//todo maybe refactor use this
 
 
-    $('#map-ctl-move').click(function(){
+    $('#map-ctl-moving').click(function(){
 
         T.UI.Map.scene.mode('MOVING');
 
     });
 
 
-    $('#map-ctl-rotate').click(function(){
+    $('#map-ctl-rotating').click(function(){
 
         T.UI.Map.scene.mode('ROTATING');
 
