@@ -15,7 +15,7 @@ T.UI.Menu.Story = class {
         var story = T.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.UI.Map.scene.attachObjectCreatingPoint(story,function(position,rotation,size){
+        T.UI.Map.scene.mode('CREATING_POINT',story,function(position,rotation,size){
 
             story.x=position.x;
             story.y=position.y;

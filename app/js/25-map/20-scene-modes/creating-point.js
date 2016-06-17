@@ -4,10 +4,9 @@
  */
 //======================================================================================================================
 
-//todo unattach to clearup scene
-T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
+//todo modeUnattach to clearup scene
+T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
-    r('attachObjectCreatingPoint');
 
     var self = this;
 
@@ -34,8 +33,7 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
     self.prev_meshes.push(mesh);
 
 
-    self.unattach();
-    self.unattach = function () {
+    self.modeUnattach = function () {
         mesh.dispose();
     };
 
@@ -54,7 +52,7 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
         var position = self.babylonToPosition(mesh.position);
 
 
-        this.attachMapDefault();
+        this.modeDefault();
         callback(position,T.Math.rad2deg(mesh.rotation.y),1);
 
 
@@ -66,6 +64,7 @@ T.Map.Scene.prototype.attachObjectCreatingPoint = function(object,callback){
         var scene_position = self.getPositionOnTerrainMesh();
 
 
+        mesh.position.x=scene_position.x;
         mesh.position.x=scene_position.x;
         mesh.position.z=scene_position.z;
         mesh.position.y = self.terrain_mesh.getHeightAtCoordinates(mesh.position.x, mesh.position.z);

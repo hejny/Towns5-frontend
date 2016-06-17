@@ -4,16 +4,11 @@
  */
 //======================================================================================================================
 
-//todo unattach to clearup scene
-T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
-
-    r('attachObjectCreatingCircle');
+T.Map.Scene.prototype.attachCREATING_CIRCLE = function(object,callback){
 
     var self = this;
 
-
-    self.unattach();
-    self.unattach = function () {
+    self.modeUnattach = function () {
 
         if(self.selection_circle)
             self.selection_circle.dispose();
@@ -34,11 +29,12 @@ T.Map.Scene.prototype.attachObjectCreatingCircle = function(object,callback){
         var position = self.babylonToPosition(self.selection_circle.position);
 
 
-        //this.attachMapDefault();
+        //this.modeDefault();
         callback(position,0,self.selection_circle_radius);
 
 
     };
+
 
 
     if(object) {

@@ -412,8 +412,6 @@ T.Map.Scene = class{
         //==============================================================================================================
 
 
-        self.unattach = function(){};
-
         //------------------
         self.canvas.addEventListener("pointerdown", function(event){
 
@@ -478,7 +476,7 @@ T.Map.Scene = class{
         self.prev_meshes=[];
 
 
-        this.attachMapDefault();
+        this.modeDefault();
 
 
         self.moving_objects = [];
@@ -521,8 +519,34 @@ T.Map.Scene = class{
 
 
 
-    attachMapDefault(){
-        this.attachMapMoving();
+    mode(mode){
+
+
+        var attachMode = this['attach'+mode];
+
+
+        if(typeof attachMode === 'undefined'){
+            throw new Error('Scene has no mode '+mode);
+        }
+
+
+        if(typeof self.modeUnattach === 'function'){
+            self.modeUnattach();
+        }
+
+        self.modeUnattach = function () {};
+
+
+        var args = [].slice.call(arguments).splice(1);
+
+
+        r('Attaching mode '+mode);
+        attachMode.apply(this,args);
+
+    }
+
+    modeDefault(){//todo rename
+        this.mode('MOVING');
     }
 
 
@@ -810,13 +834,13 @@ T.Map.Scene = class{
 
         stories.forEach(function(story){
 
-            r('Creating story '+story.name);
+            //r('Creating story '+story.name);
 
 
             var position = self.positionToBabylon(story);
             position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
-            r(position.y);
+            //r(position.y);
 
             if(position.y>1) {
 

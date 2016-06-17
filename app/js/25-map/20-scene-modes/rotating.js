@@ -5,14 +5,10 @@
 //======================================================================================================================
 
 
-T.Map.Scene.prototype.attachMapRotating = function(){
-
-    r('attachMapRotating');
+T.Map.Scene.prototype.attachROTATING = function(){
 
     var self = this;
 
-    self.unattach();
-    self.unattach = function(){};
 
     self.pointer_position=null;
 
@@ -49,7 +45,7 @@ T.Map.Scene.prototype.attachMapRotating = function(){
         //r(x,y);
 
         self.camera.alpha+=x/-500;
-        self.camera.beta+=y/1000;
+        self.camera.beta+=y/-1000;
 
         self.setCamera();
 

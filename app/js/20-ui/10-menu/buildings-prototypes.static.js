@@ -35,11 +35,11 @@ T.UI.Menu.Building = class {
 
         if (dragging_subtypes.indexOf(building.subtype) === -1) {
 
-            T.UI.Map.scene.attachObjectCreatingPoint(building, attach_callback);
+            T.UI.Map.scene.mode('CREATING_POINT',building, attach_callback);
 
         } else {
 
-            T.UI.Map.scene.attachObjectCreatingLine(building, attach_callback);
+            T.UI.Map.scene.mode('CREATING_LINE',building, attach_callback);
 
         }
 
@@ -51,7 +51,7 @@ T.UI.Menu.Building = class {
     static dismantlingStart(){
 
 
-        T.UI.Map.scene.attachObjectCreatingCircle(null,function(position,rotation,size){
+        T.UI.Map.scene.mode('CREATING_CIRCLE',null,function(position,rotation,size){
 
             objects_server
                 .filterTypes('building')

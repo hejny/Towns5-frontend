@@ -4,15 +4,11 @@
  */
 //======================================================================================================================
 
-//todo unattach to clearup scene
-T.Map.Scene.prototype.attachObjectCreatingLine = function(object,callback){
+//todo modeUnattach to clearup scene
+T.Map.Scene.prototype.attachCREATING_LINE = function(object,callback){
 
-    r('attachObjectCreatingLine');
 
     var self = this;
-    self.unattach();
-    self.unattach = function () {};
-
 
     
     /*

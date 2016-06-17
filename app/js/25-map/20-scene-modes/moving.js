@@ -5,9 +5,7 @@
 //======================================================================================================================
 
 
-T.Map.Scene.prototype.attachMapMoving = function(){
-
-    r('attachMapMoving');
+T.Map.Scene.prototype.attachMOVING = function(){
 
     var self = this;//todo different name for Babylon and Towns scene
 
@@ -15,8 +13,6 @@ T.Map.Scene.prototype.attachMapMoving = function(){
     var startingPoint;
     var currentMesh;
 
-    self.unattach();
-    self.unattach = function(){};
 
 
     self.onLeftDown = function (evt) {
