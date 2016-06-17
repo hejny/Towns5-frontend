@@ -67,7 +67,10 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
         grid
     );
 
-    r(path_);
+
+    //r(position_start_,position_end_);
+
+    //r(path_);
     var positions=[];
 
     path_.forEach(function(position_){
@@ -76,7 +79,9 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
     });
 
-    r(positions);
+    positions.shift();
+    positions[positions.length-1]=position_end;
+
 
     return(positions);
 
