@@ -65,8 +65,8 @@
 
 /*.action-wrapper.active .action {*/
 .active {
-  border: 2px solid #0098ff;
-  box-shadow: #0098ff 0 0 3px 0; /* todo: nedať .active radšej na .action ??? */
+  border: 2px solid $selected-color;
+  box-shadow: $selected-color 0 0 3px 0; /* todo: nedať .active radšej na .action ??? */
 }
 
 

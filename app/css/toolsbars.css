@@ -43,10 +43,15 @@
   border-radius: 3px;*/
   z-index: 3600; }
   #map-ctl .button-icon {
-    display: block;
-    width: 15px;
-    height: 15px;
-    font-size: 15px; }
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    font-size: 18px; }
+  #map-ctl .selected {
+    display: inline-block !important;
+    border: 2px solid #ebff6f; }
+  #map-ctl .disabled {
+    display: none; }
 
 #macros {
   position: absolute;
