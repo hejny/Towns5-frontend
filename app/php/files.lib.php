@@ -30,7 +30,7 @@ function createDir($dir){
 
 
 
-function cacheFile($file,$ext=imgext,$cpath='main'){
+function cacheFile($file,$ext,$cpath='main'){
 
     $cache='../../cache';
 
@@ -51,6 +51,29 @@ function cacheFile($file,$ext=imgext,$cpath='main'){
 
 
     $filename=("$cache/$cpath/$a/$b/$c.$ext");
+
+
+    return($filename);
+}
+
+
+
+
+
+
+
+function mapFile($x,$y,$ext,$cpath='map'){
+
+    $cache='../../cache';
+
+    if($cpath)$cpath='/'.$cpath;
+
+
+    createDir($cache);
+    if($cpath)createDir("$cache/$cpath");
+
+
+    $filename=("$cache/$cpath/x$x|y$y.$ext");
 
 
     return($filename);

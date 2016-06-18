@@ -70,19 +70,3 @@
   top: 0px;
   left: 0px;
   z-index: 4500; }
-
-.story {
-  overflow: hidden;
-  background-color: #ccc;
-  border: 2px solid #444444;
-  box-shadow: #000 0px 0px 15px;
-  border-radius: 100px;
-  font-size: 0.8em; }
-  .story:hover {
-    border: 2px solid #0098ff;
-    box-shadow: #0098ff 0px 0px 15px; }
-  .story p, .story div {
-    margin: 0px;
-    padding: 0px; }
-  .story img {
-    max-width: 100%; }

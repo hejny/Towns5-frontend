@@ -26,7 +26,7 @@ T.Templates=class {
         params.icon_size = Math.round(params.icon_size * 100);
 
 
-        var inner = $(`<div class="action js-popup-action-open"></div>`);
+        var inner = $(`<div class="action js-popup-action-open js-left-menu-item"></div>`);
 
         if (isDefined(params.icon)) {
             inner.attr('style', `background: url('` + params.icon + `');background-size: ` + params.icon_size + `% ` + params.icon_size + `%;background-position: center  center;background-repeat: no-repeat;`);//todo via $.css

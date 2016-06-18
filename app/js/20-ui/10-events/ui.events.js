@@ -290,6 +290,18 @@ window.showLeftMenu = function(html){
     $('#objectmenu-inner').html(html);
     $('#objectmenu').animate({left:0}, 200);
 
+
+
+    //$( "#objectmenu" ).sortable();
+    /*$('#objectmenu').find('.js-left-menu-item').draggable({
+
+        scroll: false
+
+
+    });*/
+
+
+
     uiScript();
 
 };

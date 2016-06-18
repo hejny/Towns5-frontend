@@ -62,6 +62,6 @@
 
 /*.action-wrapper.active .action {*/
 .active {
-  border: 2px solid #0098ff;
-  box-shadow: #0098ff 0 0 3px 0;
+  border: 2px solid #ebff6f;
+  box-shadow: #ebff6f 0 0 3px 0;
   /* todo: nedať .active radšej na .action ??? */ }
