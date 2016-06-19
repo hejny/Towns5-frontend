@@ -12,6 +12,7 @@ T.URI=class {
     static read() {
 
         //-------------------
+        var uri = URI(window.location);
         var pathname = window.location.pathname;
 
         pathname = pathname.split('/').join(' ');
@@ -38,25 +39,16 @@ T.URI=class {
         }
 
         //-------------------
-        var hash = window.location.hash;
 
-        hash = hash.substring(1);
-        hash = hash.split(',');
+
+        var query = uri.query(true);
+
 
         var position;
 
-        if (hash.length == 2) {
+        if (typeof query.x !== 'undefined' && typeof query.y !== 'undefined') {
 
-            position = new T.Position(T.Math.toFloat(hash[0]), T.Math.toFloat(hash[1]));
-        }
-
-        //-------------------
-
-
-        if (is(position)) {
-
-            map_center.x = position.x;//todo Static object Map
-            map_center.y = position.y;
+            map_center = new T.Position(T.Math.toFloat(query.x), T.Math.toFloat(query.y));
 
         } else {
 
@@ -147,17 +139,17 @@ T.URI=class {
 
         if (pathname === '') pathname = '/';
 
-        var hash;
+        var search;
 
         if (isDefined(map_center.x)) {
             //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
-            hash = '#' + Math.round(map_center.x) + ',' + Math.round(map_center.y);
+            search = '?x=' + Math.round(map_center.x) + '&y=' + Math.round(map_center.y);
         } else {
-            hash = '';
+            search = '';
         }
 
 
-        window.history.pushState('', "Towns", window.location.origin + pathname + hash);
+        window.history.pushState('', "Towns", window.location.origin + pathname + search);
 
     }
 

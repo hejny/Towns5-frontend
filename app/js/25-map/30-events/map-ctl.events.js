@@ -8,14 +8,14 @@ document.addEventListener("DOMContentLoaded", function(event) {//todo maybe refa
 
     $('#map-ctl-moving').click(function(){
 
-        T.UI.Map.scene.mode('MOVING');
+        T.Map.scene.mode('MOVING');
 
     });
 
 
     $('#map-ctl-rotating').click(function(){
 
-        T.UI.Map.scene.mode('ROTATING');
+        T.Map.scene.mode('ROTATING');
 
     });
 

@@ -164,6 +164,8 @@ $page['title'] = locale('page title');
 $page['description'] = locale('page description');
 $page['type'] = 'game';
 $inner_window=[];
+$x=false;
+$y=false;
 //---------------------------------------------------------------------------------
 
 
@@ -181,6 +183,10 @@ if($uri[0]=='story'){
 
     $story_json = file_get_contents($config['app']['towns']['url'].'/objects/'.$uri[1], false, $context);
     $story_json = json_decode($story_json,true);
+
+
+    $x=intval($story_json['x']);
+    $y=intval($story_json['y']);
 
     //print_r($story_json);
 
@@ -269,6 +275,15 @@ if($uri[0]=='story'){
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 //----------------------------------------------------------------------------------------------------------------------
+
+
+
+if(isset($_GET['x']) && isset($_GET['y'])){
+
+    $x = intval($_GET['x']);
+    $y = intval($_GET['y']);
+
+}
 
 
 $page['meta_og'] = [
@@ -504,11 +519,28 @@ function tidyHTML($buffer) {
     <div id="map-stories"></div>
     <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
+    <img id="map-canvas-alt" src="http://localhost:3000/app/php/screenshot.php?x=<?=$x?>&y=<?=$y?>" />
+
+
     <canvas id="map-canvas-new"></canvas>
     <div id="fps"></div>
 
     <style>
+
+
+        #map-canvas-alt {
+            position: fixed;
+            min-width: 100%;
+            min-height: 100%;
+
+
+            touch-action: none;
+        }
+
+
+
         #map-canvas-new {
+            position: fixed;
             width: 100%;
             height: 100%;
             touch-action: none;

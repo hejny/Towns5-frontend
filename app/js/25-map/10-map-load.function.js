@@ -9,15 +9,19 @@ T.setNamespace('Map');
 //todo refactor this should not be here
 var map_request_ajax=false;
 
-
 T.Map.loadMap = function(from_server=false){
 
 
-    if(typeof T.UI.Map.scene === 'undefined'){
-        //console.warn('Stopped loading map because of T.UI.Map.scene is '+T.UI.Map.scene);
+    if(typeof T.Map.scene === 'undefined'){
+        //console.warn('Stopped loading map because of T.Map.scene is '+T.Map.scene);
         //return;
 
-        T.UI.Map.scene = new T.Map.Scene();
+        if(this.locked){
+            return;
+        }
+
+
+        T.Map.scene = new T.Map.Scene();
 
     }
     if(isNaN(map_radius))throw new Error('map_radius is NaN');
@@ -63,6 +67,11 @@ T.Map.loadMap = function(from_server=false){
 };
 
 
+T.Map.loadMap.locked = true;
+
+
+
+
 //======================================================================================================================
 var objects_in_scene;
 
@@ -104,7 +113,7 @@ T.Map.loadMapRequestCallback=function(){
     tend('generating map');
 
 
-    T.UI.Map.scene.update(objects_in_scene);
+    T.Map.scene.update(objects_in_scene);
     //T.Map.drawMap(objects_external);
 
 

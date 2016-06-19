@@ -121,23 +121,23 @@ var keys_tick = function (timestamp) {
 
     if (controls_down.UP) {
         moving=true;
-        T.UI.Map.scene.moveBy(new T.Position(Math.cos(-T.UI.Map.scene.camera.alpha),Math.sin(-T.UI.Map.scene.camera.alpha)).multiply(-20*progress));
+        T.Map.scene.moveBy(new T.Position(Math.cos(-T.Map.scene.camera.alpha),Math.sin(-T.Map.scene.camera.alpha)).multiply(-20*progress));
     }
 
     if (controls_down.DOWN) {
         moving=true;
-        T.UI.Map.scene.moveBy(new T.Position(Math.cos(-T.UI.Map.scene.camera.alpha),Math.sin(-T.UI.Map.scene.camera.alpha)).multiply(20*progress));
+        T.Map.scene.moveBy(new T.Position(Math.cos(-T.Map.scene.camera.alpha),Math.sin(-T.Map.scene.camera.alpha)).multiply(20*progress));
     }
 
     if (controls_down.LEFT) {
         moving=true;
-        T.UI.Map.scene.camera.alpha+= T.Math.deg2rad(90*progress);
+        T.Map.scene.camera.alpha+= T.Math.deg2rad(90*progress);
     }
 
 
     if (controls_down.RIGHT) {
         moving=true;
-        T.UI.Map.scene.camera.alpha-= T.Math.deg2rad(90*progress);
+        T.Map.scene.camera.alpha-= T.Math.deg2rad(90*progress);
     }
 
 
@@ -146,7 +146,7 @@ var keys_tick = function (timestamp) {
 
         moving=false;
         //alert('stop moving by keys');
-        T.UI.Map.scene.moveByProcess();
+        T.Map.scene.moveByProcess();
 
     }
 

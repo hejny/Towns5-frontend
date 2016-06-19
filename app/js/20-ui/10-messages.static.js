@@ -7,7 +7,7 @@ T.setNamespace('UI');
 
 
 
-T.UI.Message=class {
+T.UI.Message = class {
 
 
     constructor(text, type = 'INFO',additional=false){
@@ -37,6 +37,13 @@ T.UI.Message=class {
         $('#message-zone').append(self.$element);
 
     }
+
+
+
+    get$(){
+        return(this.$element);
+    }
+
 
 
     close(s=MESSAGE_DURATION){

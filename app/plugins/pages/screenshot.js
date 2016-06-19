@@ -18,11 +18,11 @@ T.Plugins.install(new T.Plugins.Page(
     ,function(page){
 
 
-        //r(T.UI.Map.scene);
-        //r(T.UI.Map.scene.canvas);
-        //var canvas2D = T.UI.Map.scene.canvas.getContext('2d');
+        //r(T.Map.scene);
+        //r(T.Map.scene.canvas);
+        //var canvas2D = T.Map.scene.canvas.getContext('2d');
 
-        var scene = T.UI.Map.scene;
+        var scene = T.Map.scene;
 
         //r(scene);
 

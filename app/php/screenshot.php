@@ -43,18 +43,24 @@ if($method == 'OPTIONS'){
 }elseif($method=='GET'){
 
 
+    header("Cache-Control: max-age=".(3600*24*100));
+    header('Content-Type: image/png');
+
+
     if(file_exists($cachefile)){
 
-
-        header("Cache-Control: max-age=".(3600*24*100));
-        header('Content-Type: image/png');
         readfile($cachefile);
 
 
     }else{
 
-        http_response_code(404);//Not found
-        echo('not found');
+        $files = glob(str_replace(basename($cachefile),'*.png',$cachefile));
+        //echo($files);
+        $randfile = $files[0];
+
+        readfile($randfile);
+        //http_response_code(404);//Not found
+        //echo('not found');
 
     }
 
@@ -67,7 +73,7 @@ if($method == 'OPTIONS'){
     if($_FILES["screenshot"]["type"]!=='image/png'){
 
         http_response_code(400);//Bad Request
-        echo('wrong filetype');
+        echo('wrong filetype '.$_FILES["screenshot"]["type"]);
 
     }else {
 

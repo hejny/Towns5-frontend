@@ -38,7 +38,7 @@ document.addEventListener("dragover", function(e){
                 story_prototype_mesh.dispose();
             }
 
-            story_prototype_mesh = createStoryMesh('story', story, T.UI.Map.scene.scene, T.UI.Map.scene.shadow_generator);
+            story_prototype_mesh = createStoryMesh('story', story, T.Map.scene.scene, T.Map.scene.shadow_generator);
 
 
             r(story_prototype_mesh);
@@ -53,8 +53,8 @@ document.addEventListener("dragover", function(e){
     //------------------------------------
 
 
-    var position = T.UI.Map.scene.getPositionOnTerrainMesh(e.clientX,e.clientY);
-    //position.y = T.UI.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
+    var position = T.Map.scene.getPositionOnTerrainMesh(e.clientX,e.clientY);
+    //position.y = T.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
 
     story_prototype_mesh.position = position;
@@ -98,7 +98,7 @@ document.addEventListener("drop", function(e){
     var story_prototype_clone = story_prototype.clone();
 
 
-    var position = T.UI.Map.scene.babylonToPosition(story_prototype_mesh.position);
+    var position = T.Map.scene.babylonToPosition(story_prototype_mesh.position);
 
 
 
