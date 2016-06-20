@@ -56,6 +56,22 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
+
+                            var canvas = document.createElement("canvas");
+                            canvas.width = 1920;
+                            canvas.height = 1080;
+                            var ctx = canvas.getContext('2d');
+                            var img = new Image;
+                            img.src = screenshot;
+                            ctx.drawImage(img,0,0);
+                            var screenshot = canvas.toDataURL("image/jpeg");
+
+
+
+
+
+
+
                             // process all File objects
                             var formData = new FormData();
                             var files_name_key = {};
@@ -92,20 +108,7 @@ T.Plugins.install(new T.Plugins.Page(
                             xhr.onload = function () {
                                 if (xhr.status === 200) {
 
-                                    try{
-
-                                        var response=(JSON.parse(xhr.response));
-                                        r(response);
-
-
-                                        message.text(T.Locale.get('upload screenshot success'),'success').close();
-
-
-                                    }catch(e){
-
-                                        message.text(T.Locale.get('upload screenshot fail'),'error').close();
-
-                                    }
+                                    message.text(T.Locale.get('upload screenshot success'),'success').close();
 
 
                                 } else {

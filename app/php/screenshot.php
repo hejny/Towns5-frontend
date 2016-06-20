@@ -32,7 +32,7 @@ if(!isset($_GET['x']) || !isset($_GET['y'])){
 
 $x = intval($_GET['x']);
 $y = intval($_GET['y']);
-$cachefile = files\mapFile($x,$y,'png');;
+$cachefile = files\mapFile($x,$y,'jpg');
 
 
 
@@ -47,7 +47,7 @@ if($method == 'OPTIONS'){
 
 
     header("Cache-Control: max-age=".(3600*24*100));
-    header('Content-Type: image/png');
+    header('Content-Type: image/jpeg');
 
 
     if(file_exists($cachefile)){
@@ -73,10 +73,10 @@ if($method == 'OPTIONS'){
 
 
 
-    if($_FILES["screenshot"]["type"]!=='image/png'){
+    if($_FILES["screenshot"]["type"]!=='image/jpeg'){
 
         http_response_code(400);//Bad Request
-        echo('wrong filetype '.$_FILES["screenshot"]["type"]);
+        echo('wrong filetype '.$_FILES["screenshot"]["type"].' ');
 
         print_r($_FILES);
 
