@@ -16,18 +16,23 @@ T.UI.Menu.Building = class {
         var building = T.User.object_prototypes.getById(prototypeId).clone();
         var attach_callback = function (position, rotation, size) {
 
-            building.x = position.x;
-            building.y = position.y;
+            var building_clone = building.clone();
+            building_clone.x = position.x;
+            building_clone.y = position.y;
 
-            building.getModel().rotation = rotation;
-            building.getModel().size = size;
+            building_clone.getModel().rotation = rotation;
+            building_clone.getModel().size = size;
 
-            create(building, function () {
+            create(building_clone, function () {
 
 
                 r('Building created on server!!!');
 
             });
+
+
+            T.Map.scene.addBuilding(building_clone);
+
 
 
         };

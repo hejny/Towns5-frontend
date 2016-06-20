@@ -521,6 +521,11 @@ T.Map.Scene = class{
 
 
 
+        self.particles_cache={};
+        self.models_cache={};
+
+
+
     }
 
 
@@ -760,75 +765,7 @@ T.Map.Scene = class{
 
         var buildings  = objects.filterTypes('building');
 
-        buildings.forEach(function(building){
-
-            //r('Creating '+(building.isMoving()?'moving':'stable')+' building '+building);
-
-
-            var position = self.positionToBabylon(building.getPosition());
-            position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
-
-            //r(position.y);
-
-            if(position.y>1) {
-
-                var model = building.getModel();
-
-                var model_mesh = createModel(building.id, model, self.scene, self.materials, particles_cache, models_cache, self.shadow_generator);
-
-
-
-                if(building.isMoving()) {
-                    self.moving_objects.push({
-                        object: building,
-                        mesh: model_mesh
-                    });
-
-
-                    createPathMesh('path',self,building.path);
-
-
-                }
-
-
-
-
-
-                model_mesh.rotation.y = self.rotationToBabylon(model.rotation);
-
-                /*var normal = self.terrain_mesh.getNormalAtCoordinates(position.x,position.z);
-                model_mesh.rotation.z = normal.z*Math.sin(model_mesh.rotation.y);
-                model_mesh.rotation.x = normal.x*Math.cos(model_mesh.rotation.y);*/
-
-
-                model_mesh.scaling.x = model.size;
-                model_mesh.scaling.y = model.size;
-                model_mesh.scaling.z = model.size;
-
-                model_mesh.position = position;
-
-
-                self.prev_meshes.push(model_mesh);
-
-
-
-                if(map_selected_ids.indexOf(building.id)!==-1){
-
-
-                    var radius = MAP_SELECTED_FIELDS*MAP_FIELD_SIZE;
-                    self.selected_circle =//todo unite selection circles
-                        createGroundRingMesh('tube', radius, 1, position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
-
-                    self.prev_meshes.push(self.selected_circle);
-                    self.selected_circle.material = self.selected_circle_material;
-
-
-                }
-
-            }
-
-
-        });
+        buildings.forEach(function(building){self.addBuilding(building)});
 
 
         r('models_cache',models_cache);
@@ -838,11 +775,9 @@ T.Map.Scene = class{
 
 
 
-        //-----------------------------------------------------------------------------------Buildings
+        //-----------------------------------------------------------------------------------Stories
         /**/
 
-        var particles_cache={};
-        var models_cache={};
 
         var stories  = objects.filterTypes('story');
 
@@ -1149,6 +1084,82 @@ T.Map.Scene = class{
         self.water.material.refractionTexture.renderList=[self.terrain_mesh];
         self.water.material.reflectionTexture.renderList=[self.terrain_mesh];
         //-----------------------------------------------------------------------------------
+
+    }
+
+
+
+
+
+    addBuilding(building){
+
+
+        var self = this;
+        //r('Creating '+(building.isMoving()?'moving':'stable')+' building '+building);
+
+
+        var position = self.positionToBabylon(building.getPosition());
+        position.y = self.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
+
+        //r(position.y);
+
+        if(position.y>1) {
+
+            var model = building.getModel();
+
+            var model_mesh = createModel(building.id, model, self.scene, self.materials, self.particles_cache, self.models_cache, self.shadow_generator);
+
+
+
+            if(building.isMoving()) {
+                self.moving_objects.push({
+                    object: building,
+                    mesh: model_mesh
+                });
+
+
+                createPathMesh('path',self,building.path);
+
+
+            }
+
+
+
+
+
+            model_mesh.rotation.y = self.rotationToBabylon(model.rotation);
+
+            /*var normal = self.terrain_mesh.getNormalAtCoordinates(position.x,position.z);
+             model_mesh.rotation.z = normal.z*Math.sin(model_mesh.rotation.y);
+             model_mesh.rotation.x = normal.x*Math.cos(model_mesh.rotation.y);*/
+
+
+            model_mesh.scaling.x = model.size;
+            model_mesh.scaling.y = model.size;
+            model_mesh.scaling.z = model.size;
+
+            model_mesh.position = position;
+
+
+            self.prev_meshes.push(model_mesh);
+
+
+
+            if(map_selected_ids.indexOf(building.id)!==-1){
+
+
+                var radius = MAP_SELECTED_FIELDS*MAP_FIELD_SIZE;
+                self.selected_circle =//todo unite selection circles
+                    createGroundRingMesh('tube', radius, 1, position, self.terrain_mesh,  self.scene , 20/*todo as const*/ , 5/*todo as const*/);
+
+                self.prev_meshes.push(self.selected_circle);
+                self.selected_circle.material = self.selected_circle_material;
+
+
+            }
+
+        }
+
 
     }
 
