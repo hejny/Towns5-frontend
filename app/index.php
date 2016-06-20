@@ -285,6 +285,11 @@ if(isset($_GET['x']) && isset($_GET['y'])){
 
 }
 
+$screenshot = PAGE_URL."/".(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-build')."/php/screenshot.php?x=$x&y=$y";
+if(!$page['image']){
+    $page['image'] = $screenshot;
+}
+
 
 $page['meta_og'] = [
     'site_name' => $page['title'],
@@ -519,7 +524,7 @@ function tidyHTML($buffer) {
     <div id="map-stories"></div>
     <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
-    <img id="map-canvas-alt" src="http://localhost:3000/app/php/screenshot.php?x=<?=$x?>&y=<?=$y?>" />
+    <img id="map-canvas-alt" src="<?=$screenshot?>" />
 
 
     <canvas id="map-canvas-new"></canvas>

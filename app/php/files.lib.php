@@ -73,7 +73,7 @@ function mapFile($x,$y,$ext,$cpath='map'){
     if($cpath)createDir("$cache/$cpath");
 
 
-    $filename=("$cache/$cpath/x$x|y$y.$ext");
+    $filename=("$cache/$cpath/$x|$y.$ext");
 
 
     return($filename);

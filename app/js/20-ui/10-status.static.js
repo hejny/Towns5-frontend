@@ -40,7 +40,7 @@ T.UI.Status=class {
                 var decoded_token = jwt_decode(T.TownsAPI.townsAPI.token);
                 //r(decoded_token);
 
-                T.UI.Message.success(T.Locale.get('logged in as') + ' ' + decoded_token.username);
+                //T.UI.Message.success(T.Locale.get('logged in as') + ' ' + decoded_token.username);
 
 
                 var user_html = `

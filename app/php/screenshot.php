@@ -46,24 +46,54 @@ if($method == 'OPTIONS'){
 }elseif($method=='GET'){
 
 
-    header("Cache-Control: max-age=".(3600*24*100));
-    header('Content-Type: image/jpeg');
-
 
     if(file_exists($cachefile)){
+
+
+        header("Cache-Control: max-age=".(3600*24*100));
+        header('Content-Type: image/jpeg');
 
         readfile($cachefile);
 
 
     }else{
 
-        $files = glob(str_replace(basename($cachefile),'*.png',$cachefile));
-        //echo($files);
-        $randfile = $files[0];
 
-        readfile($randfile);
+
+        $files = glob(str_replace(basename($cachefile),'*.jpg',$cachefile));
+        //echo($files);
+
+
+
+        $min_distance = -1;
+
+        foreach($files as $file){
+            $file_ = basename($file,'.jpg');
+            list($x_,$y_) = explode('|',$file_);
+
+            $distance=pow($x-$x_,2)+pow($y-$y_,2);
+
+
+            if($min_distance===-1 || $distance<$min_distance){
+
+                $x__ = $x_;
+                $y__ = $y_;
+                $min_distance = $distance;
+
+            }
+
+
+        }
+
+        header("Location: ?x=$x__&y=$y__");
+
+
+
+        //readfile($nearest_file);
         //http_response_code(404);//Not found
         //echo('not found');
+
+
 
     }
 
