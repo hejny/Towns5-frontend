@@ -77,15 +77,19 @@ T.Plugins.Viewer = class {
                 $('#viewer-object-position').click(function(e){
 
 
+                    map_center = object.getPosition();
+
+
                     if(T.Map.loadMap.locked){
 
-                        var position = object.getPosition().getFloored();
+                        T.URI.write();
+                        var position = map_center.getFloored();
                         $('#map-canvas-alt').attr('src',appDir+'/php/screenshot.php?x='+position.x+'&y='+position.y);
 
 
                     }else{
 
-                        map_center = object.getPosition();
+
 
 
                         T.Map.loadMap(true);

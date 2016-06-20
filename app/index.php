@@ -175,15 +175,17 @@ if($uri[0]=='story'){
 
     //Set stream options
     $opts = array(
-        'http' => array('ignore_errors' => true)
+        'http' => array('ignore_errors' => true, 'header' => 'Accept-Charset: UTF-8, *;q=0')
     );
 
     //Create the stream context
     $context = stream_context_create($opts);
 
-    $story_json = file_get_contents($config['app']['towns']['url'].'/objects/'.$uri[1], false, $context);
-    $story_json = json_decode($story_json,true);
 
+    $story_json = file_get_contents($config['app']['towns']['url'].'/objects/'.$uri[1], false, $context);
+
+
+    $story_json = json_decode($story_json,true);
 
     $x=intval($story_json['x']);
     $y=intval($story_json['y']);
@@ -194,8 +196,16 @@ if($uri[0]=='story'){
 
         require_once(__DIR__ . '/php/markdown/Markdown.inc.php');
 
-
+        //echo($story_json['content']['data']);
         $story_html = \Michelf\Markdown::defaultTransform($story_json['content']['data']);
+
+        //$story_html = iconv(mb_detect_encoding($story_html, mb_detect_order(), true), "UTF-8", $story_html);
+
+
+        //header('Content-Type: text/html; charset=utf-8');
+        //echo($story_html);
+
+
 
         //-----------
         function removeqsvar($url, $varname) {
@@ -207,14 +217,16 @@ if($uri[0]=='story'){
         //-----------
         $xpath = new DOMXPath(@DOMDocument::loadHTML($story_html));
         $img_src = $xpath->evaluate("string(//img/@src)");
+
         $img_src = removeqsvar($img_src,'width');
-        $img_src = $img_src.'&width=1200';
+        if($img_src)$img_src = $img_src.'&width=1200';
         //-----------
 
 
         //-----------
-        $doc = new DOMDocument();
-        $doc->loadHTML($story_html);
+        /*todo
+         * $doc = new DOMDocument();
+        $doc->loadHTML('<?xml encoding="UTF-8">' .$story_html);
         $tags = $doc->getElementsByTagName('img');
         foreach ($tags as $tag) {
 
@@ -224,13 +236,13 @@ if($uri[0]=='story'){
             $new_src = $new_src.'&width=800';
             $tag->setAttribute('src', $new_src);
         }
-        $story_html = $doc->saveHTML();
+        $story_html = $doc->saveHTML();*/
         //-----------
 
 
         //todo links
 
-
+        //echo($story_html);
 
 
         $inner_window['display'] = 'block';
@@ -240,9 +252,19 @@ if($uri[0]=='story'){
 
 
         $page['title'] = $inner_window['header'].' | '.$page['title'];
-        $page['description'] = trim(strip_tags($inner_window['content']));
-        $page['image'] = $img_src;
+        $page['description'] =
+            substr(
+                str_replace(array("\r","\n")," ",
+                    trim(strip_tags($inner_window['content']))
+                ),0,999999999);
+
+
+        if($img_src)$page['image'] = $img_src;
         $page['type'] = 'article';
+
+
+
+
 
         http_response_code(200);
 
@@ -328,6 +350,10 @@ function tidyHTML($buffer) {
 //------------------------------------------------
 
 
+header('Content-Type: text/html; charset=utf-8');
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -338,7 +364,7 @@ function tidyHTML($buffer) {
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Basic Information|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
     <title><?= htmlspecialchars($page['title']) ?></title>
-    <meta name="description" content="<?= addslashes($page['description']) ?>">
+    <meta name="description" content="<?= ($page['description']) ?>">
     <link rel="icon" href="/favicon.ico">
 
     <?php
@@ -350,7 +376,7 @@ function tidyHTML($buffer) {
     //--------------------------------Open Graph informace
 
     foreach ($page['meta_og'] as $key => $value) {
-        echo('<meta property="og:' . addslashes($key) . '" content="' . addslashes($value) . '" >'."\r\n    ");
+        echo('<meta property="og:' . htmlspecialchars($key) . '" content="' . htmlspecialchars($value) . '" >'."\r\n    ");
 
     }
 
@@ -433,10 +459,10 @@ function tidyHTML($buffer) {
         $css_files=array_unique($css_files);
 
         foreach($js_files as $js_file){
-            echo '<script src="/' . addslashes($js_file) . '"></script>'."\r\n    ";
+            echo '<script src="/' . htmlspecialchars($js_file) . '"></script>'."\r\n    ";
         }
         foreach($css_files as $css_file){
-            echo '<link rel="stylesheet" href="/' . addslashes($css_file) . '"/>'."\r\n    ";
+            echo '<link rel="stylesheet" href="/' . htmlspecialchars($css_file) . '"/>'."\r\n    ";
         }
 
         //-----------------------------------------------------
@@ -457,7 +483,7 @@ function tidyHTML($buffer) {
 
 
 
-    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?=addslashes($config['app']['blog']['rss_feed'])?>">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="<?=htmlspecialchars($config['app']['blog']['rss_feed'])?>">
 
 
 </head>
@@ -763,8 +789,8 @@ function tidyHTML($buffer) {
 
 
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|Window popup|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-    <div class="overlay" style="display: <?= addslashes($inner_window['display']) ?>;"></div>
-    <div class="popup-window" style="display: <?= addslashes($inner_window['display']) ?>;">
+    <div class="overlay" style="display: <?= htmlspecialchars($inner_window['display']) ?>;"></div>
+    <div class="popup-window" style="display: <?= htmlspecialchars($inner_window['display']) ?>;">
         <div class="header"><?=htmlspecialchars($inner_window['header'])?></div>
         <div class="content"><?=$inner_window['content']?></div>
 

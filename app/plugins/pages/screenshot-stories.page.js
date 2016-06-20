@@ -18,6 +18,13 @@ T.Plugins.install(new T.Plugins.Page(
     `
     ,function(page){
 
+        if(T.Map.loadMap.locked){
+
+            T.Map.loadMap.locked = false;
+            T.Map.loadMap();
+
+        }
+
         var scene = T.Map.scene;
         var positions = [];
 
@@ -39,6 +46,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
                 scene.resetCamera();
+
 
 
                 $(page).find('button').unbind('click');
