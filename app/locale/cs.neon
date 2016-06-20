@@ -321,3 +321,5 @@ ui_map_controls_select: ui_map_controls_select
 map_mode_moving: map_mode_moving
 map_mode_rotating: map_mode_rotating
 map_mode_creating: map_mode_creating
+ui_warnings_runmap: "To co vidíš je pouze náhled z mapy. Towns je plnohodnotná hra, na jejíž spuštění přímo v prohlížeči je potřeba stažení grafických podkladů a určitý výkon grafické karty."
+ui_buttons_runmap: Spustit
