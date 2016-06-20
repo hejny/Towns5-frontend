@@ -27,7 +27,9 @@ T.Plugins.install(new T.Plugins.Page(
         //r(scene);
 
 
-        BABYLON.Tools.CreateScreenshot(scene.engine, scene.camera, {width:/*scene.canvas.width*/1080, height:/*scene.canvas.height*/1080},function(screenshot){
+
+        scene.resetCamera();
+        BABYLON.Tools.CreateScreenshot(scene.engine, scene.camera, {width:/*scene.canvas.width*/1920, height:/*scene.canvas.height*/1080},function(screenshot){
 
 
                 //r(screenshot);

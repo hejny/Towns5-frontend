@@ -29,7 +29,8 @@
   display: inline-block;
   border-radius: 3px;
   padding: 4px;
-  margin: 4px; }
+  margin: 4px;
+  max-width: 500px; }
 
 .error {
   color: #fff;

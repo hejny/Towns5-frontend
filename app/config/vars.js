@@ -25,6 +25,13 @@ var MESSAGE_FADEOUT = 2000;
 var MESSAGE_DURATION = 6;
 //todo collect all constants and put it here
 
+
+var MAP_FIELD_SIZE = 10;
+var MAP_BUILDING_SIZE = 0.6;//todo is this used
+var MAP_SELECTED_FIELDS = 2;
+
+
+
 //======================================================================================================================
 //PRESET
 

@@ -45,6 +45,17 @@ T.Map.Scene = class{
     }
 
 
+    resetCamera(){
+
+        this.camera.target.y = 450;
+        this.camera.alpha=Math.PI * (7 / 4);
+        this.camera.beta=T.Math.deg2rad(25);
+
+        this.setCamera();
+
+    }
+
+
 
     moveBy(position){
 
@@ -166,20 +177,15 @@ T.Map.Scene = class{
         //var self.camera = new BABYLON.TouchCamera("TouchCamera", new BABYLON.Vector3(0, -8, -20), self.scene);
         //self.camera.attachControl(self.canvas, true);
 
-        self.camera = new BABYLON.ArcRotateCamera("Camera", Math.PI * (7 / 4), T.Math.deg2rad(25), 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
+        self.camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 150, new BABYLON.Vector3(-10, 10, 2), self.scene);
         //self.camera.attachControl(self.canvas, true);
 
 
         self.camera.upperBetaLimit = Math.PI / 2;
-        self.camera.target.y = 450;
 
 
-        //-----------------------------------------------------------------------------------Constants
-        global.MAP_FIELD_SIZE = 10;
-        global.MAP_BUILDING_SIZE = 0.6;//todo is this used
+        self.resetCamera();
 
-        global.MAP_SELECTED_FIELDS = 2;
-        //-----------------------------------------------------------------------------------
 
 
         //-----------------------------------------------------------------------------------Ground
