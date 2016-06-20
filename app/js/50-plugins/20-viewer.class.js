@@ -76,11 +76,22 @@ T.Plugins.Viewer = class {
                 //-----------------Position
                 $('#viewer-object-position').click(function(e){
 
-                    map_center = object.getPosition();
+
+                    if(T.Map.loadMap.locked){
+
+                        var position = object.getPosition().getFloored();
+                        $('#map-canvas-alt').attr('src',appDir+'/php/screenshot.php?x='+position.x+'&y='+position.y);
 
 
-                    T.Map.loadMap(true);
-                    T.UI.popupWindow.close();
+                    }else{
+
+                        map_center = object.getPosition();
+
+
+                        T.Map.loadMap(true);
+                        T.UI.popupWindow.close();
+
+                    }
 
 
                 });

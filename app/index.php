@@ -524,7 +524,7 @@ function tidyHTML($buffer) {
     <div id="map-stories"></div>
     <div id="map-out"></div>
     <canvas id="map_bg" width="100" height="100"></canvas><!--todo Maybe refactor map_bg to map?-->
-    <img id="map-canvas-alt" src="<?=$screenshot?>" />
+    <img id="map-canvas-alt" src="<?=$screenshot?>"/>
 
 
     <canvas id="map-canvas-new"></canvas>
@@ -534,12 +534,14 @@ function tidyHTML($buffer) {
 
 
         #map-canvas-alt {
-            position: fixed;
-            min-width: 100%;
-            min-height: 100%;
+            position: absolute;
+            width: 1920px;
+            height: 1080px;
+
+            left: calc( 50vw - 1920px / 2 );
+            top: calc( 50vh - 1080px / 2 );
 
 
-            touch-action: none;
         }
 
 

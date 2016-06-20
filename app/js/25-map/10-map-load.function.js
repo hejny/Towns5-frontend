@@ -117,7 +117,9 @@ T.Map.loadMapRequestCallback=function(callback=false){
     //T.Map.drawMap(objects_external);
 
     if(callback){
-        callback();
+        setTimeout(function(){
+            callback();
+        },IMMEDIATELY_MS)
     }
 
 
