@@ -677,6 +677,7 @@ function tidyHTML($buffer) {
 
                     <li class="menu-dlist-info"><?=locale('ui menu develop info')?></li>
                     <li class="menu-dlist-item"><a onclick="T.Plugins.open('screenshot')"><?=locale('ui menu develop screenshot')?></a></li>
+                    <li class="menu-dlist-item"><a onclick="T.Plugins.open('screenshot-stories')"><?=locale('ui menu develop screenshot stories')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.Plugins.open('locale-write')"><?=locale('ui menu develop locale write')?> (<span id="locale-write-count">0</span>)</a></li>
                     <li class="menu-dlist-item"><a onclick="window.open( './', 'Towns', 'channelmode=no, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, titlebar=no, width=800, height=600, left=100, top=100' );"><?=locale('ui menu develop window')?></a></li>
                     <li class="menu-dlist-item"><a onclick="T.Plugins.open('deleting')"><?=locale('ui menu develop deleting')?></a></li>

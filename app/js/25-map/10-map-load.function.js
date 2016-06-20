@@ -9,7 +9,7 @@ T.setNamespace('Map');
 //todo refactor this should not be here
 var map_request_ajax=false;
 
-T.Map.loadMap = function(from_server=false){
+T.Map.loadMap = function(from_server=false,callback=false){
 
 
     if(typeof T.Map.scene === 'undefined'){
@@ -50,7 +50,7 @@ T.Map.loadMap = function(from_server=false){
             function(response){
 
                 objects_server=new T.Objects.Array(response);
-                T.Map.loadMapRequestCallback();
+                T.Map.loadMapRequestCallback(callback);
 
             }
         );
@@ -59,7 +59,7 @@ T.Map.loadMap = function(from_server=false){
 
         r('Loading map from only local.');
 
-        T.Map.loadMapRequestCallback();
+        T.Map.loadMapRequestCallback(callback);
 
     }
 
@@ -77,7 +77,7 @@ var objects_in_scene;
 
 
 
-T.Map.loadMapRequestCallback=function(){
+T.Map.loadMapRequestCallback=function(callback=false){
 
 
     //----------------------------------Create map_data and map_bg_data from local objects
@@ -115,6 +115,10 @@ T.Map.loadMapRequestCallback=function(){
 
     T.Map.scene.update(objects_in_scene);
     //T.Map.drawMap(objects_external);
+
+    if(callback){
+        callback();
+    }
 
 
 };

@@ -856,7 +856,7 @@ T.Map.Scene = class{
 
             //r(position.y);
 
-            if(position.y>1) {
+            //if(position.y>1) {
 
                 var mesh = createStoryMesh(story.id, story, self.scene, self.shadow_generator);
 
@@ -865,7 +865,7 @@ T.Map.Scene = class{
 
                 self.prev_meshes.push(mesh);
 
-            }
+            //}
 
 
 

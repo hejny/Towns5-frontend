@@ -10,6 +10,9 @@ require_once(__DIR__.'/init.php');
 //header("Access-Control-Allow-Origin: *");
 //header("Access-Control-Allow-Headers: *");
 
+$size = '10M';
+ini_set('post_max_size', $size);
+ini_set('upload_max_filesize', $size);
 
 $method = strtoupper($_SERVER['REQUEST_METHOD']);
 
@@ -74,6 +77,8 @@ if($method == 'OPTIONS'){
 
         http_response_code(400);//Bad Request
         echo('wrong filetype '.$_FILES["screenshot"]["type"]);
+
+        print_r($_FILES);
 
     }else {
 
