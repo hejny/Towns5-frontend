@@ -181,6 +181,8 @@ T.Map.Scene = class{
         //self.camera.attachControl(self.canvas, true);
 
 
+        //self.camera.mode = 1;
+
         self.camera.upperBetaLimit = Math.PI / 2;
 
 
