@@ -131,13 +131,13 @@ var keys_tick = function (timestamp) {
 
     if (controls_down.LEFT) {
         moving=true;
-        T.Map.scene.camera.alpha+= T.Math.deg2rad(90*progress);
+        T.Map.scene.camera.alpha+= T.TMath.deg2rad(90*progress);
     }
 
 
     if (controls_down.RIGHT) {
         moving=true;
-        T.Map.scene.camera.alpha-= T.Math.deg2rad(90*progress);
+        T.Map.scene.camera.alpha-= T.TMath.deg2rad(90*progress);
     }
 
 

@@ -27,12 +27,12 @@ T.Map.Scene = class{
 
 
     rotationToBabylon(degrees){
-        return -T.Math.deg2rad(degrees-45);
+        return -T.TMath.deg2rad(degrees-45);
     }
 
 
     babylonToRotation(radians){
-        return T.Math.rad2deg(-radians)+45;
+        return T.TMath.rad2deg(-radians)+45;
     }
 
 
@@ -49,7 +49,7 @@ T.Map.Scene = class{
 
         this.camera.target.y = 450;
         this.camera.alpha=Math.PI * (7 / 4);
-        this.camera.beta=T.Math.deg2rad(25);
+        this.camera.beta=T.TMath.deg2rad(25);
 
         this.setCamera();
 
@@ -498,7 +498,7 @@ T.Map.Scene = class{
                 position.y = self.terrain_mesh.getHeightAtCoordinates(position.x, position.z);
                 object_mesh.mesh.position = position;
 
-                object_mesh.mesh.rotation.y=T.Math.deg2rad(object_mesh.object.path.countRotation());
+                object_mesh.mesh.rotation.y=T.TMath.deg2rad(object_mesh.object.path.countRotation());
 
 
 
@@ -727,9 +727,9 @@ T.Map.Scene = class{
             mesh.scaling.y=natural.design.data.size;
             mesh.scaling.z=natural.design.data.size;
 
-            mesh.rotation.y=T.Math.deg2rad(natural.design.data.rotation.z);
-            mesh.rotation.x=T.Math.deg2rad(natural.design.data.rotation.x);
-            mesh.rotation.z=T.Math.deg2rad(natural.design.data.rotation.y);
+            mesh.rotation.y=T.TMath.deg2rad(natural.design.data.rotation.z);
+            mesh.rotation.x=T.TMath.deg2rad(natural.design.data.rotation.x);
+            mesh.rotation.z=T.TMath.deg2rad(natural.design.data.rotation.y);
 
             mesh.isPickable = false;
 
@@ -954,7 +954,7 @@ T.Map.Scene = class{
                     z = 0.7;
                 }else
                 if(terrain_code===5){
-                    //z = 0.5+T.Math.randomSeedPosition(4,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2
+                    //z = 0.5+T.TMath.randomSeedPosition(4,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2
                 }else
                 if(terrain_code===4){
                     z = 0.15;
@@ -980,7 +980,7 @@ T.Map.Scene = class{
                 if(terrain_code!==false) {
 
                     ctx.drawImage(
-                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.Math.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})*seedCount)%seedCount),
+                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})*seedCount)%seedCount),
                         (x ) / map_radius / 2 * 2048 + 1024,
                         (y ) / map_radius / 2 * 2048 + 1024,
                         MAP_FIELD_SIZE*7,//todo as Const
@@ -1010,7 +1010,7 @@ T.Map.Scene = class{
 
 
                 if(terrain_code===5) {
-                    z = 0.5+T.Math.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2;
+                    z = 0.5+T.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2;
 
 
                     z = Math.floor(z * 255);

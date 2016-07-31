@@ -133,7 +133,7 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
                                 if ((map[next_y][next_x] === true || limit < 2)) {
 
 
-                                    map[next_y][next_x] = map[y][x] +T.Math.xy2dist(next_y - y, next_x - x);
+                                    map[next_y][next_x] = map[y][x] +T.TMath.xy2dist(next_y - y, next_x - x);
                                     map[next_y][next_x] *= -1;
 
                                 }

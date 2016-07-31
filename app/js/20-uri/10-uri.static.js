@@ -48,7 +48,7 @@ T.URI=class {
 
         if (typeof query.x !== 'undefined' && typeof query.y !== 'undefined') {
 
-            map_center = new T.Position(T.Math.toFloat(query.x), T.Math.toFloat(query.y));
+            map_center = new T.Position(T.TMath.toFloat(query.x), T.TMath.toFloat(query.y));
 
         } else {
 

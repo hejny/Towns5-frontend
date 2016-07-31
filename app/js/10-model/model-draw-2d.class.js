@@ -228,9 +228,9 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
             vector3.z = vector1.x*vector2.y - vector1.y*vector2.x
 
 
-            var polar = T.Math.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
+            var polar = T.TMath.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
 
-            var angle= T.Math.angleDiff(polar.deg,-45);
+            var angle= T.TMath.angleDiff(polar.deg,-45);
 
             var add=angle/-5;
 

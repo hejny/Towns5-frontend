@@ -38,7 +38,7 @@ T.Locale=class {//create instances with en, cs here
                 MESSAGES[key] = key;
                 T.Locale.keys_write.push(key);
 
-                var count = T.Math.toInt($('#locale-write-count').html()) + 1;
+                var count = T.TMath.toInt($('#locale-write-count').html()) + 1;
                 $('#locale-write-count').html(count);
 
 

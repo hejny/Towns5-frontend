@@ -123,7 +123,7 @@ T.ModelCanvas = class {
                 drag_vars.y_last = y;
 
                 self.rotation = (self.rotation - x_delta) % 360;
-                self.slope = T.Math.bounds(self.slope + y_delta, 0, 90);
+                self.slope = T.TMath.bounds(self.slope + y_delta, 0, 90);
 
 
                 self.webGL.rotations[1].deg = self.rotation + 45;//todo better solution than 45

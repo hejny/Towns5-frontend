@@ -77,7 +77,7 @@ function createNewOrJoin(object){
             bothDistances=bothDistances/100;//todo better
 
 
-            if((distance=T.Math.xy2dist(objects_server[i].x-object.x,objects_server[i].y-object.y))<bothDistances*map_model_size){
+            if((distance=T.TMath.xy2dist(objects_server[i].x-object.x,objects_server[i].y-object.y))<bothDistances*map_model_size){
 
 
                 distances.push({i: i,distance: distance});
@@ -107,7 +107,7 @@ function createNewOrJoin(object){
 
 
         //todo better
-        var xy=T.Math.xyRotate(
+        var xy=T.TMath.xyRotate(
             (object.x-objects_server[distances[0].i].x)*10,//map_model_size,
             (object.y-objects_server[distances[0].i].y)*10,//map_model_size,
 

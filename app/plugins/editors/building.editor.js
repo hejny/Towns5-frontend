@@ -252,7 +252,7 @@ T.Plugins.install(new T.Plugins.Editor(
                         }else
 
                         if ($(this).attr('type') == 'range') {
-                            value = T.Math.toFloat($(this).val());
+                            value = T.TMath.toFloat($(this).val());
 
                         }else{
                             value = $(this).val();
@@ -597,7 +597,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     } else {
 
-                        path = path.split(',').map(T.Math.toInt);
+                        path = path.split(',').map(T.TMath.toInt);
 
                     }
 

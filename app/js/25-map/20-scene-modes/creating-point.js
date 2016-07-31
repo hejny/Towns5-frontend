@@ -53,7 +53,7 @@ T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
 
         this.modeDefault();
-        callback(position,T.Math.rad2deg(mesh.rotation.y),1);
+        callback(position,T.TMath.rad2deg(mesh.rotation.y),1);
 
 
     };
@@ -80,11 +80,11 @@ T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
         if (e.deltaY > 0) {
 
-            mesh.rotation.y -= T.Math.deg2rad(10);
+            mesh.rotation.y -= T.TMath.deg2rad(10);
 
         } else {
 
-            mesh.rotation.y += T.Math.deg2rad(10);
+            mesh.rotation.y += T.TMath.deg2rad(10);
         }
 
 

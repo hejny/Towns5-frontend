@@ -133,21 +133,21 @@ T.Plugins.install(new T.Plugins.Editor(
 
         $('#block-editing-form').find('input').mousemove(function(){
 
-                object.getModel().particles[0].shape.n = T.Math.toInt($('#block-editing-shape-n').val());
+                object.getModel().particles[0].shape.n = T.TMath.toInt($('#block-editing-shape-n').val());
 
-                object.getModel().particles[0].shape.top = T.Math.toFloat($('#block-editing-shape-top').val());
-                object.getModel().particles[0].shape.bottom = T.Math.toFloat($('#block-editing-shape-bottom').val());
+                object.getModel().particles[0].shape.top = T.TMath.toFloat($('#block-editing-shape-top').val());
+                object.getModel().particles[0].shape.bottom = T.TMath.toFloat($('#block-editing-shape-bottom').val());
 
                 object.getModel().particles[0].skew={z:{}};
-                object.getModel().particles[0].skew.z.x = T.Math.toFloat($('#block-editing-skew-z-x').val());
-                object.getModel().particles[0].skew.z.y = T.Math.toFloat($('#block-editing-skew-z-y').val());
+                object.getModel().particles[0].skew.z.x = T.TMath.toFloat($('#block-editing-skew-z-x').val());
+                object.getModel().particles[0].skew.z.y = T.TMath.toFloat($('#block-editing-skew-z-y').val());
 
 
-                object.getModel().particles[0].size.x = T.Math.toInt($('#block-editing-size-x').val());
-                object.getModel().particles[0].size.y = T.Math.toInt($('#block-editing-size-y').val());
-                object.getModel().particles[0].size.z = T.Math.toInt($('#block-editing-size-z').val());
+                object.getModel().particles[0].size.x = T.TMath.toInt($('#block-editing-size-x').val());
+                object.getModel().particles[0].size.y = T.TMath.toInt($('#block-editing-size-y').val());
+                object.getModel().particles[0].size.z = T.TMath.toInt($('#block-editing-size-z').val());
 
-                object.getModel().particles[0].rotation = T.Math.toInt($('#block-editing-rotation').val());
+                object.getModel().particles[0].rotation = T.TMath.toInt($('#block-editing-rotation').val());
 
 
                 model_canvas.setModel(object.design.data);

@@ -26,15 +26,15 @@ T.Plugins.install(new T.Plugins.Editor(
         var separator_bound=10;
         var separator_snap=100;
 
-        var separator_width=5;//T.Math.toInt($('#vertical_separator').scss('width'));
-        var separator_border=2;//T.Math.toInt($('#story-content').scss('border-right'));
-        var window_padding=20;//T.Math.toInt($('.popup-window .content').scss('padding'));
+        var separator_width=5;//T.TMath.toInt($('#vertical_separator').scss('width'));
+        var separator_border=2;//T.TMath.toInt($('#story-content').scss('border-right'));
+        var window_padding=20;//T.TMath.toInt($('.popup-window .content').scss('padding'));
 
         //---------------------------------------------------------
 
         var storyContentWidthReload = function(){
 
-            var width1 = T.Math.toInt($('#vertical_separator').css('left'));
+            var width1 = T.TMath.toInt($('#vertical_separator').css('left'));
 
             if(isNaN(width1))width1=0;
 
