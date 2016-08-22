@@ -12,9 +12,9 @@ $(function(){
     if(document.cookie.indexOf('eu_cookies=1')==-1){
 
 
-        T.UI.cookie_message = new T.UI.Message(
-            T.Locale.get('ui','prompts','cookies'),'WARNING',
-            `<button class="micro-button" onclick="setCookie('eu_cookies',1);T.UI.cookie_message.close(0);" >` + T.Locale.get('ui','buttons','agree')+`</button>`
+        TOWNS.UI.cookie_message = new TOWNS.UI.Message(
+            TOWNS.Locale.get('ui','prompts','cookies'),'WARNING',
+            `<button class="micro-button" onclick="setCookie('eu_cookies',1);TOWNS.UI.cookie_message.close(0);" >` + TOWNS.Locale.get('ui','buttons','agree')+`</button>`
         );
 
 
@@ -24,7 +24,7 @@ $(function(){
 });
 
 //======================================================================================================================
-//T.UISCRIPT
+//TOWNS.UISCRIPT
 
 window.uiScript = function(){
 
@@ -106,14 +106,14 @@ window.uiScript = function(){
             var offset=$(this).offset();
 
 
-            var max_top=T.TMath.toInt($( window ).height())-T.TMath.toInt($( '#popup-action' ).height())-20;
+            var max_top=TOWNS.TMath.toInt($( window ).height())-TOWNS.TMath.toInt($( '#popup-action' ).height())-20;
 
-            var top=T.TMath.toInt(offset.top);
+            var top=TOWNS.TMath.toInt(offset.top);
             if(top>max_top)top=max_top;
 
-            var arrow_top=T.TMath.toInt(offset.top)-top+20;
+            var arrow_top=TOWNS.TMath.toInt(offset.top)-top+20;
 
-            if(arrow_top<T.TMath.toInt($( '#popup-action' ).height())){
+            if(arrow_top<TOWNS.TMath.toInt($( '#popup-action' ).height())){
                 $('#popup-action .arrow').css('margin-top',arrow_top).css('visibility','visible');
             }else{
                 $('#popup-action .arrow').css('visibility','hidden');
@@ -160,12 +160,12 @@ window.uiScript = function(){
 
     // kliknutie na overlay schová overlay a popup-window
     $('.overlay').unbind('click').on('click', function(){
-        T.UI.popupWindow.close();
+        TOWNS.UI.popupWindow.close();
     });
 
     // kliknutie na js-popup-window-close trigger schová overlay a popup-window
     $('.js-popup-window-close').unbind('click').on('click', function(){
-        T.UI.popupWindow.close();
+        TOWNS.UI.popupWindow.close();
     });
 
 
@@ -244,7 +244,7 @@ window.uiScript = function(){
 
 
         var html='<iframe src="'+$(this).attr('href')+'" class="popup-window-iframe"></iframe>';
-        T.UI.popupWindow.open($(this).attr('title'),html);
+        TOWNS.UI.popupWindow.open($(this).attr('title'),html);
 
     });
 
@@ -252,8 +252,8 @@ window.uiScript = function(){
     //==================================================================================================================
 
 
-    /*r(T.TownsAPI.townsAPI.online);
-    if(T.TownsAPI.townsAPI.online){
+    /*r(TOWNS.TownsAPI.townsAPI.online);
+    if(TOWNS.TownsAPI.townsAPI.online){
 
         $('input.js-townsapi-online').prop('disabled',false);
         $('button.js-townsapi-online').animate({opacity:1});

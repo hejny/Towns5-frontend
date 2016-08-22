@@ -3,7 +3,7 @@
  * @fileOverview Building and creating objects functions
  */
 //======================================================================================================================
-//todo create T.UI.Actions or solve actions in towns-shared
+//todo create TOWNS.UI.Actions or solve actions in towns-shared
 
 
 
@@ -77,7 +77,7 @@ function createNewOrJoin(object){
             bothDistances=bothDistances/100;//todo better
 
 
-            if((distance=T.TMath.xy2dist(objects_server[i].x-object.x,objects_server[i].y-object.y))<bothDistances*map_model_size){
+            if((distance=TOWNS.TMath.xy2dist(objects_server[i].x-object.x,objects_server[i].y-object.y))<bothDistances*map_model_size){
 
 
                 distances.push({i: i,distance: distance});
@@ -107,7 +107,7 @@ function createNewOrJoin(object){
 
 
         //todo better
-        var xy=T.TMath.xyRotate(
+        var xy=TOWNS.TMath.xyRotate(
             (object.x-objects_server[distances[0].i].x)*10,//map_model_size,
             (object.y-objects_server[distances[0].i].y)*10,//map_model_size,
 
@@ -209,11 +209,11 @@ function createBuilding(object,callback){
         objects_external[join.i].subtype='main';
 
 
-        T.TownsAPI.townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
+        TOWNS.TownsAPI.townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
 
-            T.TownsAPI.townsAPI.delete('objects/'+objects_external[join.i].id,function(){
+            TOWNS.TownsAPI.townsAPI.delete('objects/'+objects_external[join.i].id,function(){
 
-                T.TownsAPI.townsAPI.post('objects',{
+                TOWNS.TownsAPI.townsAPI.post('objects',{
                     prototypeId: response.prototypeId,
                     x: objects_external[join.i].x,
                     y: objects_external[join.i].y
@@ -285,7 +285,7 @@ function definePrototype(objectReference,forceSubtype){
     }
 
     r(object);
-    T.User.object_prototypes.push(object);
+    TOWNS.User.object_prototypes.push(object);
 
 
 }
@@ -295,6 +295,6 @@ function definePrototype(objectReference,forceSubtype){
 function definePrototypeUI(objectReference,forceSubtype){
 
     definePrototype(objectReference,forceSubtype);
-    message(T.Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
+    message(TOWNS.Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
 
 }

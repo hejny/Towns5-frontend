@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Plugins.Editor(
+TOWNS.Plugins.install(new TOWNS.Plugins.Editor(
     'building-block-editor',
     {
       type: 'building',
@@ -79,7 +79,7 @@ T.Plugins.install(new T.Plugins.Editor(
   <tr>
     <td colspan="2">
         `+
-        //todo repair//T.Cache.textures.getInput('block-editing-material')+
+        //todo repair//TOWNS.Cache.textures.getInput('block-editing-material')+
         `
     </td>
   </tr>
@@ -100,12 +100,12 @@ T.Plugins.install(new T.Plugins.Editor(
     `,function(object){
 
 
-        T.UI.Html.Form.addRangeNumber(false);
+        TOWNS.UI.Html.Form.addRangeNumber(false);
 
 
-        var model_canvas= new T.ModelCanvas('model-canvas',object.design.data,380,600);
+        var model_canvas= new TOWNS.ModelCanvas('model-canvas',object.design.data,380,600);
 
-        var particle= T.Model.Particles.addMissingParams(object.getModel().particles[0]);
+        var particle= TOWNS.Model.Particles.addMissingParams(object.getModel().particles[0]);
 
         $('#block-editing-shape-n').val(particle.shape.n);
 
@@ -133,21 +133,21 @@ T.Plugins.install(new T.Plugins.Editor(
 
         $('#block-editing-form').find('input').mousemove(function(){
 
-                object.getModel().particles[0].shape.n = T.TMath.toInt($('#block-editing-shape-n').val());
+                object.getModel().particles[0].shape.n = TOWNS.TMath.toInt($('#block-editing-shape-n').val());
 
-                object.getModel().particles[0].shape.top = T.TMath.toFloat($('#block-editing-shape-top').val());
-                object.getModel().particles[0].shape.bottom = T.TMath.toFloat($('#block-editing-shape-bottom').val());
+                object.getModel().particles[0].shape.top = TOWNS.TMath.toFloat($('#block-editing-shape-top').val());
+                object.getModel().particles[0].shape.bottom = TOWNS.TMath.toFloat($('#block-editing-shape-bottom').val());
 
                 object.getModel().particles[0].skew={z:{}};
-                object.getModel().particles[0].skew.z.x = T.TMath.toFloat($('#block-editing-skew-z-x').val());
-                object.getModel().particles[0].skew.z.y = T.TMath.toFloat($('#block-editing-skew-z-y').val());
+                object.getModel().particles[0].skew.z.x = TOWNS.TMath.toFloat($('#block-editing-skew-z-x').val());
+                object.getModel().particles[0].skew.z.y = TOWNS.TMath.toFloat($('#block-editing-skew-z-y').val());
 
 
-                object.getModel().particles[0].size.x = T.TMath.toInt($('#block-editing-size-x').val());
-                object.getModel().particles[0].size.y = T.TMath.toInt($('#block-editing-size-y').val());
-                object.getModel().particles[0].size.z = T.TMath.toInt($('#block-editing-size-z').val());
+                object.getModel().particles[0].size.x = TOWNS.TMath.toInt($('#block-editing-size-x').val());
+                object.getModel().particles[0].size.y = TOWNS.TMath.toInt($('#block-editing-size-y').val());
+                object.getModel().particles[0].size.z = TOWNS.TMath.toInt($('#block-editing-size-z').val());
 
-                object.getModel().particles[0].rotation = T.TMath.toInt($('#block-editing-rotation').val());
+                object.getModel().particles[0].rotation = TOWNS.TMath.toInt($('#block-editing-rotation').val());
 
 
                 model_canvas.setModel(object.design.data);
@@ -186,14 +186,14 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
     },
-    new T.Objects.Building({
+    new TOWNS.Objects.Building({
 
         name: "",
         type: "building",
         subtype: "block",
         design: {
             type: "model",
-            data: new T.Model({
+            data: new TOWNS.Model({
                 particles: [
                     {
                         shape:{

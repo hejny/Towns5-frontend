@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>T.Locale - Towns</title>
+<title>TOWNS.Locale - Towns</title>
 </head>
 <body>
 

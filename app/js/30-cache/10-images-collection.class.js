@@ -3,11 +3,11 @@
  * @fileOverview Loading and storing images from external URLs
  */
 //======================================================================================================================
-T.setNamespace('Cache');
+TOWNS.setNamespace('Cache');
 
 
 
-T.Cache.ImagesCollection = class {
+TOWNS.Cache.ImagesCollection = class {
 
 
     /**

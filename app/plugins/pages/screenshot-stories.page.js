@@ -9,28 +9,28 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'screenshot-stories',
-    T.Locale.get('page','screenshot stories'),
+    TOWNS.Locale.get('page','screenshot stories'),
     `
         Getting ready
 
     `
     ,function(page){
 
-        if(T.Map.loadMap.locked){
+        if(TOWNS.Map.loadMap.locked){
 
-            T.Map.loadMap.locked = false;
-            T.Map.loadMap();
+            TOWNS.Map.loadMap.locked = false;
+            TOWNS.Map.loadMap();
 
         }
 
-        var scene = T.Map.scene;
+        var scene = TOWNS.Map.scene;
         var positions = [];
 
-        T.TownsAPI.townsAPI.get('stories',{latest:true},function(result) {
+        TOWNS.TownsAPI.townsAPI.get('stories',{latest:true},function(result) {
 
-            var stories = new T.Objects.Array(result);
+            var stories = new TOWNS.Objects.Array(result);
 
             stories.forEach(function(story){
 
@@ -50,12 +50,12 @@ T.Plugins.install(new T.Plugins.Page(
 
 
                 $(page).find('button').unbind('click');
-                $(page).find('button').html(T.Locale.get('progressing')+' <i class="fa fa-spinner faa-spin animated"></i>');
+                $(page).find('button').html(TOWNS.Locale.get('progressing')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
                 makeScreenshot = function (i) {
 
                     map_center = positions[i];
-                    T.Map.loadMap(true,function(){
+                    TOWNS.Map.loadMap(true,function(){
 
 
                         //------------------------------------------------
@@ -95,7 +95,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-                            var message = T.UI.Message.info();
+                            var message = TOWNS.UI.Message.info();
 
 
 
@@ -104,7 +104,7 @@ T.Plugins.install(new T.Plugins.Page(
                                 if (event.lengthComputable) {
                                     var complete = (event.loaded / event.total * 100 | 0);
 
-                                    message.text(T.Locale.get('upload screenshot progress')+' '+complete+'%');
+                                    message.text(TOWNS.Locale.get('upload screenshot progress')+' '+complete+'%');
 
                                 }
 
@@ -116,13 +116,13 @@ T.Plugins.install(new T.Plugins.Page(
                             xhr.onload = function () {
                                 if (xhr.status === 200) {
 
-                                    message.text(T.Locale.get('upload screenshot success'),'success').close();
+                                    message.text(TOWNS.Locale.get('upload screenshot success'),'success').close();
 
 
                                 } else {
 
                                     console.log('Something went terribly wrong...');
-                                    message.text(T.Locale.get('upload screenshot fail'),'error').close();
+                                    message.text(TOWNS.Locale.get('upload screenshot fail'),'error').close();
 
                                 }
                             };
@@ -137,7 +137,7 @@ T.Plugins.install(new T.Plugins.Page(
                             if(positions.length>i){
                                 makeScreenshot(i);
                             }else{
-                                $(page).find('button').html(T.Locale.get('finished'));
+                                $(page).find('button').html(TOWNS.Locale.get('finished'));
 
                             }
                             //------------

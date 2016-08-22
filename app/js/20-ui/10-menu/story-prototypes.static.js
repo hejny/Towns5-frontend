@@ -3,19 +3,19 @@
  * @fileOverview Left tool menu shown to create story.
  */
 //======================================================================================================================
-T.setNamespace('UI.Menu');
+TOWNS.setNamespace('UI.Menu');
 
 
-T.UI.Menu.Story = class {
+TOWNS.UI.Menu.Story = class {
 
 
     static start(prototypeId) {
 
 
-        var story = T.User.object_prototypes.getById(prototypeId).clone();
+        var story = TOWNS.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.Map.scene.mode('CREATING_POINT',story,function(position,rotation,size){
+        TOWNS.Map.scene.mode('CREATING_POINT',story,function(position,rotation,size){
 
             story.x=position.x;
             story.y=position.y;
@@ -23,7 +23,7 @@ T.UI.Menu.Story = class {
 
             create(story,function(){
 
-                T.Plugins.open('story-editor',1,story.id);
+                TOWNS.Plugins.open('story-editor',1,story.id);
 
 
             });
@@ -37,7 +37,7 @@ T.UI.Menu.Story = class {
 
         /*
 
-        T.UI.Menu.storyWriting = T.User.object_prototypes.getById(prototypeId).clone();
+        TOWNS.UI.Menu.storyWriting = TOWNS.User.object_prototypes.getById(prototypeId).clone();
 
         $('#map_drag').css('cursor', 'Crosshair');
 
@@ -59,7 +59,7 @@ T.UI.Menu.Story = class {
         $('#selecting-distance-ctl').hide();
 
         $('#map_drag').css('cursor', 'Auto');
-        T.UI.Menu.storyWriting = false;
+        TOWNS.UI.Menu.storyWriting = false;
 
     }*/
 

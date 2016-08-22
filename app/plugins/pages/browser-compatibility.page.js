@@ -6,14 +6,14 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'browser-compatibility',
-    T.Locale.get('page','compatibility'),
+    TOWNS.Locale.get('page','compatibility'),
     ``
     ,function(page){
 
 
-        compatibility = T.UI.Compatibility.check(false);
+        compatibility = TOWNS.UI.Compatibility.check(false);
 
 
         table=[];
@@ -33,21 +33,21 @@ T.Plugins.install(new T.Plugins.Page(
 
             }
 
-            row.push('<h3>'+T.Locale.get('compatibility',key).text2html()+'</h3>');
+            row.push('<h3>'+TOWNS.Locale.get('compatibility',key).text2html()+'</h3>');
 
 
             table.push(row);
 
 
             if(!compatibility[key]){
-                table.push([T.Locale.get('compatibility',key,'help')]);
+                table.push([TOWNS.Locale.get('compatibility',key,'help')]);
             }
 
 
         }
 
 
-        $(page).html(T.ArrayFunctions.array2table(table,'full'));
+        $(page).html(TOWNS.ArrayFunctions.array2table(table,'full'));
 
 
 

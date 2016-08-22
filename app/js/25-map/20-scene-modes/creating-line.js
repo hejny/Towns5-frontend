@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 //todo modeUnattach to clearup scene
-T.Map.Scene.prototype.attachCREATING_LINE = function(object,callback){
+TOWNS.Map.Scene.prototype.attachCREATING_LINE = function(object,callback){
 
 
     var self = this;

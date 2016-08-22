@@ -1,6 +1,6 @@
 /**
  * @author Towns.cz
- * @fileOverview Creates object T.ArrayFunctions with static methods
+ * @fileOverview Creates object TOWNS.ArrayFunctions with static methods
  */
 //======================================================================================================================
 

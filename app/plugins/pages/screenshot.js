@@ -9,20 +9,20 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'screenshot',
-    T.Locale.get('page','screenshot'),
+    TOWNS.Locale.get('page','screenshot'),
     `
 
 `
     ,function(page){
 
 
-        //r(T.Map.scene);
-        //r(T.Map.scene.canvas);
-        //var canvas2D = T.Map.scene.canvas.getContext('2d');
+        //r(TOWNS.Map.scene);
+        //r(TOWNS.Map.scene.canvas);
+        //var canvas2D = TOWNS.Map.scene.canvas.getContext('2d');
 
-        var scene = T.Map.scene;
+        var scene = TOWNS.Map.scene;
 
         //r(scene);
 
@@ -63,7 +63,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-                var message = T.UI.Message.info();
+                var message = TOWNS.UI.Message.info();
 
 
 
@@ -72,7 +72,7 @@ T.Plugins.install(new T.Plugins.Page(
                         if (event.lengthComputable) {
                                 var complete = (event.loaded / event.total * 100 | 0);
 
-                                message.text(T.Locale.get('upload screenshot progress')+' '+complete+'%');
+                                message.text(TOWNS.Locale.get('upload screenshot progress')+' '+complete+'%');
 
                         }
 
@@ -90,12 +90,12 @@ T.Plugins.install(new T.Plugins.Page(
                                         r(response);
 
 
-                                        message.text(T.Locale.get('upload screenshot success'),'success').close();
+                                        message.text(TOWNS.Locale.get('upload screenshot success'),'success').close();
 
 
                                 }catch(e){
 
-                                        message.text(T.Locale.get('upload screenshot fail'),'error').close();
+                                        message.text(TOWNS.Locale.get('upload screenshot fail'),'error').close();
 
                                 }
 
@@ -103,7 +103,7 @@ T.Plugins.install(new T.Plugins.Page(
                         } else {
 
                                 console.log('Something went terribly wrong...');
-                                message.text(T.Locale.get('upload screenshot fail'),'error').close();
+                                message.text(TOWNS.Locale.get('upload screenshot fail'),'error').close();
 
                         }
                 };

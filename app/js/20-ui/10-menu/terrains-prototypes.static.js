@@ -2,20 +2,20 @@
  * @author ©Towns.cz
  * @fileOverview Left tool menu for terrain changing
  */
-//======================================================================================================================T.UI.Menu.Object.menuTerrainChange
-T.setNamespace('UI.Menu');
+//======================================================================================================================TOWNS.UI.Menu.Object.menuTerrainChange
+TOWNS.setNamespace('UI.Menu');
     
     
-T.UI.Menu.Terrains = class {
+TOWNS.UI.Menu.Terrains = class {
 
 
     static start(prototypeId) {
 
 
-        var terrain = T.User.object_prototypes.getById(prototypeId).clone();
+        var terrain = TOWNS.User.object_prototypes.getById(prototypeId).clone();
 
 
-        T.Map.scene.mode('CREATING_CIRCLE',terrain,function(position,rotation,size){
+        TOWNS.Map.scene.mode('CREATING_CIRCLE',terrain,function(position,rotation,size){
 
             terrain.x=position.x;
             terrain.y=position.y;
@@ -31,7 +31,7 @@ T.UI.Menu.Terrains = class {
 
             });
 
-            T.Map.loadMap();
+            TOWNS.Map.loadMap();
 
 
 
@@ -44,17 +44,17 @@ T.UI.Menu.Terrains = class {
 
         updateSelectingDistance();
 
-        T.UI.Menu.terrainChanging = T.User.object_prototypes.getById(prototypeId).clone();
+        TOWNS.UI.Menu.terrainChanging = TOWNS.User.object_prototypes.getById(prototypeId).clone();
 
 
         //----------------------------Dismantling by terrain changing eg. when changing to water, all building are dismantled
-        if (blockedTerrains.indexOf(T.UI.Menu.terrainChanging) != -1) {
-            T.UI.Menu.dismantling = true;
+        if (blockedTerrains.indexOf(TOWNS.UI.Menu.terrainChanging) != -1) {
+            TOWNS.UI.Menu.dismantling = true;
         }
         //----------------------------
 
         //if(terrain_change){
-        $('#selecting-distance-ctl').css('background', 'url(\'' + appDir + '/php/terrain.php?raw&size=200&terrain=t' + (T.UI.Menu.terrainChanging.design.data.image) + '\')');
+        $('#selecting-distance-ctl').css('background', 'url(\'' + appDir + '/php/terrain.php?raw&size=200&terrain=t' + (TOWNS.UI.Menu.terrainChanging.design.data.image) + '\')');
         $('#selecting-distance-ctl').css('background-size', 'cover');
         //}
 
@@ -74,7 +74,7 @@ T.UI.Menu.Terrains = class {
 
     static stop() {
 
-        T.UI.Menu.terrainChanging = false;
+        TOWNS.UI.Menu.terrainChanging = false;
 
     }
 

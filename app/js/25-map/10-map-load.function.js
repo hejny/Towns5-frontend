@@ -3,17 +3,17 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-T.setNamespace('Map');
+TOWNS.setNamespace('Map');
 
 
 //todo refactor this should not be here
 var map_request_ajax=false;
 
-T.Map.loadMap = function(from_server=false,callback=false){
+TOWNS.Map.loadMap = function(from_server=false,callback=false){
 
 
-    if(typeof T.Map.scene === 'undefined'){
-        //console.warn('Stopped loading map because of T.Map.scene is '+T.Map.scene);
+    if(typeof TOWNS.Map.scene === 'undefined'){
+        //console.warn('Stopped loading map because of TOWNS.Map.scene is '+TOWNS.Map.scene);
         //return;
 
         if(this.locked){
@@ -21,7 +21,7 @@ T.Map.loadMap = function(from_server=false,callback=false){
         }
 
 
-        T.Map.scene = new T.Map.Scene();
+        TOWNS.Map.scene = new TOWNS.Map.Scene();
 
     }
     if(isNaN(map_radius))throw new Error('map_radius is NaN');
@@ -38,7 +38,7 @@ T.Map.loadMap = function(from_server=false,callback=false){
         }
 
 
-        map_request_ajax = T.TownsAPI.townsAPI.get(
+        map_request_ajax = TOWNS.TownsAPI.townsAPI.get(
             'objects',
             {
                 x: Math.round(map_center.x),
@@ -49,8 +49,8 @@ T.Map.loadMap = function(from_server=false,callback=false){
             },//todo range and order by time
             function(response){
 
-                objects_server=new T.Objects.Array(response);
-                T.Map.loadMapRequestCallback(callback);
+                objects_server=new TOWNS.Objects.Array(response);
+                TOWNS.Map.loadMapRequestCallback(callback);
 
             }
         );
@@ -59,7 +59,7 @@ T.Map.loadMap = function(from_server=false,callback=false){
 
         r('Loading map from only local.');
 
-        T.Map.loadMapRequestCallback(callback);
+        TOWNS.Map.loadMapRequestCallback(callback);
 
     }
 
@@ -67,7 +67,7 @@ T.Map.loadMap = function(from_server=false,callback=false){
 };
 
 
-T.Map.loadMap.locked = true;
+TOWNS.Map.loadMap.locked = true;
 
 
 
@@ -77,7 +77,7 @@ var objects_in_scene;
 
 
 
-T.Map.loadMapRequestCallback=function(callback=false){
+TOWNS.Map.loadMapRequestCallback=function(callback=false){
 
 
     //----------------------------------Create map_data and map_bg_data from local objects
@@ -85,11 +85,11 @@ T.Map.loadMapRequestCallback=function(callback=false){
 
     tstart('generating map');
 
-    var map_center_floor = new T.Position(Math.floor(map_center.x),Math.floor(map_center.y));
+    var map_center_floor = new TOWNS.Position(Math.floor(map_center.x),Math.floor(map_center.y));
 
 
     tstart('getCompleteObjects');
-    objects_in_scene = T.World.mapGenerator.getCompleteObjects(objects_server,map_center_floor,map_radius,true/*,map_center_last*/);
+    objects_in_scene = TOWNS.World.mapGenerator.getCompleteObjects(objects_server,map_center_floor,map_radius,true/*,map_center_last*/);
     tend('getCompleteObjects');
 
     //----------------------------------Create map_data and map_bg_data from objects_external
@@ -113,8 +113,8 @@ T.Map.loadMapRequestCallback=function(callback=false){
     tend('generating map');
 
 
-    T.Map.scene.update(objects_in_scene);
-    //T.Map.drawMap(objects_external);
+    TOWNS.Map.scene.update(objects_in_scene);
+    //TOWNS.Map.drawMap(objects_external);
 
     if(callback){
         setTimeout(function(){

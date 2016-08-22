@@ -6,7 +6,7 @@
 
 //todo this viewer should works via BABYLON!
 /*
-T.Plugins.install(new T.Plugins.Viewer(
+TOWNS.Plugins.install(new TOWNS.Plugins.Viewer(
     'building-viewer'
     ,{
         type: 'building'
@@ -23,7 +23,7 @@ T.Plugins.install(new T.Plugins.Viewer(
     ,function(object){
 
 
-        new T.ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
+        new TOWNS.ModelCanvas('model-canvas',object.design.data,'100%','100%',null,1);
 
 
     }

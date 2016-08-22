@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Map.Scene.prototype.attachROTATING = function(){
+TOWNS.Map.Scene.prototype.attachROTATING = function(){
 
     var self = this;
 

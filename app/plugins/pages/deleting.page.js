@@ -9,9 +9,9 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'deleting',
-    T.Locale.get('page','deleting'),
+    TOWNS.Locale.get('page','deleting'),
     `
 <div class="news">
 </div>
@@ -21,11 +21,11 @@ T.Plugins.install(new T.Plugins.Page(
     ,function(page){
 
 
-        T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
+        TOWNS.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
 
             var html='',item_html;
 
-            var stories = new T.Objects.Array(result);
+            var stories = new TOWNS.Objects.Array(result);
 
 
             stories.forEach(function(story){
@@ -68,7 +68,7 @@ T.Plugins.install(new T.Plugins.Page(
                 <li onclick="`+item.onclick+`">
                         <img src="`+item.image+`">
                         <h2 class="title">`+item.title+`</h2>
-                        <p class="type">`+ T.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
+                        <p class="type">`+ TOWNS.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
                         <p class="date">`+dateToSmartString(item.date)+`</p>
                         <p>`+content+`</p>
                 </li>

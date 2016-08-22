@@ -5,16 +5,16 @@
 //======================================================================================================================
 
 
-T.Plugins=class {
+TOWNS.Plugins=class {
 
     static install(plugin) {
         r('Plugins: Installing plugin ' + plugin.uri);
 
 
         if (
-            plugin instanceof T.Plugins.Page ||
-            plugin instanceof T.Plugins.Viewer ||
-            plugin instanceof T.Plugins.Editor
+            plugin instanceof TOWNS.Plugins.Page ||
+            plugin instanceof TOWNS.Plugins.Viewer ||
+            plugin instanceof TOWNS.Plugins.Editor
         ) {
 
 
@@ -89,8 +89,8 @@ T.Plugins=class {
         for (i in this.plugins) {
 
             if (
-                (action == 'edit' && this.plugins[i] instanceof T.Plugins.Editor) ||
-                (action == 'view' && this.plugins[i] instanceof T.Plugins.Viewer)
+                (action == 'edit' && this.plugins[i] instanceof TOWNS.Plugins.Editor) ||
+                (action == 'view' && this.plugins[i] instanceof TOWNS.Plugins.Viewer)
             ) {
 
                 var is_possible = true;
@@ -117,4 +117,4 @@ T.Plugins=class {
 
 };
 
-T.Plugins.plugins = [];//todo better
+TOWNS.Plugins.plugins = [];//todo better

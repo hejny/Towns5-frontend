@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.Page = class {
+TOWNS.Plugins.Page = class {
 
 
     /**
@@ -100,7 +100,7 @@ T.Plugins.Page = class {
             content[i] = content[i].split('}}');
 
 
-            content[i][0] = T.Locale.get(content[i][0]);
+            content[i][0] = TOWNS.Locale.get(content[i][0]);
             content[i] = content[i].join('');
 
 
@@ -109,14 +109,14 @@ T.Plugins.Page = class {
         //--------------------------------------------
 
 
-        T.URI.plugin = this.uri;
-        T.URI.write();
+        TOWNS.URI.plugin = this.uri;
+        TOWNS.URI.write();
 
 
         var self = this;
 
-        //--------------------------------------------T.UI.popupWindow.open
-        T.UI.popupWindow.open(title, content, function () {
+        //--------------------------------------------TOWNS.UI.popupWindow.open
+        TOWNS.UI.popupWindow.open(title, content, function () {
 
             r('closing page');
 
@@ -125,10 +125,10 @@ T.Plugins.Page = class {
             }
 
 
-            if(self.uri==T.URI.plugin){
-                T.URI.plugin = false;
-                T.URI.object = false;
-                T.URI.write();
+            if(self.uri==TOWNS.URI.plugin){
+                TOWNS.URI.plugin = false;
+                TOWNS.URI.object = false;
+                TOWNS.URI.write();
             }
 
 
@@ -165,7 +165,7 @@ T.Plugins.Page = class {
             setTimeout(function () {
 
                 self.open_callback($('.popup-window .content')[0],self.storage);
-                //todo refactor not DI popup window content but use static container with function T.ui.get();
+                //todo refactor not DI popup window content but use static container with function TOWNS.ui.get();
 
 
             }, IMMEDIATELY_MS);
@@ -179,7 +179,7 @@ T.Plugins.Page = class {
 
 
         /*if(this.close_callback) {
-         T.UI.popupWindow.closeCallback=this.close_callback;
+         TOWNS.UI.popupWindow.closeCallback=this.close_callback;
          }*/
 
     }

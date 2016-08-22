@@ -3,11 +3,11 @@
  * @fileOverview Creates User interface functions
  */
 //======================================================================================================================
-T.setNamespace('UI');
+TOWNS.setNamespace('UI');
 
 
 
-T.UI.Status=class {
+TOWNS.UI.Status=class {
 
 
 
@@ -24,11 +24,11 @@ T.UI.Status=class {
 
     //todo maybe collision with isLogged????
     /**
-     * Change T.UI after login / logout / register
+     * Change TOWNS.UI after login / logout / register
      */
     static logged(callback=false) {
 
-        T.TownsAPI.townsAPI.isLogged(function (is) {
+        TOWNS.TownsAPI.townsAPI.isLogged(function (is) {
 
             //alert(is);
             if (is) {
@@ -37,24 +37,24 @@ T.UI.Status=class {
                 $('.logged-out').stop().fadeOut();
 
 
-                var decoded_token = jwt_decode(T.TownsAPI.townsAPI.token);
+                var decoded_token = jwt_decode(TOWNS.TownsAPI.townsAPI.token);
                 //r(decoded_token);
 
-                //T.UI.Message.success(T.Locale.get('logged in as') + ' ' + decoded_token.username);
+                //TOWNS.UI.Message.success(TOWNS.Locale.get('logged in as') + ' ' + decoded_token.username);
 
 
                 var user_html = `
                     <div id="user-profile"></div>
-                    <button onclick="if(confirm(T.Locale.get('logout','confirm'))){T.TownsAPI.townsAPI.token=false;T.Storage.delete('token');T.UI.Status.logged();}">
-                        ` + T.Locale.get('ui user logout') + `
+                    <button onclick="if(confirm(TOWNS.Locale.get('logout','confirm'))){TOWNS.TownsAPI.townsAPI.token=false;TOWNS.Storage.delete('token');TOWNS.UI.Status.logged();}">
+                        ` + TOWNS.Locale.get('ui user logout') + `
                     </button>
-                    <button onclick="T.Plugins.open('user-settings');">` + T.Locale.get('ui user settings') + `</button>
+                    <button onclick="TOWNS.Plugins.open('user-settings');">` + TOWNS.Locale.get('ui user settings') + `</button>
                 `;
 
                 $('#menu-top-popup-user').find('.content').html(user_html);
 
 
-                T.TownsAPI.townsAPI.get(
+                TOWNS.TownsAPI.townsAPI.get(
                     'users/' + decoded_token.id
                     , {}
                     , function (response) {
@@ -67,16 +67,16 @@ T.UI.Status=class {
 
                         }
 
-                        T.User.me = response;
+                        TOWNS.User.me = response;
 
-                        //r(T.User.me.profile.birthday,new Date(T.User.me.profile.birthday));
-                        T.User.me.profile.birthday=new Date(T.User.me.profile.birthday);
+                        //r(TOWNS.User.me.profile.birthday,new Date(TOWNS.User.me.profile.birthday));
+                        TOWNS.User.me.profile.birthday=new Date(TOWNS.User.me.profile.birthday);
 
-                        var email_md5 = md5(T.User.me.profile.email);
+                        var email_md5 = md5(TOWNS.User.me.profile.email);
                         var user_profile_html = `
 
                     <img class="user-image" src="https://1.gravatar.com/avatar/` + email_md5 + `?s=200&r=pg&d=mm">
-                    <h1 class="user-name">` + T.User.me.profile.username + `</h1>
+                    <h1 class="user-name">` + TOWNS.User.me.profile.username + `</h1>
 
 
                     `;
@@ -98,7 +98,7 @@ T.UI.Status=class {
 
             } else {
 
-                //T.UI.Message.message(T.Locale.get('logged out'),'info');
+                //TOWNS.UI.Message.message(TOWNS.Locale.get('logged out'),'info');
 
                 $('.logged-in').stop().fadeOut();
                 $('.logged-out').stop().fadeIn();

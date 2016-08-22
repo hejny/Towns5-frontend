@@ -3,7 +3,7 @@
  * @fileOverview Login / Register functions
  */
 //======================================================================================================================
-//todo create T.UI.Actions or solve actions in towns-shared
+//todo create TOWNS.UI.Actions or solve actions in towns-shared
 
 
 
@@ -50,7 +50,7 @@ function loginFormSubmit(){
             }else{
 
 
-                T.UI.popupWindow.close();
+                TOWNS.UI.popupWindow.close();
 
             }
 

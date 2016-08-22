@@ -6,7 +6,7 @@
 
 
 
-T.TownsAPI = class {
+TOWNS.TownsAPI = class {
 
 
     constructor(url = '', token = false) {
@@ -65,11 +65,11 @@ T.TownsAPI = class {
 
 
             if(typeof this.message === 'undefined') {
-                this.message = new T.UI.Message(
-                    T.Locale.get('ui', 'warnings', 'offline'), 'ERROR',
+                this.message = new TOWNS.UI.Message(
+                    TOWNS.Locale.get('ui', 'warnings', 'offline'), 'ERROR',
                     `
-                        <button class="micro-button" id="townsapi-reconnect">`+(T.Locale.get('ui','buttons','reconnect'))+`</button>
-                        <button class="micro-button" onclick="T.Plugins.open('offline')">`+(T.Locale.get('ui','buttons','offline'))+`</button>
+                        <button class="micro-button" id="townsapi-reconnect">`+(TOWNS.Locale.get('ui','buttons','reconnect'))+`</button>
+                        <button class="micro-button" onclick="TOWNS.Plugins.open('offline')">`+(TOWNS.Locale.get('ui','buttons','offline'))+`</button>
                     `
                 );
 
@@ -92,7 +92,7 @@ T.TownsAPI = class {
                 clearInterval(interval);
                 townsapi_reconnect.removeClass('js-running');
 
-                $(this).html(T.Locale.get('ui buttons reconnecting').text2html() + '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
+                $(this).html(TOWNS.Locale.get('ui buttons reconnecting').text2html() + '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
 
                 //Empty query to check if the API is online
                 self.query('', {}, 'GET', {}, {});//todo duplicate
@@ -102,7 +102,7 @@ T.TownsAPI = class {
 
             var counter = 15;
 
-            townsapi_reconnect.html(T.Locale.get('ui buttons reconnect').text2html() + '&nbsp(<span class="js-counter">' + counter + '</span>)');
+            townsapi_reconnect.html(TOWNS.Locale.get('ui buttons reconnect').text2html() + '&nbsp(<span class="js-counter">' + counter + '</span>)');
             townsapi_reconnect.addClass('js-running');
 
 
@@ -309,7 +309,7 @@ T.TownsAPI = class {
                 r('Updating object prototype id after server response from ' + object.id + ' to ' + response.prototypeId);
 
 
-                T.User.object_prototypes.setById(response.prototypeId, response);
+                TOWNS.User.object_prototypes.setById(response.prototypeId, response);
 
                 if (callback_success)
                     callback_success(response);

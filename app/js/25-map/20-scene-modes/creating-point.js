@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 //todo modeUnattach to clearup scene
-T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
+TOWNS.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
 
     var self = this;
@@ -44,7 +44,7 @@ T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
     self.onLeftUp = function (evt) {
 
-        /*var position = new T.Position(
+        /*var position = new TOWNS.Position(
          mesh.position.x/MAP_FIELD_SIZE+map_center.x,
          -mesh.position.z/MAP_FIELD_SIZE+map_center.y
          );*/
@@ -53,7 +53,7 @@ T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
 
         this.modeDefault();
-        callback(position,T.TMath.rad2deg(mesh.rotation.y),1);
+        callback(position,TOWNS.TMath.rad2deg(mesh.rotation.y),1);
 
 
     };
@@ -80,11 +80,11 @@ T.Map.Scene.prototype.attachCREATING_POINT = function(object,callback){
 
         if (e.deltaY > 0) {
 
-            mesh.rotation.y -= T.TMath.deg2rad(10);
+            mesh.rotation.y -= TOWNS.TMath.deg2rad(10);
 
         } else {
 
-            mesh.rotation.y += T.TMath.deg2rad(10);
+            mesh.rotation.y += TOWNS.TMath.deg2rad(10);
         }
 
 

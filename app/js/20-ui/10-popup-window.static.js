@@ -3,11 +3,11 @@
  * @fileOverview Creates User interface functions
  */
 //======================================================================================================================
-T.setNamespace('UI');
+TOWNS.setNamespace('UI');
 
 
 
-T.UI.popupWindow = class {
+TOWNS.UI.popupWindow = class {
 
 
     /**
@@ -17,9 +17,9 @@ T.UI.popupWindow = class {
     static setTitle(title) {
 
         if(title && title.substr(0,1)!='<'){
-            document.title = title+' | '+T.Locale.get('page','title');
+            document.title = title+' | '+TOWNS.Locale.get('page','title');
         }else{
-            document.title = T.Locale.get('page','title');
+            document.title = TOWNS.Locale.get('page','title');
         }
 
         $('.popup-window .header').html(title);//todo refactor html class header to title
@@ -78,23 +78,23 @@ T.UI.popupWindow = class {
     static open(title, content, close_callback = false, format = 'NORMAL') {
 
         if (window_opened) {
-            T.UI.popupWindow.close();
+            TOWNS.UI.popupWindow.close();
         }
 
 
         if (close_callback) {
-            T.UI.popupWindow.closeCallback = close_callback;
+            TOWNS.UI.popupWindow.closeCallback = close_callback;
         }
 
 
-        T.UI.popupWindow.setFormat(format);
+        TOWNS.UI.popupWindow.setFormat(format);
 
-        T.UI.popupWindow.setTitle(title);
-        T.UI.popupWindow.setContent(content);
+        TOWNS.UI.popupWindow.setTitle(title);
+        TOWNS.UI.popupWindow.setContent(content);
 
 
-        r(T.URI.writed);
-        if(T.URI.writed>1){
+        r(TOWNS.URI.writed);
+        if(TOWNS.URI.writed>1){
 
             $('.js-popup-window-back').show();
 
@@ -127,7 +127,7 @@ T.UI.popupWindow = class {
         //-------------------------------------------
 
         //-------------------------------------------Hide popup window
-        document.title = T.Locale.get('page','title');
+        document.title = TOWNS.Locale.get('page','title');
 
         $('.overlay').hide();
         $('.popup-window').hide();
@@ -139,13 +139,13 @@ T.UI.popupWindow = class {
 
 
         //-------------------------------------------Run close callback
-        if (T.UI.popupWindow.closeCallback) {
+        if (TOWNS.UI.popupWindow.closeCallback) {
 
             if (dont_run_close_callback === false) {
-                T.UI.popupWindow.closeCallback();
+                TOWNS.UI.popupWindow.closeCallback();
             }
 
-            delete T.UI.popupWindow.closeCallback;
+            delete TOWNS.UI.popupWindow.closeCallback;
         }
         //-------------------------------------------
 

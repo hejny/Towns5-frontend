@@ -3,11 +3,11 @@
  * @fileOverview Creates User interface functions
  */
 //======================================================================================================================
-T.setNamespace('UI');
+TOWNS.setNamespace('UI');
 
 
 
-T.UI.Message = class {
+TOWNS.UI.Message = class {
 
 
     constructor(text, type = 'INFO',additional=false){
@@ -86,10 +86,10 @@ T.UI.Message = class {
     /**
      *
      * @param {string} text
-     * @returns {T.UI.Message} message
+     * @returns {TOWNS.UI.Message} message
      */
     static error(text) {
-        var message = new T.UI.Message(text, 'ERROR');
+        var message = new TOWNS.UI.Message(text, 'ERROR');
         if(text)message.close();
         return message;
     }
@@ -97,10 +97,10 @@ T.UI.Message = class {
 
     /**
      * @param {string} text
-     * @returns {T.UI.Message} message
+     * @returns {TOWNS.UI.Message} message
      */
     static success(text) {
-        var message = new T.UI.Message(text, 'SUCCESS');
+        var message = new TOWNS.UI.Message(text, 'SUCCESS');
         if(text)message.close();
         return message;
     }
@@ -108,10 +108,10 @@ T.UI.Message = class {
 
     /**
      * @param {string} text
-     * @returns {T.UI.Message} message
+     * @returns {TOWNS.UI.Message} message
      */
     static info(text) {
-        var message = new T.UI.Message(text, 'INFO');
+        var message = new TOWNS.UI.Message(text, 'INFO');
         if(text)message.close();
         return message;
     }
@@ -127,7 +127,7 @@ T.UI.Message = class {
 
 /*setInterval(function(){
 
-    var error = T.UI.Message.error('hláška'+Math.random());
+    var error = TOWNS.UI.Message.error('hláška'+Math.random());
 
     error.hide(Math.random()*10);
     r(error);

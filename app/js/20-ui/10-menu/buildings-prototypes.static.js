@@ -1,19 +1,19 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Left tool menu creating and T.UI.Menu.dismantling buildings
+ * @fileOverview Left tool menu creating and TOWNS.UI.Menu.dismantling buildings
  */
 //======================================================================================================================
-T.setNamespace('UI.Menu');
+TOWNS.setNamespace('UI.Menu');
 
 
-T.UI.Menu.Building = class {
+TOWNS.UI.Menu.Building = class {
 
 
 
     static start(prototypeId) {
 
 
-        var building = T.User.object_prototypes.getById(prototypeId).clone();
+        var building = TOWNS.User.object_prototypes.getById(prototypeId).clone();
         var attach_callback = function (position, rotation, size) {
 
             var building_clone = building.clone();
@@ -31,7 +31,7 @@ T.UI.Menu.Building = class {
             });
 
 
-            T.Map.scene.addBuilding(building_clone);
+            TOWNS.Map.scene.addBuilding(building_clone);
 
 
 
@@ -40,11 +40,11 @@ T.UI.Menu.Building = class {
 
         if (dragging_subtypes.indexOf(building.subtype) === -1) {
 
-            T.Map.scene.mode('CREATING_POINT',building, attach_callback);
+            TOWNS.Map.scene.mode('CREATING_POINT',building, attach_callback);
 
         } else {
 
-            T.Map.scene.mode('CREATING_LINE',building, attach_callback);
+            TOWNS.Map.scene.mode('CREATING_LINE',building, attach_callback);
 
         }
 
@@ -56,7 +56,7 @@ T.UI.Menu.Building = class {
     static dismantlingStart(){
 
 
-        T.Map.scene.mode('CREATING_CIRCLE',null,function(position,rotation,size){
+        TOWNS.Map.scene.mode('CREATING_CIRCLE',null,function(position,rotation,size){
 
             objects_server
                 .filterTypes('building')
@@ -67,7 +67,7 @@ T.UI.Menu.Building = class {
 
             });
 
-            T.Map.loadMap(false);
+            TOWNS.Map.loadMap(false);
 
         });
 

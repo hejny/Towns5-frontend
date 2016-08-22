@@ -3,11 +3,11 @@
  * @fileOverview HTML form functions
  */
 //======================================================================================================================
-T.setNamespace('UI.Html');
+TOWNS.setNamespace('UI.Html');
 
 
 
-T.UI.Html.Form = class{
+TOWNS.UI.Html.Form = class{
 
 
 

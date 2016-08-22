@@ -9,9 +9,9 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'feedback',
-    T.Locale.get('page','feedback'),
+    TOWNS.Locale.get('page','feedback'),
     `
 
 
@@ -22,7 +22,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
         <tr>
-            <td>`+T.Locale.get('user','email')+`:</td>
+            <td>`+TOWNS.Locale.get('user','email')+`:</td>
             <td><input style="width: 100%;" type="email" name="email"  autofocus></td>
         </tr>
 
@@ -33,7 +33,7 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td colspan="2">
-            <button style="width: 150px;">`+T.Locale.get('send')+`</button>
+            <button style="width: 150px;">`+TOWNS.Locale.get('send')+`</button>
             </td>
         </tr>
 
@@ -74,7 +74,7 @@ T.Plugins.install(new T.Plugins.Page(
             });
 
 
-            $('#feedback-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+            $('#feedback-form').find('button').html(TOWNS.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
             r(data);
@@ -85,9 +85,9 @@ T.Plugins.install(new T.Plugins.Page(
             );
             request.done(function( response ){
 
-                $('#login-form').find('button').html(T.Locale.get('send'));
-                T.UI.popupWindow.close();
-                T.UI.Message.success(T.Locale.get('feedback','success'));
+                $('#login-form').find('button').html(TOWNS.Locale.get('send'));
+                TOWNS.UI.popupWindow.close();
+                TOWNS.UI.Message.success(TOWNS.Locale.get('feedback','success'));
 
             });
             request.fail(function( response ){

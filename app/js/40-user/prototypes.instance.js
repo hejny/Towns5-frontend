@@ -3,19 +3,19 @@
  * @fileOverview Load objects prototypes
  */
 //======================================================================================================================
-T.setNamespace('User');
+TOWNS.setNamespace('User');
 
 
 
-T.User.loadObjectPrototypes=function(attempt){
+TOWNS.User.loadObjectPrototypes=function(attempt){
 
     attempt++;
 
-    T.TownsAPI.townsAPI.get('objects/prototypes',{},function(response){
+    TOWNS.TownsAPI.townsAPI.get('objects/prototypes',{},function(response){
 
         r('LOADED prototypes');
 
-        T.User.object_prototypes = new T.Objects.Array();
+        TOWNS.User.object_prototypes = new TOWNS.Objects.Array();
 
         response.forEach(function(object){
 
@@ -26,7 +26,7 @@ T.User.loadObjectPrototypes=function(attempt){
             object_prototype.id=object_prototype._id;
 
 
-            T.User.object_prototypes.push(object_prototype);//todo refactor read object or new object
+            TOWNS.User.object_prototypes.push(object_prototype);//todo refactor read object or new object
 
         });
 
@@ -36,7 +36,7 @@ T.User.loadObjectPrototypes=function(attempt){
 
         if(attempt<5){
 
-            T.User.loadObjectPrototypes(attempt);
+            TOWNS.User.loadObjectPrototypes(attempt);
             throw new Error('Cant load objects prototypes, loading again.');
 
         }else{
@@ -55,4 +55,4 @@ T.User.loadObjectPrototypes=function(attempt){
 
 
 
-T.User.loadObjectPrototypes(0);//todo move to other file
+TOWNS.User.loadObjectPrototypes(0);//todo move to other file

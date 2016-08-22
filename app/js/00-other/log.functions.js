@@ -57,7 +57,7 @@ function mapWindow(map){
 
 
 
-        T.ArrayFunctions.iterate2D(map,function(y,x){
+        TOWNS.ArrayFunctions.iterate2D(map,function(y,x){
 
             var r,g,b;
             if(map[y][x]=== 0){

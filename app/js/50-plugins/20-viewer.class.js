@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.Viewer = class {
+TOWNS.Plugins.Viewer = class {
 
 
     /**
@@ -23,7 +23,7 @@ T.Plugins.Viewer = class {
         this.conditions = conditions;
 
         var self = this;
-        this.page = new T.Plugins.Page(
+        this.page = new TOWNS.Plugins.Page(
             uri,
             title,
             `
@@ -45,7 +45,7 @@ T.Plugins.Viewer = class {
 
     /**
      * Open viewer
-     * @param {number} collection 0=T.User.object_prototypes, 1=objects_server
+     * @param {number} collection 0=TOWNS.User.object_prototypes, 1=objects_server
      * @param {string} id
      */
     open(collection, id) {
@@ -59,14 +59,14 @@ T.Plugins.Viewer = class {
 
         var object_ready = function (){
 
-            T.URI.object = viewer.opened.object.id;
+            TOWNS.URI.object = viewer.opened.object.id;
 
 
             viewer.page.open(function (open_callback, object) {
 
                 //-----------------------------------------
 
-                open_callback(object, $('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function T.ui.get();
+                open_callback(object, $('.popup-window .content')[0]);//todo refactor not DI popup window content but use static container with function TOWNS.ui.get();
 
                 //-----------------------------------------
 
@@ -80,9 +80,9 @@ T.Plugins.Viewer = class {
                     map_center = object.getPosition();
 
 
-                    if(T.Map.loadMap.locked){
+                    if(TOWNS.Map.loadMap.locked){
 
-                        T.URI.write();
+                        TOWNS.URI.write();
                         var position = map_center.getFloored();
                         $('#map-canvas-alt').attr('src',appDir+'/php/screenshot.php?x='+position.x+'&y='+position.y);
 
@@ -92,8 +92,8 @@ T.Plugins.Viewer = class {
 
 
 
-                        T.Map.loadMap(true);
-                        T.UI.popupWindow.close();
+                        TOWNS.Map.loadMap(true);
+                        TOWNS.UI.popupWindow.close();
 
                     }
 
@@ -107,7 +107,7 @@ T.Plugins.Viewer = class {
 
                     if(object.type=='story'){
 
-                        T.Plugins.open('story-editor',1,object.id);//todo better switching between viewers and editors
+                        TOWNS.Plugins.open('story-editor',1,object.id);//todo better switching between viewers and editors
 
                     }else{
                         throw new Error('todo better switching between viewers and editors');
@@ -121,15 +121,15 @@ T.Plugins.Viewer = class {
                 //-----------------Delete
                 $('#viewer-object-delete').click(function(e){
 
-                    if(confirm(T.Locale.get(object.type,'delete','confirm'))){
-                        T.UI.popupWindow.close();
+                    if(confirm(TOWNS.Locale.get(object.type,'delete','confirm'))){
+                        TOWNS.UI.popupWindow.close();
                         deleteObject(object.id
                             ,function(result){
 
                                 if(result){
-                                    T.UI.Message.success(T.Locale.get(object.type,'delete','success'));
+                                    TOWNS.UI.Message.success(TOWNS.Locale.get(object.type,'delete','success'));
                                 }else{
-                                    T.UI.Message.error(T.Locale.get(object.type,'delete','error'));
+                                    TOWNS.UI.Message.error(TOWNS.Locale.get(object.type,'delete','error'));
                                 }
 
 
@@ -152,7 +152,7 @@ T.Plugins.Viewer = class {
 
         if (collection === 0) {
 
-            viewer.opened.object = T.User.object_prototypes.getById(id);//T.ArrayFunctions.id2item(T.User.object_prototypes,id);
+            viewer.opened.object = TOWNS.User.object_prototypes.getById(id);//TOWNS.ArrayFunctions.id2item(TOWNS.User.object_prototypes,id);
             r('Opening object prototype ' + viewer.opened.object.name + '.');
 
             object_ready();
@@ -160,7 +160,7 @@ T.Plugins.Viewer = class {
 
         } else if (collection == 1) {
 
-            viewer.opened.object = objects_server.getById(id);//T.ArrayFunctions.id2item(objects_server,id);
+            viewer.opened.object = objects_server.getById(id);//TOWNS.ArrayFunctions.id2item(objects_server,id);
 
             if (viewer.opened.object) {
 
@@ -171,16 +171,16 @@ T.Plugins.Viewer = class {
 
             }else{
 
-                T.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
+                TOWNS.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
 
-                    viewer.opened.object = T.Objects.Object.init(response);
+                    viewer.opened.object = TOWNS.Objects.Object.init(response);
 
                     r('Opening object ' + viewer.opened.object.name + ' loaded from API.');
                     object_ready();
 
                 },function(){
 
-                    T.UI.popupWindow.open(T.Locale.get('page','404','title'), T.Locale.get('page','404','content'), false, 'SMALL');
+                    TOWNS.UI.popupWindow.open(TOWNS.Locale.get('page','404','title'), TOWNS.Locale.get('page','404','content'), false, 'SMALL');
 
                 });
 

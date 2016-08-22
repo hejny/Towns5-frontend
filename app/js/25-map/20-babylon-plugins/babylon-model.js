@@ -62,19 +62,19 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
                 //Creation of a material with an image texture
                 materials[particle.material] = new BABYLON.StandardMaterial("texture3", scene);
-                materials[particle.material].diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+                materials[particle.material].diffuseTexture = new BABYLON.Texture(TOWNS.Cache.textures.get(particle.material).src, scene);
                 //materials[particle.material].freeze();//todo freeze
             }
             var material = materials[particle.material];
 
 
             /*var material = new BABYLON.StandardMaterial("texture3", scene);
-            material.diffuseTexture = new BABYLON.Texture(T.Cache.textures.get(particle.material).src, scene);
+            material.diffuseTexture = new BABYLON.Texture(TOWNS.Cache.textures.get(particle.material).src, scene);
             material.freeze();*/
 
 
 
-            particle = T.Model.Particles.addMissingParams(particle);
+            particle = TOWNS.Model.Particles.addMissingParams(particle);
 
             if (particle.shape.type == 'prism') {
 
@@ -120,23 +120,23 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
 
                             if (!is(particle.shape.rotated)) {
 
-                                x__ = 0.5 * Math.cos(-n / particle.shape.n * Math.PI * 2 + T.TMath.deg2rad(180 + 180 / particle.shape.n)) * base + (level * particle.skew.z.x);
-                                y__ = 0.5 * Math.sin(-n / particle.shape.n * Math.PI * 2 + T.TMath.deg2rad(180 + 180 / particle.shape.n)) * base + (level * particle.skew.z.y);
+                                x__ = 0.5 * Math.cos(-n / particle.shape.n * Math.PI * 2 + TOWNS.TMath.deg2rad(180 + 180 / particle.shape.n)) * base + (level * particle.skew.z.x);
+                                y__ = 0.5 * Math.sin(-n / particle.shape.n * Math.PI * 2 + TOWNS.TMath.deg2rad(180 + 180 / particle.shape.n)) * base + (level * particle.skew.z.y);
                                 z__ = level;
 
                             } else {
 
-                                var tmp = (2 - (Math.cos(T.TMath.deg2rad(180 / particle.shape.n))));//todo better
+                                var tmp = (2 - (Math.cos(TOWNS.TMath.deg2rad(180 / particle.shape.n))));//todo better
 
                                 x__ = ((level * 2) - 1);
 
-                                y__ = 0.5 * Math.sin(n / particle.shape.n * Math.PI * 2 + T.TMath.deg2rad(180 + 180 / particle.shape.n));
+                                y__ = 0.5 * Math.sin(n / particle.shape.n * Math.PI * 2 + TOWNS.TMath.deg2rad(180 + 180 / particle.shape.n));
 
 
                                 z__ = (1) * 0.5 * (
 
-                                        Math.cos(n / particle.shape.n * Math.PI * 2 + T.TMath.deg2rad(180 + 180 / particle.shape.n)) * tmp +
-                                        ((Math.cos(T.TMath.deg2rad(180 / particle.shape.n)))) * tmp
+                                        Math.cos(n / particle.shape.n * Math.PI * 2 + TOWNS.TMath.deg2rad(180 + 180 / particle.shape.n)) * tmp +
+                                        ((Math.cos(TOWNS.TMath.deg2rad(180 / particle.shape.n)))) * tmp
 
                                     );
 
@@ -227,7 +227,7 @@ createModel = function(name, model, scene, materials, particles_cache, models_ca
                 particle_mesh.scaling.z = particle.size.y;
 
 
-                particle_mesh.rotation.y = T.TMath.deg2rad(-particle.rotation/*-180*/);
+                particle_mesh.rotation.y = TOWNS.TMath.deg2rad(-particle.rotation/*-180*/);
 
                 particle_mesh.material = material;
 

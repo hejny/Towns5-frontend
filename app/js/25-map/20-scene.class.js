@@ -1,14 +1,14 @@
-T.setNamespace('Map');
+TOWNS.setNamespace('Map');
 
 //var prevent=false;
 
 
-T.Map.Scene = class{
+TOWNS.Map.Scene = class{
 
 
 
     babylonToPosition(vector3){
-        return(new T.Position(
+        return(new TOWNS.Position(
             vector3.x/MAP_FIELD_SIZE + map_center.x,
             -vector3.z/MAP_FIELD_SIZE + map_center.y
         ));
@@ -27,12 +27,12 @@ T.Map.Scene = class{
 
 
     rotationToBabylon(degrees){
-        return -T.TMath.deg2rad(degrees-45);
+        return -TOWNS.TMath.deg2rad(degrees-45);
     }
 
 
     babylonToRotation(radians){
-        return T.TMath.rad2deg(-radians)+45;
+        return TOWNS.TMath.rad2deg(-radians)+45;
     }
 
 
@@ -49,7 +49,7 @@ T.Map.Scene = class{
 
         this.camera.target.y = 450;
         this.camera.alpha=Math.PI * (7 / 4);
-        this.camera.beta=T.TMath.deg2rad(25);
+        this.camera.beta=TOWNS.TMath.deg2rad(25);
 
         this.setCamera();
 
@@ -70,9 +70,9 @@ T.Map.Scene = class{
     moveByProcess(){
 
         map_center.plus(this.moved_by);
-        this.moved_by=new T.Position(0,0);
+        this.moved_by=new TOWNS.Position(0,0);
 
-        T.Map.loadMap();
+        TOWNS.Map.loadMap();
 
     }
 
@@ -143,7 +143,7 @@ T.Map.Scene = class{
 
         self.scene = new BABYLON.Scene(self.engine);
 
-        self.moved_by=new T.Position(0,0);
+        self.moved_by=new TOWNS.Position(0,0);
 
 
         self.light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(1, -2, 1), self.scene);
@@ -299,7 +299,7 @@ T.Map.Scene = class{
                 if(task.isCompleted)loaded++;
             });
 
-            self.engine.loadingUIText = T.Locale.get('loading of graphic')+' '+Math.floor(loaded/all*100)+'%';
+            self.engine.loadingUIText = TOWNS.Locale.get('loading of graphic')+' '+Math.floor(loaded/all*100)+'%';
 
         };
 
@@ -338,11 +338,11 @@ T.Map.Scene = class{
         //-------------------------------------------
 
         //-------------------------------------------Image Collection
-        T.setNamespace('Cache');
-        T.Cache.backgrounds= new T.Cache.ImagesCollection();//todo maybe refactor to T.Cache.images
+        TOWNS.setNamespace('Cache');
+        TOWNS.Cache.backgrounds= new TOWNS.Cache.ImagesCollection();//todo maybe refactor to TOWNS.Cache.images
 
         var imageLoad = function (result) {
-            T.Cache.backgrounds.addImage(result.name,result.image);
+            TOWNS.Cache.backgrounds.addImage(result.name,result.image);
             progress();
         };
 
@@ -362,10 +362,10 @@ T.Map.Scene = class{
         //-------------------------------------------
         //-------------------------------------------Texture Collection
 
-        T.Cache.textures= new T.Cache.ImagesCollection();
+        TOWNS.Cache.textures= new TOWNS.Cache.ImagesCollection();
 
         var texturesLoad = function (result) {
-            T.Cache.textures.addImage(result.name,result.image);
+            TOWNS.Cache.textures.addImage(result.name,result.image);
             progress();
         };
 
@@ -405,7 +405,7 @@ T.Map.Scene = class{
             });
 
             self.loaded = true;
-            T.Map.loadMap(true);
+            TOWNS.Map.loadMap(true);
 
         };
 
@@ -498,7 +498,7 @@ T.Map.Scene = class{
                 position.y = self.terrain_mesh.getHeightAtCoordinates(position.x, position.z);
                 object_mesh.mesh.position = position;
 
-                object_mesh.mesh.rotation.y=T.TMath.deg2rad(object_mesh.object.path.countRotation());
+                object_mesh.mesh.rotation.y=TOWNS.TMath.deg2rad(object_mesh.object.path.countRotation());
 
 
 
@@ -606,7 +606,7 @@ T.Map.Scene = class{
                 corner_scene.z = pickResult.pickedPoint.z;
 
 
-                /*var corner_position= new T.Position(
+                /*var corner_position= new TOWNS.Position(
                     corner_scene.x/MAP_FIELD_SIZE + map_center.x,
                     -corner_scene.z/MAP_FIELD_SIZE + map_center.y
                 );*/
@@ -624,11 +624,11 @@ T.Map.Scene = class{
 
         });
 
-        //var area = new T.Area(...corners);
+        //var area = new TOWNS.Area(...corners);
 
         //todo change to ... when migrate to TS
         function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-        var area = new (Function.prototype.bind.apply(T.Area, [null].concat(_toConsumableArray(corners))))();
+        var area = new (Function.prototype.bind.apply(TOWNS.Area, [null].concat(_toConsumableArray(corners))))();
 
 
         return(area);
@@ -727,9 +727,9 @@ T.Map.Scene = class{
             mesh.scaling.y=natural.design.data.size;
             mesh.scaling.z=natural.design.data.size;
 
-            mesh.rotation.y=T.TMath.deg2rad(natural.design.data.rotation.z);
-            mesh.rotation.x=T.TMath.deg2rad(natural.design.data.rotation.x);
-            mesh.rotation.z=T.TMath.deg2rad(natural.design.data.rotation.y);
+            mesh.rotation.y=TOWNS.TMath.deg2rad(natural.design.data.rotation.z);
+            mesh.rotation.x=TOWNS.TMath.deg2rad(natural.design.data.rotation.x);
+            mesh.rotation.z=TOWNS.TMath.deg2rad(natural.design.data.rotation.y);
 
             mesh.isPickable = false;
 
@@ -954,7 +954,7 @@ T.Map.Scene = class{
                     z = 0.7;
                 }else
                 if(terrain_code===5){
-                    //z = 0.5+T.TMath.randomSeedPosition(4,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2
+                    //z = 0.5+TOWNS.TMath.randomSeedPosition(4,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2
                 }else
                 if(terrain_code===4){
                     z = 0.15;
@@ -980,7 +980,7 @@ T.Map.Scene = class{
                 if(terrain_code!==false) {
 
                     ctx.drawImage(
-                        T.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(T.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})*seedCount)%seedCount),
+                        TOWNS.Cache.backgrounds.get('t' + terrain_code + 's'+Math.floor(TOWNS.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})*seedCount)%seedCount),
                         (x ) / map_radius / 2 * 2048 + 1024,
                         (y ) / map_radius / 2 * 2048 + 1024,
                         MAP_FIELD_SIZE*7,//todo as Const
@@ -1010,7 +1010,7 @@ T.Map.Scene = class{
 
 
                 if(terrain_code===5) {
-                    z = 0.5+T.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2;
+                    z = 0.5+TOWNS.TMath.randomSeedPosition(3,{x:x+map_center_floor.x,y:y+map_center_floor.y})/2;
 
 
                     z = Math.floor(z * 255);

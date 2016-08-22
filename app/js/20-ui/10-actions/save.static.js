@@ -1,9 +1,9 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Load object data from T.Storage
+ * @fileOverview Load object data from TOWNS.Storage
  */
 //======================================================================================================================
-//todo create T.UI.Actions or solve actions in towns-shared
+//todo create TOWNS.UI.Actions or solve actions in towns-shared
 
 
 function saveObject(object,callback){
@@ -12,7 +12,7 @@ function saveObject(object,callback){
     objects_server.push(object);
 
 
-    T.TownsAPI.townsAPI.post('objects',object,function(response){
+    TOWNS.TownsAPI.townsAPI.post('objects',object,function(response){
 
         object.id=response.objectId;
 
@@ -34,7 +34,7 @@ function deleteObject(id,callback){
 
     objects_server.removeId(id);//Create new
 
-    T.TownsAPI.townsAPI.delete('objects/'+id,function(response){
+    TOWNS.TownsAPI.townsAPI.delete('objects/'+id,function(response){
 
         r('object was deleted on server',response);
 

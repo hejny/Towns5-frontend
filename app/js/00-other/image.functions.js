@@ -7,7 +7,7 @@
 function getAverageRGB(imgEl) {
 
     var blockSize = 5, // only visit every 5 pixels
-        defaultRGB = new T.Color(222,222,222), // for non-supporting envs
+        defaultRGB = new TOWNS.Color(222,222,222), // for non-supporting envs
         canvas = document.createElement('canvas'),
         context = canvas.getContext('2d'),
         data, width, height,
@@ -52,6 +52,6 @@ function getAverageRGB(imgEl) {
 
 
 
-    return new T.Color(rgb.r,rgb.g,rgb.b);
+    return new TOWNS.Color(rgb.r,rgb.g,rgb.b);
 
 }

@@ -20,6 +20,7 @@
 
 
     "node_modules/towns-shared/build/towns-shared.js",
+    "app/namespace.js",
 
 
     "app/lib/*.js",

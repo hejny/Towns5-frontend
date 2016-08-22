@@ -3,15 +3,15 @@
  * @fileOverview Left tool menu shown when user select building.
  */
 //======================================================================================================================
-T.setNamespace('UI.Menu');
+TOWNS.setNamespace('UI.Menu');
 
 
-T.UI.Menu.Object = class {
+TOWNS.UI.Menu.Object = class {
     
 
     static menu() {
         
-        r('T.UI.Menu.Object.menu');
+        r('TOWNS.UI.Menu.Object.menu');
 
 
         $('#objectmenu').stop(true, true);
@@ -38,36 +38,36 @@ T.UI.Menu.Object = class {
                 ['view', 'edit'].forEach(function (action) {
 
 
-                    var possible = T.Plugins.search(action, object);
+                    var possible = TOWNS.Plugins.search(action, object);
                     possible = possible.map(function (item) {
-                        return (`<button onclick="T.Plugins.open('` + item + `',1,'` + id + `')">` + T.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
+                        return (`<button onclick="TOWNS.Plugins.open('` + item + `',1,'` + id + `')">` + TOWNS.Locale.get('plugin', item, 'open', object.type, object.subtype, action) + `</button>`);
                     });
                     possible = possible.join('');
-                    objectmenu += T.Templates.menu({
+                    objectmenu += TOWNS.Templates.menu({
                         icon: '/media/image/icons/' + action + '.svg',
                         icon_size: 0.8,
-                        title: T.Locale.get(object.type, object.subtype, action),
-                        content: T.Locale.get(object.type, object.subtype, action, 'description') + '<br>' + possible
+                        title: TOWNS.Locale.get(object.type, object.subtype, action),
+                        content: TOWNS.Locale.get(object.type, object.subtype, action, 'description') + '<br>' + possible
                     });
 
                 });
                 /**/
 
 
-                objectmenu += T.Templates.menu({
+                objectmenu += TOWNS.Templates.menu({
                     icon: '/media/image/icons/clone.svg',
                     icon_size: 0.8,
-                    title: T.Locale.get(object.type, object.subtype, 'clone'),
-                    content: T.Locale.get(object.type, object.subtype, 'clone', 'description'),
-                    action: 'T.UI.Menu.Building.start(\'' + object._prototypeId + '\');'
+                    title: TOWNS.Locale.get(object.type, object.subtype, 'clone'),
+                    content: TOWNS.Locale.get(object.type, object.subtype, 'clone', 'description'),
+                    action: 'TOWNS.UI.Menu.Building.start(\'' + object._prototypeId + '\');'
                 });
 
 
-                objectmenu += T.Templates.menu({
+                objectmenu += TOWNS.Templates.menu({
                     icon: '/media/image/icons/dismantle.svg',
                     icon_size: 0.8,
-                    title: T.Locale.get(object.type, object.subtype, 'dismantle'),
-                    content: T.Locale.get(object.type, object.subtype, 'dismantle', 'description'),
+                    title: TOWNS.Locale.get(object.type, object.subtype, 'dismantle'),
+                    content: TOWNS.Locale.get(object.type, object.subtype, 'dismantle', 'description'),
                     action: 'dismantleUI(\'' + id + '\');'
                 });
 
@@ -76,7 +76,7 @@ T.UI.Menu.Object = class {
             }else
             if(object.type==='story'){
 
-                T.Plugins.open('story',1,object.id);
+                TOWNS.Plugins.open('story',1,object.id);
                 hideLeftMenu();
 
             }else{

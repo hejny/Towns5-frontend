@@ -1,15 +1,15 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates object T.Storage with static methods
+ * @fileOverview Creates object TOWNS.Storage with static methods
  */
 //======================================================================================================================
 
 
 
 /**
- * Wrapper for LocalT.Storage
+ * Wrapper for LocalTOWNS.Storage
  */
-T.Storage=class {
+TOWNS.Storage=class {
 
 
     /**

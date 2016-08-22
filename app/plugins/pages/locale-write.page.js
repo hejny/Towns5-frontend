@@ -6,17 +6,17 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'locale-write',
-    'T.Locale',
+    'TOWNS.Locale',
     `<iframe src="" width="100%" height="100%" frameborder="0" scrolling="0" id="locale-write-iframe"></iframe>`,
     function(){
 
 
         var url;
 
-        url=appDir+'/php/locale-write.php?language='+language+'&keys='+T.Locale.keys_write.join(',');
-        T.Locale.keys_write=[];
+        url=appDir+'/php/locale-write.php?language='+language+'&keys='+TOWNS.Locale.keys_write.join(',');
+        TOWNS.Locale.keys_write=[];
 
 
         $('#locale-write-iframe').attr('src',url);

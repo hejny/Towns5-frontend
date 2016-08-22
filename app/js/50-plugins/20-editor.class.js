@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.Editor = class {
+TOWNS.Plugins.Editor = class {
 
 
     /**
@@ -24,7 +24,7 @@ T.Plugins.Editor = class {
         this.conditions = conditions;
 
         var self = this;
-        this.page = new T.Plugins.Page(
+        this.page = new TOWNS.Plugins.Page(
             uri,
             title,
             `
@@ -49,19 +49,19 @@ T.Plugins.Editor = class {
 
                 if (self.opened.collection === 0) {
 
-                    T.User.object_prototypes.setById(self.opened.object.id, self.opened.object);
+                    TOWNS.User.object_prototypes.setById(self.opened.object.id, self.opened.object);
 
 
-                    T.UI.Menu.Prototypes.menu(self.opened.object, self.opened.object.subtype);
-                    T.UI.Menu.Building.start(self.opened.object.id);
+                    TOWNS.UI.Menu.Prototypes.menu(self.opened.object, self.opened.object.subtype);
+                    TOWNS.UI.Menu.Building.start(self.opened.object.id);
 
 
-                    T.TownsAPI.townsAPI.post('objects/prototypes', self.opened.object
+                    TOWNS.TownsAPI.townsAPI.post('objects/prototypes', self.opened.object
                         , function (response) {
 
 
-                            T.UI.Menu.Prototypes.menu(self.opened.object.type, self.opened.object.subtype);
-                            T.UI.Menu.Building.start(self.opened.object.id);
+                            TOWNS.UI.Menu.Prototypes.menu(self.opened.object.type, self.opened.object.subtype);
+                            TOWNS.UI.Menu.Building.start(self.opened.object.id);
 
 
                         }
@@ -80,10 +80,10 @@ T.Plugins.Editor = class {
                     objects_server.update(self.opened.object);
 
 
-                    T.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
+                    TOWNS.TownsAPI.townsAPI.post('objects/' + self.opened.object.id, self.opened.object
                         , function (response) {
 
-                            T.UI.Message.success(T.Locale.get('object', self.opened.object.type, 'saved'));
+                            TOWNS.UI.Message.success(TOWNS.Locale.get('object', self.opened.object.type, 'saved'));
 
                         }
                         , function (errors) {
@@ -115,7 +115,7 @@ T.Plugins.Editor = class {
 
     /**
      * Open editor
-     * @param {number} collection 0=T.User.object_prototypes, 1=objects_server
+     * @param {number} collection 0=TOWNS.User.object_prototypes, 1=objects_server
      * @param {string} id
      */
     open(collection, id, errors = false) {
@@ -129,7 +129,7 @@ T.Plugins.Editor = class {
 
         var object_ready = function() {
 
-            T.URI.object = editor.opened.object.id;
+            TOWNS.URI.object = editor.opened.object.id;
 
 
             editor.page.open(function (open_callback, object) {
@@ -146,7 +146,7 @@ T.Plugins.Editor = class {
 
                     //r(errors);
                     for (var key in errors.message) {
-                        //T.UI.Message.message(errors.message[key].message,'error');
+                        //TOWNS.UI.Message.message(errors.message[key].message,'error');
 
                         $('#editor-object-errors').append('<div class="error">' + (errors.message[key].message.text2html()) + '</div>');
                     }
@@ -173,13 +173,13 @@ T.Plugins.Editor = class {
                         r('Deleting object prototype ' + object.name + '.');
 
                         //todo maybe create action DELETE prototype?
-                        if (confirm(T.Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+                        if (confirm(TOWNS.Locale.get('delete prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
 
-                            T.User.object_prototypes.removeId(object.id);
+                            TOWNS.User.object_prototypes.removeId(object.id);
 
-                            T.UI.Menu.Prototypes.menu(object.type, object.subtype);
+                            TOWNS.UI.Menu.Prototypes.menu(object.type, object.subtype);
 
-                            T.UI.popupWindow.close(true);
+                            TOWNS.UI.popupWindow.close(true);
 
                         }
 
@@ -190,11 +190,11 @@ T.Plugins.Editor = class {
                         r('Deleting object ' + object.name + '.');
 
                         //todo maybe create action DELETE prototype?
-                        if (confirm(T.Locale.get(object.type,'delete','confirm'))) {//todo create better confirm
+                        if (confirm(TOWNS.Locale.get(object.type,'delete','confirm'))) {//todo create better confirm
 
                             deleteObject(object.id);
 
-                            T.UI.popupWindow.close(true);
+                            TOWNS.UI.popupWindow.close(true);
 
                         }
 
@@ -215,16 +215,16 @@ T.Plugins.Editor = class {
                             r('Duplicating object prototype ' + object.name + '.');
 
                             //todo maybe create action DUPLICATE prototype?
-                            if (confirm(T.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
+                            if (confirm(TOWNS.Locale.get('duplicate prototype ' + object.type + ' ' + object.subtype + ' confirm'))) {//todo create better confirm
 
                                 var object_duplicate = editor.opened.object.clone();
                                 object_duplicate.id = generateID();
 
-                                T.User.object_prototypes.push(object_duplicate);
+                                TOWNS.User.object_prototypes.push(object_duplicate);
 
                                 //r('Opening duplicated object prototype '+object.name+'.');
                                 //r(object_duplicate);
-                                T.UI.popupWindow.close();
+                                TOWNS.UI.popupWindow.close();
                                 editor.open(0, object_duplicate.id);
 
                             }
@@ -260,8 +260,8 @@ T.Plugins.Editor = class {
 
             if (collection === 0) {
 
-                T.User.object_prototypes.push(this.opened.object);
-                T.UI.Menu.Prototypes.menu(this.opened.object.type, this.opened.object.subtype);
+                TOWNS.User.object_prototypes.push(this.opened.object);
+                TOWNS.UI.Menu.Prototypes.menu(this.opened.object.type, this.opened.object.subtype);
 
                 r('Creating new object prototype ' + this.opened.object.name + '.');
 
@@ -285,7 +285,7 @@ T.Plugins.Editor = class {
 
             if (collection === 0) {
 
-                this.opened.object = T.User.object_prototypes.getById(id);
+                this.opened.object = TOWNS.User.object_prototypes.getById(id);
                 r('Opening object prototype ' + this.opened.object.name + '.');
 
                 object_ready();
@@ -303,16 +303,16 @@ T.Plugins.Editor = class {
                 } else {
 
 
-                    T.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
+                    TOWNS.TownsAPI.townsAPI.get('objects/'+id,{},function(response){
 
-                        editor.opened.object = T.Objects.Object.init(response);
+                        editor.opened.object = TOWNS.Objects.Object.init(response);
 
                         r('Opening object ' + editor.opened.object.name + ' loaded from API.');
                         object_ready();
 
                     },function(){
 
-                        T.UI.popupWindow.open(T.Locale.get('page','404','title'), T.Locale.get('page','404','content'), false, 'SMALL');
+                        TOWNS.UI.popupWindow.open(TOWNS.Locale.get('page','404','title'), TOWNS.Locale.get('page','404','content'), false, 'SMALL');
 
                     });
 

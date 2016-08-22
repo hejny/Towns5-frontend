@@ -10,7 +10,7 @@ r('Starting Towns...');
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~location on map
 
 
-T.URI.read();
+TOWNS.URI.read();
 
 
 r('Starting Towns on '+map_center.x+','+map_center.y+'.');
@@ -21,14 +21,14 @@ r('Starting Towns on '+map_center.x+','+map_center.y+'.');
 
 $(function(){
 
-    T.URI.plugin=false;
-    T.URI.object=false;
-    T.URI.readAndUpdate();
-    r('Starting Towns with opened object '+T.URI.object+'.');
-    r('Starting Towns with opened plugin '+T.URI.plugin+'.');
+    TOWNS.URI.plugin=false;
+    TOWNS.URI.object=false;
+    TOWNS.URI.readAndUpdate();
+    r('Starting Towns with opened object '+TOWNS.URI.object+'.');
+    r('Starting Towns with opened plugin '+TOWNS.URI.plugin+'.');
 
-    if(environment!='develop' && !T.URI.plugin){
-        T.Plugins.open('home');
+    if(environment!='develop' && !TOWNS.URI.plugin){
+        TOWNS.Plugins.open('home');
     }
 
 
@@ -40,7 +40,7 @@ $(function(){
 
 $(window).on('popstate', function() {
 
-    T.URI.readAndUpdate();
+    TOWNS.URI.readAndUpdate();
 
 });
 

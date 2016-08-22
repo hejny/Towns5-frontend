@@ -8,7 +8,7 @@ require('init.php');
 <script>
 
 
-    T.TownsAPI.townsAPI.post('objects',
+    TOWNS.TownsAPI.townsAPI.post('objects',
 
         {
 

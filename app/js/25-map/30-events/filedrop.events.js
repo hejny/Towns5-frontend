@@ -27,7 +27,7 @@ document.addEventListener("dragover", function(e){
 
         r('Creating story mesh for dropping stories.');
 
-        story_prototype = T.User.object_prototypes.filterTypes('story').getAll()[0];
+        story_prototype = TOWNS.User.object_prototypes.filterTypes('story').getAll()[0];
         if (story_prototype) {
 
 
@@ -38,7 +38,7 @@ document.addEventListener("dragover", function(e){
                 story_prototype_mesh.dispose();
             }
 
-            story_prototype_mesh = createStoryMesh('story', story, T.Map.scene.scene, T.Map.scene.shadow_generator);
+            story_prototype_mesh = createStoryMesh('story', story, TOWNS.Map.scene.scene, TOWNS.Map.scene.shadow_generator);
 
 
             r(story_prototype_mesh);
@@ -53,8 +53,8 @@ document.addEventListener("dragover", function(e){
     //------------------------------------
 
 
-    var position = T.Map.scene.getPositionOnTerrainMesh(e.clientX,e.clientY);
-    //position.y = T.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
+    var position = TOWNS.Map.scene.getPositionOnTerrainMesh(e.clientX,e.clientY);
+    //position.y = TOWNS.Map.scene.terrain_mesh.getHeightAtCoordinates(position.x,position.z);
 
 
     story_prototype_mesh.position = position;
@@ -81,11 +81,11 @@ document.addEventListener("drop", function(e){
 
 
 
-    //T.TownsAPI.townsAPI.isLogged(function(logged){
+    //TOWNS.TownsAPI.townsAPI.isLogged(function(logged){
 
-    if(T.TownsAPI.townsAPI.logged===false){
+    if(TOWNS.TownsAPI.townsAPI.logged===false){
 
-        T.UI.Message.error(T.Locale.get('upload only logged'));
+        TOWNS.UI.Message.error(TOWNS.Locale.get('upload only logged'));
         return;
 
     }
@@ -98,7 +98,7 @@ document.addEventListener("drop", function(e){
     var story_prototype_clone = story_prototype.clone();
 
 
-    var position = T.Map.scene.babylonToPosition(story_prototype_mesh.position);
+    var position = TOWNS.Map.scene.babylonToPosition(story_prototype_mesh.position);
 
 
 
@@ -130,13 +130,13 @@ document.addEventListener("drop", function(e){
 
         if(TOWNS_CDN_FILE_ACCEPTED_TYPES.indexOf(files[i].type)==-1){
 
-            T.UI.Message.error(T.Locale.get('upload error only images'));
+            TOWNS.UI.Message.error(TOWNS.Locale.get('upload error only images'));
             throw new Error('Not allowed filetype.');
         }
 
         if(files[i].size>TOWNS_CDN_FILE_MAX_SIZE){
 
-            T.UI.Message.error(T.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE));
+            TOWNS.UI.Message.error(TOWNS.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE));
             throw new Error('File too big');
         }
 
@@ -153,7 +153,7 @@ document.addEventListener("drop", function(e){
 
     if(request_size>TOWNS_CDN_REQUEST_MAX_SIZE){
 
-        T.UI.Message.error(T.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE));
+        TOWNS.UI.Message.error(TOWNS.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE));
         throw new Error('Request too big');
 
     }
@@ -165,7 +165,7 @@ document.addEventListener("drop", function(e){
 
 
 
-    var message = T.UI.Message.info();
+    var message = TOWNS.UI.Message.info();
 
 
     xhr.upload.onprogress = function (event) {
@@ -173,7 +173,7 @@ document.addEventListener("drop", function(e){
         if (event.lengthComputable) {
             var complete = (event.loaded / event.total * 100 | 0);
 
-            message.text(T.Locale.get('upload progress')+' '+complete+'%');
+            message.text(TOWNS.Locale.get('upload progress')+' '+complete+'%');
 
         }
 
@@ -203,7 +203,7 @@ document.addEventListener("drop", function(e){
 
                     /*,function(){
 
-                        T.Map.loadMap();
+                        TOWNS.Map.loadMap();
                         //alert('story created');
 
                     }
@@ -213,11 +213,11 @@ document.addEventListener("drop", function(e){
 
                 console.log('all done: ' + xhr.status);
                 r(message);
-                message.text(T.Locale.get('upload success story'),'success').close();
+                message.text(TOWNS.Locale.get('upload success story'),'success').close();
 
             }catch(e){
 
-                message.text(T.Locale.get('upload fail'),'error').close();
+                message.text(TOWNS.Locale.get('upload fail'),'error').close();
 
             }
 
@@ -225,7 +225,7 @@ document.addEventListener("drop", function(e){
         } else {
 
             console.log('Something went terribly wrong...');
-            message.text(T.Locale.get('upload fail'),'error').close();
+            message.text(TOWNS.Locale.get('upload fail'),'error').close();
 
         }
     };

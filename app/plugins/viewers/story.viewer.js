@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Plugins.Viewer(
+TOWNS.Plugins.install(new TOWNS.Plugins.Viewer(
     'story'
     ,{
         type: 'story'
@@ -62,7 +62,7 @@ T.Plugins.install(new T.Plugins.Viewer(
                 path=path.substr(1);
                 path=path.split('/');
 
-                var onclick = `T.Plugins.open('`+path[0]+`',1,'`+path[1]+`');`;
+                var onclick = `TOWNS.Plugins.open('`+path[0]+`',1,'`+path[1]+`');`;
 
                 $this.attr('href',null);
                 $this.attr('onclick',onclick);
@@ -137,9 +137,9 @@ T.Plugins.install(new T.Plugins.Viewer(
 
 
 
-        T.TownsAPI.townsAPI.get('users/'+object.owner,{},function(response){
+        TOWNS.TownsAPI.townsAPI.get('users/'+object.owner,{},function(response){
 
-            var user = new T.User(response);//todo maybe creation of instance should provide TownsAPI
+            var user = new TOWNS.User(response);//todo maybe creation of instance should provide TownsAPI
 
             $(page).find('.author').append(user.getSignatureHTML());
 
@@ -157,7 +157,7 @@ T.Plugins.install(new T.Plugins.Viewer(
 
     
     
-        T.UI.popupWindow.setTitle(object.name);
+        TOWNS.UI.popupWindow.setTitle(object.name);
     
     
     

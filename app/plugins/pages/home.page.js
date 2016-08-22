@@ -6,7 +6,7 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'home',
     ['O hře','Autoři'/*,'Technologie'*/],
     [`
@@ -236,7 +236,7 @@ function(page,storage){
                     `+a_tag_begin+`
                         <img src="`+item.image+`">
                         <h2 class="title">`+item.title+`</h2>
-                        <p class="type">`+ T.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
+                        <p class="type">`+ TOWNS.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
                         <p class="date">`+dateToSmartString(item.date)+`</p>
                     `+a_tag_end+`
                 </li>
@@ -254,9 +254,9 @@ function(page,storage){
 
         //********************stories
 
-        T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
+        TOWNS.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
 
-            var stories = new T.Objects.Array(result);
+            var stories = new TOWNS.Objects.Array(result);
 
             stories.forEach(function(story){
 
@@ -284,7 +284,7 @@ function(page,storage){
                 storage.news.push({
                     type: 'story',
                     //link: '#'+story.x+','+story.y,
-                    onclick: "T.Plugins.open('story',1,'"+story.id+"');",
+                    onclick: "TOWNS.Plugins.open('story',1,'"+story.id+"');",
                     image: image,
                     title: story.name,
                     date: new Date(story.start_time),

@@ -4,7 +4,7 @@
  */
 //======================================================================================================================
 
-T.Map.Scene.prototype.attachCREATING_CIRCLE = function(object,callback){
+TOWNS.Map.Scene.prototype.attachCREATING_CIRCLE = function(object,callback){
 
     var self = this;
 
@@ -22,7 +22,7 @@ T.Map.Scene.prototype.attachCREATING_CIRCLE = function(object,callback){
 
     self.onLeftUp = function (evt) {
 
-        /*var position = new T.Position(
+        /*var position = new TOWNS.Position(
          self.selection_circle.position.x/MAP_FIELD_SIZE+map_center.x,
          -self.selection_circle.position.z/MAP_FIELD_SIZE+map_center.y
          );*/
@@ -42,7 +42,7 @@ T.Map.Scene.prototype.attachCREATING_CIRCLE = function(object,callback){
         self.selection_circle_radius = object.design.data.size;
 
         self.selection_circle_material = new BABYLON.StandardMaterial("selection_circle_material", self.scene);
-        self.selection_circle_material.diffuseTexture = new BABYLON.Texture(T.Cache.backgrounds.get('t'+object.getCode()+'s0').src+'&raw', self.scene);
+        self.selection_circle_material.diffuseTexture = new BABYLON.Texture(TOWNS.Cache.backgrounds.get('t'+object.getCode()+'s0').src+'&raw', self.scene);
 
     }else{
 

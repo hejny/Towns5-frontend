@@ -15,7 +15,7 @@
  * @param {string} force color - format #ff00ff //todo maybe delete
  * @param {boolean} selected - display blue highlight around model
  */
-T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
+TOWNS.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, force_color=false, selected=false, simple=false) {
 
 
     //force_color=cParam(force_color,false);
@@ -56,7 +56,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
     //this_.particles
     particlesLinear.forEach(function(particle,particle_i){
 
-        var addResource= T.Model.Particles.get3D(particle);
+        var addResource= TOWNS.Model.Particles.get3D(particle);
 
         //r(addResource);
 
@@ -76,7 +76,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
             var imgData=ctx.getImageData(10,10,1,1);
 
-            resource.colors.push(T.Cache.textures.getColor(particle.material).clone());
+            resource.colors.push(TOWNS.Cache.textures.getColor(particle.material).clone());
             resource.polygons.push(addResource.polygons[poly_i]);
 
             resource.particles.push(particle_i);
@@ -107,7 +107,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
     }else{
 
         var color = force_color;
-        color = T.Color.createFromHex(color);
+        color = TOWNS.Color.createFromHex(color);
 
     }
 
@@ -162,7 +162,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Shadow
     if(!simple)
         shaders.push({
-            fill: function(){return(new T.Color(255,255,255,255));},
+            fill: function(){return(new TOWNS.Color(255,255,255,255));},
             position: function(position3D){
                 z = Math.abs(position3D.z);
                 x = position3D.x + z / 1.5;
@@ -171,13 +171,13 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
                 var xx = x * 1 - (y * 1);
                 var yy = x * slope_m + y * slope_m;
 
-                return(new T.Position(xx,yy));
+                return(new TOWNS.Position(xx,yy));
 
             },
             canvas: simple?false:function(ctx) {
                 ctx.recolorImage(
-                    new T.Color(255,255,255,false),
-                    new T.Color(0,0,0,100)
+                    new TOWNS.Color(255,255,255,false),
+                    new TOWNS.Color(0,0,0,100)
                 );
                 ctx.blur(2);
             }
@@ -186,7 +186,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     var shaderShapePosition = function(position3D){
 
-        //return(new T.Color(0,255,255,100));
+        //return(new TOWNS.Color(0,255,255,100));
 
         var x = position3D.x,
             y = position3D.y,
@@ -201,7 +201,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
         xx = x - y;
         yy = x * slope_m + y * slope_m - (z * slope_n);
 
-        return(new T.Position(xx,yy));
+        return(new TOWNS.Position(xx,yy));
 
     };
 
@@ -228,9 +228,9 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
             vector3.z = vector1.x*vector2.y - vector1.y*vector2.x
 
 
-            var polar = T.TMath.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
+            var polar = TOWNS.TMath.xy2distDeg(vector3.x,vector3.y);//todo refactor  all distdeg to polar
 
-            var angle= T.TMath.angleDiff(polar.deg,-45);
+            var angle= TOWNS.TMath.angleDiff(polar.deg,-45);
 
             var add=angle/-5;
 
@@ -244,7 +244,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
 
         }:function(){
 
-            return(T.Color.createFromHex(force_color));//todo refactoring force_color should be instance of T.Color
+            return(TOWNS.Color.createFromHex(force_color));//todo refactoring force_color should be instance of TOWNS.Color
 
         },
         position: shaderShapePosition
@@ -279,7 +279,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
                     y = resource['points'][resource['polygons'][i2][i3]][1];
                     z = resource['points'][resource['polygons'][i2][i3]][2];
 
-                    var position3D=new T.Position3D(x,y,z);
+                    var position3D=new TOWNS.Position3D(x,y,z);
                     polygon3D.push(position3D);
                     var position=shader.position(position3D);
 
@@ -394,7 +394,7 @@ T.Model.prototype.draw = function(ctx, s, x_begin, y_begin, rotation, slope, for
  * @param {number} size Size of returned image
  * @returns {string} image data in base64
  */
-T.Model.prototype.createIcon = function(size){
+TOWNS.Model.prototype.createIcon = function(size){
 
     var canvas = document.createElement('canvas');
     canvas.height=size;
@@ -413,7 +413,7 @@ T.Model.prototype.createIcon = function(size){
 //==================================================
 
 
-T.Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, slope,selected=false){
+TOWNS.Model.prototype.createSrc = function( s, x_begin, y_begin, x_size, y_size, rot, slope,selected=false){
 
     var canvas = document.createElement('canvas');
     canvas.width=x_size;

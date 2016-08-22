@@ -41,7 +41,7 @@ var Editors={};
 
 
 
-var objects_server=new T.Objects.Array([]);
+var objects_server=new TOWNS.Objects.Array([]);
 
 
 var selecting_distance_2d_canvas;//todo refactor selecting distance to ?tool
@@ -114,9 +114,9 @@ var map_zoom_delta=0;
 var map_rotation_delta=0;
 var map_slope_delta=0;
 
-T.setNamespace('UI.Map');
+TOWNS.setNamespace('UI.Map');
 
-var map_center = new T.Position(0,0);//todo Static object Map
+var map_center = new TOWNS.Position(0,0);//todo Static object Map
 
 
 

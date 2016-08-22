@@ -30,12 +30,12 @@ function deepCopyObject(oldObject) {
 
     if(is(newObject.design)){
         if(newObject.design.type=='model'){
-            newObject.design.data = new T.Model(newObject.design.data);//todo maybe use clone
+            newObject.design.data = new TOWNS.Model(newObject.design.data);//todo maybe use clone
         }
     }
 
     if(is(newObject.path))
-        newObject.path = new T.Path(newObject.path);
+        newObject.path = new TOWNS.Path(newObject.path);
 
     return(newObject);
 
@@ -47,7 +47,7 @@ function deepCopyModel(oldObject) {
 
     var newObject = deepCopy(oldObject);
 
-    newObject = new T.Model(newObject);//todo maybe use clone
+    newObject = new TOWNS.Model(newObject);//todo maybe use clone
 
     return(newObject);
 

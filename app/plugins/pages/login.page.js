@@ -9,9 +9,9 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'login',
-    T.Locale.get('page','login'),
+    TOWNS.Locale.get('page','login'),
     `
 
 
@@ -30,19 +30,19 @@ T.Plugins.install(new T.Plugins.Page(
         </tr>
 
         <tr>
-            <td>*`+T.Locale.get('user','username')+`:</td>
-            <td><input type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" autofocus></td>
+            <td>*`+TOWNS.Locale.get('user','username')+`:</td>
+            <td><input type="text" name="username" placeholder="`+TOWNS.Locale.get('user','username','placeholder')+`" autofocus></td>
         </tr>
 
 
         <tr>
-            <td>*`+T.Locale.get('user','password')+`:</td>
+            <td>*`+TOWNS.Locale.get('user','password')+`:</td>
             <td><input type="password" name="password" ></td>
         </tr>
 
         <tr>
             <td colspan="2">
-            <button style="width: 150px;">`+T.Locale.get('user','login')+`</button>
+            <button style="width: 150px;">`+TOWNS.Locale.get('user','login')+`</button>
             </td>
         </tr>
 
@@ -78,45 +78,45 @@ T.Plugins.install(new T.Plugins.Page(
             });
 
 
-            $('#login-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+            $('#login-form').find('button').html(TOWNS.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
 
 
-            T.TownsAPI.townsAPI.post('auth',{
+            TOWNS.TownsAPI.townsAPI.post('auth',{
                     "username": data.username,
                     "password": data.password
                 },
                 function(response){
 
-                    $('#login-form').find('button').html(T.Locale.get('user','login'));
+                    $('#login-form').find('button').html(TOWNS.Locale.get('user','login'));
 
-                    T.Storage.save('token',response['x-auth']);
-                    T.TownsAPI.townsAPI.token=response['x-auth'];
-                    //$('#login-form').find('.messages').html('<div class="success">'+T.Locale.get('auth correct')+'</div>');
+                    TOWNS.Storage.save('token',response['x-auth']);
+                    TOWNS.TownsAPI.townsAPI.token=response['x-auth'];
+                    //$('#login-form').find('.messages').html('<div class="success">'+TOWNS.Locale.get('auth correct')+'</div>');
                     //r(response);
 
-                    T.UI.popupWindow.close();
-                    T.UI.Status.logged();
+                    TOWNS.UI.popupWindow.close();
+                    TOWNS.UI.Status.logged();
                     loadObjectPrototypes();//todo should it be here?
 
-                    //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
+                    //TOWNS.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
 
                 },
                 function(response){
 
-                    $('#login-form').find('button').html(T.Locale.get('user','login'));
+                    $('#login-form').find('button').html(TOWNS.Locale.get('user','login'));
 
 
-                    $('#login-form').find('.messages').html('<div class="error messagebox">'+T.Locale.get('auth wrong')+'</div>');
+                    $('#login-form').find('.messages').html('<div class="error messagebox">'+TOWNS.Locale.get('auth wrong')+'</div>');
 
-                    T.TownsAPI.townsAPI.token=false;
-                    T.UI.Status.logged();
-                    //T.TownsAPI.townsAPI.isLogged(function(user){r(user);});
+                    TOWNS.TownsAPI.townsAPI.token=false;
+                    TOWNS.UI.Status.logged();
+                    //TOWNS.TownsAPI.townsAPI.isLogged(function(user){r(user);});
 
-                    //setInputError($("input[name='username']")[0],T.Locale.get('user','username','wrong'));
-                    //setInputError($("input[name='username']")[0],T.Locale.get('user','password','wrong'));
+                    //setInputError($("input[name='username']")[0],TOWNS.Locale.get('user','username','wrong'));
+                    //setInputError($("input[name='username']")[0],TOWNS.Locale.get('user','password','wrong'));
 
                 }
             );

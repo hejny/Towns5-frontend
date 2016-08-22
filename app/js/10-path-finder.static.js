@@ -2,16 +2,16 @@
 
 
 
-T.PathFinder = function(position_start,position_end,objects,map_center,map_radius){
+TOWNS.PathFinder = function(position_start,position_end,objects,map_center,map_radius){
 
 
     //--------------
 
     if (position_start.getDistance(map_center)>map_radius){
-        throw new Error('T.PathFinder: position_start out of range');
+        throw new Error('TOWNS.PathFinder: position_start out of range');
     }
     if (position_end.getDistance(map_center)>map_radius){
-        throw new Error('T.PathFinder: position_end out of range');
+        throw new Error('TOWNS.PathFinder: position_end out of range');
     }
 
     //--------------
@@ -81,7 +81,7 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
 
     path_.forEach(function(position_){
 
-        positions.push(new T.Position(position_[0]+map_center.x-map_radius, position_[1]+map_center.y-map_radius));
+        positions.push(new TOWNS.Position(position_[0]+map_center.x-map_radius, position_[1]+map_center.y-map_radius));
 
     });
 
@@ -133,7 +133,7 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
                                 if ((map[next_y][next_x] === true || limit < 2)) {
 
 
-                                    map[next_y][next_x] = map[y][x] +T.TMath.xy2dist(next_y - y, next_x - x);
+                                    map[next_y][next_x] = map[y][x] +TOWNS.TMath.xy2dist(next_y - y, next_x - x);
                                     map[next_y][next_x] *= -1;
 
                                 }
@@ -159,8 +159,8 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
     for (var limit = 0; limit < 200 && !finished; limit++) {
 
 
-        T.ArrayFunctions.iterate2D(map, pathfinder_flow);
-        T.ArrayFunctions.iterate2D(map, pathfinder_positive);
+        TOWNS.ArrayFunctions.iterate2D(map, pathfinder_flow);
+        TOWNS.ArrayFunctions.iterate2D(map, pathfinder_positive);
 
         
         if (typeof map[position_end_.y][position_end_.x] == 'number') {
@@ -194,7 +194,7 @@ T.PathFinder = function(position_start,position_end,objects,map_center,map_radiu
     for (limit = 0; limit < 20 && !finished; limit++) {
 
         if (limit !== 0){
-            positions.push(new T.Position(x+map_center.x-map_radius, y+map_center.y-map_radius));
+            positions.push(new TOWNS.Position(x+map_center.x-map_radius, y+map_center.y-map_radius));
         }
 
         distance = 0;

@@ -9,9 +9,9 @@
 
 
 
-T.Plugins.install(new T.Plugins.Page(
+TOWNS.Plugins.install(new TOWNS.Plugins.Page(
     'user-settings',
-    T.Locale.get('page','user_settings'),
+    TOWNS.Locale.get('page','user_settings'),
     `
 
 
@@ -37,54 +37,54 @@ T.Plugins.install(new T.Plugins.Page(
 
 
         <tr>
-            <th colspan="2">`+T.Locale.get('user','basic')+`</th>
+            <th colspan="2">`+TOWNS.Locale.get('user','basic')+`</th>
         </tr>
 
 
 
 
         <tr>
-            <td>`+T.Locale.get('user','username')+`:</td>
-            <td><input class="js-townsapi-online" type="text" name="username" placeholder="`+T.Locale.get('user','username','placeholder')+`" value="" disabled="disabled" autocomplete="off"></td>
+            <td>`+TOWNS.Locale.get('user','username')+`:</td>
+            <td><input class="js-townsapi-online" type="text" name="username" placeholder="`+TOWNS.Locale.get('user','username','placeholder')+`" value="" disabled="disabled" autocomplete="off"></td>
         </tr>
 
 
 
         <tr>
-            <td>`+T.Locale.get('user','email')+`:</td>
-            <td><input class="js-townsapi-online" type="email" name="email" placeholder="`+T.Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
+            <td>`+TOWNS.Locale.get('user','email')+`:</td>
+            <td><input class="js-townsapi-online" type="email" name="email" placeholder="`+TOWNS.Locale.get('user','email','placeholder')+`" value="@" autocomplete="on"></td>
         </tr>
 
 
 
 
      <tr>
-     <th colspan="2">`+T.Locale.get('user','extended')+`</th>
+     <th colspan="2">`+TOWNS.Locale.get('user','extended')+`</th>
      </tr>
 
      <tr>
-     <td>`+T.Locale.get('user','name')+`:</td>
+     <td>`+TOWNS.Locale.get('user','name')+`:</td>
      <td><input type="text" name="name"></td>
      </tr>
      <tr>
-     <td>`+T.Locale.get('user','surname')+`:</td>
+     <td>`+TOWNS.Locale.get('user','surname')+`:</td>
      <td><input type="text" name="surname"></td>
      </tr>
 
      <tr>
-     <td>`+T.Locale.get('user','birthday')+`:</td>
+     <td>`+TOWNS.Locale.get('user','birthday')+`:</td>
      <td><input type="text" name="birthday"></td>
      </tr>
 
      <tr>
-     <th colspan="2">`+T.Locale.get('user','description')+`</th>
+     <th colspan="2">`+TOWNS.Locale.get('user','description')+`</th>
      </tr>
      <tr>
      <td colspan="2"><textarea name="description" class="full"></textarea></td>
      </tr>
 
      <tr>
-     <th colspan="2">`+T.Locale.get('user','signature')+`</th>
+     <th colspan="2">`+TOWNS.Locale.get('user','signature')+`</th>
      </tr>
      <tr>
      <td colspan="2"><textarea name="signature" class="full"></textarea></td>
@@ -93,7 +93,7 @@ T.Plugins.install(new T.Plugins.Page(
 
     <tr>
         <td colspan="2">
-            <button style="width: 150px;">`+T.Locale.get('user','update')+`</button>
+            <button style="width: 150px;">`+TOWNS.Locale.get('user','update')+`</button>
         </td>
     </tr>
 
@@ -118,27 +118,27 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-        T.UI.Status.logged(function(logged){
+        TOWNS.UI.Status.logged(function(logged){
 
             if(!logged){
-                T.UI.popupWindow.close();
-                T.Plugins.open('register');
+                TOWNS.UI.popupWindow.close();
+                TOWNS.Plugins.open('register');
                 return;
             }
 
 
 
 
-            r(T.User.me);
-            $(page).find("input[name='username']").val(T.User.me.profile.username);
-            $(page).find("input[name='email']").val(T.User.me.profile.email);
-            $(page).find("input[name='name']").val(T.User.me.profile.name);
-            $(page).find("input[name='surname']").val(T.User.me.profile.surname);
+            r(TOWNS.User.me);
+            $(page).find("input[name='username']").val(TOWNS.User.me.profile.username);
+            $(page).find("input[name='email']").val(TOWNS.User.me.profile.email);
+            $(page).find("input[name='name']").val(TOWNS.User.me.profile.name);
+            $(page).find("input[name='surname']").val(TOWNS.User.me.profile.surname);
             $(page).find("input[name='birthday']").val(
-                (T.User.me.profile.birthday.getDay()+1)+'.'+(T.User.me.profile.birthday.getMonth()+1)+'.'+T.User.me.profile.birthday.getFullYear()
+                (TOWNS.User.me.profile.birthday.getDay()+1)+'.'+(TOWNS.User.me.profile.birthday.getMonth()+1)+'.'+TOWNS.User.me.profile.birthday.getFullYear()
             );
-            $(page).find("textarea[name='description']").val(T.User.me.profile.description);
-            $(page).find("textarea[name='signature']").val(T.User.me.profile.signature);
+            $(page).find("textarea[name='description']").val(TOWNS.User.me.profile.description);
+            $(page).find("textarea[name='signature']").val(TOWNS.User.me.profile.signature);
 
 
 
@@ -213,8 +213,8 @@ T.Plugins.install(new T.Plugins.Page(
                 if(data.username.trim().length=== 0){
 
 
-                    setInputError($("input[name='username']")[0],T.Locale.get('user','username','missing'));
-                    $(page).find('.messages').html('<div class="error messagebox">'+T.Locale.get('user','username','missing')+'</div>');
+                    setInputError($("input[name='username']")[0],TOWNS.Locale.get('user','username','missing'));
+                    $(page).find('.messages').html('<div class="error messagebox">'+TOWNS.Locale.get('user','username','missing')+'</div>');
 
 
                 }else
@@ -222,8 +222,8 @@ T.Plugins.install(new T.Plugins.Page(
                 if(!validateEmail(data.email)){
 
 
-                    setInputError($("input[name='email']")[0],T.Locale.get('user','email','wrong'));
-                    $(page).find('.messages').html('<div class="error messagebox">'+T.Locale.get('user','email','wrong')+'</div>');
+                    setInputError($("input[name='email']")[0],TOWNS.Locale.get('user','email','wrong'));
+                    $(page).find('.messages').html('<div class="error messagebox">'+TOWNS.Locale.get('user','email','wrong')+'</div>');
 
 
                 }else
@@ -232,8 +232,8 @@ T.Plugins.install(new T.Plugins.Page(
 
                     r(data.birthday,isValidDate(data.birthday));
 
-                    setInputError($("input[name='birthday']")[0],T.Locale.get('user','birthday','wrong'));
-                    $(page).find('.messages').html('<div class="error messagebox">'+T.Locale.get('user','birthday','wrong')+'</div>');
+                    setInputError($("input[name='birthday']")[0],TOWNS.Locale.get('user','birthday','wrong'));
+                    $(page).find('.messages').html('<div class="error messagebox">'+TOWNS.Locale.get('user','birthday','wrong')+'</div>');
 
 
                 }else
@@ -242,19 +242,19 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-                    $(page).find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
+                    $(page).find('button').html(TOWNS.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
 
 
                     r(data);
 
 
 
-                    T.TownsAPI.townsAPI.post('users/'+T.User.me._id,{
+                    TOWNS.TownsAPI.townsAPI.post('users/'+TOWNS.User.me._id,{
                             "profile": data,
                         },
                         function(response){
 
-                            $(page).find('button').html(T.Locale.get('user','update'));
+                            $(page).find('button').html(TOWNS.Locale.get('user','update'));
 
 
                         },
@@ -263,10 +263,10 @@ T.Plugins.install(new T.Plugins.Page(
 
                             r(response);
 
-                            $(page).find('button').html(T.Locale.get('user','update'));
+                            $(page).find('button').html(TOWNS.Locale.get('user','update'));
 
-                            setInputError($("input[name='username']")[0],T.Locale.get('user','username','taken'));
-                            $(page).find('.messages').html('<div class="info messagebox">'+T.Locale.get('user','username','taken')+'</div>');
+                            setInputError($("input[name='username']")[0],TOWNS.Locale.get('user','username','taken'));
+                            $(page).find('.messages').html('<div class="info messagebox">'+TOWNS.Locale.get('user','username','taken')+'</div>');
 
                         }
                     );

@@ -1,11 +1,11 @@
 /**
  * @author Towns.cz
- * @fileOverview Creates object T.Locale with static methods
+ * @fileOverview Creates object TOWNS.Locale with static methods
  */
 //======================================================================================================================
 
 
-T.Locale=class {//create instances with en, cs here
+TOWNS.Locale = class {//create instances with en, cs here
     
 
 
@@ -36,14 +36,14 @@ T.Locale=class {//create instances with en, cs here
             if (environment == 'develop') {
 
                 MESSAGES[key] = key;
-                T.Locale.keys_write.push(key);
+                TOWNS.Locale.keys_write.push(key);
 
-                var count = T.TMath.toInt($('#locale-write-count').html()) + 1;
+                var count = TOWNS.TMath.toInt($('#locale-write-count').html()) + 1;
                 $('#locale-write-count').html(count);
 
 
-                clearTimeout(T.Locale.keys_write_interval);
-                T.Locale.keys_write_interval = setTimeout(function () {
+                clearTimeout(TOWNS.Locale.keys_write_interval);
+                TOWNS.Locale.keys_write_interval = setTimeout(function () {
 
                     $('#menu-list-item-data').effect('shake');
 
@@ -62,4 +62,4 @@ T.Locale=class {//create instances with en, cs here
 };
 
 
-T.Locale.keys_write = [];//todo better
+TOWNS.Locale.keys_write = [];//todo better

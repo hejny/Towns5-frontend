@@ -1,9 +1,9 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates object T.Templates with static methods
+ * @fileOverview Creates object TOWNS.Templates with static methods
  */
 //======================================================================================================================
-T.setNamespace('UI');
+TOWNS.setNamespace('UI');
 
 
 
@@ -11,7 +11,7 @@ T.setNamespace('UI');
 /**
  * Container of html templates
  */
-T.Templates=class {
+TOWNS.Templates=class {
 
 
     /**

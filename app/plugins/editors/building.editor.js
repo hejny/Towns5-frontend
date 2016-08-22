@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Plugins.install(new T.Plugins.Editor(
+TOWNS.Plugins.install(new TOWNS.Plugins.Editor(
     'building-editor',
     {
         type: 'building',
@@ -125,7 +125,7 @@ T.Plugins.install(new T.Plugins.Editor(
   <tr category="material">
     <td colspan="2">
         `+
-        //todo repair//T.Cache.textures.getInput('material','block-parameter')+
+        //todo repair//TOWNS.Cache.textures.getInput('material','block-parameter')+
         `
     </td>
   </tr>
@@ -148,7 +148,7 @@ T.Plugins.install(new T.Plugins.Editor(
     `,function(object) {
 
 
-        var model_canvas = new T.ModelCanvas('model-canvas', object.design.data, 380, 600);
+        var model_canvas = new TOWNS.ModelCanvas('model-canvas', object.design.data, 380, 600);
 
         var block_selected_path = [0],
             block_selected = false,
@@ -186,7 +186,7 @@ T.Plugins.install(new T.Plugins.Editor(
             $('.block-parameter').each(function () {
 
                 var path = $(this).attr('name').split('-');
-                var actual = T.ArrayFunctions.filterPath(block_selected, path);
+                var actual = TOWNS.ArrayFunctions.filterPath(block_selected, path);
 
 
                 if (isDefined(actual) && typeof actual!='object') {
@@ -252,7 +252,7 @@ T.Plugins.install(new T.Plugins.Editor(
                         }else
 
                         if ($(this).attr('type') == 'range') {
-                            value = T.TMath.toFloat($(this).val());
+                            value = TOWNS.TMath.toFloat($(this).val());
 
                         }else{
                             value = $(this).val();
@@ -267,7 +267,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                         var path = $(this).attr('name').split('-');
-                        T.ArrayFunctions.filterPath(block_selected, path, value);
+                        TOWNS.ArrayFunctions.filterPath(block_selected, path, value);
 
                         model_canvas.setModel(object.design.data);
 
@@ -294,12 +294,12 @@ T.Plugins.install(new T.Plugins.Editor(
 
             //------------------------
 
-            T.UI.Html.Form.addRangeNumber(false);
+            TOWNS.UI.Html.Form.addRangeNumber(false);
 
 
             //------------------------Hiding whole categoryies
 
-            categoryies = T.ArrayFunctions.unique(categoryies);
+            categoryies = TOWNS.ArrayFunctions.unique(categoryies);
 
             categoryies.forEach(function(category){
 
@@ -344,7 +344,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
 
                 //-----------------------Block
-                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + TOWNS.Locale.get('building editor new block') + `"><i class="fa fa-cube"></i></div>`);
 
                 icon.click(function () {
 
@@ -372,7 +372,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Group
-                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + TOWNS.Locale.get('building editor new group') + `"><i class="fa fa-cubes"></i></div>`);
 
                 icon.click(function () {
 
@@ -393,7 +393,7 @@ T.Plugins.install(new T.Plugins.Editor(
                 //-----------------------
 
                 //-----------------------Link
-                icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="` + TOWNS.Locale.get('building editor new link') + `"><i class="fa fa-link"></i></div>`);
 
                 icon.click(function () {
 
@@ -416,7 +416,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                 if(block_selected_path.length!== 0){
                 //-----------------------ungroup
-                    icon = $(`<div class="block-button button-icon" title="` + T.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
+                    icon = $(`<div class="block-button button-icon" title="` + TOWNS.Locale.get('building editor ungroup') + `"><i class="fa fa-object-ungroup"></i></div>`);
 
                     icon.click(function () {
 
@@ -449,7 +449,7 @@ T.Plugins.install(new T.Plugins.Editor(
             //-----------------------
 
             //-----------------------group
-            icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
+            icon = $(`<div class="block-button button-icon" title="`+TOWNS.Locale.get('building editor group')+`"><i class="fa fa-object-group"></i></div>`);
 
             icon.click(function () {
 
@@ -483,7 +483,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
             if (block_selected_path.length !== 0) {
 
-                icon = $(`<div class="block-button button-icon" title="`+T.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
+                icon = $(`<div class="block-button button-icon" title="`+TOWNS.Locale.get('building editor delete block')+`"><i class="fa fa-trash"></i></div>`);
 
                 icon.click(function () {
 
@@ -542,14 +542,14 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     $('#' + html_id_i).addClass('model-dir-shape');
                     $('#' + html_id_i).addClass('model-dir-label');
-                    name = T.Locale.get('model dir shape');
+                    name = TOWNS.Locale.get('model dir shape');
 
                 } else
                 //---------------------------link
                 if (isDefined(particle.link)) {
                     $('#' + html_id_i).addClass('model-dir-link');
                     $('#' + html_id_i).addClass('model-dir-label');
-                    name = T.Locale.get('model dir shape');
+                    name = TOWNS.Locale.get('model dir shape');
 
 
                 } else
@@ -597,7 +597,7 @@ T.Plugins.install(new T.Plugins.Editor(
 
                     } else {
 
-                        path = path.split(',').map(T.TMath.toInt);
+                        path = path.split(',').map(TOWNS.TMath.toInt);
 
                     }
 
@@ -638,12 +638,12 @@ T.Plugins.install(new T.Plugins.Editor(
         subtype: "main",
         design: {
             type: "model",
-            data: new T.Model(
+            data: new TOWNS.Model(
                 {
                     name:'root',
                     particles: [
                         {
-                            name: T.Locale.get('shape cube'),
+                            name: TOWNS.Locale.get('shape cube'),
                             shape:{
                                 type: 'prism',
                                 n:4,
@@ -656,7 +656,7 @@ T.Plugins.install(new T.Plugins.Editor(
                             size: {x:40,y:40,z:40},
                             rotation: 0
                         }/*,{
-                            link: T.Locale.get('shape cube'),
+                            link: TOWNS.Locale.get('shape cube'),
                             position: {x:0,y:0,z:40},
                             //size: 0.7,
                             rotation: 45

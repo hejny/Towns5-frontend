@@ -1,13 +1,13 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates T.URI
+ * @fileOverview Creates TOWNS.URI
  */
 //======================================================================================================================
 
-T.URI=class {
+TOWNS.URI=class {
 
     /**
-     * Initialize T.URI pathname from location
+     * Initialize TOWNS.URI pathname from location
      */
     static read() {
 
@@ -35,7 +35,7 @@ T.URI=class {
             this.plugin = pathname[0];
             this.object = pathname[1];
         } else {
-            /*throw new Error*/r('T.URI T.Pathname can contain max 2 strings.');
+            /*throw new Error*/r('TOWNS.URI TOWNS.Pathname can contain max 2 strings.');
         }
 
         //-------------------
@@ -48,7 +48,7 @@ T.URI=class {
 
         if (typeof query.x !== 'undefined' && typeof query.y !== 'undefined') {
 
-            map_center = new T.Position(T.TMath.toFloat(query.x), T.TMath.toFloat(query.y));
+            map_center = new TOWNS.Position(TOWNS.TMath.toFloat(query.x), TOWNS.TMath.toFloat(query.y));
 
         } else {
 
@@ -75,15 +75,15 @@ T.URI=class {
         var plugin_last = this.plugin;
         var object_last = this.object;
 
-        r('Reading And Updating T.URI');
+        r('Reading And Updating TOWNS.URI');
         this.read();
 
 
 
         if(position_last !== map_center.toString()){
-            r('Reading And Updating T.URI - Position was changed');
+            r('Reading And Updating TOWNS.URI - Position was changed');
 
-            T.Map.loadMap(true);
+            TOWNS.Map.loadMap(true);
         }
 
 
@@ -92,9 +92,9 @@ T.URI=class {
 
             if(this.plugin){
 
-                if(!T.Plugins.is(this.plugin)){
+                if(!TOWNS.Plugins.is(this.plugin)){
 
-                    T.UI.popupWindow.open(T.Locale.get('page','404','title'), T.Locale.get('page','404','content'), false, 'SMALL');
+                    TOWNS.UI.popupWindow.open(TOWNS.Locale.get('page','404','title'), TOWNS.Locale.get('page','404','content'), false, 'SMALL');
                     return;
 
                 }
@@ -102,18 +102,18 @@ T.URI=class {
 
                 if(this.object){
 
-                    r('Reading And Updating T.URI - Opening plugin with object');
-                    T.Plugins.open(this.plugin,1,this.object);
+                    r('Reading And Updating TOWNS.URI - Opening plugin with object');
+                    TOWNS.Plugins.open(this.plugin,1,this.object);
                 }else{
 
-                    r('Reading And Updating T.URI - Opening plugin without object');
-                    T.Plugins.open(this.plugin);
+                    r('Reading And Updating TOWNS.URI - Opening plugin without object');
+                    TOWNS.Plugins.open(this.plugin);
                 }
 
             }else{
 
-                r('Reading And Updating T.URI - Closing window');
-                T.UI.popupWindow.close();
+                r('Reading And Updating TOWNS.URI - Closing window');
+                TOWNS.UI.popupWindow.close();
 
             }
 
@@ -131,7 +131,7 @@ T.URI=class {
      */
     static write() {
 
-        T.URI.writed++;
+        TOWNS.URI.writed++;
 
         var pathname = '';
         if (this.plugin) pathname += '/' + this.plugin;
@@ -142,7 +142,7 @@ T.URI=class {
         var search;
 
         if (isDefined(map_center.x)) {
-            //var hash = '#'+Math.round(T.URI.position.x)+','+Math.round(T.URI.position.y);
+            //var hash = '#'+Math.round(TOWNS.URI.position.x)+','+Math.round(TOWNS.URI.position.y);
             search = '?x=' + Math.round(map_center.x) + '&y=' + Math.round(map_center.y);
         } else {
             search = '';
@@ -157,6 +157,6 @@ T.URI=class {
 };
 
 
-T.URI.object = '';//todo better
-T.URI.plugin = '';
-T.URI.writed = 0;
+TOWNS.URI.object = '';//todo better
+TOWNS.URI.plugin = '';
+TOWNS.URI.writed = 0;

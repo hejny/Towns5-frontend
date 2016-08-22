@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 /*
-T.Plugins.install(new T.Plugins.Viewer(
+TOWNS.Plugins.install(new TOWNS.Plugins.Viewer(
     'json-viewer'
     ,{}
     ,'object JSON'

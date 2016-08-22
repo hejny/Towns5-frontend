@@ -1,12 +1,12 @@
 /**
  * @author ©Towns.cz
- * @fileOverview Creates class T.UI.Compatibility
+ * @fileOverview Creates class TOWNS.UI.Compatibility
  */
 //======================================================================================================================
-T.setNamespace('UI');
+TOWNS.setNamespace('UI');
 
 
-T.UI.Compatibility = class {//todo maybe this should be directly under UI?
+TOWNS.UI.Compatibility = class {//todo maybe this should be directly under UI?
 
 
     /**
@@ -40,7 +40,7 @@ T.UI.Compatibility = class {//todo maybe this should be directly under UI?
 
 
     /**
-     * Check if browser supports T.WebGL rendring context
+     * Check if browser supports TOWNS.WebGL rendring context
      * @returns {boolean}
      */
     static webgl() {
@@ -67,8 +67,8 @@ T.UI.Compatibility = class {//todo maybe this should be directly under UI?
 
                 console.log('No webgl context');
 
-                if (!window.T.WebGLRenderingContext) {
-                    console.log('No T.WebGLRenderingContext');
+                if (!window.TOWNS.WebGLRenderingContext) {
+                    console.log('No TOWNS.WebGLRenderingContext');
                 }
 
                 support = false;

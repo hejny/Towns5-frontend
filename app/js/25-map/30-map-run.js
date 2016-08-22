@@ -3,7 +3,7 @@
  * @fileOverview Creates map refresh interval
  */
 //======================================================================================================================
-T.setNamespace('Map');
+TOWNS.setNamespace('Map');
 
 
 
@@ -14,9 +14,9 @@ $(function(){
 
 
 
-    var message = new T.UI.Message(
-        T.Locale.get('ui warnings runmap'),'WARNING',
-        `<button class="micro-button" >` + T.Locale.get('ui','buttons','runmap')+`</button>`
+    var message = new TOWNS.UI.Message(
+        TOWNS.Locale.get('ui warnings runmap'),'WARNING',
+        `<button class="micro-button" >` + TOWNS.Locale.get('ui','buttons','runmap')+`</button>`
     );
 
 
@@ -28,8 +28,8 @@ $(function(){
 
         $('map-canvas-alt').remove();
 
-        T.Map.loadMap.locked = false;
-        T.Map.loadMap(true);
+        TOWNS.Map.loadMap.locked = false;
+        TOWNS.Map.loadMap(true);
 
 
     });
@@ -45,11 +45,11 @@ $(function(){
 
 
 /*
-T.Map.map_refresh = setInterval(function(){
+TOWNS.Map.map_refresh = setInterval(function(){
 
 
     //todo BETTER SYNC
-    T.Map.loadMap(true);
+    TOWNS.Map.loadMap(true);
 
 
 },10000);*/

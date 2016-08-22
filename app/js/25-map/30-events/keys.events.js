@@ -30,7 +30,7 @@ window.addEventListener('keydown', function(e) {
     // space and arrow keys
     if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
 
-        if(T.UI.Status.focusOnMap()){
+        if(TOWNS.UI.Status.focusOnMap()){
             e.preventDefault();
         }
 
@@ -69,7 +69,7 @@ var controls_down = {
 
 window.addEventListener('keydown', function(e) {
 
-    if(T.UI.Status.focusOnMap()) {
+    if(TOWNS.UI.Status.focusOnMap()) {
         r('DOWN', e.keyCode);
 
         if (keys.indexOf(e.keyCode) === -1) {
@@ -91,7 +91,7 @@ window.addEventListener('keydown', function(e) {
 
 window.addEventListener('keyup', function(e) {
 
-    //if(T.UI.Status.focusOnMap()) {
+    //if(TOWNS.UI.Status.focusOnMap()) {
         r('UP', e.keyCode);
 
         var i = keys.indexOf(e.keyCode);
@@ -121,23 +121,23 @@ var keys_tick = function (timestamp) {
 
     if (controls_down.UP) {
         moving=true;
-        T.Map.scene.moveBy(new T.Position(Math.cos(-T.Map.scene.camera.alpha),Math.sin(-T.Map.scene.camera.alpha)).multiply(-20*progress));
+        TOWNS.Map.scene.moveBy(new TOWNS.Position(Math.cos(-TOWNS.Map.scene.camera.alpha),Math.sin(-TOWNS.Map.scene.camera.alpha)).multiply(-20*progress));
     }
 
     if (controls_down.DOWN) {
         moving=true;
-        T.Map.scene.moveBy(new T.Position(Math.cos(-T.Map.scene.camera.alpha),Math.sin(-T.Map.scene.camera.alpha)).multiply(20*progress));
+        TOWNS.Map.scene.moveBy(new TOWNS.Position(Math.cos(-TOWNS.Map.scene.camera.alpha),Math.sin(-TOWNS.Map.scene.camera.alpha)).multiply(20*progress));
     }
 
     if (controls_down.LEFT) {
         moving=true;
-        T.Map.scene.camera.alpha+= T.TMath.deg2rad(90*progress);
+        TOWNS.Map.scene.camera.alpha+= TOWNS.TMath.deg2rad(90*progress);
     }
 
 
     if (controls_down.RIGHT) {
         moving=true;
-        T.Map.scene.camera.alpha-= T.TMath.deg2rad(90*progress);
+        TOWNS.Map.scene.camera.alpha-= TOWNS.TMath.deg2rad(90*progress);
     }
 
 
@@ -146,7 +146,7 @@ var keys_tick = function (timestamp) {
 
         moving=false;
         //alert('stop moving by keys');
-        T.Map.scene.moveByProcess();
+        TOWNS.Map.scene.moveByProcess();
 
     }
 

@@ -5,7 +5,7 @@
 //======================================================================================================================
 
 
-T.Map.Scene.prototype.attachMOVING = function(){
+TOWNS.Map.Scene.prototype.attachMOVING = function(){
 
     var self = this;//todo different name for Babylon and Towns scene
 
@@ -55,7 +55,7 @@ T.Map.Scene.prototype.attachMOVING = function(){
             self.prev_meshes.push(self.selected_circle);
             self.selected_circle.material = self.selected_circle_material;
 
-            T.UI.Menu.Object.menu();
+            TOWNS.UI.Menu.Object.menu();
 
         }else{
 
@@ -81,7 +81,7 @@ T.Map.Scene.prototype.attachMOVING = function(){
             //self.camera.attachControl(self.canvas, true);
 
             //todo Babylon(x,z) Mapping to Towns(x,y) CONSTANTS
-            var moved_by = new T.Position(
+            var moved_by = new TOWNS.Position(
                 whole_diff.x/MAP_FIELD_SIZE,
                 -whole_diff.z/MAP_FIELD_SIZE
             );
@@ -93,9 +93,9 @@ T.Map.Scene.prototype.attachMOVING = function(){
             if(Math.abs(moved_by.x)+Math.abs(moved_by.x)>1) {
 
                 map_center.plus(moved_by);
-                T.URI.write();
+                TOWNS.URI.write();
 
-                T.Map.loadMap();
+                TOWNS.Map.loadMap();
 
             }else{
 
@@ -105,7 +105,7 @@ T.Map.Scene.prototype.attachMOVING = function(){
                 }
 
                 map_selected_ids=[];
-                T.UI.Menu.Object.menu();
+                TOWNS.UI.Menu.Object.menu();
 
                 self.setCamera();
 
@@ -177,19 +177,19 @@ T.Map.Scene.prototype.attachMOVING = function(){
 
             try {
 
-                var positions = T.PathFinder(object.getPosition(),position,objects_in_scene,map_center,map_radius);
+                var positions = TOWNS.PathFinder(object.getPosition(),position,objects_in_scene,map_center,map_radius);
 
             }
             catch(error) {
 
-                T.UI.Message.error(T.Locale.get(error.message));
+                TOWNS.UI.Message.error(TOWNS.Locale.get(error.message));
 
             }
 
 
 
 
-            result = T.World.game.createActionExecute('move')(object,positions/*,objects_nearby,resources*/);
+            result = TOWNS.World.game.createActionExecute('move')(object,positions/*,objects_nearby,resources*/);
 
 
             self.moving_objects.push({
@@ -207,7 +207,7 @@ T.Map.Scene.prototype.attachMOVING = function(){
 
         }else{
 
-            T.UI.Message.error(T.Locale.get('actions move: you must select object before moving'));
+            TOWNS.UI.Message.error(TOWNS.Locale.get('actions move: you must select object before moving'));
 
         }
 

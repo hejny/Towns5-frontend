@@ -43,7 +43,7 @@
 
 <script>
 
-    building1=T.User.object_prototypes[0];
+    building1=TOWNS.User.object_prototypes[0];
     building2=building1.clone();
     building1.design.data.rotation=40;
 

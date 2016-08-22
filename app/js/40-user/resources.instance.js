@@ -4,10 +4,10 @@
  * todo (static) object of me
  */
 //======================================================================================================================
-T.setNamespace('User');
+TOWNS.setNamespace('User');
 
 
-T.User.resources = new T.Resources({
+TOWNS.User.resources = new TOWNS.Resources({
     'wood':   10000,
     'clay':   10000,
     'stone':  10000,
