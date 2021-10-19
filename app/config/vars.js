@@ -6,9 +6,12 @@
 // CONSTANTS
 
 // var TOWNS_CDN_URL='http://localhost/towns/towns-cdn/';
-var TOWNS_CDN_URL = 'http://cdn.towns.cz/';
+var TOWNS_CDN_URL = "http://cdn.towns.cz/";
 var TOWNS_CDN_FILE_ACCEPTED_TYPES = [
-  'image/jpeg', 'image/jpg', 'image/gif', 'image/png'
+  "image/jpeg",
+  "image/jpg",
+  "image/gif",
+  "image/png",
   // todo maybe bmp? sync with towns-cdn
 ];
 var TOWNS_CDN_FILE_MAX_SIZE = 7 * Math.pow(1024, 2 /*MB*/);
@@ -27,8 +30,7 @@ var Editors = {};
 
 var objects_server = new T.Objects.Array([]);
 var objects_external = new T.Objects.Array([]);
-var objects_external_buffer =
-    []; // Preview eg. walls//todo new T.Objects.Array([]);
+var objects_external_buffer = []; // Preview eg. walls//todo new T.Objects.Array([]);
 var objects_server_move = new T.Objects.Array([]); // Moving objects
 
 var selecting_distance_2d_canvas; // todo refactor selecting distance to ?tool
@@ -65,14 +67,16 @@ var map_slope = 27;
 var map_field_size = 160;
 
 var map_model_size = 2,
-
-    map_tree_size = 1, map_tree_size_diff = 0.2, map_tree_size_zip = 10,
-
-    /* map_rock_size=0.8,
+  map_tree_size = 1,
+  map_tree_size_diff = 0.2,
+  map_tree_size_zip = 10,
+  /* map_rock_size=0.8,
      map_rock_size_diff=0.2
      map_rock_size_zip=5;*/
 
-    map_rock_size = 1.2, map_rock_size_diff = 0.1, map_rock_size_zip = -5;
+  map_rock_size = 1.2,
+  map_rock_size_diff = 0.1,
+  map_rock_size_zip = -5;
 
 var map_rotation = 45;
 
@@ -87,7 +91,7 @@ var map_zoom_delta = 0;
 var map_rotation_delta = 0;
 var map_slope_delta = 0;
 
-T.setNamespace('UI.Map');
+T.setNamespace("UI.Map");
 
 T.UI.Map.map_center = new T.Position(0, 0); // todo Static object Map
 
@@ -120,11 +124,11 @@ var map_radius;
 var map_zoom_m;
 
 var map_data_buildings; // todo maybe refactor names or put into instance?
-var map_data_stories;   // todo maybe refactor names?
-var map_data_terrains;  // todo maybe refactor names?
-var map_array;          // todo maybe refactor names?
+var map_data_stories; // todo maybe refactor names?
+var map_data_terrains; // todo maybe refactor names?
+var map_array; // todo maybe refactor names?
 
-var map_collision_data = [ [ false ] ];
+var map_collision_data = [[false]];
 
 var map_rotation_r;
 var map_rotation_sin;
@@ -138,19 +142,20 @@ var window_opened = false;
 var keys = [];
 var moving = false;
 
-var blockedTerrains = [ 1, 11, 5 ];
+var blockedTerrains = [1, 11, 5];
 
-var appDir = (environment == 'production') ? '/app-build' : '/app';
+var appDir = environment == "production" ? "/app-build" : "/app";
 
 // var feed_url='http://blog.towns.cz/feed/';
 
-var authors=[//todo better
-    {
-        "nick": "PH",
-        "name": "Pavol Hejný"
-    },
-    {
-        "nick": "PH",
-        "name": "Štefan Kecskés"
-    }
+var authors = [
+  //todo better
+  {
+    nick: "PH",
+    name: "Pavol Hejný",
+  },
+  {
+    nick: "PH",
+    name: "Štefan Kecskés",
+  },
 ];

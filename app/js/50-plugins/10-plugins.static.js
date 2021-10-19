@@ -6,23 +6,21 @@
 //======================================================================================================================
 
 T.Plugins = class {
-
   static install(plugin) {
-    r('Plugins: Installing plugin ' + plugin.uri);
+    r("Plugins: Installing plugin " + plugin.uri);
 
-    if (plugin instanceof T.Plugins.Page ||
-        plugin instanceof T.Plugins.Viewer ||
-        plugin instanceof T.Plugins.Editor) {
-
+    if (
+      plugin instanceof T.Plugins.Page ||
+      plugin instanceof T.Plugins.Viewer ||
+      plugin instanceof T.Plugins.Editor
+    ) {
       if (!is(plugin.uri)) {
-
-        throw new Error('Plugins: Plugin must contain uri!');
+        throw new Error("Plugins: Plugin must contain uri!");
       }
 
       this.plugins.push(plugin);
-
     } else {
-      throw new Error('Plugins: Unknown plugin type.');
+      throw new Error("Plugins: Unknown plugin type.");
     }
   }
 
@@ -31,61 +29,54 @@ T.Plugins = class {
   }
 
   static open(uri) {
-
     var args = [].slice.call(arguments).splice(1);
     // r(args);
 
     for (var i in this.plugins) {
-
       // r(this.plugins[i].uri,uri);
 
       if (this.plugins[i].uri == uri) {
-
-        r('Plugins: Opening plugin ' + this.plugins[i].uri);
+        r("Plugins: Opening plugin " + this.plugins[i].uri);
         this.plugins[i].open.apply(this.plugins[i], args);
-        return (true);
+        return true;
       }
     }
 
-    throw new Error('Plugins: Plugin ' + uri + ' do not exists.');
+    throw new Error("Plugins: Plugin " + uri + " do not exists.");
   }
 
   static is(uri) {
-
     for (var i in this.plugins) {
       if (this.plugins[i].uri == uri) {
-        return (true);
+        return true;
       }
     }
 
-    return (false);
+    return false;
   }
 
   static search(action, object) {
-
     var possible = [];
     var i, key;
 
     for (i in this.plugins) {
-
-      if ((action == 'edit' && this.plugins[i] instanceof T.Plugins.Editor) ||
-          (action == 'view' && this.plugins[i] instanceof T.Plugins.Viewer)) {
-
+      if (
+        (action == "edit" && this.plugins[i] instanceof T.Plugins.Editor) ||
+        (action == "view" && this.plugins[i] instanceof T.Plugins.Viewer)
+      ) {
         var is_possible = true;
         for (key in this.plugins[i].conditions) {
-
           if (object[key] != this.plugins[i].conditions[key]) {
             is_possible = false;
             break;
           }
         }
 
-        if (is_possible)
-          possible.push(this.plugins[i].uri);
+        if (is_possible) possible.push(this.plugins[i].uri);
       }
     }
 
-    return (possible);
+    return possible;
   }
 };
 

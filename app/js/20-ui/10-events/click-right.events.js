@@ -5,28 +5,29 @@
  */
 //======================================================================================================================
 
-$(function() {
-  var mouseRightClick = function(e) {
+$(function () {
+  var mouseRightClick = function (e) {
     e.preventDefault();
 
-    var map_click_x = (e.clientX - (window_width / 2));
-    var map_click_y = (e.clientY - (window_height / 2));
-    var mapPos =
-        T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x, map_click_y);
+    var map_click_x = e.clientX - window_width / 2;
+    var map_click_y = e.clientY - window_height / 2;
+    var mapPos = T.UI.Map.Coords.mouseCenterPos2MapPos(
+      map_click_x,
+      map_click_y
+    );
 
-    r('T.UI Event: contextmenu');
+    r("T.UI Event: contextmenu");
 
-    map_selected_ids.forEach(function(id) {
+    map_selected_ids.forEach(function (id) {
       var object = objects_external.getById(id);
 
       try {
-
-        var result = T.World.game.createActionExecute('move')(
-            object, [ mapPos ] /*,objects_nearby,resources*/);
-
+        var result = T.World.game.createActionExecute("move")(
+          object,
+          [mapPos] /*,objects_nearby,resources*/
+        );
       } catch (error) {
-
-        T.UI.Message.error(error.message, 'error');
+        T.UI.Message.error(error.message, "error");
       }
 
       /*try {
@@ -46,6 +47,6 @@ $(function() {
     T.UI.Map.MapMove.orderMoveAndNormal();
   };
 
-  $('#map_drag').bind("contextmenu", mouseRightClick);
-  $('#selecting-distance').bind("contextmenu", mouseRightClick);
+  $("#map_drag").bind("contextmenu", mouseRightClick);
+  $("#selecting-distance").bind("contextmenu", mouseRightClick);
 });

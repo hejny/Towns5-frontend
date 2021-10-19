@@ -4,8 +4,10 @@
  */
 //======================================================================================================================
 
-T.Plugins.install(new T.Plugins.Page(
-    'home', [ 'O hře', 'Autoři' /*,'Technologie'*/ ],
+T.Plugins.install(
+  new T.Plugins.Page(
+    "home",
+    ["O hře", "Autoři" /*,'Technologie'*/],
     [
       `
 
@@ -124,150 +126,154 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-`
+`,
     ],
-    function(page, storage) {
+    function (page, storage) {
       r($(page));
       r($(page).find("#sendpress"));
 
       //---------------------------------------------------------Email
-      $(page).find("#sendpress").submit(function() {
-        $("#sendpress_success").hide();
-        $("#sendpress_error").hide();
-        $("#sendpress_loading").show();
-        $.ajax({
-          url : "http://blog.towns.cz/",
-          type : "post",
-          dataType : "json",
-          data : $("#sendpress").serialize(),
-          success : function(data) {
-            $("#sendpress_loading").hide();
-            if (data.success === true) {
-              $("#sendpress")[0].reset();
-              $("#sendpress_success").show();
-
-            } else {
-              $("#sendpress_error").show();
-            }
-          }
+      $(page)
+        .find("#sendpress")
+        .submit(function () {
+          $("#sendpress_success").hide();
+          $("#sendpress_error").hide();
+          $("#sendpress_loading").show();
+          $.ajax({
+            url: "http://blog.towns.cz/",
+            type: "post",
+            dataType: "json",
+            data: $("#sendpress").serialize(),
+            success: function (data) {
+              $("#sendpress_loading").hide();
+              if (data.success === true) {
+                $("#sendpress")[0].reset();
+                $("#sendpress_success").show();
+              } else {
+                $("#sendpress_error").show();
+              }
+            },
+          });
+          return false;
         });
-        return false;
-      });
 
       //---------------------------------------------------------News
 
-      if (typeof storage.news_active_loaders === 'number') {
-
+      if (typeof storage.news_active_loaders === "number") {
         storage.news_active_loaders++;
         storage.news_draw();
-
       } else {
-
         storage.news = [];
         storage.news_active_loaders = 3;
-        storage.news_draw = function() {
+        storage.news_draw = function () {
           storage.news_active_loaders--;
-          if (storage.news_active_loaders > 0)
-            return;
+          if (storage.news_active_loaders > 0) return;
 
-          var html = '', item_html, news_;
+          var html = "",
+            item_html,
+            news_;
 
-          news_ = storage.news.sort(function(a, b) {
+          news_ = storage.news.sort(function (a, b) {
             if (a.date > b.date) {
-              return (-1);
+              return -1;
             } else if (a.date < b.date) {
-              return (1);
+              return 1;
             } else {
-              return (0);
+              return 0;
             }
           });
 
           news_ = news_.slice(0, 16);
 
-          news_.forEach(function(item) {
-            item_html = '';
+          news_.forEach(function (item) {
+            item_html = "";
 
             if (!item.image) {
-              if (item.type == 'story') {
-                item.image = '/media/image/icons/view.svg';
-              } else if (item.type == 'wiki') {
+              if (item.type == "story") {
+                item.image = "/media/image/icons/view.svg";
+              } else if (item.type == "wiki") {
                 item.image =
-                    '/media/image/icons/wikipedia-logotype-of-earth-puzzle.svg';
+                  "/media/image/icons/wikipedia-logotype-of-earth-puzzle.svg";
               }
             }
 
             if (!item.image) {
-              item.onclick = '';
+              item.onclick = "";
             }
 
             var a_tag_begin, a_tag_end;
             if (item.link) {
-
               a_tag_begin =
-                  `<a href="` + item.link + `" target="` + item.target + `">`;
+                `<a href="` + item.link + `" target="` + item.target + `">`;
               a_tag_end = `</a>`;
-
             } else {
-
-              a_tag_begin = '';
-              a_tag_end = '';
+              a_tag_begin = "";
+              a_tag_end = "";
             }
 
             item_html +=
-                `
+              `
                 <li onclick="` +
-                item.onclick + `">
+              item.onclick +
+              `">
                     ` +
-                a_tag_begin + `
+              a_tag_begin +
+              `
                         <img src="` +
-                item.image + `">
+              item.image +
+              `">
                         <h2 class="title">` +
-                item.title + `</h2>
+              item.title +
+              `</h2>
                         <p class="type">` +
-                T.Locale.get('news', 'type', item.type) +
-                (item.target == '_blank' ? '<i class="fa fa-external-link"></i>'
-                                         : '') +
-                `</p>
+              T.Locale.get("news", "type", item.type) +
+              (item.target == "_blank"
+                ? '<i class="fa fa-external-link"></i>'
+                : "") +
+              `</p>
                         <p class="date">` +
-                dateToSmartString(item.date) + `</p>
+              dateToSmartString(item.date) +
+              `</p>
                     ` +
-                a_tag_end + `
+              a_tag_end +
+              `
                 </li>
                 `;
 
             html += item_html;
           });
 
-          $(page).find(".news").html('<ul>' + html + '</ul>');
+          $(page)
+            .find(".news")
+            .html("<ul>" + html + "</ul>");
         };
 
         //********************stories
 
-        T.TownsAPI.townsAPI.get('stories', {latest : true}, function(result) {
+        T.TownsAPI.townsAPI.get("stories", { latest: true }, function (result) {
           var stories = new T.Objects.Array(result);
 
-          stories.forEach(function(story) {
+          stories.forEach(function (story) {
             objects_external.update(story);
 
             var content = story.content.data;
             content = markdown.toHTML(content);
 
-            var image = $(content).find('img:first').attr('src');
+            var image = $(content).find("img:first").attr("src");
             if (image) {
-
               image = URI(image)
-                          .removeSearch("width")
-                          .addSearch({width : 100})
-                          .toString();
+                .removeSearch("width")
+                .addSearch({ width: 100 })
+                .toString();
             }
 
             storage.news.push({
-              type : 'story',
+              type: "story",
               // link: '#'+story.x+','+story.y,
-              onclick : "T.Plugins.open('story',1,'" + story.id + "');",
-              image : image,
-              title : story.name,
-              date : new Date(story.start_time),
+              onclick: "T.Plugins.open('story',1,'" + story.id + "');",
+              image: image,
+              title: story.name,
+              date: new Date(story.start_time),
               // target: '_self'
             });
           });
@@ -306,26 +312,30 @@ T.Plugins.install(new T.Plugins.Page(
          */
 
         $.get(
-            appDir + '/php/proxy.rss.php?url=' +
-                encodeURIComponent(
-                    'https://www.youtube.com/feeds/videos.xml?channel_id=UCSi4hJPmCjyrXjFzKSeitjQ'),
-            function(data) {
-              $(data).find("entry").each(function() {
+          appDir +
+            "/php/proxy.rss.php?url=" +
+            encodeURIComponent(
+              "https://www.youtube.com/feeds/videos.xml?channel_id=UCSi4hJPmCjyrXjFzKSeitjQ"
+            ),
+          function (data) {
+            $(data)
+              .find("entry")
+              .each(function () {
                 var $this = $(this);
 
                 storage.news.push({
-                  type : 'video',
-                  title : $this.find("title").text(),
-                  image : $this.find("media\\:thumbnail").attr('url'),
-                  date : new Date($this.find("published").text()),
-                  link : $this.find("link").attr('href'),
-                  target : '_blank'
-
+                  type: "video",
+                  title: $this.find("title").text(),
+                  image: $this.find("media\\:thumbnail").attr("url"),
+                  date: new Date($this.find("published").text()),
+                  link: $this.find("link").attr("href"),
+                  target: "_blank",
                 });
               });
 
-              storage.news_draw();
-            });
+            storage.news_draw();
+          }
+        );
         //********************
         //********************wiki
         /*
@@ -356,29 +366,35 @@ T.Plugins.install(new T.Plugins.Page(
          */
 
         $.get(
-            appDir + '/php/proxy.rss.php?url=' +
-                encodeURIComponent(
-                    'http://wiki.towns.cz/index.php?title=Special:NewPages&feed=atom&hideredirs=1&limit=50&offset=&namespace=0&username=&tagfilter='),
-            function(data) {
-              $(data).find("entry").each(function() {
+          appDir +
+            "/php/proxy.rss.php?url=" +
+            encodeURIComponent(
+              "http://wiki.towns.cz/index.php?title=Special:NewPages&feed=atom&hideredirs=1&limit=50&offset=&namespace=0&username=&tagfilter="
+            ),
+          function (data) {
+            $(data)
+              .find("entry")
+              .each(function () {
                 var $this = $(this);
 
                 storage.news.push({
-                  type : 'wiki',
-                  title : $this.find("title").text(),
+                  type: "wiki",
+                  title: $this.find("title").text(),
                   // image: $this.find("media\\:thumbnail").attr('url'),
-                  date : new Date($this.find("updated").text()),
-                  link : $this.find("id").text(),
-                  target : '_blank'
-
+                  date: new Date($this.find("updated").text()),
+                  link: $this.find("id").text(),
+                  target: "_blank",
                 });
               });
 
-              storage.news_draw();
-            });
+            storage.news_draw();
+          }
+        );
 
         //********************
 
         //---------------------------------------------------------
       }
-    }));
+    }
+  )
+);

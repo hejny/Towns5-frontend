@@ -1,13 +1,13 @@
-
-
 /**
  * @author ©Towns.cz
  * @fileOverview Login page
  */
 //======================================================================================================================
 
-T.Plugins.install(new T.Plugins.Page(
-    'feedback', T.Locale.get('page', 'feedback'),
+T.Plugins.install(
+  new T.Plugins.Page(
+    "feedback",
+    T.Locale.get("page", "feedback"),
     `
 
 
@@ -19,7 +19,8 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td>` +
-        T.Locale.get('user', 'email') + `:</td>
+      T.Locale.get("user", "email") +
+      `:</td>
             <td><input style="width: 100%;" type="email" name="email"  autofocus></td>
         </tr>
 
@@ -31,7 +32,8 @@ T.Plugins.install(new T.Plugins.Page(
         <tr>
             <td colspan="2">
             <button style="width: 150px;">` +
-        T.Locale.get('send') + `</button>
+      T.Locale.get("send") +
+      `</button>
             </td>
         </tr>
 
@@ -42,45 +44,51 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 `,
-    function() {
-      $('#feedback-form')
-          .find('button')
-          .click(function() { $('#feedback-form').trigger('submit'); });
+    function () {
+      $("#feedback-form")
+        .find("button")
+        .click(function () {
+          $("#feedback-form").trigger("submit");
+        });
 
-      $('#feedback-form').submit(function(e) {
+      $("#feedback-form").submit(function (e) {
         e.preventDefault();
 
         var data = {};
 
         // todo form to json
-        $(this).find('input,textarea').each(function() {
-          if ($(this).attr('type') == 'submit')
-            return;
+        $(this)
+          .find("input,textarea")
+          .each(function () {
+            if ($(this).attr("type") == "submit") return;
 
-          var key = $(this).attr('name');
-          key = key.split('-').join('_');
+            var key = $(this).attr("name");
+            key = key.split("-").join("_");
 
-          // r(key);
+            // r(key);
 
-          data[key] = $(this).val();
-        });
+            data[key] = $(this).val();
+          });
 
-        $('#feedback-form')
-            .find('button')
-            .html(T.Locale.get('loading') +
-                  ' <i class="fa fa-spinner faa-spin animated"></i>');
+        $("#feedback-form")
+          .find("button")
+          .html(
+            T.Locale.get("loading") +
+              ' <i class="fa fa-spinner faa-spin animated"></i>'
+          );
 
         r(data);
 
-        var request = $.post(appDir + '/php/feedback.php', data);
-        request.done(function(response) {
-          $('#login-form').find('button').html(T.Locale.get('send'));
+        var request = $.post(appDir + "/php/feedback.php", data);
+        request.done(function (response) {
+          $("#login-form").find("button").html(T.Locale.get("send"));
           T.UI.popupWindow.close();
-          T.UI.Message.success(T.Locale.get('feedback', 'success'));
+          T.UI.Message.success(T.Locale.get("feedback", "success"));
         });
-        request.fail(function(response) {
-
-        });
+        request.fail(function (response) {});
       });
     },
-    undefined, 'SMALL'));
+    undefined,
+    "SMALL"
+  )
+);

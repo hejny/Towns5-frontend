@@ -3,18 +3,16 @@
  * @fileOverview Loading and storing images from external URLs
  */
 //======================================================================================================================
-T.setNamespace('Cache');
+T.setNamespace("Cache");
 
 T.Cache.ImagesCollection = class {
-
   /**
    *
    * @param {object} files
    * @param {string} url Prefix of image urls
    * @constructor
    */
-  constructor(files, url = '') {
-
+  constructor(files, url = "") {
     this.images = {};
 
     this.images_loaded = 0;
@@ -29,27 +27,24 @@ T.Cache.ImagesCollection = class {
    * @param {function} onload(percent) Callback on each single image load
    */
   load(onload = false) {
-
     var self = this; // todo maybe refactor use thisImageCollection ???
     this.onload = onload;
 
-    var onload_callback = function() {
+    var onload_callback = function () {
       // r('loaded');
       self.images_loaded++;
 
       if (self.onload) {
-
         self.onload(self.loaded());
       }
     };
 
-    var onerror_callback = function() {
+    var onerror_callback = function () {
       r(this);
-      throw new Error('Cant load this image!');
+      throw new Error("Cant load this image!");
     };
 
     for (var key in this.files) {
-
       // r('ImagesCollection: start loading '+url+files[key]);
 
       this.images_count++;
@@ -62,51 +57,62 @@ T.Cache.ImagesCollection = class {
   }
 
   loaded() {
-
     var percent = this.images_loaded / this.images_count;
-    if (percent > 1)
-      percent = 1;
+    if (percent > 1) percent = 1;
 
-    return (percent);
+    return percent;
   }
 
   get(key) {
-
-    if (typeof this.images[key] === 'undefined')
-      throw new Error('In this collection is not image with key ' + key);
-    return (this.images[key]);
+    if (typeof this.images[key] === "undefined")
+      throw new Error("In this collection is not image with key " + key);
+    return this.images[key];
   }
 
   // todo jsdoc
-  getAll(key) { return (this.images); }
+  getAll(key) {
+    return this.images;
+  }
 
   // todo jsdoc
-  getInput(NameOfRadios, AdditionalClass = '') {
-
-    var html = '';
+  getInput(NameOfRadios, AdditionalClass = "") {
+    var html = "";
 
     // r(this.files);
 
     for (var key in this.files) {
-
-      html += `
+      html +=
+        `
             <input type="radio" name="` +
-              NameOfRadios + `" id="` + NameOfRadios + `-` + key + `" value="` +
-              key + `" class="` + AdditionalClass + `" />
+        NameOfRadios +
+        `" id="` +
+        NameOfRadios +
+        `-` +
+        key +
+        `" value="` +
+        key +
+        `" class="` +
+        AdditionalClass +
+        `" />
             <label for="` +
-              NameOfRadios + `-` + key + `">
+        NameOfRadios +
+        `-` +
+        key +
+        `">
                 <img src="` +
-              this.url + this.files[key] + `">
+        this.url +
+        this.files[key] +
+        `">
             </label>
             `;
     }
 
-    html = '<div class="textures-input">' + html + '</div>';
+    html = '<div class="textures-input">' + html + "</div>";
 
     // r(html);
 
     // alert(html);//todo purge Towns from commented alert, r, console.log,
     // ect..
-    return (html);
+    return html;
   }
 };

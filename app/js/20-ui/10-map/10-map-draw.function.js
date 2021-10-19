@@ -3,28 +3,26 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-T.setNamespace('UI.Map');
+T.setNamespace("UI.Map");
 
 /**
  * Draw the map on canvas
  * @static
  */
-T.UI.Map.drawMap = function() {
+T.UI.Map.drawMap = function () {
   // r(map_ctx);
-  if (map_ctx === false)
-    return;
+  if (map_ctx === false) return;
   // r('drawMap');
-  if (isNaN((map_radius * 2)))
-    throw '(map_radius*2) is NaN';
-  t('drawMap start');
+  if (isNaN(map_radius * 2)) throw "(map_radius*2) is NaN";
+  t("drawMap start");
 
   //----------------Move canvas
 
-  $('#map_bg').css('left', canvas_left).css('top', canvas_top);
+  $("#map_bg").css("left", canvas_left).css("top", canvas_top);
 
   //----------------Move stories
 
-  $('#map-stories').css('left', canvas_left).css('top', canvas_top);
+  $("#map-stories").css("left", canvas_left).css("top", canvas_top);
 
   //----------------Prepare objects
 
@@ -36,11 +34,9 @@ T.UI.Map.drawMap = function() {
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~map_data_terrains
 
-  for (var y = 0; y < (map_radius * 2); y++) {
-    for (var x = 0; x < (map_radius * 2); x++) {
-
+  for (var y = 0; y < map_radius * 2; y++) {
+    for (var x = 0; x < map_radius * 2; x++) {
       if (map_array[y][x]) {
-
         var world_x = x + Math.floor(T.UI.Map.map_center.x) - map_radius;
         var world_y = y + Math.floor(T.UI.Map.map_center.y) - map_radius;
 
@@ -59,21 +55,25 @@ T.UI.Map.drawMap = function() {
         var height = Math.ceil(width * terrain_size);
 
         var screen_x =
-            ((map_rotation_cos * xc - map_rotation_sin * yc) * map_field_size) *
-            map_zoom_m;
+          (map_rotation_cos * xc - map_rotation_sin * yc) *
+          map_field_size *
+          map_zoom_m;
         var screen_y =
-            ((map_rotation_sin * xc + map_rotation_cos * yc) * map_field_size) /
-            map_slope_m * map_zoom_m;
+          (((map_rotation_sin * xc + map_rotation_cos * yc) * map_field_size) /
+            map_slope_m) *
+          map_zoom_m;
 
-        screen_x += (canvas_width / 2);
-        screen_y += (canvas_height / 2);
+        screen_x += canvas_width / 2;
+        screen_y += canvas_height / 2;
 
         //------------------------------------------
 
-        if (screen_x > -(width / 2) && screen_y > -(height / 2) &&
-            screen_x < canvas_width &&
-            screen_y < canvas_height + (map_field_size * terrain_size)) {
-
+        if (
+          screen_x > -(width / 2) &&
+          screen_y > -(height / 2) &&
+          screen_x < canvas_width &&
+          screen_y < canvas_height + map_field_size * terrain_size
+        ) {
           //----------------------------------------------------------------------------------------------
 
           var seed = Math.abs(world_x * world_y - 1) % seedCount;
@@ -81,20 +81,17 @@ T.UI.Map.drawMap = function() {
           //-----
 
           map_draw.push({
+            drawtype: "image",
+            data: T.Cache.backgrounds.get("t" + map_array[y][x] + "s" + seed),
 
-            drawtype : 'image',
-            data :
-                T.Cache.backgrounds.get('t' + (map_array[y][x]) + 's' + seed),
+            screen_x: screen_x,
+            screen_y: screen_y,
 
-            screen_x : screen_x,
-            screen_y : screen_y,
+            anchor_x: width / 2,
+            anchor_y: 0,
 
-            anchor_x : width / 2,
-            anchor_y : 0,
-
-            width : width,
-            height : height
-
+            width: width,
+            height: height,
           });
 
           //----------------------------------------------------------------------------------------------
@@ -107,36 +104,36 @@ T.UI.Map.drawMap = function() {
   selecting_distance_pow = 20; // todo should it be here?
   selecting_distance_pow = selecting_distance_pow * selecting_distance_pow;
 
-  map_data_buildings.forEach(function(object) {
+  map_data_buildings.forEach(function (object) {
     /// todo dynamic position   //var position = object.getPosition();
     var object_xc = object.x - T.UI.Map.map_center.x;
     var object_yc = object.y - T.UI.Map.map_center.y;
 
     var object_screen_x =
-        ((map_rotation_cos * object_xc - map_rotation_sin * object_yc) *
-         map_field_size) *
-        map_zoom_m;
+      (map_rotation_cos * object_xc - map_rotation_sin * object_yc) *
+      map_field_size *
+      map_zoom_m;
     var object_screen_y =
-        ((map_rotation_sin * object_xc + map_rotation_cos * object_yc) *
-         map_field_size) /
-        map_slope_m * map_zoom_m;
+      (((map_rotation_sin * object_xc + map_rotation_cos * object_yc) *
+        map_field_size) /
+        map_slope_m) *
+      map_zoom_m;
 
-    object_screen_x += (canvas_width / 2);
-    object_screen_y += (canvas_height / 2);
+    object_screen_x += canvas_width / 2;
+    object_screen_y += canvas_height / 2;
 
-    if (object.type == 'building') {
+    if (object.type == "building") {
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       map_draw.push({
-        drawtype : 'model',
-        data : object,
-        screen_x : object_screen_x,
-        screen_y : object_screen_y,
+        drawtype: "model",
+        data: object,
+        screen_x: object_screen_x,
+        screen_y: object_screen_y,
       });
 
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-    } else if (object.type == 'natural') {
+    } else if (object.type == "natural") {
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
       var image = T.Cache.objectsNatural.get(object.getCode());
@@ -144,22 +141,20 @@ T.UI.Map.drawMap = function() {
       var size = object.design.data.size || 1;
 
       var width = map_field_size * map_zoom_m * 3 * size;
-      var height = image.height / image.width * width;
+      var height = (image.height / image.width) * width;
 
       map_draw.push({
+        drawtype: "image",
+        data: image,
 
-        drawtype : 'image',
-        data : image,
+        screen_x: object_screen_x,
+        screen_y: object_screen_y,
 
-        screen_x : object_screen_x,
-        screen_y : object_screen_y,
+        anchor_x: width / 2,
+        anchor_y: height - width / 2 / map_slope_m,
 
-        anchor_x : width / 2,
-        anchor_y : height - (width / 2 / map_slope_m),
-
-        width : width,
-        height : height
-
+        width: width,
+        height: height,
       });
 
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -171,13 +166,13 @@ T.UI.Map.drawMap = function() {
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Sort
   //objects
 
-  map_draw.sort(function(a, b) {
+  map_draw.sort(function (a, b) {
     if (a.screen_y > b.screen_y) {
-      return (1);
+      return 1;
     } else if (a.screen_y < b.screen_y) {
-      return (-1);
+      return -1;
     } else {
-      return (0);
+      return 0;
     }
   });
 
@@ -187,43 +182,47 @@ T.UI.Map.drawMap = function() {
 
   map_ctx.clearRect(0, 0, canvas_width, canvas_height);
 
-  map_ctx.fillStyle = '#000000';
-  map_ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+  map_ctx.fillStyle = "#000000";
+  map_ctx.strokeStyle = "rgba(0,0,0,0.5)";
   map_ctx.lineWidth = 0;
 
   //----------------Drawing... :)
 
   for (var i = 0; i < map_draw.length; i++) {
-
-    if (map_draw[i].drawtype == 'image') { // todo is it used?
+    if (map_draw[i].drawtype == "image") {
+      // todo is it used?
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~image
       try {
         map_ctx.drawImage(
+          // todo refactor: maybe map_zoom_m should be applied here
 
-            // todo refactor: maybe map_zoom_m should be applied here
+          map_draw[i].data,
 
-            map_draw[i].data,
+          map_draw[i].screen_x - map_draw[i].anchor_x,
+          map_draw[i].screen_y - map_draw[i].anchor_y,
 
-            map_draw[i].screen_x - map_draw[i].anchor_x,
-            map_draw[i].screen_y - map_draw[i].anchor_y,
-
-            map_draw[i].width, map_draw[i].height
-
+          map_draw[i].width,
+          map_draw[i].height
         );
       } catch (err) {
-        r('Could not load', map_draw[i].data);
+        r("Could not load", map_draw[i].data);
       }
 
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    } else if (map_draw[i].drawtype == 'model') {
+    } else if (map_draw[i].drawtype == "model") {
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~building
 
       map_draw[i].data.getModel().drawCashedAsync(
-          map_ctx, map_zoom_m * map_model_size, map_draw[i].screen_x,
-          map_draw[i].screen_y, map_rotation, map_slope,
+        map_ctx,
+        map_zoom_m * map_model_size,
+        map_draw[i].screen_x,
+        map_draw[i].screen_y,
+        map_rotation,
+        map_slope,
 
-          (map_selected_ids.indexOf(map_draw[i].data.id) != -1 ? true : false),
-          true);
+        map_selected_ids.indexOf(map_draw[i].data.id) != -1 ? true : false,
+        true
+      );
 
       //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     }
@@ -233,7 +232,7 @@ T.UI.Map.drawMap = function() {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   }
 
-  t('drawMap end');
+  t("drawMap end");
 
   /*if(Math.random()>0.95)
       throw('aaa');*/
@@ -244,7 +243,9 @@ T.UI.Map.drawMap = function() {
  * @static
  * @param {number} delay ms
  */
-T.UI.Map.drawMapAsync = function(
-    delay = IMMEDIATELY_MS) { // todo search where to use this function
-  setTimeout(function() { T.UI.Map.drawMap(); }, delay);
+T.UI.Map.drawMapAsync = function (delay = IMMEDIATELY_MS) {
+  // todo search where to use this function
+  setTimeout(function () {
+    T.UI.Map.drawMap();
+  }, delay);
 };

@@ -5,42 +5,36 @@
 //======================================================================================================================token
 
 T.TownsAPI = class {
-
-  constructor(url = '', token = false) {
-
+  constructor(url = "", token = false) {
     this.online = false;
     this.logged = false;
     this.url = url;
     this.token = token;
 
     // Empty query to check if the API is online
-    this.query('', {}, 'GET', {}, {});
+    this.query("", {}, "GET", {}, {});
   }
 
   //======================================================================================================================
 
   // todo jsdoc
   setOnline(online) {
-
     var self = this;
 
     this.online = online;
 
     if (online) {
-
-      if (typeof this.message !== 'undefined') {
+      if (typeof this.message !== "undefined") {
         this.message.close(0);
         this.message = undefined;
       }
 
-      $('#server-loading').hide();
-      $('#server-ok').show();
-      $('#server-error').hide();
+      $("#server-loading").hide();
+      $("#server-ok").show();
+      $("#server-error").hide();
 
-      $('button.js-townsapi-online').animate({opacity : 1});
-
+      $("button.js-townsapi-online").animate({ opacity: 1 });
     } else {
-
       /*<div id="townsapi-offline" style="display: none;">
           <div class="inner">
               <?=locale('ui warnings offline')?>
@@ -53,59 +47,64 @@ T.TownsAPI = class {
           </div>
       </div>*/
 
-      if (typeof this.message === 'undefined') {
+      if (typeof this.message === "undefined") {
         this.message = new T.UI.Message(
-            T.Locale.get('ui', 'warnings', 'offline'), 'ERROR',
-            `
+          T.Locale.get("ui", "warnings", "offline"),
+          "ERROR",
+          `
                         <button class="micro-button" id="townsapi-reconnect">` +
-                (T.Locale.get('ui', 'buttons', 'reconnect')) + `</button>
+            T.Locale.get("ui", "buttons", "reconnect") +
+            `</button>
                         <button class="micro-button" onclick="T.Plugins.open('offline')">` +
-                (T.Locale.get('ui', 'buttons', 'offline')) + `</button>
-                    `);
+            T.Locale.get("ui", "buttons", "offline") +
+            `</button>
+                    `
+        );
       }
 
-      $('#server-loading').hide();
-      $('#server-ok').hide();
-      $('#server-error').show();
+      $("#server-loading").hide();
+      $("#server-ok").hide();
+      $("#server-error").show();
 
-      $('button.js-townsapi-online').animate({opacity : 0.4});
+      $("button.js-townsapi-online").animate({ opacity: 0.4 });
 
-      var townsapi_reconnect = $('#townsapi-reconnect');
+      var townsapi_reconnect = $("#townsapi-reconnect");
 
-      if (townsapi_reconnect.hasClass('js-running'))
-        return;
+      if (townsapi_reconnect.hasClass("js-running")) return;
 
-      townsapi_reconnect.unbind('click').bind('click', function() {
+      townsapi_reconnect.unbind("click").bind("click", function () {
         clearInterval(interval);
-        townsapi_reconnect.removeClass('js-running');
+        townsapi_reconnect.removeClass("js-running");
 
-        $(this).html(T.Locale.get('ui buttons reconnecting').text2html() +
-                     '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>');
+        $(this).html(
+          T.Locale.get("ui buttons reconnecting").text2html() +
+            '&nbsp;<i class="fa fa-spinner faa-spin animated"></i>'
+        );
 
         // Empty query to check if the API is online
-        self.query('', {}, 'GET', {}, {}); // todo duplicate
+        self.query("", {}, "GET", {}, {}); // todo duplicate
       });
 
       var counter = 15;
 
-      townsapi_reconnect.html(T.Locale.get('ui buttons reconnect').text2html() +
-                              '&nbsp(<span class="js-counter">' + counter +
-                              '</span>)');
-      townsapi_reconnect.addClass('js-running');
+      townsapi_reconnect.html(
+        T.Locale.get("ui buttons reconnect").text2html() +
+          '&nbsp(<span class="js-counter">' +
+          counter +
+          "</span>)"
+      );
+      townsapi_reconnect.addClass("js-running");
 
-      var townsapi_reconnect_counter = townsapi_reconnect.find('.js-counter');
+      var townsapi_reconnect_counter = townsapi_reconnect.find(".js-counter");
 
-      var interval = setInterval(function() {
+      var interval = setInterval(function () {
         counter--;
         r(counter);
 
         if (counter > 0) {
-
           townsapi_reconnect_counter.text(counter);
-
         } else {
-
-          townsapi_reconnect.trigger('click');
+          townsapi_reconnect.trigger("click");
         }
       }, 1000);
     }
@@ -117,21 +116,27 @@ T.TownsAPI = class {
   isLogged(callback) {
     var self = this;
 
-    return this.query('auth', {}, 'GET', {}, {},
-                      function(response) {
-                        if (isDefined(response.status)) {
-                          self.logged = true;
-                          callback(true);
-                        } else {
-                          self.logged = false;
-                          callback(false);
-                        }
-                      },
-                      function(response) {
-                        // r(response);
-                        self.logged = false;
-                        callback(false);
-                      });
+    return this.query(
+      "auth",
+      {},
+      "GET",
+      {},
+      {},
+      function (response) {
+        if (isDefined(response.status)) {
+          self.logged = true;
+          callback(true);
+        } else {
+          self.logged = false;
+          callback(false);
+        }
+      },
+      function (response) {
+        // r(response);
+        self.logged = false;
+        callback(false);
+      }
+    );
   }
 
   //======================================================================================================================
@@ -146,83 +151,79 @@ T.TownsAPI = class {
    * @param callback_error
    * @returns {object} jQuery $.ajax
    */
-  query(uri, query_data, method, data, headers, callback_success = false,
-        callback_error = false) {
-
+  query(
+    uri,
+    query_data,
+    method,
+    data,
+    headers,
+    callback_success = false,
+    callback_error = false
+  ) {
     // r(this.url+uri);
     // r(data);
     var self = this;
 
-    if (this.token)
-      headers['x-auth'] = this.token;
+    if (this.token) headers["x-auth"] = this.token;
 
-    var query_data_string = '';
-    var query_separator = '?';
+    var query_data_string = "";
+    var query_separator = "?";
 
     for (var key in query_data) {
-
       var value = query_data[key];
 
       if (value instanceof Array) {
         for (var i = 0, l = value.length; i < l; i++) {
-
-          query_data_string += query_separator + key + '[]=' + value[i];
-          query_separator = '&';
+          query_data_string += query_separator + key + "[]=" + value[i];
+          query_separator = "&";
         }
       } else {
-
         value = encodeURIComponent(value);
 
-        query_data_string += query_separator + key + '=' + value;
+        query_data_string += query_separator + key + "=" + value;
 
-        query_separator = '&';
+        query_separator = "&";
       }
     }
 
     // r(headers);
 
     var request = $.ajax({
-      type : method,
-      url : this.url + uri + query_data_string,
+      type: method,
+      url: this.url + uri + query_data_string,
       // crossDomain: true,
-      headers : headers,
-      contentType : 'application/json; charset=UTF-8',
-      data : JSON.stringify(data),
-      dataType : 'json',
-      timeout : 7000
+      headers: headers,
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      dataType: "json",
+      timeout: 7000,
     });
 
     // r(request);
 
     // r('sended');
 
-    $('#server-loading').show();
-    $('#server-ok').hide();
-    $('#server-error').hide();
+    $("#server-loading").show();
+    $("#server-ok").hide();
+    $("#server-error").hide();
 
-    request.done(function(response) {
+    request.done(function (response) {
       self.setOnline(true);
 
-      if (callback_success)
-        callback_success(response);
+      if (callback_success) callback_success(response);
     });
 
-    request.fail(function(jqXHR, textStatus) {
+    request.fail(function (jqXHR, textStatus) {
       // r(jqXHR.status,jqXHR);
 
-      if (jqXHR.status === 0 && textStatus === 'error') {
-
+      if (jqXHR.status === 0 && textStatus === "error") {
         self.setOnline(false);
 
-        if (callback_success)
-          callback_success([]);
-
+        if (callback_success) callback_success([]);
       } else {
-
         self.setOnline(true);
 
-        if (callback_error)
-          callback_error(jqXHR.responseJSON);
+        if (callback_error) callback_error(jqXHR.responseJSON);
         // r('error');
         // throw new Error(textStatus);
       }
@@ -231,7 +232,7 @@ T.TownsAPI = class {
     // r('sended');
     //----------------------
 
-    return (request);
+    return request;
   }
 
   //=================================================
@@ -246,9 +247,15 @@ T.TownsAPI = class {
    */
 
   get(uri, query_data, callback_success, callback_error) {
-
-    return this.query(uri, query_data, 'GET', {}, {}, callback_success,
-                      callback_error);
+    return this.query(
+      uri,
+      query_data,
+      "GET",
+      {},
+      {},
+      callback_success,
+      callback_error
+    );
   }
 
   /**
@@ -260,35 +267,43 @@ T.TownsAPI = class {
    * @returns {object} jQuery $.ajax
    */
   post(uri, object, callback_success, callback_error) {
-
     var callback_success_wrapped;
 
     //----------------------------------------
-    if (uri == 'objects/prototypes') {
+    if (uri == "objects/prototypes") {
       //--------------------
-      callback_success_wrapped = function(response) {
-        r('Updating object prototype id after server response from ' +
-          object.id + ' to ' + response.prototypeId);
+      callback_success_wrapped = function (response) {
+        r(
+          "Updating object prototype id after server response from " +
+            object.id +
+            " to " +
+            response.prototypeId
+        );
 
         T.User.object_prototypes.setById(response.prototypeId, response);
 
-        if (callback_success)
-          callback_success(response);
+        if (callback_success) callback_success(response);
       };
       //--------------------
     } else {
       //--------------------
-      callback_success_wrapped = function(response) {
-        if (callback_success)
-          callback_success(response);
+      callback_success_wrapped = function (response) {
+        if (callback_success) callback_success(response);
       };
       //--------------------
     }
     //----------------------------------------
 
     // r('API',JSON.stringify(object));
-    return this.query(uri, {}, 'POST', object, {}, callback_success_wrapped,
-                      callback_error);
+    return this.query(
+      uri,
+      {},
+      "POST",
+      object,
+      {},
+      callback_success_wrapped,
+      callback_error
+    );
   }
 
   /**
@@ -299,8 +314,14 @@ T.TownsAPI = class {
    * @returns {Object}
    */
   delete(uri, callback_success, callback_error) {
-
-    return this.query(uri, {}, 'DELETE', {}, {}, callback_success,
-                      callback_error);
+    return this.query(
+      uri,
+      {},
+      "DELETE",
+      {},
+      {},
+      callback_success,
+      callback_error
+    );
   }
 };

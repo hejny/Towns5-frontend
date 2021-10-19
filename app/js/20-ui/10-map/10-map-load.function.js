@@ -3,40 +3,36 @@
  * @fileOverview Additional methods to object Map
  */
 //======================================================================================================================
-T.setNamespace('UI.Map');
+T.setNamespace("UI.Map");
 
 // todo refactor this should not be here
 var map_request_ajax = false;
 
-T.UI.Map.loadMap = function(from_server = false) {
-  if (isNaN(map_radius))
-    throw new Error('map_radius is NaN');
+T.UI.Map.loadMap = function (from_server = false) {
+  if (isNaN(map_radius)) throw new Error("map_radius is NaN");
 
   if (from_server) {
-
-    r('Loading map from server.');
+    r("Loading map from server.");
 
     if (map_request_ajax) {
       map_request_ajax.abort();
     }
 
-    map_request_ajax =
-        T.TownsAPI.townsAPI.get('objects', {
-          x : Math.round(T.UI.Map.map_center.x),
-          y : Math.round(T.UI.Map.map_center.y),
-          radius : map_radius * 3 // todo to constant
-          // not: map_out_ids
-
-        }, // todo range and order by time
-                                function(response) {
-                                  objects_server =
-                                      new T.Objects.Array(response);
-                                  T.UI.Map.loadMapRequestCallback();
-                                });
-
+    map_request_ajax = T.TownsAPI.townsAPI.get(
+      "objects",
+      {
+        x: Math.round(T.UI.Map.map_center.x),
+        y: Math.round(T.UI.Map.map_center.y),
+        radius: map_radius * 3, // todo to constant
+        // not: map_out_ids
+      }, // todo range and order by time
+      function (response) {
+        objects_server = new T.Objects.Array(response);
+        T.UI.Map.loadMapRequestCallback();
+      }
+    );
   } else {
-
-    r('Loading map from only local.');
+    r("Loading map from only local.");
 
     T.UI.Map.loadMapRequestCallback();
   }
@@ -44,40 +40,47 @@ T.UI.Map.loadMap = function(from_server = false) {
 
 //======================================================================================================================
 
-T.UI.Map.loadMapRequestCallback = function() {
+T.UI.Map.loadMapRequestCallback = function () {
   //----------------------------------Create map_data and map_bg_data from local
   //objects
 
-  tstart('generating map');
+  tstart("generating map");
 
-  var map_center_floor = new T.Position(Math.floor(T.UI.Map.map_center.x),
-                                        Math.floor(T.UI.Map.map_center.y));
+  var map_center_floor = new T.Position(
+    Math.floor(T.UI.Map.map_center.x),
+    Math.floor(T.UI.Map.map_center.y)
+  );
 
-  tstart('getCompleteObjects');
+  tstart("getCompleteObjects");
   objects_external = T.World.mapGenerator.getCompleteObjects(
-      objects_server, map_center_floor, map_radius,
-      true /*,T.UI.Map.map_center_last*/);
-  tend('getCompleteObjects');
+    objects_server,
+    map_center_floor,
+    map_radius,
+    true /*,T.UI.Map.map_center_last*/
+  );
+  tend("getCompleteObjects");
 
   //----------------------------------Create map_data and map_bg_data from
   //objects_external
 
-  tstart('filterTypes');
-  map_data_buildings = objects_external.filterTypes('building', 'natural');
-  map_data_stories = objects_external.filterTypes('story');
-  map_data_terrains = objects_external.filterTypes('terrain');
-  tend('filterTypes');
+  tstart("filterTypes");
+  map_data_buildings = objects_external.filterTypes("building", "natural");
+  map_data_stories = objects_external.filterTypes("story");
+  map_data_terrains = objects_external.filterTypes("terrain");
+  tend("filterTypes");
 
   //----------------------------------
 
-  tstart('getMapOfTerrainCodes');
-  map_array =
-      map_data_terrains.getMapOfTerrainCodes(map_center_floor, map_radius);
-  tend('getMapOfTerrainCodes');
+  tstart("getMapOfTerrainCodes");
+  map_array = map_data_terrains.getMapOfTerrainCodes(
+    map_center_floor,
+    map_radius
+  );
+  tend("getMapOfTerrainCodes");
 
   T.UI.Map.map_center_last = T.UI.Map.map_center.clone();
 
-  tend('generating map');
+  tend("generating map");
 
   //----------------------------------
 
@@ -170,9 +173,9 @@ T.UI.Map.loadMapRequestCallback = function() {
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  tstart('T.UI.Map.drawMap');
+  tstart("T.UI.Map.drawMap");
   T.UI.Map.drawMap();
-  tend('T.UI.Map.drawMap');
+  tend("T.UI.Map.drawMap");
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -180,16 +183,18 @@ T.UI.Map.loadMapRequestCallback = function() {
   // $('#map-stories').html(T.UI.Map.storiesHTML(map_data_stories)); vs.
   // T.UI.Map.drawMap();
 
-  tstart('T.UI.Map.storiesHTML');
-  $('#map-stories').html(T.UI.Map.storiesHTML(map_data_stories));
-  tend('T.UI.Map.storiesHTML');
+  tstart("T.UI.Map.storiesHTML");
+  $("#map-stories").html(T.UI.Map.storiesHTML(map_data_stories));
+  tend("T.UI.Map.storiesHTML");
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 };
 
 //======================================================================================================================
 
-T.UI.Map.loadMapAsync = function(
-    delay = IMMEDIATELY_MS) { // todo search where to use this function
-  setTimeout(function() { T.UI.Map.loadMap(); }, delay);
+T.UI.Map.loadMapAsync = function (delay = IMMEDIATELY_MS) {
+  // todo search where to use this function
+  setTimeout(function () {
+    T.UI.Map.loadMap();
+  }, delay);
 };

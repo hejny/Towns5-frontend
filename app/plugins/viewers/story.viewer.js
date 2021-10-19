@@ -4,8 +4,12 @@
  */
 //======================================================================================================================
 
-T.Plugins.install(new T.Plugins.Viewer(
-    'story', {type : 'story'}, '', `
+T.Plugins.install(
+  new T.Plugins.Viewer(
+    "story",
+    { type: "story" },
+    "",
+    `
         <article></article>
 
 
@@ -31,75 +35,69 @@ T.Plugins.install(new T.Plugins.Viewer(
 
         </div>
 
-    ` // todo should js-story-edit be class or id(current) ???
-    ,
-    function(object, page) {
+    `, // todo should js-story-edit be class or id(current) ???
+    function (object, page) {
       r(object);
 
       var content = $(markdown.toHTML(object.getMarkdown()));
 
       //-----------------------------------------------------------------------Links
-      content.find('a').each(function() {
+      content.find("a").each(function () {
         $this = $(this);
 
-        var href = $this.attr('href');
+        var href = $this.attr("href");
         var uri = URI(href);
 
-        if (uri.domain() === '') {
-
+        if (uri.domain() === "") {
           var path = uri.path();
           path = path.substr(1);
-          path = path.split('/');
+          path = path.split("/");
 
           var onclick =
-              `T.Plugins.open('` + path[0] + `',1,'` + path[1] + `');`;
+            `T.Plugins.open('` + path[0] + `',1,'` + path[1] + `');`;
 
-          $this.attr('href', null);
-          $this.attr('onclick', onclick);
+          $this.attr("href", null);
+          $this.attr("onclick", onclick);
 
           // r($this);
-
         } else {
-
           var html = $this.html();
           html += '<i class="fa fa-external-link" aria-hidden="true"></i>';
           $this.html(html);
 
-          $this.attr('target', '_blank');
-          $this.attr('rel', 'nofollow');
+          $this.attr("target", "_blank");
+          $this.attr("rel", "nofollow");
         }
       });
       //-----------------------------------------------------------------------
 
       //-----------------------------------------------------------------------Images
-      content.find('img').each(function() {
+      content.find("img").each(function () {
         var $this = $(this);
-        var src = $this.attr('src');
+        var src = $this.attr("src");
 
         //---------------------
 
         var src_uri = URI(src).removeSearch("width");
-        var src_normal =
-            src_uri.addSearch({width : 800})
-                .toString(); // todo constant maybe POPUP_WINDOW_NORMAL_WIDTH
-        var src_full = src;  // src_uri.removeSearch("width").toString();
+        var src_normal = src_uri.addSearch({ width: 800 }).toString(); // todo constant maybe POPUP_WINDOW_NORMAL_WIDTH
+        var src_full = src; // src_uri.removeSearch("width").toString();
 
         //---------------------
 
         var $image;
-        $image = $('<img/>');
-        $image.attr('src', src_normal);
+        $image = $("<img/>");
+        $image.attr("src", src_normal);
 
         var $zoom;
-        $zoom = $('<a></a>');
-        $zoom.attr('href', src_full);
+        $zoom = $("<a></a>");
+        $zoom.attr("href", src_full);
         //$download.attr('download','aaa.jpg');
-        $zoom.attr('target', '_blank');
+        $zoom.attr("target", "_blank");
         $zoom.html('<i class="fa fa-search-plus" aria-hidden="true"></i>');
 
         var $image_holder;
-        $image_holder = $('<div></div>');
-        $image_holder.addClass('image-holder');
+        $image_holder = $("<div></div>");
+        $image_holder.addClass("image-holder");
         $image_holder.append($image);
         $image_holder.append($zoom);
 
@@ -111,16 +109,16 @@ T.Plugins.install(new T.Plugins.Viewer(
 
       content = content.outerHTML(); // todo use this
 
-      $(page).find('article').html(content);
+      $(page).find("article").html(content);
 
-      T.TownsAPI.townsAPI.get('users/' + object.owner, {}, function(response) {
+      T.TownsAPI.townsAPI.get("users/" + object.owner, {}, function (response) {
         var user = new T.User(response); // todo maybe creation of instance
-                                         // should provide TownsAPI
+        // should provide TownsAPI
 
-        $(page).find('.author').append(user.getSignatureHTML());
+        $(page).find(".author").append(user.getSignatureHTML());
       });
 
       T.UI.popupWindow.setTitle(object.name);
     }
-
-    ));
+  )
+);

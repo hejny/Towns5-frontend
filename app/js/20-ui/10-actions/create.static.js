@@ -8,14 +8,13 @@
 function generateID() {
   // todo here should we generate object IDs
 
-  return ('tmp' + Math.round(Math.random() * 1000000000));
+  return "tmp" + Math.round(Math.random() * 1000000000);
 }
 
 //======================================================================================================================
 // todo create Static object Actions
 
 function create(object, callback = false) {
-
   // todo sounds ion.sound.play("door_bump");
 
   var x = Math.round(object.x);
@@ -30,21 +29,21 @@ function create(object, callback = false) {
 
   var updatedID = false;
 
-  if (object.type == 'terrain') {
+  if (object.type == "terrain") {
     updatedID = createTerrain(object, callback);
-  } else if (object.type == 'building') {
+  } else if (object.type == "building") {
     updatedID = createBuilding(object, callback);
-  } else if (object.type == 'story') {
+  } else if (object.type == "story") {
     updatedID = createStory(object, callback);
   } else {
-    throw 'Unknown object type';
+    throw "Unknown object type";
   }
 
-  trackEvent('functions', 'create', object.name);
+  trackEvent("functions", "create", object.name);
 
   //---------------------------------------
 
-  return (updatedID);
+  return updatedID;
 }
 
 //======================================================================================================================
@@ -52,23 +51,26 @@ function create(object, callback = false) {
 function createNewOrJoin(object) {
   // todo ?? maybe use DI
 
-  var distance, distances = [];
+  var distance,
+    distances = [];
 
   for (var i = 0, l = objects_external.length; i < l; i++) {
-    if (objects_external[i].type == 'building') {
-
+    if (objects_external[i].type == "building") {
       var bothDistances = 0;
 
-      bothDistances += objects_external[i].getModel().range('xy');
-      bothDistances += object.getModel().range('xy');
+      bothDistances += objects_external[i].getModel().range("xy");
+      bothDistances += object.getModel().range("xy");
 
       bothDistances = bothDistances / 100; // todo better
 
-      if ((distance = T.Math.xy2dist(objects_external[i].x - object.x,
-                                     objects_external[i].y - object.y)) <
-          bothDistances * map_model_size) {
-
-        distances.push({i : i, distance : distance});
+      if (
+        (distance = T.Math.xy2dist(
+          objects_external[i].x - object.x,
+          objects_external[i].y - object.y
+        )) <
+        bothDistances * map_model_size
+      ) {
+        distances.push({ i: i, distance: distance });
         // objects_external.slice(i,1);
         // i--;l--;
       }
@@ -76,119 +78,116 @@ function createNewOrJoin(object) {
   }
 
   if (distances.length > 0) {
-
-    distances.sort(function(a, b) {
+    distances.sort(function (a, b) {
       if (a.distance > b.distance) {
-        return (1);
+        return 1;
       } else if (a.distance < b.distance) {
-        return (-1);
+        return -1;
       } else {
-        return (0);
+        return 0;
       }
     });
 
     // todo better
     var xy = T.Math.xyRotate(
-        (object.x - objects_external[distances[0].i].x) * 10, // map_model_size,
-        (object.y - objects_external[distances[0].i].y) * 10, // map_model_size,
+      (object.x - objects_external[distances[0].i].x) * 10, // map_model_size,
+      (object.y - objects_external[distances[0].i].y) * 10, // map_model_size,
 
-        // 0
-        // 2*(map_rotation-45)
-        -45 + 2 * (map_rotation - 45)
-
+      // 0
+      // 2*(map_rotation-45)
+      -45 + 2 * (map_rotation - 45)
     );
 
     // xy.x=-xy.x;//todo better
     xy.y = -xy.y;
 
     return {
-      'i' : distances[0].i,
-      'id' : objects_external[distances[0].i].id,
-      'xy' : xy
+      i: distances[0].i,
+      id: objects_external[distances[0].i].id,
+      xy: xy,
     };
-
   } else {
-
-    return (false);
+    return false;
   }
 }
 
 //==========================================================createTerrain
 
-function createTerrain(object, callback) { // todo maybe create other
+function createTerrain(object, callback) {
+  // todo maybe create other
 
   object.id = generateID();
   saveObject(object.clone()); // todo refactor
 
-  if (callback)
-    callback();
+  if (callback) callback();
 
-  return (object.id);
+  return object.id;
 }
 
 //==========================================================createStory
 
 function createBuilding(object, callback) {
-
   var join;
 
   if (dragging_subtypes.indexOf(building.subtype) == -1) {
-
     join = createNewOrJoin(object);
-
   } else {
-
     join = false;
   }
 
   if (join === false) {
     //------------------------------------------------------------Normal
     //building
-    r('createBuilding: Normal building');
+    r("createBuilding: Normal building");
 
     object.id = generateID();
 
-    if (object.subtype == 'block') {
-
-      object.subtype = 'main';
+    if (object.subtype == "block") {
+      object.subtype = "main";
     }
 
     saveObject(object);
 
-    if (callback)
-      callback();
+    if (callback) callback();
 
-    return (object.id);
+    return object.id;
 
     //------------------------------------------------------------
   } else {
     //------------------------------------------------------------Join buildings
-    r('createBuilding: Join buildings');
+    r("createBuilding: Join buildings");
     r(join.xy);
 
-    objects_external[join.i].getModel().joinModel(object.design.data, join.xy.x,
-                                                  join.xy.y);
+    objects_external[join.i]
+      .getModel()
+      .joinModel(object.design.data, join.xy.x, join.xy.y);
 
-    objects_external[join.i].subtype = 'main';
+    objects_external[join.i].subtype = "main";
 
     T.TownsAPI.townsAPI.post(
-        'objects/prototypes/', objects_external[join.i], function(response) {
-          T.TownsAPI.townsAPI.delete('objects/' + objects_external[join.i].id,
-                                     function() {
-                                       T.TownsAPI.townsAPI.post('objects', {
-                                         prototypeId : response.prototypeId,
-                                         x : objects_external[join.i].x,
-                                         y : objects_external[join.i].y
+      "objects/prototypes/",
+      objects_external[join.i],
+      function (response) {
+        T.TownsAPI.townsAPI.delete(
+          "objects/" + objects_external[join.i].id,
+          function () {
+            T.TownsAPI.townsAPI.post(
+              "objects",
+              {
+                prototypeId: response.prototypeId,
+                x: objects_external[join.i].x,
+                y: objects_external[join.i].y,
+              },
+              function () {
+                if (callback) callback();
+              }
+            );
+          }
+        );
+      }
+    );
 
-                                       },
-                                                                function() {
-                                                                  if (callback)
-                                                                    callback();
-                                                                });
-                                     });
-        });
-
-    return (objects_external[join.i].id);
+    return objects_external[join.i].id;
 
     //------------------------------------------------------------
   }
@@ -197,7 +196,6 @@ function createBuilding(object, callback) {
 //==========================================================createStory
 
 function createStory(object, callback) {
-
   object = object.clone();
   object.id = generateID();
 
@@ -206,7 +204,7 @@ function createStory(object, callback) {
   // callback(object.id);
   saveObject(object, callback); // todo refactor
 
-  return (object.id);
+  return object.id;
 }
 
 //======================================================================================================================
@@ -214,7 +212,7 @@ function createStory(object, callback) {
 
 // todo where this function should be?
 function definePrototype(objectReference, forceSubtype) {
-  r('definePrototype');
+  r("definePrototype");
   r(forceSubtype);
 
   var object = objectReference.clone();
@@ -235,9 +233,14 @@ function definePrototype(objectReference, forceSubtype) {
 //======================================================================================================================
 
 function definePrototypeUI(objectReference, forceSubtype) {
-
   definePrototype(objectReference, forceSubtype);
-  message(T.Locale.get('defined prototype ' + objectReference.type + ' ' +
-                       objectReference.subtype),
-          'success');
+  message(
+    T.Locale.get(
+      "defined prototype " +
+        objectReference.type +
+        " " +
+        objectReference.subtype
+    ),
+    "success"
+  );
 }

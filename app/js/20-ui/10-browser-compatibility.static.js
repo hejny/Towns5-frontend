@@ -3,9 +3,10 @@
  * @fileOverview Creates class T.UI.Compatibility
  */
 //======================================================================================================================
-T.setNamespace('UI');
+T.setNamespace("UI");
 
-T.UI.Compatibility = class { // todo maybe this should be directly under UI?
+T.UI.Compatibility = class {
+  // todo maybe this should be directly under UI?
 
   /**
    * tests all
@@ -13,26 +14,21 @@ T.UI.Compatibility = class { // todo maybe this should be directly under UI?
    * @returns {object}
    */
   static check(simple = true) {
-
     var compatibility = {
-      webgl : null,
-      requestAnimationFrame : null,
-      localStorage : null
+      webgl: null,
+      requestAnimationFrame: null,
+      localStorage: null,
     };
 
     var ok = true;
 
     for (var key in compatibility) {
-
       compatibility[key] = this[key]();
-      if (compatibility[key] === false)
-        ok = false;
+      if (compatibility[key] === false) ok = false;
     }
 
-    if (ok && simple)
-      return true;
-    else
-      return compatibility;
+    if (ok && simple) return true;
+    else return compatibility;
   }
 
   /**
@@ -40,31 +36,32 @@ T.UI.Compatibility = class { // todo maybe this should be directly under UI?
    * @returns {boolean}
    */
   static webgl() {
-
     var support = true;
     var $canvas;
 
     try {
-
-      $canvas = $('<canvas />');
-      $('body').append($canvas);
+      $canvas = $("<canvas />");
+      $("body").append($canvas);
       var canvas = $canvas[0];
 
       if (canvas.addEventListener) {
-        canvas.addEventListener("webglcontextcreationerror", function(event) {
-          console.log('webglcontextcreationerror');
-          support = false;
-        }, false);
+        canvas.addEventListener(
+          "webglcontextcreationerror",
+          function (event) {
+            console.log("webglcontextcreationerror");
+            support = false;
+          },
+          false
+        );
       }
 
-      var context = canvas.getContext('webgl');
+      var context = canvas.getContext("webgl");
 
       if (!context) {
-
-        console.log('No webgl context');
+        console.log("No webgl context");
 
         if (!window.T.WebGLRenderingContext) {
-          console.log('No T.WebGLRenderingContext');
+          console.log("No T.WebGLRenderingContext");
         }
 
         support = false;
@@ -83,7 +80,6 @@ T.UI.Compatibility = class { // todo maybe this should be directly under UI?
    * @returns {boolean}
    */
   static requestAnimationFrame() {
-
     if (window.requestAnimationFrame) {
       return true;
     } else {
@@ -97,8 +93,8 @@ T.UI.Compatibility = class { // todo maybe this should be directly under UI?
    */
   static localStorage() {
     try {
-      localStorage.setItem('test', 'test');
-      localStorage.removeItem('test');
+      localStorage.setItem("test", "test");
+      localStorage.removeItem("test");
       return true;
     } catch (e) {
       return false;
