@@ -11,9 +11,12 @@
 error_reporting(E_ALL & ~E_NOTICE);
 
 
-function curPageURL() {
+function curPageURL()
+{
     $pageURL = 'http';
-    if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+    if ($_SERVER["HTTPS"] == "on") {
+        $pageURL .= "s";
+    }
     $pageURL .= "://";
     if ($_SERVER["SERVER_PORT"] != "80") {
         $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"];
@@ -22,7 +25,7 @@ function curPageURL() {
     }
     return $pageURL;
 }
-define('PAGE_URL',curPageURL());
+define('PAGE_URL', curPageURL());
 
 
 //----------------------------------------load $language and $MESSAGES
@@ -32,22 +35,23 @@ define('PAGE_URL',curPageURL());
 
 require __DIR__ . '/php/neon/neon.php';
 
-if(isset($_COOKIE['language'])) {
+if (isset($_COOKIE['language'])) {
     $language = $_COOKIE['language'];
-}else{
+} else {
     $language = substr($_SERVER['HTTP_ACCEPT_language'], 0, 2);
 }
 
 
 
 $language_file=__DIR__ ."/locale/$language.neon";
-if(!file_exists($language_file)) {
+if (!file_exists($language_file)) {
     $language='cs';//todo in future default language should be english
     $language_file=__DIR__ ."/locale/$language.neon";
 }
 
 
-function locale_init(){
+function locale_init()
+{
     global $MESSAGES,$language_file;
     $MESSAGES = Nette\Neon\Neon::decode(file_get_contents($language_file));
 }
@@ -56,41 +60,31 @@ locale_init();
 
 //---------------------------Locale.get equivalent in PHP
 
-function locale($key){
+function locale($key)
+{
     global $MESSAGES,$language_file;
 
-    $key=str_replace(array(' ','-'),'_',$key);
+    $key=str_replace(array(' ','-'), '_', $key);
 
-    if(isset($MESSAGES[$key])){
-
+    if (isset($MESSAGES[$key])) {
         $value=$MESSAGES[$key];
-
-    }else {
-
-        if(1/*todo only in develop*/){
-
-            if(is_writable($language_file)){
-
+    } else {
+        if (1/*todo only in develop*/) {
+            if (is_writable($language_file)) {
                 file_put_contents(
                     $language_file,
                     file_get_contents($language_file) . "\n$key: " . Nette\Neon\Neon::encode($key)
                 );
                 locale_init();
-
-            }else{
+            } else {
                 $key.='(err)';
             }
-
-
-
         }
         $value=$key;
-
     }
 
 
     return $value;
-
 }
 
 //----------------------------------------
@@ -101,32 +95,29 @@ function locale($key){
 //---------------------------------------------------------------------------------URI
 
 $uri = $_SERVER['REQUEST_URI'];
-$uri = explode('?',$uri,2);
+$uri = explode('?', $uri, 2);
 $uri=$uri[0];
-$uri = trim($uri,'/');
-$uri = explode('/',$uri);
+$uri = trim($uri, '/');
+$uri = explode('/', $uri);
 //---------------------------------------------------------------------------------
 
 
 //---------------------------------------------------------------------------------Search engine
-if(count($uri)==1 && $uri[0]=='robots.txt'){
+if (count($uri)==1 && $uri[0]=='robots.txt') {
     header('Content-Type: text/plain');
 
     echo("User-agent: *\n");
     echo("Allow: /story/*\n");
     echo("Sitemap: ".PAGE_URL."/sitemap.xml\n");
     exit;
-
-}else
-if(count($uri)==1 && $uri[0]=='sitemap.xml'){
-
+} elseif (count($uri)==1 && $uri[0]=='sitemap.xml') {
     $stories_json = file_get_contents($config['app']['towns']['url'].'/stories?latest=true&limit=500');
-    $stories_json = json_decode($stories_json,true);
+    $stories_json = json_decode($stories_json, true);
 
 
     $xml = new SimpleXMLElement('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"/>');
 
-    foreach($stories_json as $story){
+    foreach ($stories_json as $story) {
 
         //print_r($story);
         $track = $xml->addChild('url');
@@ -137,22 +128,17 @@ if(count($uri)==1 && $uri[0]=='sitemap.xml'){
 
     header('Content-Type: text/xml');
 
-    if(!isset($_GET['pretty'])){
-
+    if (!isset($_GET['pretty'])) {
         echo($xml->asXML());
-
-    }else{
-
+    } else {
         $dom = new DOMDocument("1.0");
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = true;
         $dom->loadXML($xml->asXML());
         echo $dom->saveXML();
-
     }
 
     exit;
-
 }
 //---------------------------------------------------------------------------------
 
@@ -168,7 +154,7 @@ $inner_window=[];
 
 
 //---------------------------------------------------------------------------------Opened object
-if($uri[0]=='story'){
+if ($uri[0]=='story') {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~story
 
     //Set stream options
@@ -180,20 +166,20 @@ if($uri[0]=='story'){
     $context = stream_context_create($opts);
 
     $story_json = file_get_contents($config['app']['towns']['url'].'/objects/'.$uri[1], false, $context);
-    $story_json = json_decode($story_json,true);
+    $story_json = json_decode($story_json, true);
 
     //print_r($story_json);
 
-    if($story_json['status']!='error'){
-
+    if ($story_json['status']!='error') {
         require_once(__DIR__ . '/php/markdown/Markdown.inc.php');
 
 
         $story_html = \Michelf\Markdown::defaultTransform($story_json['content']['data']);
 
         //-----------
-        function removeqsvar($url, $varname) {
-            return preg_replace('/([?&])'.$varname.'=[^&]+(&|$)/','$1',$url);
+        function removeqsvar($url, $varname)
+        {
+            return preg_replace('/([?&])'.$varname.'=[^&]+(&|$)/', '$1', $url);
         }
         //-----------
 
@@ -201,7 +187,7 @@ if($uri[0]=='story'){
         //-----------
         $xpath = new DOMXPath(@DOMDocument::loadHTML($story_html));
         $img_src = $xpath->evaluate("string(//img/@src)");
-        $img_src = removeqsvar($img_src,'width');
+        $img_src = removeqsvar($img_src, 'width');
         $img_src = $img_src.'&width=1200';
         //-----------
 
@@ -211,10 +197,8 @@ if($uri[0]=='story'){
         $doc->loadHTML($story_html);
         $tags = $doc->getElementsByTagName('img');
         foreach ($tags as $tag) {
-
-
             $old_src = $tag->getAttribute('src');
-            $new_src = removeqsvar($old_src,'width');
+            $new_src = removeqsvar($old_src, 'width');
             $new_src = $new_src.'&width=800';
             $tag->setAttribute('src', $new_src);
         }
@@ -239,26 +223,18 @@ if($uri[0]=='story'){
         $page['type'] = 'article';
 
         http_response_code(200);
-
-    }else{
-
-
-
-
-
+    } else {
         $inner_window['display'] = 'block';
         $inner_window['header'] = locale('page 404 title');
         $inner_window['content'] = locale('page 404 content');
         http_response_code(404);
-
-
     }
 
 
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-}else{
+} else {
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~NONE
 
     $inner_window['display'] = 'none';
@@ -282,16 +258,15 @@ $page['meta_og'] = [
 
 
 
-if(isset($config['app']['environment']) && $config['app']['environment'] != "production"){
-
+if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
     $page['title'].=' - '.ucfirst($config['app']['environment']).' enviroment';
-
 }
 
 
 //------------------------------------------------Nice HTML
 
-function tidyHTML($buffer) {
+function tidyHTML($buffer)
+{
     // load our document into a DOM object
     $dom = new DOMDocument();
     // we want nice output
@@ -331,7 +306,6 @@ function tidyHTML($buffer) {
 
     foreach ($page['meta_og'] as $key => $value) {
         echo('<meta property="og:' . addslashes($key) . '" content="' . addslashes($value) . '" >'."\r\n    ");
-
     }
 
     //--------------------------------var language
@@ -345,7 +319,7 @@ function tidyHTML($buffer) {
     <script>
         var language='<?=$language?>';//todo capital letters
     </script>
-    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production"?'app':'app-build')?>/php/locale.php?language=<?=$language?>"></script>
+    <script src="/<?=(isset($config['app']['environment']) && $config['app']['environment'] != "production" ? 'app' : 'app-build')?>/php/locale.php?language=<?=$language?>"></script>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
@@ -366,41 +340,32 @@ function tidyHTML($buffer) {
     //--------------------------------Includes
     //tady je podminka zda jde o testovaci verzi
     if (isset($config['app']['environment']) && $config['app']['environment'] != "production") {
-
         $js_files=array();
         $css_files=array();
 
         //-----------------------------------------------------
 
         foreach ($config['includes']['js'] as $include) {
-
-
-            if(is_array($include)){
-                foreach($include as $environment=>$file){
-                    if($environment==$config['app']['environment']){
-                        $js_files=array_merge($js_files,glob($file));
+            if (is_array($include)) {
+                foreach ($include as $environment=>$file) {
+                    if ($environment==$config['app']['environment']) {
+                        $js_files=array_merge($js_files, glob($file));
                     }
                 }
-            }elseif(is_string($include)){
-
-                $js_files=array_merge($js_files,glob($include));
-
+            } elseif (is_string($include)) {
+                $js_files=array_merge($js_files, glob($include));
             }
-
         }
 
         foreach ($config['includes']['css'] as $include) {
-
-            if(is_array($include)){
-                foreach($include as $environment=>$file){
-                    if($environment==$config['app']['environment']){
-                        $css_files=array_merge($css_files,glob($file));
+            if (is_array($include)) {
+                foreach ($include as $environment=>$file) {
+                    if ($environment==$config['app']['environment']) {
+                        $css_files=array_merge($css_files, glob($file));
                     }
                 }
-            }elseif(is_string($include)) {
-
-                $css_files=array_merge($css_files,glob($include));
-
+            } elseif (is_string($include)) {
+                $css_files=array_merge($css_files, glob($include));
             }
         }
         //-----------------------------------------------------
@@ -408,16 +373,15 @@ function tidyHTML($buffer) {
         $js_files=array_unique($js_files);
         $css_files=array_unique($css_files);
 
-        foreach($js_files as $js_file){
+        foreach ($js_files as $js_file) {
             echo '<script src="/' . addslashes($js_file) . '"></script>'."\r\n    ";
         }
-        foreach($css_files as $css_file){
+        foreach ($css_files as $css_file) {
             echo '<link rel="stylesheet" href="/' . addslashes($css_file) . '"/>'."\r\n    ";
         }
 
         //-----------------------------------------------------
-
-    }else{
+    } else {
         echo '<script src="/app-build/js/towns.min.js"></script>'."\r\n    ";
         echo '<link rel="stylesheet" href="/app-build/css/towns.min.css" async/>'."\r\n";
 
@@ -695,7 +659,7 @@ function tidyHTML($buffer) {
         <div class="back js-popup-window-back" style="display: none;" onclick="window.history.back();"><i class="fa fa-arrow-left" aria-hidden="true"></i></div>
         <div class="close js-popup-window-close"><i class="fa fa-times"></i></div>
     </div>
-    <?php if($inner_window['content']):/*todo this JS is duplicite*/ ?>
+    <?php if ($inner_window['content']):/*todo this JS is duplicite*/ ?>
         <script>
             $(function(){
                 $('.popup-window .content').mousedown(function(){
@@ -716,8 +680,8 @@ function tidyHTML($buffer) {
 
     $menu_top_popups = array(/*'notifications','server',*/'user');
 
-    foreach($menu_top_popups as $menu_top_popup){
-    ?>
+    foreach ($menu_top_popups as $menu_top_popup) {
+        ?>
     <div class="menu-top-popup" id="menu-top-popup-<?=$menu_top_popup?>"><!--todo  unify ui names-->
         <div class="arrow"></div>
         <div class="header"></div>
@@ -729,7 +693,8 @@ function tidyHTML($buffer) {
             <a href="#"><?=locale('ui menu top popup '.$menu_top_popup.' footer')?></a>
         </div>
     </div>
-    <?php } ?>
+    <?php
+    } ?>
     <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
