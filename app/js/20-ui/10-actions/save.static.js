@@ -3,54 +3,45 @@
  * @fileOverview Load object data from T.Storage
  */
 //======================================================================================================================
-//todo create T.UI.Actions or solve actions in towns-shared
+// todo create T.UI.Actions or solve actions in towns-shared
 
+function saveObject(object, callback) {
 
-function saveObject(object,callback){
+  // objects_server.update(object);//Create new
+  objects_server.push(object);
 
-    //objects_server.update(object);//Create new
-    objects_server.push(object);
+  T.TownsAPI.townsAPI.post('objects', object, function(response) {
+    object = objects_server.getById(object.id);
 
-    T.TownsAPI.townsAPI.post('objects',object,function(response){
+    object.id = response.objectId;
 
-        object = objects_server.getById(object.id);
+    r('object was send to server', object);
 
-        object.id=response.objectId;
+    if (callback)
+      callback(object.id);
+  });
 
-        r('object was send to server',object);
-
-        if(callback)callback(object.id);
-
-
-
-    });
-
-    //-------------------------------
-
-
+  //-------------------------------
 }
 
+function deleteObject(id, callback) {
 
-function deleteObject(id,callback){
+  objects_server.removeId(id); // Create new
 
-    objects_server.removeId(id);//Create new
+  T.TownsAPI.townsAPI.delete('objects/' + id,
+                             function(response) {
+                               r('object was deleted on server', response);
 
-    T.TownsAPI.townsAPI.delete('objects/'+id,function(response){
+                               if (callback)
+                                 callback(true);
+                             },
+                             function(response) {
+                               r('object was NOT deleted on server', response);
 
-        r('object was deleted on server',response);
+                               if (callback)
+                                 callback(false);
+                             });
 
-        if(callback)callback(true);
-
-    },function(response){
-
-        r('object was NOT deleted on server',response);
-
-        if(callback)callback(false);
-
-    });
-
-    //-------------------------------
-
-
+  //-------------------------------
 }
-//todo dismantle or delete
+// todo dismantle or delete

@@ -5,152 +5,126 @@
 //======================================================================================================================
 T.setNamespace('UI');
 
-
-
 T.UI.popupWindow = class {
 
+  /**
+   * Changes title of opened popup window
+   * @param title
+   */
+  static setTitle(title) {
 
-    /**
-     * Changes title of opened popup window
-     * @param title
-     */
-    static setTitle(title) {
-
-        if(title && title.substr(0,1)!='<'){
-            document.title = title+' | '+T.Locale.get('page','title');
-        }else{
-            document.title = T.Locale.get('page','title');
-        }
-
-        $('.popup-window .header').html(title);//todo refactor html class header to title
-
+    if (title && title.substr(0, 1) != '<') {
+      document.title = title + ' | ' + T.Locale.get('page', 'title');
+    } else {
+      document.title = T.Locale.get('page', 'title');
     }
 
+    $('.popup-window .header')
+        .html(title); // todo refactor html class header to title
+  }
 
-    /**
-     * Changes content of opened popup window
-     * @param content
-     */
-    static setContent(content) {
+  /**
+   * Changes content of opened popup window
+   * @param content
+   */
+  static setContent(content) {
 
-        $('.popup-window .content').html(content);
+    $('.popup-window .content').html(content);
 
-        setTimeout(
-            function () {
-                $('.popup-window .content').find("[autofocus]").focus();
-            }, IMMEDIATELY_MS
-        );
+    setTimeout(
+        function() { $('.popup-window .content').find("[autofocus]").focus(); },
+        IMMEDIATELY_MS);
 
-        uiScript();
+    uiScript();
+  }
 
+  /**
+   * Changes format of opened popup window
+   * @param format NORMAL, SMALL
+   */
+  static setFormat(format = 'NORMAL') {
+
+    $('.popup-window').removeClass('popup-window-small');
+    $('.popup-window').removeClass('popup-window-vertical');
+
+    if (format == "SMALL") {
+
+      $('.popup-window').addClass('popup-window-small');
+
+    } else if (format == "VERTICAL") {
+
+      $('.popup-window').addClass('popup-window-vertical');
+    }
+  }
+
+  /**
+   * Open popup window
+   * @param title
+   * @param content
+   * @param close_callback
+   */
+  static open(title, content, close_callback = false, format = 'NORMAL') {
+
+    if (window_opened) {
+      T.UI.popupWindow.close();
     }
 
-
-    /**
-     * Changes format of opened popup window
-     * @param format NORMAL, SMALL
-     */
-    static setFormat(format = 'NORMAL') {
-
-        $('.popup-window').removeClass('popup-window-small');
-        $('.popup-window').removeClass('popup-window-vertical');
-
-        if (format == "SMALL") {
-
-            $('.popup-window').addClass('popup-window-small');
-
-        }else
-        if (format == "VERTICAL") {
-
-            $('.popup-window').addClass('popup-window-vertical');
-
-        }
-
+    if (close_callback) {
+      T.UI.popupWindow.closeCallback = close_callback;
     }
 
+    T.UI.popupWindow.setFormat(format);
 
-    /**
-     * Open popup window
-     * @param title
-     * @param content
-     * @param close_callback
-     */
-    static open(title, content, close_callback = false, format = 'NORMAL') {
+    T.UI.popupWindow.setTitle(title);
+    T.UI.popupWindow.setContent(content);
 
-        if (window_opened) {
-            T.UI.popupWindow.close();
-        }
+    r(T.URI.writed);
+    if (T.URI.writed > 1) {
 
-
-        if (close_callback) {
-            T.UI.popupWindow.closeCallback = close_callback;
-        }
-
-
-        T.UI.popupWindow.setFormat(format);
-
-        T.UI.popupWindow.setTitle(title);
-        T.UI.popupWindow.setContent(content);
-
-
-        r(T.URI.writed);
-        if(T.URI.writed>1){
-
-            $('.js-popup-window-back').show();
-
-        }
-
-
-        $('.overlay').show();
-        $('.popup-window').show();
-
-
-        $('.popup-window .content').unbind('mousedown').mousedown(function () {
-
-            $('body').enableSelection();
-        });
-        $('body').enableSelection();
-
-        window_opened = true;
-
+      $('.js-popup-window-back').show();
     }
 
+    $('.overlay').show();
+    $('.popup-window').show();
 
-    /**
-     * Close popup window and run close callback
-     * @param {boolean} dont_run_close_callback
-     */
-    static close(dont_run_close_callback = false) {
+    $('.popup-window .content')
+        .unbind('mousedown')
+        .mousedown(function() { $('body').enableSelection(); });
+    $('body').enableSelection();
 
-        //-------------------------------------------Play sound
-        //todo sounds ion.sound.play("door_bump");
-        //-------------------------------------------
+    window_opened = true;
+  }
 
-        //-------------------------------------------Hide popup window
-        document.title = T.Locale.get('page','title');
+  /**
+   * Close popup window and run close callback
+   * @param {boolean} dont_run_close_callback
+   */
+  static close(dont_run_close_callback = false) {
 
-        $('.overlay').hide();
-        $('.popup-window').hide();
+    //-------------------------------------------Play sound
+    // todo sounds ion.sound.play("door_bump");
+    //-------------------------------------------
 
-        $('body').disableSelection();
+    //-------------------------------------------Hide popup window
+    document.title = T.Locale.get('page', 'title');
 
-        window_opened = false;
-        //-------------------------------------------
+    $('.overlay').hide();
+    $('.popup-window').hide();
 
+    $('body').disableSelection();
 
-        //-------------------------------------------Run close callback
-        if (T.UI.popupWindow.closeCallback) {
+    window_opened = false;
+    //-------------------------------------------
 
-            if (dont_run_close_callback === false) {
-                T.UI.popupWindow.closeCallback();
-            }
+    //-------------------------------------------Run close callback
+    if (T.UI.popupWindow.closeCallback) {
 
-            delete T.UI.popupWindow.closeCallback;
-        }
-        //-------------------------------------------
+      if (dont_run_close_callback === false) {
+        T.UI.popupWindow.closeCallback();
+      }
 
-
+      delete T.UI.popupWindow.closeCallback;
     }
-
-
+    //-------------------------------------------
+  }
 };

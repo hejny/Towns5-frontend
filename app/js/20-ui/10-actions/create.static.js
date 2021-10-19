@@ -3,295 +3,241 @@
  * @fileOverview Building and creating objects functions
  */
 //======================================================================================================================
-//todo create T.UI.Actions or solve actions in towns-shared
+// todo create T.UI.Actions or solve actions in towns-shared
 
+function generateID() {
+  // todo here should we generate object IDs
 
-
-function generateID(){
-    //todo here should we generate object IDs
-
-    return('tmp'+Math.round(Math.random()*1000000000));
-
+  return ('tmp' + Math.round(Math.random() * 1000000000));
 }
-
 
 //======================================================================================================================
-//todo create Static object Actions
+// todo create Static object Actions
 
+function create(object, callback = false) {
 
-function create(object,callback=false){
+  // todo sounds ion.sound.play("door_bump");
 
-    //todo sounds ion.sound.play("door_bump");
+  var x = Math.round(object.x);
+  var y = Math.round(object.y);
 
-    var x=Math.round(object.x);
-    var y=Math.round(object.y);
+  x = x - Math.round(T.UI.Map.map_center.x) + map_radius;
+  y = y - Math.round(T.UI.Map.map_center.y) + map_radius;
 
-    x=x-Math.round(T.UI.Map.map_center.x)+map_radius;
-    y=y-Math.round(T.UI.Map.map_center.y)+map_radius;
+  /*if([1/!*,5*!/,11].indexOf(map_bg_data[y][x])!==-1){
+      return(false);
+  }*/
 
+  var updatedID = false;
 
-    /*if([1/!*,5*!/,11].indexOf(map_bg_data[y][x])!==-1){
-        return(false);
-    }*/
+  if (object.type == 'terrain') {
+    updatedID = createTerrain(object, callback);
+  } else if (object.type == 'building') {
+    updatedID = createBuilding(object, callback);
+  } else if (object.type == 'story') {
+    updatedID = createStory(object, callback);
+  } else {
+    throw 'Unknown object type';
+  }
 
-    var updatedID=false;
+  trackEvent('functions', 'create', object.name);
 
-    if(object.type=='terrain'){updatedID=createTerrain(object,callback);}else
-    if(object.type=='building'){updatedID=createBuilding(object,callback);}else
-    if(object.type=='story'){updatedID=createStory(object,callback);}else
-    {throw 'Unknown object type';}
+  //---------------------------------------
 
-
-
-    trackEvent('functions','create',object.name);
-
-
-
-    //---------------------------------------
-
-    return(updatedID);
-
+  return (updatedID);
 }
-
 
 //======================================================================================================================
 
+function createNewOrJoin(object) {
+  // todo ?? maybe use DI
 
-function createNewOrJoin(object){
-    //todo ?? maybe use DI
+  var distance, distances = [];
 
-    var distance,distances=[];
+  for (var i = 0, l = objects_external.length; i < l; i++) {
+    if (objects_external[i].type == 'building') {
 
+      var bothDistances = 0;
 
-    for (var i = 0,l=objects_external.length; i < l; i++){
-        if(objects_external[i].type=='building'){
+      bothDistances += objects_external[i].getModel().range('xy');
+      bothDistances += object.getModel().range('xy');
 
-            var bothDistances=0;
+      bothDistances = bothDistances / 100; // todo better
 
-            bothDistances+=objects_external[i].getModel().range('xy');
-            bothDistances+=object.getModel().range('xy');
+      if ((distance = T.Math.xy2dist(objects_external[i].x - object.x,
+                                     objects_external[i].y - object.y)) <
+          bothDistances * map_model_size) {
 
-            bothDistances=bothDistances/100;//todo better
-
-
-            if((distance=T.Math.xy2dist(objects_external[i].x-object.x,objects_external[i].y-object.y))<bothDistances*map_model_size){
-
-
-                distances.push({i: i,distance: distance});
-                //objects_external.slice(i,1);
-                //i--;l--;
-
-
-            }
-        }
+        distances.push({i : i, distance : distance});
+        // objects_external.slice(i,1);
+        // i--;l--;
+      }
     }
+  }
 
+  if (distances.length > 0) {
 
-    if(distances.length>0) {
+    distances.sort(function(a, b) {
+      if (a.distance > b.distance) {
+        return (1);
+      } else if (a.distance < b.distance) {
+        return (-1);
+      } else {
+        return (0);
+      }
+    });
 
-        distances.sort(function (a, b) {
+    // todo better
+    var xy = T.Math.xyRotate(
+        (object.x - objects_external[distances[0].i].x) * 10, // map_model_size,
+        (object.y - objects_external[distances[0].i].y) * 10, // map_model_size,
 
-            if (a.distance > b.distance) {
-                return (1);
-            } else if (a.distance < b.distance) {
-                return (-1);
-            } else {
-                return (0);
-            }
+        // 0
+        // 2*(map_rotation-45)
+        -45 + 2 * (map_rotation - 45)
 
-        });
+    );
 
+    // xy.x=-xy.x;//todo better
+    xy.y = -xy.y;
 
+    return {
+      'i' : distances[0].i,
+      'id' : objects_external[distances[0].i].id,
+      'xy' : xy
+    };
 
-        //todo better
-        var xy=T.Math.xyRotate(
-            (object.x-objects_external[distances[0].i].x)*10,//map_model_size,
-            (object.y-objects_external[distances[0].i].y)*10,//map_model_size,
+  } else {
 
-            //0
-            //2*(map_rotation-45)
-            -45+2*(map_rotation-45)
-
-        );
-
-        //xy.x=-xy.x;//todo better
-        xy.y=-xy.y;
-
-
-        return {
-            'i': distances[0].i,
-            'id': objects_external[distances[0].i].id,
-            'xy': xy
-        };
-
-
-    }else{
-
-        return(false);
-    }
-
-
-
-    }
-
-
+    return (false);
+  }
+}
 
 //==========================================================createTerrain
 
+function createTerrain(object, callback) { // todo maybe create other
 
-function createTerrain(object,callback){//todo maybe create other
+  object.id = generateID();
+  saveObject(object.clone()); // todo refactor
 
-    object.id=generateID();
-    saveObject(object.clone());//todo refactor
+  if (callback)
+    callback();
 
-    if(callback)callback();
-
-    return(object.id);
-
+  return (object.id);
 }
-
 
 //==========================================================createStory
 
-function createBuilding(object,callback){
+function createBuilding(object, callback) {
 
-    var join;
+  var join;
 
-    if (dragging_subtypes.indexOf(building.subtype)==-1){
+  if (dragging_subtypes.indexOf(building.subtype) == -1) {
 
-        join=createNewOrJoin(object);
+    join = createNewOrJoin(object);
 
-    }else{
+  } else {
 
-        join=false;
+    join = false;
+  }
 
+  if (join === false) {
+    //------------------------------------------------------------Normal
+    //building
+    r('createBuilding: Normal building');
+
+    object.id = generateID();
+
+    if (object.subtype == 'block') {
+
+      object.subtype = 'main';
     }
 
+    saveObject(object);
 
+    if (callback)
+      callback();
 
+    return (object.id);
 
-    if(join=== false) {
-        //------------------------------------------------------------Normal building
-        r('createBuilding: Normal building');
+    //------------------------------------------------------------
+  } else {
+    //------------------------------------------------------------Join buildings
+    r('createBuilding: Join buildings');
+    r(join.xy);
 
-        object.id=generateID();
+    objects_external[join.i].getModel().joinModel(object.design.data, join.xy.x,
+                                                  join.xy.y);
 
-        if(object.subtype=='block'){
+    objects_external[join.i].subtype = 'main';
 
-            object.subtype='main';
-        }
+    T.TownsAPI.townsAPI.post(
+        'objects/prototypes/', objects_external[join.i], function(response) {
+          T.TownsAPI.townsAPI.delete('objects/' + objects_external[join.i].id,
+                                     function() {
+                                       T.TownsAPI.townsAPI.post('objects', {
+                                         prototypeId : response.prototypeId,
+                                         x : objects_external[join.i].x,
+                                         y : objects_external[join.i].y
 
-
-        saveObject(object);
-
-        if(callback)callback();
-
-
-        return(object.id);
-
-        //------------------------------------------------------------
-    }else{
-        //------------------------------------------------------------Join buildings
-        r('createBuilding: Join buildings');
-        r(join.xy);
-
-
-        objects_external[join.i].getModel().joinModel(
-                    object.design.data,
-                    join.xy.x,
-                    join.xy.y
-            );
-
-
-        objects_external[join.i].subtype='main';
-
-
-        T.TownsAPI.townsAPI.post('objects/prototypes/',objects_external[join.i],function(response){
-
-            T.TownsAPI.townsAPI.delete('objects/'+objects_external[join.i].id,function(){
-
-                T.TownsAPI.townsAPI.post('objects',{
-                    prototypeId: response.prototypeId,
-                    x: objects_external[join.i].x,
-                    y: objects_external[join.i].y
-
-                },function(){
-
-                    if(callback)callback();
-
-
-                });
-
-
-            });
-
-
-
-
-
+                                       },
+                                                                function() {
+                                                                  if (callback)
+                                                                    callback();
+                                                                });
+                                     });
         });
 
+    return (objects_external[join.i].id);
 
-
-
-        return(objects_external[join.i].id);
-
-        //------------------------------------------------------------
-
-    }
-
+    //------------------------------------------------------------
+  }
 }
-
-
-
 
 //==========================================================createStory
 
-function createStory(object,callback){
+function createStory(object, callback) {
 
-    object=object.clone();
-    object.id=generateID();
+  object = object.clone();
+  object.id = generateID();
 
-    objects_external.update(object);
+  objects_external.update(object);
 
-    //callback(object.id);
-    saveObject(object,callback);//todo refactor
+  // callback(object.id);
+  saveObject(object, callback); // todo refactor
 
-    return(object.id);
-
+  return (object.id);
 }
-
 
 //======================================================================================================================
 //==========================================================definePrototype
 
-//todo where this function should be?
-function definePrototype(objectReference,forceSubtype){
-    r('definePrototype');
-    r(forceSubtype);
+// todo where this function should be?
+function definePrototype(objectReference, forceSubtype) {
+  r('definePrototype');
+  r(forceSubtype);
 
-    var object=objectReference.clone();
+  var object = objectReference.clone();
 
-    object.id=generateID();
-    delete object.x;
-    delete object.y;
-    //delete object.;//todo all not prototype parameters
+  object.id = generateID();
+  delete object.x;
+  delete object.y;
+  // delete object.;//todo all not prototype parameters
 
-    if(is(forceSubtype)){
-        object.subtype=forceSubtype;
-    }
+  if (is(forceSubtype)) {
+    object.subtype = forceSubtype;
+  }
 
-    r(object);
-    T.User.object_prototypes.push(object);
-
-
+  r(object);
+  T.User.object_prototypes.push(object);
 }
 
 //======================================================================================================================
 
-function definePrototypeUI(objectReference,forceSubtype){
+function definePrototypeUI(objectReference, forceSubtype) {
 
-    definePrototype(objectReference,forceSubtype);
-    message(T.Locale.get('defined prototype '+objectReference.type+' '+objectReference.subtype),'success');
-
+  definePrototype(objectReference, forceSubtype);
+  message(T.Locale.get('defined prototype ' + objectReference.type + ' ' +
+                       objectReference.subtype),
+          'success');
 }

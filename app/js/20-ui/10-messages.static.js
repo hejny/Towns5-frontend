@@ -5,120 +5,96 @@
 //======================================================================================================================
 T.setNamespace('UI');
 
+T.UI.Message = class {
 
+  constructor(text, type = 'INFO', additional = false) {
 
-T.UI.Message=class {
+    // todo [PH] play sound here
+    // ion.sound.play("bell_ring");
 
+    this.$element = $('<div class="message"></div>')
+                        .addClass(type.toLowerCase())
+                        .text(text);
 
-    constructor(text, type = 'INFO',additional=false){
+    if (additional) {
 
-        //todo [PH] play sound here
-        //ion.sound.play("bell_ring");
-
-        this.$element = $('<div class="message"></div>')
-            .addClass(type.toLowerCase())
-            .text(text);
-
-
-        if(additional){
-
-            this.$element.append(additional);
-
-        }
-
-        if(!text && !additional){
-            this.$element.hide();
-        }
-
-        var self=this;
-
-
-        $(function(){
-            $('#message-zone').append(self.$element);
-        });
-
-
+      this.$element.append(additional);
     }
 
-
-    close(s=MESSAGE_DURATION){
-
-        var self=this;
-
-        return setTimeout(function(){
-
-            $(function() {
-                self.$element.remove();
-            });
-            //self.$element.fadeOut(MESSAGE_FADEOUT, function() {$( this ).remove();});
-
-        },s*1000);
-
-
+    if (!text && !additional) {
+      this.$element.hide();
     }
 
+    var self = this;
 
-    text(text,type){
+    $(function() { $('#message-zone').append(self.$element); });
+  }
 
-        if(text) {
-            this.$element.text(text).show();
-        }
+  close(s = MESSAGE_DURATION) {
 
-        if(type){
-            this.$element.removeClass('error');
-            this.$element.removeClass('success');
-            this.$element.removeClass('info');
-            this.$element.removeClass('warning');
+    var self = this;
 
-            this.$element.addClass(type.toLowerCase());
-        }
+    return setTimeout(function() {
+      $(function() { self.$element.remove(); });
+      // self.$element.fadeOut(MESSAGE_FADEOUT, function() {$( this
+      // ).remove();});
+    }, s * 1000);
+  }
 
-        return this;
+  text(text, type) {
+
+    if (text) {
+      this.$element.text(text).show();
     }
 
+    if (type) {
+      this.$element.removeClass('error');
+      this.$element.removeClass('success');
+      this.$element.removeClass('info');
+      this.$element.removeClass('warning');
 
-
-    /**
-     *
-     * @param {string} text
-     * @returns {T.UI.Message} message
-     */
-    static error(text) {
-        var message = new T.UI.Message(text, 'ERROR');
-        if(text)message.close();
-        return message;
+      this.$element.addClass(type.toLowerCase());
     }
 
+    return this;
+  }
 
-    /**
-     * @param {string} text
-     * @returns {T.UI.Message} message
-     */
-    static success(text) {
-        var message = new T.UI.Message(text, 'SUCCESS');
-        if(text)message.close();
-        return message;
-    }
+  /**
+   *
+   * @param {string} text
+   * @returns {T.UI.Message} message
+   */
+  static error(text) {
+    var message = new T.UI.Message(text, 'ERROR');
+    if (text)
+      message.close();
+    return message;
+  }
 
+  /**
+   * @param {string} text
+   * @returns {T.UI.Message} message
+   */
+  static success(text) {
+    var message = new T.UI.Message(text, 'SUCCESS');
+    if (text)
+      message.close();
+    return message;
+  }
 
-    /**
-     * @param {string} text
-     * @returns {T.UI.Message} message
-     */
-    static info(text) {
-        var message = new T.UI.Message(text, 'INFO');
-        if(text)message.close();
-        return message;
-    }
+  /**
+   * @param {string} text
+   * @returns {T.UI.Message} message
+   */
+  static info(text) {
+    var message = new T.UI.Message(text, 'INFO');
+    if (text)
+      message.close();
+    return message;
+  }
 
-
-    //todo warning
-
-
-
+  // todo warning
 };
-
-
 
 /*setInterval(function(){
 

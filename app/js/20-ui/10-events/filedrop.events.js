@@ -1,226 +1,180 @@
-//todo headers
+// todo headers
 
+$(function() {
+  // var xhr = new XMLHttpRequest();
+  // if (xhr.upload) {}//todo browser requirements
 
+  // file drop
+  document.addEventListener("dragover", function(e) {
+    e.preventDefault();
 
+    r('T.UI Event: dragover');
 
+    T.TownsAPI.townsAPI.isLogged(function(logged) {});
 
-$(function(){
+    $('#map_drag').css('background', 'rgba(0,0,0,0.5)');
+  }, false);
+  document.addEventListener("dragleave", function(e) {
+    e.preventDefault();
 
+    r('T.UI Event: dragleave');
 
+    $('#map_drag').css('background', 'rgba(0,0,0,0)');
+  }, false);
+  document.addEventListener("drop", function(e) {
+    e.preventDefault();
 
+    r('T.UI Event: drop');
 
-    //var xhr = new XMLHttpRequest();
-    //if (xhr.upload) {}//todo browser requirements
+    $('#map_drag').css('background', 'rgba(0,0,0,0)');
 
+    // T.TownsAPI.townsAPI.isLogged(function(logged){
 
+    if (T.TownsAPI.townsAPI.logged === false) {
 
+      T.UI.Message.error(T.Locale.get('upload only logged'));
+      return;
+    }
 
-    // file drop
-    document.addEventListener("dragover", function(e){
-        e.preventDefault();
+    r(e);
 
-        r('T.UI Event: dragover');
+    //-----------------todo duplicite
+    canvas_mouse_x = e.clientX + window_width;  //-pos.left;
+    canvas_mouse_y = e.clientY + window_height; //-pos.top;
 
-        T.TownsAPI.townsAPI.isLogged(function(logged){});
+    var map_click_x = (e.clientX - (window_width / 2));
+    var map_click_y = (e.clientY - (window_height / 2));
+    var mapPos =
+        T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x, map_click_y);
+    //-----------------
 
+    //-----------------
 
-        $('#map_drag').css('background','rgba(0,0,0,0.5)');
+    var story_prototype =
+        T.User.object_prototypes.filterTypes('story').getAll()[0];
 
-    }, false);
-    document.addEventListener("dragleave", function(e){
-        e.preventDefault();
+    //-----------------
 
-        r('T.UI Event: dragleave');
+    //-----------------
+    if (story_prototype) {
 
-        $('#map_drag').css('background','rgba(0,0,0,0)');
+      story_prototype = story_prototype.clone();
 
-    }, false);
-    document.addEventListener("drop", function(e){
-        e.preventDefault();
+      story_prototype.x = mapPos.x;
+      story_prototype.y = mapPos.y;
 
-        r('T.UI Event: drop');
+      story_prototype.content.data = '';
 
-        $('#map_drag').css('background','rgba(0,0,0,0)');
+      // fetch FileList object
+      var files = e.target.files || e.dataTransfer.files;
 
+      // r(files);
+      if (files.length == 0) {
+        r('Shit dropped.');
+        return;
+      }
 
-        //T.TownsAPI.townsAPI.isLogged(function(logged){
+      // process all File objects
+      var formData = new FormData();
+      var files_name_key = {};
+      var request_size = 1024; // todo is it OK?
+      for (var i = 0; i < files.length; i++) {
 
-        if(T.TownsAPI.townsAPI.logged===false){
+        if (TOWNS_CDN_FILE_ACCEPTED_TYPES.indexOf(files[i].type) == -1) {
 
-            T.UI.Message.error(T.Locale.get('upload only logged'));
-            return;
-
+          T.UI.Message.error(T.Locale.get('upload error only images'));
+          throw new Error('Not allowed filetype.');
         }
 
-        r(e);
-
-        //-----------------todo duplicite
-        canvas_mouse_x = e.clientX + window_width;//-pos.left;
-        canvas_mouse_y = e.clientY + window_height;//-pos.top;
-
-
-        var map_click_x=(e.clientX-(window_width/2));
-        var map_click_y=(e.clientY-(window_height/2));
-        var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
-        //-----------------
-
-
-        //-----------------
-
-        var story_prototype = T.User.object_prototypes.filterTypes('story').getAll()[0];
-
-        //-----------------
-
-        //-----------------
-        if(story_prototype){
-
-            story_prototype = story_prototype.clone();
-
-            story_prototype.x=mapPos.x;
-            story_prototype.y=mapPos.y;
-
-
-            story_prototype.content.data='';
-
-            // fetch FileList object
-            var files = e.target.files || e.dataTransfer.files;
-
-            //r(files);
-            if(files.length==0){
-                r('Shit dropped.');
-                return;
-            }
-
-            // process all File objects
-            var formData = new FormData();
-            var files_name_key = {};
-            var request_size=1024;//todo is it OK?
-            for (var i = 0; i < files.length; i++) {
-
-                if(TOWNS_CDN_FILE_ACCEPTED_TYPES.indexOf(files[i].type)==-1){
-
-                    T.UI.Message.error(T.Locale.get('upload error only images'));
-                    throw new Error('Not allowed filetype.');
-                }
-
-                if(files[i].size>TOWNS_CDN_FILE_MAX_SIZE){
-
-                    T.UI.Message.error(T.Locale.get('upload error max filesize')+' '+bytesToSize(TOWNS_CDN_FILE_MAX_SIZE));
-                    throw new Error('File too big');
-                }
-
-                request_size+=files[i].size;
-
-                var key='image'+i;
-
-                formData.append(key, files[i]);
-                files_name_key[key] = files[i].name;
-
-            }
-
-            //r(files_name_key);
-
-            if(request_size>TOWNS_CDN_REQUEST_MAX_SIZE){
-
-                T.UI.Message.error(T.Locale.get('upload error max requestsize')+' '+bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE));
-                throw new Error('Request too big');
-
-            }
-
-
-            // now post a new XHR request
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', TOWNS_CDN_URL);
-
-
-
-            var message = T.UI.Message.info();
-
-
-            xhr.upload.onprogress = function (event) {
-
-                if (event.lengthComputable) {
-                    var complete = (event.loaded / event.total * 100 | 0);
-
-                    message.text(T.Locale.get('upload progress')+' '+complete+'%');
-
-                }
-
-            };
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-
-                    try{
-
-                        var response=(JSON.parse(xhr.response));
-
-
-                        for (var key in files_name_key) {
-
-                            var filename = files_name_key[key];
-                            story_prototype.content.data+='!['+markdownEscape(filename)+']('+markdownEscape(response[key])+')\n';
-
-                        }
-
-
-
-
-                        create(
-
-                            story_prototype
-
-                            ,function(){
-
-                                T.UI.Map.loadMapAsync();
-                                //alert('story created');
-
-                            });
-
-
-                        console.log('all done: ' + xhr.status);
-                        r(message);
-                        message.text(T.Locale.get('upload success story'),'success').close();
-
-                    }catch(e){
-
-                        message.text(T.Locale.get('upload fail'),'error').close();
-
-                    }
-
-
-                } else {
-
-                    console.log('Something went terribly wrong...');
-                    message.text(T.Locale.get('upload fail'),'error').close();
-
-                }
-            };
-            xhr.send(formData);
-
-
-
-
-
-        }else{
-            throw new Error('Can not find any prototype of type story.');
+        if (files[i].size > TOWNS_CDN_FILE_MAX_SIZE) {
+
+          T.UI.Message.error(T.Locale.get('upload error max filesize') + ' ' +
+                             bytesToSize(TOWNS_CDN_FILE_MAX_SIZE));
+          throw new Error('File too big');
         }
 
-        //-----------------
+        request_size += files[i].size;
 
+        var key = 'image' + i;
 
+        formData.append(key, files[i]);
+        files_name_key[key] = files[i].name;
+      }
 
+      // r(files_name_key);
 
+      if (request_size > TOWNS_CDN_REQUEST_MAX_SIZE) {
 
+        T.UI.Message.error(T.Locale.get('upload error max requestsize') + ' ' +
+                           bytesToSize(TOWNS_CDN_REQUEST_MAX_SIZE));
+        throw new Error('Request too big');
+      }
 
-        r(mapPos,e);
+      // now post a new XHR request
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', TOWNS_CDN_URL);
 
+      var message = T.UI.Message.info();
 
+      xhr.upload.onprogress = function(event) {
+        if (event.lengthComputable) {
+          var complete = (event.loaded / event.total * 100 | 0);
 
-    }, false);
+          message.text(T.Locale.get('upload progress') + ' ' + complete + '%');
+        }
+      };
 
-    //});
+      xhr.onload = function() {
+        if (xhr.status === 200) {
 
+          try {
 
+            var response = (JSON.parse(xhr.response));
 
+            for (var key in files_name_key) {
+
+              var filename = files_name_key[key];
+              story_prototype.content.data +=
+                  '![' + markdownEscape(filename) + '](' +
+                  markdownEscape(response[key]) + ')\n';
+            }
+
+            create(
+
+                story_prototype
+
+                ,
+                function() {
+                  T.UI.Map.loadMapAsync();
+                  // alert('story created');
+                });
+
+            console.log('all done: ' + xhr.status);
+            r(message);
+            message.text(T.Locale.get('upload success story'), 'success')
+                .close();
+
+          } catch (e) {
+
+            message.text(T.Locale.get('upload fail'), 'error').close();
+          }
+
+        } else {
+
+          console.log('Something went terribly wrong...');
+          message.text(T.Locale.get('upload fail'), 'error').close();
+        }
+      };
+      xhr.send(formData);
+
+    } else {
+      throw new Error('Can not find any prototype of type story.');
+    }
+
+    //-----------------
+
+    r(mapPos, e);
+  }, false);
+
+  //});
 });

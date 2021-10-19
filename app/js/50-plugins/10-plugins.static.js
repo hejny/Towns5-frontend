@@ -1,120 +1,92 @@
 /**
  * @author Towns.cz
- * @fileOverview Creates static object Plugins - controller of Pages, Editors, Viewers and Buttons
+ * @fileOverview Creates static object Plugins - controller of Pages, Editors,
+ * Viewers and Buttons
  */
 //======================================================================================================================
 
+T.Plugins = class {
 
-T.Plugins=class {
+  static install(plugin) {
+    r('Plugins: Installing plugin ' + plugin.uri);
 
-    static install(plugin) {
-        r('Plugins: Installing plugin ' + plugin.uri);
+    if (plugin instanceof T.Plugins.Page ||
+        plugin instanceof T.Plugins.Viewer ||
+        plugin instanceof T.Plugins.Editor) {
 
+      if (!is(plugin.uri)) {
 
-        if (
-            plugin instanceof T.Plugins.Page ||
-            plugin instanceof T.Plugins.Viewer ||
-            plugin instanceof T.Plugins.Editor
-        ) {
+        throw new Error('Plugins: Plugin must contain uri!');
+      }
 
+      this.plugins.push(plugin);
 
-            if (!is(plugin.uri)) {
+    } else {
+      throw new Error('Plugins: Unknown plugin type.');
+    }
+  }
 
-                throw new Error('Plugins: Plugin must contain uri!');
-            }
+  static uninstall(id) {
+    // todo
+  }
 
+  static open(uri) {
 
-            this.plugins.push(plugin);
+    var args = [].slice.call(arguments).splice(1);
+    // r(args);
 
+    for (var i in this.plugins) {
 
-        } else {
-            throw new Error('Plugins: Unknown plugin type.');
+      // r(this.plugins[i].uri,uri);
+
+      if (this.plugins[i].uri == uri) {
+
+        r('Plugins: Opening plugin ' + this.plugins[i].uri);
+        this.plugins[i].open.apply(this.plugins[i], args);
+        return (true);
+      }
+    }
+
+    throw new Error('Plugins: Plugin ' + uri + ' do not exists.');
+  }
+
+  static is(uri) {
+
+    for (var i in this.plugins) {
+      if (this.plugins[i].uri == uri) {
+        return (true);
+      }
+    }
+
+    return (false);
+  }
+
+  static search(action, object) {
+
+    var possible = [];
+    var i, key;
+
+    for (i in this.plugins) {
+
+      if ((action == 'edit' && this.plugins[i] instanceof T.Plugins.Editor) ||
+          (action == 'view' && this.plugins[i] instanceof T.Plugins.Viewer)) {
+
+        var is_possible = true;
+        for (key in this.plugins[i].conditions) {
+
+          if (object[key] != this.plugins[i].conditions[key]) {
+            is_possible = false;
+            break;
+          }
         }
 
+        if (is_possible)
+          possible.push(this.plugins[i].uri);
+      }
     }
 
-
-
-
-    static uninstall(id) {
-        //todo
-    }
-
-
-
-
-    static open(uri) {
-
-        var args = [].slice.call(arguments).splice(1);
-        //r(args);
-
-        for (var i in this.plugins) {
-
-            //r(this.plugins[i].uri,uri);
-
-            if (this.plugins[i].uri == uri) {
-
-
-                r('Plugins: Opening plugin ' + this.plugins[i].uri);
-                this.plugins[i].open.apply(this.plugins[i], args);
-                return (true);
-
-            }
-        }
-
-
-        throw new Error('Plugins: Plugin ' + uri + ' do not exists.');
-
-    }
-
-
-    static is(uri) {
-
-        for (var i in this.plugins) {
-            if (this.plugins[i].uri == uri) {
-                return (true);
-            }
-        }
-
-        return (false);
-
-    }
-
-
-    static search(action, object) {
-
-        var possible = [];
-        var i,key;
-
-        for (i in this.plugins) {
-
-            if (
-                (action == 'edit' && this.plugins[i] instanceof T.Plugins.Editor) ||
-                (action == 'view' && this.plugins[i] instanceof T.Plugins.Viewer)
-            ) {
-
-                var is_possible = true;
-                for (key in this.plugins[i].conditions) {
-
-                    if (object[key] != this.plugins[i].conditions[key]) {
-                        is_possible = false;
-                        break;
-                    }
-
-                }
-
-                if (is_possible)
-                    possible.push(this.plugins[i].uri);
-            }
-
-
-        }
-
-        return (possible);
-
-    }
-
-
+    return (possible);
+  }
 };
 
-T.Plugins.plugins = [];//todo better
+T.Plugins.plugins = []; // todo better

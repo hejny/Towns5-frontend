@@ -4,334 +4,295 @@
  */
 //======================================================================================================================
 
+var dragging_subtypes = [ 'wall', 'path' ]; // todo refactor move to vars
 
+var buildingByDraggingPath = false; // todo refactor rename
+var buildingByDraggingRange = false;
+// todo sjednotit nazyvani uhlu v rad a deg
 
-var dragging_subtypes=['wall','path'];//todo refactor move to vars
+$(function() {
+  //----------------------------------------------------------------------------------mouseMove
 
+  var mouseMove = function(e) {
+    // r('mouseMove',building,buildingByDragging);
+    // if (building ==== false)r('building ==== false');
+    // if (buildingByDragging ==== false)r('buildingByDragging ==== false');
 
-var buildingByDraggingPath=false;//todo refactor rename
-var buildingByDraggingRange=false;
-//todo sjednotit nazyvani uhlu v rad a deg
+    if (building === false)
+      return;
+    if (dragging_subtypes.indexOf(building.subtype) == -1)
+      return;
+    if (buildingByDraggingPath === false)
+      return;
 
+    r('T.UI Event: mousemove');
 
-$(function(){
+    //-------------------Convert mouse positions to map positions
 
-    //----------------------------------------------------------------------------------mouseMove
+    var map_click_x = (e.clientX - (window_width / 2));
+    var map_click_y = (e.clientY - (window_height / 2));
 
-    var mouseMove=function (e) {
+    var mapPos =
+        T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x, map_click_y);
 
-        //r('mouseMove',building,buildingByDragging);
-        //if (building ==== false)r('building ==== false');
-        //if (buildingByDragging ==== false)r('buildingByDragging ==== false');
+    //-------------------
 
-        if (building === false)return;
-        if (dragging_subtypes.indexOf(building.subtype)==-1)return;
-        if (buildingByDraggingPath === false)return;
+    if (buildingByDraggingPath.length > 0) {
 
-        r('T.UI Event: mousemove');
+      if (false) {
 
-        //-------------------Convert mouse positions to map positions
+        var lastX, lastY;
 
-        var map_click_x=(e.clientX-(window_width/2));
-        var map_click_y=(e.clientY-(window_height/2));
-
-        var mapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
-
-        //-------------------
-
-        if(buildingByDraggingPath.length>0){
-
-
-            if(false){
-
-                var lastX,lastY;
-
-                if(buildingByDraggingPath.length>1) {
-                    lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0];
-                    lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
-                }else{
-                    lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0];
-                    lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
-                }
-
-
-                var dist=T.Math.xy2dist(lastX-mapPos.x,lastY-mapPos.y);
-                //r(dist,(building.size * map_model_size));
-
-
-                if(dist>(building.size * map_model_size)){
-
-                    //r('newpoint');
-                    buildingByDraggingPath.push([mapPos.x,mapPos.y]);
-
-                }else{
-
-                    //r('aacpoint');
-                    buildingByDraggingPath[buildingByDraggingPath.length-1]=([mapPos.x,mapPos.y]);
-
-                }
-
-            }else{
-
-                buildingByDraggingPath[1]=[mapPos.x,mapPos.y];
-
-            }
-
-
-        }else{
-
-
-            //r('startpoint');
-            buildingByDraggingPath=[[mapPos.x,mapPos.y]];
-
+        if (buildingByDraggingPath.length > 1) {
+          lastX = buildingByDraggingPath[buildingByDraggingPath.length - 2][0];
+          lastY = buildingByDraggingPath[buildingByDraggingPath.length - 2][1];
+        } else {
+          lastX = buildingByDraggingPath[buildingByDraggingPath.length - 1][0];
+          lastY = buildingByDraggingPath[buildingByDraggingPath.length - 1][1];
         }
 
-    };
+        var dist = T.Math.xy2dist(lastX - mapPos.x, lastY - mapPos.y);
+        // r(dist,(building.size * map_model_size));
 
+        if (dist > (building.size * map_model_size)) {
 
-    $('#map_drag').mousemove(mouseMove);
-    $('#selecting-distance').mousemove(mouseMove);
+          // r('newpoint');
+          buildingByDraggingPath.push([ mapPos.x, mapPos.y ]);
 
-    //----------------------------------------------------------------------------------mouseDown
+        } else {
 
-    var mouseDown=function (e) {
-
-        if (building === false)return;
-
-        r('T.UI Event: mousedown');
-
-
-        if (dragging_subtypes.indexOf(building.subtype)==-1){
-
-
-            var map_click_x=(e.clientX-(window_width/2));
-            var map_click_y=(e.clientY-(window_height/2));
-
-
-
-            var forceJoiningMapPos=T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x,map_click_y);
-
-
-            var building_test=building.clone();
-            building_test.x = forceJoiningMapPos.x;
-            building_test.y = forceJoiningMapPos.y;
-
-            T.UI.Menu.Building.forceJoining=createNewOrJoin(building_test);
-
-            if(T.UI.Menu.Building.forceJoining!== false){
-                map_selected_ids=[T.UI.Menu.Building.forceJoining.id];
-                //T.UI.Map.drawMapAsync();
-            }
-
-
-
-        }else{
-
-
-            buildingByDraggingRange = building.getModel().range('x')/100*2;//todo better
-
-
-            buildingByDraggingPath=[];
-            mouseMove(e);
-
-            T.UI.Map.MapBuffer.start();
-            $('#selecting-distance').hide();//todo [PH] ? Do T.UI.Map.MapBuffer.start
-            requestAnimationFrame(buildingLoop);
-
-
+          // r('aacpoint');
+          buildingByDraggingPath[buildingByDraggingPath.length - 1] =
+              ([ mapPos.x, mapPos.y ]);
         }
 
-    };
+      } else {
 
+        buildingByDraggingPath[1] = [ mapPos.x, mapPos.y ];
+      }
 
-    $('#map_drag').mousedown(mouseDown);
-    $('#selecting-distance').mousedown(mouseDown);
+    } else {
 
-    //----------------------------------------------------------------------------------BuildingLoop
+      // r('startpoint');
+      buildingByDraggingPath = [ [ mapPos.x, mapPos.y ] ];
+    }
+  };
 
-    var wall_segments,wall_segments_last;
+  $('#map_drag').mousemove(mouseMove);
+  $('#selecting-distance').mousemove(mouseMove);
 
-    var buildingLoop=function (e) {
+  //----------------------------------------------------------------------------------mouseDown
 
-        if (building === false)return;
-        if (buildingByDraggingPath === false)return;
+  var mouseDown = function(e) {
+    if (building === false)
+      return;
 
-        //------------------------------------------------------
+    r('T.UI Event: mousedown');
 
-        objects_external_buffer=[];
+    if (dragging_subtypes.indexOf(building.subtype) == -1) {
 
+      var map_click_x = (e.clientX - (window_width / 2));
+      var map_click_y = (e.clientY - (window_height / 2));
 
-        //r(buildingByDraggingPath);
-        for(var ii=1,ll=buildingByDraggingPath.length;ii<ll;ii++) {
+      var forceJoiningMapPos =
+          T.UI.Map.Coords.mouseCenterPos2MapPos(map_click_x, map_click_y);
 
+      var building_test = building.clone();
+      building_test.x = forceJoiningMapPos.x;
+      building_test.y = forceJoiningMapPos.y;
 
-            var buildingByDraggingStartX = buildingByDraggingPath[ii-1][0];
-            var buildingByDraggingStartY = buildingByDraggingPath[ii-1][1];
+      T.UI.Menu.Building.forceJoining = createNewOrJoin(building_test);
 
+      if (T.UI.Menu.Building.forceJoining !== false) {
+        map_selected_ids = [ T.UI.Menu.Building.forceJoining.id ];
+        // T.UI.Map.drawMapAsync();
+      }
 
-            var buildingByDraggingEndX = buildingByDraggingPath[ii][0];
-            var buildingByDraggingEndY = buildingByDraggingPath[ii][1];
+    } else {
 
+      buildingByDraggingRange =
+          building.getModel().range('x') / 100 * 2; // todo better
 
-            var buildingByDraggingPlusX = buildingByDraggingEndX-buildingByDraggingStartX;
-            var buildingByDraggingPlusY = buildingByDraggingEndY-buildingByDraggingStartY;
+      buildingByDraggingPath = [];
+      mouseMove(e);
 
+      T.UI.Map.MapBuffer.start();
+      $('#selecting-distance').hide(); // todo [PH] ? Do
+                                       // T.UI.Map.MapBuffer.start
+      requestAnimationFrame(buildingLoop);
+    }
+  };
 
-            var buildingByDraggingPlusDistDeg = T.Math.xy2distDeg(
-                buildingByDraggingPlusX,
-                buildingByDraggingPlusY
-            );
+  $('#map_drag').mousedown(mouseDown);
+  $('#selecting-distance').mousedown(mouseDown);
 
+  //----------------------------------------------------------------------------------BuildingLoop
 
-            buildingByDraggingPlusDistDeg.dist=Math.round(buildingByDraggingPlusDistDeg.dist/2)*2;
-            buildingByDraggingPlusDistDeg.deg=Math.round(buildingByDraggingPlusDistDeg.deg/15)*15;
+  var wall_segments, wall_segments_last;
 
+  var buildingLoop = function(e) {
+    if (building === false)
+      return;
+    if (buildingByDraggingPath === false)
+      return;
 
+    //------------------------------------------------------
 
-            var buildingByDraggingPlusXY = T.Math.distDeg2xy(
-                buildingByDraggingPlusDistDeg.dist,
-                buildingByDraggingPlusDistDeg.deg
-            );
+    objects_external_buffer = [];
 
+    // r(buildingByDraggingPath);
+    for (var ii = 1, ll = buildingByDraggingPath.length; ii < ll; ii++) {
 
-            buildingByDraggingEndX = buildingByDraggingStartX + buildingByDraggingPlusXY.x;
-            buildingByDraggingEndY = buildingByDraggingStartY + buildingByDraggingPlusXY.y;
+      var buildingByDraggingStartX = buildingByDraggingPath[ii - 1][0];
+      var buildingByDraggingStartY = buildingByDraggingPath[ii - 1][1];
 
+      var buildingByDraggingEndX = buildingByDraggingPath[ii][0];
+      var buildingByDraggingEndY = buildingByDraggingPath[ii][1];
 
-            //r(buildingByDraggingPath);
+      var buildingByDraggingPlusX =
+          buildingByDraggingEndX - buildingByDraggingStartX;
+      var buildingByDraggingPlusY =
+          buildingByDraggingEndY - buildingByDraggingStartY;
 
+      var buildingByDraggingPlusDistDeg =
+          T.Math.xy2distDeg(buildingByDraggingPlusX, buildingByDraggingPlusY);
 
-            var distance = buildingByDraggingPlusDistDeg.dist;//T.Math.xy2dist(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY);
+      buildingByDraggingPlusDistDeg.dist =
+          Math.round(buildingByDraggingPlusDistDeg.dist / 2) * 2;
+      buildingByDraggingPlusDistDeg.deg =
+          Math.round(buildingByDraggingPlusDistDeg.deg / 15) * 15;
 
-            //todo pouzit funkci T.T.Math.xy2distDeg
-            var rot = Math.round(Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX, buildingByDraggingEndY - buildingByDraggingStartY) * (180 / Math.PI));
-            if (rot < 0)rot = rot + 360;
+      var buildingByDraggingPlusXY =
+          T.Math.distDeg2xy(buildingByDraggingPlusDistDeg.dist,
+                            buildingByDraggingPlusDistDeg.deg);
 
+      buildingByDraggingEndX =
+          buildingByDraggingStartX + buildingByDraggingPlusXY.x;
+      buildingByDraggingEndY =
+          buildingByDraggingStartY + buildingByDraggingPlusXY.y;
 
-            wall_segments = Math.floor(distance/2);//todo by constant
-            //Math.floor(distance / (buildingByDraggingRange * map_model_size /*/ 1.11*/ * building.design.data.size ));
+      // r(buildingByDraggingPath);
 
+      var distance =
+          buildingByDraggingPlusDistDeg
+              .dist; // T.Math.xy2dist(buildingByDraggingEndX -
+                     // buildingByDraggingStartX, buildingByDraggingEndY -
+                     // buildingByDraggingStartY);
 
-            if(wall_segments!=wall_segments_last){
-                wall_segments_last=wall_segments;
-                //todo sounds ion.sound.play("door_bump");
-            }
+      // todo pouzit funkci T.T.Math.xy2distDeg
+      var rot = Math.round(
+          Math.atan2(buildingByDraggingEndX - buildingByDraggingStartX,
+                     buildingByDraggingEndY - buildingByDraggingStartY) *
+          (180 / Math.PI));
+      if (rot < 0)
+        rot = rot + 360;
 
+      wall_segments = Math.floor(distance / 2); // todo by constant
+      // Math.floor(distance / (buildingByDraggingRange * map_model_size
+      // /*/ 1.11*/ * building.design.data.size ));
 
-            for (var i = (ii==1?0:1), l = wall_segments; i <= l; i++) {
+      if (wall_segments != wall_segments_last) {
+        wall_segments_last = wall_segments;
+        // todo sounds ion.sound.play("door_bump");
+      }
 
+      for (var i = (ii == 1 ? 0 : 1), l = wall_segments; i <= l; i++) {
 
-                //r(i,l);
+        // r(i,l);
 
-                var tmp = building.clone();
+        var tmp = building.clone();
 
+        /*if (l < 2 && ll<2) {
+         rot = tmp.rot;
 
-                /*if (l < 2 && ll<2) {
-                 rot = tmp.rot;
+         } else {
 
-                 } else {
+         tmp.rot = rot;
 
-                 tmp.rot = rot;
+         if (ii==1 && i === 0) {
+         tmp.res = tmp.res_node;
+         } else if (ii==ll-1 && i == l) {
+         tmp.res = tmp.res_node;
+         } else {
+         tmp.res = tmp.res_path;
+         }
 
-                 if (ii==1 && i === 0) {
-                 tmp.res = tmp.res_node;
-                 } else if (ii==ll-1 && i == l) {
-                 tmp.res = tmp.res_node;
-                 } else {
-                 tmp.res = tmp.res_path;
-                 }
 
+         }*/
 
-                 }*/
+        tmp.x = buildingByDraggingStartX +
+                (buildingByDraggingEndX - buildingByDraggingStartX) * (i / l);
+        tmp.y = buildingByDraggingStartY +
+                (buildingByDraggingEndY - buildingByDraggingStartY) * (i / l);
 
+        /*if([0,4,10].indexOf(map_bg_data[Math.round(tmp.y)+Math.floor(map_radius)][Math.round(tmp.x)+Math.floor(map_radius)])!=-1){
+         tmp.res=tmp.res_node;
+         }*/
 
-                tmp.x = buildingByDraggingStartX + (buildingByDraggingEndX - buildingByDraggingStartX) * (i / l);
-                tmp.y = buildingByDraggingStartY + (buildingByDraggingEndY - buildingByDraggingStartY) * (i / l);
+        tmp.getModel().rotation = rot - 45; // 360-rot+45;
 
+        // delete tmp.rot;
+        // delete tmp.res_path;
 
-                /*if([0,4,10].indexOf(map_bg_data[Math.round(tmp.y)+Math.floor(map_radius)][Math.round(tmp.x)+Math.floor(map_radius)])!=-1){
-                 tmp.res=tmp.res_node;
-                 }*/
+        //------
 
+        objects_external_buffer.push(tmp);
+      }
+    }
 
-                tmp.getModel().rotation=rot-45;//360-rot+45;
+    //------------------------------------------------------
 
+    try {
 
-                //delete tmp.rot;
-                //delete tmp.res_path;
+      T.UI.Map.MapBuffer.tick();
 
-                //------
+    } catch (error) {
 
-                objects_external_buffer.push(tmp);
+      // todo IndexSizeError: Index or size is negative or greater than the
+      // allowed amount
+    }
 
-            }
-        }
+    setTimeout(function() {
+      requestAnimationFrame(buildingLoop);
+    }, 10);
+  };
 
-        //------------------------------------------------------
+  //----------------------------------------------------------------------------------mouseUp
 
+  var mouseUp = function(e) {
+    if (building === false)
+      return;
+    if (dragging_subtypes.indexOf(building.subtype) == -1)
+      return;
+    if (buildingByDraggingPath === false)
+      return;
 
-        try{
+    r('T.UI Event: mouseup');
 
-            T.UI.Map.MapBuffer.tick();
+    var objects_external_buffer_length = objects_external_buffer.length;
 
-        }catch(error){
+    buildingLoop();
 
-            //todo IndexSizeError: Index or size is negative or greater than the allowed amount
+    objects_external_buffer.forEach(function(object) { create(object); });
 
-        }
+    objects_external_buffer = [];
 
+    buildingByDraggingPath = false;
 
-        setTimeout(function(){
+    T.UI.Map.loadMap();
+    $('#selecting-distance').show();
+    T.UI.Map.MapBuffer.stop();
 
-            requestAnimationFrame(buildingLoop);
+    //------------------------------------------
+    if (objects_external_buffer_length === 0) {
+      T.UI.Message.info(
+          T.Locale.get('building by dragging', building.subtype, 'info'));
+      T.UI.Menu.Building.start(
+          building._prototypeId); // todo should it be here _prototypeId
+    }
+    //------------------------------------------
+  };
 
-        },10);
-
-
-    };
-
-    //----------------------------------------------------------------------------------mouseUp
-
-    var mouseUp=function (e) {
-
-        if (building === false)return;
-        if (dragging_subtypes.indexOf(building.subtype)==-1)return;
-        if (buildingByDraggingPath === false)return;
-
-        r('T.UI Event: mouseup');
-
-        var objects_external_buffer_length = objects_external_buffer.length;
-
-        buildingLoop();
-
-
-        objects_external_buffer.forEach(function(object){
-            create(object);
-        });
-
-        objects_external_buffer=[];
-
-
-        buildingByDraggingPath=false;
-
-
-        T.UI.Map.loadMap();
-        $('#selecting-distance').show();
-        T.UI.Map.MapBuffer.stop();
-
-        //------------------------------------------
-        if(objects_external_buffer_length=== 0){
-            T.UI.Message.info(T.Locale.get('building by dragging',building.subtype,'info'));
-            T.UI.Menu.Building.start(building._prototypeId);//todo should it be here _prototypeId
-        }
-        //------------------------------------------
-
-
-
-    };
-
-
-    $('#map_drag').mouseup(mouseUp);
-    $('#selecting-distance').mouseup(mouseUp);
-
+  $('#map_drag').mouseup(mouseUp);
+  $('#selecting-distance').mouseup(mouseUp);
 });

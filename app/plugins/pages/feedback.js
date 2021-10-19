@@ -1,17 +1,13 @@
 
 
-
 /**
  * @author ©Towns.cz
  * @fileOverview Login page
  */
 //======================================================================================================================
 
-
-
 T.Plugins.install(new T.Plugins.Page(
-    'feedback',
-    T.Locale.get('page','feedback'),
+    'feedback', T.Locale.get('page', 'feedback'),
     `
 
 
@@ -22,7 +18,8 @@ T.Plugins.install(new T.Plugins.Page(
 
 
         <tr>
-            <td>`+T.Locale.get('user','email')+`:</td>
+            <td>` +
+        T.Locale.get('user', 'email') + `:</td>
             <td><input style="width: 100%;" type="email" name="email"  autofocus></td>
         </tr>
 
@@ -33,7 +30,8 @@ T.Plugins.install(new T.Plugins.Page(
 
         <tr>
             <td colspan="2">
-            <button style="width: 150px;">`+T.Locale.get('send')+`</button>
+            <button style="width: 150px;">` +
+        T.Locale.get('send') + `</button>
             </td>
         </tr>
 
@@ -43,68 +41,46 @@ T.Plugins.install(new T.Plugins.Page(
 </form>
 
 
-`
-    ,function(){
+`,
+    function() {
+      $('#feedback-form')
+          .find('button')
+          .click(function() { $('#feedback-form').trigger('submit'); });
 
+      $('#feedback-form').submit(function(e) {
+        e.preventDefault();
 
+        var data = {};
 
-        $('#feedback-form').find('button').click(function(){
-            $('#feedback-form').trigger('submit');
+        // todo form to json
+        $(this).find('input,textarea').each(function() {
+          if ($(this).attr('type') == 'submit')
+            return;
+
+          var key = $(this).attr('name');
+          key = key.split('-').join('_');
+
+          // r(key);
+
+          data[key] = $(this).val();
         });
 
+        $('#feedback-form')
+            .find('button')
+            .html(T.Locale.get('loading') +
+                  ' <i class="fa fa-spinner faa-spin animated"></i>');
 
-        $('#feedback-form').submit(function(e){
+        r(data);
 
-            e.preventDefault();
-
-            var data={};
-
-            //todo form to json
-            $(this).find('input,textarea').each(function(){
-
-                if($(this).attr('type')=='submit')return;
-
-                var key=$(this).attr('name');
-                key=key.split('-').join('_');
-
-                //r(key);
-
-                data[key]=$(this).val();
-
-            });
-
-
-            $('#feedback-form').find('button').html(T.Locale.get('loading')+' <i class="fa fa-spinner faa-spin animated"></i>');
-
-
-            r(data);
-
-            var request = $.post(
-                appDir+'/php/feedback.php',
-                data
-            );
-            request.done(function( response ){
-
-                $('#login-form').find('button').html(T.Locale.get('send'));
-                T.UI.popupWindow.close();
-                T.UI.Message.success(T.Locale.get('feedback','success'));
-
-            });
-            request.fail(function( response ){
-
-            });
-
-
-
+        var request = $.post(appDir + '/php/feedback.php', data);
+        request.done(function(response) {
+          $('#login-form').find('button').html(T.Locale.get('send'));
+          T.UI.popupWindow.close();
+          T.UI.Message.success(T.Locale.get('feedback', 'success'));
+        });
+        request.fail(function(response) {
 
         });
-
-
-
-
-
+      });
     },
-    undefined,
-    'SMALL'
-));
-
+    undefined, 'SMALL'));

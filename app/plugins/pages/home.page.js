@@ -4,12 +4,10 @@
  */
 //======================================================================================================================
 
-
-
 T.Plugins.install(new T.Plugins.Page(
-    'home',
-    ['O hře','Autoři'/*,'Technologie'*/],
-    [`
+    'home', [ 'O hře', 'Autoři' /*,'Technologie'*/ ],
+    [
+      `
 
 
   <h2 style="font-size:1.1em;text-align: center;">
@@ -82,7 +80,7 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 `,
-`
+      `
 
 
 <style>
@@ -126,173 +124,155 @@ T.Plugins.install(new T.Plugins.Page(
 
 
 
-`],
-function(page,storage){
+`
+    ],
+    function(page, storage) {
+      r($(page));
+      r($(page).find("#sendpress"));
 
-    r($(page));
-    r($(page).find("#sendpress"));
-
-
-    //---------------------------------------------------------Email
-    $(page).find("#sendpress").submit( function() {
-
+      //---------------------------------------------------------Email
+      $(page).find("#sendpress").submit(function() {
         $("#sendpress_success").hide();
         $("#sendpress_error").hide();
         $("#sendpress_loading").show();
         $.ajax({
-            url: "http://blog.towns.cz/",
-            type: "post",
-            dataType: "json",
-            data: $("#sendpress").serialize(),
-            success: function(data) {
+          url : "http://blog.towns.cz/",
+          type : "post",
+          dataType : "json",
+          data : $("#sendpress").serialize(),
+          success : function(data) {
+            $("#sendpress_loading").hide();
+            if (data.success === true) {
+              $("#sendpress")[0].reset();
+              $("#sendpress_success").show();
 
-                $("#sendpress_loading").hide();
-                if(data.success=== true){
-                    $("#sendpress")[0].reset();
-                    $("#sendpress_success").show();
-
-                }else{
-                    $("#sendpress_error").show();
-                }
-
+            } else {
+              $("#sendpress_error").show();
             }
+          }
         });
         return false;
-    });
+      });
 
-    //---------------------------------------------------------News
+      //---------------------------------------------------------News
 
-    if(typeof storage.news_active_loaders==='number'){
+      if (typeof storage.news_active_loaders === 'number') {
 
         storage.news_active_loaders++;
         storage.news_draw();
 
+      } else {
 
-    }else{
+        storage.news = [];
+        storage.news_active_loaders = 3;
+        storage.news_draw = function() {
+          storage.news_active_loaders--;
+          if (storage.news_active_loaders > 0)
+            return;
 
-        storage.news=[];
-        storage.news_active_loaders=3;
-        storage.news_draw=function(){
+          var html = '', item_html, news_;
 
-            storage.news_active_loaders--;
-            if(storage.news_active_loaders>0)return;
+          news_ = storage.news.sort(function(a, b) {
+            if (a.date > b.date) {
+              return (-1);
+            } else if (a.date < b.date) {
+              return (1);
+            } else {
+              return (0);
+            }
+          });
 
-            var html='',item_html,news_;
+          news_ = news_.slice(0, 16);
 
+          news_.forEach(function(item) {
+            item_html = '';
 
-            news_ = storage.news.sort(function(a,b){
-                if(a.date> b.date){
-                    return(-1);
-                }else
-                if(a.date< b.date){
-                    return(1);
-                }else{
-                    return(0);
-                }
-            });
+            if (!item.image) {
+              if (item.type == 'story') {
+                item.image = '/media/image/icons/view.svg';
+              } else if (item.type == 'wiki') {
+                item.image =
+                    '/media/image/icons/wikipedia-logotype-of-earth-puzzle.svg';
+              }
+            }
 
-            news_=news_.slice(0,16);
+            if (!item.image) {
+              item.onclick = '';
+            }
 
-            news_.forEach(function(item){
+            var a_tag_begin, a_tag_end;
+            if (item.link) {
 
-                item_html='';
+              a_tag_begin =
+                  `<a href="` + item.link + `" target="` + item.target + `">`;
+              a_tag_end = `</a>`;
 
-                if(!item.image){
-                    if(item.type=='story'){
-                        item.image='/media/image/icons/view.svg';
-                    }else
-                    if(item.type=='wiki'){
-                        item.image='/media/image/icons/wikipedia-logotype-of-earth-puzzle.svg';
-                    }
+            } else {
 
+              a_tag_begin = '';
+              a_tag_end = '';
+            }
 
-
-                }
-
-                if(!item.image){
-                    item.onclick='';
-                }
-
-
-                var a_tag_begin,a_tag_end;
-                if(item.link){
-
-                    a_tag_begin = `<a href="`+item.link+`" target="`+item.target+`">`;
-                    a_tag_end = `</a>`;
-
-                }else{
-
-                    a_tag_begin = '';
-                    a_tag_end = '';
-
-                }
-
-
-
-                item_html+=`
-                <li onclick="`+item.onclick+`">
-                    `+a_tag_begin+`
-                        <img src="`+item.image+`">
-                        <h2 class="title">`+item.title+`</h2>
-                        <p class="type">`+ T.Locale.get('news','type',item.type)+(item.target=='_blank'?'<i class="fa fa-external-link"></i>':'')+`</p>
-                        <p class="date">`+dateToSmartString(item.date)+`</p>
-                    `+a_tag_end+`
+            item_html +=
+                `
+                <li onclick="` +
+                item.onclick + `">
+                    ` +
+                a_tag_begin + `
+                        <img src="` +
+                item.image + `">
+                        <h2 class="title">` +
+                item.title + `</h2>
+                        <p class="type">` +
+                T.Locale.get('news', 'type', item.type) +
+                (item.target == '_blank' ? '<i class="fa fa-external-link"></i>'
+                                         : '') +
+                `</p>
+                        <p class="date">` +
+                dateToSmartString(item.date) + `</p>
+                    ` +
+                a_tag_end + `
                 </li>
                 `;
 
+            html += item_html;
+          });
 
-                html+=item_html;
-
-            });
-
-            $(page).find(".news").html('<ul>'+html+'</ul>');
-
+          $(page).find(".news").html('<ul>' + html + '</ul>');
         };
-
 
         //********************stories
 
-        T.TownsAPI.townsAPI.get('stories',{latest:true},function(result){
+        T.TownsAPI.townsAPI.get('stories', {latest : true}, function(result) {
+          var stories = new T.Objects.Array(result);
 
-            var stories = new T.Objects.Array(result);
+          stories.forEach(function(story) {
+            objects_external.update(story);
 
-            stories.forEach(function(story){
+            var content = story.content.data;
+            content = markdown.toHTML(content);
 
-                objects_external.update(story);
+            var image = $(content).find('img:first').attr('src');
+            if (image) {
 
+              image = URI(image)
+                          .removeSearch("width")
+                          .addSearch({width : 100})
+                          .toString();
+            }
 
-
-                var content=story.content.data;
-                content = markdown.toHTML(content);
-
-
-                var image = $(content).find('img:first').attr('src');
-                if(image) {
-
-
-                    image = URI(image)
-                        .removeSearch("width")
-                        .addSearch({width: 100})
-                        .toString()
-                    ;
-
-
-                }
-
-                storage.news.push({
-                    type: 'story',
-                    //link: '#'+story.x+','+story.y,
-                    onclick: "T.Plugins.open('story',1,'"+story.id+"');",
-                    image: image,
-                    title: story.name,
-                    date: new Date(story.start_time),
-                    //target: '_self'
-                });
-
-
+            storage.news.push({
+              type : 'story',
+              // link: '#'+story.x+','+story.y,
+              onclick : "T.Plugins.open('story',1,'" + story.id + "');",
+              image : image,
+              title : story.name,
+              date : new Date(story.start_time),
+              // target: '_self'
             });
+          });
 
-            storage.news_draw();
+          storage.news_draw();
         });
         //********************
         //********************youtube
@@ -303,8 +283,8 @@ function(page,storage){
          <yt:videoId>du7UYjhtG_g</yt:videoId>
          <yt:channelId>UCSi4hJPmCjyrXjFzKSeitjQ</yt:channelId>
          <title>Towns5 Dev - 11.12.2015 - Stavební bloky</title>
-         <link rel="alternate" href="http://www.youtube.com/watch?v=du7UYjhtG_g"/>
-         <author>
+         <link rel="alternate"
+         href="http://www.youtube.com/watch?v=du7UYjhtG_g"/> <author>
          <name>Towns</name>
          <uri>http://www.youtube.com/channel/UCSi4hJPmCjyrXjFzKSeitjQ</uri>
          </author>
@@ -312,9 +292,11 @@ function(page,storage){
          <updated>2016-03-20T14:49:23+00:00</updated>
          <media:group>
          <media:title>Towns5 Dev - 11.12.2015 - Stavební bloky</media:title>
-         <media:content url="https://www.youtube.com/v/du7UYjhtG_g?version=3" type="application/x-shockwave-flash" width="640" height="390"/>
-         <media:thumbnail url="https://i1.ytimg.com/vi/du7UYjhtG_g/hqdefault.jpg" width="480" height="360"/>
-         <media:description></media:description>
+         <media:content url="https://www.youtube.com/v/du7UYjhtG_g?version=3"
+         type="application/x-shockwave-flash" width="640" height="390"/>
+         <media:thumbnail
+         url="https://i1.ytimg.com/vi/du7UYjhtG_g/hqdefault.jpg" width="480"
+         height="360"/> <media:description></media:description>
          <media:community>
          <media:starRating count="2" average="3.00" min="1" max="5"/>
          <media:statistics views="36"/>
@@ -323,89 +305,80 @@ function(page,storage){
          </entry>
          */
 
-
-        $.get(appDir+'/php/proxy.rss.php?url='+encodeURIComponent('https://www.youtube.com/feeds/videos.xml?channel_id=UCSi4hJPmCjyrXjFzKSeitjQ'), function (data) {
-
-
-            $(data).find("entry").each(function () {
-
+        $.get(
+            appDir + '/php/proxy.rss.php?url=' +
+                encodeURIComponent(
+                    'https://www.youtube.com/feeds/videos.xml?channel_id=UCSi4hJPmCjyrXjFzKSeitjQ'),
+            function(data) {
+              $(data).find("entry").each(function() {
                 var $this = $(this);
 
-
                 storage.news.push({
-                    type: 'video',
-                    title: $this.find("title").text(),
-                    image: $this.find("media\\:thumbnail").attr('url'),
-                    date: new Date($this.find("published").text()),
-                    link: $this.find("link").attr('href'),
-                    target: '_blank'
+                  type : 'video',
+                  title : $this.find("title").text(),
+                  image : $this.find("media\\:thumbnail").attr('url'),
+                  date : new Date($this.find("published").text()),
+                  link : $this.find("link").attr('href'),
+                  target : '_blank'
 
                 });
+              });
 
+              storage.news_draw();
             });
-
-            storage.news_draw();
-        });
         //********************
         //********************wiki
         /*
          <entry>
          <id>http://wiki.towns.cz/Hlavn%C3%AD_strana</id>
          <title>Hlavní strana</title>
-         <link rel="alternate" type="text/html" href="http://wiki.towns.cz/Hlavn%C3%AD_strana"/>
+         <link rel="alternate" type="text/html"
+         href="http://wiki.towns.cz/Hlavn%C3%AD_strana"/>
          <updated>2016-04-14T15:21:24Z</updated>
 
          <summary type="html">&lt;p&gt;MediaWiki default: &lt;/p&gt;
          &lt;hr /&gt;
          &lt;div&gt;'''MediaWiki byla úspěšně nainstalována.'''&lt;br /&gt;
          &lt;br /&gt;
-         [//meta.wikimedia.org/wiki/Help:Contents Uživatelská příručka] vám napoví, jak MediaWiki používat.&lt;br /&gt;
-         &lt;br /&gt;
+         [//meta.wikimedia.org/wiki/Help:Contents Uživatelská příručka] vám
+         napoví, jak MediaWiki používat.&lt;br /&gt; &lt;br /&gt;
          == Začínáme ==&lt;br /&gt;
          &lt;br /&gt;
          * [//www.mediawiki.org/wiki/Special:MyLanguage/Manual:Configuration_settings Nastavení konfigurace]&lt;br /&gt;
-         * [//www.mediawiki.org/wiki/Special:MyLanguage/Manual:FAQ Často kladené otázky o MediaWiki]&lt;br /&gt;
-         * [https://lists.wikimedia.org/mailman/listinfo/mediawiki-announce E-mailová konference oznámení MediaWiki]&lt;br /&gt;
+         * [//www.mediawiki.org/wiki/Special:MyLanguage/Manual:FAQ Často kladené
+         otázky o MediaWiki]&lt;br /&gt;
+         * [https://lists.wikimedia.org/mailman/listinfo/mediawiki-announce
+         E-mailová konference oznámení MediaWiki]&lt;br /&gt;
          * [//www.mediawiki.org/wiki/Special:MyLanguage/Localisation#Translation_resources Překlad MediaWiki do vašeho jazyka]&lt;/div&gt;</summary>
          <author><name>MediaWiki default</name></author>	</entry>
 
          </feed>
          */
 
-        $.get(appDir+'/php/proxy.rss.php?url='+encodeURIComponent('http://wiki.towns.cz/index.php?title=Special:NewPages&feed=atom&hideredirs=1&limit=50&offset=&namespace=0&username=&tagfilter='), function (data) {
-
-
-            $(data).find("entry").each(function () {
-
+        $.get(
+            appDir + '/php/proxy.rss.php?url=' +
+                encodeURIComponent(
+                    'http://wiki.towns.cz/index.php?title=Special:NewPages&feed=atom&hideredirs=1&limit=50&offset=&namespace=0&username=&tagfilter='),
+            function(data) {
+              $(data).find("entry").each(function() {
                 var $this = $(this);
 
-
                 storage.news.push({
-                    type: 'wiki',
-                    title: $this.find("title").text(),
-                    //image: $this.find("media\\:thumbnail").attr('url'),
-                    date: new Date($this.find("updated").text()),
-                    link: $this.find("id").text(),
-                    target: '_blank'
+                  type : 'wiki',
+                  title : $this.find("title").text(),
+                  // image: $this.find("media\\:thumbnail").attr('url'),
+                  date : new Date($this.find("updated").text()),
+                  link : $this.find("id").text(),
+                  target : '_blank'
 
                 });
+              });
 
+              storage.news_draw();
             });
-
-            storage.news_draw();
-        });
-
 
         //********************
 
         //---------------------------------------------------------
-
-
-    }
-
-
-
-
-
-}
-));
+      }
+    }));
