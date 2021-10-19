@@ -5,23 +5,16 @@
     "production": "Prostredie v ktorom hra bezi na live serveri"
   },
   "environment": "develop",
-
-  "towns":{
+  "towns": {
     "url": "http://api.towns.cz/"
   },
-
   "facebook": {
     "app_id": 408791555870621
   },
-
-
   "google": {
     "tracking_id": "UA-16346522-17"
   },
-
-
   "blog": {
     "rss_feed": "http://blog.towns.cz/feed/"
   }
-
 }

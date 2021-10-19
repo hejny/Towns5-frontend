@@ -1,50 +1,38 @@
 {
   "js": [
-
-
     "node_modules/jquery/dist/jquery.js",
     "node_modules/jquery-ui-bundle/jquery-ui.js",
-
     "node_modules/jquery-mousewheel/jquery.mousewheel.js",
     "node_modules/hammerjs/hammer.js",
     "node_modules/jquery-fullscreen-plugin/jquery.fullscreen.js",
-
     "node_modules/js-md5/src/md5.js",
     "node_modules/jwt-decode/build/jwt-decode.js",
-
     "node_modules/ion-sound/js/ion.sound.js",
     "node_modules/markdown/lib/markdown.js",
-    {"none": "node_modules/json-editor/dist/jsoneditor.js"},
-
+    {
+      "none": "node_modules/json-editor/dist/jsoneditor.js"
+    },
     "app/global.js",
-
     "node_modules/towns-shared/js/*.js",
     "node_modules/towns-shared/js/*/*.js",
     "node_modules/towns-shared/js/*/*/*.js",
-
-
-    {"develop": "app/config/develop.js"},
-    {"production": "app/config/production.js"},
+    {
+      "develop": "app/config/develop.js"
+    },
+    {
+      "production": "app/config/production.js"
+    },
     "app/config/vars.js",
-
-
     "app/js/*.js",
     "app/js/*/*.js",
     "app/js/*/*/*.js",
     "app/plugins/*/*.js"
-
-
-
-
   ],
   "css": [
-
     "app/css/*.css",
     "app/css/**/*.css",
-
     "node_modules/roboto-fontface/css/roboto-fontface.css",
     "node_modules/font-awesome/css/font-awesome.css",
     "node_modules/font-awesome-animation/src/font-awesome-animation.css"
-
   ]
 }
